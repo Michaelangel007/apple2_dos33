@@ -36,6 +36,48 @@ Page 39
 |DOSPTCH|  52 | Dos Patches                   | RCPATCH, CLRBYTE, ERROR9X, ENDOFDOS |
 
 
+Extra info.:
+
+* FVCBUFS Max Sectors in File Dir, Command Control Block
+
+
+# DOS 3.3C Source Includes (Alphabetical)
+
+|Source |Page |Lines|
+|:------|----:|----:|
+|BLDFTAB|   4 | 144 |
+|BOOTLDR|   8 | 436 |
+|CMDSCAN|  16 | 270 |
+|CMDTBSL|  21 | 164 |
+|COREQUS|  24 | 174 |
+|DOSGOER|  40 | 215 |
+|DOSHOOK|  44 | 215 |
+|DOSINIT|  48 | 226 |
+|DOSPTCH|  52 |  56 |
+|FDELCAT|  55 | 249 |
+|FDOSENT|  60 | 122 |
+|FLOCNXB|  63 | 280 |
+|FLOCSEC|  68 | 284 |
+|FMTRWIO|  73 | 233 |
+|FOPCLRW|  77 | 286 |
+|FORMATR|  82 | 215 |
+|FVCBUFS|  86 | 187 |
+|MSWAITR|  97 | 202 |
+|POSTNRD| 101 | 165 |
+|PRENIBL| 104 |  54 |
+|RDADSEK| 106 | 203 |
+|RELOCTR| 110 | 337 |
+|RWTSONE| 116 | 323 |
+|RWTSTWO| 122 | 302 |
+|WRITADR| 134 | 123 |
+|WRITRTN| 137 | 128 |
+|XLODSAV| 140 | 269 |
+|XMISCMD| 145 | 254 |
+|XOPNCLS| 150 | 290 |
+|-------|-----|-----|
+|Total: | n/a |6,406|
+
+
 # Unused Source Files
 
 |Source |Page |Symbols|
