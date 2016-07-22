@@ -1,0 +1,56 @@
+<html>
+<title>DOS 3.3C Source Code</title>
+<body>
+
+<!--
+0000:00 00 00 00    GOLOADER    INC LOADADDR+1
+                    ; MVISW - MOVE INPUT SWITCH
+
+; MVISW - MOVE INPUT SWITCH
+MVCSW           EQU *
+                LDA INSW+1
+-->
+
+<pre>
+                                PAGE
+                    ;
+                    ; BLDFTB - BUILD FILE TABLES
+                    ; TABLE MAP:
+                    ; HIMEM,SOP
+                    ; SBUFF N (256) 
+                    ; DBUFF N (256)
+                    ; FTB N (FCBLEN) 
+                    ; HEADER N (38) 
+                    ; .
+                    ; .
+                    ; SBUFF 1
+                    ; DBUFF 1
+                    ; FTB 1
+                    ; HEADER 1
+                    ; THIS PROGRAM
+                    ;
+                    ; HEADER MAP:
+                    ; FILENAME (30)
+                    ; FTB PTR (2)
+                    ; DBUF PTR
+                    ; SBUF PTR
+                    ; LINK (2) 
+                    ;
+0000:               <b><a name="BLDFTB" id="BLDFTB">BLDFTB</a></b>      EQU *
+0000:38                         SEC
+0000:AD ?? ??                   LDA FTAB        ; dosinit,
+0000:85 45                      STA ZPGWRK      ; reloctr,
+0000:AD ?? ??                   LDA FTAB+1
+0000:85 46                      STA ZPGWRK+1
+0000:AD ?? ??                   LDA CNFTBS      ; fdosent, 60
+0000:8D ?? ??                   STA TEMP1A      ; fdosent, 60
+
+                    ;
+                    ; MVISW - MOVE INPUT SWITCH
+                    ;
+0000:00             <b><a name="MVCSW" id="MVCSW"  >MVCSW</a></b>       EQU *
+                                LDA INSW+1
+</pre>
+</body>
+</html>
+
