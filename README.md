@@ -34,7 +34,7 @@ Page 39
 |FLOCSEC|  68 | Locate Sector for Record I/O  | FNDFIL, GETSEC |
 |FVCBUFS|  86 | File, Volume, Catalog Buffers | FTTAB, VOLMES |
 |BOOTLDR|   8 | Boot Loader                   | READNEXT, GOLOADER, BHERE2, TABLE, SC3, BUMPER, EOFFIX, FIXIT, FIXIT2, UPRCASE, BHERE1, BHERE4, DOSLODR, DOSINIT |
-|COREQUS|  24 | Core EQU's                   | Q6L, Q6H, Q7L, Q7H |
+|COREQUS|  24 | Core EQU\'s                   | Q6L, Q6H, Q7L, Q7H |
 |PRENIBL| 104 | Prenibblize                   | PRENIB16 |
 |WRITRTN| 137 | Write Data                    | WRITE16 |
 |POSTNRD| 101 | Post Nibblize Read            | POSTNB16 |
@@ -110,7 +110,7 @@ Extra info.:
 |HELLO.B         | 91 | BAS | Applesoft HELLO B program            |
 |MAKE.MASTER     | 92 | BAS | Applesoft make DOS master            |
 |MASTER.3.3E     | 93 | BAS | Applesoft make DOS master            |
-|MASTERE.OBJ0    | 96 | BIN | Utility BLOAD'd by MASTER.3.3E       |
+|MASTERE.OBJ0    | 96 | BIN | Utility BLOAD\'d by MASTER.3.3E       |
 
 
 Misc. Files:
