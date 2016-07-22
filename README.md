@@ -119,11 +119,11 @@ Misc. Files:
 
 # Disk -> Memory Map
 
-|T/S |File |Mem  |Reloc|Source|
+|T/S |File |Load |Mem  |Source|
 |:---|:----|:----|:----|:-----|
-|T0S0|$3600|$0800| n/a |BOOTLDR          |
+|T0S0|$3600|$0800|$B600|BOOTLDR                                     |
 |T0S1|$3700|     |     |                 |
-|T0S2|$3800|     |     |PRENIBL, WRITRTN |
+|T0S2|$3800|     |     |PRENIBL @ $00..$29, WRITRTN @ $2A, POSTNBL  |
 |T0S3|$3900|     |     | |
 |T0S4|$3A00|     |     | |
 |T0S5|$3B00|     |     | |
@@ -131,11 +131,11 @@ Misc. Files:
 |T0S7|$3D00|     |     | |
 |T0S8|$3E00|     |     | |
 |T0S9|$3F00|     |     | |
-|T0SA|$1B00|     |     | |
+|T0SA|$1B00|     |     | RELOCTR page 110 |
 |T0SB|$1C00|     |     | |
-|T0SC|$1D00|     |     | |
+|T0SC|$1D00|$3F00|     | FORMATR page 83 line 2 |
 |T0SD|$1E00|     |     | |
-|T0SE|$1F00|     |     | |
+|T0SE|$1F00|$3E00|     | RWTSTWO page 125 |
 |T0SF|$2000|     |     | |
 |T1S0|$2100|     |     | |
 |T1S1|$2200|     |     | |
@@ -143,8 +143,8 @@ Misc. Files:
 |T1S3|$2400|     |     | |
 |T1S4|$2500|     |     | |
 |T1S5|$2600|     |     | |
-|T1S6|$2700|     |     | |
-|T1S7|$2800|     |     | |
+|T1S6|$2700|     |     | BLDFTBL @ $D4 page 4 |
+|T1S7|$2800|     |     | BLDFTBL (cont) page 5 |
 |T1S8|$2900|     |     | |
 |T1S9|$2A00|     |     | |
 |T1SA|$2B00|     |     | |
