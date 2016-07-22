@@ -21,7 +21,7 @@ Page 39
 |FMTRWIO|  73 | Execute Format Request        | FFMT, RDFDIR |
 |FLOCNXB|  63 | File Locate Next Byte         | RDVTOC, WRVTOC, RDVDIR, WRVDIR, MVVDBA, DCBIO, BADIO, LOCNXB, GNWSEC, INCRRB, INCSCB, MIBDA, DTBLN |
 |FLOCSEC|  68 | Locate Sector for Record I/O  | FNDFIL, GETSEC |
-|FVCBUFS|  86 | Max Sectors in File Dir, Command Control Block | |
+|FVCBUFS|  86 | File, Volume, Catalog Buffers | FTTAB, VOLMES |
 |BOOTLDR|   8 | Boot Loader                   | READNEXT, GOLOADER, BHERE2, TABLE, SC3, BUMPER, EOFFIX, FIXIT, FIXIT2, UPRCASE, BHERE1, BHERE4, DOSLODR, DOSINIT |
 |COREQUS|  24 | Core EQU's                    | Q6L, Q6H, Q7L, Q7H |
 |PRENIBL| 104 | Prenibblize                   | PRENIB16 |
