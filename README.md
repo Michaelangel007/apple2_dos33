@@ -119,51 +119,64 @@ Misc. Files:
 
 # Disk -> Memory Map
 
-|T/S |File |Load |Mem  |Source|
-|:---|:----|:----|:----|:-----|
-|T0S0|$3600|$0800|$B600|BOOTLDR                                     |
-|T0S1|$3700|     |     |                 |
-|T0S2|$3800|     |     |PRENIBL @ $00..$29, WRITRTN @ $2A, POSTNBL  |
-|T0S3|$3900|     |     | |
-|T0S4|$3A00|     |     | |
-|T0S5|$3B00|     |     | |
-|T0S6|$3C00|     |     | |
-|T0S7|$3D00|     |     | |
-|T0S8|$3E00|     |     | |
-|T0S9|$3F00|     |     | |
-|T0SA|$1B00|     |     | RELOCTR page 110 |
-|T0SB|$1C00|     |     | |
-|T0SC|$1D00|$3F00|     | FORMATR page 83 line 2 |
-|T0SD|$1E00|     |     | |
-|T0SE|$1F00|$3E00|     | RWTSTWO page 125 |
-|T0SF|$2000|     |     | |
-|T1S0|$2100|     |     | |
-|T1S1|$2200|     |     | |
-|T1S2|$2300|     |     | |
-|T1S3|$2400|     |     | |
-|T1S4|$2500|     |     | |
-|T1S5|$2600|     |     | |
-|T1S6|$2700|     |     | BLDFTBL @ $D4 page 4 |
-|T1S7|$2800|     |     | BLDFTBL (cont) page 5 |
-|T1S8|$2900|     |     | |
-|T1S9|$2A00|     |     | |
-|T1SA|$2B00|     |     | |
-|T1SB|$2C00|     |     | |
-|T1SC|$2D00|     |     | |
-|T1SD|$2E00|     |     | |
-|T1SE|$2F00|     |     | |
-|T1SF|$3000|     |     | |
-|T2S0|$3100|     |     | |
-|T2S1|$3200|     |     | |
-|T2S2|$3300|     |     | |
-|T2S3|$3400|     |     | |
-|T2S4|$3500|     |     | |
+**NOTE:**
+
+* Logical = Logical Sector
+* Physical = Physical Sector
+
+```
+0  7  E  6  D  5  C  4  B  3  A  2  9  1  8  F (Hex) DOS 3.3 Boot Logical (and Copy ][+ Sector Edit)
+0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F (Hex) DOS 3.3 Boot Physical
+```
+
+
+|T/S |Phys|File |Mem  | Identification | Source|
+|:---|:---|:----|:----|:---------------------------|:----------------|
+|T0S0|T0S0|$3600|$B600| 01 A5 27 C9 .. 00 00 36 09 | BOOTLDR -- also loaded at $0800             |
+|T0S1|T0SD|$3700|$B700| 8E E9 37 8E .. 01 EF D8 00 | BOOTLDR (cont.) -- last byte wasted         |
+|T0S2|T0SB|$3800|$B800| A2 00 A0 00 .. AD D0 E7 A9 | PRENIBL @ $00..$29, WRITRTN @ $2A, POSTNBL  |
+|T0S3|T0S9|$3900|$B900| 00 88 84 26 .. 60 00 00 00 | wastes 3 bytes |
+|T0S4|T0S7|$3A00|$BA00| A2 11 CA D0 .. 3C 3D 3E 3F | MSWAITR page 97 |
+|T0S5|T0S5|$3B00|$BB00| 00 00 00 00 .. 00 00 00 00 | MSWAITR page 100 - NBUF1 wasted zero sector |
+|T0S6|T0S3|$3C00|$BC00| 00 00 00 00 .. 00 00 00 00 | MSWAITR page 100 - NBUF2 |
+|T0S7|T0S1|$3D00|$BD00| 84 48 85 49 .. 68 CE F8 04 | |
+|T0S8|T0SE|$3E00|$BE00| D0 E5 F0 CA .. 44 C9 23 90 | RWTSTWO page 125 |
+|T0S9|T0SC|$3F00|$BF00| D3 18 90 05 .. 09 4C 85 33 | FORMATR page 83 line 2 |
+|T0SA|T0S?|$1B00|     | 4C 84 1D A9 .. AA EC 59 1C | RELOCTR page 110 |
+|T0SB|T0S?|$1C00|     | | |
+|T0SC|T0S?|$1D00|     | | |
+|T0SD|T0S?|$1E00|     | | |
+|T0SE|T0S?|$1F00|     | | |
+|T0SF|T0SF|$2000|     | | |
+|T1S0|T1S0|$2100|     | | |
+|T1S1|T1S?|$2200|     | | |
+|T1S2|T1S?|$2300|     | | |
+|T1S3|T1S?|$2400|     | | |
+|T1S4|T1S?|$2500|     | | |
+|T1S5|T1S?|$2600|     | | |
+|T1S6|T1S?|$2700|     | 5E 1D BD 3F .. CA 68 48 C8 | BLDFTBL @ $D4 page 4 |
+|T1S7|T1S?|$2800|     | 91 40 8A C8 .. 41 C4 42 52 | BLDFTBL (cont) page 5, CMDTBLS @ $84 page 21 |
+|T1S8|T1S?|$2900|     | 55 CE 56 45 .. 45 52 52 20 | CMDTBLS page 21 |
+|T1S9|T1S?|$2A00|     | 41 56 41 49 .. 33 E0 00 F0 | CMDTBLS page 23 |
+|T1SA|T1S?|$2B00|     | | |
+|T1SB|T1S?|$2C00|     | | |
+|T1SC|T1S?|$2D00|     | | |
+|T1SD|T1S?|$2E00|     | | |
+|T1SE|T1S?|$2F00|     | | |
+|T1SF|T1SF|$3000|     | | |
+|T2S0|T2S0|$3100|     | | |
+|T2S1|T2S?|$3200|     | | |
+|T2S2|T2S?|$3300|     | | |
+|T2S3|T2S?|$3400|     | | |
+|T2S4|T2S?|$3500|     | | |
 
 Legend:
 
- * T/S Track/Sector on Disk
- * DOS3.3 File Address
- * Load memory address
- * Relocated to high memory address
- * Source filename
+ * T/S: Logical Track/Sector on Disk (i.e. Copy ][+ Sector Editor)
+ * Phys: Raw sector
+ * File = DOS33C.OBJ BLOAD address and BOOTLDR load address
+ * Load: memory address
+ * Mem: Final relocated high memory address
+ * Id:  First and Last 4 bytes of page
+ * Source: Original filename of assembly source
 
