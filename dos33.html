@@ -2,54 +2,232 @@
 <title>DOS 3.3C Source Code</title>
 <body>
 
-<!--
-0000:00 00 00 00    GOLOADER    INC LOADADDR+1
-                    ; MVISW - MOVE INPUT SWITCH
-
-; MVISW - MOVE INPUT SWITCH
-MVCSW           EQU *
-                LDA INSW+1
--->
-
 <pre>
+; === BLDFTAB - Build File Tables ===
                                 PAGE
                     ;
                     ; BLDFTB - BUILD FILE TABLES
-                    ; TABLE MAP:
-                    ; HIMEM,SOP
-                    ; SBUFF N (256) 
-                    ; DBUFF N (256)
-                    ; FTB N (FCBLEN) 
-                    ; HEADER N (38) 
-                    ; .
-                    ; .
-                    ; SBUFF 1
-                    ; DBUFF 1
-                    ; FTB 1
-                    ; HEADER 1
-                    ; THIS PROGRAM
+                    ; TABLE MAP:                                        ; $9600 = Array of File Tables
+                    ;   HIMEM,SOP                                       ; $9D00 = SOP = Start of Program
+                    ;   SBUFF  N (256)
+                    ;   DBUFF  N (256)
+                    ;   FTB    N (FCBLEN)
+                    ;   HEADER N (38)                                   ; See Header Map below
+                    ;   .
+                    ;   .
+                    ;   SBUFF  1
+                    ;   DBUFF  1
+                    ;   FTB    1
+                    ;   HEADER 1
+                    ;   THIS PROGRAM
                     ;
                     ; HEADER MAP:
-                    ; FILENAME (30)
-                    ; FTB PTR (2)
-                    ; DBUF PTR
-                    ; SBUF PTR
-                    ; LINK (2) 
+                    ;   FILENAME (30)
+                    ;   FTB  PTR (2)
+                    ;   DBUF PTR (2)
+                    ;   SBUF PTR (2)
+                    ;   LINK     (2)
                     ;
-0000:               <b><a name="BLDFTB" id="BLDFTB">BLDFTB</a></b>      EQU *
-0000:38                         SEC
-0000:AD ?? ??                   LDA FTAB        ; dosinit,
-0000:85 45                      STA ZPGWRK      ; reloctr,
-0000:AD ?? ??                   LDA FTAB+1
-0000:85 46                      STA ZPGWRK+1
-0000:AD ?? ??                   LDA CNFTBS      ; fdosent, 60
-0000:8D ?? ??                   STA TEMP1A      ; fdosent, 60
+27D4:               <b><a name="BLDFTB" id="BLDFTB">BLDFTB</a></b>      EQU *                                   ; track 1, sector, offset $D4
+27D4:38                         SEC
+27D5:AD 00 1D                   LDA FTAB        ; START OF FTAB AREA    ; dosinit, 48
+27D8:85 40                      STA ZPGWRK      ; IS 1ST FTB PTR        ; reloctr, 110
+27DA:AD 01 1D                   LDA FTAB+1      ; HEADER
+27DD:85 41                      STA ZPGWRK+1
+27DF:AD 57 2A                   LDA CNFTBS      ; MOVE NO FTABS         ; fdosent, 60
+27E2:8D 63 2A                   STA TEMP1A      ; TO TEMP               ; fdosent, 60
+                    ;
+27E5:A0 00          <b><a name="BFT1" id="BFT1"    >BFT1</a></b>        LDY #0
+27E7:98                         TYA
+27E8:91 40                      STA (ZPGWRK),Y  ; 1ST CHAR FN=0
+27EA:A0 1E                      LDY #30         ; INC Y TO FCB PTR
+27EC:38                         SEC
+27ED:A5 40                      LDA ZPGWRK      ; END OF PTR HEADER
+27EF:E9 2D                      SBC #FCBLEN     ; MINUS FTAB LENGTH
+27F1:91 40                      STA (ZPGWRK),Y  ; IS START OF FTB
+27F3:48                         PHA             ; SAVE LOW ADR BYTE
+27F4:A5 41                      LDA ZPGWKR+1
+27F6:48                         SBC #0
+27F8:C8                         INY
+27F9:91 40                      STA (ZPGWKR),Y
+27FB:AA                         TAX
+27FC:CA                         DEX             ; FTB ADR - 256
+27FD:68                         PLA             ; IS ADR DIR BUFF
+27FE:48                         PHA
+27FF:C8                         INY
+2800:91 40                      STA (ZPGWRK),Y  ; SET DIR BUF PTR       ; track 1, sector 7, offset 0
+2802:8A                         TXA
+2803:C8                         INY
+2804:91 40                      STA (ZPGWRK),Y
+2806:AA                         TAX
+2807:CA                         DEX             ; DIR BUFF - 256
+2808:68                         PLA             ; IS SBUFF ADR
+2809:48                         PHA
+280A:C8                         INY
+280B:91 40                      STA (ZPGWRK),Y
+280D:C8                         INY
+280E:8A                         TXA
+280F:91 40                      STA (ZPGWRK),Y
+                    ;
+2811:CE 63 2A                   DEC TEMP1A      ; DECREMENT TABLE INDEX
+2814:F0 17                      BEQ <a href="#BFT2">BFT2</a>        ; COUNT AND BR IF DONE  ; v
+2816:AA                         TAX
+2817:68                         PLA
+2818:38                         SEC
+2819:E9 26                      SBC #38         ; SBUFF ADR - 38
+281B:C8                         INY
+281C:91 40                      STA (ZPGWRK),Y  ; IF ADR OF NEXT TAB
+281E:48                         PHA             ; WHICH GOES INTO
+281F:8A                         TXA             ; LINK
+2820:E9 00                      SBC #0
+2822:C8                         INY
+2823:91 40                      STA (ZPGWRK),Y
+2825:85 41                      STA ZPGWRK+1    ; AND INTO ZPGWRK
+2827:68                         PLA             ; FOR NEXT ENTRY
+2828:85 40                      STA ZPGWRK      ; BUILD
+282A:4C E5 27                   JMP <a href="#BFT1">BFT1</a>                                ; ^
+282D:48             <b><a name="BFT2" id="BFT2"    >BFT2</a></b>        EQU *
 
                     ;
                     ; MVISW - MOVE INPUT SWITCH
                     ;
 0000:00             <b><a name="MVCSW" id="MVCSW"  >MVCSW</a></b>       EQU *
                                 LDA INSW+1
+
+
+
+
+
+; === MSWAITR - Microsecond wait routine ===
+
+                            DS 3,0              ; AVOID PAGE BOUNDARY CROSSING...           ; Typical bloated code ...
+3A00:A2 11          <b><a name="MSWAIT" id="MSWAIT">MSWAIT</a></b>      LDX #$11                                                    ; ... should just adjust the algorithm instead!
+3A02:CA             <b><a name="MSW1"   id="MSW1"  >MSW1  </a></b>      DEX             ; DELAY 86 USEC.
+3A03:D0 FD                      BNE <a href="#MSW1">MSW1</a>
+3A05:E6 46                      INC MONTIMEL
+3A07:D0 02                      BNE <a href="#MSW2">MSW2</a>        ; DOUBLE-BYTE
+3A09:E6 47                      INC MONTIMEH    ; INCREMENT.
+
+; === RWTSTWO - Read Write Track Sector - Part 2 ===
+
+3E47:24                         DFB $24         ; SKIP OVER NEXT BYTE WITH BIT OPCODE       ; BIT $zp
+3E48:38                         SEC             ; INDICATE AN ERROR
+3E49:A0 0D                      LDY #$0D        ; GIVE HIM ERROR#
+3E4B:91 48                      STA (IOBPL),Y
+3E4D:BD 88 C0                   LDA MOTOROFF,X  ; TURN IT OFF...
+                        LST OFF
+                        DO DIAGMOD<span style="background-color:#EEE">
+                    * AVERAGE LATENCY = LCOUNT/SCOUNT                   
+                            LDA LCOUNT          ; GET TOTAL LATENCY     
+                            LDY #0              ; CLEAR QUOTIENT        
+                    <i><a name="DIVIDE" id="DIVIDE" >DIVIDE</a></i>  EQU *                                       
+                            CMP SCOUNT          ; DONE?                 
+                            BCC <a href="#PRTLAT"   >PRTLAT</a>          ; =>YES.PRINT IT        
+                            SBC SCOUNT          ; REMOVE SCOUNT         
+                            INY                 ; INCREMENT QUOTIENT    
+                            BNE <a href="#DIVIDE">DIVIDE</a>                                  
+                    *                                                   
+                    <i><a name="PRTLAT" id="PRTLAD">PRTLAT</a></i>  TYA                                         </span>                    ; Print Latency<span style="background-color:#EEE">
+                            AND #$0F            ; MAX LATENCY=15        
+                            ORA #$B0            ; MAKE ASCII            </span>                    ; No, this is make Apple Text, as ASCII = $00..$7F<span style="background-color:#EEE">
+                            CMP #$BA            ; IS IT A-F             
+                            BCC <a href="#PRTL2" >PRTL2</a>           ;=>NO                   
+                    <i><a name="PRTL2" id="PRTL2">PRTL2</a></i>   STA TL12            ; STUFF LATENCY COUNT   
+                            LDA #SP             ; SAY 'RWTS NOT ACTIVE' 
+                            STA TL1                                     </span>
+                        FIN
+                        LST ON
+3E50:60                         RTS             ; AND RETURN.
+                    <b><a name="WRIT" id="WRIT"    >WRIT</a></b>        EQU *
+                        LST OFF
+                        DO DIAGMOD<span style="background-color:#EEE">
+                            LDA #TC8            ; SAY 'WRITING'         
+                            STA TL8                                     </span>
+                        FIN
+                        LST ON
+3E51:20 2A 38                   JSR WRITE16     ; WRITE NYBBLES NOW
+
+
+
+; === FORMATR ===
+
+
+????:
+????:AD 88 C0                   LDA MOTOROFF,X  ; TURN MOTOR OFF.
+????:60                         RTS             ; AND RETURN.
+                                PAGE
+                    WTRACK16    LDA #0
+
+
+
+                SBTL '16-SECTOR WRITE'
+************************
+*                      *
+*      WRITE SUBR      *
+*  (16-SECTOR FORMAT)  *
+*                      *
+************************
+*                      *
+*   WRITES DATA FROM   *
+*    NBUF1 AND NBUF2   *
+*   CONVERTING 6-BIT   *
+*    TO 7-BIT NIBLS    *
+*   VIA 'NIBL' TABLE.  *
+*                      *
+*  FIRST NBUF2,        *
+*      HIGH TO LOW.    *
+*  THEN NBUF1,         *
+*      LOW TO HIGH.    *
+*                      *
+*  ---- ON ENTRY ----  *
+*                      *
+*   X-REG: SLOTNUM     *
+*        TIMES $10.    *
+*                      *
+*   NBUF1 AND NBUF2    *
+*    HOLD NIBLS FROM   *
+*    PRENIBL SUBR.     *
+*    (00ABCDEF)        *
+*                      *
+*  ---- ON EXIT -----  *
+*                      *
+*  CARRY SET IF ERROR. *
+*   (W PROT VIOLATION) *
+*                      *
+*  IF NO ERROR:        *
+*                      *
+*    A-REG UNCERTAIN.  *
+*    X-REG UNCHANGED.  *
+*    Y-REG HOLDS $00.  *
+*    CARRY CLEAR.      *
+*                      *
+*    SLOTABS, SLOTZ,   *
+*     AND WTEMP USED.  *
+*                      *
+*  ---- ASSUMES ----   *
+*                      *
+*  1 USEC CYCLE TIME   *
+*                      *
+************************
+WRITE16         SEC             ANTICIPATE WPROT ERR.
+                STX SLOTZ       FOR ZERO PAGE ACCESS.
+                STX SLOTABS     FOR NON-ZERO PAGE.
+                LDA Q6H,X
+                LDA Q7L,X       SENSE WPROT FLAG.
+                BMI WEXIT       IF HIGH, THEN ERR.
+                LDA NBUF2
+                STA WTEMP       FOR ZERO-PAGE ACCESS.
+                LDA #$FF        SYNC DATA
+                STA Q7H,X       (5) WRITE 1ST NIBL.
+                ORA Q6L,X       (4)
+                PHA             (3)
+                PLA             (4) CRITICAL TIMING!
+                NOP             (2)
+                LDY #4          (2)  FOR 5 NIBLS.
+WSYNC           PHA             (3) EXACT TIMING
+                PLA             (4) EXACT TIMING
+                JSR WNIBL7      (13,9,6)  WRITE SYNC
+                DEY             (2)
 </pre>
 </body>
 </html>
