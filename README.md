@@ -86,20 +86,20 @@ Extra info.:
 |TRASH  | 129 | FNDFIL, FF1, FF2, FF3, MVFN | 
 
 
-# DOS 3.3 Contents
+# DOS 3.3 Disk Utility Contents
 
-|Filename        |Page|
-|:---------------|---:|
-|ASMIDSTAMP      |  3 |
-|BLOCKIO         |  7 |
-|DOS.TO.DISK.EXEC| 28 |
-|DOS33.OBJ       | 29 |
-|EASM            | 54 |
-|HELLO.A.BAS     | 90 |
-|HELLO.B.BAS     | 91 |
-|MAKE.MASTER     | 92 |
-|MASTER.3.3E.BAS | 93 |
-|MASTERE.OBJ0    | 96 |
+|Filename        |Page|File Type  | Description |
+|:---------------|---:|:----------|:------------|
+|ASMIDSTAMP      |  3 | TXT | Identification Timestamp             |
+|BLOCKIO         |  7 | BIN | ProDOS binary utility                |
+|DOS.TO.DISK     | 28 |EXEC | Script to convert .OBJ to disk image |
+|DOS33C.OBJ      | 29 | BIN | Binary object of DOS 3.3             |
+|EASM            | 54 | TXT | EASM build script to assemble        |
+|HELLO.A         | 90 | BAS | Applesoft HELLO A program            |
+|HELLO.B         | 91 | BAS | Applesoft HELLO B program            |
+|MAKE.MASTER     | 92 | BAS | Applesoft make DOS master            |
+|MASTER.3.3E     | 93 | BAS | Applesoft make DOS master            |
+|MASTERE.OBJ0    | 96 | BIN | Utility BLOAD'd by MASTER.3.3E       |
 
 
 
