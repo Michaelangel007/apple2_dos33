@@ -1,4 +1,15 @@
 
+# DOS 3.3C Conditional Compilation Flags
+
+Page 39
+
+```
+ORIGIN  = $1B00
+DIAGMOD = 0
+DOS33B  = 1
+ULC     = 0 ; 1=ASM with lower case patch
+``` 
+
 # DOS 3.3C Source Includes (Chronological)
 
 Page 39
