@@ -1,8 +1,395 @@
 <html>
-<title>DOS 3.3C Source Code</title>
+<title>Apple DOS 3.3C Source Code (HTML Version)</title>
+<head>
+    <style>
+h1 {
+    font-size: 300%;
+}
+    </style>
+</head>
 <body>
 
+<h1>Apple DOS 3.3C Source Code (HTML Version)</h1>
+<!--
+####:## ## ##       ### 25LABEL     =               ;53official comment             ;85 [Annotation]
+                    001 
+                    002 
+                    003 
+                    004 
+                    005 
+                    006 
+                    007 
+                    008 
+                    009 
+
+                    010 
+                    011 
+                    012 
+                    013 
+                    014 
+                    015 
+                    016 
+                    017 
+                    018 
+                    019 
+
+                    020 
+                    021 
+                    022 
+                    023 
+                    024 
+                    025 
+                    026 
+                    027 
+                    028 
+                    029 
+
+                    030 
+                    031 
+                    032 
+                    033 
+                    034 
+                    035 
+                    036 
+                    037 
+                    038 
+                    039 
+
+                    040 
+                    041 
+                    042 
+                    043 
+                    044 
+                    045 
+                    046 
+                    047 
+                    048 
+                    049 
+
+                    050 
+                    051 
+                    052 
+                    053 
+                    054 
+                    055 
+                    056 
+                    057 
+                    058 
+                    059 
+
+                    060 
+                    061 
+                    062 
+                    063 
+                    064 
+                    065 
+                    066 
+                    067 
+                    068 
+                    069 
+
+                    070 
+                    071 
+                    072 
+                    073 
+                    074 
+                    075 
+                    076 
+                    077 
+                    078 
+                    079 
+
+                    080 
+                    081 
+                    082 
+                    083 
+                    084 
+                    085 
+                    086 
+                    087 
+                    088 
+                    089 
+
+                    090 
+                    091 
+                    092 
+                    093 
+                    094 
+                    095 
+                    096 
+                    097 
+                    098 
+                    099 
+
+                    100 
+                    101 
+                    102 
+                    103 
+                    104 
+                    105 
+                    106 
+                    107 
+                    108 
+                    109 
+
+                    100 
+                    101 
+                    102 
+                    103 
+                    104 
+                    105 
+                    106 
+                    107 
+                    108 
+                    109 
+
+                    110 
+                    111 
+                    112 
+                    113 
+                    114 
+                    115 
+                    116 
+                    117 
+                    118 
+                    119 
+-->
+
+<p>Welcome to the DOS 3.3C Source Code HTML Version.
+<br>Transcribed by Michael Pohoreski.
+<br>Latest version: <a href="http://htmlpreview.github.com/?https://github.com/Michaelangel007/apple2_dos33/blob/master/dos33.html">dos33.html</a>
+
+<p>
+Improvements:
+
+<ul>
+  <li>Hyperlinks to all labels                </li>
+  <li>Load address and opcodes                </li>
+  <li>Added line numbers                      </li>
+  <li>Cleaned up sloppy vertical alignment, (such as (#) clock cycles</li>
+  <li>Added annotation column                 </li>
+  <li>Indented and color-coded macro sections </li>
+</ul>
+<p>
+
+Header Format is:
+
 <pre>
+; === FILENAME - Description, Page #, T/S, Relocated Address ===
+</pre>
+
+Line format is:
+
+<pre>
+Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                         Annotation
+</pre>
+
+<b>Legend:</b>
+<p>
+<div style="padding-left:5%">
+<table border="1" style="border-width: 1px; border-collapse: collapse" >
+    <tr>
+        <td>Addr</td>
+        <td>Address at assemble time</td>
+    </tr>
+    <tr>
+        <td>## ## ##</td>
+        <td>Opcode(s)</td>
+    </tr>
+    <tr>
+        <td>L##</td>
+        <td>Line number of source file</td>
+    </tr>
+    <tr>
+        <td>LABEL</td>
+        <td>Function name, or branch target name</td>
+    </tr>
+    <tr>
+        <td>MNEMONIC</td>
+        <td>Assembly language instruction</td>
+    </tr>
+    <tr>
+        <td>COMMENT</td>
+        <td>Official comment</td>
+    </tr>
+    <tr>
+        <td>Annotation</td>
+        <td>Commentary by author</td>
+    </tr>
+</table>
+</div>
+
+
+<pre>
+
+; === RELOCTR - Relocater, Page 110, T0SA ===
+^
+                    001             PAGE
+                    002 *****************************************************
+                    003 *                                                   *
+                    004 * (C) COPYRIGHT 1978,1980,1982 APPLE COMPUTER, INC. *
+                    005 *                                                   *
+                    006 *****************************************************
+                    007             SKP 2
+                    008 *********************************
+                    009 *                               *
+                    010 *  ADAPTED FOR MACRO EDASM BY   *
+                    011 *        JOHN ARKLEY            *
+                    012 *         DEC 1980              *
+                    013 *                               *
+                    014 *********************************
+                    015             SKP 2
+                    016 *********************************
+                    017 *                               *
+                    018 *  DOS 3.3 REVISION B PATCHES   *
+                    019 *   INSTALLED BY MARK HOUDE     *
+                    020 *          JUL 1982             *
+                    021 *                               *
+                    022 *********************************
+                    023             SKP 2
+                    024 *********************************
+                    025 *                               *
+                    026 *  DOS 3.3 REV B PATCHES VER 2  *
+                    027 *   INSTALLED BY FERN BACHMAN   *
+                    028 *          SEP 1982             *
+                    029 *                               *
+                    030 *********************************
+                    031             SKP 2
+                    032 *********************************
+                    033 *                               *
+                    034 *    DOS33C PATCHES (APPEND &   *
+                    035 *     UPPER/LOWER CASE CHECK)   *
+                    036 *                               *
+                    037 *            BY                 *
+                    038 *        GUIL  BANKS            *
+                    039 *         1983                  *
+                    040 *                               *
+                    041 *********************************
+                    042 ;
+                    043 ;EQUATES REQD TO FIND THINGS IN APPLE II
+                    044 ;
+                    045 SETVID      EQU $FE93
+                    046 SETKBD      EQU $FE89
+                    047 PROMPT      EQU $33         ; PROMPT CHAR
+                    048 OUTSW       EQU $36         ; OUTPUT VECTOR SWITCH
+                    049 INSW        EQU $38         ; INPUT VECTOR SWITCH
+                    050 ZPGWRK      EQU $40         ; ZERO PAGE WORK CELL
+                    051 CNUM        EQU $44         ; CONVERTED NUMERIC
+                    052 LBUFF       EQU $200        ; LINE BUFFER                   ; Keyboard buffer of 255 chars
+                    053 MULT        EQU $FB63       ; MULT ROUTINE
+                    054 INPRT       EQU $FE8B       ; SET IN PORT                   ; === page 111 ===
+                    055 OUTPRT      EQU $FE95       ; SET OUT PORT
+                    056 IBCHN       EQU $E836       ; BASIC RUN                     ; Integer Basic
+                    057 IBLMEM      EQU $4A         ; BASIC LOW MEM                 ; Integer Basic
+                    058 IBHMEM      EQU $4C         ; INTEGER BASIC HIMEM           ; Integer Basic
+                    059 IBSOP       EQU $CA         ; INTEGER BASIC START OF CGM    ; Integer Basic CGM ???
+                    060 IBBRK       EQU $E3E3       ; BASIC BREAK                   ; Integer Basic
+                    061 IBGO        EQU $E000       ; BASIC ENTRY POINT             ; Integer Basic
+                    062 IBCONT      EQU $E003       ; BASIC CONTINUE ENTRY POINT    ; Integer Basic
+                    063 IBSOV       EQU $CC         ; BASIC START OF VARIABLES      ; Integer Basic
+                    064 ASSOP       EQU $67         ; AS START OF PROGRAM           ; Applesoft Basic
+                    065 ASEOP       EQU $AF         ; AS END OF PROGRAM             ; Applesoft Basic
+                    066 ASEOP2      EQU $69         ; AS END-OF PGM 2               ; Applesoft Basic
+                    067 ASHM1       EQU $73         ; AS HIGH MEM 1                 ; Applesoft Basic
+                    068 ASHM2       EQU $6F         ; AS HIGH MEM 2                 ; Applesoft Basic
+                    069 ASRNX       EQU $D6         ; AS RUN-ONLY FLAG              ; Applesoft Basic
+                    070 ASONERR     EQU $D8         ; AS ON-ERR GOTO FLAG           ; Applesoft Basic
+                    071 ASLMEM      EQU ASSOP       ; AS LOW MEM                    ; Applesoft Basic
+                    072 ASBRK1      EQU $D865       ; AS ROM BREAK                  ; Applesoft Basic
+                    073 ASBRK2      EQU $1067       ; AS RAM BREAK                  ; Applesoft Basic
+                    074 ASCNTU1     EQU $D43C
+                    075 ASCNTU2     EQU $C3C
+                    076 ASRSEQ1     EQU $D4F2
+                    077 ASRSEQ2     EQU $CF2
+                    078 AITSTL      EQU $E000       ; AS 1 IB TEST LOC              ; Applesoft Basic
+                    079 ATSTV       EQU $4C         ; AS TEST VALUE                 ; Applesoft Basic
+                    080 ITSTV       EQU $20         ; IB TEST VALUE                 ; Integer Basic
+                    081 BOOTSL      EQU $2E         ; BOOT FROM SLOT                ; Slot from Boot
+                    082 ZPGFCB      EQU $42         ; ZERO PAGE WORK CELL           ; File Control Block
+                    083 MONRST      EQU $FF65       ; MONITOR RESET ENTRY
+                    084 MONBRK      EQU $FA59       ; MONITOR BREAK ENTRY
+                    085 IORTS       EQU $FF58       ; KNOWN RTS IN MONITOR ROM
+                    086 HOME        EQU $FC58                                       ; Clear the text screen
+                    087 PRINT       EQU $FDED                                       ; putchar()
+                    088 GETKEY      EQU $FD0C
+                    089 INSDS2      EQU $F88E
+                    090 LENGTH      EQU $2F
+                    091 ZRSET       EQU $3F2        ; NEW MONITOR ROM RESET VECTOR
+                    092 PWCNST      EQU $3F4        ; NEW MONITOR ROM POWER UP CONSTANT
+                    093                 REP 40
+                    094 *
+                    095 *
+                    096             ORG ORIGIN
+                    097 *
+                    098 *
+                    099             REP 40
+                    100             PAGE
+1B00:4C 84 1D       101 <b><a name="BEGIN"      id="BEGIN"      >BEGIN  </a></b>     JMP <a href="#DBINIT">DBINIT</a>                                      ; === Run-Time Mem = $1B00 ===
+                    102 ;                                                           ; Loaded in at $38D4
+####:## ## ##       ### 25LABEL     =               ;53official comment             ;85 [Annotation]
+                    103 <b><a name="DOSREL"     id="DOSREL"     >DOSREL </a></b>     EQU *                                           ; Called from BOOTLDR, page 12, line # TODO:
+                    104 ;
+                    105 ; GET RELOCATION PARMS
+                    106 ;
+                    107 DR0         EQU *
+                    108 LOC1        EQU $26
+1B03:A9 BF          109             LDA #$BF        ; START AT BF00                 ; Top of 48K
+1B05:85 41          110             STA ZPGWRK+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
+1B07:A2 00          111             LDX #0          ; HIGH RAM
+1B09:86 40          112             STX ZPGWRK
+1B0B:A0 00          113 <b><a name="DR0A"       id="DR0A"       >DR0A   </a></b>     LDY #0          ; APPLE TEST
+                    114 DR1B        EQU *                                           ; label not used
+1B0D:A1 40          115             LDA (ZPGWRK,X)
+1B0F:85 26          116             STA LOC1                                        ; LOC1 = MemTestVal
+1B11:98             117 <b><a name="DR1"        id="DR1"        >DR1    </a></b>     TYA                                             ; === page 112 ===
+1B12:45 26          118             EOR LOC1
+1B14:85 26          119             STA LOC1
+1B16:98             120             TYA
+1B17:41 40          121             EOR (ZPGWRK,X)
+1B19:81 40          122             STA (ZPGWRK,X)
+1B1B:C5 26          123             CMP LOC1
+1B1D:D0 05          124             BNE <a href="#DR1A" >DR1A</a>                                        ; v
+1B1F:C8             125             INY
+1B20:D0 EF          126             BNE <a href="#DR1"  >DR1</a>                                         ; ^
+1B22:F0 04          127             BEQ <a href="#DR2"  >DR2</a>         ; BR IF TOOK                    ; v
+                    128 <b><a name="DR1A"       id="DR1A"           >DR1A   </a></b>     EQU *
+1B24:C6 41          129             DEC ZPGWRK+1    ; NOT RAM
+1B26:D0 E3          130             BNE <a href="#DR0A" >DR0A</a>        ; TRY NEXT PAGE                 ; ^
+                    131 ;
+                    132 <b><a name="DR2"        id="DR2"        >DR2    </a></b>     EQU *
+                    133 ;
+1B28:A5 41          134             LDA ZPGWRK+1    ;BEGIN PATCH TO INSURE   *****  ; note: '*****' is BEGIN_PATCH
+1B2A:29 DF          135             AND #$DF        ; PROPER HIGH MEMORY CHECK.
+1B2C:85 43          136             STA ZPGFCB+1    ;(DOS MASTER 3.1 CONTAINS
+1B2E:86 42          137             STX ZPGFCB      ; THIS ROUTINE STARTING AT LOCATION
+1B30:A1 42          138             LDA (ZPGFCB,X)  ; $3540)
+1B32:48             139             PHA
+1B33:85 26          140             STA LOC1        ;SAVE TEST VALUE
+1B35:98             141 <b><a name="DR2A"       id="DR2A"       >DR2A   </a></b>     TYA             ;(FIRST TIME Y=0)
+1B36:45 26          142             EOR LOC1        ;TEST EACH (ALLEDGED) MEMORY BYTE
+1B38:85 26          143             STA LOC1        ; 256 TIMES TO DETERMINE IF
+1B3A:98             144             TYA             ; IT IS REALLY GOOD MEMORY AND
+1B3B:41 40          145             EOR (ZPGWRK,X)  ; MIRRORED 8K LOWER IN RAM.
+1B3D:81 42          146             STA (ZPGFCB,X)
+1B3F:C5 26          147             CMP LOC1        ;DID IT PASS THIS TIME?
+1B41:D0 09          148             BNE <a href="#DR2B">DR2B</a>        ; BYTE NOT MIRRORED, THEN GOOD MEMORY   ; *sigh* more crap code: S-L-O-W
+1B43:C8             149             INY             ;MAYBE IT WAS COINCIDENCE               ; Instead of testing *every* byte (256 times WTF!)
+1B44:D0 EF          150             BNE <a href="#DR2A">DR2A</a>        ; BRANCH UNLESS IT'S MATCHED 256 TIMES  ; just test the last byte of every page
+1B46:A4 43          151             LDY ZPGFCB+1    ;HIMEM IS 8K LOWER THEN WAS
+1B48:68             152             PLA             ;ORIGINALLY THOUGH!             ; Another wasted byte with JMP
+1B49:4C 51 1B       153             JMP <a href="#DR2C"                                                 ; Switch LDY PLA around and BNE instead
+
+
+CDETAB      EQU *
+            DFB 8*4
+            DW SC1
+            DW EC1
+            DW SC2
+            DW EC2
+            DW SC3
+            DW EC3
+
+
 ; === BLDFTAB - Build File Tables ===
                                 PAGE
                     ;
@@ -98,15 +485,199 @@
 
 
 
-; === MSWAITR - Microsecond wait routine ===
+; === MSWAITR - Microsecond wait routine, Page 97, T0S4, $BA00 ===
 
-                            DS 3,0              ; AVOID PAGE BOUNDARY CROSSING...           ; Typical bloated code ...
-3A00:A2 11          <b><a name="MSWAIT" id="MSWAIT">MSWAIT</a></b>      LDX #$11                                                    ; ... should just adjust the algorithm instead!
-3A02:CA             <b><a name="MSW1"   id="MSW1"  >MSW1  </a></b>      DEX             ; DELAY 86 USEC.
-3A03:D0 FD                      BNE <a href="#MSW1">MSW1</a>
-3A05:E6 46                      INC MONTIMEL
-3A07:D0 02                      BNE <a href="#MSW2">MSW2</a>        ; DOUBLE-BYTE
-3A09:E6 47                      INC MONTIMEH    ; INCREMENT.
+                    001                 SBTL '16-SECTOR MSWAIT'
+                    002 **************************
+                    003 *   MSWAIT SUBROUTINE    *
+                    004 **************************
+                    005 *                        *
+                    006 *  DELAYS A SPECIFIED    *
+                    007 *   NUMBER OF 100 USEC   *
+                    008 *   INTERVALS FOR MOTOR  *
+                    009 *   ON TIMING.           *
+                    010 *                        *
+                    011 *   ---- ON ENTRY ----   *
+                    012 *  A-REG: HOLDS NUMBER   *
+                    013 *        OF 100 USEC     *
+                    014 *        INTERVALS TO    *
+                    015 *        DELAY.          *
+                    016 *                        *
+                    017 *   ---- ON EXIT -----   *
+                    018 *  A-REG: HOLDS $00.     *
+                    019 *  X-REG: HOLDS $00.     *
+                    020 *  Y-REG: UNCHANGED.     *
+                    021 *  CARRY: SET.           *
+                    022 *                        *
+                    023 *  MONTIMEL, MONTIMEH    *
+                    024 *   ARE INCREMENTED ONCE *
+                    025 *   PER 100 USEC INTERVAL*
+                    026 *   FOR MOTON ON TIMING. *
+                    027 *    ---- ASSUMES ----   *
+                    028 * 1 USEC CYCLE TIME      *
+                    029 **************************
+                    030         DS 3,0              AVOID PAGE BOUNDARY CROSSING...           ; Typical bloated code ...
+3A00:A2 11          031 <b><a name="MSWAIT" id="MSWAIT">MSWAIT</a></b>      LDX #$11                                                    ; ... should just adjust algorithm timing instead!
+3A02:CA             032 <b><a name="MSW1"   id="MSW1"  >MSW1  </a></b>      DEX             ; DELAY 86 USEC.
+3A03:D0 FD          033             BNE <a href="#MSW1">MSW1</a>
+3A05:E6 46          034             INC MONTIMEL
+3A07:D0 02          035             BNE <a href="#MSW2">MSW2</a>        ; DOUBLE-BYTE
+3A09:E6 47          036             INC MONTIMEH    INCREMENT.
+3A0B:               037 <b><a name="MSW2"   id="MSW2"  >MSW2  </a></b>        SEC
+3A0C:               038             SBC #$1         DONE 'N' INTERVALS?
+3A0D:               039             BNE <a href="#MSWAIT">MSWAIT</a></b>            (A-REG COUNTS)
+3A0F:60                         RTS
+                    AEC1        EQU *           ;TELL RELOCATOR WHERE CORE ENDS
+
+
+
+; === FORMATR ===
+
+
+????:
+????:AD 88 C0                   LDA MOTOROFF,X  ; TURN MOTOR OFF.
+????:60                         RTS             ; AND RETURN.
+                                PAGE
+                    WTRACK16    LDA #0
+
+
+; === WRITRTN - Write Routine, Page 137, T0S2, $B82A ===
+
+                    001                 SBTL '16-SECTOR WRITE'
+                    002 ************************
+                    003 *                      *
+                    004 *      WRITE SUBR      *
+                    005 *  (16-SECTOR FORMAT)  *
+                    006 *                      *
+                    007 ************************
+                    008 *                      *
+                    009 *   WRITES DATA FROM   *
+                    010 *    NBUF1 AND NBUF2   *
+                    011 *   CONVERTING 6-BIT   *
+                    012 *    TO 7-BIT NIBLS    *
+                    013 *   VIA 'NIBL' TABLE.  *
+                    014 *                      *
+                    015 *  FIRST NBUF2,        *
+                    016 *      HIGH TO LOW.    *
+                    017 *  THEN NBUF1,         *
+                    018 *      LOW TO HIGH.    *
+                    019 *                      *
+                    020 *  ---- ON ENTRY ----  *
+                    021 *                      *
+                    022 *   X-REG: SLOTNUM     *
+                    023 *        TIMES $10.    *
+                    024 *                      *
+                    025 *   NBUF1 AND NBUF2    *
+                    026 *    HOLD NIBLS FROM   *
+                    027 *    PRENIBL SUBR.     *
+                    028 *    (00ABCDEF)        *
+                    029 *                      *
+                    030 *  ---- ON EXIT -----  *
+                    031 *                      *
+                    032 *  CARRY SET IF ERROR. *
+                    033 *   (W PROT VIOLATION) *
+                    034 *                      *
+                    035 *  IF NO ERROR:        *
+                    036 *                      *
+                    037 *    A-REG UNCERTAIN.  *
+                    038 *    X-REG UNCHANGED.  *
+                    039 *    Y-REG HOLDS $00.  *
+                    040 *    CARRY CLEAR.      *
+                    041 *                      *
+                    042 *    SLOTABS, SLOTZ,   *
+                    043 *     AND WTEMP USED.  *
+                    044 *                      *
+                    045 *  ---- ASSUMES ----   *
+                    046 *                      *
+                    047 *  1 USEC CYCLE TIME   *
+                    048 *                      *
+                    049 ************************
+382A:38             050 <b><a name="WRITE16"    id="WRITE16"    >WRITE16</a></b>     SEC             ;ANTICIPATE WPROT ERR.          ; === Reloc @ $B82A ===
+382B:86 27          051             STX SLOTZ       ;FOR ZERO PAGE ACCESS.
+382D:8E 78 06       052             STX SLOTABS     ;FOR NON-ZERO PAGE.
+3830:BD 8D C0       053             LDA Q6H,X
+3833:BD 8E C0       054             LDA Q7L,X       ;SENSE WPROT FLAG.
+3836:30 7C          055             BMI <a href="#WEXIT">WEXIT</a>       ;IF HIGH, THEN ERR.             ; v
+3838:AD 00 3C       056             LDA NBUF2
+383B:85 26          057             STA WTEMP       ;FOR ZERO-PAGE ACCESS.
+383D:A9 FF          058             LDA #$FF        ;SYNC DATA
+383F:9D 8F C0       059             STA Q7H,X       ;(5) WRITE 1ST NIBL.
+3842:1D 8C C0       060             ORA Q6L,X       ;(4)
+3845:48             061             PHA             ;(3)
+3846:68             062             PLA             ;(4) CRITICAL TIMING!
+3847:EA             063             NOP             ;(2)
+3848:A0 04          064             LDY #4          ;(2)  FOR 5 NIBLS.
+384A:48             065 <b><a name="WSYNC"      id="WSYNC"      >WSYNC</a></b>       PHA             ;(3) EXACT TIMING               ; --- Sync FF ---
+384B:68             066             PLA             ;(4) EXACT TIMING
+384C:20 B9 38       067             JSR <a href="#WNIBL7">WNIBL7</a>      ;(13,9,6)  WRITE SYNC
+384F:88             068             DEY             ;(2)
+3850:D0 F8          069             BNE <a href="#WSYNC" >WSYNC</a>       ;(2*)  MUST NOT  CROSS PAGE!    ; ^
+3852:A9 D5          070             LDA #$D5        ;(2)  1ST DATA MARK.            ; --- Data Header D5 AA AD ---
+3854:20 B8 38       071             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)
+3857:A9 AA          072             LDA #$AA        ;(2)  2ND DATA MARK.
+3859:20 B8 38       073             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)
+385C:A9 AD          074             LDA #$AD        ;(2)  3RD DATA MARK.
+385E:20 B8 38       075             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)
+3861:98             076             TYA             ;(2) CLEAR CHECKSUM
+3862:A0 56          077             LDY #$56        ;(2) NBUF2 INDEX.
+3864:D0 03          078             BNE <a href="#WDATA1">WDATA1</a>      ;(3)  ALWAYS.  NO PAGE CROSS!!  ; v
+3866:B9 00 3C       079 <b><a name="WDATA0"     id="WDATA0"     >WDATA0</a></b>      LDA NBUF2,Y     ;(4)  PRIOR 6-BIT NIBL.
+3869:58 FF 3B       080 <b><a name="WDATA1"     id="WDATA1"     >WDATA1</a></b>      EOR NBUF2-1,Y   ;(5)  XOR WITH CURRENT.
+                    081 *   (NBUF2 MUST BE ON PAGE BOUNDARY FOR TIMING!!)
+386C:AA             082             TAX             ;(2)  INDEX To 7-BIT NIBL
+386D:BD 29 3A       083             LDA NIBL,X      ;(4)  MUST NOT CROSS PAGE!
+3870:A6 27          084             LDX SLOTZ       ;(3)  CRITICAL TIMING!
+3872:9D 8D C0       085             STA Q6H,X       ;(5)  WRITE NIBL.
+3875:BD 8C C0       086             LDA Q6L,X       ;(4)
+3878:88             087             DEY             ;(2)  NEXT NIBL.
+3879:D0 EB          088             BNE <a href="#WDATA0">WDATA0</a>      ;(2*) MUST NOT CROSS PAGE!      ; ^
+387B:A5 26          089             LDA WTEMP       ;(3) PRIOR NIBL FROM BUF6.
+387D:EA             090             NOP             ;(2)  CRITICAL TIMING.
+387E:59 00 3B       091 <b><a name="WDATA2"     id="WDATA2"     >WDATA2</a></b>      EOR NBUF1,Y     ;(5)  XOR WITH CURRENT.
+3881:AA             092             TAX             ;(2)
+3882:BD 29 3A       093             LDA NIBL,X      ;(4)
+3885:AE 78 06       094             LDX SLOTABS     ;(4) TIMING CRITICAL
+3888:9D 8D C0       095             STA Q6H,X       ;(5) WRITE NIBL.
+388B:BD 8C C0       096             LDA Q6L,X       ;(4)
+388E:B9 00 3B       097             LDA NBUF1,Y     ;(4)  PRIOR 6-BIT NIBL.
+3891:C8             098             INY             ;(2)NEXT NBUF1 NIBL.
+3892:D0 EA          099             BNE <a href="#WDATA2">WDATA2</a>      ;(2*) MUST NOT CROSS PAGE!      ; ^
+3894:AA             100             TAX             ;(2)
+3895:BD 29 3A       101             LDA NIBL,X      ;(4)  INDEX TO 7-BIT NIBL
+3898:A6 27          102             LDX SLOTZ       ;(3)
+389A:20 BB 38       103             JSR <a href="#WNIBL">WNIBL</a>        ;(6,9,6)  WRITE CHKSUM
+389D:A9 DE          104             LDA #$DE        ;(2)  DM4, BIT SLIP MARK.
+389F:20 B8 38       105             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)    WRITE IT.
+38A2:A9 AA          106             LDA #$AA        ;(2)  DM5, BIT SLIP MARK.
+38A4:20 B8 38       107             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)    WRITE IT.
+38A7:A9 EB          108             LDA #$EB        ;(2)  DM6, BIT SLIP MARK.
+38A9:20 B8 38       109             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)    WRITE IT.
+38AC:A9 FF          110             LDA #$FF        ;(2) TURN-OFF BYTE.
+38AE:20 B8 38       111             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,9) WRITE IT.
+38B1:BD 8E C0       112             LDA Q7L,X       ;OUT OF WRITE MODE.
+38B4:BD 8C C0       113 <b><a name="WEXIT"      id="WEXIT"      >WEXIT</a></b>       LDA Q6L,X       ;TO READ MODE.
+38B7:60             114             RTS             ;RETURN FROM WRITE.
+                    115 *****************************
+                    116 *                           *
+                    117 *   7-BIT NIBL WRITE SUBRS  *                               ; === WRITRTN, page 139 ===
+                    118 *                           *
+                    119 *   A-REG OR'D PRIOR EXIT   *
+                    120 *       CARRY CLEARED       *
+                    121 *                           *
+                    122 *****************************
+38B8:18             123 <b><a name="WNIBL9"     id="WNIBL9"     >WNIBL9</a></b>      CLC             ; (2) 9 CYCLES, THEN WRITE.
+38B9:48             124 <b><a name="WNIBL7"     id="WNIBL7"     >WNIBL7</a></b>      PHA             ; (3) 7 CYCLES, THEN WRITE.
+38BA:68             125             PLA             ; (4)
+38BB:9D 8D C0       126 <b><a name="WNIBL"      id="WNIBL"      >WNIBL</a></b>       STA Q6H,X       ; (5) NIBL WRITE SUB.
+38BE:1D 8C C0       127             ORA Q6L,X       ; (4) CLOBBERS ACC, NOT CARRY
+38C1:60             128             RTS
+
+                                                                                    ; === T0S2 ===
+
+38C2:A0 00          ###             LDA #$0
+38C4:A2 56          ###             LDX #$56
+38C6:CA             ##              DEX
+38C7:
 
 ; === RWTSTWO - Read Write Track Sector - Part 2 ===
 
@@ -145,90 +716,27 @@
                             STA TL8                                     </span>
                         FIN
                         LST ON
-3E51:20 2A 38                   JSR WRITE16     ; WRITE NYBBLES NOW
+3E51:20 2A 38                   JSR <a href="#WRITE16">WRITE16</a>     ; WRITE NYBBLES NOW          ; ^ WRITRN, page 137
 
 
 
-; === FORMATR ===
-
-
-????:
-????:AD 88 C0                   LDA MOTOROFF,X  ; TURN MOTOR OFF.
-????:60                         RTS             ; AND RETURN.
-                                PAGE
-                    WTRACK16    LDA #0
-
-
-
-                SBTL '16-SECTOR WRITE'
-************************
-*                      *
-*      WRITE SUBR      *
-*  (16-SECTOR FORMAT)  *
-*                      *
-************************
-*                      *
-*   WRITES DATA FROM   *
-*    NBUF1 AND NBUF2   *
-*   CONVERTING 6-BIT   *
-*    TO 7-BIT NIBLS    *
-*   VIA 'NIBL' TABLE.  *
-*                      *
-*  FIRST NBUF2,        *
-*      HIGH TO LOW.    *
-*  THEN NBUF1,         *
-*      LOW TO HIGH.    *
-*                      *
-*  ---- ON ENTRY ----  *
-*                      *
-*   X-REG: SLOTNUM     *
-*        TIMES $10.    *
-*                      *
-*   NBUF1 AND NBUF2    *
-*    HOLD NIBLS FROM   *
-*    PRENIBL SUBR.     *
-*    (00ABCDEF)        *
-*                      *
-*  ---- ON EXIT -----  *
-*                      *
-*  CARRY SET IF ERROR. *
-*   (W PROT VIOLATION) *
-*                      *
-*  IF NO ERROR:        *
-*                      *
-*    A-REG UNCERTAIN.  *
-*    X-REG UNCHANGED.  *
-*    Y-REG HOLDS $00.  *
-*    CARRY CLEAR.      *
-*                      *
-*    SLOTABS, SLOTZ,   *
-*     AND WTEMP USED.  *
-*                      *
-*  ---- ASSUMES ----   *
-*                      *
-*  1 USEC CYCLE TIME   *
-*                      *
-************************
-WRITE16         SEC             ANTICIPATE WPROT ERR.
-                STX SLOTZ       FOR ZERO PAGE ACCESS.
-                STX SLOTABS     FOR NON-ZERO PAGE.
-                LDA Q6H,X
-                LDA Q7L,X       SENSE WPROT FLAG.
-                BMI WEXIT       IF HIGH, THEN ERR.
-                LDA NBUF2
-                STA WTEMP       FOR ZERO-PAGE ACCESS.
-                LDA #$FF        SYNC DATA
-                STA Q7H,X       (5) WRITE 1ST NIBL.
-                ORA Q6L,X       (4)
-                PHA             (3)
-                PLA             (4) CRITICAL TIMING!
-                NOP             (2)
-                LDY #4          (2)  FOR 5 NIBLS.
-WSYNC           PHA             (3) EXACT TIMING
-                PLA             (4) EXACT TIMING
-                JSR WNIBL7      (13,9,6)  WRITE SYNC
-                DEY             (2)
 </pre>
+
+<h1>Symbols</h1>
+
+<pre>
+DBVECT      = $1E51
+SC1         = $1D84
+EC1         = $2884
+SC2         = $2AFD
+EC2         = $3397
+SC3         = $365D
+EC3         = $37E0
+SWADR1      = $3C56
+EWADR1      = $3CDF
+
+</pre>
+
 </body>
 </html>
 
