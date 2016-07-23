@@ -1,16 +1,17 @@
+# Apple ][ DOS 3.3C Source
 
-# DOS 3.3C Conditional Compilation Flags
+## Conditional Compilation Flags
 
 Page 39
 
 ```
 ORIGIN  = $1B00
-DIAGMOD = 0
-DOS33B  = 1
-ULC     = 0 ; 1=ASM with lower case patch
+DIAGMOD =     0 ; Diagnostic Mode for RWTS
+DOS33B  =     1 ; Version of DOS
+ULC     =     0 ; =1 if assemble with lower case patch
 ``` 
 
-# DOS 3.3C Source Includes (Chronological)
+## Source Includes (Chronological)
 
 Page 39
 
@@ -52,7 +53,7 @@ Extra info.:
 * FVCBUFS Max Sectors in File Dir, Command Control Block
 
 
-# DOS 3.3C Source Includes (Alphabetical)
+## Source Includes (Alphabetical)
 
 |Source |Page |Lines|
 |:------|----:|----:|
@@ -89,7 +90,7 @@ Extra info.:
 |Total: | n/a |6,406|
 
 
-# Unused Source Files
+## Unused Source Files
 
 |Source |Page |Symbols|
 |:------|----:|:------|
@@ -97,7 +98,7 @@ Extra info.:
 |TRASH  | 129 | FNDFIL, FF1, FF2, FF3, MVFN | 
 
 
-# DOS 3.3 Disk Utility Contents
+## DOS 3.3 Disk Utility Contents
 
 |Filename        |Page|File Type  | Description |
 |:---------------|---:|:----------|:------------|
@@ -110,73 +111,124 @@ Extra info.:
 |HELLO.B         | 91 | BAS | Applesoft HELLO B program            |
 |MAKE.MASTER     | 92 | BAS | Applesoft make DOS master            |
 |MASTER.3.3E     | 93 | BAS | Applesoft make DOS master            |
-|MASTERE.OBJ0    | 96 | BIN | Utility BLOAD\'d by MASTER.3.3E       |
+|MASTERE.OBJ0    | 96 | BIN | Utility BLOAD\'d by MASTER.3.3E      |
 
 
 Misc. Files:
 
 * ASMIDSTAMP: "12-JUL-83 #B00090"
 
-# Disk -> Memory Map
+## Disk -> Memory Map
 
-**NOTE:**
-
-* Logical = Logical Sector
-* Physical = Physical Sector
-
-```
-0  7  E  6  D  5  C  4  B  3  A  2  9  1  8  F (Hex) DOS 3.3 Boot Logical (and Copy ][+ Sector Edit)
-0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F (Hex) DOS 3.3 Boot Physical
-```
-
-
-|T/S |Phys|File |Mem  | Identification | Source|
-|:---|:---|:----|:----|:---------------------------|:----------------|
-|T0S0|T0S0|$3600|$B600| 01 A5 27 C9 .. 00 00 36 09 | BOOTLDR -- also loaded at $0800             |
-|T0S1|T0SD|$3700|$B700| 8E E9 37 8E .. 01 EF D8 00 | BOOTLDR (cont.) -- last byte wasted         |
-|T0S2|T0SB|$3800|$B800| A2 00 A0 00 .. AD D0 E7 A9 | PRENIBL @ $00..$29, WRITRTN @ $2A, POSTNBL  |
-|T0S3|T0S9|$3900|$B900| 00 88 84 26 .. 60 00 00 00 | wastes 3 bytes |
-|T0S4|T0S7|$3A00|$BA00| A2 11 CA D0 .. 3C 3D 3E 3F | MSWAITR page 97 |
-|T0S5|T0S5|$3B00|$BB00| 00 00 00 00 .. 00 00 00 00 | MSWAITR page 100 - NBUF1 wasted zero sector |
-|T0S6|T0S3|$3C00|$BC00| 00 00 00 00 .. 00 00 00 00 | MSWAITR page 100 - NBUF2 |
-|T0S7|T0S1|$3D00|$BD00| 84 48 85 49 .. 68 CE F8 04 | |
-|T0S8|T0SE|$3E00|$BE00| D0 E5 F0 CA .. 44 C9 23 90 | RWTSTWO page 125 |
-|T0S9|T0SC|$3F00|$BF00| D3 18 90 05 .. 09 4C 85 33 | FORMATR page 83 line 2 |
-|T0SA|T0S?|$1B00|     | 4C 84 1D A9 .. AA EC 59 1C | RELOCTR page 110 |
-|T0SB|T0S?|$1C00|     | | |
-|T0SC|T0S?|$1D00|     | | |
-|T0SD|T0S?|$1E00|     | | |
-|T0SE|T0S?|$1F00|     | | |
-|T0SF|T0SF|$2000|     | | |
-|T1S0|T1S0|$2100|     | | |
-|T1S1|T1S?|$2200|     | | |
-|T1S2|T1S?|$2300|     | | |
-|T1S3|T1S?|$2400|     | | |
-|T1S4|T1S?|$2500|     | | |
-|T1S5|T1S?|$2600|     | | |
-|T1S6|T1S?|$2700|     | 5E 1D BD 3F .. CA 68 48 C8 | BLDFTBL @ $D4 page 4 |
-|T1S7|T1S?|$2800|     | 91 40 8A C8 .. 41 C4 42 52 | BLDFTBL (cont) page 5, CMDTBLS @ $84 page 21 |
-|T1S8|T1S?|$2900|     | 55 CE 56 45 .. 45 52 52 20 | CMDTBLS page 21 |
-|T1S9|T1S?|$2A00|     | 41 56 41 49 .. 33 E0 00 F0 | CMDTBLS page 23 |
-|T1SA|T1S?|$2B00|     | | |
-|T1SB|T1S?|$2C00|     | | |
-|T1SC|T1S?|$2D00|     | | |
-|T1SD|T1S?|$2E00|     | | |
-|T1SE|T1S?|$2F00|     | | |
-|T1SF|T1SF|$3000|     | | |
-|T2S0|T2S0|$3100|     | | |
-|T2S1|T2S?|$3200|     | | |
-|T2S2|T2S?|$3300|     | | |
-|T2S3|T2S?|$3400|     | | |
-|T2S4|T2S?|$3500|     | | |
+|T/S |File |Mem  | Page Identification        | Source, Page #          |
+|:---|:----|:----|:---------------------------|:------------------------|
+|T0S0|$3600|$B600| 01 A5 27 C9 .. 00 00 36 09 | BOOTLDR -- also loaded at $0800             |
+|T0S1|$3700|$B700| 8E E9 37 8E .. 01 EF D8 00 | BOOTLDR (cont.) -- last byte wasted         |
+|T0S2|$3800|$B800| A2 00 A0 00 .. AD D0 E7 A9 | PRENIBL @ $00..$29, WRITRTN @ $2A, POSTNBL  |
+|T0S3|$3900|$B900| 00 88 84 26 .. 60 00 00 00 | wastes 3 bytes                              |
+|T0S4|$3A00|$BA00| A2 11 CA D0 .. 3C 3D 3E 3F | MSWAITR page 97                             |
+|T0S5|$3B00|$BB00| 00 00 00 00 .. 00 00 00 00 | MSWAITR page 100 - NBUF1 wasted zero sector |
+|T0S6|$3C00|$BC00| 00 00 00 00 .. 00 00 00 00 | MSWAITR page 100 - NBUF2                    |
+|T0S7|$3D00|$BD00| 84 48 85 49 .. 68 CE F8 04 |                                             |
+|T0S8|$3E00|$BE00| D0 E5 F0 CA .. 44 C9 23 90 | RWTSTWO page 125                            |
+|T0S9|$3F00|$BF00| D3 18 90 05 .. 09 4C 85 33 | FORMATR page 83 line 2                      |
+|T0SA|$1B00|     | 4C 84 1D A9 .. AA EC 59 1C | RELOCTR page 110                            |
+|T0SB|$1C00|     | 90 AF A9 3F .. FE FC FD FD | RELOCTR page 114 line 20, junk @ $81 .. $FF |
+|T0SC|$1D00|     | | |
+|T0SD|$1E00|     | | |
+|T0SE|$1F00|     | | |
+|T0SF|$2000|     | | |
+|T1S0|$2100|     | | |
+|T1S1|$2200|     | | |
+|T1S2|$2300|     | | |
+|T1S3|$2400|     | | |
+|T1S4|$2500|     | | |
+|T1S5|$2600|     | | |
+|T1S6|$2700|     | 5E 1D BD 3F .. CA 68 48 C8 | BLDFTBL @ $D4 page 4                          |
+|T1S7|$2800|     | 91 40 8A C8 .. 41 C4 42 52 | BLDFTBL (cont.) page 5, CMDTBLS @ $84 page 21 |
+|T1S8|$2900|     | 55 CE 56 45 .. 45 52 52 20 | CMDTBLS page 21                               |
+|T1S9|$2A00|     | 41 56 41 49 .. 33 E0 00 F0 | CMDTBLS (cont.) page 23                       |
+|T1SA|$2B00|     | | |
+|T1SB|$2C00|     | | |
+|T1SC|$2D00|     | | |
+|T1SD|$2E00|     | | |
+|T1SE|$2F00|     | | |
+|T1SF|$3000|     | | |
+|T2S0|$3100|     | | |
+|T2S1|$3200|     | | |
+|T2S2|$3300|     | | |
+|T2S3|$3400|     | | |
+|T2S4|$3500|     | | |
 
 Legend:
 
- * T/S: Logical Track/Sector on Disk (i.e. Copy ][+ Sector Editor)
- * Phys: Raw sector
+ * T/S: Logical Track/Sector on disk (i.e. Copy ]\[+ Sector Editor)
  * File = DOS33C.OBJ BLOAD address and BOOTLDR load address
- * Load: memory address
- * Mem: Final relocated high memory address
+ * Mem: Final relocated address in high memory
  * Id:  First and Last 4 bytes of page
  * Source: Original filename of assembly source
+
+
+## Logical vs Physical Sector
+
+DOS always translates a logical sector # into a raw physical sector number.
+
+This is done in two places:
+
+* BOOTLDR, Page #, Line #
+* RWTS, Page #, Line #
+
+This DOS (sector) order is:
+
+```
+0 7 E 6 D 5 C 4 B 3 A 2 9 1 8 F (Hex) DOS 3.3 Boot Logical (and Copy ]\[+ Sector Edit)
+0 1 2 3 4 5 6 7 8 9 A B C D E F (Hex) DOS 3.3 Boot Physical
+```
+
+If you are reading a DOS disk from assembly language, this is the T/S mapping:
+
+|Logical|Physical|
+|:---|:---|
+|T0S0|T0S0|
+|T0S1|T0SD|
+|T0S2|T0SB|
+|T0S3|T0S9|
+|T0S4|T0S7|
+|T0S5|T0S5|
+|T0S6|T0S3|
+|T0S7|T0S1|
+|T0S8|T0SE|
+|T0S9|T0SC|
+|T0SA|T0S?|
+|T0SB|T0S?|
+|T0SC|T0S?|
+|T0SD|T0S?|
+|T0SE|T0S?|
+|T0SF|T0SF|
+|T1S0|T1S0|
+|T1S1|T1S?|
+|T1S2|T1S?|
+|T1S3|T1S?|
+|T1S4|T1S?|
+|T1S5|T1S?|
+|T1S6|T1S?|
+|T1S7|T1S?|
+|T1S8|T1S?|
+|T1S9|T1S?|
+|T1SA|T1S?|
+|T1SB|T1S?|
+|T1SC|T1S?|
+|T1SD|T1S?|
+|T1SE|T1S?|
+|T1SF|T1SF|
+|T2S0|T2S0|
+|T2S1|T2S?|
+|T2S2|T2S?|
+|T2S3|T2S?|
+|T2S4|T2S?|
+
+Legend:
+
+ * Logical = Track/Sector used by DOS mapped to a physical sector # (i.e. Copy ]\[+ Sector Editor)
+ * Physical= Raw Track/Sector actually read/written on disk.
 
