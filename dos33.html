@@ -186,7 +186,8 @@ span.todo {
 <br>Latest version on my GitHub: <a href="http://htmlpreview.github.com/?https://github.com/Michaelangel007/apple2_dos33/blob/master/dos33.html">dos33.html</a>
 <p>
 The <i>intent</i> of providing this copyrighted source code is
- as a convenience for the curious as a <b>means to learn</b> -- such as, how <b>not to design a File System</b> (look for all my <b>*sigh*</b> comments), but as they say, <i>"Hindsight is 20/20."</i>
+ as a convenience for the curious as a <b>means to learn</b> -- such as,
+ how <b>not to design a Operating / Disk / File System</b> (look for all my <b>*sigh*</b> comments), but as they say, <i>"Hindsight is 20/20."</i>
 <p>
 <b>DISCLAIMER:</b> <i>YOU MAY NOT USE THIS FOR COMMERCIAL GAIN else you face risking the wrath of Apple's lawyers.</i>
 Since Apple <i>has already previously released this source code</i> I'm assuming it is OK since I'm not presenting anything new (well, OK, my commentary, but you get the point.)
@@ -199,7 +200,7 @@ Numerous improvements have been made over the original source code listings:
   <li>Added line numbers,                                             </li>
   <li>Cleaned up sloppy vertical alignment (such as (#) clock cycles),</li>
   <li>Added annotation column,                                        </li>
-  <li>Indented and color-coded macro sections, and                    </li>
+  <li>Unindented and color-coded macro sections so they stand out, and</li>
   <li>Single page                                                     </li>
 </ul>
 <p>
@@ -264,13 +265,13 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     006 DOS33B      EQU  1
                     007 ULC         EQU  0
                     008             INCLUDE <a href="#RELOCTR">RELOCTR</a>,,2                              ; Page 110, Lines 337, $1B00 .. $####
-                    009             INCLUDE DOSINIT,,2                              ; Page  48, Lines 226, $#### .. $####
-                    010             INCLUDE DOSHOOK,,2                              ; Page  44, Lines 215, $#### .. $####
-                    011             INCLUDE CMDSCAN,,2                              ; Page  16, Lines 270, $#### .. $####
-                    012             INCLUDE XOPNCLS,,2
-                    013             INCLUDE XLODSAV,,2
-                    014             INCLUDE XMISCMD,,2
-                    015             INCLUDE DOSGOER,,2
+                    009             INCLUDE <a href="#DOSINIT">DOSINIT</a>,,2                              ; Page  48, Lines 226, $#### .. $####
+                    010             INCLUDE <a href="#DOSHOOK">DOSHOOK</a>,,2                              ; Page  44, Lines 215, $#### .. $####
+                    011             INCLUDE <a href="#CMDSCAN">CMDSCAN</a>,,2                              ; Page  16, Lines 270, $#### .. $####
+                    012             INCLUDE <a href="#XOPNCLS">XOPNCLS</a>,,2
+                    013             INCLUDE <a href="#XLODSAV">XLODSAV</a>,,2
+                    014             INCLUDE <a href="#XMISCMD">XMISCMD</a>,,2
+                    015             INCLUDE <a href="#DOSGOER">DOSGOER</a>,,2
                     016             INCLUDE <a href="#BLDFTAB">BLDFTAB</a>,,2                              ; Page   4, Lines 144, $#### .. $####
                     017             INCLUDE CMDTBLS,,2
                     018             INCLUDE FDOSENT,,2
@@ -283,18 +284,17 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     025             INLUCDE BOOTLDR,,2                              ; Page   8, Lines 436, $3600 .. $36FF
                     026             INCLUDE COREQUS,,1
                     027             INCLUDE PRENIBL,,1
-                    028             INCLUDE WRITRTN,,1
-                    029             INCLUDE POSTNRD,,1
+                    028             INCLUDE <a href="#WRITRTN">WRITRTN</a>,,1
+                    029             INCLUDE <a href="#POSTNRD">POSTNRD</a>,,1
                     030             INCLDUE RDADSEK,,1
                     031             INCLUDE <a href="#MSWAITR">MSWAITR</a>,,1                              ; Page  97, Lines 202, $3A00 .. $3Cxx, T0S4 - T0S6
                     032             INCLUDE WRITADR,,1
                     033             INCLUDE RWTSONE,,1
-                    034             INCLUDE RWTSTWO,,1
-                    035             INCLUDE FORMATR,,1
+                    034             INCLUDE <a href="#RWTSTWO">RWTSTWO</a>,,1
+                    035             INCLUDE <a href="#FORMATR">FORMATR</a>,,1
                     036             INCLUDE DOSPTCH,,1
 
-; === <a name="RELOCTR">RELOCTR</a> - Relocater, Page 110, T0SA, @ $1B00 ===
-
+<hr>; === <b class="file"><a name="RELOCTR">RELOCTR</a></b> - Relocate DOS to high (48K) memory, Page 110, T0SA, @ $1B00 ===<hr>
                     001             PAGE
                     002 *****************************************************
                     003 *                                                   *
@@ -543,91 +543,102 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C80:23             336 DPGCNT      DFB &lt;ENDOFDOS-START
                     337             PAGE
 
+<hr>; === <b class="file"><a name="DOSINIT">DOSINIT</a></b> - , Page ?, T?S?, $???? ===<hr>
+
+<hr>; === <b class="file"><a name="DOSHOOK">DOSHOOK</a></b> - Input / Output Vector, Page ?, T?S?, $???? ===<hr>
+
+<hr>; === <b class="file"><a name="CMDSCAN">CMDSCAN</a></b> - , Page ?, T?S?, $???? ===<hr>
+
+<hr>; === <b class="file"><a name="XOPNCLS">XOPNCLS</a></b> - Execute Open / Close, Page ?, T?S?, $???? ===<hr>
+
+<hr>; === <b class="file"><a name="XLODSAV">XLODSAV</a></b> - Execute Load / Save , Page ?, T?S?, $???? ===<hr>
+
+<hr>; === <b class="file"><a name="DOSGOER">DOSGOER</a></b> - Print Error message, Page ?, T?S?, $???? ===<hr>
 
 <hr>; === <b class="file"><a name="BLDFTAB">BLDFTAB</a></b> - Build File Tables, Page 4, T1S6, @ $D4, $#### ===<hr>
-                                PAGE
-                    ;
-                    ; BLDFTB - BUILD FILE TABLES
-                    ; TABLE MAP:                                        ; $9600 = Array of File Tables
-                    ;   HIMEM,SOP                                       ; $9D00 = SOP = Start of Program
-                    ;   SBUFF  N (256)
-                    ;   DBUFF  N (256)
-                    ;   FTB    N (FCBLEN)
-                    ;   HEADER N (38)                                   ; See Header Map below
-                    ;   .
-                    ;   .
-                    ;   SBUFF  1
-                    ;   DBUFF  1
-                    ;   FTB    1
-                    ;   HEADER 1
-                    ;   THIS PROGRAM
-                    ;
-                    ; HEADER MAP:
-                    ;   FILENAME (30)
-                    ;   FTB  PTR (2)
-                    ;   DBUF PTR (2)
-                    ;   SBUF PTR (2)
-                    ;   LINK     (2)
-                    ;
-27D4:               <b><a name="BLDFTB" id="BLDFTB">BLDFTB</a></b>      EQU *                                   ; track 1, sector 6, offset $D4
-27D4:38                         SEC
-27D5:AD 00 1D                   LDA FTAB        ; START OF FTAB AREA    ; dosinit, 48
-27D8:85 40                      STA ZPGWRK      ; IS 1ST FTB PTR        ; reloctr, 110
-27DA:AD 01 1D                   LDA FTAB+1      ; HEADER
-27DD:85 41                      STA ZPGWRK+1
-27DF:AD 57 2A                   LDA CNFTBS      ; MOVE NO FTABS         ; fdosent, 60
-27E2:8D 63 2A                   STA TEMP1A      ; TO TEMP               ; fdosent, 60
-                    ;
-27E5:A0 00          <b><a name="BFT1" id="BFT1"    >BFT1</a></b>        LDY #0
-27E7:98                         TYA
-27E8:91 40                      STA (ZPGWRK),Y  ; 1ST CHAR FN=0
-27EA:A0 1E                      LDY #30         ; INC Y TO FCB PTR
-27EC:38                         SEC
-27ED:A5 40                      LDA ZPGWRK      ; END OF PTR HEADER
-27EF:E9 2D                      SBC #FCBLEN     ; MINUS FTAB LENGTH
-27F1:91 40                      STA (ZPGWRK),Y  ; IS START OF FTB
-27F3:48                         PHA             ; SAVE LOW ADR BYTE
-27F4:A5 41                      LDA ZPGWKR+1
-27F6:48                         SBC #0
-27F8:C8                         INY
-27F9:91 40                      STA (ZPGWKR),Y
-27FB:AA                         TAX
-27FC:CA                         DEX             ; FTB ADR - 256
-27FD:68                         PLA             ; IS ADR DIR BUFF
-27FE:48                         PHA
-27FF:C8                         INY
-2800:91 40                      STA (ZPGWRK),Y  ; SET DIR BUF PTR       ; track 1, sector 7, offset 0
-2802:8A                         TXA
-2803:C8                         INY
-2804:91 40                      STA (ZPGWRK),Y
-2806:AA                         TAX
-2807:CA                         DEX             ; DIR BUFF - 256
-2808:68                         PLA             ; IS SBUFF ADR
-2809:48                         PHA
-280A:C8                         INY
-280B:91 40                      STA (ZPGWRK),Y
-280D:C8                         INY
-280E:8A                         TXA
-280F:91 40                      STA (ZPGWRK),Y
-                    ;
-2811:CE 63 2A                   DEC TEMP1A      ; DECREMENT TABLE INDEX
-2814:F0 17                      BEQ <a href="#BFT2">BFT2</a>        ; COUNT AND BR IF DONE  ; v
-2816:AA                         TAX
-2817:68                         PLA
-2818:38                         SEC
-2819:E9 26                      SBC #38         ; SBUFF ADR - 38
-281B:C8                         INY
-281C:91 40                      STA (ZPGWRK),Y  ; IF ADR OF NEXT TAB
-281E:48                         PHA             ; WHICH GOES INTO
-281F:8A                         TXA             ; LINK
-2820:E9 00                      SBC #0
-2822:C8                         INY
-2823:91 40                      STA (ZPGWRK),Y
-2825:85 41                      STA ZPGWRK+1    ; AND INTO ZPGWRK
-2827:68                         PLA             ; FOR NEXT ENTRY
-2828:85 40                      STA ZPGWRK      ; BUILD
-282A:4C E5 27                   JMP <a href="#BFT1">BFT1</a>                                ; ^
-282D:48             <b><a name="BFT2" id="BFT2"    >BFT2</a></b>        EQU *
+                    001             PAGE
+                    002 ;
+                    003 ; BLDFTB - BUILD FILE TABLES
+                    004 ; TABLE MAP:                                        ; $9600 = Array of File Tables
+                    005 ;   HIMEM,SOP                                       ; $9D00 = SOP = Start of Program
+                    006 ;   SBUFF  N (256)
+                    007 ;   DBUFF  N (256)
+                    008 ;   FTB    N (FCBLEN)
+                    009 ;   HEADER N (38)                                   ; See Header Map below
+                    010 ;   .
+                    011 ;   .
+                    012 ;   SBUFF  1
+                    013 ;   DBUFF  1
+                    014 ;   FTB    1
+                    015 ;   HEADER 1
+                    016 ;   THIS PROGRAM
+                    017 ;
+                    018 ; HEADER MAP:
+                    019 ;   FILENAME (30)
+                    020 ;   FTB  PTR (2)
+                    021 ;   DBUF PTR (2)
+                    022 ;   SBUF PTR (2)
+                    023 ;   LINK     (2)
+                    024 ;
+27D4:               025 <b><a name="BLDFTB" id="BLDFTB">BLDFTB</a></b>      EQU *                                   ; track 1, sector 6, offset $D4
+27D4:38             026             SEC
+27D5:AD 00 1D       027             LDA FTAB        ; START OF FTAB AREA    ; dosinit, 48
+27D8:85 40          028             STA ZPGWRK      ; IS 1ST FTB PTR        ; reloctr, 110
+27DA:AD 01 1D       029             LDA FTAB+1      ; HEADER
+27DD:85 41          030             STA ZPGWRK+1
+27DF:AD 57 2A       031             LDA CNFTBS      ; MOVE NO FTABS         ; fdosent, 60
+27E2:8D 63 2A       032             STA TEMP1A      ; TO TEMP               ; fdosent, 60
+                    033 ;
+27E5:A0 00          034 <b><a name="BFT1" id="BFT1"    >BFT1</a></b>        LDY #0
+27E7:98             035             TYA
+27E8:91 40          036             STA (ZPGWRK),Y  ; 1ST CHAR FN=0
+27EA:A0 1E          037             LDY #30         ; INC Y TO FCB PTR
+27EC:38             038             SEC
+27ED:A5 40          039             LDA ZPGWRK      ; END OF PTR HEADER
+27EF:E9 2D          040             SBC #FCBLEN     ; MINUS FTAB LENGTH
+27F1:91 40          041             STA (ZPGWRK),Y  ; IS START OF FTB
+27F3:48             042             PHA             ; SAVE LOW ADR BYTE
+27F4:A5 41          043             LDA ZPGWKR+1
+27F6:48             044             SBC #0
+27F8:C8             045             INY
+27F9:91 40          046             STA (ZPGWKR),Y
+27FB:AA             047             TAX
+27FC:CA             048             DEX             ; FTB ADR - 256
+27FD:68             049             PLA             ; IS ADR DIR BUFF
+27FE:48             050             PHA
+27FF:C8             051             INY
+2800:91 40          052             STA (ZPGWRK),Y  ; SET DIR BUF PTR               ; Track 1, Sector 7, @ $00
+2802:8A             053             TXA
+<hr>2803:C8             054             INY                                             ; === <span id="page">Page 5</span> ===
+2804:91 40          055             STA (ZPGWRK),Y
+2806:AA             056             TAX
+2807:CA             057             DEX             ; DIR BUFF - 256
+2808:68             058             PLA             ; IS SBUFF ADR
+2809:48             059             PHA
+280A:C8             060             INY
+280B:91 40          061             STA (ZPGWRK),Y
+280D:C8             062             INY
+280E:8A             063             TXA
+280F:91 40          064             STA (ZPGWRK),Y
+                    065 ;
+2811:CE 63 2A       066             DEC TEMP1A      ; DECREMENT TABLE INDEX
+2814:F0 17          067             BEQ <a href="#BFT2">BFT2</a>        ; COUNT AND BR IF DONE  ; v
+2816:AA             068             TAX
+2817:68             069             PLA
+2818:38             070             SEC
+2819:E9 26          071             SBC #38         ; SBUFF ADR - 38
+281B:C8             072             INY
+281C:91 40          073             STA (ZPGWRK),Y  ; IF ADR OF NEXT TAB
+281E:48             074             PHA             ; WHICH GOES INTO
+281F:8A             075             TXA             ; LINK
+2820:E9 00          076             SBC #0
+2822:C8             077             INY
+2823:91 40          078             STA (ZPGWRK),Y
+2825:85 41          079             STA ZPGWRK+1    ; AND INTO ZPGWRK
+2827:68             080             PLA             ; FOR NEXT ENTRY
+2828:85 40          081             STA ZPGWRK      ; BUILD
+282A:4C E5 27       082             JMP <a href="#BFT1">BFT1</a>                                ; ^
+282D:48             083 <b><a name="BFT2" id="BFT2"    >BFT2</a></b>        EQU *
 
                     ;
                     ; MVISW - MOVE INPUT SWITCH
@@ -635,24 +646,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2900:00             <b><a name="MVCSW" id="MVCSW"  >MVCSW</a></b>       EQU *
                                 LDA INSW+1
 
-
-
-
-
-
-
-; === FORMATR ===
-
-
-????:
-????:AD 88 C0                   LDA MOTOROFF,X  ; TURN MOTOR OFF.
-????:60                         RTS             ; AND RETURN.
-                                PAGE
-                    WTRACK16    LDA #0
-
-
-; === WRITRTN - Write Routine, Page 137, T0S2, $B82A ===
-
+<hr>; === <b class="file"><a name="WRITRTN">WRITRTN</a></b> - Write Routine, Page 137, T0S2, $B82A ===<hr>
                     001                 SBTL '16-SECTOR WRITE'
                     002 ************************
                     003 *                      *
@@ -782,8 +776,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 38BE:1D 8C C0       127             ORA Q6L,X       ; (4) CLOBBERS ACC, NOT CARRY
 38C1:60             128             RTS
 
-; === POSTNRD - Post Nibbilize Read, Page 101, T0S2 @ $C2, $B8C2 .. $B??? TODO: ===
-
+<hr>; === <b class="file"><a name="POSTNRD">POSTNRD</a></b> - Post Nibbilize Read, Page 101, T0S2 @ $C2, $B8C2 .. $B??? <span class="todo">TODO</span> ===<hr>
                     001         SBTL '16-SECTOR POSTNIBLIZE'
                     002 ***************************
                     003 *                         *
@@ -1318,9 +1311,71 @@ TODO:
 3EAB:99 78 04       301 <b><a name="ONDRV1"     id="ONDRV1"     >ONDRV1      </a></b>STA DRV1TRK,Y
 3EAE:60             302 <b><a name="SETRTS"     id="SETRTS"     >SETRTS      </a></b>RTS
 
-====
+<hr>; === <b class="file"><a name="FORMATR">FORMATR</a></b> - Format Disk, Page 82, T?S?, $???? ===<hr>
 
+                    001                SBTL '16-SECTOR FORMATTER'
+                    002 ****************************
+                    003 *                          *
+                    004 * FORMAT DISK AND RETURN   *
+                    005 *                          *
+                    006 ****************************
+                    007 *
+                    008 * EQUATES FOR FORMATTER
+                    009 *
+                    010 NSYNC       EQU $45     ;NUM GAP SELF-SYNC NIBLS
+                    011 *
+                    012             REP 40
+                    013 DSKFORM     EQU *
+                    014     DO DIAGMOD          ;ELIMINATE FMTR FROM DIAG ASSEMBLY<span class="macro">
+                    015         LST OFF                                             </span>
+                    016     ELSE
+                    017             LDY #3
+                    018             STY (IOBPL),Y
 
+????:
+????:AD 88 C0                   LDA MOTOROFF,X  ; TURN MOTOR OFF.
+????:60                         RTS             ; AND RETURN.
+                                PAGE
+                    WTRACK16    LDA #0
+******************************
+*                            *
+*   WRITE TRACK SUBROUTINE   *
+*                            *
+******************************
+
+*****************************
+*                           *
+* VERIFY ROUTINE *
+*                           *
+* VERIFIES THAT THE FIRST *
+* SECTOR ENCOUNTERED IS *
+* SECTOR 0, AND THAT ALL *
+* 16 SECTORS ARE READABLE *
+* WITH MINIMAL RETRIES. *
+* (2 REVOLUTIONS MAXIMUM) *
+*                           *
+* IF FIRST SECTOR IS NOT *
+* SECTOR 0 THEN THE *
+* CURRENT NUMBER OF SELF- *
+* SYNC NIBLS IS DECR'D BY *
+* 1 (IF ALREADY LESS THAN *
+* 16)ORBY2.THENSECTOR*
+* 15ISLOCATEDSOASTO *
+* POSITION THE NEW TRACK *
+* REWRITE. *
+*                           *
+* IF UNABLE TO READ ANY *
+* SECTOR THEN THE ENTIRE *
+* TRACK IS REWRITTEN. *
+*                           *
+* AFTER VERIFYING TRACK 0, *
+* THE NUMBER OF SELF-SYNC *
+* NIBLS, NSYNC, IS DECR'D *
+* BY2(IFSTILL16OR *
+* GREATER). *
+*                           *
+*****************************
+<hr><hr>
 </pre>
 
 <h1>Symbols (Alphabetical)</h1>
