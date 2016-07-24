@@ -147,6 +147,9 @@ b {
 h1 {
     font-size: 200%;
 }
+b.file {
+    color: #F00;
+}
 i {
     color: #00F;
     }
@@ -268,7 +271,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     013             INCLUDE XLODSAV,,2
                     014             INCLUDE XMISCMD,,2
                     015             INCLUDE DOSGOER,,2
-                    016             INCLUDE BLDFTAB,,2                              ; Page   4, Lines 144, $#### .. $####
+                    016             INCLUDE <a href="#BLDFTAB">BLDFTAB</a>,,2                              ; Page   4, Lines 144, $#### .. $####
                     017             INCLUDE CMDTBLS,,2
                     018             INCLUDE FDOSENT,,2
                     019             INCLUDE FOPCLRW,,2
@@ -283,7 +286,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     028             INCLUDE WRITRTN,,1
                     029             INCLUDE POSTNRD,,1
                     030             INCLDUE RDADSEK,,1
-                    031             INCLUDE MSWAITR,,1                              ; Page  97, Lines 202, $3A00 .. $3Cxx, T0S4 - T0S6
+                    031             INCLUDE <a href="#MSWAITR">MSWAITR</a>,,1                              ; Page  97, Lines 202, $3A00 .. $3Cxx, T0S4 - T0S6
                     032             INCLUDE WRITADR,,1
                     033             INCLUDE RWTSONE,,1
                     034             INCLUDE RWTSTWO,,1
@@ -541,7 +544,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     337             PAGE
 
 
-; === BLDFTAB - Build File Tables, Page 4, T1S6, @ $D4, $#### ===
+<hr>; === <b class="file"><a name="BLDFTAB">BLDFTAB</a></b> - Build File Tables, Page 4, T1S6, @ $D4, $#### ===<hr>
                                 PAGE
                     ;
                     ; BLDFTB - BUILD FILE TABLES
@@ -846,8 +849,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 39FC:60             ???             RTS
 
-; === MSWAITR - Microsecond wait routine, Page 97, T0S4-T0S6 @ $55, $BA00 - $BC55 ===
-
+<hr>; === <b class="file"><a name="MSWAITR">MSWAITR</a></b> - Microsecond wait routine, Page 97, T0S4-T0S6 @ $55, $BA00 - $BC55 ===<hr>
                     001                 SBTL '16-SECTOR MSWAIT'
                     002 **************************
                     003 *   MSWAIT SUBROUTINE    *
@@ -1038,8 +1040,7 @@ TODO:
 3C50:00 00 00 00 00 00
 
 
-; === RWTSTWO - Read Write Track Sector - Part 2, Page 124, T0S8, $BE47 ===
-
+<hr>; === <b class="file"><a name="RWTSTWO">RWTSTWO</a></b> - Read Write Track Sector - Part 2, Page 124, T0S8, $BE47 ===<hr>
                     001 *
                     002 * DISK IS NOW UP TO SPEED: READ IT!
                     003 * NOW CHECK: IF IT IS NOT THE FORMAT DISK COMMAND,
