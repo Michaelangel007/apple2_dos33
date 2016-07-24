@@ -11,7 +11,6 @@
                     007 
                     008 
                     009 
-
                     010 
                     011 
                     012 
@@ -22,7 +21,6 @@
                     017 
                     018 
                     019 
-
                     020 
                     021 
                     022 
@@ -33,7 +31,6 @@
                     027 
                     028 
                     029 
-
                     030 
                     031 
                     032 
@@ -44,7 +41,6 @@
                     037 
                     038 
                     039 
-
                     040 
                     041 
                     042 
@@ -55,7 +51,6 @@
                     047 
                     048 
                     049 
-
                     050 
                     051 
                     052 
@@ -66,7 +61,6 @@
                     057 
                     058 
                     059 
-
                     060 
                     061 
                     062 
@@ -77,7 +71,6 @@
                     067 
                     068 
                     069 
-
                     070 
                     071 
                     072 
@@ -148,8 +141,38 @@
 <title>Apple DOS 3.3C Source Code (HTML Version)</title>
 <head>
     <style>
+b {
+    color: #080;
+}
 h1 {
     font-size: 200%;
+}
+i {
+    color: #00F;
+    }
+/*
+# after an hr there is a line of whitespace
+    <div class="hr"><hr></div>
+Solution: place <hr> on same line
+*/
+hr {
+/*
+#    padding: 0px;
+#    margin:  0px;
+#    margin-top:-1em
+*/
+}
+#page {
+    color: #080;
+}
+span.macro {
+    background-color:#EEE;
+}
+span.patch {
+    background-color:#EEC;
+}
+span.todo {
+    background-color:#FF0;
 }
     </style>
 </head>
@@ -157,12 +180,13 @@ h1 {
 
 <h1>Apple DOS 3.3C Source Code (HTML Version)</h1>
 <br>Transcribed by Michael Pohoreski.
-<br>Latest version: <a href="http://htmlpreview.github.com/?https://github.com/Michaelangel007/apple2_dos33/blob/master/dos33.html">dos33.html</a>
+<br>Latest version on my GitHub: <a href="http://htmlpreview.github.com/?https://github.com/Michaelangel007/apple2_dos33/blob/master/dos33.html">dos33.html</a>
 <p>
-
- The <i>intent</i> of providing this copyrighted source code is
- as a convenience for the curious as a <b>means to learn.</b>
-&nbsp; Such as, how <b>not to design a File System</b>, but as they say, <i>"hindsight is 20/20."</i>
+The <i>intent</i> of providing this copyrighted source code is
+ as a convenience for the curious as a <b>means to learn</b> -- such as, how <b>not to design a File System</b> (look for all my <b>*sigh*</b> comments), but as they say, <i>"Hindsight is 20/20."</i>
+<p>
+<b>DISCLAIMER:</b> <i>YOU MAY NOT USE THIS FOR COMMERCIAL GAIN else you face risking the wrath of Apple's lawyers.</i>
+Since Apple <i>has already previously released this source code</i> I'm assuming it is OK since I'm not presenting anything new (well, OK, my commentary, but you get the point.)
 <p>
 Numerous improvements have been made over the original source code listings:
 <p>
@@ -207,7 +231,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
     </tr>
     <tr>
         <td>LABEL</td>
-        <td>Function name, or branch target name</td>
+        <td>Function name, or branch target name<br>Green = <b>Function</b><br>Blue = <i>Data</i></td>
     </tr>
     <tr>
         <td>MNEMONIC</td>
@@ -227,8 +251,47 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 <pre>
 
-; === RELOCTR - Relocater, Page 110, T0SA ===
-^
+; === DOS33C - Master Source File, Page 39, T-S-, @ $n/a  ===
+
+                    001             SBTL "DOS3.3C w/APPEND fix, U/L case"
+                    002             LST  ON,VSYM
+                    003             MSB  OFF
+                    004 ORIGIN      EQU  $1B00
+                    005 DIAGMOD     EQU  0
+                    006 DOS33B      EQU  1
+                    007 ULC         EQU  0
+                    008             INCLUDE <a href="#RELOCTR">RELOCTR</a>,,2                              ; Page 110, Lines 337, $1B00 .. $####
+                    009             INCLUDE DOSINIT,,2                              ; Page  48, Lines 226, $#### .. $####
+                    010             INCLUDE DOSHOOK,,2                              ; Page  44, Lines 215, $#### .. $####
+                    011             INCLUDE CMDSCAN,,2                              ; Page  16, Lines 270, $#### .. $####
+                    012             INCLUDE XOPNCLS,,2
+                    013             INCLUDE XLODSAV,,2
+                    014             INCLUDE XMISCMD,,2
+                    015             INCLUDE DOSGOER,,2
+                    016             INCLUDE BLDFTAB,,2                              ; Page   4, Lines 144, $#### .. $####
+                    017             INCLUDE CMDTBLS,,2
+                    018             INCLUDE FDOSENT,,2
+                    019             INCLUDE FOPCLRW,,2
+                    020             INCLUDE FDELCAT,,2
+                    021             INCLUDE FMTRWIO,,2
+                    022             INCLUDE FLOCNXB,,2
+                    023             INCLUDE FLOCSEC,,2
+                    024             INCLUDE FVCBUFS,,2
+                    025             INLUCDE BOOTLDR,,2                              ; Page   8, Lines 436, $3600 .. $36FF
+                    026             INCLUDE COREQUS,,1
+                    027             INCLUDE PRENIBL,,1
+                    028             INCLUDE WRITRTN,,1
+                    029             INCLUDE POSTNRD,,1
+                    030             INCLDUE RDADSEK,,1
+                    031             INCLUDE MSWAITR,,1                              ; Page  97, Lines 202, $3A00 .. $3Cxx, T0S4 - T0S6
+                    032             INCLUDE WRITADR,,1
+                    033             INCLUDE RWTSONE,,1
+                    034             INCLUDE RWTSTWO,,1
+                    035             INCLUDE FORMATR,,1
+                    036             INCLUDE DOSPTCH,,1
+
+; === <a name="RELOCTR">RELOCTR</a> - Relocater, Page 110, T0SA, @ $1B00 ===
+
                     001             PAGE
                     002 *****************************************************
                     003 *                                                   *
@@ -282,7 +345,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     051 CNUM        EQU $44         ; CONVERTED NUMERIC
                     052 LBUFF       EQU $200        ; LINE BUFFER                   ; Keyboard buffer of 255 chars
                     053 MULT        EQU $FB63       ; MULT ROUTINE
-                    054 INPRT       EQU $FE8B       ; SET IN PORT                   ; === page 111 ===
+<hr>                    054 INPRT       EQU $FE8B       ; SET IN PORT                   ; === <span id="page">Page 111</span> ===
                     055 OUTPRT      EQU $FE95       ; SET OUT PORT
                     056 IBCHN       EQU $E836       ; BASIC RUN                     ; Integer Basic
                     057 IBLMEM      EQU $4A         ; BASIC LOW MEM                 ; Integer Basic
@@ -345,7 +408,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     114 DR1B        EQU *                                           ; unused label
 1B0D:A1 40          115             LDA (ZPGWRK,X)
 1B0F:85 26          116             STA LOC1                                        ; LOC1 = MemTestVal
-1B11:98             117 <b><a name="DR1"        id="DR1"        >DR1         </a></b>TYA                                             ; === page 112 ===
+<hr>1B11:98             117 <b><a name="DR1"        id="DR1"        >DR1         </a></b>TYA                                             ; === <span id="page">Page 112</span> ===
 1B12:45 26          118             EOR LOC1
 1B14:85 26          119             STA LOC1
 1B16:98             120             TYA
@@ -392,10 +455,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B57:ED 7E 1C       161             SBC DOSLNG      ; MINUS DOS LENGTH
 1B5A:8D 7C 1C       162             STA NSPAGE      ; IS NEW START OF DOS
 1B5D:38             163             SEC
-1B5E:ED 7A 1C       164             SBC RSPAGE      ; MINUS OLD DOS START
+1B5E:ED 7A 1C       164             SBC <a href="#RSPAGE">RSPAGE</a>      ; MINUS OLD DOS START
 1B61:F0 9D          165             BEQ <a href="#BEGIN">BEGIN</a>       ; (BREIF NO DELTA)              ; ^ NOT mis-spelling: Branch If
 1B63:8D 7F 1C       166             STA DELTA       ; IS DELTA
-1B66:AD 7A 1C       167             LDA RSPAGE      ; RESET START PAGE TO NORMAL
+1B66:AD 7A 1C       167             LDA <a href="#RSPAGE">RSPAGE</a>      ; RESET START PAGE TO NORMAL
 1B69:8D 0D 1D       168             STA ASTART+1
 1B6C:A9 1D          169             LDA #&lt;DBINIT    ; RESET PI RTN TO NORMAL        ; PI = ??? TODO:
 1B6E:8D 49 37       170             STA DI3+2
@@ -404,7 +467,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     173 ;
                     174 ;RELOCATE ADR TABLES
                     175 ;
-1B76:A2 00          176             LDX #0                                          ; === Page 113 ===
+<hr>1B76:A2 00          176             LDX #0                                          ; === <span id="page">Page 113</span> ===
 1B78:86 40          177             STX ZPGWRK
                     178 <b><a name="DR3"        id="DR3"        >DR3         </a></b>EQU *
 
@@ -433,52 +496,52 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C31:64 1D          292             DW  IBVT+2
 1C33:66 1D          293             DW  IBVT+4
 1C35:6C 1D          294             DW  AS1VT
-                    295             DW  AS1VT+4
-                    296             DW  AS2VT
-                    297             DW  AS2VT+4
-                    298             DW  AS2VT+6
-                    299             DW  AS2VT+8
-                    300             DW  SAT2
-                    301             DW  EAT2
-                    302             DW  BAIOB
-                    303             DW  ADOSLD+2                                    ; === Page 115 ===
-                    304             DW  IBDCTP
-                    305             DW  IBDCTP+2                                    ; File, Page TODO
-                    306             DFB 0,0,0,0
-                    307             DFB 0,0,0,0
-                    308             DFB 0,0,0,0
+1C37:70 1D          295             DW  AS1VT+4
+1C39:78 1D          296             DW  AS2VT
+1C3B:7C 1D          297             DW  AS2VT+4
+1C3D:7E 1D          298             DW  AS2VT+6
+1C3F:80 1D          299             DW  AS2VT+8
+1C41:C1 2A          300             DW  SAT2
+1C43:FD 2A          301             DW  EAT2
+1C45:E4 37          302             DW  BAIOB
+<hr>1C47:E8 37          303             DW  ADOSLD+2                                    ; === <span id="page">Page 115</span> ===
+1C49:EE 37          304             DW  IBDCTP
+1C4B:F0 37          305             DW  IBDCTP+2                                    ; File, Page TODO
+1C4D:00 00 00 00    306             DFB 0,0,0,0
+1C51:00 00 00 00    307             DFB 0,0,0,0
+1C55:00 00 00 00    308             DFB 0,0,0,0
                     309 <b><a name="CDETAB"     id="CDETAB"     >CDETAB      </a></b>EQU *
-                    310             DFB 8*4
-                    311             DW  SC1
-                    312             DW  EC1
-                    313             DW  SC2
-                    314             DW  EC2
-                    315             DW  SC3
-                    316             DW  EC3
-                    317             DW  SWADR1
-                    318             DW  EWADR1
-                    319             DW  ASC1
-                    320             DW  AEC1
-                    321             DW  PSC1
-                    322             DW  PEC1
-                    323             DW  ASC2
-                    324             DW  AEC2
-                    325             DW  SDP1
-                    326             DW  EDP1
-                    327 RSPAGE      DFB &lt;START
-                    328 REPAGE      DFB &lt;ENDOFDOS
+1C59:20             310             DFB 8*4
+1C5A:84 1D          311             DW  SC1
+1C5C:84 28          312             DW  EC1
+1C5E:FD 2A          313             DW  SC2
+1C60:97 33          314             DW  EC2
+1C62:5D 36          315             DW  SC3
+1C64:E0 37          316             DW  EC3
+1C66:56 3C          317             DW  SWADR1
+1C68:DF 3C          318             DW  EWADR1
+1C6A:00 38          319             DW  ASC1
+1C6C:11 3A          320             DW  AEC1
+1C6E:69 3A          321             DW  PSC1
+1C70:94 3A          322             DW  <a href="#PEC1">PEC1</a>
+1C72:00 3D          323             DW  ASC2
+1C74:A8 3F          324             DW  AEC2
+1C76:C8 3F          325             DW  SDP1
+1C78:FF 3F          326             DW  EDP1                                        ; End Program
+1C7A:1D             327 <i><a name="RSPAGE"     id="RSPAGE"     >RSPAGE      </a></i>DFB &lt;START
+1C7B:40             328 REPAGE      DFB &lt;ENDOFDOS
                     329 ;
-                    330 NSPAGE      DFB 0
-                    331 NEPAGE      DFB 0
+1C7C:00             330 NSPAGE      DFB 0
+1C7D:00             331 NEPAGE      DFB 0
                     332 ;
-                    333 DOSLNG      DFB &lt;ENDOFDOS-START
+1C7E:23             333 DOSLNG      DFB &lt;ENDOFDOS-START
                     334 ;
-                    335 DELTA       FDB 0
-                    336 DPGCNT      DFB &lt;ENDOFDOS-START
+1C7F:00             335 DELTA       FDB 0
+1C80:23             336 DPGCNT      DFB &lt;ENDOFDOS-START
                     337             PAGE
 
 
-; === BLDFTAB - Build File Tables ===
+; === BLDFTAB - Build File Tables, Page 4, T1S6, @ $D4, $#### ===
                                 PAGE
                     ;
                     ; BLDFTB - BUILD FILE TABLES
@@ -503,7 +566,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     ;   SBUF PTR (2)
                     ;   LINK     (2)
                     ;
-27D4:               <b><a name="BLDFTB" id="BLDFTB">BLDFTB</a></b>      EQU *                                   ; track 1, sector, offset $D4
+27D4:               <b><a name="BLDFTB" id="BLDFTB">BLDFTB</a></b>      EQU *                                   ; track 1, sector 6, offset $D4
 27D4:38                         SEC
 27D5:AD 00 1D                   LDA FTAB        ; START OF FTAB AREA    ; dosinit, 48
 27D8:85 40                      STA ZPGWRK      ; IS 1ST FTB PTR        ; reloctr, 110
@@ -566,7 +629,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     ;
                     ; MVISW - MOVE INPUT SWITCH
                     ;
-0000:00             <b><a name="MVCSW" id="MVCSW"  >MVCSW</a></b>       EQU *
+2900:00             <b><a name="MVCSW" id="MVCSW"  >MVCSW</a></b>       EQU *
                                 LDA INSW+1
 
 
@@ -703,7 +766,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 38B7:60             114             RTS             ;RETURN FROM WRITE.
                     115 *****************************
                     116 *                           *
-                    117 *   7-BIT NIBL WRITE SUBRS  *                               ; === WRITRTN, page 139 ===
+<hr>                    117 *   7-BIT NIBL WRITE SUBRS  *                               ; === WRITRTN, <span id="page">Page 139</span> ===
                     118 *                           *
                     119 *   A-REG OR'D PRIOR EXIT   *
                     120 *       CARRY CLEARED       *
@@ -716,7 +779,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 38BE:1D 8C C0       127             ORA Q6L,X       ; (4) CLOBBERS ACC, NOT CARRY
 38C1:60             128             RTS
 
-; === POSTNRD - Post Nibbilize Read, Page 101, T0S2, $B8C2 ===
+; === POSTNRD - Post Nibbilize Read, Page 101, T0S2 @ $C2, $B8C2 .. $B??? TODO: ===
 
                     001         SBTL '16-SECTOR POSTNIBLIZE'
                     002 ***************************
@@ -771,7 +834,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 38CC:5E 00 3C       051             LSR NBUF2,X     SHIFT 2 BITS FROM
 38CF:2A             052             ROL             A CURRENT NBUF2 NIBL
 38D0:5E 00 3C       053             LSR             INTO CURRENT NBUF1
-38D3:2A             054             ROL             A NIBL.                         ; === page 102 ===
+<hr>38D3:2A             054             ROL             A NIBL.                         ; === <span id="page">Page 102</span> ===
 38D4:91 3E          055             STA (BUF),Y     BYTE OF USER DATA.
 38D6:C8             056             INY             NEXT USER BYTE.
 38D7:C4 26          057             CPY T0          DONE IF EQUAL T0.
@@ -779,7 +842,11 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 38DB:60             059             RTS             RETURN.
                     060                 SBTL '16-SECTOR READ'
 
-; === MSWAITR - Microsecond wait routine, Page 97, T0S4, $BA00 ===
+; === ===
+
+39FC:60             ???             RTS
+
+; === MSWAITR - Microsecond wait routine, Page 97, T0S4-T0S6 @ $55, $BA00 - $BC55 ===
 
                     001                 SBTL '16-SECTOR MSWAIT'
                     002 **************************
@@ -810,9 +877,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     027 *    ---- ASSUMES ----   *
                     028 * 1 USEC CYCLE TIME      *
                     029 **************************
-                    030         DS 3,0              AVOID PAGE BOUNDARY CROSSING... ; Typical bloated code ...
-3A00:A2 11          031 <b><a name="MSWAIT"     id="MSWAIT"     >MSWAIT      </a></b>LDX #$11                                        ; ... should just adjust algorithm timing instead!
-3A02:CA             032 <b><a name="MSW1"       id="MSW1"       >MSW1        </a></b>DEX             ; DELAY 86 USEC.
+39FD:00 00 00       030         DS 3,0              ;AVOID PAGE BOUNDARY CROSSING...; T0S3 @ $FC = 3 unused bytes
+3A00:A2 11          031 <b><a name="MSWAIT"     id="MSWAIT"     >MSWAIT      </a></b>LDX #$11                                        ; T0S4 @ $00 *sigh* Typical bloated code ...
+3A02:CA             032 <b><a name="MSW1"       id="MSW1"       >MSW1        </a></b>DEX             DELAY 86 USEC.                  ; ... should just adjust algorithm timing instead!
 3A03:D0 FD          033             BNE <a href="#MSW1">MSW1</a>
 3A05:E6 46          034             INC MONTIMEL
 3A07:D0 02          035             BNE <a href="#MSW2">MSW2</a>        ; DOUBLE-BYTE
@@ -834,8 +901,141 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 3A1D:70 2C 26       051 OFFTABLE    DFB $70,$2C,$26
 3A20:22 1F 1E       052             DFB $22,$1F,$1E
 3A23:1D 1C 1C       053             DFB $1D,$1C,$1C
-3A26:1C 1C 1C       054             DFB $1C,$1C,$1C                                 ; === Page 98 ===
+<hr>3A26:1C 1C 1C       054             DFB $1C,$1C,$1C                                 ; === <span id="page">Page 98</span> ===
                     055             SBTL '16-SECTOR NYBBLE TABLES'
+                    056 ***************************
+                    057 *                         *
+                    058 *     6-BIT TO 7-BIT      *
+                    059 *  NIBL CONVERSION TABLE  *
+                    060 *                         *
+                    061 ***************************
+                    062 *                         *
+                    063 *   CODES WITH MORE THAN  *
+                    064 *   ONE PAIR OF ADJACENT  *
+                    065 *    ZEROES OR WITH NO    *
+                    066 *   ADJACENT ONES (EXCEPT *
+                    067 *     B7) ARE EXCLUDED.   *
+                    068 *                         *
+                    069 * THIS TABLE MAY *NOT*    *
+                    070 * CROSS A PAGE BOUNDARY!  *
+                    071 *                         *
+                    072 ***************************
+3A29:96 97 9A       073 <i><a name="NIBL"       id="NIBL"       >NIBL        </a></i>DFB $96,$97,$9A                                 ; /sarcasm, Gee if only
+3A2C:9B 9D 9E       074             DFB $9B,$9D,$9E                                 ; there was a HEX pseudo-mnemonic
+3A2F:9F A6 A7       075             DFB $9F,$A6,$A7                                 ; so we could group these in 4 bytes ...
+3A32:AB AC AD       076             DFB $AB,$AC,$AD                                 ; ... maybe one day. :)
+3A35:AE AF B2       077             DFB $AE,$AF,$B2                                 ; NOTE: Also see <a href="#NIBL">NIBL</a> and <a href="#PD2">PD2</a>
+3A38:B3 B4 B5       078             DFB $B3,$B4,$B5
+3A3B:B6 B7 B9       079             DFB $B6,$B7,$B9
+3A3E:BA BB BC       080             DFB $BA,$BB,$BC
+3A41:BD BE BF       081             DFB $BD,$BE,$BF
+3A44:CB CD CE       082             DFB $CB,$CD,$CE
+
+TODO:
+                    137
+                    139 <b><a name="OFF80"      id="OFF80"      >OFF80       </a></b>EQU *                                           ; T0S4
+3A76:A9 FF          140             LDA #$FF
+3A78:8D FB 04       141             STA $4FB        ; CLEARS FUNNY 80 COL STUFF
+3A7B:8D 0C C0       142             STA $C00C       ; TURNS 80 COL OFF
+3A7E:8D 0E C0       143             STA $C00E       ; TURN OFF  ALT CHAR SET
+3A81:4C 2F FB       144             JMP $FB2F       ; MONITOR INIT ROUTINE          ; If only we could define symbols ...
+                    145             PAGE
+                    146 <i><a name="PEC1"       id="PEC1"       >PEC1        </a></i>EQU *           ;Tell relocater where to stop   ; See <a href="#CDETAB">CDETAB</a>, RELOCTR, Page 115
+                    147 PD1         EQU &gt;*
+                    148 <i><a name="PD2"        id="PD2"        >PD2         </a></i>EQU $96-PD1<span class="patch">
+                    === DOS 3.3 D? PATCH ===        
+                    3A84:AD BD 35   LDA $35BD ; <span class="todo">TODO</span>
+                    3A87:8D E6 35   STA $35E6 ; <span class="todo">TODO</span>
+                    3A8A:8D EA 35   STA $35EA ; <span class="todo">TODO</span>
+                    3A8D:BA         TSX             
+                    3A8E:8E 9B 33   STX $339B ; <span class="todo">TODO</span>
+                    3A91:4C 7F 33   JMP $337F ; <span class="todo">TODO</span>
+                    === DOS 3.3 ? PATCH ===         </span>
+3A84:00 00 00 00    149             DS  PD2,0       ;Must pad to $XX96              ; *sigh* 18 wasted bytes
+3A88:00 00 00 00                                                                    ; No, no, no!
+3A8C:00 00 00 00                                                                    ; Negative array index OFFSETS like the P6 PROM uses
+3A90:00 00 00 00                                                                    ;
+3A94:00 00
+3A96:00 01 98       150             DFB $00,$01,$98                                 ; 96 97 --   *sigh* And the comment that this is the
+3A99:99 02 03       151             DFB $99,$02,$03                                 ; -- 9A 9B   64 disk nibbles of 6&amp;2 Read Table
+3A9C:9C 04 05       152             DFB $9C,$04,$05                                 ; -- 9D 9E   is where again? Comments people, comments!
+3A9F:06 A0 A1       153             DFB $06,$A0,$A1                                 ; 9F -- --   Hey, after annotating 154 pages
+3AA2:A2 A3 A4       154             DFB $A2,$A3,$A4                                 ; -- -- --   you would be grumpy too. :-)
+3AA5:A5 07 08       155             DFB $A5,$07,$08                                 ; -- A6 A7
+3AA8:A8 A9 AA       156             DFB $A8,$A9,$AA                                 ; -- -- !!   (!! Technically AA is a valid disk nibble)
+3AAB:09 0A 0B       157             DFB $09,$0A,$0B                                 ; AB AC AD   but it reserved for a 3 byte header id
+3AAE:0C 0D B0       158             DFB $0C,$0D,$B0                                 ; AE AF --   Typical DOS 3.3 B-L-O-A-T
+3AB1:B1 0E 0F       159             DFB $B1,$0E,$0F                                 ; -- B2 B3   One reserved byte D5 could be used for T/S  header
+3AB4:10 11 12       160             DFB $10,$11,$12                                 ; B4 B5 B6   One reserved byte AA could be used for Data header
+3AB7:13 B8 14       161             DFB $13,$B8,$14                                 ; B7 -- B9
+3ABA:15 16 17       162             DFB $15,$16,$17                                 ; BA BB BC
+3ABD:18 19 1A       163             DFB $18,$19,$1A                                 ; BD BE BF
+3AC0:C0 C1 C2       164             DFB $C0,$C1,$C2                                 ; -- -- --   *sigh* 11 unused bytes
+3AC3:C3 C4 C5       165             DFB $C3,$C4,$C5                                 ; -- -- --   /sarcasm But who cares, we have 48K right!?
+3AC6:C6 C7 C8       166             DFB $C6,$C7,$C8                                 ; -- -- --   This is why DOS takes seconds longer to boot.
+3AC9:C9 CA 1B       167             DFB $C9,$CA,$1B                                 ; -- -- CB
+3ACC:CC 1C 1D       168             DFB $CC,$1C,$1D                                 ; -- CD CE   *sigh* This entire table can be compactly
+3ACF:1E D0 D1       169             DFB $1E,$D0,$D1                                 ; CF -- --   represented with 8 lines instead of 36 lines
+3AD2:D2 20 21       170             DFB $D2,$1F,$D4                                 ; -- D3 --   If only we had a HEX pseudo-mnemonic ...
+3AD5:D5 20 21       171             DFB $D5,$20,$21                                 ; @@ D6 D7   (@@ Technically D5 is valid but is reserved too)
+3AD8:D8 22 23       172             DFB $D8,$22,$23                                 ; -- D9 DA      x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 xA xB xC xD xE xF
+3ADB:24 25 26       173             DFB $24,$25,$26                                 ; DB DC DD   9x:-- -- -- -- -- -- 00 01 -- -- 02 03 -- 04 05 06
+3ADE:27 28 E0       174             DFB $27,$28,$E0                                 ; DE DF --   Ax:-- -- -- -- -- -- 07 08 -- -- !! 09 0A 0B 0C 0D
+3AE1:E1 E2 E3       175             DFB $E1,$E2,$E3                                 ; -- -- --   Bx:-- -- 0E 0F 10 11 12 13 -- 14 15 16 17 18 19 1A
+3AE4:E4 29 2A       176             DFB $E4,$29,$2A                                 ; -- E5 E6   Cx:-- -- -- -- -- -- -- -- -- -- -- 1B -- 1C 1D 1E
+3AE7:2B E8 2C       177             DFB $2B,$E8,$2C                                 ; E7 -- E9   Dx:-- -- -- 1F -- @@ 20 21 -- 22 23 24 25 26 27 28
+3AEA:2D 2E 2F       178             DFB $2D,$2E,$2F                                 ; EA EB EC   Ex:-- -- -- -- -- 29 2A 2B -- 2C 2D 2E 2F 30 31 32
+3AED:30 31 32       179             DFB $30,$31,$32                                 ; ED EE EF   Fx:-- -- 33 34 35 36 37 38 -- 39 3A 3B 3C 3D 3E 3F
+<hr>3AF0:F0 F1 33       180             DFB $F0,$F1,$33                                 ; -- -- F2   === <span id="page">Page 100</span> ===
+3AF3:34 35 36       181             DFB $34,$35,$36                                 ; F3 F4 F5
+3AF6:37 38 F8       182             DFB $37,$38,$F8                                 ; F6 F7 --
+3AF9:39 3A 3B       183             DFB $39,$3A,$3B                                 ; F9 FA FB
+3AFC:3C 3D 3E       184             DFB $3C,$3D,$3E                                 ; FC FD FE
+3AFF:3F             185             DFB $3F                                         ; FF
+                    186             PAGE
+                    187 ***************************
+                    188 *                         *
+                    189 *    NYBBLE BUFFERS       *
+                    190 *                         *
+                    191 * NBUF1 (256 BYTES) MUST  *
+                    192 *  BE ALIGNED ON A PAGE   *
+                    193 *  BOUNDARY.              *
+                    194 *                         *
+                    195 * NBUF2 (86 BYTES) MUST   *                                 ; Incorrect: It must _not_ CROSS
+                    196 *  BE ALIGNED ON A PAGE   *                                 ; a page boundary. It can be
+                    197 *  BOUNDARY.              *                                 ; anywhere *within* the page.
+                    198 *                         *                                 ;
+                    199 ***************************                                 ; *sigh* Let's waste an *entire* sector with
+                    200 *                                                           ; 342 disk nibbles of raw 96 96 96 data,
+3B00:00 00 00 00    201 <i><a name="NBUF1"      id="NBUF1"      >NBUF1       </a></i>DS 256,0        ;NBUF1                          ; when _10 bytes_ would do the job IF NUBF1 == $BF00
+3B04:00 00 00 00                                                                    ;    LDA #0
+3B08:00 00 00 00                                                                    ;    LDY #0
+3B0C:00 00 00 00                                                                    ;.1  STA NBUF1,Y
+3B10:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ;    INY
+3B20:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ;    BNE .1
+3B30:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3B40:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3B50:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3B60:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3B70:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3B80:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3B90:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3BA0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3BB0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3BC0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3BD0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3BE0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3BF0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+3C00:00 00 00 00    202 <i><a name="NBUF2"      id="NBUF2"      >NBUF2       </a></i>DS  86,0        ;NBUF2                          ; *sigh* more wasted disk space 
+3C04:00 00 00 00
+3C08:00 00 00 00
+3C0C:00 00 00 00
+3C10:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3C20:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3C30:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3C40:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3C50:00 00 00 00 00 00
 
 
 ; === RWTSTWO - Read Write Track Sector - Part 2, Page 124, T0S8, $BE47 ===
@@ -893,7 +1093,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     051     FIN
                     052     LST ON
 3DC9:CE 78 05       053 <b><a name="TRYADR2"    id="TRYADR2"    >TRYADR2     </a></b>DEC RETRYCNT    ;ANOTHER MISTAEK!!              ; **irony**
-3DCC:10 F3          054             BPL <a href="#TRYADR">TRYADR</a>      ; WELL, LET IT GO THIS TIME..   ; === page 123 ===
+<hr>3DCC:10 F3          054             BPL <a href="#TRYADR">TRYADR</a>      ; WELL, LET IT GO THIS TIME..   ; === page 123 ===
                     055 *
                     056 * RRRRRECALIBRATE !!!!
                     057 *
@@ -955,7 +1155,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 3E28:B1 48          113             LDA (IOBPL),Y   ; TO ALLOW FOR INTERLEAVE
 3E2A:A8             114             TAY
 3E2B:B9 B8 3F       115             LDA INTRLEAV,Y  ;COMPUTE PHYSICAL SECTOR        ; DOS Sector Interleave/Skew Mapping
-3E2E:C5 2D          116             CMP SECT        ;DID WE GET THE SECTOR?         ; === page 124 ===
+<hr>3E2E:C5 2D          116             CMP SECT        ;DID WE GET THE SECTOR?         ; === <span id="page">Page 124</span> ===
                     117     LST OFF
                     118     DO DIAGMOD<span style="background-color:#EEE">
                     119         BEQ GOTSECT         ;=&gt;WE FOUND IT!                         
@@ -1018,7 +1218,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     176     DO DIAGMOD<span style="background-color:#EEE">
                     177         LDA #TC11           ;SAY 'POSTINIBBLIZING'          </span>;POST_IN_NIBBLIZING<span style="background-color:#EEE">
                     178         STA TL11                                            </span>
-                    179     FIN                                                     ; === page 125 ===
+<hr>                    179     FIN                                                     ; === <span id="page">Page 125</span> ===
                     180     LST ON
 3E40:20 C2 38       181             JSR <a href="#POSTNB16">POSTNB16</a>    ;DECODE INTO REAL WORLD DATA
                     182     LST OFF
@@ -1082,7 +1282,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     239 * IF DRIVNO IS NEGATIVE, ON DRIVE 1
                     240 * IF DRIVNO IS POSITIVE, ON DRIVE 2
                     241 *
-3E5A:48             242 <b><a name="MYSEEK"     id="MYSEEK"     >MYSEEK      </a></b>PHA             ; AND PRESERVE A-REGISTER       ; === page 126 === Uhm, OK
+<hr>3E5A:48             242 <b><a name="MYSEEK"     id="MYSEEK"     >MYSEEK      </a></b>PHA             ; AND PRESERVE A-REGISTER       ; === <span id="page">Page 126</span> === Uhm, OK
                     243     LST OFF
 
                     2??     LST ON
