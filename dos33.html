@@ -1,17 +1,7 @@
-<html>
-<title>Apple DOS 3.3C Source Code (HTML Version)</title>
-<head>
-    <style>
-h1 {
-    font-size: 300%;
-}
-    </style>
-</head>
-<body>
-
-<h1>Apple DOS 3.3C Source Code (HTML Version)</h1>
+<!DOCTYPE html>
 <!--
-####:## ## ##       ### 25LABEL     =               ;53official comment             ;85 [Annotation]
+                        25          37              53                              85
+####:## ## ##       ### LABEL       NMEMONIC        COMMENT                         ; Annotation
                     001 
                     002 
                     003 
@@ -154,28 +144,43 @@ h1 {
                     118 
                     119 
 -->
+<html>
+<title>Apple DOS 3.3C Source Code (HTML Version)</title>
+<head>
+    <style>
+h1 {
+    font-size: 200%;
+}
+    </style>
+</head>
+<body>
 
-<p>Welcome to the DOS 3.3C Source Code HTML Version.
+<h1>Apple DOS 3.3C Source Code (HTML Version)</h1>
 <br>Transcribed by Michael Pohoreski.
 <br>Latest version: <a href="http://htmlpreview.github.com/?https://github.com/Michaelangel007/apple2_dos33/blob/master/dos33.html">dos33.html</a>
-
 <p>
-Improvements:
 
+ The <i>intent</i> of providing this copyrighted source code is
+ as a convenience for the curious as a <b>means to learn.</b>
+&nbsp; Such as, how <b>not to design a File System</b>, but as they say, <i>"hindsight is 20/20."</i>
+<p>
+Numerous improvements have been made over the original source code listings:
+<p>
 <ul>
-  <li>Hyperlinks to all labels                </li>
-  <li>Load address and opcodes                </li>
-  <li>Added line numbers                      </li>
-  <li>Cleaned up sloppy vertical alignment, (such as (#) clock cycles</li>
-  <li>Added annotation column                 </li>
-  <li>Indented and color-coded macro sections </li>
+  <li>Hyperlinks to all labels,                                       </li>
+  <li>Load address and opcodes,                                       </li>
+  <li>Added line numbers,                                             </li>
+  <li>Cleaned up sloppy vertical alignment (such as (#) clock cycles),</li>
+  <li>Added annotation column,                                        </li>
+  <li>Indented and color-coded macro sections, and                    </li>
+  <li>Single page                                                     </li>
 </ul>
 <p>
 
 Header Format is:
 
 <pre>
-; === FILENAME - Description, Page #, T/S, Relocated Address ===
+; === FILENAME - Description, Page #, T/S, $#### (Relocated Address in high memory) ===
 </pre>
 
 Line format is:
@@ -214,7 +219,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
     </tr>
     <tr>
         <td>Annotation</td>
-        <td>Commentary by author</td>
+        <td>Modern commentary by me</td>
     </tr>
 </table>
 </div>
@@ -257,7 +262,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     031             SKP 2
                     032 *********************************
                     033 *                               *
-                    034 *    DOS33C PATCHES (APPEND &   *
+                    034 *    DOS33C PATCHES (APPEND &amp;   *
                     035 *     UPPER/LOWER CASE CHECK)   *
                     036 *                               *
                     037 *            BY                 *
@@ -324,10 +329,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     098 *
                     099             REP 40
                     100             PAGE
-1B00:4C 84 1D       101 <b><a name="BEGIN"      id="BEGIN"      >BEGIN  </a></b>     JMP <a href="#DBINIT">DBINIT</a>                                      ; === Run-Time Mem = $1B00 ===
+1B00:4C 84 1D       101 <b><a name="BEGIN"      id="BEGIN"      >BEGIN       </a></b>JMP <a href="#DBINIT">DBINIT</a>                                      ; === Run-Time Mem = $1B00 ===
                     102 ;                                                           ; Loaded in at $38D4
-####:## ## ##       ### 25LABEL     =               ;53official comment             ;85 [Annotation]
-                    103 <b><a name="DOSREL"     id="DOSREL"     >DOSREL </a></b>     EQU *                                           ; Called from BOOTLDR, page 12, line # TODO:
+                    103 <b><a name="DOSREL"     id="DOSREL"     >DOSREL      </a></b>EQU *                                           ; Called from BOOTLDR, page 12, line # TODO:
                     104 ;
                     105 ; GET RELOCATION PARMS
                     106 ;
@@ -337,11 +341,11 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B05:85 41          110             STA ZPGWRK+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
 1B07:A2 00          111             LDX #0          ; HIGH RAM
 1B09:86 40          112             STX ZPGWRK
-1B0B:A0 00          113 <b><a name="DR0A"       id="DR0A"       >DR0A   </a></b>     LDY #0          ; APPLE TEST
-                    114 DR1B        EQU *                                           ; label not used
+1B0B:A0 00          113 <b><a name="DR0A"       id="DR0A"       >DR0A        </a></b>LDY #0          ; APPLE TEST
+                    114 DR1B        EQU *                                           ; unused label
 1B0D:A1 40          115             LDA (ZPGWRK,X)
 1B0F:85 26          116             STA LOC1                                        ; LOC1 = MemTestVal
-1B11:98             117 <b><a name="DR1"        id="DR1"        >DR1    </a></b>     TYA                                             ; === page 112 ===
+1B11:98             117 <b><a name="DR1"        id="DR1"        >DR1         </a></b>TYA                                             ; === page 112 ===
 1B12:45 26          118             EOR LOC1
 1B14:85 26          119             STA LOC1
 1B16:98             120             TYA
@@ -352,11 +356,11 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B1F:C8             125             INY
 1B20:D0 EF          126             BNE <a href="#DR1"  >DR1</a>                                         ; ^
 1B22:F0 04          127             BEQ <a href="#DR2"  >DR2</a>         ; BR IF TOOK                    ; v
-                    128 <b><a name="DR1A"       id="DR1A"           >DR1A   </a></b>     EQU *
+                    128 <b><a name="DR1A"       id="DR1A"       >DR1A        </a></b>EQU *
 1B24:C6 41          129             DEC ZPGWRK+1    ; NOT RAM
 1B26:D0 E3          130             BNE <a href="#DR0A" >DR0A</a>        ; TRY NEXT PAGE                 ; ^
                     131 ;
-                    132 <b><a name="DR2"        id="DR2"        >DR2    </a></b>     EQU *
+                    132 <b><a name="DR2"        id="DR2"        >DR2         </a></b>EQU *
                     133 ;
 1B28:A5 41          134             LDA ZPGWRK+1    ;BEGIN PATCH TO INSURE   *****  ; note: '*****' is BEGIN_PATCH
 1B2A:29 DF          135             AND #$DF        ; PROPER HIGH MEMORY CHECK.
@@ -365,7 +369,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B30:A1 42          138             LDA (ZPGFCB,X)  ; $3540)
 1B32:48             139             PHA
 1B33:85 26          140             STA LOC1        ;SAVE TEST VALUE
-1B35:98             141 <b><a name="DR2A"       id="DR2A"       >DR2A   </a></b>     TYA             ;(FIRST TIME Y=0)
+1B35:98             141 <b><a name="DR2A"       id="DR2A"       >DR2A        </a></b>TYA             ;(FIRST TIME Y=0)
 1B36:45 26          142             EOR LOC1        ;TEST EACH (ALLEDGED) MEMORY BYTE
 1B38:85 26          143             STA LOC1        ; 256 TIMES TO DETERMINE IF
 1B3A:98             144             TYA             ; IT IS REALLY GOOD MEMORY AND
@@ -376,18 +380,102 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B43:C8             149             INY             ;MAYBE IT WAS COINCIDENCE               ; Instead of testing *every* byte (256 times WTF!)
 1B44:D0 EF          150             BNE <a href="#DR2A">DR2A</a>        ; BRANCH UNLESS IT'S MATCHED 256 TIMES  ; just test the last byte of every page
 1B46:A4 43          151             LDY ZPGFCB+1    ;HIMEM IS 8K LOWER THEN WAS
-1B48:68             152             PLA             ;ORIGINALLY THOUGH!             ; Another wasted byte with JMP
-1B49:4C 51 1B       153             JMP <a href="#DR2C"                                                 ; Switch LDY PLA around and BNE instead
+1B48:68             152             PLA             ;ORIGINALLY THOUGHT!            ; Another wasted byte with JMP
+1B49:4C 51 1B       153             JMP <a href="#DR2C">DR2C</a>                                        ; Switch LDY PLA around and BNE instead
+1B4C:68             154 <b><a name="DR2B"       id="DR2B"       >DR2B        </a></b>PLA        ; ORIGINAL HIMEM PROVED GOOD
+1B4D:81 42          155             STA (ZPGFCB,X)  ;RESTORE BYTE ORIGINALLY MESSED WITH.
+1B4F:A4 41          156             LDY ZPGWRK+1    ;END OF PATCH   *****           ; ***** = END_PATCH
+1B51:C8             157 <b><a name="DR2C"       id="DR2C"       >DR2C        </a></b>INY             ; NEW END OF DOS
+1B52:8C 7D 1C       158             STY NEPAGE
+1B55:38             159             SEC
+1B56:98             160             TYA
+1B57:ED 7E 1C       161             SBC DOSLNG      ; MINUS DOS LENGTH
+1B5A:8D 7C 1C       162             STA NSPAGE      ; IS NEW START OF DOS
+1B5D:38             163             SEC
+1B5E:ED 7A 1C       164             SBC RSPAGE      ; MINUS OLD DOS START
+1B61:F0 9D          165             BEQ <a href="#BEGIN">BEGIN</a>       ; (BREIF NO DELTA)              ; ^ NOT mis-spelling: Branch If
+1B63:8D 7F 1C       166             STA DELTA       ; IS DELTA
+1B66:AD 7A 1C       167             LDA RSPAGE      ; RESET START PAGE TO NORMAL
+1B69:8D 0D 1D       168             STA ASTART+1
+1B6C:A9 1D          169             LDA #&lt;DBINIT    ; RESET PI RTN TO NORMAL        ; PI = ??? TODO:
+1B6E:8D 49 37       170             STA DI3+2
+1B71:A9 84          171             LDA #&gt;DBINIT
+1B73:8D 48 37       172             STA DI3+1
+                    173 ;
+                    174 ;RELOCATE ADR TABLES
+                    175 ;
+1B76:A2 00          176             LDX #0                                          ; === Page 113 ===
+1B78:86 40          177             STX ZPGWRK
+                    178 <b><a name="DR3"        id="DR3"        >DR3         </a></b>EQU *
 
+                    ??? <b><a name="DR4"        id="DR4"        >DR4         </a></b>EQU *
 
-CDETAB      EQU *
-            DFB 8*4
-            DW SC1
-            DW EC1
-            DW SC2
-            DW EC2
-            DW SC3
-            DW EC3
+                    ??? <b><a name="DR5"        id="DR5"        >DR5         </a></b>INY
+
+                    ??? <b><a name="DR6"        id="DR6"        >DR6         </a></b>EQU *
+
+                    ??? <b><a name="DR7"        id="DR7"        >DR7         </a></b>STX TEMP1
+
+                    ??? <b><a name="DR8"        id="DR8"        >DR8         </a></b>LDX #0
+
+                    ??? <b><a name="DR9"        id="DR9"        >DR9         </a></b>SEC
+
+                    ??? <b><a name="DR10"       id="DR10"       >DR10        </a></b>LDA (ZPGWRK),Y  ; BYTE FROM
+
+                    284 ;
+1C25:4C 54 1E       285 <b><a name="DR11"       id="DR11"       >DR11        </a></b>JMP <a href="#DBVECT">DBVECT+3</a>    ; DONE             ; DOSINIT, Page 51 -&gt; JMP DBINIT
+                    286             PAGE
+1C28:24             287 <b><a name="ADRTAB"     id="ADRTAB"     >ADRTAB      </a></b>DFB 9*4
+1C29:00 1D          288             DW  SAT1
+1C2B:56 1D          289             DW  EAT1
+1C2D:58 1D          290             DW  RUN
+1C2F:5A 1D          291             DW  RUN+2
+1C31:64 1D          292             DW  IBVT+2
+1C33:66 1D          293             DW  IBVT+4
+1C35:6C 1D          294             DW  AS1VT
+                    295             DW  AS1VT+4
+                    296             DW  AS2VT
+                    297             DW  AS2VT+4
+                    298             DW  AS2VT+6
+                    299             DW  AS2VT+8
+                    300             DW  SAT2
+                    301             DW  EAT2
+                    302             DW  BAIOB
+                    303             DW  ADOSLD+2                                    ; === Page 115 ===
+                    304             DW  IBDCTP
+                    305             DW  IBDCTP+2                                    ; File, Page TODO
+                    306             DFB 0,0,0,0
+                    307             DFB 0,0,0,0
+                    308             DFB 0,0,0,0
+                    309 <b><a name="CDETAB"     id="CDETAB"     >CDETAB      </a></b>EQU *
+                    310             DFB 8*4
+                    311             DW  SC1
+                    312             DW  EC1
+                    313             DW  SC2
+                    314             DW  EC2
+                    315             DW  SC3
+                    316             DW  EC3
+                    317             DW  SWADR1
+                    318             DW  EWADR1
+                    319             DW  ASC1
+                    320             DW  AEC1
+                    321             DW  PSC1
+                    322             DW  PEC1
+                    323             DW  ASC2
+                    324             DW  AEC2
+                    325             DW  SDP1
+                    326             DW  EDP1
+                    327 RSPAGE      DFB &lt;START
+                    328 REPAGE      DFB &lt;ENDOFDOS
+                    329 ;
+                    330 NSPAGE      DFB 0
+                    331 NEPAGE      DFB 0
+                    332 ;
+                    333 DOSLNG      DFB &lt;ENDOFDOS-START
+                    334 ;
+                    335 DELTA       FDB 0
+                    336 DPGCNT      DFB &lt;ENDOFDOS-START
+                    337             PAGE
 
 
 ; === BLDFTAB - Build File Tables ===
@@ -484,50 +572,6 @@ CDETAB      EQU *
 
 
 
-
-; === MSWAITR - Microsecond wait routine, Page 97, T0S4, $BA00 ===
-
-                    001                 SBTL '16-SECTOR MSWAIT'
-                    002 **************************
-                    003 *   MSWAIT SUBROUTINE    *
-                    004 **************************
-                    005 *                        *
-                    006 *  DELAYS A SPECIFIED    *
-                    007 *   NUMBER OF 100 USEC   *
-                    008 *   INTERVALS FOR MOTOR  *
-                    009 *   ON TIMING.           *
-                    010 *                        *
-                    011 *   ---- ON ENTRY ----   *
-                    012 *  A-REG: HOLDS NUMBER   *
-                    013 *        OF 100 USEC     *
-                    014 *        INTERVALS TO    *
-                    015 *        DELAY.          *
-                    016 *                        *
-                    017 *   ---- ON EXIT -----   *
-                    018 *  A-REG: HOLDS $00.     *
-                    019 *  X-REG: HOLDS $00.     *
-                    020 *  Y-REG: UNCHANGED.     *
-                    021 *  CARRY: SET.           *
-                    022 *                        *
-                    023 *  MONTIMEL, MONTIMEH    *
-                    024 *   ARE INCREMENTED ONCE *
-                    025 *   PER 100 USEC INTERVAL*
-                    026 *   FOR MOTON ON TIMING. *
-                    027 *    ---- ASSUMES ----   *
-                    028 * 1 USEC CYCLE TIME      *
-                    029 **************************
-                    030         DS 3,0              AVOID PAGE BOUNDARY CROSSING...           ; Typical bloated code ...
-3A00:A2 11          031 <b><a name="MSWAIT" id="MSWAIT">MSWAIT</a></b>      LDX #$11                                                    ; ... should just adjust algorithm timing instead!
-3A02:CA             032 <b><a name="MSW1"   id="MSW1"  >MSW1  </a></b>      DEX             ; DELAY 86 USEC.
-3A03:D0 FD          033             BNE <a href="#MSW1">MSW1</a>
-3A05:E6 46          034             INC MONTIMEL
-3A07:D0 02          035             BNE <a href="#MSW2">MSW2</a>        ; DOUBLE-BYTE
-3A09:E6 47          036             INC MONTIMEH    INCREMENT.
-3A0B:               037 <b><a name="MSW2"   id="MSW2"  >MSW2  </a></b>        SEC
-3A0C:               038             SBC #$1         DONE 'N' INTERVALS?
-3A0D:               039             BNE <a href="#MSWAIT">MSWAIT</a></b>            (A-REG COUNTS)
-3A0F:60                         RTS
-                    AEC1        EQU *           ;TELL RELOCATOR WHERE CORE ENDS
 
 
 
@@ -645,7 +689,7 @@ CDETAB      EQU *
 3894:AA             100             TAX             ;(2)
 3895:BD 29 3A       101             LDA NIBL,X      ;(4)  INDEX TO 7-BIT NIBL
 3898:A6 27          102             LDX SLOTZ       ;(3)
-389A:20 BB 38       103             JSR <a href="#WNIBL">WNIBL</a>        ;(6,9,6)  WRITE CHKSUM
+389A:20 BB 38       103             JSR <a href="#WNIBL">WNIBL</a>       ;(6,9,6)  WRITE CHKSUM
 389D:A9 DE          104             LDA #$DE        ;(2)  DM4, BIT SLIP MARK.
 389F:20 B8 38       105             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)    WRITE IT.
 38A2:A9 AA          106             LDA #$AA        ;(2)  DM5, BIT SLIP MARK.
@@ -653,7 +697,7 @@ CDETAB      EQU *
 38A7:A9 EB          108             LDA #$EB        ;(2)  DM6, BIT SLIP MARK.
 38A9:20 B8 38       109             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)    WRITE IT.
 38AC:A9 FF          110             LDA #$FF        ;(2) TURN-OFF BYTE.
-38AE:20 B8 38       111             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,9) WRITE IT.
+38AE:20 B8 38       111             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,9) WRITE IT.             ; TODO: 15,9,6??
 38B1:BD 8E C0       112             LDA Q7L,X       ;OUT OF WRITE MODE.
 38B4:BD 8C C0       113 <b><a name="WEXIT"      id="WEXIT"      >WEXIT</a></b>       LDA Q6L,X       ;TO READ MODE.
 38B7:60             114             RTS             ;RETURN FROM WRITE.
@@ -672,71 +716,457 @@ CDETAB      EQU *
 38BE:1D 8C C0       127             ORA Q6L,X       ; (4) CLOBBERS ACC, NOT CARRY
 38C1:60             128             RTS
 
-                                                                                    ; === T0S2 ===
+; === POSTNRD - Post Nibbilize Read, Page 101, T0S2, $B8C2 ===
 
-38C2:A0 00          ###             LDA #$0
-38C4:A2 56          ###             LDX #$56
-38C6:CA             ##              DEX
-38C7:
+                    001         SBTL '16-SECTOR POSTNIBLIZE'
+                    002 ***************************
+                    003 *                         *
+                    004 *    POSTNIBLIZE SUBR     *
+                    005 *    16-SECTOR FORMAT     *
+                    006 *                         *
+                    007 ***************************
+                    008 *                         *
+                    009 *  CONVERTS 6-BIT NIBLS   *
+                    010 *  OF FORM 00ABCDEF IN    *
+                    011 *  NBUF1 AND NBUF2 INTO   *
+                    012 *  256 BYTES OF USER      *
+                    013 *  DATA IN BUF.           *
+                    014 *                         *
+                    015 *   ---- ON ENTRY ----    *
+                    016 *                         *
+                    017 *  X-REG: HOLDS SLOTNUM   *
+                    018 *            TIMES $10.   *
+                    019 *                         *
+                    020 *  BUF IS 2-BYTE POINTER  *
+                    021 *    TO 256 BYTES OF USER *
+                    022 *    DATA TO BE CONVERTED *
+                    023 *    TO 6-BIT NIBLS IN    *
+                    024 *    NBUF1 AND NBUF2      *
+                    025 *    PRIOR TO WRITE.      *
+                    026 *                         *
+                    027 *  T0 CONTAINS BYTE COUNT *
+                    028 *    CODE0 = 256 BYTES    *
+                    029 *    CODE1 =   1 BYTE     *
+                    030 *    CODE2 =   2 BYTER    *
+                    031 *                         *
+                    032 *    CODE 255=255 BYTES   *
+                    033 *                         *
+                    034 *   ---- ON EXIT -----    *
+                    035 *                         *
+                    036 *  A-REG UNCERTAIN.       *
+                    037 *  Y-REG SAME AS T0.      *
+                    038 *  X-REG UNCERTAIN.       *
+                    039 *  CARRY SET.             *
+                    040 *                         *
+                    041 *  6-BIT NIBLS OF FORM    *
+                    042 *    00ABCDEF IN NBUF1    *
+                    043 *    AND NBUF2.           *
+                    044 *      (242 NIBLS)        *
+                    045 ***************************
+38C2:A0 00          046 <b><a name="POSTNB16"   id="POSTNB16"   >POSTNB16    </a></b>LDA #$0         USER DATA BUF IDX.              ; T0S2
+38C4:A2 56          047 <b><a name="POST1"      id="POST1"      >POST1       </a></b>LDX #$56        INIT NBUF2 INDEX.
+38C6:CA             048 <b><a name="POST2"      id="POST1"      >POST2       </a></b>DEX             IDX $55 TO $0
+38C7:30 FB          049             BMI <a href="#POST1">POST1</a>       WRAPAROUND IF NEG.              ; ^
+38C9:B9 00 3B       050             LDA NBUF1,Y
+38CC:5E 00 3C       051             LSR NBUF2,X     SHIFT 2 BITS FROM
+38CF:2A             052             ROL             A CURRENT NBUF2 NIBL
+38D0:5E 00 3C       053             LSR             INTO CURRENT NBUF1
+38D3:2A             054             ROL             A NIBL.                         ; === page 102 ===
+38D4:91 3E          055             STA (BUF),Y     BYTE OF USER DATA.
+38D6:C8             056             INY             NEXT USER BYTE.
+38D7:C4 26          057             CPY T0          DONE IF EQUAL T0.
+38D9:D0 EB          058             BNE <a href="#POST2">POST2</a>                                       ; ^
+38DB:60             059             RTS             RETURN.
+                    060                 SBTL '16-SECTOR READ'
 
-; === RWTSTWO - Read Write Track Sector - Part 2 ===
+; === MSWAITR - Microsecond wait routine, Page 97, T0S4, $BA00 ===
 
-3E47:24                         DFB $24         ; SKIP OVER NEXT BYTE WITH BIT OPCODE       ; BIT $zp
-3E48:38                         SEC             ; INDICATE AN ERROR
-3E49:A0 0D                      LDY #$0D        ; GIVE HIM ERROR#
-3E4B:91 48                      STA (IOBPL),Y
-3E4D:BD 88 C0                   LDA MOTOROFF,X  ; TURN IT OFF...
-                        LST OFF
-                        DO DIAGMOD<span style="background-color:#EEE">
-                    * AVERAGE LATENCY = LCOUNT/SCOUNT                   
-                            LDA LCOUNT          ; GET TOTAL LATENCY     
-                            LDY #0              ; CLEAR QUOTIENT        
-                    <i><a name="DIVIDE" id="DIVIDE" >DIVIDE</a></i>  EQU *                                       
-                            CMP SCOUNT          ; DONE?                 
-                            BCC <a href="#PRTLAT"   >PRTLAT</a>          ; =>YES.PRINT IT        
-                            SBC SCOUNT          ; REMOVE SCOUNT         
-                            INY                 ; INCREMENT QUOTIENT    
-                            BNE <a href="#DIVIDE">DIVIDE</a>                                  
-                    *                                                   
-                    <i><a name="PRTLAT" id="PRTLAD">PRTLAT</a></i>  TYA                                         </span>                    ; Print Latency<span style="background-color:#EEE">
-                            AND #$0F            ; MAX LATENCY=15        
-                            ORA #$B0            ; MAKE ASCII            </span>                    ; No, this is make Apple Text, as ASCII = $00..$7F<span style="background-color:#EEE">
-                            CMP #$BA            ; IS IT A-F             
-                            BCC <a href="#PRTL2" >PRTL2</a>           ;=>NO                   
-                    <i><a name="PRTL2" id="PRTL2">PRTL2</a></i>   STA TL12            ; STUFF LATENCY COUNT   
-                            LDA #SP             ; SAY 'RWTS NOT ACTIVE' 
-                            STA TL1                                     </span>
-                        FIN
-                        LST ON
-3E50:60                         RTS             ; AND RETURN.
-                    <b><a name="WRIT" id="WRIT"    >WRIT</a></b>        EQU *
-                        LST OFF
-                        DO DIAGMOD<span style="background-color:#EEE">
-                            LDA #TC8            ; SAY 'WRITING'         
-                            STA TL8                                     </span>
-                        FIN
-                        LST ON
-3E51:20 2A 38                   JSR <a href="#WRITE16">WRITE16</a>     ; WRITE NYBBLES NOW          ; ^ WRITRN, page 137
+                    001                 SBTL '16-SECTOR MSWAIT'
+                    002 **************************
+                    003 *   MSWAIT SUBROUTINE    *
+                    004 **************************
+                    005 *                        *
+                    006 *  DELAYS A SPECIFIED    *
+                    007 *   NUMBER OF 100 USEC   *
+                    008 *   INTERVALS FOR MOTOR  *
+                    009 *   ON TIMING.           *
+                    010 *                        *
+                    011 *   ---- ON ENTRY ----   *
+                    012 *  A-REG: HOLDS NUMBER   *
+                    013 *        OF 100 USEC     *
+                    014 *        INTERVALS TO    *
+                    015 *        DELAY.          *
+                    016 *                        *
+                    017 *   ---- ON EXIT -----   *
+                    018 *  A-REG: HOLDS $00.     *
+                    019 *  X-REG: HOLDS $00.     *
+                    020 *  Y-REG: UNCHANGED.     *
+                    021 *  CARRY: SET.           *
+                    022 *                        *
+                    023 *  MONTIMEL, MONTIMEH    *
+                    024 *   ARE INCREMENTED ONCE *
+                    025 *   PER 100 USEC INTERVAL*
+                    026 *   FOR MOTON ON TIMING. *
+                    027 *    ---- ASSUMES ----   *
+                    028 * 1 USEC CYCLE TIME      *
+                    029 **************************
+                    030         DS 3,0              AVOID PAGE BOUNDARY CROSSING... ; Typical bloated code ...
+3A00:A2 11          031 <b><a name="MSWAIT"     id="MSWAIT"     >MSWAIT      </a></b>LDX #$11                                        ; ... should just adjust algorithm timing instead!
+3A02:CA             032 <b><a name="MSW1"       id="MSW1"       >MSW1        </a></b>DEX             ; DELAY 86 USEC.
+3A03:D0 FD          033             BNE <a href="#MSW1">MSW1</a>
+3A05:E6 46          034             INC MONTIMEL
+3A07:D0 02          035             BNE <a href="#MSW2">MSW2</a>        ; DOUBLE-BYTE
+3A09:E6 47          036             INC MONTIMEH    INCREMENT.
+3A0B:38             037 <b><a name="MSW2"       id="MSW2"       >MSW2        </a></b>SEC
+3A0C:E9 01          038             SBC #$1         DONE 'N' INTERVALS?
+3A0E:D0 F0          039             BNE <a href="#MSWAIT">MSWAIT</a></b>            (A-REG COUNTS)
+3A10:60             040             RTS
+                    041 AEC1        EQU *           ;TELL RELOCATOR WHERE CORE ENDS
+                    042 **************************
+                    043 *  PHASE ON-, OFF-TIME   *
+                    044 *   TABLES IN 100-USEC   *
+                    045 *   INTERVALS. (SEEK)    *
+                    046 **************************
+3A11:01 30 28       047 ONTABLE     DFB 1,$30,$28
+3A14:24 20 1E       048             DFB $24,$20,$1E
+3A17:1D 1C 1C       049             DFB $1D,$1C,$1C
+3A1A:1C 1C 1C       050             DFB $1C,$1C,$1C
+3A1D:70 2C 26       051 OFFTABLE    DFB $70,$2C,$26
+3A20:22 1F 1E       052             DFB $22,$1F,$1E
+3A23:1D 1C 1C       053             DFB $1D,$1C,$1C
+3A26:1C 1C 1C       054             DFB $1C,$1C,$1C                                 ; === Page 98 ===
+                    055             SBTL '16-SECTOR NYBBLE TABLES'
 
+
+; === RWTSTWO - Read Write Track Sector - Part 2, Page 124, T0S8, $BE47 ===
+
+                    001 *
+                    002 * DISK IS NOW UP TO SPEED: READ IT!
+                    003 * NOW CHECK: IF IT IS NOT THE FORMAT DISK COMMAND,
+                    004 * LOCATE THE CORRECT SECTOR FOR THIS OPERATION.
+                    005 *
+                    006 <b><a name="TRYTRK"     id="TRYTRK"     >TRYTRK      </a></b>EQU *
+3DAB:A0 0C          007             LDY #$0C
+3DAD:B1 48          008             LDA (IOBPL),Y   ;GET COMMAND CODE #
+3DAF:F0 5A          009             BEQ <a href="#GALLDONE">GALLDONE</a>    ;IF NULL COMMAND, GO HOME TO BED.           ; v
+3DB1:C9 04          010             CMP #$04        ;FORMAT THE DISK?               ; *sigh* RWTS_CMD_FORMAT = 4
+3DB3:F0 58          011             BEQ <a href="#FORMDSK">FORMDSK</a>     ;ALLRIGHT,ALLRIGHT, I WILL...
+3DB5:6A             012             ROR A           ;SET CARRY=1 FOR READ, 0 FOR WRITE
+3DB6:08             013             PHP             ;AND SAVE THAT
+3DB7:B0 03          014             BCS <a href="#TRYTRK2">TRYTRK2</a>     ;MUST PRENIBBLE FOR WRITE.
+                    015     LST OFF
+                    016     DO DIAGMOD<span style="background-color:#EEE">
+                    017         LDY #TC17           ;SAY 'PRENIBBLIZING'
+                    018         STY TL7                                 </span>
+                    019     FIN
+                    020     LST ON
+3DB9:20 00 38       021             JSR <a href="#PRENIB16">PRENIB16</a>
+                    022     LST OFF
+                    023     DO DIAGMOD<span style="background-color:#EEE">
+                    024         LDY #SP             ;PRENIB FINISHED    
+                    025         STY TL7                                 </span>
+                    026     FIN
+                    027     LST ON
+3DBC:A0 30          028 <b><a name="TRYTRK2"    id="TRYTRK2"    >TRYTRK2     </a></b>LDY #$30        ;ONLY 48 RETRIES OF ANY KIND.
+3DBE:8C 78 05       029             STY RETRYCNT
+3DC1:AE F8 05       030 <b><a name="TRYADR"     id="TRYADR"     >TRYADR      </a></b>LDX SLOT        ;GET SLOT NUM INTO X-REG
+                    031     LST OFF
+                    032     DO DIAGMOD<span style="background-color:#EEE">
+                    033         LDA #TC4            ;SAY 'READING ADDRESS'          
+                    034         STA TL4                                             
+                    035         LDA #SP             ;SAY 'NO ADDRESS ERROR' (YET)   
+                    036         STA TL6                                             </span>
+                    037     FIN
+                    038     LST ON
+3DC4:20 44 39       039             JSR <a href="#RDADR16">RDADR16</a>     ;READ NEXT ADDRESS FIELD        ; ^
+                    040     LST OFF
+                    041     DO DIAGMOD<span style="background-color:#EEE">
+                    042         LDA #SP             ;ADDRESS-READ DONE              
+                    043         STA TL4                                             </span>
+                    044     FIN
+                    045     LST ON
+3DC7:90 24          046             BCC <a href="#RDRIGHT">RDRIGHT</a>     ;IF READ IT RIGHT, HURRAH!      ; v
+                    047     LST OFF
+                    048     DO DIAGMOD<span style="background-color:#EEE">
+                    049         LDA #TC6            ;ADDRESS-READ DONE              
+                    050         STA TL4                                             </span>
+                    051     FIN
+                    052     LST ON
+3DC9:CE 78 05       053 <b><a name="TRYADR2"    id="TRYADR2"    >TRYADR2     </a></b>DEC RETRYCNT    ;ANOTHER MISTAEK!!              ; **irony**
+3DCC:10 F3          054             BPL <a href="#TRYADR">TRYADR</a>      ; WELL, LET IT GO THIS TIME..   ; === page 123 ===
+                    055 *
+                    056 * RRRRRECALIBRATE !!!!
+                    057 *
+                    058 RECAL       EQU *
+3DCE:AD 78 04       059             LDA CURTRK
+3DD1:48             060             PHA             ;SAVE TRACK WE REALLY WANT
+3DD2:A9 60          061             LDA #$60        ;RECALIBRATE ALL OVER AGAIN!    ; /sarcasm Yeah ... 
+3DD4:20 95 3E       062             JSR <a href="#SETTRKK">SETTRKK</a>     ;PRETEND TO BE ON TRACK 96      ; Let's bang the user's drive head against the case ...
+3DD7:CE F8 06       063             DEC RECALCCNT   ;ONCE TOO MANY??                ; ... that will make it work ... NOT!
+3DDC:F0 28          064             BEQ <a href="#DRVERR">DRVERR</a>      ;TRIED TO RECALIBRATE TOO MANY TIMES, ERROR! ; v
+3DDE:A9 04          065             LDA #MAXSEEKS   ;RESET THE
+3DDE:8D F8 04       066             STA SEEKCNT     ; SEEK COUNTER
+3DE1:A9 00          067             LDA #$00
+3DE3:20 5A 3E       068             JSR <a href="#MYSEEK">MYSEEK</a>      ;MOVE TO TRACK 00               ; v
+3DE6:68             069             PLA
+3DE7:4C 5A 3E       070 <b><a name="RESEEK"     id="RESEEK"     >RESEEK      </a></b>JSR <a href="#MYSEEK">MYSEEK</a>      ;GO TO CORRECT TRACK THIS TIME!
+3DEA:4C BC 3D       071             JMP <a href="#TRYTRK2">TRYTRK2</a>     ;LOOP BACK, TRY AGAIN ON THIS TRACK
+                    072 *
+                    073 * HAVE NOW READ
+                    074 * MAKE SURE THIS IS THE TRACK, SECTOR, AND VOLUME DESIRED.
+                    075 *
+3DED:A4 2E          076 <b><a name="RDRIGHT"    id="RDRIGHT"    >RDRIGHT     </a></b>LDY TRACK       ;ON THE RIGHT TRACK?
+3DEF:CC 78 04       077             CPY CURTRK
+3DF2:F0 1C          078             BEQ <a href="#RTTRK">RTTRK</a>       ;IF SO, GOOD                    ; v
+                    079 * NO, DRIVE WAS ON A DIFFERENT TRACK. TRY
+                    080 * RESEEKING/RECALIBRATING FROM THIS TRACK
+3DF4:AD 78 04       081             LDA CURTRK      ;PRESERVE DESTINATION TRACK
+3DF7:48             082             PHA
+3DF8:98             083             TYA
+3DF9:20 95 3E       084             JSR <a href="#SETTRK">SETTRK</a>
+3DFC:68             085             PLA
+3DFD:CE F8 04       086             DEC SEKCNT      ;SHOULD WE RESEEK?
+3E00:D0 E5          087             BNE <a href="#RESEEK">RESEEK</a>      ;=&gt;YES, RESEEK                  ; ^ === T0S8 ===
+3E02:F0 CA          088             BEQ <a href="#RECAL" >RECAL</a>       ;=&gt;NO, RECALIBRATE!             ; ^
+                    089 ****
+3E04:68             090 <b><a name="DRVERR"     id="DRVERR"     >DRVERR      </a></b>PLA             ;REMOVE CURTRK
+3E05:A9 40          091             LDA #IBDERR     ;BAD DRIVE ERROR
+3E07:28             092 <b><a name="JMPTO1"     id="JMPTO1"     >JMPTO1      </a></b>PLP
+3E08:4C 48 3E       093             JMP <a href="#HNDLERR">HNDLERR</a>
+3E0B:F0 39          094 <b><a name="GALLDONE"   id="GALLDONE"   >GALLDONE    </a></b>BEQ <a href="#ALLDONE">ALLDONE</a>                                     ; v
+3E0D:4C AF 3E       095 <b><a name="FORMDSK"    id="FORMDSK"    >FORMDSK     </a></b>JMP <a href="#DSKFORM">DSKFORM</a>     ;=&gt;GO TO IT!                    ; v
+                    096 *
+                    097 * DRIVE IS ON RIGHT TRACK, CHECK VOLUME MISMATCH
+                    098 *
+3E10:A0 03          099 <b><a name="RTTRK"      id="RTTRK"      >RTTRK       </a></b>LDY #3          ;IS THE RIGHT DISK IN?
+3E12:B1 48          100             LDA (IOBPL),Y   ;GET DESIRED VOLUM
+3E14:48             101             PHA             ;PRESERVE DESIRED VOLUME#
+3E15:A5 2F          102             LDA VOLUME      ;GET ACTUAL VOLUME HERE
+3E17:A0 0E          103             LDY #$0E        ;TELL OPSYS WHAT VOLUME WAS THERE ; *sigh* IOB_OFFSET_VOL = E
+3E19:91 48          104             STA (IOBPL),Y
+3E1B:68             105             PLA             ;GET DESIRED VOLUME BACK
+3E1C:F0 08          106             BEQ <a href="#CORRECTVOL">CORRECTVOL</a>  ;DESIRED VOLUME 00 MATCHES ALL. ; v
+3E1E:C5 2F          107             CMP VOLUME
+3E20:F0 04          108             BEQ <a href="#CORRECTVOL">CORRECTVOL</a>  ;YUP, IT WAS RIGHT!             ; v
+3E22:A9 20          109             LDA #IBVMME     ;HE SWITCHED DISCS!
+3E24:D0 E1          110             BNE <a href="#JMPTO1">JMPTO1</a>      ;ALWAYS TAKEN                   ; ^
+                    111 <b><a name="CORRECTVOL" id="CORRECTVOL" >CORRECTVOL  </a></b>EQU *
+3E26:A0 05          112             LDY #5                                          ; *sigh* IOB_OFFSET_SECTOR = 5
+3E28:B1 48          113             LDA (IOBPL),Y   ; TO ALLOW FOR INTERLEAVE
+3E2A:A8             114             TAY
+3E2B:B9 B8 3F       115             LDA INTRLEAV,Y  ;COMPUTE PHYSICAL SECTOR        ; DOS Sector Interleave/Skew Mapping
+3E2E:C5 2D          116             CMP SECT        ;DID WE GET THE SECTOR?         ; === page 124 ===
+                    117     LST OFF
+                    118     DO DIAGMOD<span style="background-color:#EEE">
+                    119         BEQ GOTSECT         ;=&gt;WE FOUND IT!                         
+                    120         LDA #TC5            ;SAY 'LATENCY'                          
+                    121         STA TL5                                                     
+                    122         LDA SCOUNT          ;ARE WE WAITING FOR FIRST SECTOR?       
+                    123         BEQ NOLAT           ;=&gt;YES, LATENCY UNPREDICTABLE ANYWAY    
+                    124         INC LCOUNT          ;NO, COUNT SECTORS MISSED               
+                    125 <i><a name="NOLAT"      id="NOLAT"      >NOLAT   </i></b>EQU *                                                       
+                    126         JMP TRYADR2         ;NOW..GET CORRECT SECTOR..              </span>
+                    127     ELSE
+                    128     LST ON
+3E30:D0 97          129             BNE <a href="#TRYADR2">TRYADR2</a>     ;NO, KEEP TRYING.               ; ^
+                    130     FIN
+                    131 *
+                    132 * HOORAY! WE GOT THE RIGHT SECTOR!
+                    133 *
+                    134 <b><a name="GOTSECT"    id="GOTSECT"    >GOTSECT     </a></b>EQU *
+                    135     LST OFF
+                    136     DO DIAGMOD<span style="background-color:#EEE">
+                    137         LDA #SP             ;SAY 'NO LATENCY'                   
+                    138         STA TL5                                                 
+                    139         INC SCOUNT          ;BUMP 'SECTORS-ACCESSED' COUNT      </span>
+                    140     FIN
+                    141     LST ON
+3E32:28             142             PLP
+3E33:90 1C          143             BCC <a href="#WRIT">WRIT</a>        ;CARRY WAS SET FOR READ OPERATION. ; v
+                    144     LST OFF
+                    145     DO DIAGMOD<span style="background-color:#EEE">
+                    146         LDA #TC9            ;SAY 'READING'                  
+                    147         STA TL9                                             
+                    148         LDA #SP                                             
+                    149         STA TL10                                            </span>
+                    150     FIN
+                    151     LST ON
+3E35:20 DC 38       152             JSR <a href="#READ16">READ16</a>      ;CLEARED FOR WRITE
+                    153     LST OFF
+                    154     DO DIAGMOD<span style="background-color:#EEE">
+                    155         LDA #SP                                             
+                    156         STA TL9                                             </span>
+                    157     FIN
+                    158     LST ON
+3E38:08             159             PHP             ;SAVE STATUS OF READ OPERATION
+                    160     LST OFF
+                    161     DO DIAGMOD<span style="background-color:#EEE">
+                    162         BCC GOODREAD        ;NO ERROR                       
+                    163         LDA #TC10           ;SAY 'READ ERROR'               
+                    164         STA TL10                                            
+                    165         JMP TRYADR2         ;RETRY ON ERROR                 
+                    166 *                                                           
+                    167 GOODREAD EQU *                                              </span>
+                    168     ELSE
+                    169     LST ON
+3E39:B0 8E          170             BCS <a href="#TRYADR2">TRYADR2</a>     ;CARRY SET UPON RETURN IF BAD READ ;  ^
+                    171     FIN
+3E3B:28             172             PLP             ;CAREFUL OF STACK
+3E3C:A2 00          173             LDX #0          ;SET TO POSTNIBLIZE
+3E3E:86 26          174             STX T0          ; All 256 BYTES OF THE SECTOR
+                    175     LST OFF
+                    176     DO DIAGMOD<span style="background-color:#EEE">
+                    177         LDA #TC11           ;SAY 'POSTINIBBLIZING'          </span>;POST_IN_NIBBLIZING<span style="background-color:#EEE">
+                    178         STA TL11                                            </span>
+                    179     FIN                                                     ; === page 125 ===
+                    180     LST ON
+3E40:20 C2 38       181             JSR <a href="#POSTNB16">POSTNB16</a>    ;DECODE INTO REAL WORLD DATA
+                    182     LST OFF
+                    183     DO DIAGMOD<span style="background-color:#EEE">
+                    184         LDA #SP             ;POSTNIB COMPLETED              
+                    185         STA TL11                                            </span>
+                    186     FIN
+                    187     LST ON
+3E43:AE F8 05       188             LDX SLOT        ;RESTORE SLOTNUM INTO X         ; I never would have guessed ...
+3E46:18             189 <b><a name="ALLDONE"    id="ALLDONE"    >ALLDONE     </a></b>CLC
+3E47:24             190             DFB $24         ;SKIP OVER NEXT BYTE WITH BIT OPCODE        ; BIT $zp
+3E48:38             191 <b><a name="HNDLERR"    id="HNDLERR"    >HNDLERR     </a></b>SEC             ;INDICATE AN ERROR
+3E49:A0 0D          192             LDY #$0D        ;GIVE HIM ERROR#                ; IOB_OFFSET_ERROR = $D
+3E4B:91 48          193             STA (IOBPL),Y
+3E4D:BD 88 C0       194             LDA MOTOROFF,X  ; TURN IT OFF...
+                    195     LST OFF
+                    196     DO DIAGMOD<span style="background-color:#EEE">
+                    197 * AVERAGE LATENCY = LCOUNT/SCOUNT                           
+                    198         LDA LCOUNT          ; GET TOTAL LATENCY             
+                    199         LDY #0              ; CLEAR QUOTIENT                
+                    200 <i><a name="DIVIDE" id="DIVIDE" >DIVIDE  </a></i>EQU *                                               
+                    201         CMP SCOUNT          ; DONE?                         
+                    202         BCC <a href="#PRTLAT"   >PRTLAT</a>          ; =&gt;YES.PRINT IT                
+                    203         SBC SCOUNT          ; REMOVE SCOUNT                 
+                    204         INY                 ; INCREMENT QUOTIENT            
+                    205         BNE <a href="#DIVIDE">DIVIDE</a>                                          
+                    206 *                                                           
+                    207 <i><a name="PRTLAT" id="PRTLAD">PRTLAT</a></i>  TYA                                                 </span>; Print Latency<span style="background-color:#EEE">
+                    208         AND #$0F            ; MAX LATENCY=15                
+                    209         ORA #$B0            ; MAKE ASCII                    </span>; No, this is make Apple Text, as ASCII = $00..$7F<span style="background-color:#EEE">
+                    210         CMP #$BA            ; IS IT A-F                     
+                    211         BCC <a href="#PRTL2" >PRTL2</a>           ;=&gt;NO                           
+                    212         ADC #6              ;ADD 7 (INCLUDES CARRY)         
+                    213 <i><a name="PRTL2" id="PRTL2">PRTL2</a></i>   STA TL12            ; STUFF LATENCY COUNT           
+                    214         LDA #SP             ; SAY 'RWTS NOT ACTIVE'         
+                    215         STA TL1                                             </span>
+                    216     FIN
+                    217     LST ON
+3E50:60             218             RTS
+                    219 <b><a name="WRIT"       id="WRIT"       >WRIT        </a></b>EQU *
+                    220     LST OFF
+                    221     DO DIAGMOD<span style="background-color:#EEE">
+                    222        LDA #TC8             ; SAY 'WRITING'                 
+                    223        STA TL8                                              </span>
+                    224     FIN
+                    225     LST ON
+3E51:20 2A 38       226             JSR <a href="#WRITE16">WRITE16</a>     ; WRITE NYBBLES NOW             ; ^ WRITRN, page 137
+
+                    227     LST OFF
+                    228     DO DIAGMOD<span style="background-color:#EEE">
+                    229        LDA #SP              ; SAY 'WRITING'                 
+                    230        STA TL8                                              </span>
+                    231     FIN
+                    232     LST ON
+3E54:90 F0          233             BCC <a href="#ALLDONE">ALLDONE</a>     ;IF NO ERRORS.
+3E56:A9 10          234             LDA #IBWPER     ;DISK IS WRITE PROTECTED!!
+3E58:B0 EE          235             BCS <a href="#HNDLERR">HNDLERR</a>     ;ALWAYS TAKEN
+                    236 *
+                    237 * THIS IS THE 'SEEK' ROUTINE
+                    238 *  SEEKS TRACK 'N' IN SLOT #X/$10
+                    239 * IF DRIVNO IS NEGATIVE, ON DRIVE 1
+                    240 * IF DRIVNO IS POSITIVE, ON DRIVE 2
+                    241 *
+3E5A:48             242 <b><a name="MYSEEK"     id="MYSEEK"     >MYSEEK      </a></b>PHA             ; AND PRESERVE A-REGISTER       ; === page 126 === Uhm, OK
+                    243     LST OFF
+
+                    2??     LST ON
+
+
+3E86:10 03          275             BPL <a href="#GOSEEK">GOSEEK</a>      ;ALWAYS TAKEN
+3E88:99 78 04       276 <b><a name="ISDRV1"     id="ISDRV1"     >ISDRV1      </a></b>STA DRV1TRK,Y
+3E8B:4C A0 B9       277 <b><a name="GOSEEK"     id="GOSEEK"     >GOSEEK      </a></b>JMP <a href="#SEEK">SEEK</a>        ;GO THERE!
+3E8E:8A             278 <b><a name="XTOY"       id="XTOY"       >XTOY        </a></b>TXA
+3E8F:4A             279             LSR A
+3E90:4A             280             LSR A
+3E91:4A             281             LSR A
+3E92:4A             282             LSR A
+3E93:A8             283             TAY
+3E94:60             284             RTS
+                    285 *
+                    286 * THIS SUBROUTINE SETS THE SLOT DEPENDENT TRACK
+                    287 * LOCATION.
+                    288 *
+3E95:48             289 <b><a name="SETTRK"     id="SETTRK"     >SETTRK      </a></b>PHA             ;PRESERVE DESTINATION TRACK
+3E96:A0 02          290             LDY #$02                                        ; *sigh* IOB_OFFSET_DRIVE = $2
+3E98:B1 48          291             LDA (IOBPL),Y
+3E9A:6A             292             ROR A           ;GET DRIVE # INTO CARRY
+3E9B:66 35          293             ROR DRIVNO      ;INTO (DRIVNO)
+3E9D:20 8E 3E       294             JSR <a href="#XTOY">XTOY</a>        ;SET UP Y-REG
+3EA0:68             295             PLA
+3EA1:0A             296             ASL A           ;ASSUME TRACK IS HELD*2
+3EA2:24 35          297 SETTRK2     BIT DRIVNO                                      ; unused label
+3EA4:30 05          298             BMI <a href="#ONDRV1">ONDRV1</a>      ;IF ON DRIVE 1(1), DRIVNO MINUS
+3EA6:99 F8 04       299             STA DRV2TRK,Y
+3EA9:10 03          300             BPL <a href="#SETRTS">SETRTS</a>
+3EAB:99 78 04       301 <b><a name="ONDRV1"     id="ONDRV1"     >ONDRV1      </a></b>STA DRV1TRK,Y
+3EAE:60             302 <b><a name="SETRTS"     id="SETRTS"     >SETRTS      </a></b>RTS
+
+====
 
 
 </pre>
 
-<h1>Symbols</h1>
+<h1>Symbols (Alphabetical)</h1>
+<pre>
+    DBVECT      = $1E51
+    SC1         = $1D84
+    EC1         = $2884
+    SC2         = $2AFD
+    EC2         = $3397
+    SC3         = $365D
+    EC3         = $37E0
+    SWADR1      = $3C56
+    EWADR1      = $3CDF
+
+    SAT1        = $1D00
+    EAT1        = $1D56
+    RUN         = $1D58
+    IBVT        = $1D62
+
+    PRENIB16    = $B800
+</pre>
+
+<h1>Symbols (Address)</h1>
 
 <pre>
-DBVECT      = $1E51
-SC1         = $1D84
-EC1         = $2884
-SC2         = $2AFD
-EC2         = $3397
-SC3         = $365D
-EC3         = $37E0
-SWADR1      = $3C56
-EWADR1      = $3CDF
-
 </pre>
+
+Apple ][ Forever!
 
 </body>
 </html>
 
+<!--
+
+Well aren't you a curious hacker!
+
+Here's a trick to boot from Drive 2 :-)
+NOTE: You'll need a DOS that isn't brain dead.
+
+; Apple //e
+9600<C600.C700M
+9636:8B
+9600G
+
+; Apple //c
+9600<C600.C700M
+96xx:
+9600G
+
+-->
