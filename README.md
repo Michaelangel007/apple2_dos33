@@ -124,7 +124,7 @@ Misc. Files:
 |:---|:----|:----|:---------------------------|:------------------------|
 |T0S0|$3600|$B600| 01 A5 27 C9 .. 00 00 36 09 | BOOTLDR -- also loaded at $0800             |
 |T0S1|$3700|$B700| 8E E9 37 8E .. 01 EF D8 00 | BOOTLDR (cont.) -- last byte wasted         |
-|T0S2|$3800|$B800| A2 00 A0 00 .. AD D0 E7 A9 | PRENIBL @ $00..$29, WRITRTN @ $2A, POSTNBL  |
+|T0S2|$3800|$B800| A2 00 A0 00 .. AD D0 E7 A9 | PRENIBL @ $00..$29, WRITRTN @ $2A, POSTNRD  |
 |T0S3|$3900|$B900| 00 88 84 26 .. 60 00 00 00 | wastes 3 bytes                              |
 |T0S4|$3A00|$BA00| A2 11 CA D0 .. 3C 3D 3E 3F | MSWAITR page 97                             |
 |T0S5|$3B00|$BB00| 00 00 00 00 .. 00 00 00 00 | MSWAITR page 100 - NBUF1 wasted zero sector |
@@ -175,8 +175,8 @@ DOS always translates a logical sector # into a raw physical sector number.
 
 This is done in two places:
 
-* BOOTLDR, Page #, Line #
-* RWTS, Page #, Line #
+* BOOTLDR, Page #9, Line #, LDA TABLE,X
+* MSWAITR, Page #123, Line #105, LDA INTRLEAV,Y
 
 This DOS (sector) order is:
 
