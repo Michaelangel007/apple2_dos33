@@ -206,6 +206,9 @@ span.adr {
     color: #F80;
     font-weight: bold;
 }
+span.line {
+    color: #080;
+}
 span.page {
     color: #080;
 }
@@ -332,10 +335,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     027             INCLUDE PRENIBL,,1
                     028             INCLUDE <a href="#WRITRTN">WRITRTN</a>,,1
                     029             INCLUDE <a href="#POSTNRD">POSTNRD</a>,,1
-                    030             INCLDUE RDADSEK,,1
+                    030             INCLDUE <a href="#RDADSEK">RDADSEK</a>,,1
                     031             INCLUDE <a href="#MSWAITR">MSWAITR</a>,,1                              ; $3A00 .. $3Cxx, T0$4 - T0$6
-                    032             INCLUDE WRITADR,,1
-                    033             INCLUDE RWTSONE,,1
+                    032             INCLUDE <a href="#WRITADR">WRITADR</a>,,1
+                    033             INCLUDE <a href="#RWTSONE">RWTSONE</a>,,1
                     034             INCLUDE <a href="#RWTSTWO">RWTSTWO</a>,,1
                     035             INCLUDE <a href="#FORMATR">FORMATR</a>,,1
                     036             INCLUDE DOSPTCH,,1
@@ -441,13 +444,13 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     098 *
                     099             REP 40
                     100             PAGE
-1B00:4C 84 1D       101 <b><a name="BEGIN"      id="BEGIN"      >BEGIN       </a></b>JMP <a href="#DBINIT">DBINIT</a>                                      ; === Run-Time Mem = $1B00 ===
+1B00:4C 84 1D       101 <a name="BEGIN"      id="BEGIN"      >BEGIN       </a>JMP <a href="#DBINIT">DBINIT</a>                                      ; === Run-Time Mem = $1B00 ===
                     102 ;                                                           ; Loaded in at $38D4
-                    103 <b><a name="DOSREL"     id="DOSREL"     >DOSREL      </a></b>EQU *                                           ; Called from BOOTLDR, page 12, line # TODO:
+                    103 <a name="DOSREL"     id="DOSREL"     >DOSREL      </a>EQU *                                           ; Called from BOOTLDR, page 12, line # TODO:
                     104 ;
                     105 ; GET RELOCATION PARMS
                     106 ;
-                    107 <b><a name="DR0"        id="DR0"        >DR0         </a></b>EQU *
+                    107 <a name="DR0"        id="DR0"        >DR0         </a>EQU *
                     108 LOC1        EQU $26
 1B03:A9 BF          109             LDA #$BF        ; START AT BF00                 ; Top of 48K
 1B05:85 41          110             STA ZPGWRK+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
@@ -842,6 +845,30 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 <hr>; === <b class="file"><a name="COREQUS">COREQUS</a></b> - Core Equates, Page <span class="page">24</span>, <b class="ts">n/a</b>, $<span class="adr">n/a</span> ===<hr>
 
+                    153 ************************
+                    154 *                      *
+                    155 *   ---- WRADR16 ----  *
+                    156 *                      *
+                    157 ************************
+                    158 <a class="d" name="AA"         >AA          </a>EQU $3E         ;TIMING CONSTANT                ; *sigh* Really people you couldn't pick <i>any other</i> variable name?!
+                    159 <a class="d" name="NSECT"      >NSECT       </a>EQU $3F
+                    160 <a class="d" name="NVOL"       >NVOL        </a>EQU $41
+                    161 <a class="d" name="TRK"        >TRK         </a>EQU $44*
+                    162 *
+                    163 ************************
+                    164 *                      *
+                    165 *    DEVICE ADDRESS    *
+                    166 *     ASSIGNMENTS      *
+                    167 *                      *                                    ; See <a class="d" href="#ONTABLE">ONTABLE</a>, and <a class="d" href="#OFFTABLE">OFFTABLE</a>
+                    168 ************************                                    ; Typical B.A.D. (Beneath Apple Dos) shenanigans (Page 6-3):
+                    169 <a class="d" name="PHASEOFF"   >PHASEOFF    </a>EQU $C080       STEPPER PHASE OFF.              ; <i>"The timing between accesses to these locations is</i>
+                    170 <a class="d" name="PHASEON"    >PHASEON     </a>EQU $C081       STEPPER PHASE ON.               ; <i> critical, making this a non-trivial exercise."</i> <b>WHICH IS???</b>
+                    171 <a class="d" name="Q6L"        >Q6L         </a>EQU $C08C       Q7L,Q6L=READ                    ; *sigh* /sarcasm Riiight, because it is _obvious_ what Q7L & Q7H
+                    172 <a class="d" name="Q6H"        >Q6H         </a>EQU $C08D       Q7L,Q6H=SENSE WPROT             ; do -- but let's keep copy/paste these shitty non-descript names!
+                    173 <a class="d" name="Q7L"        >Q7L         </a>EQU $C08E       Q7H,Q6L=WRITE                   ; DRIVE_MODE_R
+                    174 <a class="d" name="Q7H"        >Q7H         </a>EQU $C08F       Q7H,Q6H=WRITE STORE             ; DRIVE_MODE_W
+
+
 <hr>; === <b class="file"><a name="PRENIBL">PRENIBL</a></b> - Pre nibblize sector data for writing, Page <span class="page">104</span>, <b class="ts">T?$?</b>, $<span class="adr">????</span> ===<hr>
 
 <hr>; === <b class="file"><a name="WRITRTN">WRITRTN</a></b> - Write Routine, Page <span class="page">137</span>, <b class="ts">T0$2</b>, $<span class="adr">B82A</span> ===<hr>
@@ -1036,11 +1063,40 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 38DB:60             059             RTS             RETURN.
                     060                 SBTL '16-SECTOR READ'
 
-; === ===
+<hr>; === <b class="file"><a name="RDADSEK">RDADSEK</a></b> - Read Disk Address; Seek, Page <span class="page">106</span>, <b class="ts">T0$3</b> @ $44, $<span class="adr">B944</span>-<span class="adr">B9FC</span> ===<hr>
+                    001             SBTL '16-SECTOR READ ADDRESS'
 
-39FC:60             ???             RTS
+                    054 * *
+                    055 ****************************
+3944:A0 FC          056 <a name="RDADR16"    >RDADR16     </a>LDY #$FC
+3946:84 26          057 <!--                   -->            STY COUNT       'MUST FIND' COUNT.
+3948:C8             058 <a name="RDASYN"     >RDASYN      </a>INY
 
-RDADSEK
+<hr>
+39DA:A5 27          180             LDA <a class="d" hred="PRIOR"    >PRIOR</a>
+39DC:18             181             CLC             ;CARRY CLEAR=PHASE OFF
+39DD:20 F1 39       182             JSR <a class="x" href="#CLRPHASE">CLRPHASE</a>    ;PHASE OFF
+39E0:BD 1D 3A       183             LDA <a class="d" href="#OFFTABLE">OFFTABLE</a>,Y  THEN WAIT 'OFFTIME'.
+39E3:20 00 3A       184             JSR <a class="x" href="#MSWAIT"  >MSWAIT</a>      (100 USEC INTERVALS)
+39E6:E6 26          185             INC <a class="d" href="#TRKCNT"  >TRKCNT</a>      'TRACKS MOVED' COUNT.
+39E8:D0 C3          186             BNE <a class="x" href="#SEEK2"   >SEEK2</a>       (ALWAYS TAKEN)
+                    187 *
+                    188 <a name="SEEKEND"    >SEEKEND     </a>EQU *
+39EA:20 00 3A       189             JSR <a class="x" href="#MSWAIT">MSWAIT</a>      ;A=0: WAIT 25 MS SETTLE
+39ED:18             190             CLC
+                    191 *
+                    192 * TURN HEAD STEPPER PHASE ON/OFF
+                    193 *
+                    194 <a name="SETPHASE"   >SETPHASE    </a>EQU *
+39EE:AD 78 04       195             LDA CURTRK      ;GET CURRENT PHASE
+                    196 <a name="CLRPHASE"   >CLRPHASE    </a>EQU *
+39F1:29 03          197             AND #3          ;MASK FOR 1 OF 4 PHASES
+39F3:2A             198             ROL A           ;DOUBLE FOR PHASE INDEX
+39F4:05 2B          199             ORA SLOTTEMP
+39F6:AA             200             TAX
+39F7:BD 80 C0       201             LDA <a class="d" href="#PHASEOFF">PHASEOFF</a>,X  ;FLIP THE PHASE
+39FA:A6 2B          202             LDX SLOTTEMP    ;RESTORE X-REG
+39FC:60             203 <a name="SEEKRTS"    >SEEKRTS     </a>RTS             ;AND RETURN                     ; /sarcasm I don't know what we would do without you Captain Obvious!
 
 <hr>; === <b class="file"><a name="MSWAITR">MSWAITR</a></b> - Microsecond wait routine, Page <span class="page">97</span>, <b class="ts">T0$4</b>-<b class="ts">T0$6</b> @ $55, $<span class="adr">BA00</span> - $<span class="adr">BC55</span> ===<hr>
                     001                 SBTL '16-SECTOR MSWAIT'
@@ -1072,7 +1128,7 @@ RDADSEK
                     027 *    ---- ASSUMES ----   *
                     028 * 1 USEC CYCLE TIME      *
                     029 **************************
-39FD:00 00 00       030         DS 3,0              ;AVOID PAGE BOUNDARY CROSSING...; T0$3 @ $FC = 3 unused bytes
+39FD:00 00 00       030         DS 3,0              ;AVOID PAGE BOUNDARY CROSSING...; T0$3 @ $FC *sigh* 3 unused bytes
 3A00:A2 11          031 <b><a name="MSWAIT"     id="MSWAIT"     >MSWAIT      </a></b>LDX #$11                                        ; === <b class="ts">T0$4</b> === *sigh* Typical bloated code ...
 3A02:CA             032 <b><a name="MSW1"       id="MSW1"       >MSW1        </a></b>DEX             DELAY 86 USEC.                  ; ... should just adjust algorithm timing instead!
 3A03:D0 FD          033             BNE <a href="#MSW1">MSW1</a>
@@ -1089,11 +1145,11 @@ RDADSEK
                     044 *   TABLES IN 100-USEC   *
                     045 *   INTERVALS. (SEEK)    *
                     046 **************************
-3A11:01 30 28       047 ONTABLE     DFB 1,$30,$28
+3A11:01 30 28       047 <a class="d" name="ONTABLE"    >ONTABLE     </a>DFB 1,$30,$28                                   ; See <b>RDADSEK</b>, Page <span class="page">108</span>, Line # <span class="todo">TODO</span>
 3A14:24 20 1E       048             DFB $24,$20,$1E
 3A17:1D 1C 1C       049             DFB $1D,$1C,$1C
 3A1A:1C 1C 1C       050             DFB $1C,$1C,$1C
-3A1D:70 2C 26       051 OFFTABLE    DFB $70,$2C,$26
+3A1D:70 2C 26       051 <a class="d" name="OFFTABLE"   >OFFTABLE    </a>DFB $70,$2C,$26                                 ; See <b>RDADSEK</b> Page <span class="page">109</span>, Line #<span class="line">183</span>
 3A20:22 1F 1E       052             DFB $22,$1F,$1E
 3A23:1D 1C 1C       053             DFB $1D,$1C,$1C
 <hr>3A26:1C 1C 1C       054             DFB $1C,$1C,$1C                                 ; === Page <span class="page">98</span> ===
@@ -1232,8 +1288,24 @@ TODO:
 3C40:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 3C50:00 00 00 00 00 00
 
-WRITADR
-RWTSONE
+<hr>; === <b class="file"><a name="WRITADR">WRITADR</a></b> - Write Address, Page <span class="page">134</span>, <b class="ts">T0$6</b> @ $56, $<b class="adr">BC56</b>-<b class="adr">B???</b> ===<hr>
+                    001             SBTL '16-SECTOR WRITE ADDRESS'
+
+3C56:38             053 WADR16      SEC             ANTICIPATE WR PROT ERR.
+3C57:BD 8D C0       054             LDA <a class="d" href="#Q6H"   >Q6H</a>,X       INTO 'WR PROT SENSE' MODE.
+3C5A:BD 8E C0       055             LDA <a class="d" href="#Q7L"   >Q7L</a>,X       SENSE IT (NEG=PROTECTED)
+3C5D:30 5E          056             BMI <a class="x" href="#WADRTS">WADRTS</a>      ERR EXIT IF PROTECTED.
+
+3C5F:A9 FF          057             LDA #$<span class="adr">FF</span>        SELF-SYNC NIBL.
+3C61:9D 8F C0       058             STA <a class="d" href="#Q7H"   >Q7H</a>,X       WRITE FRIST NIBL.
+3C64:DD 8C C0       059             CMP <a class="d" href="#Q6L"   >Q6L</a>,X       (4) BACK TO WRITE MODE.
+3B67:48             060             PHA             (3) FOR DELAY
+3B68:68             061             PLA             (4)
+
+
+
+<hr>; === <b class="file"><a name="RWTSONE">RWTSONE</a></b> - Read Write Track Sector - Part 1, Page <span class="page">124</span>, <b class="ts">T0$8</b>, $<b class="adr">B???</b>-<b class="adr">BE46</b> ===<hr>
+                    001             STBL '16-SECTOR RWTS'
 
 <hr>; === <b class="file"><a name="RWTSTWO">RWTSTWO</a></b> - Read Write Track Sector - Part 2, Page <span class="page">124</span>, <b class="ts">T0$8</b>, $<b class="adr">BE47</b> ===<hr>
                     001 *
@@ -1296,9 +1368,9 @@ RWTSONE
                     058 RECAL       EQU *
 3DCE:AD 78 04       059             LDA CURTRK
 3DD1:48             060             PHA             ;SAVE TRACK WE REALLY WANT
-3DD2:A9 60          061             LDA #$60        ;RECALIBRATE ALL OVER AGAIN!    ; /sarcasm Yeah ... 
-3DD4:20 95 3E       062             JSR <a href="#SETTRKK">SETTRKK</a>     ;PRETEND TO BE ON TRACK 96      ; Let's bang the user's drive head against the case ...
-3DD7:CE F8 06       063             DEC RECALCCNT   ;ONCE TOO MANY??                ; ... that will make it work ... NOT!
+3DD2:A9 60          061             LDA #$60        ;RECALIBRATE ALL OVER AGAIN!    ; /sarcasm Yeah ... let's bang the user's drive head against
+3DD4:20 95 3E       062             JSR <a href="#SETTRKK">SETTRKK</a>     ;PRETEND TO BE ON TRACK 96      ; the case -- that will make it work
+3DD7:CE F8 06       063             DEC RECALCCNT   ;ONCE TOO MANY??                ; and won't cause any head alignment prolems over time ... NOT!
 3DDC:F0 28          064             BEQ <a href="#DRVERR">DRVERR</a>      ;TRIED TO RECALIBRATE TOO MANY TIMES, ERROR! ; v
 3DDE:A9 04          065             LDA #MAXSEEKS   ;RESET THE
 3DDE:8D F8 04       066             STA SEEKCNT     ; SEEK COUNTER
@@ -1456,15 +1528,15 @@ RWTSONE
 3E50:60             218             RTS
                     219 <b><a name="WRIT"       id="WRIT"       >WRIT        </a></b>EQU *
                     220     LST OFF
-                    221     DO DIAGMOD<span style="background-color:#EEE">
+                    221     DO DIAGMOD<span style="macro">
                     222        LDA #TC8             ; SAY 'WRITING'                 
                     223        STA TL8                                              </span>
                     224     FIN
                     225     LST ON
-3E51:20 2A 38       226             JSR <a href="#WRITE16">WRITE16</a>     ; WRITE NYBBLES NOW             ; ^ WRITRTN, page 137
+3E51:20 2A 38       226             JSR <a class="x" href="#WRITE16">WRITE16</a>     ; WRITE NYBBLES NOW             ; ^ WRITRTN, page 137
 
                     227     LST OFF
-                    228     DO DIAGMOD<span style="background-color:#EEE">
+                    228     DO DIAGMOD<span class="macro">
                     229        LDA #SP              ; SAY 'WRITING'                 
                     230        STA TL8                                              </span>
                     231     FIN
@@ -1478,16 +1550,16 @@ RWTSONE
                     239 * IF DRIVNO IS NEGATIVE, ON DRIVE 1
                     240 * IF DRIVNO IS POSITIVE, ON DRIVE 2
                     241 *
-<hr>3E5A:48             242 <b><a name="MYSEEK"     id="MYSEEK"     >MYSEEK      </a></b>PHA             ; AND PRESERVE A-REGISTER       ; === Page <span class="page">126</span> === Uhm, OK, Captain Obvious
+<hr>3E5A:48             242 <a name="MYSEEK"     id="MYSEEK"     >MYSEEK      </a>PHA             ; AND PRESERVE A-REGISTER       ; === Page <span class="page">126</span> === Uhm, OK, Captain Obvious
                     243     LST OFF
 
                     2??     LST ON
 
 
 3E86:10 03          275             BPL <a href="#GOSEEK">GOSEEK</a>      ;ALWAYS TAKEN
-3E88:99 78 04       276 <b><a name="ISDRV1"     id="ISDRV1"     >ISDRV1      </a></b>STA DRV1TRK,Y
-3E8B:4C A0 B9       277 <b><a name="GOSEEK"     id="GOSEEK"     >GOSEEK      </a></b>JMP <a href="#SEEK">SEEK</a>        ;GO THERE!
-3E8E:8A             278 <b><a name="XTOY"       id="XTOY"       >XTOY        </a></b>TXA
+3E88:99 78 04       276 <a name="ISDRV1"     id="ISDRV1"     >ISDRV1      </a>STA DRV1TRK,Y
+3E8B:4C A0 B9       277 <a name="GOSEEK"     id="GOSEEK"     >GOSEEK      </a>JMP <a href="#SEEK">SEEK</a>        ;GO THERE!
+3E8E:8A             278 <a name="XTOY"       id="XTOY"       >XTOY        </a>TXA
 3E8F:4A             279             LSR A
 3E90:4A             280             LSR A
 3E91:4A             281             LSR A
@@ -1498,7 +1570,7 @@ RWTSONE
                     286 * THIS SUBROUTINE SETS THE SLOT DEPENDENT TRACK
                     287 * LOCATION.
                     288 *
-3E95:48             289 <b><a name="SETTRK"     id="SETTRK"     >SETTRK      </a></b>PHA             ;PRESERVE DESTINATION TRACK
+3E95:48             289 <a name="SETTRK"     id="SETTRK"     >SETTRK      </a>PHA             ;PRESERVE DESTINATION TRACK
 3E96:A0 02          290             LDY #$02                                        ; *sigh* IOB_OFFSET_DRIVE = $2
 3E98:B1 48          291             LDA (IOBPL),Y
 3E9A:6A             292             ROR A           ;GET DRIVE # INTO CARRY
@@ -1510,8 +1582,8 @@ RWTSONE
 3EA4:30 05          298             BMI <a href="#ONDRV1">ONDRV1</a>      ;IF ON DRIVE 1(1), DRIVNO MINUS
 3EA6:99 F8 04       299             STA DRV2TRK,Y
 3EA9:10 03          300             BPL <a href="#SETRTS">SETRTS</a>
-3EAB:99 78 04       301 <b><a name="ONDRV1"     id="ONDRV1"     >ONDRV1      </a></b>STA DRV1TRK,Y
-3EAE:60             302 <b><a name="SETRTS"     id="SETRTS"     >SETRTS      </a></b>RTS
+3EAB:99 78 04       301 <a name="ONDRV1"     id="ONDRV1"     >ONDRV1      </a>STA DRV1TRK,Y
+3EAE:60             302 <a name="SETRTS"     id="SETRTS"     >SETRTS      </a>RTS
 
 <hr>; === <b class="file"><a name="FORMATR">FORMATR</a></b> - Format Disk, Page <span class="page">82</span>, <b class="ts">T?$?</b>, $<span class="adr">????</span> ===<hr>
                     001                SBTL '16-SECTOR FORMATTER'
@@ -1523,14 +1595,14 @@ RWTSONE
                     007 *
                     008 * EQUATES FOR FORMATTER
                     009 *
-                    010 NSYNC       EQU $45         ;NUM GAP SELF-SYNC NIBLS
+                    010 <a class="d" name="NSYNC"      >NSYNC       </a>EQU $45         ;NUM GAP SELF-SYNC NIBLS        ; No, not the 90's band
                     011 *
                     012             REP 40
-                    013 DSKFORM     EQU *
+                    013 <a name="DSKFORM"    >DSKFORM     </a>EQU *
                     014     DO DIAGMOD              ;ELIMINATE FMTR FROM DIAG ASSEMBLY<span class="macro">
                     015         LST OFF                                             </span>
                     016     ELSE
-                    017             LDY #3                                          ; IOB_OFFSET_VOL = 3
+                    017             LDY #3                                          ; *sigh* HACK: IOB_OFFSET_VOL = 3
                     018             STY (IOBPL),Y   VOLUME NUMBER IN IOB.
                     019             STA NVOL        FOR FORMATTER.
                     020             LDA #$AA        SET Z-PAG LOC TO $AA FOR
@@ -1584,6 +1656,43 @@ RWTSONE
 *                           *
 *****************************
 
+                    181
+                    182         DFB 0,0,0,0
+                    183         DFB 0,0,0,0
+                    184         DFB 0,0,0,0
+                    185         DFB 0,0,0,0
+                    186     FIN                                                     ; Macro started way back on line #<span class="line">14</span>
+                    187     LST ON
+                    188             REP 40
+                    189 * THIS TABLE IS USED TO TRANSLATE
+                    190 * LOGICAL (REQUESTED) SECTOR NUMBER
+                    191 * TO PHYSICAL SECTOR NUMBER. THE
+                    192 * DISKETTE IS FORMATTED WITH ALL
+                    193 * SECTORS IN MONOTONICALLY INCREASING
+                    194 * ORDER. THE TRANSLATION WILL ALLOW
+                    195 * TIME BETWEEN SECTORS FOR READS.
+                    196 *
+                    197             REP 40
+                    198 *
+                    199 * NOTE: THE CURRENT IMPLEMENTATION OF DOS
+                    200 *  USUALLY ACCESSES SECTORS IN DECREASING
+                    201 *  ORDER ON A TRACK. THUS WE WILL
+                    202 *  TRANSLATE IN REVERSE ORDER...
+                    203 *
+                    204 * THE INTERLEAVE IS THEN 9:1                                ; <span class="todo">TODO</span> Verify this is optimal for reading sectors in F,E,D,...,0 order
+                    205 *
+                    206 * NOTE: WE MAP LOGICAL SECTOR 0
+                    207 *  INTO PHYSICAL SECTOR 0 SO THAT
+                    208 *  WRITING OF BOOT DURING 'INIT'
+                    209 *  IS CORRECT FOR SECTOR ZERO.
+                    210 *
+                    211 <a class="d" name="INRLEAV"    >INTRLEAV    </a>EQU *                                           ; *sigh*
+3FB8:00 0D 0B 09    212             DFB $00,$0D,$0B,$09                             ; /sarcasm Here's a novel concept ...
+3FBC:07 05 03 01    213             DFB $07,$05,$03,$01                             ; How about *formatting* the sectors in the correct
+3FC0:0E 0C 0A 08    214             DFB $0E,$0C,$0A,$08                             ; order on the disk in the first place so we don't even
+3FC4:06 04 02 0F    215             DFB $06,$04,$02,$0F                             ; need to waste memory with this table at all !
+
+
 <hr>; === <b class="file"><a name="DOSPTCH">DOSPTCH</a></b> - Revision B Patches, Page <span class="page">52</span>, <b class="ts">T?$?</b> @ ?, $<span class="adr">####</span> ===<hr>
                     001             SBTL "DOS PATCHES"
                     002 ********************************
@@ -1609,9 +1718,16 @@ RWTSONE
 
 <h1>Symbols (Alphabetical)</h1>
 <pre>
+<h2>A</h2>
+
+<h2>B</h2>
+
+<h2>C</h2>
+    COUT        =   $26
+<h2>D</h2>
     DBVECT      = $1E51
     DELTA       = $1C7F
-
+<h2>N</h2>
     NEPAGE      = $1C7D
 
     SC1         = $1D84
