@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-                        25          37              53                              85
+                        25          37              53                              85  89  93
 ####:## ## ##       ### LABEL       NMEMONIC        COMMENT                         ; Annotation
                     001 
                     002 
@@ -149,9 +149,28 @@ span.i { color: #00F; font-style: italic; } /* Original italic blue  */
 b {
     color: #00F; /* old: 080 */
 }
+
 /* Italic = Data (Green) */
 i {
     color: #080; /* 00F */
+}
+a {
+    color: #24F;
+    font-weight: bold;     /* default to bold for function names */
+}
+a.x { /* func -- can't use '$' in css name */
+    color: #24f;
+    text-decoration: none; /* remove underlink from data link */
+    font-weight: normal;   /* remove bold */
+}
+a.d { /* data http://stackoverflow.com/questions/448981/which-characters-are-valid-in-css-class-names-selectors */
+    color: #060;
+    text-decoration: none; /* remove underlink from data link */
+    font-weight: normal;   /* remove bold */
+/* font-style: italic; /* optional italic for data */
+}
+span.data {
+    color: #040;
 }
 
 h1 {
@@ -182,7 +201,12 @@ hr {
 #    margin-top:-1em
 */
 }
-#page {
+
+span.adr {
+    color: #F80;
+    font-weight: bold;
+}
+span.page {
     color: #080;
 }
 span.macro {
@@ -230,7 +254,7 @@ Numerous improvements have been made over the original source code listings:
 Header Format is:
 
 <pre>
-; === <b class="file">FILENAME</b> - Description, Page <span id="page">#</span>, <b class="ts">Track/Sector</b> @ $offset, $<b class="adr">####</b> (Relocated Address in high memory) ===
+; === <b class="file">FILENAME</b> - Description, Page <span class="page">#</span>, <b class="ts">Track/Sector</b> @ $offset, $<b class="adr">####</b> (Relocated Address in high memory) ===
 </pre>
 
 Line format is:
@@ -277,7 +301,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 <pre>
 
-; === <b class="file">DOS33C</b> - Master Source File, Page <span id="page">39</span> ===
+; === <b class="file">DOS33C</b> - Master Source File, Page <span class="page">39</span> ===
 
                     001             SBTL "DOS3.3C w/APPEND fix, U/L case"
                     002             LST  ON,VSYM
@@ -316,7 +340,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     035             INCLUDE <a href="#FORMATR">FORMATR</a>,,1
                     036             INCLUDE DOSPTCH,,1
 
-<hr>; === <b class="file"><a name="RELOCTR">RELOCTR</a></b> - Relocate DOS to high (48K) memory, Page <span id="page">110</span>, <b class="ts">T0$A</b>, $<b>1B00</b> ===<hr>
+<hr>; === <b class="file"><a name="RELOCTR">RELOCTR</a></b> - Relocate DOS to high (48K) memory, Page <span class="page">110</span>, <b class="ts">T0$A</b>, $<span class="adr">1B00</span> ===<hr>
                     001             PAGE
                     002 *****************************************************
                     003 *                                                   *
@@ -361,16 +385,16 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     042 ;
                     043 ;EQUATES REQD TO FIND THINGS IN APPLE II
                     044 ;
-                    045 SETVID      EQU $FE93
-                    046 SETKBD      EQU $FE89
-                    047 PROMPT      EQU $33         ; PROMPT CHAR
-                    048 OUTSW       EQU $36         ; OUTPUT VECTOR SWITCH
-                    049 INSW        EQU $38         ; INPUT VECTOR SWITCH
-                    050 ZPGWRK      EQU $40         ; ZERO PAGE WORK CELL
-                    051 CNUM        EQU $44         ; CONVERTED NUMERIC
+                    045 <a name="SETVID">SETVID</a>      EQU $FE93
+                    046 <a name="SETKBD">SETKBD</a>      EQU $FE89
+                    047 <a class="d" name="PROMPT">PROMPT</a>      EQU $33         ; PROMPT CHAR
+                    048 <a class="d" name="OUTSW" >OUTSW</a>       EQU $36         ; OUTPUT VECTOR SWITCH
+                    049 <a class="d" name="INSW"  >INSW</a>        EQU $38         ; INPUT VECTOR SWITCH
+                    050 <a class="d" name="ZPGWRK">ZPGWRK</a>      EQU $40         ; ZERO PAGE WORK CELL
+                    051 <a class="d" name="CNUM"  >CNUM</a>        EQU $44         ; CONVERTED NUMERIC
                     052 LBUFF       EQU $200        ; LINE BUFFER                   ; Keyboard buffer of 255 chars
                     053 MULT        EQU $FB63       ; MULT ROUTINE
-<hr>                    054 INPRT       EQU $FE8B       ; SET IN PORT                   ; === Page <span id="page">111</span> ===
+<hr>                    054 INPRT       EQU $FE8B       ; SET IN PORT                   ; === Page <span class="page">111</span> ===
                     055 OUTPRT      EQU $FE95       ; SET OUT PORT
                     056 IBCHN       EQU $E836       ; BASIC RUN                     ; Integer Basic
                     057 IBLMEM      EQU $4A         ; BASIC LOW MEM                 ; Integer Basic
@@ -386,7 +410,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     067 ASHM1       EQU $73         ; AS HIGH MEM 1                 ; Applesoft Basic
                     068 ASHM2       EQU $6F         ; AS HIGH MEM 2                 ; Applesoft Basic
                     069 ASRNX       EQU $D6         ; AS RUN-ONLY FLAG              ; Applesoft Basic
-                    070 ASONERR     EQU $D8         ; AS ON-ERR GOTO FLAG           ; Applesoft Basic
+                    070 <a class="d" name="ASONERR">ASONERR</a>     EQU $D8         ; AS ON-ERR GOTO FLAG           ; Applesoft Basic
                     071 ASLMEM      EQU ASSOP       ; AS LOW MEM                    ; Applesoft Basic
                     072 ASBRK1      EQU $D865       ; AS ROM BREAK                  ; Applesoft Basic
                     073 ASBRK2      EQU $1067       ; AS RAM BREAK                  ; Applesoft Basic
@@ -394,21 +418,21 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     075 ASCNTU2     EQU $C3C
                     076 ASRSEQ1     EQU $D4F2
                     077 ASRSEQ2     EQU $CF2
-                    078 AITSTL      EQU $E000       ; AS 1 IB TEST LOC              ; Applesoft Basic
-                    079 ATSTV       EQU $4C         ; AS TEST VALUE                 ; Applesoft Basic
-                    080 ITSTV       EQU $20         ; IB TEST VALUE                 ; Integer Basic
-                    081 BOOTSL      EQU $2E         ; BOOT FROM SLOT                ; Slot from Boot
-                    082 ZPGFCB      EQU $42         ; ZERO PAGE WORK CELL           ; File Control Block
-                    083 MONRST      EQU $FF65       ; MONITOR RESET ENTRY
-                    084 MONBRK      EQU $FA59       ; MONITOR BREAK ENTRY
-                    085 IORTS       EQU $FF58       ; KNOWN RTS IN MONITOR ROM
-                    086 HOME        EQU $FC58                                       ; Clear the text screen
-                    087 PRINT       EQU $FDED                                       ; putchar()
-                    088 GETKEY      EQU $FD0C
-                    089 INSDS2      EQU $F88E
-                    090 LENGTH      EQU $2F
-                    091 ZRSET       EQU $3F2        ; NEW MONITOR ROM RESET VECTOR
-                    092 PWCNST      EQU $3F4        ; NEW MONITOR ROM POWER UP CONSTANT
+                    078 <a class="x" name="AITSTL" >AITSTL</a>      EQU $E000       ; AS 1 IB TEST LOC              ; Applesoft Basic E000: JMP $F128
+                    079 <a class="d" name="ATSTV"  >ATSTV</a>       EQU $4C         ; AS TEST VALUE                 ; Applesoft Basic
+                    080 <a class="d" name="ITSTV"  >ITSTV</a>       EQU $20         ; IB TEST VALUE                 ; Integer Basic
+                    081 <a class="d" name="BOOTSL" >BOOTSL</a>      EQU $2E         ; BOOT FROM SLOT                ; Slot from Boot
+                    082 <a class="d" name="ZPGFCB" >ZPGFCB</a>      EQU $42         ; ZERO PAGE WORK CELL           ; File Control Block
+                    083 <a class="x" name="MONRST" >MONRST</a>      EQU $FF65       ; MONITOR RESET ENTRY
+                    084 <a class="x" name="MONBRK" >MONBRK</a>      EQU $FA59       ; MONITOR BREAK ENTRY
+                    085 <a class="x" name="IORTS"  >IORTS</a>       EQU $FF58       ; KNOWN RTS IN MONITOR ROM
+                    086 <a class="x" name="HOME"   >HOME</a>        EQU $FC58                                       ; Clear the text screen
+                    087 <a class="x" name="PRINT"  >PRINT</a>       EQU $FDED                                       ; putchar()
+                    088 <a class="x" name="GETKEY" >GETKEY</a>      EQU $FD0C
+                    089 <a class="x" name="INSDS2" >INSDS2</a>      EQU $F88E                                       ; Instruction Disassembly Opcode Length
+                    090 <a class="d" name="LENGTH" >LENGTH</a>      EQU $2F
+                    091 <a class="d" name="ZRSET"  >ZRSET</a>       EQU $3F2        ; NEW MONITOR ROM RESET VECTOR
+                    092 <a class="d" name="PWCNST" >PWCNST</a>      EQU $3F4        ; NEW MONITOR ROM POWER UP CONSTANT
                     093                 REP 40
                     094 *
                     095 *
@@ -423,103 +447,103 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     104 ;
                     105 ; GET RELOCATION PARMS
                     106 ;
-                    107 DR0         EQU *
+                    107 <b><a name="DR0"        id="DR0"        >DR0         </a></b>EQU *
                     108 LOC1        EQU $26
 1B03:A9 BF          109             LDA #$BF        ; START AT BF00                 ; Top of 48K
 1B05:85 41          110             STA ZPGWRK+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
 1B07:A2 00          111             LDX #0          ; HIGH RAM
 1B09:86 40          112             STX ZPGWRK
 1B0B:A0 00          113 <b><a name="DR0A"       id="DR0A"       >DR0A        </a></b>LDY #0          ; APPLE TEST
-                    114 DR1B        EQU *                                           ; unused label
+                    114 <b><a name="DR1B"       id="DR1B"       >DR1B        </a></b>EQU *                                           ; unused label
 1B0D:A1 40          115             LDA (ZPGWRK,X)
 1B0F:85 26          116             STA LOC1                                        ; LOC1 = MemTestVal
-<hr>1B11:98             117 <b><a name="DR1"        id="DR1"        >DR1         </a></b>TYA                                             ; === Page <span id="page">112</span> ===
+<hr>1B11:98             117 <b><a name="DR1"        id="DR1"        >DR1         </a></b>TYA                                             ; === Page <span class="page">112</span> ===
 1B12:45 26          118             EOR LOC1
 1B14:85 26          119             STA LOC1
 1B16:98             120             TYA
 1B17:41 40          121             EOR (ZPGWRK,X)
 1B19:81 40          122             STA (ZPGWRK,X)
 1B1B:C5 26          123             CMP LOC1
-1B1D:D0 05          124             BNE <a href="#DR1A" >DR1A</a>                                        ; v
+1B1D:D0 05          124             BNE <a class="x" href="#DR1A" >DR1A</a>                                        ; v
 1B1F:C8             125             INY
-1B20:D0 EF          126             BNE <a href="#DR1"  >DR1</a>                                         ; ^
-1B22:F0 04          127             BEQ <a href="#DR2"  >DR2</a>         ; BR IF TOOK                    ; v
-                    128 <b><a name="DR1A"       id="DR1A"       >DR1A        </a></b>EQU *
+1B20:D0 EF          126             BNE <a class="x" href="#DR1"  >DR1</a>                                         ; ^
+1B22:F0 04          127             BEQ <a class="x" href="#DR2"  >DR2</a>         ; BR IF TOOK                    ; v
+                    128 <a name="DR1A"       id="DR1A"       >DR1A        </a>EQU *
 1B24:C6 41          129             DEC ZPGWRK+1    ; NOT RAM
-1B26:D0 E3          130             BNE <a href="#DR0A" >DR0A</a>        ; TRY NEXT PAGE                 ; ^
+1B26:D0 E3          130             BNE <a class="x" href="#DR0A" >DR0A</a>        ; TRY NEXT PAGE                 ; ^
                     131 ;
-                    132 <b><a name="DR2"        id="DR2"        >DR2         </a></b>EQU *
+                    132 <a name="DR2"        id="DR2"        >DR2         </a>EQU *
                     133 ;
-1B28:A5 41          134             LDA ZPGWRK+1    ;BEGIN PATCH TO INSURE   *****  ; note: '*****' is BEGIN_PATCH
-1B2A:29 DF          135             AND #$DF        ; PROPER HIGH MEMORY CHECK.
-1B2C:85 43          136             STA ZPGFCB+1    ;(DOS MASTER 3.1 CONTAINS
-1B2E:86 42          137             STX ZPGFCB      ; THIS ROUTINE STARTING AT LOCATION
-1B30:A1 42          138             LDA (ZPGFCB,X)  ; $3540)
+1B28:A5 41          134             LDA <a class="d" href="#ZPGWRK">ZPGWRK</a>+1    ;BEGIN PATCH TO INSURE   *****  ; note: '*****' is BEGIN_PATCH
+1B2A:29 DF          135             AND #$<span class="adr">DF</span>        ; PROPER HIGH MEMORY CHECK.
+1B2C:85 43          136             STA <a class="d" href="#ZPGFCB">ZPGFCB</a>+1    ;(DOS MASTER 3.1 CONTAINS
+1B2E:86 42          137             STX <a class="d" href="#ZPGFCB">ZPGFCB</a>      ; THIS ROUTINE STARTING AT LOCATION
+1B30:A1 42          138             LDA (<a class="d" href="#ZPGFCB">ZPGFCB</a>,X)  ; $3540)
 1B32:48             139             PHA
-1B33:85 26          140             STA LOC1        ;SAVE TEST VALUE
-1B35:98             141 <b><a name="DR2A"       id="DR2A"       >DR2A        </a></b>TYA             ;(FIRST TIME Y=0)
+1B33:85 26          140             STA <a class="d" href=#LOC1">LOC1</a>        ;SAVE TEST VALUE
+1B35:98             141 <a name="DR2A"       id="DR2A"       >DR2A        </a>TYA             ;(FIRST TIME Y=0)
 1B36:45 26          142             EOR LOC1        ;TEST EACH (ALLEDGED) MEMORY BYTE
 1B38:85 26          143             STA LOC1        ; 256 TIMES TO DETERMINE IF
 1B3A:98             144             TYA             ; IT IS REALLY GOOD MEMORY AND
 1B3B:41 40          145             EOR (ZPGWRK,X)  ; MIRRORED 8K LOWER IN RAM.
 1B3D:81 42          146             STA (ZPGFCB,X)
 1B3F:C5 26          147             CMP LOC1        ;DID IT PASS THIS TIME?
-1B41:D0 09          148             BNE <a href="#DR2B">DR2B</a>        ; BYTE NOT MIRRORED, THEN GOOD MEMORY   ; *sigh* more crap code: S-L-O-W
+1B41:D0 09          148             BNE <a class="x" href="#DR2B">DR2B</a>        ; BYTE NOT MIRRORED, THEN GOOD MEMORY   ; *sigh* more crap code: S-L-O-W
 1B43:C8             149             INY             ;MAYBE IT WAS COINCIDENCE               ; Instead of testing *every* byte (256 times WTF!)
-1B44:D0 EF          150             BNE <a href="#DR2A">DR2A</a>        ; BRANCH UNLESS IT'S MATCHED 256 TIMES  ; just test the last byte of every page
-1B46:A4 43          151             LDY ZPGFCB+1    ;HIMEM IS 8K LOWER THEN WAS
-1B48:68             152             PLA             ;ORIGINALLY THOUGHT!            ; Another wasted byte with JMP
-1B49:4C 51 1B       153             JMP <a href="#DR2C">DR2C</a>                                        ; Switch LDY PLA around and BNE instead
-1B4C:68             154 <b><a name="DR2B"       id="DR2B"       >DR2B        </a></b>PLA        ; ORIGINAL HIMEM PROVED GOOD
+1B44:D0 EF          150             BNE <a class="x" href="#DR2A">DR2A</a>        ; BRANCH UNLESS IT'S MATCHED 256 TIMES  ; just test the last byte of every page
+1B46:A4 43          151             LDY <a class="d" href="#ZPGFCB">ZPGFCB</a>+1    ;HIMEM IS 8K LOWER THEN WAS
+1B48:68             152             PLA             ;ORIGINALLY THOUGHT!                    ; *sigh* Another wasted byte with JMP
+1B49:4C 51 1B       153             JMP <a class="x" href="#DR2C">DR2C</a>                                                ; Switch LDY PLA around and BNE instead
+1B4C:68             154 <a name="DR2B"       id="DR2B"       >DR2B        </a>PLA        ; ORIGINAL HIMEM PROVED GOOD
 1B4D:81 42          155             STA (ZPGFCB,X)  ;RESTORE BYTE ORIGINALLY MESSED WITH.
 1B4F:A4 41          156             LDY ZPGWRK+1    ;END OF PATCH   *****           ; ***** = END_PATCH
-1B51:C8             157 <b><a name="DR2C"       id="DR2C"       >DR2C        </a></b>INY             ; NEW END OF DOS
-1B52:8C 7D 1C       158             STY NEPAGE
+1B51:C8             157 <a name="DR2C"       id="DR2C"       >DR2C        </a>INY             ; NEW END OF DOS
+1B52:8C 7D 1C       158             STY <a class="d" href="#NEPAGE">NEPAGE</a>
 1B55:38             159             SEC
 1B56:98             160             TYA
-1B57:ED 7E 1C       161             SBC DOSLNG      ; MINUS DOS LENGTH
-1B5A:8D 7C 1C       162             STA NSPAGE      ; IS NEW START OF DOS
+1B57:ED 7E 1C       161             SBC <a class="d" href="#DOSLNG">DOSLNG</a>      ; MINUS DOS LENGTH
+1B5A:8D 7C 1C       162             STA <a class="d" href="#NSPAGE">NSPAGE</a>      ; IS NEW START OF DOS
 1B5D:38             163             SEC
-1B5E:ED 7A 1C       164             SBC <a href="#RSPAGE">RSPAGE</a>      ; MINUS OLD DOS START
-1B61:F0 9D          165             BEQ <a href="#BEGIN">BEGIN</a>       ; (BREIF NO DELTA)              ; ^ NOT mis-spelling: Branch If
-1B63:8D 7F 1C       166             STA DELTA       ; IS DELTA
-1B66:AD 7A 1C       167             LDA <a href="#RSPAGE">RSPAGE</a>      ; RESET START PAGE TO NORMAL
-1B69:8D 0D 1D       168             STA ASTART+1
+1B5E:ED 7A 1C       164             SBC <a class="d" href="#RSPAGE">RSPAGE</a>      ; MINUS OLD DOS START
+1B61:F0 9D          165             BEQ <a class="d" href="#BEGIN" >BEGIN</a>       ; (BREIF NO DELTA)              ; ^ NOT mis-spelling: Branch If
+1B63:8D 7F 1C       166             STA <a class="d" href="#DELTA" >DELTA</a>       ; IS DELTA
+1B66:AD 7A 1C       167             LDA <a class="d" href="#RSPAGE">RSPAGE</a>      ; RESET START PAGE TO NORMAL
+1B69:8D 0D 1D       168             STA <a class="d" href="#ASTART">ASTART</a>+1
                     169 ;
-1B6C:A9 1D          170             LDA #&lt;DBINIT    ; RESET PI RTN TO NORMAL        ; PI = ??? TODO:
-1B6E:8D 49 37       171             STA DI3+2
-1B71:A9 84          172             LDA #&gt;DBINIT
+1B6C:A9 1D          170             LDA #&lt;<a class="x" href="#DBINIT">DBINIT</a>    ; RESET PI RTN TO NORMAL        ; PI = ??? <span class="todo">TODO</span>
+1B6E:8D 49 37       171             STA <a class="d" DI3+2
+1B71:A9 84          172             LDA #&gt;<a class="x" href="#DBINIT">DBINIT</a>
 1B73:8D 48 37       173             STA DI3+1
                     174 ;
                     175 ;RELOCATE ADR TABLES
                     176 ;
-<hr>1B76:A2 00          177             LDX #0                                          ; === Page <span id="page">113</span> ===
+<hr>1B76:A2 00          177             LDX #0                                          ; === Page <span class="page">113</span> ===
 1B78:86 40          178             STX ZPGWRK
-                179 <b><a name="DR3"        id="DR3"        >DR3         </a></b>EQU *
+                    179 <a name="DR3"        id="DR3"        >DR3         </a>EQU *
 
-                186 <b><a name="DR4"        id="DR4"        >DR4         </a></b>EQU *
+                    186 <a name="DR4"        id="DR4"        >DR4         </a>EQU *
 
-                194 <b><a name="DR5"        id="DR5"        >DR5         </a></b>INY
+####:C8             194 <a name="DR5"        id="DR5"        >DR5         </a>INY
 
-                198 <b><a name="DR6"        id="DR6"        >DR6         </a></b>EQU *
+                    198 <a name="DR6"        id="DR6"        >DR6         </a>EQU *
 
-                213 ;
-                214 ;RELOCATE CODE
-                215 ;
+                    213 ;
+                    214 ;RELOCATE CODE
+                    215 ;
 1BAF:A2 00          216             LDX #0
-1BB1:8E 9C 33       217 <b><a name="DR7"        id="DR7"        >DR7         </a></b>STX TEMP1
-                218 ;
+1BB1:8E 9C 33       217 <a name="DR7"        id="DR7"        >DR7         </a>STX TEMP1
+                    218 ;
 1BB4:BD 5A 1C       219             LDA CDETAB+1,X  ; GET A START OF CODE ADR
 1BB7:85 40          220             STA ZPGWRK      ; PUT IN ZPG
 1BB9:BD 5B 1C       221             LDA CDETAB+2,X
 1BBC:85 41          222             STA ZPGWRK+1
-                223 ;
-1BBE:A2 00          224 <b><a name="DR8"        id="DR8"        >DR8         </a></b>LDX #0         ; GET OP CODE
+                    223 ;
+1BBE:A2 00          224 <a name="DR8"        id="DR8"        >DR8         </a>LDX #0         ; GET OP CODE
 1BC0:A1 40          225             LDA (ZPGWRK,X)  ; GO FIND OUT HOW LONG          ; Interesting hack of using
 1BC2:20 8E F8       226             JSR INSDS2                                      ; monitor ROW to get instruction opcode length
-                227 ;
-1BC5:A4 2F          228             LDY LENGTH      ; GET HOW LONG
-1BC7:C0 02          229             CPY #2          ; IF IT AIN'T                   ; *sigh* 3-1 since zero based
+                    227 ;
+1BC5:A4 2F          228             LDY <a class="d" href="#LENGTH">LENGTH</a>      ; GET HOW LONG
+1BC7:C0 02          229             CPY #2          ; IF IT AIN'T                   ; *sigh* #3-1 is clearer since zero based
 1BC9:D0 11          230             BNE <a href="#DR9">DR9</a>         ; 3 THEN DON'T RELOC            ; 300:A9 20 20 8E F8 A5 2F 09 30 4C ED FD
 1BCB:B1 40          231             LDA (ZPGWRK),Y  ; GET PAGE FROM INST
 1BCD:CD 7A 1C       232             CMP RSPAGE      ; IF PAGE &lt; REL START
@@ -528,7 +552,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1BD5:B0 05          235             BCS <a href="#DR9">DR9</a>         ; THEN IGNORE
 1BD7:6D 7F 1C       236             ADC DELTA       ; ELSE ADD DELTA
 1BDA:91 40          237             STA (ZPGWRK),Y  ; TO RELOCATE
-                238 ;
+                    238 ;
 1BDC:38             239 <b><a name="DR9"        id="DR9"        >DR9         </a></b>SEC
 <hr>1BDD:A5 2F          240             LDA <a href="#LENGTH">LENGTH</a>      ; ADD LENGTH
 1BDF:65 40          241             ADC ZPGWRK      ; TO PC
@@ -593,9 +617,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C41:C1 2A          300             DW  SAT2
 1C43:FD 2A          301             DW  EAT2
 1C45:E4 37          302             DW  BAIOB
-<hr>1C47:E8 37          303             DW  ADOSLD+2                                    ; === Page <span id="page">115</span> ===
-1C49:EE 37          304             DW  IBDCTP
-1C4B:F0 37          305             DW  IBDCTP+2                                    ; File, Page TODO
+<hr>1C47:E8 37          303             DW  ADOSLD+2                                    ; === Page <span class="page">115</span> ===
+1C49:EE 37          304             DW  <a class="d" name="IBDCTP">IBDCTP</a>
+1C4B:F0 37          305             DW  <a class="d" name="IBDCTP">IBDCTP</a>+2                                    ;
 1C4D:00 00 00 00    306             DFB 0,0,0,0
 1C51:00 00 00 00    307             DFB 0,0,0,0
 1C55:00 00 00 00    308             DFB 0,0,0,0
@@ -615,21 +639,38 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C70:94 3A          322             DW  <a href="#PEC1">PEC1</a>
 1C72:00 3D          323             DW  ASC2
 1C74:A8 3F          324             DW  AEC2
-1C76:C8 3F          325             DW  SDP1
-1C78:FF 3F          326             DW  EDP1                                        ; End Program
-1C7A:1D             327 <i><a name="RSPAGE"     id="RSPAGE"     >RSPAGE      </a></i>DFB &lt;START                                      ; (Source) Relocation Start Page $1D00
-1C7B:40             328 <i><a name="REPAGE"     id="REPAGE"     >REPAGE      </a></i>DFB &lt;ENDOFDOS                                   ; (Source) Relocation End+1 Page $4000
+1C76:C8 3F          325             DW  SDP1                                        ; Start Dos Patch
+1C78:FF 3F          326             DW  EDP1                                        ; End Dos Patch
+1C7A:1D             327 <a class="d" name="RSPAGE"     id="RSPAGE"     >RSPAGE      </a>DFB &lt;START                                      ; (Source) Relocation Start Page $1D00
+1C7B:40             328 <a class="d" name="REPAGE"     id="REPAGE"     >REPAGE      </a>DFB &lt;ENDOFDOS                                   ; (Source) Relocation End+1 Page $4000
                     329 ;
-1C7C:00             330 <i><a name="NSPAGE"     id="NSPAGE"     >NSPAGE      </a></i>DFB 0
-1C7D:00             331 <i><a name="NEPAGE"     id="NEPAGE"     >NEPAGE      </a></i>DFB 0
+1C7C:00             330 <a class="d" name="NSPAGE"     id="NSPAGE"     >NSPAGE      </a>DFB 0
+1C7D:00             331 <a class="d" name="NEPAGE"     id="NEPAGE"     >NEPAGE      </a>DFB 0
                     332 ;
-1C7E:23             333 DOSLNG      DFB &lt;ENDOFDOS-START
+1C7E:23             333 <a class="d" name="DOSLNG"     id="DOSLNG"     >DOSLNG      </a>DFB &lt;<a class="d" href="#ENDOFDOS">ENDOFDOS</a>-<a class="d" href="#START">START</a>
                     334 ;
-1C7F:00             335 DELTA       DFB 0
-1C80:23             336 DPGCNT      DFB &lt;ENDOFDOS-START
+1C7F:00             335 <a class="d" name="DELTA"      id="DELTA"      >DELTA       </a>DFB 0
+1C80:23             336 <a class="d" name="DPGCNT"     id="DPGCNT"     >DPGCNT      </a>DFB &lt;<a class="d" href="#ENDOFDOS">ENDOFDOS</a>-<a class="d" href="#START">START</a>
                     337             PAGE
 
-<hr>; === <b class="file"><a name="DOSINIT">DOSINIT</a></b> - Command Tables and Interpreter, Page <span id="page">48</span>, <b class="ts">T0$C</b>, $<b>9D00</b> ===<hr>
+<hr>; === <b class="file"><a name="DOSINIT">DOSINIT</a></b> - Command Tables and Interpreter, Page <span class="page">48</span>, <b class="ts">T0$C</b>, $<span class="adr">9D00</span> ===<hr>
+                    001 HEREL       EQU &gt;*
+                    002 REMDR       EQU 256-HEREL
+                    003             ORG *+REMDR
+                    004 ;
+                    005 ;RELOCATION TABLES
+                    006 ;
+                    007 <a class="d" name="START"      >START       </a>EQU *
+                    008 <a class="d" name="SAT1"       >SAT1        </a>EQU *
+                    009 FTAB        DW *-45
+                    010 CINA        DW CHRIN
+                    011 COUTA       DW CHROUT
+                    012 FN1ADR      DW FNAME1
+                    013 FN2ADR      DW FNAME2
+                    014 SVBLA       DW SVBL
+                    015 ASTART      DW BEGIN
+                    016 CCBADR      DW CCB
+                    017 ;
 
 1D84:AD E9 37       096             LDA IBSLOT      ; GET BOOT SLOT
 1D87:4A             097             LSR A
@@ -638,28 +679,28 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1D8A:4A             100             LSR A
 1D8B:8D 6A 2A       101             STA CS          ; SET AS CUURENT SLOT           ; *spelling*
 
-<hr>; === <b class="file"><a name="DOSHOOK">DOSHOOK</a></b> - Input / Output Vector, Page <span id="page">44</span>,  <b class="ts">T?S?</b>, $<b>????</b> ===<hr>
+<hr>; === <b class="file"><a name="DOSHOOK">DOSHOOK</a></b> - Input / Output Vector, Page <span class="page">44</span>,  <b class="ts">T?S?</b>, $<span class="adr">????</span> ===<hr>
 
-<hr>; === <b class="file"><a name="CMDSCAN">CMDSCAN</a></b> - Scan for commands, Page <span id="page">16</span>,  <b class="ts">T?S?</b>, $<b>????</b> ===<hr>
+<hr>; === <b class="file"><a name="CMDSCAN">CMDSCAN</a></b> - Scan for commands, Page <span class="page">16</span>,  <b class="ts">T?S?</b>, $<span class="adr">????</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; SCNCMD - SCAN A COMMAND
                     004 ;
                     005 <span class="todo">SCNCMD</span>EQU * <span class="todo">TODO</span>
 
-<hr>; === <b class="file"><a name="XOPNCLS">XOPNCLS</a></b> - Execute Open / Close, Page <span id="page">150</span>, <b class="ts">T?S?</b>, $<b>????</b> ===<hr>
+<hr>; === <b class="file"><a name="XOPNCLS">XOPNCLS</a></b> - Execute Open / Close, Page <span class="page">150</span>, <b class="ts">T?S?</b>, $<span class="adr">????</span> ===<hr>
                     001             PAGE
 
-<hr>; === <b class="file"><a name="XLODSAV">XLODSAV</a></b> - Execute Load / Save , Page <span id="page">140</span>,  <b class="ts">T?S?</b>, $<b>????</b> ===<hr>
+<hr>; === <b class="file"><a name="XLODSAV">XLODSAV</a></b> - Execute Load / Save , Page <span class="page">140</span>,  <b class="ts">T?S?</b>, $<span class="adr">????</span> ===<hr>
 
-<hr>; === <b class="file"><a name="DOSGOER">DOSGOER</a></b> - Print Error message, Page <i>40</i>, T?S?, $<b>????</b> ===<hr>
+<hr>; === <b class="file"><a name="DOSGOER">DOSGOER</a></b> - Print Error message, Page <i>40</i>, T?S?, $<span class="adr">????</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; DOSGO - GOTO DOS
                     004 ;
                     005 <span class="todo">DOSGO</span>EQU * <span class="todo">TODO</span>
 
-<hr>; === <b class="file"><a name="BLDFTAB">BLDFTAB</a></b> - Build File Tables, Page <i>4</i>, <b class="ts">T1$6</b> @ $D4, $<b>####</b> ===<hr>
+<hr>; === <b class="file"><a name="BLDFTAB">BLDFTAB</a></b> - Build File Tables, Page <i>4</i>, <b class="ts">T1$6</b> @ $D4, $<span class="adr">####</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; BLDFTB - BUILD FILE TABLES
@@ -713,7 +754,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 27FF:C8             051             INY
 2800:91 40          052             STA (ZPGWRK),Y  ; SET DIR BUF PTR               ; === <b class="ts">T1$7</b> ===
 2802:8A             053             TXA
-<hr>2803:C8             054             INY                                             ; === Page <span id="page">5</span> ===
+<hr>2803:C8             054             INY                                             ; === Page <span class="page">5</span> ===
 2804:91 40          055             STA (ZPGWRK),Y
 2806:AA             056             TAX
 2807:CA             057             DEX             ; DIR BUFF - 256
@@ -750,7 +791,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2900:00             <b><a name="MVCSW" id="MVCSW"  >MVCSW</a></b>       EQU *
                                 LDA INSW+1
 
-<hr>; === <b class="file"><a name="CMDTBLS">CMDTBLS</a></b> - Commands, Page <span id="page">21</span>, <b class="ts">T?$?</b>, $<b>####</b> ===<hr>
+<hr>; === <b class="file"><a name="CMDTBLS">CMDTBLS</a></b> - Commands, Page <span class="page">21</span>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
                     001                 PAGE
                     002 ;
                     003 ; COMMAND NAME TABLE
@@ -759,51 +800,51 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     006 CMDNTB EQU *
                     007             DCI "INIT"
 
-<hr>; === <b class="file"><a name="FDOSENT">FDOSENT</a></b> - External Entry Point, Page <span id="page">60</span>, <b class="ts">T?$?</b>, $<b>####</b> ===<hr>
+<hr>; === <b class="file"><a name="FDOSENT">FDOSENT</a></b> - External Entry Point, Page <span class="page">60</span>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
                     001                 PAGE
                     002 ;
                     003 ; MISC BUT REQD CELLS
                     004 ;
                     005 CFTABA DDB 0 ; CURRENT FILE TABLE POINTER
 
-<hr>; === <b class="file"><a name="FOPCLRW">FOPCLRW</a></b> - Open; Close; Rename; Read, Page <span id="page">77</span>, <b class="ts">T?$?</b>, $<b>####</b> ===<hr>
+<hr>; === <b class="file"><a name="FOPCLRW">FOPCLRW</a></b> - Open; Close; Rename; Read, Page <span class="page">77</span>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; FOPEN - OPEN A FILE
                     004 ;
                     005 FOPEN EQU *
 
-<hr>; === <b class="file"><a name="FDELCAT">FDELCAT</a></b> - Delete, Catalog, Page <span id="page">55</span>, <b class="ts">T?$?</b>, $<b>####</b> ===<hr>
+<hr>; === <b class="file"><a name="FDELCAT">FDELCAT</a></b> - Delete, Catalog, Page <span class="page">55</span>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 * FLOCK - LOCK A FILE
                     004 ;
                     005 FLOCK LDA #$80
 
-<hr>; === <b class="file"><a name="FMTRWIO">FMTRWIO</a></b> - Execute Format Request, Page <span id="page">73</span>, <b class="ts">T?$?</b>, $<b>####</b> ===<hr>
+<hr>; === <b class="file"><a name="FMTRWIO">FMTRWIO</a></b> - Execute Format Request, Page <span class="page">73</span>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 * FFMT - Execute Format Request
                     004 ;
                     005 FFMT EQU *
 
-<hr>; === <b class="file"><a name="FLOCNXB">FLOCNXB</a></b> - Locate Next Byte, Page <span id="page">68</span>, <b class="ts">T?$?</b>, $<b>####</b> ===<hr>
+<hr>; === <b class="file"><a name="FLOCNXB">FLOCNXB</a></b> - Locate Next Byte, Page <span class="page">68</span>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
                     001             PAGE
                     002 ;
 
-<hr>; === <b class="file"><a name="FLOCSEC">FLOCSEC</a></b> - Locate Sector, Page <span id="page">68</span>, <b class="ts">T?$?</b>, $<b>####</b> ===<hr>
+<hr>; === <b class="file"><a name="FLOCSEC">FLOCSEC</a></b> - Locate Sector, Page <span class="page">68</span>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
                     001             PAGE
                     002 ;
 
-<hr>; === <b class="file"><a name="FVCBUFS">FVCBUFS</a></b> - File Volume Catalog Buffers, Page <span id="page">?</span>, <b class="ts">T?$?</b>, $<b>????</b> ===<hr>
+<hr>; === <b class="file"><a name="FVCBUFS">FVCBUFS</a></b> - File Volume Catalog Buffers, Page <span class="page">?</span>, <b class="ts">T?$?</b>, $<span class="adr">????</span> ===<hr>
 
-<hr>; === <b class="file"><a name="BOOTLDR">BOOTLDR</a></b> - Boot loader, Page <span id="page">8</span>, <b class="ts">T0$0</b>, $<b>B600</b> ===<hr>
+<hr>; === <b class="file"><a name="BOOTLDR">BOOTLDR</a></b> - Boot loader, Page <span class="page">8</span>, <b class="ts">T0$0</b>, $<span class="adr">B600</span> ===<hr>
 
-<hr>; === <b class="file"><a name="COREQUS">COREQUS</a></b> - Core Equates, Page <span id="page">24</span>, <b class="ts">n/a</b>, $<b>n/a</b> ===<hr>
+<hr>; === <b class="file"><a name="COREQUS">COREQUS</a></b> - Core Equates, Page <span class="page">24</span>, <b class="ts">n/a</b>, $<span class="adr">n/a</span> ===<hr>
 
-<hr>; === <b class="file"><a name="PRENIBL">PRENIBL</a></b> - Pre nibblize sector data for writing, Page <span id="page">104</span>, <b class="ts">T?$?</b>, $<b>????</b> ===<hr>
+<hr>; === <b class="file"><a name="PRENIBL">PRENIBL</a></b> - Pre nibblize sector data for writing, Page <span class="page">104</span>, <b class="ts">T?$?</b>, $<span class="adr">????</span> ===<hr>
 
-<hr>; === <b class="file"><a name="WRITRTN">WRITRTN</a></b> - Write Routine, Page <span id="page">137</span>, <b class="ts">T0$2</b>, $<b>B82A</b> ===<hr>
+<hr>; === <b class="file"><a name="WRITRTN">WRITRTN</a></b> - Write Routine, Page <span class="page">137</span>, <b class="ts">T0$2</b>, $<span class="adr">B82A</span> ===<hr>
                     001                 SBTL '16-SECTOR WRITE'
                     002 ************************
                     003 *                      *
@@ -920,7 +961,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 38B7:60             114             RTS             ;RETURN FROM WRITE.
                     115 *****************************
                     116 *                           *
-<hr>                    117 *   7-BIT NIBL WRITE SUBRS  *                               ; === WRITRTN, Page <span id="page">139</span> ===
+<hr>                    117 *   7-BIT NIBL WRITE SUBRS  *                               ; === WRITRTN, Page <span class="page">139</span> ===
                     118 *                           *
                     119 *   A-REG OR'D PRIOR EXIT   *
                     120 *       CARRY CLEARED       *
@@ -933,7 +974,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 38BE:1D 8C C0       127             ORA Q6L,X       ; (4) CLOBBERS ACC, NOT CARRY
 38C1:60             128             RTS
 
-<hr>; === <b class="file"><a name="POSTNRD">POSTNRD</a></b> - Post Nibbilize Read, Page <span id="page">101</span>, <b class="ts">T0$2</b> @ $C2, $<b>B8C2</b> .. $<b>B???</b> <span class="todo">TODO</span> ===<hr>
+<hr>; === <b class="file"><a name="POSTNRD">POSTNRD</a></b> - Post Nibbilize Read, Page <span class="page">101</span>, <b class="ts">T0$2</b> @ $C2, $<span class="adr">B8C2</span> .. $<span class="adr">B???</span> <span class="todo">TODO</span> ===<hr>
                     001         SBTL '16-SECTOR POSTNIBLIZE'
                     002 ***************************
                     003 *                         *
@@ -987,7 +1028,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 38CC:5E 00 3C       051             LSR NBUF2,X     SHIFT 2 BITS FROM
 38CF:2A             052             ROL             A CURRENT NBUF2 NIBL
 38D0:5E 00 3C       053             LSR             INTO CURRENT NBUF1
-<hr>38D3:2A             054             ROL             A NIBL.                         ; === Page <span id="page">102</span> ===
+<hr>38D3:2A             054             ROL             A NIBL.                         ; === Page <span class="page">102</span> ===
 38D4:91 3E          055             STA (BUF),Y     BYTE OF USER DATA.
 38D6:C8             056             INY             NEXT USER BYTE.
 38D7:C4 26          057             CPY T0          DONE IF EQUAL T0.
@@ -1001,7 +1042,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 RDADSEK
 
-<hr>; === <b class="file"><a name="MSWAITR">MSWAITR</a></b> - Microsecond wait routine, Page <span id="page">97</span>, <b class="ts">T0$4</b>-<b class="ts">T0$6</b> @ $55, $<b>BA00</b> - $<b>BC55</b> ===<hr>
+<hr>; === <b class="file"><a name="MSWAITR">MSWAITR</a></b> - Microsecond wait routine, Page <span class="page">97</span>, <b class="ts">T0$4</b>-<b class="ts">T0$6</b> @ $55, $<span class="adr">BA00</span> - $<span class="adr">BC55</span> ===<hr>
                     001                 SBTL '16-SECTOR MSWAIT'
                     002 **************************
                     003 *   MSWAIT SUBROUTINE    *
@@ -1055,7 +1096,7 @@ RDADSEK
 3A1D:70 2C 26       051 OFFTABLE    DFB $70,$2C,$26
 3A20:22 1F 1E       052             DFB $22,$1F,$1E
 3A23:1D 1C 1C       053             DFB $1D,$1C,$1C
-<hr>3A26:1C 1C 1C       054             DFB $1C,$1C,$1C                                 ; === Page <span id="page">98</span> ===
+<hr>3A26:1C 1C 1C       054             DFB $1C,$1C,$1C                                 ; === Page <span class="page">98</span> ===
                     055             SBTL '16-SECTOR NYBBLE TABLES'
                     056 ***************************
                     057 *                         *
@@ -1094,7 +1135,7 @@ TODO:
 3A7E:8D 0E C0       143             STA $C00E       ; TURN OFF  ALT CHAR SET
 3A81:4C 2F FB       144             JMP $FB2F       ; MONITOR INIT ROUTINE          ; If only we could define symbols ...
                     145             PAGE
-                    146 <i><a name="PEC1"       id="PEC1"       >PEC1        </a></i>EQU *           ;Tell relocater where to stop   ; See <a href="#CDETAB">CDETAB</a>, RELOCTR, Page <span id="page">115</span>
+                    146 <i><a name="PEC1"       id="PEC1"       >PEC1        </a></i>EQU *           ;Tell relocater where to stop   ; See <a href="#CDETAB">CDETAB</a>, RELOCTR, Page <span class="page">115</span>
                     147 PD1         EQU &gt;*
                     148 <i><a name="PD2"        id="PD2"        >PD2         </a></i>EQU $96-PD1<span class="patch">
                     === DOS 3.3 D? PATCH ===        
@@ -1140,7 +1181,7 @@ TODO:
 3AE7:2B E8 2C       177             DFB $2B,$E8,$2C                                 ; E7 -- E9   Dx:-- -- -- 1F -- @@ 20 21 -- 22 23 24 25 26 27 28
 3AEA:2D 2E 2F       178             DFB $2D,$2E,$2F                                 ; EA EB EC   Ex:-- -- -- -- -- 29 2A 2B -- 2C 2D 2E 2F 30 31 32
 3AED:30 31 32       179             DFB $30,$31,$32                                 ; ED EE EF   Fx:-- -- 33 34 35 36 37 38 -- 39 3A 3B 3C 3D 3E 3F
-<hr>3AF0:F0 F1 33       180             DFB $F0,$F1,$33                                 ; -- -- F2   === Page <span id="page">100</span> ===
+<hr>3AF0:F0 F1 33       180             DFB $F0,$F1,$33                                 ; -- -- F2   === Page <span class="page">100</span> ===
 3AF3:34 35 36       181             DFB $34,$35,$36                                 ; F3 F4 F5
 3AF6:37 38 F8       182             DFB $37,$38,$F8                                 ; F6 F7 --
 3AF9:39 3A 3B       183             DFB $39,$3A,$3B                                 ; F9 FA FB
@@ -1194,7 +1235,7 @@ TODO:
 WRITADR
 RWTSONE
 
-<hr>; === <b class="file"><a name="RWTSTWO">RWTSTWO</a></b> - Read Write Track Sector - Part 2, Page <span id="page">124</span>, <b class="ts">T0$8</b>, $<b class="adr">BE47</b> ===<hr>
+<hr>; === <b class="file"><a name="RWTSTWO">RWTSTWO</a></b> - Read Write Track Sector - Part 2, Page <span class="page">124</span>, <b class="ts">T0$8</b>, $<b class="adr">BE47</b> ===<hr>
                     001 *
                     002 * DISK IS NOW UP TO SPEED: READ IT!
                     003 * NOW CHECK: IF IT IS NOT THE FORMAT DISK COMMAND,
@@ -1248,7 +1289,7 @@ RWTSONE
                     051     FIN
                     052     LST ON
 3DC9:CE 78 05       053 <b><a name="TRYADR2"    id="TRYADR2"    >TRYADR2     </a></b>DEC RETRYCNT    ;ANOTHER MISTAEK!!              ; *spelling* **irony**
-<hr>3DCC:10 F3          054             BPL <a href="#TRYADR">TRYADR</a>      ; WELL, LET IT GO THIS TIME..   ; === page <span id="page">123</span> ===
+<hr>3DCC:10 F3          054             BPL <a href="#TRYADR">TRYADR</a>      ; WELL, LET IT GO THIS TIME..   ; === page <span class="page">123</span> ===
                     055 *
                     056 * RRRRRECALIBRATE !!!!
                     057 *
@@ -1310,7 +1351,7 @@ RWTSONE
 3E28:B1 48          113             LDA (IOBPL),Y   ; TO ALLOW FOR INTERLEAVE
 3E2A:A8             114             TAY
 3E2B:B9 B8 3F       115             LDA INTRLEAV,Y  ;COMPUTE PHYSICAL SECTOR        ; DOS Sector Interleave/Skew Mapping
-<hr>3E2E:C5 2D          116             CMP SECT        ;DID WE GET THE SECTOR?         ; === Page <span id="page">124</span> ===
+<hr>3E2E:C5 2D          116             CMP SECT        ;DID WE GET THE SECTOR?         ; === Page <span class="page">124</span> ===
                     117     LST OFF
                     118     DO DIAGMOD<span style="background-color:#EEE">
                     119         BEQ GOTSECT         ;=&gt;WE FOUND IT!                         
@@ -1373,7 +1414,7 @@ RWTSONE
                     176     DO DIAGMOD<span style="background-color:#EEE">
                     177         LDA #TC11           ;SAY 'POSTINIBBLIZING'          </span>;POST_IN_NIBBLIZING<span style="background-color:#EEE">
                     178         STA TL11                                            </span>
-<hr>                    179     FIN                                                     ; === Page <span id="page">125</span> ===
+<hr>                    179     FIN                                                     ; === Page <span class="page">125</span> ===
                     180     LST ON
 3E40:20 C2 38       181             JSR <a href="#POSTNB16">POSTNB16</a>    ;DECODE INTO REAL WORLD DATA
                     182     LST OFF
@@ -1437,7 +1478,7 @@ RWTSONE
                     239 * IF DRIVNO IS NEGATIVE, ON DRIVE 1
                     240 * IF DRIVNO IS POSITIVE, ON DRIVE 2
                     241 *
-<hr>3E5A:48             242 <b><a name="MYSEEK"     id="MYSEEK"     >MYSEEK      </a></b>PHA             ; AND PRESERVE A-REGISTER       ; === Page <span id="page">126</span> === Uhm, OK, Captain Obvious
+<hr>3E5A:48             242 <b><a name="MYSEEK"     id="MYSEEK"     >MYSEEK      </a></b>PHA             ; AND PRESERVE A-REGISTER       ; === Page <span class="page">126</span> === Uhm, OK, Captain Obvious
                     243     LST OFF
 
                     2??     LST ON
@@ -1472,7 +1513,7 @@ RWTSONE
 3EAB:99 78 04       301 <b><a name="ONDRV1"     id="ONDRV1"     >ONDRV1      </a></b>STA DRV1TRK,Y
 3EAE:60             302 <b><a name="SETRTS"     id="SETRTS"     >SETRTS      </a></b>RTS
 
-<hr>; === <b class="file"><a name="FORMATR">FORMATR</a></b> - Format Disk, Page <span id="page">82</span>, <b class="ts">T?$?</b>, $<b>????</b> ===<hr>
+<hr>; === <b class="file"><a name="FORMATR">FORMATR</a></b> - Format Disk, Page <span class="page">82</span>, <b class="ts">T?$?</b>, $<span class="adr">????</span> ===<hr>
                     001                SBTL '16-SECTOR FORMATTER'
                     002 ****************************
                     003 *                          *
@@ -1543,7 +1584,7 @@ RWTSONE
 *                           *
 *****************************
 
-<hr>; === <b class="file"><a name="DOSPTCH">DOSPTCH</a></b> - Revision B Patches, Page <span id="page">52</span>, <b class="ts">T?$?</b> @ ?, $<b>####</b> ===<hr>
+<hr>; === <b class="file"><a name="DOSPTCH">DOSPTCH</a></b> - Revision B Patches, Page <span class="page">52</span>, <b class="ts">T?$?</b> @ ?, $<span class="adr">####</span> ===<hr>
                     001             SBTL "DOS PATCHES"
                     002 ********************************
                     003 *
