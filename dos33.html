@@ -255,7 +255,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 <pre>
 
-; === DOS33C - Master Source File, Page 39, T-S-, @ $n/a  ===
+; === DOS33C - Master Source File, Page 39, T/S n/a, @ $n/a ===
 
                     001             SBTL "DOS3.3C w/APPEND fix, U/L case"
                     002             LST  ON,VSYM
@@ -463,33 +463,97 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B63:8D 7F 1C       166             STA DELTA       ; IS DELTA
 1B66:AD 7A 1C       167             LDA <a href="#RSPAGE">RSPAGE</a>      ; RESET START PAGE TO NORMAL
 1B69:8D 0D 1D       168             STA ASTART+1
-1B6C:A9 1D          169             LDA #&lt;DBINIT    ; RESET PI RTN TO NORMAL        ; PI = ??? TODO:
-1B6E:8D 49 37       170             STA DI3+2
-1B71:A9 84          171             LDA #&gt;DBINIT
-1B73:8D 48 37       172             STA DI3+1
-                    173 ;
-                    174 ;RELOCATE ADR TABLES
-                    175 ;
-<hr>1B76:A2 00          176             LDX #0                                          ; === <span id="page">Page 113</span> ===
-1B78:86 40          177             STX ZPGWRK
-                    178 <b><a name="DR3"        id="DR3"        >DR3         </a></b>EQU *
+                    169 ;
+1B6C:A9 1D          170             LDA #&lt;DBINIT    ; RESET PI RTN TO NORMAL        ; PI = ??? TODO:
+1B6E:8D 49 37       171             STA DI3+2
+1B71:A9 84          172             LDA #&gt;DBINIT
+1B73:8D 48 37       173             STA DI3+1
+                    174 ;
+                    175 ;RELOCATE ADR TABLES
+                    176 ;
+<hr>1B76:A2 00          177             LDX #0                                          ; === <span id="page">Page 113</span> ===
+1B78:86 40          178             STX ZPGWRK
+                    179 <b><a name="DR3"        id="DR3"        >DR3         </a></b>EQU *
 
-                    ??? <b><a name="DR4"        id="DR4"        >DR4         </a></b>EQU *
+                    186 <b><a name="DR4"        id="DR4"        >DR4         </a></b>EQU *
 
-                    ??? <b><a name="DR5"        id="DR5"        >DR5         </a></b>INY
+                    194 <b><a name="DR5"        id="DR5"        >DR5         </a></b>INY
 
-                    ??? <b><a name="DR6"        id="DR6"        >DR6         </a></b>EQU *
+                    198 <b><a name="DR6"        id="DR6"        >DR6         </a></b>EQU *
 
-                    ??? <b><a name="DR7"        id="DR7"        >DR7         </a></b>STX TEMP1
-
-                    ??? <b><a name="DR8"        id="DR8"        >DR8         </a></b>LDX #0
-
-                    ??? <b><a name="DR9"        id="DR9"        >DR9         </a></b>SEC
-
-                    ??? <b><a name="DR10"       id="DR10"       >DR10        </a></b>LDA (ZPGWRK),Y  ; BYTE FROM
-
+                    213 ;
+                    214 ;RELOCATE CODE
+                    215 ;
+1BAF:A2 00          216             LDX #0
+1BB1:8E 9C 33       217 <b><a name="DR7"        id="DR7"        >DR7         </a></b>STX TEMP1
+                    218 ;
+1BB4:BD 5A 1C       219             LDA CDETAB+1,X  ; GET A START OF CODE ADR
+1BB7:85 40          220             STA ZPGWRK      ; PUT IN ZPG
+1BB9:BD 5B 1C       221             LDA CDETAB+2,X
+1BBC:85 41          222             STA ZPGWRK+1
+                    223 ;
+1BBE:A2 00          224 <b><a name="DR8"        id="DR8"        >DR8         </a></b>LDX #0         ; GET OP CODE
+1BC0:A1 40          225             LDA (ZPGWRK,X)  ; GO FIND OUT HOW LONG          ; Interesting hack of using
+1BC2:20 8E F8       226             JSR INSDS2                                      ; monitor ROW to get instruction opcode length
+                    227 ;
+1BC5:A4 2F          228             LDY LENGTH      ; GET HOW LONG
+1BC7:C0 02          229             CPY #2          ; IF IT AIN'T                   ; *sigh* 3-1 since zero based
+1BC9:D0 11          230             BNE <a href="#DR9">DR9</a>         ; 3 THEN DON'T RELOC            ; 300:A9 20 20 8E F8 A5 2F 09 30 4C ED FD
+1BCB:B1 40          231             LDA (ZPGWRK),Y  ; GET PAGE FROM INST
+1BCD:CD 7A 1C       232             CMP RSPAGE      ; IF PAGE &lt; REL START
+1BD0:90 0A          233             BCC <a href="#DR9">DR9</a>         ; THEN  IGNOR
+1BD2:CD 7B 1C       234             CMP REPAGE      ; IF PAGE &gt;= REL END
+1BD5:B0 05          235             BCS <a href="#DR9">DR9</a>         ; THEN IGNORE
+1BD7:6D 7F 1C       236             ADC DELTA       ; ELSE ADD DELTA
+1BDA:91 40          237             STA (ZPGWRK),Y  ; TO RELOCATE
+                    238 ;
+1BDC:38             239 <b><a name="DR9"        id="DR9"        >DR9         </a></b>SEC
+<hr>1BDD:A5 2F          240             LDA <a href="#LENGTH">LENGTH</a>      ; ADD LENGTH          ; T0SA @ $DD
+1BDF:65 40          241             ADC ZPGWRK      ; TO PC
+1BE1:95 40          242             STA ZPGWRK
+1BE3:A9 00          243             LDA #0
+1BE5:65 41          244             ADC ZPGWRK+1
+1BE7:85 41          245             STA ZPGWRK+1
+                    246 ;
+1BE9:AE 9C 33       247             LDX TEMP1       ; CHECK FOR END
+1BEC:DD 5D 1C       248             CMP CDETAB+4,X  ; OF CODE SEGMENT
+1BEF:90 CD          249             BCC <a href="#DR8">DR8</a>         ; BR NOT END
+1BF1:A5 40          250             LDA ZPGWRK
+1BF3:DD 5C 1C       251             CMP CDETAB+3,X
+1BF6:90 C6          252             BCC <a href="#DR8">DR8</a>         ; BR NOT END
+                    253 ;
+1BF8:8A             254             TXA
+1BF9:18             255             CLC
+1BFA:69 04          256             ADC #04         ; INCREMENT TABLE INDEX
+1BFC:AA             257             TAX
+1BFD:EC 59 1C       258             CPX CDETAB      ; DONE
+1C00:90 AF          259             BCC <a href="#DR7">DR7</a>         ; BR IF NOT                     ; === T0SB ===
+                    260 ;
+                    261             PAGE
+                    262 ;
+                    263 ;MOVE TO RELOCATED CODE
+                    264 ;
+1C02:A9 3F          265             LDA #&lt;ENDOFDOS-$80
+1C04:85 41          266             STA ZPGWRK+1    ; ZPGWRK=FROM
+1C06:AC 7D 1C       267             LDY NEPAGE
+1C09:88             268             DEY
+1C0A:84 43          269             STY ZPGFCB+1    ; ZPGFCB = TOO
+1C0C:A9 00          270             LDA #0
+1C0E:85 40          271             STA ZPGWRK
+1C10:85 42          272             STA ZPGFCB
+1C12:A8             273             TAY
+                    274 ;
+1C13:B1 40          275 <b><a name="DR10"       id="DR10"       >DR10        </a></b>LDA (ZPGWRK),Y  ; BYTE FROM
+1C15:91 42          276             STA (ZPGFCB),Y  ; BYTE  TO
+1C17:C8             277             INY             ; INCREMENT                     ; /sarcasm No shit, Sherlock
+1C18:D0 F9          278             BNE <a href="#DR10">DR10</a>        ; BR NOT FULL PAGE
+1C1A:CE 80 1C       279             DEC DPGCNT      ; DECREMENT PAGE CNT
+1C1D:F0 06          280             BEQ <a href="#DR11">DR11</a>        ; BR IF DONE
+1C1F:C6 41          281             DEC ZPGWRK+1    ; INC FROM PAGE
+1C21:C6 43          282             DEC ZPGFCB+1    ; INC TOO PAGE
+1C23:D0 EE          283             BNE <a href="#DR10">DR10</a>        ; MOVE PAGE
                     284 ;
-1C25:4C 54 1E       285 <b><a name="DR11"       id="DR11"       >DR11        </a></b>JMP <a href="#DBVECT">DBVECT+3</a>    ; DONE             ; DOSINIT, Page 51 -&gt; JMP DBINIT
+1C25:4C 54 1E       285 <b><a name="DR11"       id="DR11"       >DR11        </a></b>JMP <a href="#DBVECT">DBVECT+3</a>    ; DONE                          ; DOSINIT, Page 51 -&gt; JMP DBINIT
                     286             PAGE
 1C28:24             287 <b><a name="ADRTAB"     id="ADRTAB"     >ADRTAB      </a></b>DFB 9*4
 1C29:00 1D          288             DW  SAT1
@@ -531,15 +595,15 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C74:A8 3F          324             DW  AEC2
 1C76:C8 3F          325             DW  SDP1
 1C78:FF 3F          326             DW  EDP1                                        ; End Program
-1C7A:1D             327 <i><a name="RSPAGE"     id="RSPAGE"     >RSPAGE      </a></i>DFB &lt;START
-1C7B:40             328 REPAGE      DFB &lt;ENDOFDOS
+1C7A:1D             327 <i><a name="RSPAGE"     id="RSPAGE"     >RSPAGE      </a></i>DFB &lt;START                                      ; (Source) Relocation Start Page $1D00
+1C7B:40             328 <i><a name="REPAGE"     id="REPAGE"     >REPAGE      </a></i>DFB &lt;ENDOFDOS                                   ; (Source) Relocation End+1 Page $4000
                     329 ;
 1C7C:00             330 NSPAGE      DFB 0
 1C7D:00             331 NEPAGE      DFB 0
                     332 ;
 1C7E:23             333 DOSLNG      DFB &lt;ENDOFDOS-START
                     334 ;
-1C7F:00             335 DELTA       FDB 0
+1C7F:00             335 DELTA       DFB 0
 1C80:23             336 DPGCNT      DFB &lt;ENDOFDOS-START
                     337             PAGE
 
@@ -1322,15 +1386,22 @@ TODO:
                     007 *
                     008 * EQUATES FOR FORMATTER
                     009 *
-                    010 NSYNC       EQU $45     ;NUM GAP SELF-SYNC NIBLS
+                    010 NSYNC       EQU $45         ;NUM GAP SELF-SYNC NIBLS
                     011 *
                     012             REP 40
                     013 DSKFORM     EQU *
-                    014     DO DIAGMOD          ;ELIMINATE FMTR FROM DIAG ASSEMBLY<span class="macro">
+                    014     DO DIAGMOD              ;ELIMINATE FMTR FROM DIAG ASSEMBLY<span class="macro">
                     015         LST OFF                                             </span>
                     016     ELSE
-                    017             LDY #3
-                    018             STY (IOBPL),Y
+                    017             LDY #3                                          ; IOB_OFFSET_VOL = 3
+                    018             STY (IOBPL),Y   VOLUME NUMBER IN IOB.
+                    019             STA NVOL        FOR FORMATTER.
+                    020             LDA #$AA        SET Z-PAG LOC TO $AA FOR
+                    021             STA AA          TIME DEPENDENT REFERENCES.
+                    022             LDY #$56
+                    023             LDA #0
+                    024             STA TRK         TRACK NUMBER, 0 TO 34
+                    025             STA NBUF2-1,Y   CLEAR NBUFS TO WRITE
 
 ????:
 ????:AD 88 C0                   LDA MOTOROFF,X  ; TURN MOTOR OFF.
@@ -1381,6 +1452,10 @@ TODO:
 <h1>Symbols (Alphabetical)</h1>
 <pre>
     DBVECT      = $1E51
+    DELTA       = $1C7F
+
+    NEPAGE      = $1C7D
+
     SC1         = $1D84
     EC1         = $2884
     SC2         = $2AFD
@@ -1395,7 +1470,13 @@ TODO:
     RUN         = $1D58
     IBVT        = $1D62
 
+    RSPAGE      = $1C7A
+
     PRENIB16    = $B800
+    ZPGFCB      =   $42
+    ZPGWRK      =   $40
+
+
 </pre>
 
 <h1>Symbols (Address)</h1>
