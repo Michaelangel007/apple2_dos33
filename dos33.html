@@ -141,11 +141,25 @@
 <title>Apple DOS 3.3C Source Code (HTML Version)</title>
 <head>
     <style>
+
+span.b { color: #080; font-weight: bold;  } /* Original bold   green */
+span.i { color: #00F; font-style: italic; } /* Original italic blue  */
+
+/* Bold = Func (Blue) */
 b {
-    color: #080;
+    color: #00F; /* old: 080 */
 }
+/* Italic = Data (Green) */
+i {
+    color: #080; /* 00F */
+}
+
 h1 {
     font-size: 200%;
+}
+/* Memory Address */
+b.adr {
+    color: #F80;
 }
 b.file {
     color: #F00;
@@ -154,9 +168,8 @@ b.file {
 b.ts {
     color: #F00;
 }
-i {
-    color: #00F;
-    }
+
+
 /*
 # after an hr there is a line of whitespace
     <div class="hr"><hr></div>
@@ -189,12 +202,17 @@ span.todo {
 <br>Transcribed by Michael Pohoreski.
 <br>Latest version on my GitHub: <a href="http://htmlpreview.github.com/?https://github.com/Michaelangel007/apple2_dos33/blob/master/dos33.html">dos33.html</a>
 <p>
-The <i>intent</i> of providing this copyrighted source code is
- as a convenience for the curious as a <b>means to learn</b> -- such as,
- how <b>not to design a Operating / Disk / File System</b> (look for all my <b>*sigh*</b> comments), but as they say, <i>"Hindsight is 20/20."</i>
+The <span class="i">intent</span> of providing this copyrighted source code is
+ as a convenience for the curious as a <span class="b">means to learn</span> --
+ such as, how <span class="b">not to design a Operating / Disk / File System</span>
+ (look for all my <span class="b">*sigh*</span> comments), but as they say,
+ <span class="i">"Hindsight is 20/20."</span>
 <p>
-<b>DISCLAIMER:</b> <i>YOU MAY NOT USE THIS FOR COMMERCIAL GAIN else you face risking the wrath of Apple's lawyers.</i>
-Since Apple <i>has already previously released this source code</i> I'm assuming it is OK since I'm not presenting anything new (well, OK, my commentary, but you get the point.)
+<span class="b">DISCLAIMER:</span> <span class="i">YOU MAY NOT USE THIS FOR
+ COMMERCIAL GAIN else you face risking the wrath of Apple's lawyers.</span>
+ Since Apple <span class="i">has already previously released this source code</span>
+ I'm assuming it is OK since I'm not presenting anything new
+ (well, OK, my commentary, but you get the point.)
 <p>
 Numerous improvements have been made over the original source code listings:
 <p>
@@ -212,7 +230,7 @@ Numerous improvements have been made over the original source code listings:
 Header Format is:
 
 <pre>
-; === <b class="file">FILENAME</b> - Description, Page <span id="page">#</span>, <b class="ts">Track/Sector</b> @ $offset, $<b>####</b> (Relocated Address in high memory) ===
+; === <b class="file">FILENAME</b> - Description, Page <span id="page">#</span>, <b class="ts">Track/Sector</b> @ $offset, $<b class="adr">####</b> (Relocated Address in high memory) ===
 </pre>
 
 Line format is:
@@ -239,7 +257,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
     </tr>
     <tr>
         <td>LABEL</td>
-        <td>Function name, or branch target name<br>Green = <b>Function</b><br>Blue = <i>Data</i></td>
+        <td>Function name, or branch target name<br><b>Function</b><br><i>Data</i></td>
     </tr>
     <tr>
         <td>MNEMONIC</td>
@@ -1176,7 +1194,7 @@ TODO:
 WRITADR
 RWTSONE
 
-<hr>; === <b class="file"><a name="RWTSTWO">RWTSTWO</a></b> - Read Write Track Sector - Part 2, Page <span id="page">124</span>, <b class="ts">T0$8</b>, $<b>BE47</b> ===<hr>
+<hr>; === <b class="file"><a name="RWTSTWO">RWTSTWO</a></b> - Read Write Track Sector - Part 2, Page <span id="page">124</span>, <b class="ts">T0$8</b>, $<b class="adr">BE47</b> ===<hr>
                     001 *
                     002 * DISK IS NOW UP TO SPEED: READ IT!
                     003 * NOW CHECK: IF IT IS NOT THE FORMAT DISK COMMAND,
@@ -1217,14 +1235,14 @@ RWTSONE
                     038     LST ON
 3DC4:20 44 39       039             JSR <a href="#RDADR16">RDADR16</a>     ;READ NEXT ADDRESS FIELD        ; ^
                     040     LST OFF
-                    041     DO DIAGMOD<span style="background-color:#EEE">
+                    041     DO DIAGMOD<span class="macro">
                     042         LDA #SP             ;ADDRESS-READ DONE              
                     043         STA TL4                                             </span>
                     044     FIN
                     045     LST ON
 3DC7:90 24          046             BCC <a href="#RDRIGHT">RDRIGHT</a>     ;IF READ IT RIGHT, HURRAH!      ; v
                     047     LST OFF
-                    048     DO DIAGMOD<span style="background-color:#EEE">
+                    048     DO DIAGMOD<span class="macro">
                     049         LDA #TC6            ;ADDRESS-READ DONE              
                     050         STA TL4                                             </span>
                     051     FIN
