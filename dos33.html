@@ -161,7 +161,7 @@ span.i { color: #00F; font-style: italic; } /* Original italic blue  */
 
 /* Bold = Func (Blue) */
 b {
-    color: #00F; /* old: 080 */
+    color: #00F; /* -- old: 080 */
 }
 
 /* Italic = Data (Green) */
@@ -169,7 +169,7 @@ i {
     color: #080; /* 00F */
 }
 a {
-    color: #24F;
+    color: #46F;           /* baby blue */
     font-weight: bold;     /* default to bold for function names */
 }
 a.x { /* func name -- can't use '$' in css name */
@@ -182,6 +182,9 @@ a.d { /* data var name -- http://stackoverflow.com/questions/448981/which-charac
     text-decoration: none; /* remove underlink from data link */
     font-weight: normal;   /* remove bold */
 /* font-style: italic; /* optional italic for data */
+}
+a.dumb { /* How Not To Design a File System */
+    color: #808;
 }
 a.file {
     color: #F00;           /* FILE = Red */
@@ -257,8 +260,9 @@ span.todo {
 <p>
 The <span class="i">intent</span> of providing this copyrighted source code is
  as a convenience for the curious as a <span class="b">means to learn</span> --
- such as, how <span class="b">not to design a Operating / Disk / File System</span>
- (look for all my <span class="b">*sigh*</span> comments), but as they say,
+ such as especially how <span class="b">NOT</b> to design a Operating / Disk / File System</span>
+ (look for all my <span class="b">*sigh*</span> comments and
+ <b><a href="#HNTDAFS1">HNTDAFS</a></b> (How Not to Design a File System), but as they say,
  <span class="i">"Hindsight is 20/20."</span>
 <p>
 <span class="b">DISCLAIMER:</span> <span class="i">YOU MAY NOT USE THIS FOR
@@ -355,10 +359,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     021             INCLUDE <a href="#FMTRWIO">FMTRWIO</a>,,2
                     022             INCLUDE <a href="#FLOCNXB">FLOCNXB</a>,,2
                     023             INCLUDE <a href="#FLOCSEC">FLOCSEC</a>,,2
-                    024             INCLUDE FVCBUFS,,2
-                    025             INLUCDE BOOTLDR,,2                              ; $3600 .. $36FF
-                    026             INCLUDE COREQUS,,1
-                    027             INCLUDE PRENIBL,,1
+                    024             INCLUDE <a href="#FVCBUFS">FVCBUFS</a>,,2
+                    025             INLUCDE <a href="#BOOTLDR">BOOTLDR</a>,,2                              ; $3600 .. $36FF
+                    026             INCLUDE <a href="#COREQUS">COREQUS</a>,,1
+                    027             INCLUDE <a href="#PRENIBL">PRENIBL</a>,,1
                     028             INCLUDE <a href="#WRITRTN">WRITRTN</a>,,1
                     029             INCLUDE <a href="#POSTNRD">POSTNRD</a>,,1
                     030             INCLDUE <a href="#RDADSEK">RDADSEK</a>,,1
@@ -745,7 +749,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     005 ;   HIMEM,SOP                                       ; $9D00 = SOP = Start of Program
                     006 ;   SBUFF  N (256)
                     007 ;   DBUFF  N (256)
-                    008 ;   FTB    N (FCBLEN)                               ; <span class="todo">TODO</span> <a class="file" href="#FCVBUFS">FVCBUFS</a>, Line #<span class="line">187</span>>
+                    008 ;   FTB    N (FCBLEN)                               ; <a class="file" href="#FVCBUFS">FVCBUFS</a>, Line #<span class="line">187</span>
                     009 ;   HEADER N (38)                                   ; See Header Map below
                     010 ;   .
                     011 ;   .
@@ -881,8 +885,185 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     002 ;
 
 
-<hr>; === <a class="file" name="FVCBUFS">FVCBUFS</a> - File Volume Catalog Buffers, Page <span class="page">?</span>, <b class="ts">T?$?</b>, $<span class="adr">????</span> ===<hr>
+<hr>; === <a class="file" name="FVCBUFS">FVCBUFS</a> - File Volume Catalog Buffers, Page <span class="page">86</span>, <b class="ts">T2$2</b> @ $A7 - <b class="ts">T2$3</b> @ $BA, $<span class="adr">B397</span> .. $<span class="adr">B4BA</span> ===<hr>
+                    001             PAGE                                            ; This is why I partially hate old source code:
+                    002 ;MISC DOS WORK CELLS                                        ;   <i>(almost) Everything has been abbreviated</i>
+                    003 ;                                                           ;   <i>(almost) to the point of obfuscation.</i>
+3397:00             004 CVDTRK      DFB 0           ; CUR VOL DIR TRK               ; i.e.
+3398:00             005 CVDSEC      DFB 0           ; CUR VOL DIR SECTOR            ;    ENT = Entry
+3399:00 00          006 CURCCB      DFB 0,0         ; CURRENT CCB ADR               ;    ALC = Allocation
+339B:00             007 ENTSTK      DFB 0           ; ENTRY STACK POINTER           ; Why are we futzing with the stack pointer???
+339C:00             008 TEMP1       DFB 0           ; TEMP BYTE1                    ; /sarcasm o7 Captain Obvious
+339D:00             009 TEMP2       DFB 0           ; TEMP BYTE 2                   ; *note* All the cool kids use "o7" for salute these days
+339E:00             010 TEMP3       DFB 0           ; TEMP BYTE 3
+339F:00             011 ENTSLT      DFB 0           ; BOOT SLOT SAVE
+33A0:00 00 FF FF    012 ALC10S      DFB 0,0,$FF,$FF ; ALLOCATION TRACK BIT MAP      ; *sigh* wastes 2 bytes/track since 32 sectors/track!
+                                                                                    ; The thinking was probably:
+                                                                                    ;     DOS 3.2 = 13 sector
+                                                                                    ;     DOS 3.3 = 16 sector
+                                                                                    ;     DOS 3.4 =&gt;16 sector -- See <a class="d" href="#VNOSEC">VNOSEC</a>
+                                                                                    ; <a class="dumb" name="HNTDAFS1">HNTDAFS #1</a>
+                                                                                    ; Anytime you see the word <b>reserved</b> in a (file) format
+                                                                                    ; your spidey sense should be tingling:
+                                                                                    ;   <i>"RESERVED = I pulled this out of my ass -- </i>
+                                                                                    ;   <i> because I didn't actually <b>measure</b> what is <b>needed</b>!"</i>
+33A4:01 0A 64       013 CVTAB       DFB 1,10,100    ; CONVERSION TABLE              ; Powers of 10, Sadly Applesoft's DECTBL @ $EE6C is useless :-/
+                    014             MSC ON                                          ; Switch ASCII to Apple Text (high bit set)
+33A7:D4 C9 C1 C2    015 FTTAB       ASC "TIAB"      ; FILE COVERSTION TABLE"        ;
+33AB:D3 D2 C1 C2    016             ASC "SRAB"                                      ; *sigh* Really, you just <i>had</i> to re-use AB ??
+                                                                                    ; <a class="dumb" name="HNTDAFS2">HNTDAFS #2</a>
+                                                                                    ; <i>Gee, how about using, oh I don't know, CD</i>
+                                                                                    ; At the very least D = "user Defined" or <i>shock</i> <b>directory</b>:
+                                                                                    ;    C = Child Directory; pointer to parent T/S
+                                                                                    ;    D = Directory (child)
+                                                                                    ; Yeah, yeah 20/20
+33AF:A0 C5 CD D5    017 VOLMES      ASC " EMULOV DISK" ; "DISK VOLUME " BACWARDS    ; *sigh* Micro-optimization
+33B3:CC CF D6 A0                                                                    ; Not that these are bad but /sarcmasm <i>Lets focus on</i>
+33B7:CB D3 C9 C4                                                                    ; <i>a <b>single</b> tree, and completely miss the forest!</i>
+                    018             MSB OFF                                         ; Switch back to 7-bit ASCII
+                    019 VML         EQU *-<a class="d" href="#VOLMES">VOLMES</a>-1                                  ; File <a class="file" href="#FDELCAT">FDELCAT</a>, Func <a class="x" href="#RDIR">RDIR</a>, Line <span class="todo">TODO</span>
+                    020             PAGE
+                    021 ;VTOC RECORD AREA
+                    022 VTOC        EQU *                                           ; T11S0 === Normal snarky commentary ===
+33BB:04             023 VDOST       DFB 4           ; DOS TYPE                      ; 00:04 *sarcasm* If only we could do FILESYSTEM_TYPE_VTOC = $4
+33BC:11             024 VDIRTK      DFB 17          ; COLUME DIRECTORY SECTOR       ; 01:11 1) *spelling* VOLUME *sigh* 2) TRACK not sector
+33BD:0F             025 VDIRSC      DFB 15          ; VOLUME DIRECTORY SECTOR       ; 02:0F 
+33BE:04             026 VDOSRN      DFB 4           ; DOS RELEASE NUMBER            ; 03:03 *sarcasm* I guess <b>VERSION</b> made too much sense.
+33BF:00             027             DFB 0           ; SPARE                         ; 04:01 *sarcasm* Because <i>someday</i> these <i>might</i> be used ...
+33C0:00             028             DFB 0           ; SPARE                         ; 05:00 
+33C1:FE             029 VVOLNO      DFB $FE         ; VOLUME NUMBER                 ; 06:FE 
+33C2:0 0 0 0 0 0    030             DS 32           ; SPARE                         ; 07:00 Gee, here's an idea, instead of wasting space in the VTOC:
+33C8:0 0 0 0 0 0 0 0                                                                ;       1) Pack our data by removing all unused crap,
+33D0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ;       2) Put VTOC data as first XX bytes in the CATALOG <b class="ts">T11$F</b>
+33E0:00 00                                                                          ;       If we were <i>really</i> smart <b class="ts">T11</b> would reside on <b class="ts">T2$5..F</b>
+33E2:7A             031 VTDMS       DFB 122         ; MAX SECTORS IN A FILE DIR     ; 27:7A *sigh* not 128 so we can BMI (Branch on Minus) ???
+33E3:00 00 00 00    032 VSPARE      DS 8            ; SPARES                        ; 28:00 *sarcasm* Who cares, we have 140KB, right!
+33E7:00 00 00 00    033 ;
+33EB:11             034 VALCA1      DFB 17          ; ALOCATION ALGORITHM BYTE 1    ; 30:0D Last allocated track <span class="todo">TODO</span> Cross-Ref
+33EC:01             035 VALC2       DFB 1           ; AA BYTE2                      ; 31:FF Direction of last tack allocation --  <span class="todo">TODO</span> Cross-Ref
+                                                                                    ;           +$01 inwards  to <span class="ts">T22</span>,
+                                                                                    ;           -$FF outwards to <span class="ts">T00</span>.
+33ED:00             036 VALC3       DFB 0           ; AA BYTE3                      ; 32:00 *sigh* wasted byte *sarcasm* <i>I _really_ don't know what we</i>
+33EE:00             037 VALC4       DFB 0           ; AA BYTE4                      ; 33:00 *sigh* wasted byte   <i>would do without you Captain Obvious!</i>
+33EF:23             038 VNOTRK      DFB 35          ; NO TRACKS ON VOL              ; 34:23 *note* "No" = Number
+33F0:10             039 VNOSEC      DFB 16          ; NO SECTORS PER TRACK          ; 35:10          Evidence that one day DOS 3.4+ might support:
+33F1:00 01          040 VSECLN      DW 256          ; NO. BYTES PER SECTOR          ; 36:00 (Little)     &gt;  16 sectors/track
+                    041 ;                                                           ; 37:01 (Endian) and &gt; 256 bytes/sector.
+                    042 VSECAL      EQU *                                           ;       *note* <b>Actual</b> VTOC header is $F3-$BB = $38 bytes
+                    043 ;SECTORS ALLOCATED BY BIT MAP                               ;       [0] Sectors: FEDCBA98    0=Used
+                    044 ;4 BYTES OF BITS PER TRACK                                  ;       [1] Sectors: 76543210    1=Free
+                    045 ;LEFT MOST BIT REPRESENTS SECTOR N                          ;*sigh* Let us <b>waste</b>     : 35*4 bytes = 140 bytes ($8C)
+                    046 ;WHERE N=NO SECTORS PER TRACK                               ;       When we only <b>need</b>: 35*2 bytes =  70 bytes ($46)
+                    047 ;                                                           ;       As Mike Acton says:
+                    048 ;                                                           ;           "<i>Solve the <b>actual</b> problem,</i>
+                    049            PAGE                                             ;           <i>not the one you <b>think</b> is the problem</i>"
+33F2:0 0 0 0 0 0    050            ORG VTOC+256                                     ; 38:0F *hack* uninitialized memory is never a good idea
+33F8:0 0 0 0 0 0 0 0                                                                ; 39:00 Why not simply <span class="macro">DS 256-&gt;VSECAL,0</span> ???
+3400:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; 3A:00 === <b class="ts">T2$3</b> ===
+3410:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; 3B:FF *sigh* let's waste $C4 bytes as we span 2 sectors
+3420:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; 3C:FF instead of copying the VTOC header ($38 byte)
+3430:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ;       into a new temporary page on init!
+3440:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+3450:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; <a class="dumb" name="HNTDAFS3">HNTDAFS #3</a>
+3460:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; Design fault: DOS is <b>unable</b> to use Track 0 to store user files.
+3470:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; This means a non-bootable <i>data disk</i> is robbed of 16 sectors.
+3480:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; <span class="todo">TODO</a> See File, Func, Line</span>
+3490:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+34A0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+34B0:0 0 0 0 0      051 ;
+34B4:0 0 0 0 0      052 ;VOLUME DIRECTORY AREA
+34B8:0 0 0          053 ;
+<hr>                    054 VOLDIR      EQU *           ;                               ; === Page <span class="page">87</span> ===
+34BB:02             055 VDTCDE      DFB 2           ; VOLUME DIRECTORY TYPE CODE    ; *sarcasm* if only we could do FILESYSTEM_TYPE_CATALOG = $2
+                    056 
+                    057 
+                    058 
+                    059 
+                    060 
+                    061 
+                    062 
+                    063 
+                    064 
+                    065 
+                    066 
+                    067 
+                    068 
+                    069 
+                    070 
+                    071 
+                    072 
+                    073 
+                    074 
+                    075 
+                    076 
+                    077 
+                    078 
+                    079 
 
+                    080 
+                    081 
+                    082 
+                    083 
+                    084 
+                    085 
+                    086 
+                    087 
+                    088 
+                    089 
+
+                    090 
+                    091 
+                    092 
+                    093 
+                    094 
+                    095 
+                    096 
+                    097 
+                    098 
+                    099 
+
+                    100 
+                    101 
+                    102 
+                    103 
+                    104 
+                    105 
+                    106 
+                    107 
+                    108 
+                    109 
+
+                    100 
+                    101 
+                    102 
+                    103 
+                    104 
+                    105 
+                    106 
+                    107 
+                    108 
+                    109 
+
+                    110 
+                    111 
+                    112 
+                    113 
+                    114 
+                    115 
+                    116 
+                    117 
+                    118 
+                    119 
+
+    :00             180 DCBDRV DS 1                 ; DRIVE NUMBER
+    :00             181 DCBVOL DS 1                 ; VOLUME DRIVER
+    :00             182 DCBVTN DS 1                 ; VTOC TRACK NUMBER
+                    183 ;
+    :00 00 00       184 DCBSPR DS 3                 ; SPARES
+                    185 ;
+                    186 DCBLEN EQU *-<a class="d" href="#FCBDCB">FCBDCB</a>         ; DCB LENGTH
+                    187 <a class="d" name="FCBLEN">FCBLEN</a> EQU *-<a class="d" href="#FCB"   >FCB</a>            ; FCB LENGTH
+####:## ## ##       ### LABEL       NMEMONIC        COMMENT                         ; Annotation
 
 <hr>; === <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <span class="page">8</span>, <b class="ts">T0$0</b>, $<span class="adr">B600</span> ===<hr>
 
