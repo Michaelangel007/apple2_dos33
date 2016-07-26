@@ -912,7 +912,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     168 ************************                                    ; Typical B.A.D. (Beneath Apple Dos) shenanigans (Page 6-3):
                     169 <a class="d" name="PHASEOFF"   >PHASEOFF    </a>EQU $C080       STEPPER PHASE OFF.              ; <i>"The timing between accesses to these locations is</i>
                     170 <a class="d" name="PHASEON"    >PHASEON     </a>EQU $C081       STEPPER PHASE ON.               ; <i> critical, making this a non-trivial exercise."</i> <b>WHICH IS???</b>
-                    171 <a class="d" name="Q6L"        >Q6L         </a>EQU $C08C       Q7L,Q6L=READ                    ; *sigh* /sarcasm Riiight, because it is _obvious_ what Q7L & Q7H
+                    171 <a class="d" name="Q6L"        >Q6L         </a>EQU $C08C       Q7L,Q6L=READ                    ; *sigh* /sarcasm Riiight, because it is _obvious_ what Q7L &amp; Q7H
                     172 <a class="d" name="Q6H"        >Q6H         </a>EQU $C08D       Q7L,Q6H=SENSE WPROT             ; do -- but let's keep copy/paste these shitty non-descript names!
                     173 <a class="d" name="Q7L"        >Q7L         </a>EQU $C08E       Q7H,Q6L=WRITE                   ; DRIVE_MODE_R
                     174 <a class="d" name="Q7H"        >Q7H         </a>EQU $C08F       Q7H,Q6H=WRITE STORE             ; DRIVE_MODE_W
@@ -1684,7 +1684,7 @@ TODO:
 3F0D:A9 00          068 <a name="WTRACK16"   >WTRACK16    </a>LDA #0
 3F0F:85 3F          069             STA NSECT       SECTOR NUMBER, 0 to 15.
 3F11:A0 80          070             LDY #128        ;128 NIBS PRIOR SECTOR 0
-3F13:D0 02          071             BNE WSECT0      ; TO INSURE NO BLANK SPOT BETW 15 & 0
+3F13:D0 02          071             BNE WSECT0      ; TO INSURE NO BLANK SPOT BETW 15 &amp; 0
 3F15:A4 45          072 <a name="WSECT"      >WSECT       </a>LDY NSYNC       CURRENT NUM OF GAP SELF-SYNC NIBLS.
 
 *****************************
