@@ -728,7 +728,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <hr>; === <a class="file" name="XLODSAV">XLODSAV</a> - Execute Load / Save , Page <span class="page">140</span>,  <b class="ts">T?S?</b>, $<span class="adr">????</span> ===<hr>
 
 
-<hr>; === <a class="file" name="DOSGOER">DOSGOER</a> - Print Error message, Page <i>40</i>, T?S?, $<span class="adr">????</span> ===<hr>
+<hr>; === <a class="file" name="DOSGOER">DOSGOER</a> - Print Error message, Page <span class="page">40</span>, T?S?, $<span class="adr">????</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; DOSGO - GOTO DOS
@@ -736,7 +736,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     005 <a class="f" name="DOSGO"       >DOSGO       </a>EQU *
 
 
-<hr>; === <a class="file" name="BLDFTAB">BLDFTAB</a> - Build File Tables, Page <i>4</i>, <b class="ts">T1$6</b> @ $D4, $<span class="adr">####</span> ===<hr>
+<hr>; === <a class="file" name="BLDFTAB">BLDFTAB</a> - Build File Tables, Page <span class="page">4</span>, <b class="ts">T1$6</b> @ $D4, $<span class="adr">####</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; BLDFTB - BUILD FILE TABLES
@@ -744,7 +744,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     005 ;   HIMEM,SOP                                       ; $9D00 = SOP = Start of Program
                     006 ;   SBUFF  N (256)
                     007 ;   DBUFF  N (256)
-                    008 ;   FTB    N (FCBLEN)
+                    008 ;   FTB    N (FCBLEN)                               ; <span class="todo">TODO</span> <a class="file" href="#FCVBUFS">FVCBUFS</a>, Line #<span class="line">187</span>>
                     009 ;   HEADER N (38)                                   ; See Header Map below
                     010 ;   .
                     011 ;   .
