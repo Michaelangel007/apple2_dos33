@@ -150,6 +150,28 @@ Page
                     117 
                     118 
                     119 
+
+                    120 
+                    121 
+                    122 
+                    123 
+                    124 
+                    125 
+                    126 
+                    127 
+                    128 
+                    129 
+
+                    130 
+                    131 
+                    132 
+                    133 
+                    134 
+                    135 
+                    136 
+                    137 
+                    138 
+                    139 
 -->
 <html>
 <title>Apple DOS 3.3C Source Code (HTML Version)</title>
@@ -475,20 +497,20 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     098 *
                     099             REP 40
                     100             PAGE
-1B00:4C 84 1D       101 <a class="f" name="BEGIN"       >BEGIN       </a>JMP <a class="x" href="#DBINIT">DBINIT</a>                                      ; === DOS loads @ $1B00 ===
+1B00:4C 84 1D       101 <a class="f" name="BEGIN"   >BEGIN       </a>JMP <a class="x" href="#DBINIT">DBINIT</a>                                      ; === DOS loads @ $1B00 ===
                     102 ;                                                           ; Loaded in at $38D4
-                    103 <a class="f" name="DOSREL"      >DOSREL      </a>EQU *                                           ; Called from BOOTLDR, page 12, line # TODO:
+                    103 <a class="f" name="DOSREL"  >DOSREL      </a>EQU *                                           ; Called from BOOTLDR, page 12, line # TODO:
                     104 ;
                     105 ; GET RELOCATION PARMS
                     106 ;
-                    107 <a class="f" name="DR0"         >DR0         </a>EQU *
-                    108 <a class="d" name="LOC1">LOC1        </a>EQU $26
+                    107 <a class="f" name="DR0"     >DR0         </a>EQU *
+                    108 <a class="d" name="LOC1"    >LOC1        </a>EQU $26
 1B03:A9 BF          109             LDA #$BF        ; START AT BF00                 ; Top of 48K
 1B05:85 41          110             STA ZPGWRK+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
 1B07:A2 00          111             LDX #<span class="adr">0</span>          ; HIGH RAM
 1B09:86 40          112             STX ZPGWRK
-1B0B:A0 00          113 <a class="f" name="DR0A"        >DR0A        </a>LDY #<span class="adr">0</span>          ; APPLE TEST
-                    114 <a class="f" name="DR1B"        >DR1B        </a>EQU *                                           ; unused label
+1B0B:A0 00          113 <a class="f" name="DR0A"    >DR0A        </a>LDY #<span class="adr">0</span>          ; APPLE TEST
+                    114 <a class="f" name="DR1B"    >DR1B        </a>EQU *                                           ; unused label
 1B0D:A1 40          115             LDA (ZPGWRK,X)
 1B0F:85 26          116             STA LOC1                                        ; LOC1 = MemTestVal
 <hr>1B11:98             117 <a class="f" name="DR1"         >DR1         </a>TYA                                             ; === Page <span class="page">112</span> ===
@@ -699,7 +721,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     008 <a class="d" name="SAT1"       >SAT1        </a>EQU *
                     009 FTAB        DW *-45
                     010 CINA        DW CHRIN
-                    011 COUTA       DW CHROUT
+1D04:BD 2E zzzzzz   011 <a class="d" name="COUTA"      >COUTA       </a>DW CHROUT
                     012 FN1ADR      DW FNAME1
                     013 FN2ADR      DW FNAME2
                     014 SVBLA       DW SVBL
@@ -741,7 +763,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     005 <a class="f" name="DOSGO"       >DOSGO       </a>EQU *
 
 
-<hr>; === <a class="file" name="BLDFTAB">BLDFTAB</a> - Build File Tables, Page <span class="page">4</span>, <b class="ts">T1$6</b> @ $D4, $<span class="adr">####</span> ===<hr>
+<hr>; === <a class="file" name="BLDFTAB">BLDFTAB</a> - Build File Tables, Page <span class="page">4</span>, <b class="ts">T1$6</b> @ $D4 - <b class="ts">T1$7</b> @ $83, $<span class="adr">A7D4</span> .. $<span class="adr">A883</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; BLDFTB - BUILD FILE TABLES
@@ -768,14 +790,14 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     024 ;
 27D4:               025 <a class="f" name="BLDFTB"     >BLDFTB      </a>EQU *
 27D4:38             026             SEC
-27D5:AD 00 1D       027             LDA <a class="d" href="#FTAB">FTAB</a>        ; START OF FTAB AREA    ; dosinit, 48
-27D8:85 40          028             STA ZPGWRK      ; IS 1ST FTB PTR        ; reloctr, 110
+27D5:AD 00 1D       027             LDA <a class="d" href="#FTAB"  >FTAB</a>        ; START OF FTAB AREA            ;
+27D8:85 40          028             STA <a class="d" href="#ZPGWRK">ZPGWRK</a>      ; IS 1ST FTB PTR                ;
 27DA:AD 01 1D       029             LDA FTAB+1      ; HEADER
 27DD:85 41          030             STA ZPGWRK+1
-27DF:AD 57 2A       031             LDA CNFTBS      ; MOVE NO FTABS         ; fdosent, 60
-27E2:8D 63 2A       032             STA TEMP1A      ; TO TEMP               ; fdosent, 60
+27DF:AD 57 2A       031             LDA CNFTBS      ; MOVE NO FTABS                 ; fdosent, 60
+27E2:8D 63 2A       032             STA TEMP1A      ; TO TEMP                       ; fdosent, 60
                     033 ;
-27E5:A0 00          034 <a class="f" name="BFT1"       >BFT1        </a>LDY #0
+27E5:A0 00          034 <a class="f" name="BFT1"       >BFT1        </a>LDY #<span class="adr">0</span>
 27E7:98             035             TYA
 27E8:91 40          036             STA (ZPGWRK),Y  ; 1ST CHAR FN=0
 27EA:A0 1E          037             LDY #<span class="adr">30</span>         ; INC Y TO FCB PTR
@@ -807,8 +829,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 280E:8A             063             TXA
 280F:91 40          064             STA (ZPGWRK),Y
                     065 ;
-2811:CE 63 2A       066             DEC TEMP1A      ; DECREMENT TABLE INDEX
-2814:F0 17          067             BEQ <a href="#BFT2">BFT2</a>        ; COUNT AND BR IF DONE  ; v
+2811:CE 63 2A       066             DEC TEMP1A      ; DECREMENT TABLE INDEX         ; TEMP1A @ $<b class="adr">AA63</b>
+2814:F0 17          067             BEQ <a class="x" href="#BFT2">BFT2</a>        ; COUNT AND BR IF DONE          ; v
 2816:AA             068             TAX
 2817:68             069             PLA
 2818:38             070             SEC
@@ -823,15 +845,69 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2825:85 41          079             STA ZPGWRK+1    ; AND INTO ZPGWRK
 2827:68             080             PLA             ; FOR NEXT ENTRY
 2828:85 40          081             STA ZPGWRK      ; BUILD
-282A:4C E5 27       082             JMP <a href="#BFT1">BFT1</a>                                ; ^
-282D:48             083 <a name="BFT2"      id="BFT2"       >BFT2        </a>EQU *
-
-                    ;
-                    ; MVISW - MOVE INPUT SWITCH
-                    ;
-2900:00             <a class="f" name="MVCSW" >MVCSW       </a>EQU *
-                                LDA INSW+1
-
+282A:4C E5 27       082             JMP <a class="x" href="#BFT1">BFT1</a>                                        ; ^ BFT1 @ $<b class="adr">A7E4</b>
+                    083 ;
+                    084 <a name="BFT2"      id="BFT2"       >BFT2        </a>EQU *
+282D:48             085             PHA
+282E:A9 00          086             LDA #<span class="adr">0</span>          ; SET LAST LINK
+2830:C8             087             INY             ; TO ZERO
+2831:91 40          088             STA (ZPGWRK),Y
+2833:C8             089             INY
+2834:91 40          090             STA (ZPGWRK),Y
+                    091 ;
+2836:AD B6 AA       092             LDA ASIBSW      ; IF IB THEN GO                 ; Integer Basic
+2839:F0 0B          093             BEQ <a class="x" href="#BFTIB">BFTIB</a>
+                    094 ;
+283B:68             095             PLA
+283C:85 74          096             STA ASHM1+1
+283E:85 70          097             STA ASHM2+1
+2840:68             098             PLA
+2841:85 73          099             STA ASHM1
+2843:85 6F          100             STA ASHM2
+2845:60             101             RTS
+                    102 ;
+                    103 <a class="f" name="BFTIB"   >BFTIB       </a>EQU *
+2846:68             104             PLA             ; SET IB
+2847:85 4D          105             STA IBHMEM+1    ; UPPER MEM LIMITS
+2849:85 CB          106             STA IBSOP+1
+284B:68             107             PLA
+284C:85 4C          108             STA IBHMEM
+284E:85 CA          109             STA IBSOP
+2850:60             110             RTS
+                    111             PAGE
+                    112 ;
+                    113 ; MVISW - MOVE INPUT SWITCH
+                    114 ;
+                    115 <a class="f" name="MVCSW"  >MVCSW       </a>EQU *
+2851:A5 39          116             LDA INSW+1
+<hr>2853:CD 03 1D       117             CMP CINA+1
+2856:F0 12          118             BEQ <a class="x" href="#MVOSW">MVOSW</a>
+2858:8D 56 2A       119             STA SVINS+1
+285B:A5 38          120             LDA INSW        ; SAVE CHAR IN SWITCH
+285D:8D 55 2A       121             STA SVINS
+                    122 ;
+2860:AD 02 1D       123             LDA CINA        ; SET DFB CHAR IN ADR
+2863:85 38          124             STA INSW
+2865:AD 03 1D       125             LDA CINA+1
+2868:85 39          126             STA INSW+1
+                    127 ;
+                    128 ;
+                    129 ; MVOSW - MOVE OUTPUT SWITCH
+                    130 ;
+                    131 <a class="f" name="MVOSW"  >MVOSW       </a>EQU *
+286A:A5 37          132             LDA OUTSW+1
+286C:CD 05 1D       133             CMP COUTA+1
+286F:F0 12          134             BEQ <a class="x" href="#MSVRTN">MVSRTN</a>
+2871:8D 54 2A       135             STA SVOUTS+1
+2874:A5 36          136             LDA OUTSW       ; SAVE CHAR OUT SWITCH
+2876:8D 53 2A       137             STA SVOUTS
+                    138 ;
+2879:AD 04 1D       139             LDA COUTA       ; SET DFB CHAR OUT ADR
+287C:85 36          140             STA OUTSW
+287E:AD 05 1D       141             LDA COUTA+1
+2881:85 37          142             STA OUTSW+1
+                    143 <a class="f" name="MVSRTN" >MVSRTN      </a>EQU *
+2883:60             144             RTS
 
 <hr>; === <a class="file" name="CMDTBLS">CMDTBLS</a> - Commands, Page <span class="page">21</span>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
                     001                 PAGE
@@ -2001,7 +2077,8 @@ Spelling mistakes: 3
 <h1>Symbols (Alphabetical)</h1>
 <pre>
 <h2>A</h2>
-
+    ASHM1       =   $73
+    ASHM2       =   $6F
 <h2>B</h2>
 
 <h2>C</h2>
