@@ -188,10 +188,16 @@ a.file {
     text-decoration: none; /* remove underlink from data link */
     font-weight: normal;   /* remove bold */
 }
+/* Link to Macro Definition */
 a.macro {
     color: #F00;           /* macro link = Red */
     text-decoration: none; /* remove underlink from data link */
     font-weight: normal;   /* remove bold */
+}
+/* Link to Macro Label */
+a.name {
+    color: #444;
+    font-style: italic; 
 }
 
 span.data {
@@ -1236,9 +1242,9 @@ TODO:
 3A7E:8D 0E C0       143             STA $C00E       ; TURN OFF  ALT CHAR SET
 3A81:4C 2F FB       144             JMP $FB2F       ; MONITOR INIT ROUTINE          ; If only we could define symbols ...
                     145             PAGE
-                    146 <i><a name="PEC1"       id="PEC1"       >PEC1        </a></i>EQU *           ;Tell relocater where to stop   ; See <a href="#CDETAB">CDETAB</a>, RELOCTR, Page <span class="page">115</span>
+                    146 <a class="f" name="PEC1"        >PEC1        </a>EQU *           ;Tell relocater where to stop   ; See <a href="#CDETAB">CDETAB</a>, RELOCTR, Page <span class="page">115</span>
                     147 PD1         EQU &gt;*
-                    148 <i><a name="PD2"        id="PD2"        >PD2         </a></i>EQU $96-PD1<span class="patch">
+                    148 <a class="f" name="PD2"         >PD2         </a>EQU $96-PD1<span class="patch">
                     === DOS 3.3 D? PATCH ===        
                     3A84:AD BD 35   LDA $35BD ; <span class="todo">TODO</span>
                     3A87:8D E6 35   STA $35E6 ; <span class="todo">TODO</span>
@@ -1303,7 +1309,7 @@ TODO:
                     198 *                         *                                 ; code at <a class="file" href="#WRITRTN">WRITRTN</a>, Line #<span class="line">80</span> needs fixing up.
                     199 ***************************                                 ;
                     200 *                                                           ;
-3B00:00 00 00 00    201 <i><a name="NBUF1"      id="NBUF1"      >NBUF1       </a></i>DS 256,0        ;NBUF1                          ; === <b class="ts">T0$5</b> ===
+3B00:00 00 00 00    201 <a class="d" name="NBUF1"       >NBUF1       </a>DS 256,0        ;NBUF1                          ; === <b class="ts">T0$5</b> ===
 3B04:00 00 00 00                                                                    ; *sigh* Let's waste an *entire* sector
 3B08:00 00 00 00                                                                    ; with 342 disk nibbles of raw 96 nibbles
 3B0C:00 00 00 00                                                                    ; PLUS the time decoding it
@@ -1324,7 +1330,7 @@ TODO:
 3BF0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 ;     0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
 
-3C00:00 00 00 00    202 <i><a name="NBUF2"      id="NBUF2"      >NBUF2       </a></i>DS  86,0        ;NBUF2                          ;  === <b class="ts">T0$5</b> ===
+3C00:00 00 00 00    202 <a class="d" name="NBUF2"       >NBUF2       </a>DS  86,0        ;NBUF2                          ;  === <b class="ts">T0$5</b> ===
 3C04:00 00 00 00                                                                    ; *sigh* more wasted disk space
 3C08:00 00 00 00                                                                    ; pack code THEN data
 3C0C:00 00 00 00                                                                    ; as interleaving it just
@@ -1553,20 +1559,20 @@ TODO:
                     197 * AVERAGE LATENCY = LCOUNT/SCOUNT                           
                     198         LDA LCOUNT          ; GET TOTAL LATENCY             
                     199         LDY #0              ; CLEAR QUOTIENT                
-                    200 <i><a name="DIVIDE" id="DIVIDE" >DIVIDE  </a></i>EQU *                                               
+                    200 <a class="name" name="DIVIDE" id="DIVIDE" >DIVIDE  </a>EQU *                                               
                     201         CMP SCOUNT          ; DONE?                         
                     202         BCC <a href="#PRTLAT"   >PRTLAT</a>          ; =&gt;YES.PRINT IT                
                     203         SBC SCOUNT          ; REMOVE SCOUNT                 
                     204         INY                 ; INCREMENT QUOTIENT            
                     205         BNE <a href="#DIVIDE">DIVIDE</a>                                          
                     206 *                                                           
-                    207 <i><a name="PRTLAT" id="PRTLAD">PRTLAT</a></i>  TYA                                                 </span>; Print Latency<span style="background-color:#EEE">
+                    207 <a class="name" name="PRTLAT" id="PRTLAD">PRTLAT  </a>TYA                                                 </span>; Print Latency<span style="background-color:#EEE">
                     208         AND #$0F            ; MAX LATENCY=15                
                     209         ORA #$B0            ; MAKE ASCII                    </span>; No, this is make Apple Text, as ASCII = $00..$7F<span style="background-color:#EEE">
                     210         CMP #$BA            ; IS IT A-F                     
                     211         BCC <a href="#PRTL2" >PRTL2</a>           ;=&gt;NO                           
                     212         ADC #6              ;ADD 7 (INCLUDES CARRY)         
-                    213 <i><a name="PRTL2" id="PRTL2">PRTL2</a></i>   STA TL12            ; STUFF LATENCY COUNT           
+                    213 <a class="name" name="PRTL2" id="PRTL2">PRTL2  </a>STA TL12            ; STUFF LATENCY COUNT           
                     214         LDA #SP             ; SAY 'RWTS NOT ACTIVE'         
                     215         STA TL1                                             </span>
                     216     FIN
