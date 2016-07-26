@@ -188,6 +188,12 @@ a.file {
     text-decoration: none; /* remove underlink from data link */
     font-weight: normal;   /* remove bold */
 }
+a.macro {
+    color: #F00;           /* macro link = Red */
+    text-decoration: none; /* remove underlink from data link */
+    font-weight: normal;   /* remove bold */
+}
+
 span.data {
     color: #040;
 }
@@ -329,9 +335,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     002             LST  ON,VSYM
                     003             MSB  OFF
                     004 ORIGIN      EQU  $1B00
-                    005 DIAGMOD     EQU  0
-                    006 DOS33B      EQU  1
-                    007 ULC         EQU  0
+                    005 <a class="macro" name="DIAGMOD">DIAGMOD     </a>EQU  0
+                    006 <a class="macro" name="DOS33B" >DOS33B      </a>EQU  1
+                    007 <a class="macro" name="ULC"    >ULC         </a>EQU  0
                     008             INCLUDE <a href="#RELOCTR">RELOCTR</a>,,2                              ; $1B00 .. $####
                     009             INCLUDE <a href="#DOSINIT">DOSINIT</a>,,2                              ; $#### .. $####
                     010             INCLUDE <a href="#DOSHOOK">DOSHOOK</a>,,2                              ; $#### .. $####
@@ -441,21 +447,21 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     075 ASCNTU2     EQU $C3C
                     076 ASRSEQ1     EQU $D4F2
                     077 ASRSEQ2     EQU $CF2
-                    078 <a class="x" name="AITSTL" >AITSTL</a>      EQU $E000       ; AS 1 IB TEST LOC              ; Applesoft Basic E000: JMP $F128
-                    079 <a class="d" name="ATSTV"  >ATSTV</a>       EQU $4C         ; AS TEST VALUE                 ; Applesoft Basic
-                    080 <a class="d" name="ITSTV"  >ITSTV</a>       EQU $20         ; IB TEST VALUE                 ; Integer Basic
-                    081 <a class="d" name="BOOTSL" >BOOTSL</a>      EQU $2E         ; BOOT FROM SLOT                ; Slot from Boot
-                    082 <a class="d" name="ZPGFCB" >ZPGFCB</a>      EQU $42         ; ZERO PAGE WORK CELL           ; File Control Block
-                    083 <a class="x" name="MONRST" >MONRST</a>      EQU $FF65       ; MONITOR RESET ENTRY
-                    084 <a class="x" name="MONBRK" >MONBRK</a>      EQU $FA59       ; MONITOR BREAK ENTRY
-                    085 <a class="x" name="IORTS"  >IORTS</a>       EQU $FF58       ; KNOWN RTS IN MONITOR ROM
-                    086 <a class="x" name="HOME"   >HOME</a>        EQU $FC58                                       ; Clear the text screen
-                    087 <a class="x" name="PRINT"  >PRINT</a>       EQU $FDED                                       ; putchar()
-                    088 <a class="x" name="GETKEY" >GETKEY</a>      EQU $FD0C
-                    089 <a class="x" name="INSDS2" >INSDS2</a>      EQU $F88E                                       ; Instruction Disassembly Opcode Length
-                    090 <a class="d" name="LENGTH" >LENGTH</a>      EQU $2F
-                    091 <a class="d" name="ZRSET"  >ZRSET</a>       EQU $3F2        ; NEW MONITOR ROM RESET VECTOR
-                    092 <a class="d" name="PWCNST" >PWCNST</a>      EQU $3F4        ; NEW MONITOR ROM POWER UP CONSTANT
+                    078 <a class="x" name="AITSTL" >AITSTL      </a>EQU $E000       ; AS 1 IB TEST LOC              ; Applesoft Basic E000: JMP $F128
+                    079 <a class="d" name="ATSTV"  >ATSTV       </a>EQU $4C         ; AS TEST VALUE                 ; Applesoft Basic
+                    080 <a class="d" name="ITSTV"  >ITSTV       </a>EQU $20         ; IB TEST VALUE                 ; Integer Basic
+                    081 <a class="d" name="BOOTSL" >BOOTSL      </a>EQU $2E         ; BOOT FROM SLOT                ; Slot from Boot
+                    082 <a class="d" name="ZPGFCB" >ZPGFCB      </a>EQU $42         ; ZERO PAGE WORK CELL           ; File Control Block
+                    083 <a class="x" name="MONRST" >MONRST      </a>EQU $FF65       ; MONITOR RESET ENTRY
+                    084 <a class="x" name="MONBRK" >MONBRK      </a>EQU $FA59       ; MONITOR BREAK ENTRY
+                    085 <a class="x" name="IORTS"  >IORTS       </a>EQU $FF58       ; KNOWN RTS IN MONITOR ROM
+                    086 <a class="x" name="HOME"   >HOME        </a>EQU $FC58                                       ; Clear the text screen
+                    087 <a class="x" name="PRINT"  >PRINT       </a>EQU $FDED                                       ; putchar()
+                    088 <a class="x" name="GETKEY" >GETKEY      </a>EQU $FD0C
+                    089 <a class="x" name="INSDS2" >INSDS2      </a>EQU $F88E                                       ; Instruction Disassembly Opcode Length
+                    090 <a class="d" name="LENGTH" >LENGTH      </a>EQU $2F
+                    091 <a class="d" name="ZRSET"  >ZRSET       </a>EQU $3F2        ; NEW MONITOR ROM RESET VECTOR
+                    092 <a class="d" name="PWCNST" >PWCNST      </a>EQU $3F4        ; NEW MONITOR ROM POWER UP CONSTANT
                     093                 REP 40
                     094 *
                     095 *
@@ -464,7 +470,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     098 *
                     099             REP 40
                     100             PAGE
-1B00:4C 84 1D       101 <a name="BEGIN"      id="BEGIN"      >BEGIN       </a>JMP <a href="#DBINIT">DBINIT</a>                                      ; === Run-Time Mem = $1B00 ===
+1B00:4C 84 1D       101 <a name="BEGIN"      id="BEGIN"      >BEGIN       </a>JMP <a class="x" href="#DBINIT">DBINIT</a>                                      ; === DOS loads @ $1B00 ===
                     102 ;                                                           ; Loaded in at $38D4
                     103 <a name="DOSREL"     id="DOSREL"     >DOSREL      </a>EQU *                                           ; Called from BOOTLDR, page 12, line # TODO:
                     104 ;
@@ -474,10 +480,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     108 LOC1        EQU $26
 1B03:A9 BF          109             LDA #$BF        ; START AT BF00                 ; Top of 48K
 1B05:85 41          110             STA ZPGWRK+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
-1B07:A2 00          111             LDX #0          ; HIGH RAM
+1B07:A2 00          111             LDX #<span class="adr">0</span>          ; HIGH RAM
 1B09:86 40          112             STX ZPGWRK
-1B0B:A0 00          113 <b><a name="DR0A"       id="DR0A"       >DR0A        </a></b>LDY #0          ; APPLE TEST
-                    114 <b><a name="DR1B"       id="DR1B"       >DR1B        </a></b>EQU *                                           ; unused label
+1B0B:A0 00          113 <a name="DR0A"       id="DR0A"       >DR0A        </a>LDY #<span class="adr">0</span>          ; APPLE TEST
+                    114 <a name="DR1B"       id="DR1B"       >DR1B        </a>EQU *                                           ; unused label
 1B0D:A1 40          115             LDA (ZPGWRK,X)
 1B0F:85 26          116             STA LOC1                                        ; LOC1 = MemTestVal
 <hr>1B11:98             117 <b><a name="DR1"        id="DR1"        >DR1         </a></b>TYA                                             ; === Page <span class="page">112</span> ===
@@ -536,7 +542,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B6C:A9 1D          170             LDA #&lt;<a class="x" href="#DBINIT">DBINIT</a>    ; RESET PI RTN TO NORMAL        ; PI = ??? <span class="todo">TODO</span>
 1B6E:8D 49 37       171             STA <a class="d" DI3+2
 1B71:A9 84          172             LDA #&gt;<a class="x" href="#DBINIT">DBINIT</a>
-1B73:8D 48 37       173             STA DI3+1
+1B73:8D 48 37       173             STA <a href="#DI3">DI3</a>+1
                     174 ;
                     175 ;RELOCATE ADR TABLES
                     176 ;
@@ -580,20 +586,20 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <hr>1BDD:A5 2F          240             LDA <a href="#LENGTH">LENGTH</a>      ; ADD LENGTH
 1BDF:65 40          241             ADC ZPGWRK      ; TO PC
 1BE1:95 40          242             STA ZPGWRK
-1BE3:A9 00          243             LDA #0
+1BE3:A9 00          243             LDA #<span class="adr">0</span>
 1BE5:65 41          244             ADC ZPGWRK+1
 1BE7:85 41          245             STA ZPGWRK+1
                     246 ;
 1BE9:AE 9C 33       247             LDX TEMP1       ; CHECK FOR END
 1BEC:DD 5D 1C       248             CMP CDETAB+4,X  ; OF CODE SEGMENT
 1BEF:90 CD          249             BCC <a href="#DR8">DR8</a>         ; BR NOT END
-1BF1:A5 40          250             LDA ZPGWRK
+1BF1:A5 40          250             LDA <a class="d" href="#ZPGWRK">ZPGWRK</a>
 1BF3:DD 5C 1C       251             CMP CDETAB+3,X
 1BF6:90 C6          252             BCC <a href="#DR8">DR8</a>         ; BR NOT END
                     253 ;
 1BF8:8A             254             TXA
 1BF9:18             255             CLC
-1BFA:69 04          256             ADC #04         ; INCREMENT TABLE INDEX
+1BFA:69 04          256             ADC #<span class="adr">04</span>         ; INCREMENT TABLE INDEX
 1BFC:AA             257             TAX
 1BFD:EC 59 1C       258             CPX CDETAB      ; DONE
 1C00:90 AF          259             BCC <a href="#DR7">DR7</a>         ; BR IF NOT                     ; === <b class="ts">T0$B</b> ===
@@ -606,10 +612,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C04:85 41          266             STA ZPGWRK+1    ; ZPGWRK=FROM
 1C06:AC 7D 1C       267             LDY <a href="#NEPAGE">NEPAGE</a>
 1C09:88             268             DEY
-1C0A:84 43          269             STY ZPGFCB+1    ; ZPGFCB = TOO
-1C0C:A9 00          270             LDA #0
-1C0E:85 40          271             STA ZPGWRK
-1C10:85 42          272             STA ZPGFCB
+1C0A:84 43          269             STY <a class="d" href="#ZPGFCB">ZPGFCB</a>+1    ; ZPGFCB = TOO
+1C0C:A9 00          270             LDA #<span class="adr">0</span>
+1C0E:85 40          271             STA <a class="d" href="#ZPGWRK">ZPGWRK</a>
+1C10:85 42          272             STA <a class="d" href="#ZPGFCB">ZPGFCB</a>
 1C12:A8             273             TAY
                     274 ;
 1C13:B1 40          275 <b><a name="DR10"       id="DR10"       >DR10        </a></b>LDA (ZPGWRK),Y  ; BYTE FROM
@@ -767,14 +773,14 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 27E5:A0 00          034 <a name="BFT1"      id="BFT1"       >BFT1</a>        LDY #0
 27E7:98             035             TYA
 27E8:91 40          036             STA (ZPGWRK),Y  ; 1ST CHAR FN=0
-27EA:A0 1E          037             LDY #30         ; INC Y TO FCB PTR
+27EA:A0 1E          037             LDY #<span class="adr">30</span>         ; INC Y TO FCB PTR
 27EC:38             038             SEC
 27ED:A5 40          039             LDA ZPGWRK      ; END OF PTR HEADER
 27EF:E9 2D          040             SBC #FCBLEN     ; MINUS FTAB LENGTH
 27F1:91 40          041             STA (ZPGWRK),Y  ; IS START OF FTB
 27F3:48             042             PHA             ; SAVE LOW ADR BYTE
 27F4:A5 41          043             LDA ZPGWKR+1
-27F6:48             044             SBC #0
+27F6:48             044             SBC #<span class="adr">0</span>
 27F8:C8             045             INY
 27F9:91 40          046             STA (ZPGWKR),Y
 27FB:AA             047             TAX
@@ -801,12 +807,12 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2816:AA             068             TAX
 2817:68             069             PLA
 2818:38             070             SEC
-2819:E9 26          071             SBC #38         ; SBUFF ADR - 38
+2819:E9 26          071             SBC #<span class="adr">38</span>         ; SBUFF ADR - 38
 281B:C8             072             INY
 281C:91 40          073             STA (ZPGWRK),Y  ; IF ADR OF NEXT TAB
 281E:48             074             PHA             ; WHICH GOES INTO
 281F:8A             075             TXA             ; LINK
-2820:E9 00          076             SBC #0
+2820:E9 00          076             SBC #<span class="adr">0</span>
 2822:C8             077             INY
 2823:91 40          078             STA (ZPGWRK),Y
 2825:85 41          079             STA ZPGWRK+1    ; AND INTO ZPGWRK
@@ -959,12 +965,12 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     047 *  1 USEC CYCLE TIME   *
                     048 *                      *
                     049 ************************
-382A:38             050 <b><a name="WRITE16"    id="WRITE16"    >WRITE16</a></b>     SEC             ;ANTICIPATE WPROT ERR.          ; === Reloc @ $B82A ===
+382A:38             050 <a class="f"    name="WRITE16"      >WRITE16     </a>SEC             ;ANTICIPATE WPROT ERR.          ; === Reloc @ $B82A ===
 382B:86 27          051             STX SLOTZ       ;FOR ZERO PAGE ACCESS.
 382D:8E 78 06       052             STX SLOTABS     ;FOR NON-ZERO PAGE.
 3830:BD 8D C0       053             LDA Q6H,X
 3833:BD 8E C0       054             LDA Q7L,X       ;SENSE WPROT FLAG.
-3836:30 7C          055             BMI <a href="#WEXIT">WEXIT</a>       ;IF HIGH, THEN ERR.             ; v
+3836:30 7C          055             BMI <a href="#WEXIT"    >WEXIT</a>       ;IF HIGH, THEN ERR.             ; v
 3838:AD 00 3C       056             LDA NBUF2
 383B:85 26          057             STA WTEMP       ;FOR ZERO-PAGE ACCESS.
 383D:A9 FF          058             LDA #$FF        ;SYNC DATA
@@ -974,22 +980,22 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 3846:68             062             PLA             ;(4) CRITICAL TIMING!
 3847:EA             063             NOP             ;(2)
 3848:A0 04          064             LDY #4          ;(2)  FOR 5 NIBLS.
-384A:48             065 <b><a name="WSYNC"      id="WSYNC"      >WSYNC</a></b>       PHA             ;(3) EXACT TIMING               ; --- Sync FF ---
+384A:48             065 <a class="f"    name="WSYNC"        >WSYNC       </a>PHA             ;(3) EXACT TIMING               ; --- Sync FF ---
 384B:68             066             PLA             ;(4) EXACT TIMING
-384C:20 B9 38       067             JSR <a href="#WNIBL7">WNIBL7</a>      ;(13,9,6)  WRITE SYNC
+384C:20 B9 38       067             JSR <a href="#WNIBL7"   >WNIBL7</a>      ;(13,9,6)  WRITE SYNC
 384F:88             068             DEY             ;(2)
-3850:D0 F8          069             BNE <a href="#WSYNC" >WSYNC</a>       ;(2*)  MUST NOT  CROSS PAGE!    ; ^
+3850:D0 F8          069             BNE <a href="#WSYNC"    >WSYNC</a>       ;(2*)  MUST NOT  CROSS PAGE!    ; ^
 3852:A9 D5          070             LDA #$D5        ;(2)  1ST DATA MARK.            ; --- Data Header D5 AA AD ---
-3854:20 B8 38       071             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)
+3854:20 B8 38       071             JSR <a href="#WNIBL9"   >WNIBL9</a>      ;(15,9,6)
 3857:A9 AA          072             LDA #$AA        ;(2)  2ND DATA MARK.
-3859:20 B8 38       073             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)
+3859:20 B8 38       073             JSR <a href="#WNIBL9"   >WNIBL9</a>      ;(15,9,6)
 385C:A9 AD          074             LDA #$AD        ;(2)  3RD DATA MARK.
 385E:20 B8 38       075             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)
 3861:98             076             TYA             ;(2) CLEAR CHECKSUM
 3862:A0 56          077             LDY #$56        ;(2) NBUF2 INDEX.
 3864:D0 03          078             BNE <a href="#WDATA1">WDATA1</a>      ;(3)  ALWAYS.  NO PAGE CROSS!!  ; v
-3866:B9 00 3C       079 <b><a name="WDATA0"     id="WDATA0"     >WDATA0</a></b>      LDA NBUF2,Y     ;(4)  PRIOR 6-BIT NIBL.
-3869:58 FF 3B       080 <b><a name="WDATA1"     id="WDATA1"     >WDATA1</a></b>      EOR NBUF2-1,Y   ;(5)  XOR WITH CURRENT.
+3866:B9 00 3C       079 <a class="f"    name="WDATA0"       >WDATA0      </a>LDA NBUF2,Y     ;(4)  PRIOR 6-BIT NIBL.
+3869:58 FF 3B       080 <a class="f"    name="WDATA1"       >WDATA1      </a>EOR NBUF2-1,Y   ;(5)  XOR WITH CURRENT.
                     081 *   (NBUF2 MUST BE ON PAGE BOUNDARY FOR TIMING!!)
 386C:AA             082             TAX             ;(2)  INDEX To 7-BIT NIBL
 386D:BD 29 3A       083             LDA NIBL,X      ;(4)  MUST NOT CROSS PAGE!
@@ -997,32 +1003,32 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 3872:9D 8D C0       085             STA Q6H,X       ;(5)  WRITE NIBL.
 3875:BD 8C C0       086             LDA Q6L,X       ;(4)
 3878:88             087             DEY             ;(2)  NEXT NIBL.
-3879:D0 EB          088             BNE <a href="#WDATA0">WDATA0</a>      ;(2*) MUST NOT CROSS PAGE!      ; ^
+3879:D0 EB          088             BNE <a href="#WDATA0"   >WDATA0</a>      ;(2*) MUST NOT CROSS PAGE!      ; ^
 387B:A5 26          089             LDA WTEMP       ;(3) PRIOR NIBL FROM BUF6.
 387D:EA             090             NOP             ;(2)  CRITICAL TIMING.
-387E:59 00 3B       091 <b><a name="WDATA2"     id="WDATA2"     >WDATA2</a></b>      EOR NBUF1,Y     ;(5)  XOR WITH CURRENT.
+387E:59 00 3B       091 <a class="f"    name="WDATA2"       >WDATA2      </a>EOR NBUF1,Y     ;(5)  XOR WITH CURRENT.
 3881:AA             092             TAX             ;(2)
-3882:BD 29 3A       093             LDA NIBL,X      ;(4)
-3885:AE 78 06       094             LDX SLOTABS     ;(4) TIMING CRITICAL
-3888:9D 8D C0       095             STA Q6H,X       ;(5) WRITE NIBL.
-388B:BD 8C C0       096             LDA Q6L,X       ;(4)
-388E:B9 00 3B       097             LDA NBUF1,Y     ;(4)  PRIOR 6-BIT NIBL.
+3882:BD 29 3A       093             LDA <a class="d" href="#NIBL"   >NIBL</a>,X      ;(4)
+3885:AE 78 06       094             LDX <a class="d" href="#SLOTABS">SLOTABS</a>     ;(4) TIMING CRITICAL
+3888:9D 8D C0       095             STA <a class="d" href="#Q6H"    >Q6H</a>,X       ;(5) WRITE NIBL.
+388B:BD 8C C0       096             LDA <a class="d" href="#Q6L"    >Q6L</a>,X       ;(4)
+388E:B9 00 3B       097             LDA <a class="d" href="#NBUF1"  >NBUF1</a>,Y     ;(4)  PRIOR 6-BIT NIBL.
 3891:C8             098             INY             ;(2)NEXT NBUF1 NIBL.
 3892:D0 EA          099             BNE <a href="#WDATA2">WDATA2</a>      ;(2*) MUST NOT CROSS PAGE!      ; ^
 3894:AA             100             TAX             ;(2)
 3895:BD 29 3A       101             LDA NIBL,X      ;(4)  INDEX TO 7-BIT NIBL
 3898:A6 27          102             LDX SLOTZ       ;(3)
-389A:20 BB 38       103             JSR <a href="#WNIBL">WNIBL</a>       ;(6,9,6)  WRITE CHKSUM
-389D:A9 DE          104             LDA #$DE        ;(2)  DM4, BIT SLIP MARK.
-389F:20 B8 38       105             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)    WRITE IT.
-38A2:A9 AA          106             LDA #$AA        ;(2)  DM5, BIT SLIP MARK.
-38A4:20 B8 38       107             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)    WRITE IT.
-38A7:A9 EB          108             LDA #$EB        ;(2)  DM6, BIT SLIP MARK.
-38A9:20 B8 38       109             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)    WRITE IT.
-38AC:A9 FF          110             LDA #$FF        ;(2) TURN-OFF BYTE.
-38AE:20 B8 38       111             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,9) WRITE IT.             ; TODO: 15,9,6??
-38B1:BD 8E C0       112             LDA Q7L,X       ;OUT OF WRITE MODE.
-38B4:BD 8C C0       113 <b><a name="WEXIT"      id="WEXIT"      >WEXIT</a></b>       LDA Q6L,X       ;TO READ MODE.
+389A:20 BB 38       103             JSR <a class="x" href="#WNIBL"  >WNIBL</a>       ;(6,9,6)  WRITE CHKSUM
+389D:A9 DE          104             LDA #$<span class="adr">DE</span>        ;(2)  DM4, BIT SLIP MARK.
+389F:20 B8 38       105             JSR <a class="x" href="#WNIBL9" >WNIBL9</a>      ;(15,9,6)    WRITE IT.
+38A2:A9 AA          106             LDA #$<span class="adr">AA</span>        ;(2)  DM5, BIT SLIP MARK.
+38A4:20 B8 38       107             JSR <a class="x" href="#WNIBL9" >WNIBL9</a>      ;(15,9,6)    WRITE IT.
+38A7:A9 EB          108             LDA #$<span class="adr">EB</span>        ;(2)  DM6, BIT SLIP MARK.
+38A9:20 B8 38       109             JSR <a class="x" href="#WNIBL9" >WNIBL9</a>      ;(15,9,6)    WRITE IT.
+38AC:A9 FF          110             LDA #$<span class="adr">FF</span>        ;(2) TURN-OFF BYTE.
+38AE:20 B8 38       111             JSR <a class="x" href="#WNIBL9" >WNIBL9</a>      ;(15,9,9) WRITE IT.             ; TODO: 15,9,6??
+38B1:BD 8E C0       112             LDA <a class="d" href="#Q7L"    >Q7L,X</a>       ;OUT OF WRITE MODE.
+38B4:BD 8C C0       113 <a class="f"    name="WEXIT"        >WEXIT       </a>LDA <a class="d" href="#Q6L"    >Q6L</a>,X       ;TO READ MODE.
 38B7:60             114             RTS             ;RETURN FROM WRITE.
                     115 *****************************
                     116 *                           *
@@ -1766,12 +1772,12 @@ TODO:
                     018 *****************************
                     019 <a name="SDP1"       >SDP1        </a>EQU *                                           ; Start Dos Patch
                     020 <a name="RCPATCH"    >RCPATCH     </a>EQU *                                           ; <span class="todo">TODO</span> called from?
-3FC8:20 93 FE       021             JSR SETVID
+3FC8:20 93 FE       021             JSR <a class="x" href="#SETVID">SETVID</a>
 3FCB:AD 81 C0       022             LDA $<span class="adr">C081</span>                                       ; ROMIN = $C081 for Language Card (LC)
 3FCE:AD 81 C0       023             LDA $<span class="adr">C081</span>                                       ; 1st read = read ROM, 2nd read = write enable LC Bank 2
-3FD1:A9 00          024             LDA #0
+3FD1:A9 00          024             LDA #<span class="adr">0</span>
 3FD3:8D 00 E0       025             STA $<span class="adr">E000</span>                                       ; *sigh* Forces Language Card to reload
-                    026     DO DOS33B
+                    026     DO <a class="macro" href="#DOS33B">DOS33B</a>
 3FD6:20 76 3A       027             JSR <a class="x" href="#OFF80" >OFF80</a>                                       
 3FD9:4C 44 37       028             JMP <a class="x" href="#RCBACK">RCBACK</a>                                      </span>
                     029     ELSE<span class="macro">
