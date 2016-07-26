@@ -719,14 +719,14 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     006 ;
                     007 <a class="d" name="START"      >START       </a>EQU *
                     008 <a class="d" name="SAT1"       >SAT1        </a>EQU *
-                    009 FTAB        DW *-45
-                    010 CINA        DW CHRIN
-1D04:BD 2E zzzzzz   011 <a class="d" name="COUTA"      >COUTA       </a>DW CHROUT
-                    012 FN1ADR      DW FNAME1
-                    013 FN2ADR      DW FNAME2
-                    014 SVBLA       DW SVBL
-                    015 ASTART      DW BEGIN
-                    016 CCBADR      DW CCB
+1D00:D3 1C          009 <a class="d" name="FTAB"       >FTAB        </a>DW *-45
+1D02:81 1E          010 <a class="d" name="CINA"       >CINA        </a>DW CHRIN
+1D04:BD 1E          011 <a class="d" name="COUTA"      >COUTA       </a>DW CHROUT
+1D06:75 2A          012 <a class="d" name="FN1ADR"     >FN1ADR      </a>DW FNAME1
+1D08:93 2A          013 <a class="d" name="FN2ADR"     >FN2ADR      </a>DW FNAME2
+1D0A:60 2A          014 <a class="d" name="SVBLA"      >SVBLA       </a>DW SVBL
+1D0C:00 1B          015 <a class="d" name="ASTART"     >ASTART      </a>DW <a class="x" href="#BEGIN">BEGIN</a>
+1D0E:BB 35          016 <a class="d" name="CCBADR"     >CCBADR      </a>DW CCB
                     017 ;
 
 1D84:AD E9 37       096             LDA IBSLOT      ; GET BOOT SLOT
@@ -734,7 +734,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1D88:4A             098             LSR A
 1D89:4A             099             LSR A
 1D8A:4A             100             LSR A
-1D8B:8D 6A 2A       101             STA CS          ; SET AS CUURENT SLOT           ; *spelling*
+1D8B:8D 6A 2A       101             STA CS          ; SET AS CUURENT SLOT           ; *spelling* CURRENT
 
 
 <hr>; === <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Page <span class="page">44</span>,  <b class="ts">T?S?</b>, $<span class="adr">????</span> ===<hr>
