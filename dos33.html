@@ -883,7 +883,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <hr>; === <a class="file" name="FLOCSEC">FLOCSEC</a> - Locate Sector, Page <span class="page">68</span>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
                     001             PAGE
                     002 ;
-
+                    003 ;FNDFIL - FIND FILE NAME IN VOLUUME DIR                     ; *spelling* VOLUME
+                    004 ;
+                    005 <a class="f" name="FNDFIL" >FNDFIL      </a>EQU *
+                    006             JSR <a class="x" href="#RDVTOC">RDVTOC</a>      ; GO GET VTOC
 
 <hr>; === <a class="file" name="FVCBUFS">FVCBUFS</a> - File Volume Catalog Buffers, Page <span class="page">86</span>, <b class="ts">T2$2</b> @ $A7 - <b class="ts">T2$3</b> @ $BA, $<span class="adr">B397</span> .. $<span class="adr">B4BA</span> ===<hr>
                     001             PAGE                                            ; This is why I partially dislike old source code:
