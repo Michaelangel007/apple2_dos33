@@ -470,23 +470,23 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     098 *
                     099             REP 40
                     100             PAGE
-1B00:4C 84 1D       101 <a name="BEGIN"      id="BEGIN"      >BEGIN       </a>JMP <a class="x" href="#DBINIT">DBINIT</a>                                      ; === DOS loads @ $1B00 ===
+1B00:4C 84 1D       101 <a class="f" name="BEGIN"       >BEGIN       </a>JMP <a class="x" href="#DBINIT">DBINIT</a>                                      ; === DOS loads @ $1B00 ===
                     102 ;                                                           ; Loaded in at $38D4
-                    103 <a name="DOSREL"     id="DOSREL"     >DOSREL      </a>EQU *                                           ; Called from BOOTLDR, page 12, line # TODO:
+                    103 <a class="f" name="DOSREL"      >DOSREL      </a>EQU *                                           ; Called from BOOTLDR, page 12, line # TODO:
                     104 ;
                     105 ; GET RELOCATION PARMS
                     106 ;
-                    107 <a name="DR0"        id="DR0"        >DR0         </a>EQU *
-                    108 LOC1        EQU $26
+                    107 <a class="f" name="DR0"         >DR0         </a>EQU *
+                    108 <a class="d" name="LOC1">LOC1        </a>EQU $26
 1B03:A9 BF          109             LDA #$BF        ; START AT BF00                 ; Top of 48K
 1B05:85 41          110             STA ZPGWRK+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
 1B07:A2 00          111             LDX #<span class="adr">0</span>          ; HIGH RAM
 1B09:86 40          112             STX ZPGWRK
-1B0B:A0 00          113 <a name="DR0A"       id="DR0A"       >DR0A        </a>LDY #<span class="adr">0</span>          ; APPLE TEST
-                    114 <a name="DR1B"       id="DR1B"       >DR1B        </a>EQU *                                           ; unused label
+1B0B:A0 00          113 <a class="f" name="DR0A"        >DR0A        </a>LDY #<span class="adr">0</span>          ; APPLE TEST
+                    114 <a class="f" name="DR1B"        >DR1B        </a>EQU *                                           ; unused label
 1B0D:A1 40          115             LDA (ZPGWRK,X)
 1B0F:85 26          116             STA LOC1                                        ; LOC1 = MemTestVal
-<hr>1B11:98             117 <b><a name="DR1"        id="DR1"        >DR1         </a></b>TYA                                             ; === Page <span class="page">112</span> ===
+<hr>1B11:98             117 <a class="f" name="DR1"         >DR1         </a>TYA                                             ; === Page <span class="page">112</span> ===
 1B12:45 26          118             EOR LOC1
 1B14:85 26          119             STA LOC1
 1B16:98             120             TYA
@@ -497,36 +497,36 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B1F:C8             125             INY
 1B20:D0 EF          126             BNE <a class="x" href="#DR1"  >DR1</a>                                         ; ^
 1B22:F0 04          127             BEQ <a class="x" href="#DR2"  >DR2</a>         ; BR IF TOOK                    ; v
-                    128 <a name="DR1A"       id="DR1A"       >DR1A        </a>EQU *
+                    128 <a class="f" name="DR1A"        >DR1A        </a>EQU *
 1B24:C6 41          129             DEC ZPGWRK+1    ; NOT RAM
 1B26:D0 E3          130             BNE <a class="x" href="#DR0A" >DR0A</a>        ; TRY NEXT PAGE                 ; ^
                     131 ;
-                    132 <a name="DR2"        id="DR2"        >DR2         </a>EQU *
+                    132 <a class="f" name="DR2"         >DR2         </a>EQU *
                     133 ;
-1B28:A5 41          134             LDA <a class="d" href="#ZPGWRK">ZPGWRK</a>+1    ;BEGIN PATCH TO INSURE   *****  ; note: '*****' is BEGIN_PATCH
+1B28:A5 41          134             LDA <a class="d" href="#ZPGWRK" >ZPGWRK</a>+1    ;BEGIN PATCH TO INSURE   *****  ; note: '*****' is BEGIN_PATCH
 1B2A:29 DF          135             AND #$<span class="adr">DF</span>        ; PROPER HIGH MEMORY CHECK.
-1B2C:85 43          136             STA <a class="d" href="#ZPGFCB">ZPGFCB</a>+1    ;(DOS MASTER 3.1 CONTAINS
-1B2E:86 42          137             STX <a class="d" href="#ZPGFCB">ZPGFCB</a>      ; THIS ROUTINE STARTING AT LOCATION
+1B2C:85 43          136             STA <a class="d" href="#ZPGFCB" >ZPGFCB</a>+1    ;(DOS MASTER 3.1 CONTAINS
+1B2E:86 42          137             STX <a class="d" href="#ZPGFCB" >ZPGFCB</a>      ; THIS ROUTINE STARTING AT LOCATION
 1B30:A1 42          138             LDA (<a class="d" href="#ZPGFCB">ZPGFCB</a>,X)  ; $3540)
 1B32:48             139             PHA
 1B33:85 26          140             STA <a class="d" href=#LOC1">LOC1</a>        ;SAVE TEST VALUE
-1B35:98             141 <a name="DR2A"       id="DR2A"       >DR2A        </a>TYA             ;(FIRST TIME Y=0)
-1B36:45 26          142             EOR LOC1        ;TEST EACH (ALLEDGED) MEMORY BYTE
-1B38:85 26          143             STA LOC1        ; 256 TIMES TO DETERMINE IF
+1B35:98             141 <a class="f" name="DR2A"        >DR2A        </a>TYA             ;(FIRST TIME Y=0)
+1B36:45 26          142             EOR <a class="d" href="#LOC1"   >LOC1</a>        ;TEST EACH (ALLEDGED) MEMORY BYTE
+1B38:85 26          143             STA <a class="d" href="#LOC1"   >LOC1</a>        ; 256 TIMES TO DETERMINE IF
 1B3A:98             144             TYA             ; IT IS REALLY GOOD MEMORY AND
-1B3B:41 40          145             EOR (ZPGWRK,X)  ; MIRRORED 8K LOWER IN RAM.
-1B3D:81 42          146             STA (ZPGFCB,X)
-1B3F:C5 26          147             CMP LOC1        ;DID IT PASS THIS TIME?
-1B41:D0 09          148             BNE <a class="x" href="#DR2B">DR2B</a>        ; BYTE NOT MIRRORED, THEN GOOD MEMORY   ; *sigh* more crap code: S-L-O-W
+1B3B:41 40          145             EOR (<a class="d" href="#ZPGWRK">ZPGWRK</a>,X)  ; MIRRORED 8K LOWER IN RAM.
+1B3D:81 42          146             STA (<a class="d" href="#ZPGFCB">ZPGFCB</a>,X)
+1B3F:C5 26          147             CMP <a class="d" href="#LOC1"   >LOC1</a>        ;DID IT PASS THIS TIME?
+1B41:D0 09          148             BNE <a class="x" href="#DR2B"   >DR2B</a>        ; BYTE NOT MIRRORED, THEN GOOD MEMORY   ; *sigh* more crap code: S-L-O-W
 1B43:C8             149             INY             ;MAYBE IT WAS COINCIDENCE               ; Instead of testing *every* byte (256 times WTF!)
-1B44:D0 EF          150             BNE <a class="x" href="#DR2A">DR2A</a>        ; BRANCH UNLESS IT'S MATCHED 256 TIMES  ; just test the last byte of every page
-1B46:A4 43          151             LDY <a class="d" href="#ZPGFCB">ZPGFCB</a>+1    ;HIMEM IS 8K LOWER THEN WAS
+1B44:D0 EF          150             BNE <a class="x" href="#DR2A"   >DR2A</a>        ; BRANCH UNLESS IT'S MATCHED 256 TIMES  ; just test the last byte of every page
+1B46:A4 43          151             LDY <a class="d" href="#ZPGFCB" >ZPGFCB</a>+1    ;HIMEM IS 8K LOWER THEN WAS
 1B48:68             152             PLA             ;ORIGINALLY THOUGHT!                    ; *sigh* Another wasted byte with JMP
-1B49:4C 51 1B       153             JMP <a class="x" href="#DR2C">DR2C</a>                                                ; Switch LDY PLA around and BNE instead
-1B4C:68             154 <a name="DR2B"       id="DR2B"       >DR2B        </a>PLA        ; ORIGINAL HIMEM PROVED GOOD
-1B4D:81 42          155             STA (ZPGFCB,X)  ;RESTORE BYTE ORIGINALLY MESSED WITH.
-1B4F:A4 41          156             LDY ZPGWRK+1    ;END OF PATCH   *****           ; ***** = END_PATCH
-1B51:C8             157 <a name="DR2C"       id="DR2C"       >DR2C        </a>INY             ; NEW END OF DOS
+1B49:4C 51 1B       153             JMP <a class="x" href="#DR2C"   >DR2C</a>                                                ; Switch LDY PLA around and BNE instead
+1B4C:68             154 <a class="f" name="DR2B"        >DR2B        </a>PLA             ; ORIGINAL HIMEM PROVED GOOD
+1B4D:81 42          155             STA (<a class="d" href="#ZPGFCB">ZPGFCB</a>,X)  ;RESTORE BYTE ORIGINALLY MESSED WITH.
+1B4F:A4 41          156             LDY <a class="d" href="#ZPGWRK" >ZPGWRK</a>+1    ;END OF PATCH   *****           ; ***** = END_PATCH
+1B51:C8             157 <a class="f" name="DR2C"        >DR2C        </a>INY             ; NEW END OF DOS
 1B52:8C 7D 1C       158             STY <a class="d" href="#NEPAGE">NEPAGE</a>
 1B55:38             159             SEC
 1B56:98             160             TYA
@@ -540,69 +540,69 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B69:8D 0D 1D       168             STA <a class="d" href="#ASTART">ASTART</a>+1
                     169 ;
 1B6C:A9 1D          170             LDA #&lt;<a class="x" href="#DBINIT">DBINIT</a>    ; RESET PI RTN TO NORMAL        ; PI = ??? <span class="todo">TODO</span>
-1B6E:8D 49 37       171             STA <a class="d" DI3+2
+1B6E:8D 49 37       171             STA <a class="d" href="#DI3">DI3</a>+2
 1B71:A9 84          172             LDA #&gt;<a class="x" href="#DBINIT">DBINIT</a>
-1B73:8D 48 37       173             STA <a href="#DI3">DI3</a>+1
+1B73:8D 48 37       173             STA <a class="d" href="#DI3">DI3</a>+1
                     174 ;
                     175 ;RELOCATE ADR TABLES
                     176 ;
 <hr>1B76:A2 00          177             LDX #0                                          ; === Page <span class="page">113</span> ===
 1B78:86 40          178             STX ZPGWRK
-                    179 <a name="DR3"        id="DR3"        >DR3         </a>EQU *
+                    179 <a class="f" name="DR3"         >DR3         </a>EQU *
 
-                    186 <a name="DR4"        id="DR4"        >DR4         </a>EQU *
+                    186 <a class="f" name="DR4"         >DR4         </a>EQU *
 
-####:C8             194 <a name="DR5"        id="DR5"        >DR5         </a>INY
+####:C8             194 <a class="f" name="DR5"         >DR5         </a>INY
 
-                    198 <a name="DR6"        id="DR6"        >DR6         </a>EQU *
+                    198 <a class="f" name="DR6"         >DR6         </a>EQU *
 
                     213 ;
                     214 ;RELOCATE CODE
                     215 ;
 1BAF:A2 00          216             LDX #0
-1BB1:8E 9C 33       217 <a name="DR7"        id="DR7"        >DR7         </a>STX TEMP1
+1BB1:8E 9C 33       217 <a class="f" name="DR7"         >DR7         </a>STX <a class="d" href="#TEMP1">TEMP1</a>
                     218 ;
-1BB4:BD 5A 1C       219             LDA CDETAB+1,X  ; GET A START OF CODE ADR
-1BB7:85 40          220             STA ZPGWRK      ; PUT IN ZPG
-1BB9:BD 5B 1C       221             LDA CDETAB+2,X
-1BBC:85 41          222             STA ZPGWRK+1
+1BB4:BD 5A 1C       219             LDA <a class="d" href="#CDETAB">CDETAB</a>+1,X  ; GET A START OF CODE ADR
+1BB7:85 40          220             STA <a class="d" href="#ZPGWRK">ZPGWRK</a>      ; PUT IN ZPG
+1BB9:BD 5B 1C       221             LDA <a class="d" href="#CDTAB" >CDETAB</a>+2,X
+1BBC:85 41          222             STA <a class="d" href="#ZPGWRK">ZPGWRK</a>+1
                     223 ;
-1BBE:A2 00          224 <a name="DR8"        id="DR8"        >DR8         </a>LDX #0         ; GET OP CODE
+1BBE:A2 00          224 <a class="f" name="DR8"         >DR8         </a>LDX #0         ; GET OP CODE
 1BC0:A1 40          225             LDA (ZPGWRK,X)  ; GO FIND OUT HOW LONG          ; Interesting hack of using
 1BC2:20 8E F8       226             JSR INSDS2                                      ; monitor ROW to get instruction opcode length
                     227 ;
-1BC5:A4 2F          228             LDY <a class="d" href="#LENGTH">LENGTH</a>      ; GET HOW LONG
-1BC7:C0 02          229             CPY #2          ; IF IT AIN'T                   ; *sigh* #3-1 is clearer since zero based
-1BC9:D0 11          230             BNE <a href="#DR9">DR9</a>         ; 3 THEN DON'T RELOC            ; 300:A9 20 20 8E F8 A5 2F 09 30 4C ED FD
-1BCB:B1 40          231             LDA (ZPGWRK),Y  ; GET PAGE FROM INST
-1BCD:CD 7A 1C       232             CMP RSPAGE      ; IF PAGE &lt; REL START
-1BD0:90 0A          233             BCC <a href="#DR9">DR9</a>         ; THEN  IGNOR
-1BD2:CD 7B 1C       234             CMP REPAGE      ; IF PAGE &gt;= REL END
-1BD5:B0 05          235             BCS <a href="#DR9">DR9</a>         ; THEN IGNORE
+1BC5:A4 2F          228             LDY <a  class="d" href="#LENGTH">LENGTH</a>      ; GET HOW LONG
+1BC7:C0 02          229             CPY #<span class="adr">2</span>          ; IF IT AIN'T                   ; *sigh* #3-1 is clearer since zero based
+1BC9:D0 11          230             BNE <a  class="x" href="#DR9"   >DR9</a>         ; 3 THEN DON'T RELOC            ; 300:A9 20 20 8E F8 A5 2F 09 30 4C ED FD
+1BCB:B1 40          231             LDA (<a class="d" href="#ZPGWRK">ZPGWRK</a>),Y  ; GET PAGE FROM INST
+1BCD:CD 7A 1C       232             CMP <a  class="d" href="#RSPAGE">RSPAGE</a>      ; IF PAGE &lt; REL START
+1BD0:90 0A          233             BCC <a  class="x" href="#DR9"   >DR9</a>         ; THEN  IGNOR
+1BD2:CD 7B 1C       234             CMP <a  class="d" href="#REPAGE">REPAGE</a>      ; IF PAGE &gt;= REL END
+1BD5:B0 05          235             BCS <a  class="x" href="#DR9"   >DR9</a>         ; THEN IGNORE
 1BD7:6D 7F 1C       236             ADC DELTA       ; ELSE ADD DELTA
 1BDA:91 40          237             STA (ZPGWRK),Y  ; TO RELOCATE
                     238 ;
-1BDC:38             239 <b><a name="DR9"        id="DR9"        >DR9         </a></b>SEC
-<hr>1BDD:A5 2F          240             LDA <a href="#LENGTH">LENGTH</a>      ; ADD LENGTH
-1BDF:65 40          241             ADC ZPGWRK      ; TO PC
-1BE1:95 40          242             STA ZPGWRK
+1BDC:38             239 <a class="f" name="DR9"         >DR9         </a>SEC
+<hr>1BDD:A5 2F          240             LDA <a class="d" href="#LENGTH">LENGTH</a>      ; ADD LENGTH
+1BDF:65 40          241             ADC <a class="d" href="#ZPGWRK">ZPGWRK</a>      ; TO PC
+1BE1:95 40          242             STA <a class="d" href="#ZPGWRK">ZPGWRK</a>
 1BE3:A9 00          243             LDA #<span class="adr">0</span>
-1BE5:65 41          244             ADC ZPGWRK+1
-1BE7:85 41          245             STA ZPGWRK+1
+1BE5:65 41          244             ADC <a class="d" href="#ZPGWRK">ZPGWRK</a>+1
+1BE7:85 41          245             STA <a class="d" href="#ZPGWRK">ZPGWRK</a>+1
                     246 ;
-1BE9:AE 9C 33       247             LDX TEMP1       ; CHECK FOR END
-1BEC:DD 5D 1C       248             CMP CDETAB+4,X  ; OF CODE SEGMENT
-1BEF:90 CD          249             BCC <a href="#DR8">DR8</a>         ; BR NOT END
+1BE9:AE 9C 33       247             LDX <a class="d" href="#TEMP1">TEMP1</a>       ; CHECK FOR END
+1BEC:DD 5D 1C       248             CMP <a class="d" href="#CDETAB">CDETAB</a>+4,X  ; OF CODE SEGMENT
+1BEF:90 CD          249             BCC <a class="x" href="#DR8">DR8</a>         ; BR NOT END
 1BF1:A5 40          250             LDA <a class="d" href="#ZPGWRK">ZPGWRK</a>
-1BF3:DD 5C 1C       251             CMP CDETAB+3,X
-1BF6:90 C6          252             BCC <a href="#DR8">DR8</a>         ; BR NOT END
+1BF3:DD 5C 1C       251             CMP <a class="d" href="#CDTAB">CDETAB</a>+3,X
+1BF6:90 C6          252             BCC <a class="x" href="#DR8">DR8</a>         ; BR NOT END
                     253 ;
 1BF8:8A             254             TXA
 1BF9:18             255             CLC
 1BFA:69 04          256             ADC #<span class="adr">04</span>         ; INCREMENT TABLE INDEX
 1BFC:AA             257             TAX
 1BFD:EC 59 1C       258             CPX CDETAB      ; DONE
-1C00:90 AF          259             BCC <a href="#DR7">DR7</a>         ; BR IF NOT                     ; === <b class="ts">T0$B</b> ===
+1C00:90 AF          259             BCC <a class="x" href="#DR7">DR7</a>         ; BR IF NOT                     ; === <b class="ts">T0$B</b> ===
                     260 ;
                     261             PAGE
                     262 ;
@@ -618,7 +618,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C10:85 42          272             STA <a class="d" href="#ZPGFCB">ZPGFCB</a>
 1C12:A8             273             TAY
                     274 ;
-1C13:B1 40          275 <b><a name="DR10"       id="DR10"       >DR10        </a></b>LDA (ZPGWRK),Y  ; BYTE FROM
+1C13:B1 40          275 <a name="DR10"       id="DR10"       >DR10        </a>LDA (ZPGWRK),Y  ; BYTE FROM
 1C15:91 42          276             STA (ZPGFCB),Y  ; BYTE  TO
 1C17:C8             277             INY             ; INCREMENT                     ; /sarcasm No shit, Sherlock
 1C18:D0 F9          278             BNE <a href="#DR10">DR10</a>        ; BR NOT FULL PAGE
@@ -628,9 +628,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C21:C6 43          282             DEC ZPGFCB+1    ; INC TOO PAGE
 1C23:D0 EE          283             BNE <a href="#DR10">DR10</a>        ; MOVE PAGE
                     284 ;
-1C25:4C 54 1E       285 <b><a name="DR11"       id="DR11"       >DR11        </a></b>JMP <a href="#DBVECT">DBVECT+3</a>    ; DONE                          ; DOSINIT, Page 51 -&gt; JMP DBINIT
+1C25:4C 54 1E       285 <a name="DR11"       id="DR11"       >DR11        </a>JMP <a href="#DBVECT">DBVECT+3</a>    ; DONE                          ; DOSINIT, Page 51 -&gt; JMP DBINIT
                     286             PAGE
-1C28:24             287 <b><a name="ADRTAB"     id="ADRTAB"     >ADRTAB      </a></b>DFB 9*4
+1C28:24             287 <a name="ADRTAB"     id="ADRTAB"     >ADRTAB      </a>DFB 9*4
 1C29:00 1D          288             DW  SAT1
 1C2B:56 1D          289             DW  EAT1
 1C2D:58 1D          290             DW  RUN
@@ -652,7 +652,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C4D:00 00 00 00    306             DFB 0,0,0,0
 1C51:00 00 00 00    307             DFB 0,0,0,0
 1C55:00 00 00 00    308             DFB 0,0,0,0
-                    309 <b><a name="CDETAB"     id="CDETAB"     >CDETAB      </a></b>EQU *
+                    309 <a class="d"    name="CDETAB"     id="CDETAB"     >CDETAB      </a>EQU *
 1C59:20             310             DFB 8*4
 1C5A:84 1D          311             DW  SC1
 1C5C:84 28          312             DW  EC1
@@ -718,7 +718,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     002 ;
                     003 ; SCNCMD - SCAN A COMMAND
                     004 ;
-                    005 <span class="todo">SCNCMD</span>EQU * <span class="todo">TODO</span>
+                    005 <a class="f" name="SCNCMD"      >SCNCMD      </a>EQU *
 
 
 <hr>; === <a class="file" name="XOPNCLS">XOPNCLS</a> - Execute Open / Close, Page <span class="page">150</span>, <b class="ts">T?S?</b>, $<span class="adr">????</span> ===<hr>
@@ -733,7 +733,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     002 ;
                     003 ; DOSGO - GOTO DOS
                     004 ;
-                    005 <span class="todo">DOSGO</span>EQU * <span class="todo">TODO</span>
+                    005 <a class="f" name="DOSGO"       >DOSGO       </a>EQU *
 
 
 <hr>; === <a class="file" name="BLDFTAB">BLDFTAB</a> - Build File Tables, Page <i>4</i>, <b class="ts">T1$6</b> @ $D4, $<span class="adr">####</span> ===<hr>
@@ -761,16 +761,16 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     022 ;   SBUF PTR (2)
                     023 ;   LINK     (2)
                     024 ;
-27D4:               025 <a name="BLDFTB"    id="BLDFTB"     >BLDFTB</a>      EQU *
+27D4:               025 <a class="f" name="BLDFTB"     >BLDFTB      </a>EQU *
 27D4:38             026             SEC
-27D5:AD 00 1D       027             LDA FTAB        ; START OF FTAB AREA    ; dosinit, 48
+27D5:AD 00 1D       027             LDA <a class="d" href="#FTAB">FTAB</a>        ; START OF FTAB AREA    ; dosinit, 48
 27D8:85 40          028             STA ZPGWRK      ; IS 1ST FTB PTR        ; reloctr, 110
 27DA:AD 01 1D       029             LDA FTAB+1      ; HEADER
 27DD:85 41          030             STA ZPGWRK+1
 27DF:AD 57 2A       031             LDA CNFTBS      ; MOVE NO FTABS         ; fdosent, 60
 27E2:8D 63 2A       032             STA TEMP1A      ; TO TEMP               ; fdosent, 60
                     033 ;
-27E5:A0 00          034 <a name="BFT1"      id="BFT1"       >BFT1</a>        LDY #0
+27E5:A0 00          034 <a class="f" name="BFT1"       >BFT1        </a>LDY #0
 27E7:98             035             TYA
 27E8:91 40          036             STA (ZPGWRK),Y  ; 1ST CHAR FN=0
 27EA:A0 1E          037             LDY #<span class="adr">30</span>         ; INC Y TO FCB PTR
@@ -824,7 +824,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     ;
                     ; MVISW - MOVE INPUT SWITCH
                     ;
-2900:00             <b><a name="MVCSW" id="MVCSW"  >MVCSW</a></b>       EQU *
+2900:00             <a class="f" name="MVCSW" >MVCSW       </a>EQU *
                                 LDA INSW+1
 
 
@@ -1014,10 +1014,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 388B:BD 8C C0       096             LDA <a class="d" href="#Q6L"    >Q6L</a>,X       ;(4)
 388E:B9 00 3B       097             LDA <a class="d" href="#NBUF1"  >NBUF1</a>,Y     ;(4)  PRIOR 6-BIT NIBL.
 3891:C8             098             INY             ;(2)NEXT NBUF1 NIBL.
-3892:D0 EA          099             BNE <a href="#WDATA2">WDATA2</a>      ;(2*) MUST NOT CROSS PAGE!      ; ^
+3892:D0 EA          099             BNE <a class="x" href="#WDATA2" >WDATA2</a>      ;(2*) MUST NOT CROSS PAGE!      ; ^
 3894:AA             100             TAX             ;(2)
-3895:BD 29 3A       101             LDA NIBL,X      ;(4)  INDEX TO 7-BIT NIBL
-3898:A6 27          102             LDX SLOTZ       ;(3)
+3895:BD 29 3A       101             LDA <a class="d" href="#NIBL"   >NIBL</a>,X      ;(4)  INDEX TO 7-BIT NIBL
+3898:A6 27          102             LDX <a class="d" href="#SLOTZ"  >SLOTZ</a>       ;(3)
 389A:20 BB 38       103             JSR <a class="x" href="#WNIBL"  >WNIBL</a>       ;(6,9,6)  WRITE CHKSUM
 389D:A9 DE          104             LDA #$<span class="adr">DE</span>        ;(2)  DM4, BIT SLIP MARK.
 389F:20 B8 38       105             JSR <a class="x" href="#WNIBL9" >WNIBL9</a>      ;(15,9,6)    WRITE IT.
@@ -1038,11 +1038,11 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     120 *       CARRY CLEARED       *
                     121 *                           *
                     122 *****************************
-38B8:18             123 <b><a name="WNIBL9"     id="WNIBL9"     >WNIBL9</a></b>      CLC             ; (2) 9 CYCLES, THEN WRITE.
-38B9:48             124 <b><a name="WNIBL7"     id="WNIBL7"     >WNIBL7</a></b>      PHA             ; (3) 7 CYCLES, THEN WRITE.
+38B8:18             123 <a class="f"    name="WNIBL9"     >WNIBL9      </a>CLC             ; (2) 9 CYCLES, THEN WRITE.
+38B9:48             124 <a class="f"    name="WNIBL7"     >WNIBL7      </a>PHA             ; (3) 7 CYCLES, THEN WRITE.
 38BA:68             125             PLA             ; (4)
-38BB:9D 8D C0       126 <b><a name="WNIBL"      id="WNIBL"      >WNIBL</a></b>       STA Q6H,X       ; (5) NIBL WRITE SUB.
-38BE:1D 8C C0       127             ORA Q6L,X       ; (4) CLOBBERS ACC, NOT CARRY
+38BB:9D 8D C0       126 <a class="f"    name="WNIBL"      >WNIBL       </a>STA <a class="d" href="#Q6H">Q6H</a>,X       ; (5) NIBL WRITE SUB.
+38BE:1D 8C C0       127             ORA <a class="d" href="#Q6L">Q6L</a>,X       ; (4) CLOBBERS ACC, NOT CARRY
 38C1:60             128             RTS
 
 
@@ -1092,9 +1092,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     043 *    AND NBUF2.           *
                     044 *      (242 NIBLS)        *
                     045 ***************************
-38C2:A0 00          046 <b><a name="POSTNB16"   id="POSTNB16"   >POSTNB16    </a></b>LDA #$0         USER DATA BUF IDX.              ; <b class="ts">T0$2</b> <span class="todo">TODO</span>
-38C4:A2 56          047 <b><a name="POST1"      id="POST1"      >POST1       </a></b>LDX #$56        INIT NBUF2 INDEX.
-38C6:CA             048 <b><a name="POST2"      id="POST1"      >POST2       </a></b>DEX             IDX $55 TO $0
+38C2:A0 00          046 <a class="f"    name="POSTNB16"   >POSTNB16    </a>LDA #$0         USER DATA BUF IDX.              ; <b class="ts">T0$2</b> <span class="todo">TODO</span>
+38C4:A2 56          047 <a class="f"    name="POST1"      >POST1       </a>LDX #$56        INIT NBUF2 INDEX.
+38C6:CA             048 <a class="f"    name="POST2"      >POST2       </a>DEX             IDX $55 TO $0
 38C7:30 FB          049             BMI <a href="#POST1">POST1</a>       WRAPAROUND IF NEG.              ; ^
 38C9:B9 00 3B       050             LDA NBUF1,Y
 38CC:5E 00 3C       051             LSR NBUF2,X     SHIFT 2 BITS FROM
@@ -1174,13 +1174,13 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     028 * 1 USEC CYCLE TIME      *
                     029 **************************
 39FD:00 00 00       030         DS 3,0              ;AVOID PAGE BOUNDARY CROSSING...; T0$3 @ $FC *sigh* 3 unused bytes
-3A00:A2 11          031 <b><a name="MSWAIT"     id="MSWAIT"     >MSWAIT      </a></b>LDX #$11                                        ; === <b class="ts">T0$4</b> === *sigh* Typical bloated code ...
-3A02:CA             032 <b><a name="MSW1"       id="MSW1"       >MSW1        </a></b>DEX             DELAY 86 USEC.                  ; ... should just adjust algorithm timing instead!
-3A03:D0 FD          033             BNE <a href="#MSW1">MSW1</a>
+3A00:A2 11          031 <a class="f"    name="MSWAIT"     >MSWAIT      </a>LDX #$11                                        ; === <b class="ts">T0$4</b> === *sigh* Typical bloated code ...
+3A02:CA             032 <a class="f"    name="MSW1"       >MSW1        </a>DEX             DELAY 86 USEC.                  ; ... should just adjust algorithm timing instead!
+3A03:D0 FD          033             BNE <a class="x" href="#MSW1">MSW1</a>
 3A05:E6 46          034             INC MONTIMEL
-3A07:D0 02          035             BNE <a href="#MSW2">MSW2</a>        ; DOUBLE-BYTE
+3A07:D0 02          035             BNE <a class="x" href="#MSW2">MSW2</a>        ; DOUBLE-BYTE
 3A09:E6 47          036             INC MONTIMEH    INCREMENT.
-3A0B:38             037 <b><a name="MSW2"       id="MSW2"       >MSW2        </a></b>SEC
+3A0B:38             037 <a class="f"    name="MSW2"       >MSW2        </a>SEC
 3A0C:E9 01          038             SBC #$1         DONE 'N' INTERVALS?
 3A0E:D0 F0          039             BNE <a href="#MSWAIT">MSWAIT</a></b>            (A-REG COUNTS)
 3A10:60             040             RTS
@@ -1190,11 +1190,11 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     044 *   TABLES IN 100-USEC   *
                     045 *   INTERVALS. (SEEK)    *
                     046 **************************
-3A11:01 30 28       047 <a class="d" name="ONTABLE"    >ONTABLE     </a>DFB 1,$30,$28                                   ; See <b>RDADSEK</b>, Page <span class="page">108</span>, Line # <span class="todo">TODO</span>
+3A11:01 30 28       047 <a class="d" name="ONTABLE"    >ONTABLE     </a>DFB 1,$30,$28                                   ; See <a class="file" href="#RDADSEK">RDADSEK</a>, Page <span class="page">108</span>, Line # <span class="todo">TODO</span>
 3A14:24 20 1E       048             DFB $24,$20,$1E
 3A17:1D 1C 1C       049             DFB $1D,$1C,$1C
 3A1A:1C 1C 1C       050             DFB $1C,$1C,$1C
-3A1D:70 2C 26       051 <a class="d" name="OFFTABLE"   >OFFTABLE    </a>DFB $70,$2C,$26                                 ; See <b>RDADSEK</b> Page <span class="page">109</span>, Line #<span class="line">183</span>
+3A1D:70 2C 26       051 <a class="d" name="OFFTABLE"   >OFFTABLE    </a>DFB $70,$2C,$26                                 ; See <a class="file" href="#RDADSEK">RDADSEK</a> Page <span class="page">109</span>, Line #<span class="line">183</span>
 3A20:22 1F 1E       052             DFB $22,$1F,$1E
 3A23:1D 1C 1C       053             DFB $1D,$1C,$1C
 <hr>3A26:1C 1C 1C       054             DFB $1C,$1C,$1C                                 ; === Page <span class="page">98</span> ===
@@ -1216,7 +1216,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     070 * CROSS A PAGE BOUNDARY!  *
                     071 *                         *
                     072 ***************************
-3A29:96 97 9A       073 <i><a name="NIBL"       id="NIBL"       >NIBL        </a></i>DFB $96,$97,$9A                                 ; /sarcasm, Gee if only
+3A29:96 97 9A       073 <a class="d"    name="NIBL"       >NIBL        </a>DFB $96,$97,$9A                                 ; /sarcasm, Gee if only
 3A2C:9B 9D 9E       074             DFB $9B,$9D,$9E                                 ; there was a HEX pseudo-mnemonic
 3A2F:9F A6 A7       075             DFB $9F,$A6,$A7                                 ; so we could group these in 4 bytes ...
 3A32:AB AC AD       076             DFB $AB,$AC,$AD                                 ; ... maybe one day. :)
@@ -1229,7 +1229,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 TODO:
                     137
-                    139 <b><a name="OFF80"      id="OFF80"      >OFF80       </a></b>EQU *
+                    139 <a class="f"    name="OFF80"      >OFF80       </a>EQU *
 3A76:A9 FF          140             LDA #$FF
 3A78:8D FB 04       141             STA $4FB        ; CLEARS FUNNY 80 COL STUFF
 3A7B:8D 0C C0       142             STA $C00C       ; TURNS 80 COL OFF
@@ -1359,7 +1359,7 @@ TODO:
                     003 * NOW CHECK: IF IT IS NOT THE FORMAT DISK COMMAND,
                     004 * LOCATE THE CORRECT SECTOR FOR THIS OPERATION.
                     005 *
-                    006 <b><a name="TRYTRK"     id="TRYTRK"     >TRYTRK      </a></b>EQU *
+                    006 <a class="f"    name="TRYTRK"     >TRYTRK      </a>EQU *
 3DAB:A0 0C          007             LDY #$0C
 3DAD:B1 48          008             LDA (IOBPL),Y   ;GET COMMAND CODE #
 3DAF:F0 5A          009             BEQ <a href="#GALLDONE">GALLDONE</a>    ;IF NULL COMMAND, GO HOME TO BED.           ; v
@@ -1381,9 +1381,9 @@ TODO:
                     025         STY TL7                                 </span>
                     026     FIN
                     027     LST ON
-3DBC:A0 30          028 <b><a name="TRYTRK2"    id="TRYTRK2"    >TRYTRK2     </a></b>LDY #$30        ;ONLY 48 RETRIES OF ANY KIND.
+3DBC:A0 30          028 <a class="f" name="TRYTRK2"     >TRYTRK2     </a>LDY #$30        ;ONLY 48 RETRIES OF ANY KIND.
 3DBE:8C 78 05       029             STY RETRYCNT
-3DC1:AE F8 05       030 <b><a name="TRYADR"     id="TRYADR"     >TRYADR      </a></b>LDX SLOT        ;GET SLOT NUM INTO X-REG
+3DC1:AE F8 05       030 <a class="f" name="TRYADR"      >TRYADR      </a>LDX SLOT        ;GET SLOT NUM INTO X-REG
                     031     LST OFF
                     032     DO DIAGMOD<span style="background-color:#EEE">
                     033         LDA #TC4            ;SAY 'READING ADDRESS'          
@@ -1406,8 +1406,8 @@ TODO:
                     050         STA TL4                                             </span>
                     051     FIN
                     052     LST ON
-3DC9:CE 78 05       053 <b><a name="TRYADR2"    id="TRYADR2"    >TRYADR2     </a></b>DEC RETRYCNT    ;ANOTHER MISTAEK!!              ; *spelling* **irony**
-<hr>3DCC:10 F3          054             BPL <a href="#TRYADR">TRYADR</a>      ; WELL, LET IT GO THIS TIME..   ; === page <span class="page">123</span> ===
+3DC9:CE 78 05       053 <a class="f" name="TRYADR2"     >TRYADR2     </a>DEC RETRYCNT    ;ANOTHER MISTAEK!!              ; *spelling* **irony**
+<hr>3DCC:10 F3          054             BPL <a class="x" href="#TRYADR">TRYADR</a>      ; WELL, LET IT GO THIS TIME..   ; === page <span class="page">123</span> ===
                     055 *
                     056 * RRRRRECALIBRATE !!!!
                     057 *
@@ -1415,79 +1415,79 @@ TODO:
 3DCE:AD 78 04       059             LDA CURTRK
 3DD1:48             060             PHA             ;SAVE TRACK WE REALLY WANT
 3DD2:A9 60          061             LDA #$60        ;RECALIBRATE ALL OVER AGAIN!    ; /sarcasm Yeah ... let's bang the user's drive head against
-3DD4:20 95 3E       062             JSR <a href="#SETTRKK">SETTRKK</a>     ;PRETEND TO BE ON TRACK 96      ; the case -- that will make it work and won't
+3DD4:20 95 3E       062             JSR <a class="x" href="#SETTRKK">SETTRKK</a>     ;PRETEND TO BE ON TRACK 96      ; the case -- that will make it work and won't
 3DD7:CE F8 06       063             DEC RECALCCNT   ;ONCE TOO MANY??                ; cause any head alignment prolems over time ... NOT!
-3DDC:F0 28          064             BEQ <a href="#DRVERR">DRVERR</a>      ;TRIED TO RECALIBRATE TOO MANY TIMES, ERROR! ; v
+3DDC:F0 28          064             BEQ <a class="x" href="#DRVERR">DRVERR</a>      ;TRIED TO RECALIBRATE TOO MANY TIMES, ERROR! ; v
 3DDE:A9 04          065             LDA #MAXSEEKS   ;RESET THE
 3DDE:8D F8 04       066             STA SEEKCNT     ; SEEK COUNTER
 3DE1:A9 00          067             LDA #$00
-3DE3:20 5A 3E       068             JSR <a href="#MYSEEK">MYSEEK</a>      ;MOVE TO TRACK 00               ; v
+3DE3:20 5A 3E       068             JSR <a class="x" href="#MYSEEK">MYSEEK</a>      ;MOVE TO TRACK 00               ; v
 3DE6:68             069             PLA
-3DE7:4C 5A 3E       070 <b><a name="RESEEK"     id="RESEEK"     >RESEEK      </a></b>JSR <a href="#MYSEEK">MYSEEK</a>      ;GO TO CORRECT TRACK THIS TIME!
-3DEA:4C BC 3D       071             JMP <a href="#TRYTRK2">TRYTRK2</a>     ;LOOP BACK, TRY AGAIN ON THIS TRACK
+3DE7:4C 5A 3E       070 <a class="f" name="RESEEK"      >RESEEK      </a>JSR <a href="#MYSEEK">MYSEEK</a>      ;GO TO CORRECT TRACK THIS TIME!
+3DEA:4C BC 3D       071             JMP <a class="x" href="#TRYTRK2">TRYTRK2</a>     ;LOOP BACK, TRY AGAIN ON THIS TRACK
                     072 *
                     073 * HAVE NOW READ
                     074 * MAKE SURE THIS IS THE TRACK, SECTOR, AND VOLUME DESIRED.
                     075 *
-3DED:A4 2E          076 <b><a name="RDRIGHT"    id="RDRIGHT"    >RDRIGHT     </a></b>LDY TRACK       ;ON THE RIGHT TRACK?
+3DED:A4 2E          076 <a class="f" name="RDRIGHT"     >RDRIGHT     </a>LDY TRACK       ;ON THE RIGHT TRACK?
 3DEF:CC 78 04       077             CPY CURTRK
-3DF2:F0 1C          078             BEQ <a href="#RTTRK">RTTRK</a>       ;IF SO, GOOD                    ; v
+3DF2:F0 1C          078             BEQ <a class="x" href="#RTTRK">RTTRK</a>       ;IF SO, GOOD                    ; v
                     079 * NO, DRIVE WAS ON A DIFFERENT TRACK. TRY
                     080 * RESEEKING/RECALIBRATING FROM THIS TRACK
 3DF4:AD 78 04       081             LDA CURTRK      ;PRESERVE DESTINATION TRACK
 3DF7:48             082             PHA
 3DF8:98             083             TYA
-3DF9:20 95 3E       084             JSR <a href="#SETTRK">SETTRK</a>
+3DF9:20 95 3E       084             JSR <a class="x" href="#SETTRK">SETTRK</a>
 3DFC:68             085             PLA
-3DFD:CE F8 04       086             DEC SEKCNT      ;SHOULD WE RESEEK?
-3E00:D0 E5          087             BNE <a href="#RESEEK">RESEEK</a>      ;=&gt;YES, RESEEK                  ; ^ === <b class="ts">T0$8</b> ===
-3E02:F0 CA          088             BEQ <a href="#RECAL" >RECAL</a>       ;=&gt;NO, RECALIBRATE!             ; ^
+3DFD:CE F8 04       086             DEC <a class="d" href="#SEKCNT">SEKCNT</a>      ;SHOULD WE RESEEK?
+3E00:D0 E5          087             BNE <a class="x" href="#RESEEK">RESEEK</a>      ;=&gt;YES, RESEEK                  ; ^ === <b class="ts">T0$8</b> ===
+3E02:F0 CA          088             BEQ <a class="x" href="#RECAL" >RECAL</a>       ;=&gt;NO, RECALIBRATE!             ; ^
                     089 ****
-3E04:68             090 <b><a name="DRVERR"     id="DRVERR"     >DRVERR      </a></b>PLA             ;REMOVE CURTRK
+3E04:68             090 <a class="f" name="DRVERR"      >DRVERR      </a>PLA             ;REMOVE CURTRK
 3E05:A9 40          091             LDA #IBDERR     ;BAD DRIVE ERROR
-3E07:28             092 <b><a name="JMPTO1"     id="JMPTO1"     >JMPTO1      </a></b>PLP
+3E07:28             092 <a class="f" name="JMPTO1"      >JMPTO1      </a>PLP
 3E08:4C 48 3E       093             JMP <a href="#HNDLERR">HNDLERR</a>
-3E0B:F0 39          094 <b><a name="GALLDONE"   id="GALLDONE"   >GALLDONE    </a></b>BEQ <a href="#ALLDONE">ALLDONE</a>                                     ; v
-3E0D:4C AF 3E       095 <b><a name="FORMDSK"    id="FORMDSK"    >FORMDSK     </a></b>JMP <a href="#DSKFORM">DSKFORM</a>     ;=&gt;GO TO IT!                    ; v
+3E0B:F0 39          094 <a class="f" name="GALLDONE"    >GALLDONE    </a>BEQ <a class="x" href="#ALLDONE">ALLDONE</a>                                     ; v
+3E0D:4C AF 3E       095 <a class="f" name="FORMDSK"     >FORMDSK     </a>JMP <a class="x" href="#DSKFORM">DSKFORM</a>     ;=&gt;GO TO IT!                    ; v
                     096 *
                     097 * DRIVE IS ON RIGHT TRACK, CHECK VOLUME MISMATCH
                     098 *
-3E10:A0 03          099 <b><a name="RTTRK"      id="RTTRK"      >RTTRK       </a></b>LDY #3          ;IS THE RIGHT DISK IN?
+3E10:A0 03          099 <a class="f" name="RTTRK"       >RTTRK       </a>LDY #3          ;IS THE RIGHT DISK IN?
 3E12:B1 48          100             LDA (IOBPL),Y   ;GET DESIRED VOLUM
 3E14:48             101             PHA             ;PRESERVE DESIRED VOLUME#
 3E15:A5 2F          102             LDA VOLUME      ;GET ACTUAL VOLUME HERE
 3E17:A0 0E          103             LDY #$0E        ;TELL OPSYS WHAT VOLUME WAS THERE ; *sigh* magic number: IOB_OFFSET_VOL = $E
 3E19:91 48          104             STA (IOBPL),Y
 3E1B:68             105             PLA             ;GET DESIRED VOLUME BACK
-3E1C:F0 08          106             BEQ <a href="#CORRECTVOL">CORRECTVOL</a>  ;DESIRED VOLUME 00 MATCHES ALL. ; v
+3E1C:F0 08          106             BEQ <a class="x" href="#CORRECTVOL">CORRECTVOL</a>  ;DESIRED VOLUME 00 MATCHES ALL. ; v
 3E1E:C5 2F          107             CMP VOLUME
-3E20:F0 04          108             BEQ <a href="#CORRECTVOL">CORRECTVOL</a>  ;YUP, IT WAS RIGHT!             ; v
+3E20:F0 04          108             BEQ <a class="x" href="#CORRECTVOL">CORRECTVOL</a>  ;YUP, IT WAS RIGHT!             ; v
 3E22:A9 20          109             LDA #IBVMME     ;HE SWITCHED DISCS!
-3E24:D0 E1          110             BNE <a href="#JMPTO1">JMPTO1</a>      ;ALWAYS TAKEN                   ; ^
-                    111 <b><a name="CORRECTVOL" id="CORRECTVOL" >CORRECTVOL  </a></b>EQU *
-3E26:A0 05          112             LDY #5                                          ; *sigh* magic number: IOB_OFFSET_SECTOR = $5
-3E28:B1 48          113             LDA (IOBPL),Y   ; TO ALLOW FOR INTERLEAVE
+3E24:D0 E1          110             BNE <a class="x" href="#JMPTO1">JMPTO1</a>      ;ALWAYS TAKEN                   ; ^
+                    111 <a class=="f" name="CORRECTVOL" >CORRECTVOL  </a>EQU *
+3E26:A0 05          112             LDY #<span class="adr">5</span>                                          ; *sigh* magic number: IOB_OFFSET_SECTOR = $5
+3E28:B1 48          113             LDA (<a class="d" href="#IOBPL">IOBPL</a>),Y   ; TO ALLOW FOR INTERLEAVE
 3E2A:A8             114             TAY
-3E2B:B9 B8 3F       115             LDA INTRLEAV,Y  ;COMPUTE PHYSICAL SECTOR        ; DOS Sector Interleave/Skew Mapping
-<hr>3E2E:C5 2D          116             CMP SECT        ;DID WE GET THE SECTOR?         ; === Page <span class="page">124</span> ===
+3E2B:B9 B8 3F       115             LDA <a class="d" href="#INTRLEAV">INTRLEAV</a>,Y  ;COMPUTE PHYSICAL SECTOR        ; DOS Sector Interleave/Skew Mapping
+<hr>3E2E:C5 2D          116             CMP <a class="d" href="#SECT">SECT</a>        ;DID WE GET THE SECTOR?         ; === Page <span class="page">124</span> ===
                     117     LST OFF
-                    118     DO DIAGMOD<span style="background-color:#EEE">
+                    118     DO <a class="macro">DIAGMOD</a><span style="background-color:#EEE">
                     119         BEQ GOTSECT         ;=&gt;WE FOUND IT!                         
                     120         LDA #TC5            ;SAY 'LATENCY'                          
                     121         STA TL5                                                     
                     122         LDA SCOUNT          ;ARE WE WAITING FOR FIRST SECTOR?       
                     123         BEQ NOLAT           ;=&gt;YES, LATENCY UNPREDICTABLE ANYWAY    
                     124         INC LCOUNT          ;NO, COUNT SECTORS MISSED               
-                    125 <i><a name="NOLAT"      id="NOLAT"      >NOLAT   </i></b>EQU *                                                       
+                    125 <a class="f" name="NOLAT"       >NOLAT   </a>EQU *                                                       
                     126         JMP TRYADR2         ;NOW..GET CORRECT SECTOR..              </span>
                     127     ELSE
                     128     LST ON
-3E30:D0 97          129             BNE <a href="#TRYADR2">TRYADR2</a>     ;NO, KEEP TRYING.               ; ^
+3E30:D0 97          129             BNE <a class="x" href="#TRYADR2">TRYADR2</a>     ;NO, KEEP TRYING.               ; ^
                     130     FIN
                     131 *
                     132 * HOORAY! WE GOT THE RIGHT SECTOR!
                     133 *
-                    134 <b><a name="GOTSECT"    id="GOTSECT"    >GOTSECT     </a></b>EQU *
+                    134 <a class="f" name="GOTSECT"     >GOTSECT     </a>EQU *
                     135     LST OFF
                     136     DO DIAGMOD<span style="background-color:#EEE">
                     137         LDA #SP             ;SAY 'NO LATENCY'                   
@@ -1542,14 +1542,14 @@ TODO:
                     186     FIN
                     187     LST ON
 3E43:AE F8 05       188             LDX SLOT        ;RESTORE SLOTNUM INTO X         ; I never would have guessed ...
-3E46:18             189 <b><a name="ALLDONE"    id="ALLDONE"    >ALLDONE     </a></b>CLC
+3E46:18             189 <a class="x" name="ALLDONE"     >ALLDONE     </a>CLC
 3E47:24             190             DFB $24         ;SKIP OVER NEXT BYTE WITH BIT OPCODE        ; BIT $zp
-3E48:38             191 <b><a name="HNDLERR"    id="HNDLERR"    >HNDLERR     </a></b>SEC             ;INDICATE AN ERROR
-3E49:A0 0D          192             LDY #$0D        ;GIVE HIM ERROR#                ; *sigh magic number IOB_OFFSET_ERROR = $D
-3E4B:91 48          193             STA (IOBPL),Y
-3E4D:BD 88 C0       194             LDA MOTOROFF,X  ; TURN IT OFF...
+3E48:38             191 <a class="x" name="HNDLERR"     >HNDLERR     </a>SEC             ;INDICATE AN ERROR
+3E49:A0 0D          192             LDY #$<span class="adr">0D</span>        ;GIVE HIM ERROR#                ; *sigh magic number IOB_OFFSET_ERROR = $D
+3E4B:91 48          193             STA (<a class="d" href="#IOBPL">IOBPL</a>),Y
+3E4D:BD 88 C0       194             LDA <a class="d" href="#MOTOROFF">MOTOROFF</a>,X  ; TURN IT OFF...
                     195     LST OFF
-                    196     DO DIAGMOD<span style="background-color:#EEE">
+                    196     DO <a class="macro" href="#DIAGMOD">DIAGMOD</a><span style="background-color:#EEE">
                     197 * AVERAGE LATENCY = LCOUNT/SCOUNT                           
                     198         LDA LCOUNT          ; GET TOTAL LATENCY             
                     199         LDY #0              ; CLEAR QUOTIENT                
@@ -1572,7 +1572,7 @@ TODO:
                     216     FIN
                     217     LST ON
 3E50:60             218             RTS
-                    219 <b><a name="WRIT"       id="WRIT"       >WRIT        </a></b>EQU *
+                    219 <a class="f" name="WRIT"        >WRIT        </a>EQU *
                     220     LST OFF
                     221     DO DIAGMOD<span style="macro">
                     222        LDA #TC8             ; SAY 'WRITING'                 
@@ -1587,25 +1587,25 @@ TODO:
                     230        STA TL8                                              </span>
                     231     FIN
                     232     LST ON
-3E54:90 F0          233             BCC <a href="#ALLDONE">ALLDONE</a>     ;IF NO ERRORS.
+3E54:90 F0          233             BCC <a class="x" href="#ALLDONE">ALLDONE</a>     ;IF NO ERRORS.
 3E56:A9 10          234             LDA #IBWPER     ;DISK IS WRITE PROTECTED!!
-3E58:B0 EE          235             BCS <a href="#HNDLERR">HNDLERR</a>     ;ALWAYS TAKEN
+3E58:B0 EE          235             BCS <a class="x" href="#HNDLERR">HNDLERR</a>     ;ALWAYS TAKEN
                     236 *
                     237 * THIS IS THE 'SEEK' ROUTINE
                     238 *  SEEKS TRACK 'N' IN SLOT #X/$10
                     239 * IF DRIVNO IS NEGATIVE, ON DRIVE 1
                     240 * IF DRIVNO IS POSITIVE, ON DRIVE 2
                     241 *
-<hr>3E5A:48             242 <a name="MYSEEK"     id="MYSEEK"     >MYSEEK      </a>PHA             ; AND PRESERVE A-REGISTER       ; === Page <span class="page">126</span> === Uhm, OK, Captain Obvious
+<hr>3E5A:48             242 <a class="x" name="MYSEEK"      >MYSEEK      </a>PHA             ; AND PRESERVE A-REGISTER       ; === Page <span class="page">126</span> === Uhm, OK, Captain Obvious
                     243     LST OFF
 
                     2??     LST ON
 
 
-3E86:10 03          275             BPL <a href="#GOSEEK">GOSEEK</a>      ;ALWAYS TAKEN
-3E88:99 78 04       276 <a name="ISDRV1"     id="ISDRV1"     >ISDRV1      </a>STA DRV1TRK,Y
-3E8B:4C A0 B9       277 <a name="GOSEEK"     id="GOSEEK"     >GOSEEK      </a>JMP <a href="#SEEK">SEEK</a>        ;GO THERE!
-3E8E:8A             278 <a name="XTOY"       id="XTOY"       >XTOY        </a>TXA
+3E86:10 03          275             BPL <a class="x" href="#GOSEEK">GOSEEK</a>      ;ALWAYS TAKEN
+3E88:99 78 04       276 <a class="f" name="ISDRV1"      >ISDRV1      </a>STA DRV1TRK,Y
+3E8B:4C A0 B9       277 <a class="f" name="GOSEEK"      >GOSEEK      </a>JMP <a class="x" href="#SEEK">SEEK</a>        ;GO THERE!
+3E8E:8A             278 <a class="g" name="XTOY"        >XTOY        </a>TXA
 3E8F:4A             279             LSR A
 3E90:4A             280             LSR A
 3E91:4A             281             LSR A
@@ -1616,7 +1616,7 @@ TODO:
                     286 * THIS SUBROUTINE SETS THE SLOT DEPENDENT TRACK
                     287 * LOCATION.
                     288 *
-3E95:48             289 <a name="SETTRK"     id="SETTRK"     >SETTRK      </a>PHA             ;PRESERVE DESTINATION TRACK
+3E95:48             289 <a class="f" name="SETTRK"     id="SETTRK"     >SETTRK      </a>PHA             ;PRESERVE DESTINATION TRACK
 3E96:A0 02          290             LDY #$02                                        ; *sigh* magic number: IOB_OFFSET_DRIVE = $2
 3E98:B1 48          291             LDA (IOBPL),Y
 3E9A:6A             292             ROR A           ;GET DRIVE # INTO CARRY
@@ -1628,8 +1628,8 @@ TODO:
 3EA4:30 05          298             BMI <a href="#ONDRV1">ONDRV1</a>      ;IF ON DRIVE 1(1), DRIVNO MINUS
 3EA6:99 F8 04       299             STA DRV2TRK,Y
 3EA9:10 03          300             BPL <a href="#SETRTS">SETRTS</a>
-3EAB:99 78 04       301 <a name="ONDRV1"     id="ONDRV1"    >ONDRV1      </a>STA DRV1TRK,Y
-3EAE:60             302 <a name="SETRTS"     id="SETRTS"    >SETRTS      </a>RTS
+3EAB:99 78 04       301 <a class="f" name="ONDRV1"     id="ONDRV1"    >ONDRV1      </a>STA DRV1TRK,Y
+3EAE:60             302 <a class="f" name="SETRTS"     id="SETRTS"    >SETRTS      </a>RTS
 
 
 <hr>; === <a class="file" name="FORMATR">FORMATR</a> - Format Disk, Page <span class="page">82</span>, <b class="ts">T0$8</b> @ $AF..  <b class="ts">T0$9</b> @ $C7, $<span class="adr">BEAF</span>-<span class="adr">BFC7</span> ===<hr>
