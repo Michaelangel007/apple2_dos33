@@ -181,32 +181,56 @@ Page
 span.b { color: #080; font-weight: bold;  } /* Original bold   green */
 span.i { color: #00F; font-style: italic; } /* Original italic blue  */
 
-/* Bold = Func (Blue) */
+/* Bold = Blue */
 b {
     color: #00F; /* -- old: 080 */
 }
 
-/* Italic = Data (Green) */
+/* Italic = Green */
 i {
     color: #080; /* 00F */
 }
 a {
-    color: #46F;           /* baby blue */
-    font-weight: bold;     /* default to bold for function names */
+    color: #F0F; /* Should never see purple -- means link wasn't marked up propery */
+    /* background-color:#F0F; */
 }
-a.x { /* func name -- can't use '$' in css name */
-    color: #24f;
-    text-decoration: none; /* remove underlink from data link */
-    font-weight: normal;   /* remove bold */
+/*
+    There are 4 lights, er, links!
+
+    f FUNC definition: Foo EQU *
+    x FUNC reference:      JSR Foo
+    d VAR  definition: Bar DFB 0
+    v VAR  reference       LDA Bar
+
+*/
+a.f { /* func name definition LABEL */
+    color          : #46F  ; /* blue (baby blue) */
+    text-decoration: none  ; /* remove underlink from func link */
+    font-weight    : bold  ; /* default to bold for function names */
 }
-a.d { /* data var name -- http://stackoverflow.com/questions/448981/which-characters-are-valid-in-css-class-names-selectors */
-    color: #060;
-    text-decoration: none; /* remove underlink from data link */
-    font-weight: normal;   /* remove bold */
-/* font-style: italic; /* optional italic for data */
+a.x { /* func name reference TARGET /
+    color          : #24f  ; /* dark blue */
+    text-decoration: none  ; /* remove underlink from data link */
+    font-weight    : normal; /* remove bold */
 }
+a.d { /* var name definition LABEL*/
+    color          : #080  ; /* green */
+    text-decoration: none  ; /* remove underlink from data link */
+    font-weight    : bold  ; /* make bold */
+ /* font-style     : italic; /* optional italic for data */
+}
+a.v { /* var name reference OPERAND */
+    color          : #040  ; /* dark green */
+    text-decoration: none  ; /* remove underlink from data link */
+    font-weight    : normal; /* remove bold */
+}
+/*
+Misc.
+ - can't use '$' in css name *
+ - http://stackoverflow.com/questions/448981/which-characters-are-valid-in-css-class-names-selectors 
+*/
 a.dumb { /* How Not To Design a File System */
-    color: #808;
+    color: #808; /* purple */
 }
 a.file {
     color: #F00;           /* FILE = Red */
@@ -222,17 +246,20 @@ a.macro {
 /* Link to Macro Label */
 a.name {
     color: #444;
-    font-style: italic; 
+    font-style: italic;
 }
 h1 {
     font-size: 200%;
 }
-/* Memory Address */
+h1 {
+    font-size: 150%;
+}
+/* Dec, Hex, Number, Memory Address */
 b.adr {
     color: #F80;
 }
 b.file {
-    color: #F00;
+    color: #F00; /* filenames in red */
 }
 /* Track/Sector */
 b.ts {
@@ -2072,43 +2099,83 @@ TODO:
 <p>
 Spelling mistakes: 5
 <p>
-
+Total Functions: 67
+<p>
+Total Variables: ?
+<p>
 
 <h1>Symbols (Alphabetical)</h1>
 <pre>
 <h2>A</h2>
     ASHM1       =   $73
     ASHM2       =   $6F
+
 <h2>B</h2>
 
 <h2>C</h2>
     COUT        =   $26
+
 <h2>D</h2>
     DBVECT      = $1E51
     DELTA       = $1C7F
+
 <h2>E</h2>
+    EC1         = $2884
+    EC2         = $3397
+    EC3         = $37E0
     ERRORA      = $3F85
+    EWADR1      = $3CDF
+    EAT1        = $1D56
+
+<h2>F</h2>
+
+<h2>G</h2>
+
+<h2>H</h2>
+
+<h2>I</h2>
+    IBVT        = $1D62
+
+<h2>J</h2>
+
+<h2>K</h2>
+
+<h2>L</h2>
+
+<h2>M</h2>
 
 <h2>N</h2>
     NEPAGE      = $1C7D
 
-    SC1         = $1D84
-    EC1         = $2884
-    SC2         = $2AFD
-    EC2         = $3397
-    SC3         = $365D
-    EC3         = $37E0
-    SWADR1      = $3C56
-    EWADR1      = $3CDF
+<h2>O</h2>
 
-    SAT1        = $1D00
-    EAT1        = $1D56
+<h2>P</h2>
+    PRENIB16    = $B800
+
+<h2>Q</h2>
+
+<h2>R</h2>
     RUN         = $1D58
-    IBVT        = $1D62
-
     RSPAGE      = $1C7A
 
-    PRENIB16    = $B800
+<h2>S</h2>
+    SAT1        = $1D00
+    SC1         = $1D84
+    SC2         = $2AFD
+    SC3         = $365D
+    SWADR1      = $3C56
+
+<h2>T</h2>
+
+<h2>U</h2>
+
+<h2>W</h2>
+
+<h2>X</h2>
+
+<h2>Y</h2>
+
+<h2>Z</h2>
     ZPGFCB      =   $42
     ZPGWRK      =   $40
 
