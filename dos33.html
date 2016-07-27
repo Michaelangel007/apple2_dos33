@@ -5737,7 +5737,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     027 *    ---- ASSUMES ----   *
                     028 * 1 USEC CYCLE TIME      *
                     029 **************************
-39FD:00 00 00       030         DS 3,0              ;AVOID PAGE BOUNDARY CROSSING...; T0$3 @ $FC *wastes* 3 bytes
+39FD:00 00 00       <a class="line" name="mswaitr_030">030</a>         DS 3,0              ;AVOID PAGE BOUNDARY CROSSING...; T0$3 @ $FC *wastes* 3 bytes
 3A00:A2 11          031 <a class="f"    name="MSWAIT"     >MSWAIT      </a>LDX #$<span class="adr">11</span>                                        ; === <b class="ts">T0$4</b> === *sigh* Typical bloated code ...
 3A02:CA             032 <a class="f"    name="MSW1"       >MSW1        </a>DEX             DELAY 86 USEC.                  ; ... should just adjust algorithm timing instead!
 3A03:D0 FD          033             BNE <a class="x" href="#MSW1"    >MSW1</a>
@@ -6956,7 +6956,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 3FD3:8D 00 E0       025             STA $<span class="adr">E000</span>                                       ; *sigh* Forces Language Card to reload
                     026     DO <a class="macro" href="#DOS33B">DOS33B</a>
 3FD6:20 76 3A       027             JSR <a class="x" href="#OFF80" >OFF80</a>                                       
-3FD9:4C 44 37       028             JMP <a class="x" href="#RCBACK">RCBACK</a>                                      </span>
+3FD9:4C 44 37       <a class="line" name="dosptch_028">028</a>             JMP <a class="x" href="#RCBACK">RCBACK</a>                                      ; *wastes* 2 bytes Why not RTS ???
                     029     ELSE<span class="macro">
                     030         JMP RCBACK                                          
                     031         DS  3,0                                             </span>
@@ -6990,15 +6990,20 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 <h1>Wasted Memory</h1>
 <p>
+I've annotated <b>*wastes*</b> listing locations where memory is wasted.
+<p>
 <div style="padding-left:5%">
-<table border="1" style="border-width: 1px; border-collapse: collapse">
-    <tr><td>T/S </td><td>Range   </td><td>File   </td><td>Description                             </td><td>Line</td></tr>
-    <tr><td>T0S0</td><td>$B3..$FD</td><td>BOOTLDR</td><td>Wastes  75 bytes                        </td></tr>
-    <tr><td>T0S1</td><td>     $FF</td><td>BOOTLDR</td><td>Wastes   1 bytes                        </td></tr>
-    <tr><td>T0S3</td><td>$FD..$FF</td><td>MSWAITR</td><td>Wastes   3 bytes                        </td></tr>
-    <tr><td>T0S6</td><td>$00..$55</td><td>MSWAITR</td><td>Wastes  86 bytes for NBUF2              </td></tr>
-    <tr><td>T0SB</td><td>$81..$FF</td><td>RELOCTR</td><td>Wastes 127 bytes                        </td></tr>
-</table>
+    <font style="font-family: monospace;">
+        <table border="1" style="border-width: 1px; border-collapse: collapse">
+            <tr><td>T/S </td><td>Range   </td><td>File   </td><td align="right">Bytes</td><td>Description                             </td></tr>
+            <tr><td>T0S0</td><td>$B3..$FD</td><td><a class="file" href="#BOOTLDR">BOOTLDR</a></td><td align="right">   75</td><td><a class="d" href="#"           >     </a></td></tr>
+            <tr><td>T0S1</td><td>     $FF</td><td><a class="file" href="#BOOTLDR">BOOTLDR</a></td><td align="right">    1</td><td><a class="d" href="#"           >     </a></td></tr>
+            <tr><td>T0S3</td><td>$FD..$FF</td><td><a class="file" href="#MSWAITR">MSWAITR</a></td><td align="right">    3</td><td>Func n/a, Line #<a class="line" href="#mswaitr_030">30</a> (page align <a class="x" href="#MSWAIT">MSWAIT</a>)</a></td></tr>
+            <tr><td>T0S6</td><td>$00..$55</td><td><a class="file" href="#MSWAITR">MSWAITR</a></td><td align="right">   86</td><td>Func n/a, Variable <a class="d" href="#NBUF2"      >NBUF2</a></td></tr>
+            <tr><td>T0S9</td><td>$DA..$DB</td><td><a class="file" href="#DOSPTCH">DOSPTCH</a></td><td align="right">    2</td><td>Func <class="x" href="#RCPATCH">RCPATCH</a>, Line #<a class="line" href="#dosptch_028">28</a>, (JMP <a class="x" href="#RCBACK">RCBACK</a> instead of RTS</td></tr>
+            <tr><td>T0SB</td><td>$81..$FF</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td><td align="right">  127</td><td><a class="d" href="#"           >     </a></td></tr>
+        </table>
+    </font>
 </div>
 <p>
 
@@ -7007,12 +7012,14 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <b>Legend</b>: Track/Sector, Range on memory page, Source File, Bytes, Description, Link
 </p>
 <div style="padding-left:5%">
-<table border="1" style="border-width: 1px; border-collapse: collapse">
-    <tr><td>T/S </td><td>Range   </td><td>File   </td><td>Description                             </td><td>Line</td></tr>
-    <tr><td>T0S5</td><td>$00..$FF</td><td>MSWAITR</td><td>Wastes 256 bytes for NBUF1              </td></tr>
-    <tr><td>T2S3</td><td>$00..$FF</td><td>FCVBUFS</td><td>Wastes 255 bytes for a single $02 @ BB !</td></tr>
-    <tr><td>TSS4</td><td>$00..$FF</td><td>FCVBUFS</td><td>Wastes 256 bytes!                       </td></tr>
-</table>
+    <font style="font-family: monospace;">
+        <table border="1" style="border-width: 1px; border-collapse: collapse">
+            <tr><td>T/S </td><td>Range   </td><td>File   </td><td>Description                             </td></tr>
+            <tr><td>T0S5</td><td>$00..$FF</td><td>MSWAITR</td><td>Wastes 256 bytes for NBUF1              </td></tr>
+            <tr><td>T2S3</td><td>$00..$FF</td><td>FCVBUFS</td><td>Wastes 255 bytes for a single byte $02 @ $BB !</td></tr>
+            <tr><td>TSS4</td><td>$00..$FF</td><td>FCVBUFS</td><td>Wastes 256 bytes!                       </td></tr>
+        </table>
+    </font>
 </div>
 <p>
 
