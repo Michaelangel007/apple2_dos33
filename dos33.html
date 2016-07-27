@@ -874,7 +874,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2828:85 40          081             STA ZPGWRK      ; BUILD
 282A:4C E5 27       082             JMP <a class="x" href="#BFT1">BFT1</a>                                        ; ^ BFT1 @ $<b class="adr">A7E4</b>
                     083 ;
-                    084 <a name="BFT2"      id="BFT2"       >BFT2        </a>EQU *
+                    084 <a class="f" name="BFT2"      id="BFT2"       >BFT2        </a>EQU *
 282D:48             085             PHA
 282E:A9 00          086             LDA #<span class="adr">0</span>          ; SET LAST LINK
 2830:C8             087             INY             ; TO ZERO
@@ -1248,44 +1248,44 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     048 *                      *
                     049 ************************
 382A:38             050 <a class="f"    name="WRITE16"      >WRITE16     </a>SEC             ;ANTICIPATE WPROT ERR.          ; === Reloc @ $B82A ===
-382B:86 27          051             STX SLOTZ       ;FOR ZERO PAGE ACCESS.
-382D:8E 78 06       052             STX SLOTABS     ;FOR NON-ZERO PAGE.
-3830:BD 8D C0       053             LDA Q6H,X
-3833:BD 8E C0       054             LDA Q7L,X       ;SENSE WPROT FLAG.
-3836:30 7C          055             BMI <a href="#WEXIT"    >WEXIT</a>       ;IF HIGH, THEN ERR.             ; v
-3838:AD 00 3C       056             LDA NBUF2
-383B:85 26          057             STA WTEMP       ;FOR ZERO-PAGE ACCESS.
-383D:A9 FF          058             LDA #$FF        ;SYNC DATA
-383F:9D 8F C0       059             STA Q7H,X       ;(5) WRITE 1ST NIBL.
-3842:1D 8C C0       060             ORA Q6L,X       ;(4)
+382B:86 27          051             STX <a class="v" href="#SLOTZ"  >SLOTZ</a>       ;FOR ZERO PAGE ACCESS.
+382D:8E 78 06       052             STX <a class="v" href="#SLOTABS">SLOTABS</a>     ;FOR NON-ZERO PAGE.
+3830:BD 8D C0       053             LDA <a class="v" href="#Q6H"    >Q6H</a>,X
+3833:BD 8E C0       054             LDA <a class="v" href="#Q7L"    >Q7L</a>,X       ;SENSE WPROT FLAG.
+3836:30 7C          055             BMI <a class="x" href="#WEXIT"  >WEXIT</a>       ;IF HIGH, THEN ERR.             ; v
+3838:AD 00 3C       056             LDA <a class="v" href="#NBUF2"  >NBUF2</a>
+383B:85 26          057             STA <a class="v" href="#WTEMP"  >WTEMP</a>       ;FOR ZERO-PAGE ACCESS.
+383D:A9 FF          058             LDA #$<span class="adr">FF</span>        ;SYNC DATA
+383F:9D 8F C0       059             STA <a class="v" href="#">Q7H</a>,X       ;(5) WRITE 1ST NIBL.
+3842:1D 8C C0       060             ORA <a class="v" href="#">Q6L</a>,X       ;(4)
 3845:48             061             PHA             ;(3)
 3846:68             062             PLA             ;(4) CRITICAL TIMING!
 3847:EA             063             NOP             ;(2)
-3848:A0 04          064             LDY #4          ;(2)  FOR 5 NIBLS.
+3848:A0 04          064             LDY #<span class="adr">4</span>          ;(2)  FOR 5 NIBLS.
 384A:48             065 <a class="f"    name="WSYNC"        >WSYNC       </a>PHA             ;(3) EXACT TIMING               ; --- Sync FF ---
 384B:68             066             PLA             ;(4) EXACT TIMING
-384C:20 B9 38       067             JSR <a href="#WNIBL7"   >WNIBL7</a>      ;(13,9,6)  WRITE SYNC
+384C:20 B9 38       067             JSR <a class="x" href="#WNIBL7"   >WNIBL7</a>      ;(13,9,6)  WRITE SYNC
 384F:88             068             DEY             ;(2)
-3850:D0 F8          069             BNE <a href="#WSYNC"    >WSYNC</a>       ;(2*)  MUST NOT  CROSS PAGE!    ; ^
+3850:D0 F8          069             BNE <a class="x" href="#WSYNC"    >WSYNC</a>       ;(2*)  MUST NOT  CROSS PAGE!    ; ^
 3852:A9 D5          070             LDA #$D5        ;(2)  1ST DATA MARK.            ; --- Data Header D5 AA AD ---
-3854:20 B8 38       071             JSR <a href="#WNIBL9"   >WNIBL9</a>      ;(15,9,6)
+3854:20 B8 38       071             JSR <a class="x" href="#WNIBL9"   >WNIBL9</a>      ;(15,9,6)
 3857:A9 AA          072             LDA #$AA        ;(2)  2ND DATA MARK.
-3859:20 B8 38       073             JSR <a href="#WNIBL9"   >WNIBL9</a>      ;(15,9,6)
+3859:20 B8 38       073             JSR <a class="x" href="#WNIBL9"   >WNIBL9</a>      ;(15,9,6)
 385C:A9 AD          074             LDA #$AD        ;(2)  3RD DATA MARK.
-385E:20 B8 38       075             JSR <a href="#WNIBL9">WNIBL9</a>      ;(15,9,6)
+385E:20 B8 38       075             JSR <a class="x" href="#WNIBL9">WNIBL9</a>      ;(15,9,6)
 3861:98             076             TYA             ;(2) CLEAR CHECKSUM
 3862:A0 56          077             LDY #$56        ;(2) NBUF2 INDEX.
-3864:D0 03          078             BNE <a href="#WDATA1">WDATA1</a>      ;(3)  ALWAYS.  NO PAGE CROSS!!  ; v
-3866:B9 00 3C       079 <a class="f"    name="WDATA0"       >WDATA0      </a>LDA NBUF2,Y     ;(4)  PRIOR 6-BIT NIBL.
-3869:58 FF 3B       080 <a class="f"    name="WDATA1"       >WDATA1      </a>EOR NBUF2-1,Y   ;(5)  XOR WITH CURRENT.
+3864:D0 03          078             BNE <a class="x" href="#WDATA1">WDATA1</a>      ;(3)  ALWAYS.  NO PAGE CROSS!!  ; v
+3866:B9 00 3C       079 <a class="f"    name="WDATA0"       >WDATA0      </a>LDA <a class="v" href="#NBUF2">NBUF2</a>,Y     ;(4)  PRIOR 6-BIT NIBL.
+3869:58 FF 3B       080 <a class="f"    name="WDATA1"       >WDATA1      </a>EOR <a class="v" href="#NBUF2">NBUF2</a>-1,Y   ;(5)  XOR WITH CURRENT.
                     081 *   (NBUF2 MUST BE ON PAGE BOUNDARY FOR TIMING!!)
 386C:AA             082             TAX             ;(2)  INDEX To 7-BIT NIBL
-386D:BD 29 3A       083             LDA <a class="v" href="#NIBL" >NIBL,X      ;(4)  MUST NOT CROSS PAGE!
+386D:BD 29 3A       083             LDA <a class="v" href="#NIBL" >NIBL</a>,X      ;(4)  MUST NOT CROSS PAGE!
 3870:A6 27          084             LDX <a class="v" href="#SLOTZ">SLOTZ</a>       ;(3)  CRITICAL TIMING!
 3872:9D 8D C0       085             STA <a class="v" href="#Q6H"  >Q6H</a>,X       ;(5)  WRITE NIBL.
 3875:BD 8C C0       086             LDA <a class="v" href="#Q6L"  >Q6L</a>,X       ;(4)
 3878:88             087             DEY             ;(2)  NEXT NIBL.
-3879:D0 EB          088             BNE <a href="#WDATA0"   >WDATA0</a>      ;(2*) MUST NOT CROSS PAGE!      ; ^
+3879:D0 EB          088             BNE <a class="x" href="#WDATA0"   >WDATA0</a>      ;(2*) MUST NOT CROSS PAGE!      ; ^
 387B:A5 26          089             LDA WTEMP       ;(3) PRIOR NIBL FROM BUF6.
 387D:EA             090             NOP             ;(2)  CRITICAL TIMING.
 387E:59 00 3B       091 <a class="f"    name="WDATA2"       >WDATA2      </a>EOR NBUF1,Y     ;(5)  XOR WITH CURRENT.
@@ -1681,7 +1681,7 @@ TODO:
                     043         STA TL4                                             </span>
                     044     FIN
                     045     LST ON
-3DC7:90 24          046             BCC <a hclass="x" ref="#RDRIGHT">RDRIGHT</a>     ;IF READ IT RIGHT, HURRAH!      ; v
+3DC7:90 24          046             BCC <a class="x" href="#RDRIGHT">RDRIGHT</a>     ;IF READ IT RIGHT, HURRAH!      ; v
                     047     LST OFF
                     048     DO <a class="macro" href="#DIAGMOD">DIAGMOD</a><span class="macro">
                     049         LDA #TC6            ;ADDRESS-READ DONE              
@@ -1705,7 +1705,7 @@ TODO:
 3DE1:A9 00          067             LDA #$00
 3DE3:20 5A 3E       068             JSR <a class="x" href="#MYSEEK">MYSEEK</a>      ;MOVE TO TRACK 00               ; v
 3DE6:68             069             PLA
-3DE7:4C 5A 3E       070 <a class="f" name="RESEEK"      >RESEEK      </a>JSR <a hclass="x" ref="#MYSEEK">MYSEEK</a>      ;GO TO CORRECT TRACK THIS TIME!
+3DE7:4C 5A 3E       070 <a class="f" name="RESEEK"      >RESEEK      </a>JSR <a class="x" href="#MYSEEK">MYSEEK</a>      ;GO TO CORRECT TRACK THIS TIME!
 3DEA:4C BC 3D       071             JMP <a class="x" href="#TRYTRK2">TRYTRK2</a>     ;LOOP BACK, TRY AGAIN ON THIS TRACK
                     072 *
                     073 * HAVE NOW READ
@@ -1887,7 +1887,7 @@ TODO:
 3E86:10 03          275             BPL <a class="x" href="#GOSEEK">GOSEEK</a>      ;ALWAYS TAKEN
 3E88:99 78 04       276 <a class="f" name="ISDRV1"      >ISDRV1      </a>STA DRV1TRK,Y
 3E8B:4C A0 B9       277 <a class="f" name="GOSEEK"      >GOSEEK      </a>JMP <a class="x" href="#SEEK">SEEK</a>        ;GO THERE!
-3E8E:8A             278 <a class="g" name="XTOY"        >XTOY        </a>TXA
+3E8E:8A             278 <a class="f" name="XTOY"        >XTOY        </a>TXA
 3E8F:4A             279             LSR A
 3E90:4A             280             LSR A
 3E91:4A             281             LSR A
@@ -1927,7 +1927,7 @@ TODO:
                     010 <a class="d" name="NSYNC"      >NSYNC       </a>EQU $45         ;NUM GAP SELF-SYNC NIBLS        ; No, not the 90's band
                     011 *
                     012             REP 40
-                    013 <a name="DSKFORM"    >DSKFORM     </a>EQU *
+                    013 <a class="f" name="DSKFORM"    >DSKFORM     </a>EQU *
                     014     DO <a class="macro" href="#DIAGMOD">DIAGMOD</a>              ;ELIMINATE FMTR FROM DIAG ASSEMBLY<span class="macro">
                     015         LST OFF                                             </span>
                     016     ELSE
@@ -1946,10 +1946,10 @@ TODO:
 3EFF:90 D3          055             BCC <a class="x" href="#FORMTRK">FORMTRK</a>
 3F01:18             056             CLC             CLEAR CARRY TO INDICATE 'NO ERR'; === <b class="ts">T0$9</b> ===
 3F02:90 05          057             BCC <a class="x" href="#FORMDONE">FORMDONE</a>    ELSE TURN OFF MOTOR AND RETURN
-3F04:A0 0D          058 <a name="FORMERR"    >FORMERR     </a>LDY #$0D                                        ; *sigh* magic number: IOB_OFFSET_ERR = $D
+3F04:A0 0D          058 <a class="f" name="FORMERR"    >FORMERR     </a>LDY #$0D                                        ; *sigh* magic number: IOB_OFFSET_ERR = $D
 3F06:91 48          059             STA (IOBPL),Y   RETURN ERROR CODE.
 3F08:38             060             SEC             SET CARRY TO INDICATE ERR.
-3F09:AD 88 C0       061 <a name="FORMDONE"   >FORMDONE    </a>LDA <a class="v" href="#MOTOROFF">MOTOROFF</a>,X  ; TURN MOTOR OFF.
+3F09:AD 88 C0       061 <a class="f" name="FORMDONE"   >FORMDONE    </a>LDA <a class="v" href="#MOTOROFF">MOTOROFF</a>,X  ; TURN MOTOR OFF.
 3F0C:60             062             RTS             ; AND RETURN.
                     063             PAGE
                     064 ******************************
@@ -1957,11 +1957,11 @@ TODO:
                     066 *   WRITE TRACK SUBROUTINE   *
                     067 *                            *
                     068 ******************************
-3F0D:A9 00          068 <a name="WTRACK16"   >WTRACK16    </a>LDA #0
+3F0D:A9 00          068 <a class="f" name="WTRACK16"   >WTRACK16    </a>LDA #0
 3F0F:85 3F          069             STA NSECT       SECTOR NUMBER, 0 to 15.
 3F11:A0 80          070             LDY #128        ;128 NIBS PRIOR SECTOR 0
 3F13:D0 02          071             BNE WSECT0      ; TO INSURE NO BLANK SPOT BETW 15 &amp; 0
-3F15:A4 45          072 <a name="WSECT"      >WSECT       </a>LDY NSYNC       CURRENT NUM OF GAP SELF-SYNC NIBLS.
+3F15:A4 45          072 <a class="f" name="WSECT"      >WSECT       </a>LDY NSYNC       CURRENT NUM OF GAP SELF-SYNC NIBLS.
 
 *****************************
 *                           *
@@ -2052,8 +2052,8 @@ TODO:
                     016 *
                     017             REP 40
                     018 *****************************
-                    019 <a name="SDP1"       >SDP1        </a>EQU *                                           ; Start Dos Patch
-                    020 <a name="RCPATCH"    >RCPATCH     </a>EQU *                                           ; <span class="todo">TODO</span> called from?
+                    019 <a class="f" name="SDP1"       >SDP1        </a>EQU *                                           ; Start Dos Patch
+                    020 <a class="f" name="RCPATCH"    >RCPATCH     </a>EQU *                                           ; <span class="todo">TODO</span> called from?
 3FC8:20 93 FE       021             JSR <a class="x" href="#SETVID">SETVID</a>
 3FCB:AD 81 C0       022             LDA $<span class="adr">C081</span>                                       ; ROMIN = $C081 for Language Card (LC)
 3FCE:AD 81 C0       023             LDA $<span class="adr">C081</span>                                       ; 1st read = read ROM, 2nd read = write enable LC Bank 2
@@ -2067,16 +2067,16 @@ TODO:
                     031         DS  3,0                                             </span>
                     032     FIN
                     033 *****************************
-3FDC:8D 63 2A       034 <a name="CLRBYTE"    >CLRBYTE     </a>STA <a class="v" href="#TEMP1A">TEMP1A</a>                                      ; <span class="todo">TODO</span> called from <a class="x" href="#SOPTS">SOPTS</a>, Page 18, Line <span class="line">?</span>
+3FDC:8D 63 2A       034 <a class="f" name="CLRBYTE"    >CLRBYTE     </a>STA <a class="v" href="#TEMP1A">TEMP1A</a>                                      ; <span class="todo">TODO</span> called from <a class="x" href="#SOPTS">SOPTS</a>, Page 18, Line <span class="line">?</span>
 3FDF:8D 70 2A       035             STA <a class="v" href="#CB">CB</a>          ;SET TYPE PARAM DEFAUTL=0       ; *spelling* DEFAULT
 3FE2:8D 71 2A       036             STA <a class="v" href="#CB">CB</a>+1
 3FE5:60             037             RTS
                     038             SKP 4
-3FE6:20 5B 27       039 <a name="CLRSTS1"    >CLRSTS1     </a>JSR <a class="x" href="#CLRSTS">CLRSTS</a>                                      ; <span class="todo">TODO</span> Clear ???
+3FE6:20 5B 27       039 <a class="f" name="CLRSTS1"    >CLRSTS1     </a>JSR <a class="x" href="#CLRSTS">CLRSTS</a>                                      ; <span class="todo">TODO</span> Clear ???
 3FE9:8C B7 2A       040             STY <a class="v" href="#RSTATE">RSTATE</a>      ;PREVENTS FOREVER 'FILE NOT FOUND'
 3FEC:60             041             RTS             ; IN APPLESOFT
                     042 *****************************
-3FED:20 7E 2E       043 <a name="ERROR9X"    >ERROR9X     </a>JSR <a class="x" href="#RTNFCB">RTNFCB</a>
+3FED:20 7E 2E       043 <a class="f" name="ERROR9X"    >ERROR9X     </a>JSR <a class="x" href="#RTNFCB">RTNFCB</a>
 3FF0:AE 9B 33       044             LDX <a class="v" href="#ENTSTK">ENTSTK</a>      ;GET STACK
 3FF3:9A             045             TXS             ;MESSY MESSY MESSY
 3FF4:20 16 23       046             JSR <a class="x" href="#CLALL">CLALL</a>       ;GO CLOSE EVERYBODY
