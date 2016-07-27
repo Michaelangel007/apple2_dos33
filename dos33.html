@@ -1248,12 +1248,12 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1E87:F0 15          008             BEQ CHIN1       ; THEN BRANCH, ELSE
 1E89:48             009             PHA             ;SAVE ISTATE
 1E8A:AD 5C 2A       010             LDA SVA
-1E8D:91 28          011             STA ($<span class="adr">28</span>),Y                                     ; *magic-number* /sarcasm If only F800.S ROM defined BASL EQU $28
+1E8D:91 28          011             STA ($<span class="adr">28</span>),Y                                     ; *sigh* magic number: /sarcasm If only F800.S ROM defined BASL EQU $28
 1E8F:68             012             PLA             ;GET ISTATE AGAIN
 1E90:30 03          013             BMI CHIN0
 1E92:4C 26 26       014             JMP ICFD
 1E95:20 EA 1D       015 CHIN0       JSR INITC
-1E98:A4 24          016             LDY $<span class="adr">24</span>                                         ; *magic-number* /sarcasm If only F800.S ROM defined CH EQU $24
+1E98:A4 24          016             LDY $<span class="adr">24</span>                                         ; *sigh* magic number: /sarcasm If only F800.S ROM defined CH EQU $24
 1E9A:A9 60          017             LDA #$<span class="adr">60</span>        ;RESTORE A FLASHING CURSOR      ; #' ' + FLASH ; INVERSE = $00..$3F, FLASH = $40..$7F, NORMAL = $80..FF
 1E9C:91 28          018             STA ($<span class="adr">28</span>),Y     ; TO PROMPT USER
                     019 CHIN1       EQU *
@@ -6950,7 +6950,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     019 <a class="f" name="SDP1"       >SDP1        </a>EQU *                                           ; Start Dos Patch
                     020 <a class="f" name="RCPATCH"    >RCPATCH     </a>EQU *                                           ; "Called" from <a class="file" href="#BOOTLDR">BOOTLDR</a>, Func <a class="x" href="#DOSINT">DOSINT</a>, Line <a class="line" href="#bootldr_295">295</a>
 3FC8:20 93 FE       021             JSR <a class="x" href="#SETVID">SETVID</a>
-3FCB:AD 81 C0       022             LDA $<span class="adr">C081</span>                                       ; ROMIN = $C081 for Language Card (LC)
+3FCB:AD 81 C0       022             LDA $<span class="adr">C081</span>                                       ; *sigh* magic number: If only ROMIN = $C081 for Language Card (LC)
 3FCE:AD 81 C0       023             LDA $<span class="adr">C081</span>                                       ; 1st read = read ROM, 2nd read = write enable LC Bank 2
 3FD1:A9 00          024             LDA #<span class="adr">0</span>
 3FD3:8D 00 E0       025             STA $<span class="adr">E000</span>                                       ; *sigh* Forces Language Card to reload
@@ -6977,7 +6977,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 3FF4:20 16 23       046             JSR <a class="x" href="#CLALL">CLALL</a>       ;GO CLOSE EVERYBODY
 3FF7:BA             047             TSX
 3FF8:8E 9B 33       048             STX <a class="v" href="#ENTSTK">ENTSTK</a>      ;RESTORE SAVE STK
-3FFB:A9 09          049             LDA #9                                          ; magic number: <span class="todo">TODO</span> What error??
+3FFB:A9 09          049             LDA #9                                          ; *sigh* magic number: <span class="todo">TODO</span> What error??
 3FFD:4C 85 33       050             JMP <a class="x" href="#ERRORA">ERRORA</a>      ;AND BACK
                     051 *****************************
                     052 <a class="d" name="ENDP1"      >ENDP1       </a>EQU *-1         ; END OF DOS PATCHES FOR RELOCTR
