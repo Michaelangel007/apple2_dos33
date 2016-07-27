@@ -120,22 +120,22 @@ Misc. Files:
 
 ## Disk -> Memory Map
 
-|T/S |File |Mem  | Page Identification        | Source, Page #          |
+|T/S |File |Mem  | Sector Identification      | Source, Page #          |
 |:---|:----|:----|:---------------------------|:------------------------|
-|T0S0|$3600|$B600| 01 A5 27 C9 .. 00 00 36 09 | BOOTLDR -- also loaded at $0800             |
+|T0S0|$3600|$B600| 01 A5 27 C9 .. 00 00 36 09 | BOOTLDR -- also loaded at $0800, 75 wasted bytes $B3..$FD |
 |T0S1|$3700|$B700| 8E E9 37 8E .. 01 EF D8 00 | BOOTLDR (cont.) -- last byte wasted         |
 |T0S2|$3800|$B800| A2 00 A0 00 .. AD D0 E7 A9 | PRENIBL @ $00..$29, WRITRTN @ $2A, POSTNRD  |
 |T0S3|$3900|$B900| 00 88 84 26 .. 60 00 00 00 | wastes 3 bytes                              |
 |T0S4|$3A00|$BA00| A2 11 CA D0 .. 3C 3D 3E 3F | MSWAITR page 97                             |
-|T0S5|$3B00|$BB00| 00 00 00 00 .. 00 00 00 00 | MSWAITR page 100 - NBUF1 wasted zero sector |
-|T0S6|$3C00|$BC00| 00 00 00 00 .. 00 00 00 00 | MSWAITR page 100 - NBUF2                    |
+|T0S5|$3B00|$BB00| 00 00 00 00 .. 00 00 00 00 | MSWAITR line 201 - NBUF1 wastes entire sector|
+|T0S6|$3C00|$BC00| 00 00 00 00 .. 00 00 00 00 | MSWAITR line 202 - NBUF2                    |
 |T0S7|$3D00|$BD00| 84 48 85 49 .. 68 CE F8 04 |                                             |
 |T0S8|$3E00|$BE00| D0 E5 F0 CA .. 44 C9 23 90 | RWTSTWO page 125                            |
 |T0S9|$3F00|$BF00| D3 18 90 05 .. 09 4C 85 33 | FORMATR page 83 line 2                      |
 |T0SA|$1B00|     | 4C 84 1D A9 .. AA EC 59 1C | RELOCTR page 110                            |
 |T0SB|$1C00|     | 90 AF A9 3F .. FE FC FD FD | RELOCTR page 114 line 20, junk @ $81 .. $FF |
-|T0SC|$1D00|     | | |
-|T0SD|$1E00|     | | |
+|T0SC|$1D00|     |                            | DOSINIT |
+|T0SD|$1E00|     |                            | DOSINIT, DOSHOOK |
 |T0SE|$1F00|     | | |
 |T0SF|$2000|     | | |
 |T1S0|$2100|     | | |
