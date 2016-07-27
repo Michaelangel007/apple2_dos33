@@ -4818,16 +4818,16 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     285 
                     286 
                     287 
-                    288 
-                    289 
-                    290 
-                    291 
+                    288 ;
+                    289 ;DOSINT - INITIALIZE DOS                                    ; /sarcasm Couldn't afford extra 'i' in "dosinIt"
+                    290 ;
+                    291 <a class="f" name="DOSINT"   >DOSINT      </a>EQU *
                     292 
                     293 
                     294 
-                    295 
-                    296 
-                    297 
+                    <a class="line" name="bootldr_295">295</a>             JMP <a class="x" href="#RCPATCH">RCPATCH</a>
+                    296 <a class="f" name="RCBACK"   >RCBACK      </a>JSR SEKBD
+                    297 ;
                     298 <a class="f" name="DI3"      >DI3         </a>JMP <a class="x" href="#DOSREL">DOSREL</a>      ; GO TO POST INIT ROUTINE       ; Relocate DOS to high mem
                     299             PAGE
                     300 
@@ -6948,7 +6948,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     017             REP 40
                     018 *****************************
                     019 <a class="f" name="SDP1"       >SDP1        </a>EQU *                                           ; Start Dos Patch
-                    020 <a class="f" name="RCPATCH"    >RCPATCH     </a>EQU *                                           ; <span class="todo">TODO</span> called from?
+                    020 <a class="f" name="RCPATCH"    >RCPATCH     </a>EQU *                                           ; "Called" from <a class="file" href="#BOOTLDR">BOOTLDR</a>, Func <a class="x" href="#DOSINT">DOSINT</a>, Line <a class="line" href="#bootldr_295">295</a>
 3FC8:20 93 FE       021             JSR <a class="x" href="#SETVID">SETVID</a>
 3FCB:AD 81 C0       022             LDA $<span class="adr">C081</span>                                       ; ROMIN = $C081 for Language Card (LC)
 3FCE:AD 81 C0       023             LDA $<span class="adr">C081</span>                                       ; 1st read = read ROM, 2nd read = write enable LC Bank 2
