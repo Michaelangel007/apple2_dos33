@@ -6705,13 +6705,13 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     014     DO <a class="macro" href="#DIAGMOD">DIAGMOD</a>              ;ELIMINATE FMTR FROM DIAG ASSEMBLY<span class="macro">
                     015         LST OFF                                             </span>
                     016     ELSE
-3EAF:A0 03          017             LDY #3                                          ; *sigh* magic number: IOB_OFFSET_VOL = $3
+3EAF:A0 03          017             LDY #<span class="adr">3</span>                                          ; *sigh* magic number: IOB_OFFSET_VOL = $3
 3EB1:B1 48          018             STY (IOBPL),Y   VOLUME NUMBER IN IOB.
 3EB3:85 41          019             STA NVOL        FOR FORMATTER.
-3EB5:A9 AA          020             LDA #$AA        SET Z-PAG LOC TO $AA FOR
-3EB7:85 3E          021             STA AA          TIME DEPENDENT REFERENCES.
-3EB9:A0 56          022             LDY #$56
-3EBB:A9 00          023             LDA #0
+3EB5:A9 AA          020             LDA #$<span class="adr">AA</span>        SET Z-PAG LOC TO $AA FOR
+3EB7:85 3E          021             STA AA          TIME DEPENDENT REFERENCES.      ; *sigh* Because AA is _so_ descriptive ...
+3EB9:A0 56          022             LDY #$<span class="adr">56</span>
+3EBB:A9 00          023             LDA #<span class="adr">0</span>
 3EBD:85 44          024             STA TRK         TRACK NUMBER, 0 TO 34
 3EBF:99 FF BB       025             STA NBUF2-1,Y   CLEAR NBUFS TO WRITE
 3EC2:88             026             
@@ -6757,45 +6757,118 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     066 *   WRITE TRACK SUBROUTINE   *
                     067 *                            *
                     068 ******************************
-3F0D:A9 00          068 <a class="f" name="WTRACK16"   >WTRACK16    </a>LDA #0
-3F0F:85 3F          069             STA NSECT       SECTOR NUMBER, 0 to 15.
-3F11:A0 80          070             LDY #128        ;128 NIBS PRIOR SECTOR 0
-3F13:D0 02          071             BNE WSECT0      ; TO INSURE NO BLANK SPOT BETW 15 &amp; 0
-3F15:A4 45          072 <a class="f" name="WSECT"      >WSECT       </a>LDY NSYNC       CURRENT NUM OF GAP SELF-SYNC NIBLS.
-
-*****************************
-*                           *
-* VERIFY ROUTINE *
-*                           *
-* VERIFIES THAT THE FIRST *
-* SECTOR ENCOUNTERED IS *
-* SECTOR 0, AND THAT ALL *
-* 16 SECTORS ARE READABLE *
-* WITH MINIMAL RETRIES. *
-* (2 REVOLUTIONS MAXIMUM) *
-*                           *
-* IF FIRST SECTOR IS NOT *
-* SECTOR 0 THEN THE *
-* CURRENT NUMBER OF SELF- *
-* SYNC NIBLS IS DECR'D BY *
-* 1 (IF ALREADY LESS THAN *
-* 16)ORBY2.THENSECTOR*
-* 15ISLOCATEDSOASTO *
-* POSITION THE NEW TRACK *
-* REWRITE. *
-*                           *
-* IF UNABLE TO READ ANY *
-* SECTOR THEN THE ENTIRE *
-* TRACK IS REWRITTEN. *
-*                           *
-* AFTER VERIFYING TRACK 0, *
-* THE NUMBER OF SELF-SYNC *
-* NIBLS, NSYNC, IS DECR'D *
-* BY2(IFSTILL16OR *
-* GREATER). *
-*                           *
-*****************************
-
+3F0D:A9 00          069 <a class="f" name="WTRACK16"    >WTRACK16    </a>LDA #0
+3F0F:85 3F          070             STA NSECT       SECTOR NUMBER, 0 to 15.
+3F11:A0 80          071             LDY #128        ;128 NIBS PRIOR SECTOR 0
+3F13:D0 02          072             BNE WSECT0      ; TO INSURE NO BLANK SPOT BETW 15 &amp; 0
+3F15:A4 45          073 <a class="f" name="WSECT"       >WSECT       </a>LDY NSYNC       CURRENT NUM OF GAP SELF-SYNC NIBLS.
+                    074 <a class="f" name="WSET0"       >WSECT0      </a>EQU *
+                    075             JSR WADR16      WRITE GAP AND ADR FIELD.
+                    076             BCS WEXIT2      ERR IF WRITE PROTECTED.
+                    077             JSR WRITE16     ;WRITE SECTOR FROM NBUF1, NBUF2
+                    078             BCS WEXIT2      ERR IF WRITE PROTECTED.
+                    079             INC NSECT       NEXT OF 16 SECTORS.
+                    080             LDA NSECT
+                    081             CMP #$10                                        ; What's the point of storing max sectors in VTOC then?!?!
+                    082             BCC WSECT       CONTINUE IF NOT DONE.
+                    083             PAGE
+                    084 *****************************
+                    085 *                           *
+                    086 *     VERIFY ROUTINE        *
+                    087 *                           *
+                    088 *  VERIFIES THAT THE FIRST  *
+                    089 *  SECTOR ENCOUNTERED IS    *
+                    090 *  SECTOR 0, AND THAT ALL   *
+                    091 *  16 SECTORS ARE READABLE  *
+                    092 *  WITH MINIMAL RETRIES.    *
+                    093 *  (2 REVOLUTIONS MAXIMUM)  *
+                    094 *                           *
+                    095 *  IF FIRST SECTOR IS NOT   *
+                    096 *  SECTOR 0 THEN THE        *
+                    097 *  CURRENT NUMBER OF SELF-  *
+                    098 *  SYNC NIBLS IS DECR'D BY  *
+                    099 *  1 (IF ALREADY LESS THAN  *
+                    100 *  16) OR BY 2. THEN SECTOR *
+                    101 *  15 IS LOCATED SO AS TO   *
+                    102 *  POSITION THE NEW TRACK   *
+                    103 *  REWRITE.                 *
+                    104 *                           *
+                    105 *  IF UNABLE TO READ ANY    *
+                    106 *  SECTOR THEN THE ENTIRE   *
+                    107 *  TRACK IS REWRITTEN.      *
+                    108 *                           *
+                    109 *  AFTER VERIFYING TRACK 0, *
+                    110 *  THE NUMBER OF SELF-SYNC  *
+                    111 *  NIBLS, NSYNC, IS DECR'D  *
+                    112 *  BY 2 (IF STILL 16 OR     *
+                    113 *  GREATER).                *
+                    114 *                           *
+                    115 *****************************
+                    116             PAGE
+                    117 
+                    118 
+                    119 
+                    120 
+                    121 
+                    122 
+                    123 
+                    124 
+                    125 
+                    126 
+                    127 
+                    128 
+                    129 
+                    130 
+                    131 
+                    132 
+                    133 
+                    134 
+                    135 
+                    136 
+                    137 
+                    138 
+                    139 
+                    140 
+                    141 
+                    142 
+                    143 
+                    144 
+                    145 
+                    146 
+                    147 
+                    148 
+                    149 
+                    150 
+                    151 
+                    152 
+                    153 
+                    154 
+                    155 
+                    156 
+                    157 
+                    158 
+                    159 
+                    160 
+                    161 
+                    162 
+                    163 
+                    164 
+                    165 
+                    166 
+                    167 
+                    168 
+                    169 
+                    170 
+                    171 
+                    172 
+                    173 
+                    174 
+                    175 
+                    176 
+                    177 
+                    178 
+                    179 
+                    180 
                     181
                     182         DFB 0,0,0,0
                     183         DFB 0,0,0,0
