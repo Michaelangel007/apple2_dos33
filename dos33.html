@@ -894,7 +894,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     223 ;
 1BBE:A2 00          224 <a class="f" name="DR8"         >DR8         </a>LDX #0         ; GET OP CODE
 1BC0:A1 40          225             LDA (ZPGWRK,X)  ; GO FIND OUT HOW LONG          ; Interesting hack of using
-1BC2:20 8E F8       226             JSR INSDS2                                      ; monitor ROW to get instruction opcode length
+1BC2:20 8E F8       226             JSR INSDS2                                      ; monitor ROM to get instruction opcode length
                     227 ;
 1BC5:A4 2F          228             LDY <a  class="v" href="#LENGTH">LENGTH</a>      ; GET HOW LONG
 1BC7:C0 02          229             CPY #<span class="adr">2</span>          ; IF IT AIN'T                   ; *sigh* #3-1 is clearer since zero based
