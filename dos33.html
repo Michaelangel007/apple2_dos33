@@ -803,7 +803,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     106 ;
                     107 <a class="f" name="DR0"     >DR0         </a>EQU *
                     108 <a class="d" name="LOC1"    >LOC1        </a>EQU $26
-1B03:A9 BF          109             LDA #$BF        ; START AT BF00                 ; Top of 48K
+1B03:A9 BF          109             LDA #$<span class="adr">BF</span>        ; START AT BF00                 ; Top of 48K
 1B05:85 41          110             STA ZPGWRK+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
 1B07:A2 00          111             LDX #<span class="adr">0</span>          ; HIGH RAM
 1B09:86 40          112             STX ZPGWRK
