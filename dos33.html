@@ -646,29 +646,29 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     011             INCLUDE <a class="file" href="#CMDSCAN">CMDSCAN</a>,,2                              ; $#### .. $####
                     012             INCLUDE <a class="file" href="#XOPNCLS">XOPNCLS</a>,,2                              ; $#### .. $####
                     013             INCLUDE <a class="file" href="#XLODSAV">XLODSAV</a>,,2                              ; $#### .. $####
-                    014             INCLUDE <a class="file" href="#XMISCMD">XMISCMD</a>,,2
-                    015             INCLUDE <a class="file" href="#DOSGOER">DOSGOER</a>,,2
-                    016             INCLUDE <a class="file" href="#BLDFTAB">BLDFTAB</a>,,2                              ; Page   4, Lines 144, $#### .. $####
-                    017             INCLUDE <a class="file" href="#CMDTBLS">CMDTBLS</a>,,2
-                    018             INCLUDE <a class="file" href="#FDOSENT">FDOSENT</a>,,2
-                    019             INCLUDE <a class="file" href="#FOPCLRW">FOPCLRW</a>,,2
-                    020             INCLUDE <a class="file" href="#FDELCAT">FDELCAT</a>,,2
-                    021             INCLUDE <a class="file" href="#FMTRWIO">FMTRWIO</a>,,2
-                    022             INCLUDE <a class="file" href="#FLOCNXB">FLOCNXB</a>,,2
-                    023             INCLUDE <a class="file" href="#FLOCSEC">FLOCSEC</a>,,2
-                    024             INCLUDE <a class="file" href="#FVCBUFS">FVCBUFS</a>,,2
+                    014             INCLUDE <a class="file" href="#XMISCMD">XMISCMD</a>,,2                              ;
+                    015             INCLUDE <a class="file" href="#DOSGOER">DOSGOER</a>,,2                              ;       .. $27D3
+                    016             INCLUDE <a class="file" href="#BLDFTAB">BLDFTAB</a>,,2                              ; $27D4 .. $2883
+                    017             INCLUDE <a class="file" href="#CMDTBLS">CMDTBLS</a>,,2                              ; $2884 .. $####
+                    018             INCLUDE <a class="file" href="#FDOSENT">FDOSENT</a>,,2                              ;
+                    019             INCLUDE <a class="file" href="#FOPCLRW">FOPCLRW</a>,,2                              ;
+                    020             INCLUDE <a class="file" href="#FDELCAT">FDELCAT</a>,,2                              ;
+                    021             INCLUDE <a class="file" href="#FMTRWIO">FMTRWIO</a>,,2                              ;
+                    022             INCLUDE <a class="file" href="#FLOCNXB">FLOCNXB</a>,,2                              ;
+                    023             INCLUDE <a class="file" href="#FLOCSEC">FLOCSEC</a>,,2                              ;
+                    024             INCLUDE <a class="file" href="#FVCBUFS">FVCBUFS</a>,,2                              ; $3397 .. $35FF
                     025             INLUCDE <a class="file" href="#BOOTLDR">BOOTLDR</a>,,2                              ; $3600 .. $36FF
-                    026             INCLUDE <a class="file" href="#COREQUS">COREQUS</a>,,1
-                    027             INCLUDE <a class="file" href="#PRENIBL">PRENIBL</a>,,1
-                    028             INCLUDE <a class="file" href="#WRITRTN">WRITRTN</a>,,1
-                    029             INCLUDE <a class="file" href="#POSTNRD">POSTNRD</a>,,1
-                    030             INCLDUE <a class="file" href="#RDADSEK">RDADSEK</a>,,1
+                    026             INCLUDE <a class="file" href="#COREQUS">COREQUS</a>,,1                              ;
+                    027             INCLUDE <a class="file" href="#PRENIBL">PRENIBL</a>,,1                              ;
+                    028             INCLUDE <a class="file" href="#WRITRTN">WRITRTN</a>,,1                              ;
+                    029             INCLUDE <a class="file" href="#POSTNRD">POSTNRD</a>,,1                              ;
+                    030             INCLDUE <a class="file" href="#RDADSEK">RDADSEK</a>,,1                              ;
                     031             INCLUDE <a class="file" href="#MSWAITR">MSWAITR</a>,,1                              ; $3A00 .. $3Cxx, T0$4 - T0$6
-                    032             INCLUDE <a class="file" href="#WRITADR">WRITADR</a>,,1
-                    033             INCLUDE <a class="file" href="#RWTSONE">RWTSONE</a>,,1
-                    034             INCLUDE <a class="file" href="#RWTSTWO">RWTSTWO</a>,,1
-                    035             INCLUDE <a class="file" href="#FORMATR">FORMATR</a>,,1       ; $3EAF .. $3FC7
-                    036             INCLUDE <a class="file" href="#DOSPTCH">DOSPTCH</a>,,1       ; $3FC8 .. $3FFF
+                    032             INCLUDE <a class="file" href="#WRITADR">WRITADR</a>,,1                              ;
+                    033             INCLUDE <a class="file" href="#RWTSONE">RWTSONE</a>,,1                              ; $3D00 .. $3DAA
+                    034             INCLUDE <a class="file" href="#RWTSTWO">RWTSTWO</a>,,1                              ; $3DAB .. $3EAE
+                    035             INCLUDE <a class="file" href="#FORMATR">FORMATR</a>,,1                              ; $3EAF .. $3FC7
+                    036             INCLUDE <a class="file" href="#DOSPTCH">DOSPTCH</a>,,1                              ; $3FC8 .. $3FFF
 
 
 <hr>; === <a class="file" name="RELOCTR">RELOCTR</a> - Relocate DOS to high (48K) memory, Page <span class="page">110</span>, <b class="ts">T0$A</b>, $<span class="adr">1B00</span> ===<hr>
@@ -4506,7 +4506,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     186 DCBLEN EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>         ; DCB LENGTH
                     187 <a class="d" name="FCBLEN">FCBLEN</a> EQU *-<a class="v" href="#FCB"   >FCB</a>            ; FCB LENGTH
 
-<hr>; === <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <span class="page">8</span>, <b class="ts">T0$0</b>, $<span class="adr">B600</span> ===<hr>
+<hr>; === <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <span class="page">8</span>, <b class="ts">T0$0</b>, $<span class="adr">B600</span> - $<span class="adr">Bxxx</span> ===<hr>
                     001 
                     002 
                     003 
@@ -6056,7 +6056,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     123 
 
 
-<hr>; === <a class="file" name="RWTSONE">RWTSONE</a> - Read Write Track Sector - Part 1, Page <span class="page">124</span>, <b class="ts">T0$8</b>, $<b class="adr">B???</b>-<b class="adr">BE46</b> ===<hr>
+<hr>; === <a class="file" name="RWTSONE">RWTSONE</a> - Read Write Track Sector - Part 1, Page <span class="page">124</span>, <b class="ts">T0$8</b>, $<b class="adr">BD00</b>-<b class="adr">BE46</b> ===<hr>
                     001             STBL '16-SECTOR RWTS'
                     002 
                     003 
@@ -6382,7 +6382,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     323 
 
 
-<hr>; === <a class="file" name="RWTSTWO">RWTSTWO</a> - Read Write Track Sector - Part 2, Page <span class="page">124</span>, <b class="ts">T0$8</b>, $<b class="adr">BE47</b> ===<hr>
+<hr>; === <a class="file" name="RWTSTWO">RWTSTWO</a> - Read Write Track Sector - Part 2, Page <span class="page">124</span>, <b class="ts">T0$8</b>, $<b class="adr">BDAB</b> - $<b class="adr">BEAE</b> ===<hr>
                     001 *
                     002 * DISK IS NOW UP TO SPEED: READ IT!
                     003 * NOW CHECK: IF IT IS NOT THE FORMAT DISK COMMAND,
