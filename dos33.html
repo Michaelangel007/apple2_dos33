@@ -2375,7 +2375,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     005 ;   HIMEM,SOP                                       ; $9D00 = SOP = Start of Program
                     006 ;   SBUFF  N (256)
                     007 ;   DBUFF  N (256)
-                    008 ;   FTB    N (FCBLEN)                               ; <a class="file" href="#FVCBUFS">FVCBUFS</a>, Line #<span class="line">187</span>
+                    008 ;   FTB    N (FCBLEN)                               ; <a class="file" href="#FVCBUFS">FVCBUFS</a>, Line #<a class="line" href="#fvcbufs_187">187</a>
                     009 ;   HEADER N (38)                                   ; See Header Map below
                     010 ;   .
                     011 ;   .
@@ -4383,7 +4383,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
     :00 00 00       184 <a class="d" name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES
                     185 ;
                     186 <a class="d" name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH
-                    187 <a class="d" name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH
+                    <a class="line" name="fvcbufs_187">187</a> <a class="d" name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH
 
 <hr>; === <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <a class="page" name="page8">8</a>, <b class="ts">T0$0</b>, $<span class="adr">B600</span> - $<span class="adr">Bxxx</span> ===<hr>
                     001             SBTL '16-SECTOR DOS BOOT'
