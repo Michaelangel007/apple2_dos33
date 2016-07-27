@@ -846,7 +846,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B43:C8             149             INY             ;MAYBE IT WAS COINCIDENCE               ; Instead of testing *every* byte (256 times WTF!)
 1B44:D0 EF          150             BNE <a class="x" href="#DR2A"   >DR2A</a>        ; BRANCH UNLESS IT'S MATCHED 256 TIMES  ; just test the last byte of every page
 1B46:A4 43          151             LDY <a class="v" href="#ZPGFCB" >ZPGFCB</a>+1    ;HIMEM IS 8K LOWER THEN WAS
-1B48:68             152             PLA             ;ORIGINALLY THOUGHT!                    ; *sigh* Another wasted byte with JMP
+1B48:68             152             PLA             ;ORIGINALLY THOUGHT!                    ; *wastes* 1 bytes with JMP
 1B49:4C 51 1B       153             JMP <a class="x" href="#DR2C"   >DR2C</a>                                                ; Switch LDY PLA around and BNE instead
 1B4C:68             154 <a class="f" name="DR2B"        >DR2B        </a>PLA             ; ORIGINAL HIMEM PROVED GOOD
 1B4D:81 42          155             STA (<a class="v" href="#ZPGFCB">ZPGFCB</a>,X)  ;RESTORE BYTE ORIGINALLY MESSED WITH.
@@ -4308,7 +4308,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 339D:00             009 <a class="d" name="TEMP2" >TEMP2       </a>DFB 0           ; TEMP BYTE 2                   ; *note* All the cool kids use "o7" for salute these days
 339E:00             010 <a class="d" name="TEMP3" >TEMP3       </a>DFB 0           ; TEMP BYTE 3
 339F:00             011 <a class="d" name="ENTSLT">ENTSLT      </a>DFB 0           ; BOOT SLOT SAVE
-33A0:00 00 FF FF    012 <a class="d" name="ALC10S">ALC10S      </a>DFB 0,0,$FF,$FF ; ALLOCATION TRACK BIT MAP      ; *sigh* wastes 2 bytes/track since 32 sectors/track!
+33A0:00 00 FF FF    012 <a class="d" name="ALC10S">ALC10S      </a>DFB 0,0,$FF,$FF ; ALLOCATION TRACK BIT MAP      ; *wastes* 70 bytes (2 bytes/track since 32 sectors/track!)
                                                                                     ; The thinking was probably:
                                                                                     ;     DOS 3.2 = 13 sector
                                                                                     ;     DOS 3.3 = 16 sector
@@ -4354,8 +4354,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 33EC:01             035 <a class="d" name="VALCA2">VALCA2      </a>DFB 1           ; AA BYTE2                      ; 31:FF Direction of last tack allocation --  <span class="todo">TODO</span> Cross-Ref
                                                                                     ;           +$01 inwards  to <span class="ts">T22</span>,
                                                                                     ;           -$FF outwards to <span class="ts">T00</span>.
-33ED:00             036 <a class="d" name="VALCA3">VALCA3      </a>DFB 0           ; AA BYTE3                      ; 32:00 *sigh* wasted byte *sarcasm* <i>I _really_ don't know what we</i>
-33EE:00             037 <a class="d" name="VALCA4">VALCA4      </a>DFB 0           ; AA BYTE4                      ; 33:00 *sigh* wasted byte   <i>would do without you Captain Obvious!</i>
+33ED:00             036 <a class="d" name="VALCA3">VALCA3      </a>DFB 0           ; AA BYTE3                      ; 32:00 *wastes* 1 byte *sarcasm* <i>I _really_ don't know what we</i>
+33EE:00             037 <a class="d" name="VALCA4">VALCA4      </a>DFB 0           ; AA BYTE4                      ; 33:00 *wastes* 1 byte   <i>would do without you Captain Obvious!</i>
 33EF:23             038 <a class="d" name="VNOTRK">VNOTRK      </a>DFB 35          ; NO TRACKS ON VOL              ; 34:23 *note* "No" = Number
 33F0:10             039 <a class="d" name="VNOSEC">VNOSEC      </a>DFB 16          ; NO SECTORS PER TRACK          ; 35:10          Evidence that one day DOS 3.4+ might support:
 33F1:00 01          040 <a class="d" name="VSECLN">VSECLN      </a>DW 256          ; NO. BYTES PER SECTOR          ; 36:00 (Little)     &gt;  16 sectors/track
@@ -4833,7 +4833,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     301 
                     302 
                     303             SBC IBBUFP+1
-                    304 
+                    304             STA BRWCNT      ;COMPUT PAGE COUNT
                     305 
                     306 
                     307 
@@ -4844,7 +4844,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     312 
                     313 
                     314 
-                    315 
+                    315 *                           ; BACKWARDS TO TRK 0,SEC C
                     316 
                     317 
                     318 
@@ -4858,7 +4858,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     326 
                     327 
                     328 
-                    329 
+                    329             DS 6,0                                          ; *wastes* 6 bytes
                     330 
                     331 
                     332 
@@ -5863,7 +5863,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     3A8E:8E 9B 33   STX $<span class="adr">339B</span> ; <span class="todo">TODO</span>
                     3A91:4C 7F 33   JMP $<span class="adr">337F</span> ; <span class="todo">TODO</span>
                     === DOS 3.3 ? PATCH ===         </span>
-3A84:00 00 00 00    149             DS  PD2,0       ;Must pad to $XX96              ; *sigh* 18 wasted bytes
+3A84:00 00 00 00    149             DS  PD2,0       ;Must pad to $XX96              ; *wastes* 18 bytes
 3A88:00 00 00 00                                                                    ; No, no, no!
 3A8C:00 00 00 00                                                                    ; Negative array index OFFSETS like the P6 PROM uses
 3A90:00 00 00 00                                                                    ;
