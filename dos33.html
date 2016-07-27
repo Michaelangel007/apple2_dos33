@@ -834,7 +834,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B2E:86 42          137             STX <a class="v" href="#ZPGFCB" >ZPGFCB</a>      ; THIS ROUTINE STARTING AT LOCATION
 1B30:A1 42          138             LDA (<a class="v" href="#ZPGFCB">ZPGFCB</a>,X)  ; $3540)
 1B32:48             139             PHA
-1B33:85 26          140             STA <a class="v" href=#LOC1">LOC1</a>        ;SAVE TEST VALUE
+1B33:85 26          140             STA <a class="v" href="#LOC1">LOC1</a>        ;SAVE TEST VALUE
 1B35:98             141 <a class="f" name="DR2A"        >DR2A        </a>TYA             ;(FIRST TIME Y=0)
 1B36:45 26          142             EOR <a class="v" href="#LOC1"   >LOC1</a>        ;TEST EACH (ALLEDGED) MEMORY BYTE
 1B38:85 26          143             STA <a class="v" href="#LOC1"   >LOC1</a>        ; 256 TIMES TO DETERMINE IF
