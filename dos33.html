@@ -1238,28 +1238,29 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 
 <hr>; === <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Page <a class="page" name="page44">44</a>,  <b class="ts">T0SD</b> .. , $<span class="adr">9E81</span> - $<span class="adr">????</span> ===<hr>
-                    001 
-                    002 
-                    003 
-                    004 
-                    005 
-                    006 
-                    007 
-                    008 
-                    009 
-                    010 
-                    011 
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
+                    001             PAGE
+                    002 ;
+                    003 ;CHRIN - CHAR RCVD VIA IN SWITCH
+                    004 ;
+                    005 CHRIN       EQU *
+1E81:20 D1 1E       006             JSR SVREGS      ;
+1E84:AD 51 2A       007             LDA ISTATE      ; IF NOT DISKIN
+1E87:F0 15          008             BEQ CHIN1       ; THEN BRANCH, ELSE
+1E89:48             009             PHA             ;SAVE ISTATE
+1E8A:AD 5C 2A       010             LDA SVA
+1E8D:91 28          011             STA ($<span class="adr">28</span>),Y                                     ; *magic-number* /sarcasm If only F800.S ROM defined BASL EQU $28
+1E8F:68             012             PLA             ;GET ISTATE AGAIN
+1E90:30 03          013             BMI CHIN0
+1E92:4C 26 26       014             JMP ICFD
+1E95:20 EA 1D       015 CHIN0       JSR INITC
+1E98:A4 24          016             LDY $<span class="adr">24</span>                                         ; *magic-number* /sarcasm If only F800.S ROM defined CH EQU $24
+1E9A:A9 60          017             LDA #$<span class="adr">60</span>        ;RESTORE A FLASHING CURSOR      ; #' ' + FLASH ; INVERSE = $00..$3F, FLASH = $40..$7F, NORMAL = $80..FF
+1E9C:91 28          018             STA ($<span class="adr">28</span>),Y     ; TO PROMPT USER
+                    019 CHIN1       EQU *
+1E9E:AD B3 2A       020             LDA ESTATE
+1EA1:F0 03          021             BEQ CHIN2
+1EA3:20 82 26       022             JSR NXTEXC      ;RETURNS TO HERE ONLY WHEN 'EXEC' IS EXHAUSTED
+
                     023 
                     024 
                     025 
