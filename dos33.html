@@ -607,9 +607,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 
 <hr>; === <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <b class="ts">T0$C</b>, $<span class="adr">9D00</span> ===<hr>
-                    001 HEREL       EQU &gt;*
-                    002 REMDR       EQU 256-HEREL
-                    003             ORG *+REMDR
+                    001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*
+                    002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>
+                    003             ORG *+<a class="v" href="#REMDR">REMDR</a>
                     004 ;
                     005 ;RELOCATION TABLES
                     006 ;
