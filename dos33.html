@@ -4196,8 +4196,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 33BC:11             024 <a class="d" name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <i>TRACK</i> not sector
 33BD:0F             025 <a class="d" name="VDIRSC">VDIRSC      </a>DFB 15          ; VOLUME DIRECTORY SECTOR       ; [02]
 33BE:04             026 <a class="d" name="VDOSRN">VDOSRN      </a>DFB 4           ; DOS RELEASE NUMBER            ; [03] *sarcasm* I guess <b>VERSION</b> made too much sense.
-33BF:00             027             DFB 0           ; SPARE                         ; [04] *sarcasm* Because <i>someday</i> these <i>might</i> be used ...
-33C0:00             028             DFB 0           ; SPARE                         ; [05]
+33BF:00             027             DFB 0           ; SPARE                         ; [04] *<a class="dumb" name="fvcbufs_33BF">wastes</a>* 1 byte *sarcasm* "Because <i>someday</i> these <i>might</i> be used ...
+33C0:00             028             DFB 0           ; SPARE                         ; [05] *<a class="dumb" name="fvcbufs_33C0">wastes</a>* 1 byte 
 33C1:FE             029 <a class="d" name="VVOLNO">VVOLNO      </a>DFB $FE         ; VOLUME NUMBER                 ; [06]
 33C2:0 0 0 0 0 0    030             DS 32           ; SPARE                         ; [07] Gee, here's an idea, instead of wasting space in the VTOC:
 33C8:0 0 0 0 0 0 0 0                                                                ;       1) Pack our data by removing all unused crap,
@@ -4254,7 +4254,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     065 ;  FILE USE CODE                                            ;     uint8_t  type
                     066 ;  FILE NAME         (30)                                   ;     char     name[30]
                     067 ;  FILE SECTOR COUNT (2)                                    ;     uint16_t num_sectors
-34BC:00 00 00 00    068             ORG VOLDIR+256                                  ; *wastes* 256 bytes *<a href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>* &#x0CA0;_&#x0CA0; Oh FFS already ...
+34BC:00 00 00 00    068             ORG VOLDIR+256                                  ; *<a class="dumb" name="fvcbufs_34BC">wastes</a>* 256 bytes *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>* &#x0CA0;_&#x0CA0; Oh FFS already ...
 34C0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 34D0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 34E0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
