@@ -2513,17 +2513,17 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     143 <a class="f" name="MVSRTN" >MVSRTN      </a>EQU *
 2883:60             144             RTS
 
-<hr>; === <a class="file" name="CMDTBLS">CMDTBLS</a> - Commands, Page <a class="page" name="page21">21</a>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
+<hr>; === <a class="file" name="CMDTBLS">CMDTBLS</a> - Commands, Page <a class="page" name="page21">21</a>, <b class="ts">T1S7</b>, $<span class="adr">A884</span> ===<hr>
                     001                 PAGE
                     002 ;
                     003 ; COMMAND NAME TABLE
                     004 ;
                     005 EC1 EQU *
                     006 CMDNTB EQU *
-                    007             DCI "INIT"
-                    008 
-                    009 
-                    010 
+2884:49 4E 49 D4    007             DCI "INIT"
+2888:4C 4F 41 C4    008             DCI "LOAD"
+                    009             DCI "SAVE"
+                    010             DCI "RUN"
                     011 
                     012 
                     013 
