@@ -4188,26 +4188,31 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 33B3:CC CF D6 A0                                                                    ; Not that these are bad but /sarcasm <i>Lets focus on</i>
 33B7:CB D3 C9 C4                                                                    ; <i>a <b>single</b> tree, and completely miss the forest!</i>
                     018             MSB OFF                                         ; Switch back to 7-bit ASCII
-                    019 <a class="d" name="VML"   >VML         </a>EQU *-<a class="v" href="#VOLMES">VOLMES</a>-1                                  ; File <a class="file" href="#FDELCAT">FDELCAT</a>, Func <a class="x" href="#RDIR">RDIR</a>, Line <span class="todo">TODO</span>
+                    019 <a class="d" name="VML"   >VML         </a>EQU *-<a class="v" href="#VOLMES">VOLMES</a>-1                                  ; Used by File <a class="file" href="#FDELCAT">FDELCAT</a>, Func <a class="x" href="#RDIR">RDIR</a>, Line <span class="todo">TODO</span>
+
                     020             PAGE                                            ; Let the clusterfuck of bad design commence in <a href="https://www.nasa.gov/audience/foreducators/topnav/materials/listbytype/3_2_1_Puff.html">3..2..1..</a>
                     021 ;VTOC RECORD AREA                                           ; === VTOC ===
                     022 <a class="d" name="VTOC"  >VTOC        </a>EQU *                                           ; <b class="ts">T11S0</b> [offset], Right = normal snarky commentary
 33BB:04             023 <a class="d" name="VDOST" >VDOST       </a>DFB 4           ; DOS TYPE                      ; [00] *sigh* magic number: /sarcasm If only FILESYSTEM_TYPE_VTOC = $4
 33BC:11             024 <a class="d" name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <i>TRACK</i> not sector
-33BD:0F             025 <a class="d" name="VDIRSC">VDIRSC      </a>DFB 15          ; VOLUME DIRECTORY SECTOR       ; [02] <span class="todo">TODO:</span> VTOC T/S can be changed via ... ?
+                                                                                    ;      *note* This is only a copy.  To change DOS while running
+                                                                                    ;             $<span class="adr">AC01:##</span> (<b class="ts">T?S?</b> @ $2C01:11) holds the Catalog Track
+33BD:0F             025 <a class="d" name="VDIRSC">VDIRSC      </a>DFB 15          ; VOLUME DIRECTORY SECTOR       ; [02] Used by File <a class="file" href="#FLOCNXB">FLOCNXB</a>, Func <a class="x" href="#RVDC">RVDC</a>, Line <span class="todo">??</span>
 33BE:04             026 <a class="d" name="VDOSRN">VDOSRN      </a>DFB 4           ; DOS RELEASE NUMBER            ; [03] *sarcasm* I guess <b>VERSION</b> made too much sense.
 33BF:00             027             DFB 0           ; SPARE                         ; [04] *<a class="dumb" name="fvcbufs_33BF">wastes</a>* 1 byte *sarcasm* "Because <i>someday</i> these
 33C0:00             028             DFB 0           ; SPARE                         ; [05] *<a class="dumb" name="fvcbufs_33C0">wastes</a>* 1 byte            <i>might</i> be used ..."
 33C1:FE             029 <a class="d" name="VVOLNO">VVOLNO      </a>DFB $FE         ; VOLUME NUMBER                 ; [06]
 33C2:00 00 00 00    030             DS 32           ; SPARE                         ; [07] *<a class="dumb" name="fvcufs_33C2">wastes</a>* 32 bytes -- WTF !
-33C6:00 00 00 00                                                                    ;      Gee, here's an idea,
-33CA:00 00 00 00                                                                    ;      instead of wasting space in the VTOC:
-33CE:00 00 00 00                                                                    ;       1) Pack our data by removing all unused crap,
-33D2:0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                    ;       2) Put VTOC data as first XX bytes in the CATALOG <b class="ts">T11$F</b>
-33E0:00 00                                                                          ;       If we were <i>really</i> smart <b class="ts">T11</b> would reside on <b class="ts">T2$5..F</b>
+33C6:00 00 00 00                                                                    ;      Gee, here's an idea:
+33CA:00 00 00 00                                                                    ;      Instead of wasting space in the VTOC
+33CE:00 00 00 00                                                                    ;        1) Pack our data by removing all unused crap,
+33D2:00 00 00 00                                                                    ;        2) Put VTOC data as first XX bytes in the <b class="ts">T11SF</b> CATALOG
+33D6:00 00 00 00                                                                    ;      And if we were <i>really</i> smart then
+33DA:00 00 00 00                                                                    ;      the VTOC &amp; CATLOG would reside on <b class="ts">T2S5..F</b>
+33DE:00 00 00 00                                                                    ;
 33E2:7A             031 <a class="d" name="VTDMS" >VTDMS       </a>DFB 122         ; MAX SECTORS IN A FILE DIR     ; [27] *sigh* not 128 so we can BMI (Branch on Minus) ???
-33E3:00 00 00 00    032 <a class="d" name="VSPARE">VSPARE      </a>DS 8            ; SPARES                        ; [28]  Oh FFS already ...
-33E7:00 00 00 00    033 ;                                                          ;      /sarcasm* Who cares, we have 140KB, right!
+33E3:00 00 00 00    032 <a class="d" name="VSPARE">VSPARE      </a>DS 8            ; SPARES                        ; [28] *<a class="dumb" name="fvcbufs_33E3">wastes</a>* 8 bytes -- Oh FFS already ...
+33E7:00 00 00 00    033 ;
 33EB:11             034 <a class="d" name="VALCA1">VALCA1      </a>DFB 17          ; ALOCATION ALGORITHM BYTE 1    ; [30] Last allocated track <span class="todo">TODO</span> Cross-Ref
 33EC:01             035 <a class="d" name="VALCA2">VALCA2      </a>DFB 1           ; AA BYTE2                      ; [31] Direction of last tack allocation --  <span class="todo">TODO</span> Cross-Ref
                                                                                     ;           +$01 inwards  to <span class="ts">T22</span>,
@@ -4293,7 +4298,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 34E0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 34F0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 3500:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; === <b class="ts">T?S?</b> ===
-3510:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+3510:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; /sarcasm* Who cares, we have 140KB, right!
 3520:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 3530:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 3540:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
