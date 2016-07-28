@@ -469,7 +469,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     174 ;
                     175 ;RELOCATE ADR TABLES
                     176 ;
-<hr>1B76:A2 00          177             LDX #0                                          ; === Page <a class="page" name="page113">113</a> ===
+<hr>1B76:A2 00          177             LDX #<span class="adr">0</span>                                          ; === Page <a class="page" name="page113">113</a> ===
 1B78:86 40          178             STX ZPGWRK
                     179 <a class="f" name="DR3"         >DR3         </a>EQU *
 
@@ -482,7 +482,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     213 ;
                     214 ;RELOCATE CODE
                     215 ;
-1BAF:A2 00          216             LDX #0
+1BAF:A2 00          216             LDX #<span class="adr">0</span>
 1BB1:8E 9C 33       217 <a class="f" name="DR7"         >DR7         </a>STX <a class="v" href="#TEMP1">TEMP1</a>
                     218 ;
 1BB4:BD 5A 1C       219             LDA <a class="v" href="#CDETAB">CDETAB</a>+1,X  ; GET A START OF CODE ADR
@@ -490,7 +490,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1BB9:BD 5B 1C       221             LDA <a class="v" href="#CDTAB" >CDETAB</a>+2,X
 1BBC:85 41          222             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>+1
                     223 ;
-1BBE:A2 00          224 <a class="f" name="DR8"         >DR8         </a>LDX #0         ; GET OP CODE
+1BBE:A2 00          224 <a class="f" name="DR8"         >DR8         </a>LDX #<span class="adr">0</span>         ; GET OP CODE
 1BC0:A1 40          225             LDA (ZPGWRK,X)  ; GO FIND OUT HOW LONG          ; Interesting hack of using
 1BC2:20 8E F8       226             JSR INSDS2                                      ; monitor ROM to get instruction opcode length
                     227 ;
