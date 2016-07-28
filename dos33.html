@@ -4224,7 +4224,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     047 ;                                                           ;       As Mike Acton says:
                     048 ;                                                           ;           "<i>Solve the <b>actual</b> problem,</i>
                     049            PAGE                                             ;           <i>not the one you <b>think</b> is the problem</i>"
-33F2:0 0 0 0 0 0    050            ORG VTOC+256                                     ; [38] *hack* uninitialized memory is never a good idea
+33F3:0 0 0 0 0 0    050            ORG VTOC+256                                     ; [38] *hack* uninitialized memory is never a good idea
 33F8:0 0 0 0 0 0 0 0                                                                ; [39] Why not simply <span class="macro">DS 256-&gt;VSECAL,0</span> ???
 3400:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; [3A] === <b class="ts">T2$3</b> === *wastes* <b>entire</b> sector for <i>1 byte</i>!?  *<a class="dumb" href="http://i.imgur.com/iWKad22.jpg">facepalm</a>*
 3410:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; [3B] *sigh* let's waste $C4 bytes as we span 2 sectors
