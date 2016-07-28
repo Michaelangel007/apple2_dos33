@@ -5105,7 +5105,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     174 <a class="d" name="Q7H"        >Q7H         </a>EQU $C08F       Q7H,Q6H=WRITE STORE             ; DRIVE_MODE_W
 
 
-<hr>; === <a class="file" name="PRENIBL">PRENIBL</a> - Prenibblize sector data for writing, Page <a class="page" name="page104">104</a>, <b class="ts">T?$?</b>, $<span class="adr">????</span> ===<hr>
+<hr>; === <a class="file" name="PRENIBL">PRENIBL</a> - Prenibblize sector data for writing, Page <a class="page" name="page104">104</a>, <b class="ts">T0SS</b>, $<span class="adr">B800</span> .. $<span class="adr">B829</span> ===<hr>
                     001             SBTL '16-SECTOR PRENIBLIZE'
                     002 ****************************
                     003 *                          *
@@ -5138,28 +5138,28 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     030 *   00ABCDEF.              *
                     031 *                          *
                     032 ****************************
-                    033 <a class="f" name="PRENIB16"  >PRENIB16    </a>LDX #$<span class="adr">0</span>         ;START NBUF2 INDEX. CHANGED BY WOZ
-                    034             LDY #<span class="adr">2</span>          ;START USER BUF INDEX. CHANGED BY WOZ.
-                    035 <a class="f" name="PRENIB1"   >PRENIB1     </a>DEY             ;NEXT USER BYTE.
-                    036             LDA (<a class="v" hre="#BUF">BUF</a>),Y
-                    037             LSR A           ;SHIFT TWO BITS OF
-                    038             ROL <a class="v" hre="#NBUF2">NBUF2</a>,X     ;CURRENT USER BYTE
-                    039             LSR A           ;INTO CURRENT NBUF2
-                    040             ROL <a class="v" hre="#NBUF2">NBUF2</a>,X     ;BYTE.
-                    041             STA <a class="v" hre="#NBUF1">NBUF1</a>,Y     ;(6 BITS LEFT).
-                    042             INX             ;FROM 0 TO $55.
-                    043             CPX #$<span class="adr">56</span>
-                    044             BCC <a class="x" href="#PRENIB1">PRENIB1</a>     ;BR IF NO WRAPAROUND.
-                    045             LDX #<span class="adr">0</span>          ;RESET NBUF2 INDEX.
-                    046             TYA             ;USER BUF INDEX.
-                    047             BNE <a class="x" href="#PRENIB1">PRENIB1</a>     ;(DONE IF ZERO)
-                    048             LDX #$<span class="adr">55</span>        ;NBUF2 IDX $55 TO 0.
-                    049 <a class="f" name="PRENIB2"   >PRENIB2     </a>LDA <a class="v" hre="#NBUF2">NBUF2</a>,X
-                    050             AND #$<span class="adr">3F</span>        ;STRIP EACH BYTE
-                    051             STA <a class="v" hre="#NBUF2">NBUF2</a>,X     ;OF NBUF2 TO 6 BITS.
-                    052             DEX
-                    053             BPL <a class="x" href="#PRENIB2">PRENIB2</a>     ;LOOP UNTIL X NEG.
-                    054             RTS             ;RETURN.                        ; o7 Captain Obvious
+3800:A2 00          033 <a class="f" name="PRENIB16"  >PRENIB16    </a>LDX #$<span class="adr">0</span>         ;START NBUF2 INDEX. CHANGED BY WOZ
+3802:A0 02          034             LDY #<span class="adr">2</span>          ;START USER BUF INDEX. CHANGED BY WOZ.
+3803:88             035 <a class="f" name="PRENIB1"   >PRENIB1     </a>DEY             ;NEXT USER BYTE.
+3805:B1 3E          036             LDA (<a class="v" hre="#BUF">BUF</a>),Y
+3807:4A             037             LSR A           ;SHIFT TWO BITS OF
+3808:3E 00 3C       038             ROL <a class="v" hre="#NBUF2">NBUF2</a>,X     ;CURRENT USER BYTE
+380B:4A             039             LSR A           ;INTO CURRENT NBUF2
+380C:3E 00 3C       040             ROL <a class="v" hre="#NBUF2">NBUF2</a>,X     ;BYTE.
+380F:99 00 3B       041             STA <a class="v" hre="#NBUF1">NBUF1</a>,Y     ;(6 BITS LEFT).
+3812:E8             042             INX             ;FROM 0 TO $55.
+3813:E0 56          043             CPX #$<span class="adr">56</span>
+3815:90 ED          044             BCC <a class="x" href="#PRENIB1">PRENIB1</a>     ;BR IF NO WRAPAROUND.
+3817:A2 00          045             LDX #<span class="adr">0</span>          ;RESET NBUF2 INDEX.
+3819:98             046             TYA             ;USER BUF INDEX.
+381A:D0 E8          047             BNE <a class="x" href="#PRENIB1">PRENIB1</a>     ;(DONE IF ZERO)
+381C:A2 55          048             LDX #$<span class="adr">55</span>        ;NBUF2 IDX $55 TO 0.
+381E:BD 00 3C       049 <a class="f" name="PRENIB2"   >PRENIB2     </a>LDA <a class="v" hre="#NBUF2">NBUF2</a>,X
+3821:29 3F          050             AND #$<span class="adr">3F</span>        ;STRIP EACH BYTE
+3823:9D 00 3C       051             STA <a class="v" hre="#NBUF2">NBUF2</a>,X     ;OF NBUF2 TO 6 BITS.
+3826:CA             052             DEX
+3827:10 F5          053             BPL <a class="x" href="#PRENIB2">PRENIB2</a>     ;LOOP UNTIL X NEG.
+3828:60             054             RTS             ;RETURN.                        ; o7 Captain Obvious
 
 
 <hr>; === <a class="file" name="WRITRTN">WRITRTN</a> - Write Routine, Page <a class="page" name="page137">137</a>, <b class="ts">T0$2</b>, $<span class="adr">B82A</span> ===<hr>
