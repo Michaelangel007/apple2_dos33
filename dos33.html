@@ -293,35 +293,35 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     005 <a class="macro" name="DIAGMOD">DIAGMOD     </a>EQU  0
                     006 <a class="macro" name="DOS33B" >DOS33B      </a>EQU  1
                     007 <a class="macro" name="ULC"    >ULC         </a>EQU  0              ; Unofficial commentary
-                    008             INCLUDE <a class="c00" class="file" href="#RELOCTR">RELOCTR</a>,,2  ; $1B00 .. $1CFF, T0SA - T0SB
-                    009             INCLUDE <a class="c01" class="file" href="#DOSINIT">DOSINIT</a>,,2  ; $1D00 .. $1E80, T0SC - T0SD
-                    010             INCLUDE <a class="c02" class="file" href="#DOSHOOK">DOSHOOK</a>,,2  ; $1E81 .. $####, T0SD
-                    011             INCLUDE <a class="c03" class="file" href="#CMDSCAN">CMDSCAN</a>,,2  ; $#### .. $####
-                    012             INCLUDE <a class="c04" class="file" href="#XOPNCLS">XOPNCLS</a>,,2  ; $#### .. $####
-                    013             INCLUDE <a class="c05" class="file" href="#XLODSAV">XLODSAV</a>,,2  ; $#### .. $####
-                    014             INCLUDE <a class="c06" class="file" href="#XMISCMD">XMISCMD</a>,,2  ;
-                    015             INCLUDE <a class="c07" class="file" href="#DOSGOER">DOSGOER</a>,,2  ;       .. $27D3,      - T1S6
-                    016             INCLUDE <a class="c08" class="file" href="#BLDFTAB">BLDFTAB</a>,,2  ; $27D4 .. $2883, T1S6 - T1S7
-                    017             INCLUDE <a class="c09" class="file" href="#CMDTBLS">CMDTBLS</a>,,2  ; $2884 .. $####, T1S7 - T?S?
-                    018             INCLUDE <a class="c10" class="file" href="#FDOSENT">FDOSENT</a>,,2  ;
-                    019             INCLUDE <a class="c11" class="file" href="#FOPCLRW">FOPCLRW</a>,,2  ;
-                    020             INCLUDE <a class="c20" class="file" href="#FDELCAT">FDELCAT</a>,,2  ;
-                    021             INCLUDE <a class="c21" class="file" href="#FMTRWIO">FMTRWIO</a>,,2  ;       .. $2FF6,      - T1SE
-                    022             INCLUDE <a class="c22" class="file" href="#FLOCNXB">FLOCNXB</a>,,2  ; $2FF7 .. $31C8, T1SE - T2S0
-                    023             INCLUDE <a class="c23" class="file" href="#FLOCSEC">FLOCSEC</a>,,2  ; $31C9 .. $3396, T2S0 - T2S2
-                    024             INCLUDE <a class="c24" class="file" href="#FVCBUFS">FVCBUFS</a>,,2  ; $3397 .. $35FD, T2S2 - T2S4
-                    025             INLUCDE <a class="c25" class="file" href="#BOOTLDR">BOOTLDR</a>,,2  ; $35FE .. $37FF, T0S0 - T0S1
-                    026             INCLUDE <a class="c26" class="file" href="#COREQUS">COREQUS</a>,,1  ; n/a
-                    027             INCLUDE <a class="c27" class="file" href="#PRENIBL">PRENIBL</a>,,1  ; $3800 .. $3829, T0S2
-                    028             INCLUDE <a class="c28" class="file" href="#WRITRTN">WRITRTN</a>,,1  ; $382A .. $3???, T0S2 - T0S?
-                    029             INCLUDE <a class="c29" class="file" href="#POSTNRD">POSTNRD</a>,,1  ; $3??? .. $3???, T0S? - T0S?
-                    030             INCLDUE <a class="c30" class="file" href="#RDADSEK">RDADSEK</a>,,1  ; $3??? .. $39FC, T?S? - T0S3
-                    031             INCLUDE <a class="c31" class="file" href="#MSWAITR">MSWAITR</a>,,1  ; $39FD .. $3C55, T0S4 - T0S6
-                    032             INCLUDE <a class="c40" class="file" href="#WRITADR">WRITADR</a>,,1  ; $3C56 .. $3CFF, T0S6
-                    033             INCLUDE <a class="c41" class="file" href="#RWTSONE">RWTSONE</a>,,1  ; $3D00 .. $3DAA, T0S7
-                    034             INCLUDE <a class="c42" class="file" href="#RWTSTWO">RWTSTWO</a>,,1  ; $3DAB .. $3EAE, T0S7 - T0S8
-                    035             INCLUDE <a class="c43" class="file" href="#FORMATR">FORMATR</a>,,1  ; $3EAF .. $3FC7, T0S8 - T0S9
-                    036             INCLUDE <a class="c44" class="file" href="#DOSPTCH">DOSPTCH</a>,,1  ; $3FC8 .. $3FFF, T0S9
+                    008             INCLUDE <a class="_c00 file" href="#RELOCTR">RELOCTR</a>,,2  ; $1B00 .. $1CFF, T0SA - T0SB
+                    009             INCLUDE <a class="_c01 file" href="#DOSINIT">DOSINIT</a>,,2  ; $1D00 .. $1E80, T0SC - T0SD
+                    010             INCLUDE <a class="_c02 file" href="#DOSHOOK">DOSHOOK</a>,,2  ; $1E81 .. $####, T0SD
+                    011             INCLUDE <a class="_c03 file" href="#CMDSCAN">CMDSCAN</a>,,2  ; $#### .. $####
+                    012             INCLUDE <a class="_c04 file" href="#XOPNCLS">XOPNCLS</a>,,2  ; $#### .. $####
+                    013             INCLUDE <a class="_c05 file" href="#XLODSAV">XLODSAV</a>,,2  ; $#### .. $####
+                    014             INCLUDE <a class="_c06 file" href="#XMISCMD">XMISCMD</a>,,2  ;
+                    015             INCLUDE <a class="_c07 file" href="#DOSGOER">DOSGOER</a>,,2  ;       .. $27D3,      - T1S6
+                    016             INCLUDE <a class="_c08 file" href="#BLDFTAB">BLDFTAB</a>,,2  ; $27D4 .. $2883, T1S6 - T1S7
+                    017             INCLUDE <a class="_c09 file" href="#CMDTBLS">CMDTBLS</a>,,2  ; $2884 .. $####, T1S7 - T?S?
+                    018             INCLUDE <a class="_c10 file" href="#FDOSENT">FDOSENT</a>,,2  ;
+                    019             INCLUDE <a class="_c11 file" href="#FOPCLRW">FOPCLRW</a>,,2  ;
+                    020             INCLUDE <a class="_c20 file" href="#FDELCAT">FDELCAT</a>,,2  ;
+                    021             INCLUDE <a class="_c21 file" href="#FMTRWIO">FMTRWIO</a>,,2  ;       .. $2FF6,      - T1SE
+                    022             INCLUDE <a class="_c22 file" href="#FLOCNXB">FLOCNXB</a>,,2  ; $2FF7 .. $31C8, T1SE - T2S0
+                    023             INCLUDE <a class="_c23 file" href="#FLOCSEC">FLOCSEC</a>,,2  ; $31C9 .. $3396, T2S0 - T2S2
+                    024             INCLUDE <a class="_c24 file" href="#FVCBUFS">FVCBUFS</a>,,2  ; $3397 .. $35FD, T2S2 - T2S4
+                    025             INLUCDE <a class="_c25 file" href="#BOOTLDR">BOOTLDR</a>,,2  ; $35FE .. $37FF, T0S0 - T0S1
+                    026             INCLUDE <a class="_c26 file" href="#COREQUS">COREQUS</a>,,1  ; n/a
+                    027             INCLUDE <a class="_c27 file" href="#PRENIBL">PRENIBL</a>,,1  ; $3800 .. $3829, T0S2
+                    028             INCLUDE <a class="_c28 file" href="#WRITRTN">WRITRTN</a>,,1  ; $382A .. $3???, T0S2 - T0S?
+                    029             INCLUDE <a class="_c29 file" href="#POSTNRD">POSTNRD</a>,,1  ; $3??? .. $3???, T0S? - T0S?
+                    030             INCLDUE <a class="_c30 file" href="#RDADSEK">RDADSEK</a>,,1  ; $3??? .. $39FC, T?S? - T0S3
+                    031             INCLUDE <a class="_c31 file" href="#MSWAITR">MSWAITR</a>,,1  ; $39FD .. $3C55, T0S4 - T0S6
+                    032             INCLUDE <a class="_c40 file" href="#WRITADR">WRITADR</a>,,1  ; $3C56 .. $3CFF, T0S6
+                    033             INCLUDE <a class="_c41 file" href="#RWTSONE">RWTSONE</a>,,1  ; $3D00 .. $3DAA, T0S7
+                    034             INCLUDE <a class="_c42 file" href="#RWTSTWO">RWTSTWO</a>,,1  ; $3DAB .. $3EAE, T0S7 - T0S8
+                    035             INCLUDE <a class="_c43 file" href="#FORMATR">FORMATR</a>,,1  ; $3EAF .. $3FC7, T0S8 - T0S9
+                    036             INCLUDE <a class="_c44 file" href="#DOSPTCH">DOSPTCH</a>,,1  ; $3FC8 .. $3FFF, T0S9
 
 
 <hr>; === <a class="file" name="RELOCTR">RELOCTR</a> - Relocate DOS to high (48K) memory, Page <a class="page" name="page110">110</a>, <b class="ts">T0$A</b>, $<span class="adr">??00</span> ===<hr>
