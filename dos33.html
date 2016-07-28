@@ -5106,60 +5106,60 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 
 <hr>; === <a class="file" name="PRENIBL">PRENIBL</a> - Pre nibblize sector data for writing, Page <a class="page" name="page104">104</a>, <b class="ts">T?$?</b>, $<span class="adr">????</span> ===<hr>
-                    001 
-                    002 
-                    003 
-                    004 
-                    005 
-                    006 
-                    007 
-                    008 
-                    009 
-                    010 
-                    011 
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
+                    001             SBTL '16-SECTOR PRENIBLIZE'
+                    002 ****************************
+                    003 *                          *
+                    004 *    PRENIBLIZE SUBR       *
+                    005 *   (16-SECTOR FORMAT)     *
+                    006 *                          *
+                    007 ****************************
+                    008 *                          *
+                    009 *  CONVERTS 256 BYTES OF   *
+                    010 *  USER DATA IN (BUF),0    *
+                    011 *  TO (BUF),255 INTO 342   *
+                    012 *  6-BIT NIBLS (00ABCDEF)  *
+                    013 *  IN NBUF1 AND NBUF2.     *
+                    014 *                          *
+                    015 *    ---- ON ENTRY ----    *
+                    016 *                          *
+                    017 *  BUF IS 2-BYTE POINTER   *
+                    018 *    TO 256 BYTES OF USER  *
+                    019 *    DATA.                 *
+                    020 *                          *
+                    021 *    ---- ON EXIT -----    *
+                    022 *                          *
+                    023 *  A-REG UNCERTAIN.        *
+                    024 *  X-REG HOLDS $FF.        *
+                    025 *  Y-REG HOLDS $FF.        *
+                    026 *  CARRY SET.              *
+                    027 *                          *
+                    028 * NBUF1 AND NBUF2 CONTAIN  *
+                    029 *   6-BIT NIBLS OF FORM    *
+                    030 *   00ABCDEF.              *
+                    031 *                          *
+                    032 ****************************
+                    033 PRENIB16    LDX #$0         ;START NBUF2 INDEX. CHANGED BY WOZ
+                    034             LDY #2          ;START USER BUF INDEX. CHANGED BY WOZ.
+                    035 PRENIB1     DEY             ;NEXT USER BYTE.
+                    036             LDA (BUF),Y
+                    037             LSR A           ;SHIFT TWO BITS OF
+                    038             ROL NBUF2,X     ;CURRENT USER BYTE
+                    039             LSR A           ;INTO CURRENT NBUF2
+                    040             ROL NBUF2,X     ;BYTE.
+                    041             STA NBUF1,Y     ;(6 BITS LEFT).
+                    042             INX             ;FROM 0 TO $55.
+                    043             CPX #$56
+                    044             BCC PRENIB1     ;BR IF NO WRAPAROUND.
+                    045             LDX #0          ;RESET NBUF2 INDEX.
+                    046             TYA             ;USER BUF INDEX.
+                    047             BNE PRENIB1     ;(DONE IF ZERO)
+                    048             LDX #$55        ;NBUF2 IDX $55 TO 0.
+                    049 PRENBI2     LDA NBUF2,X
+                    050             AND #$3F        ;STRIP EACH BYTE
+                    051             STA NBUF2,X     ;OF NBUF2 TO 6 BITS.
+                    052             DEX
+                    053             BPL PRENIB2     ;LOOP UNTIL X NEG.
+                    054             RTS             ;RETURN.                        ; o7 Captain Obvious
 
 
 <hr>; === <a class="file" name="WRITRTN">WRITRTN</a> - Write Routine, Page <a class="page" name="page137">137</a>, <b class="ts">T0$2</b>, $<span class="adr">B82A</span> ===<hr>
