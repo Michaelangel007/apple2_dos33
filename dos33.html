@@ -274,8 +274,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     018             INCLUDE <a class="file" href="#FDOSENT">FDOSENT</a>,,2                              ;
                     019             INCLUDE <a class="file" href="#FOPCLRW">FOPCLRW</a>,,2                              ;
                     020             INCLUDE <a class="file" href="#FDELCAT">FDELCAT</a>,,2                              ;
-                    021             INCLUDE <a class="file" href="#FMTRWIO">FMTRWIO</a>,,2                              ;
-                    022             INCLUDE <a class="file" href="#FLOCNXB">FLOCNXB</a>,,2                              ;
+                    021             INCLUDE <a class="file" href="#FMTRWIO">FMTRWIO</a>,,2                              ;       .. $2FF6,      - T1SE
+                    022             INCLUDE <a class="file" href="#FLOCNXB">FLOCNXB</a>,,2                              ; $2FF7 .. $3???, T1SE - T1SF
                     023             INCLUDE <a class="file" href="#FLOCSEC">FLOCSEC</a>,,2                              ;
                     024             INCLUDE <a class="file" href="#FVCBUFS">FVCBUFS</a>,,2                              ; $3397 .. $35FD, T2S2 - T2S4
                     025             INLUCDE <a class="file" href="#BOOTLDR">BOOTLDR</a>,,2                              ; $35FE .. $36FF, T0S0
@@ -3569,48 +3569,48 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     220 
                     221 
                     222 
-                    223 
-                    224 
-                    225 
-                    226 
-                    227 
-                    228 
-                    229 
-                    230 
-                    231 
-                    232 
-                    233 
+                    223 ;
+                    224 ;MVSBA - MOVE SECTOR BUFFER ADR FOR I/O
+                    225 ;
+                    226 <a class="f" name="MVSBA"    >MVSBA       </a>EQU *
+2FE4:AC CB 35       227             LDY CFCBSB      ; GET SECTOR BUFF ADR
+2FE7:AD CC 35       228             LDA CFCBSB+1
+2FEA:8C F0 37       229 <a class="f" name="MSB1"     >MSB1        </a>STY IBBUFP      ; SET IOB SECTOR
+2FED:8D F1 37       230             STA IBBUFP+1    ; BUFF PTR
+2FF0:AE D6 35       231             LDX DCBTRK      ; GET TRACK
+2FF3:AC D7 35       232             LDY DCBSEC      ; GET SECTOR
+2FF6:60             233             RTS             ; RTN
 
 
-<hr>; === <a class="file" name="FLOCNXB">FLOCNXB</a> - Locate Next Byte, Page <a class="page" name="page68">68</a>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
+<hr>; === <a class="file" name="FLOCNXB">FLOCNXB</a> - Locate Next Byte, Page <a class="page" name="page63">63</a>, <b class="ts">T1SE</b> - <b class="ts">T1SF</b>, $<span class="adr">AFF7</span> .. $<span class="adr">B???</span> ===<hr>
                     001             PAGE
                     002 ;
-                    003 
-                    004 
-                    005 
-                    006 
-                    007 
-                    008 
-                    009 
-                    010 
-                    011 
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
+                    003 ;RDVTOC - READ VTOC
+                    004 ;WRVTOC - WRITE VTOC
+                    005 ;
+                    006 <a class="f" name="RDVTOC"   >RDVTOC      </a>EQU *
+2FF7:A9 01          007             LDA #<a class="v" href="#IBCRTS">IBCRTS</a>     ; READ
+2FF9:D0 02          008             BNE <a class="x" href="#VTIO">VTIO</a>                                        ; always could maybe save byte $2C bit $abs
+                    009 <a class="f" name="WRVTOC"   >WRVTOC      </a>EQU *
+2FFB:A9 02          010             LDA #<a class="v" href="#IBCWTS">IBCWTS</a>     ; WRITE
+                    011 ;
+2FFD:AC C3 2A       012 <a class="f" name="VTIO"     >VTIO        </a>LDY AVTOC       ; MOVE BUFF ADR
+3000:8C F0 37       013             STY IBBUFP                                      ; === <b class="ts">T1SF</b> ===
+3003:AC C4 2A       014             LDY AVTOC+1
+3006:8C F1 37       015             STY IBBUFP+1
+                    016 ;
+3009:AE FA 35       017             LDX DCBVTN      ; GET TRACK
+300C:A0 00          018             LDY #<span class="adr">0</span>
+300E:4C 52 30       019             JMP <a class="x" href="#DCBIO">DCBIO</a>       ; GO DO I/O
+                    020             PAGE
+                    021 ;
+                    022 ;RDVDIR - READ VOLUME DIRECTOR
+                    023 ;
+                    024 <a class="f" name="RDVDIR"   >RDVDIR      </a>EQU *
+3011:08             025             PHP             ; SAVE STATUS
+3012:20 45 30       026             JSR MVVDBA
+                    027 ;
+3015:28             028             PLP             ; GET STATUS
                     029 
                     030 
                     031 
