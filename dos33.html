@@ -277,8 +277,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     021             INCLUDE <a class="file" href="#FMTRWIO">FMTRWIO</a>,,2                              ;
                     022             INCLUDE <a class="file" href="#FLOCNXB">FLOCNXB</a>,,2                              ;
                     023             INCLUDE <a class="file" href="#FLOCSEC">FLOCSEC</a>,,2                              ;
-                    024             INCLUDE <a class="file" href="#FVCBUFS">FVCBUFS</a>,,2                              ; $3397 .. $35FF, T2S2 - T2S4
-                    025             INLUCDE <a class="file" href="#BOOTLDR">BOOTLDR</a>,,2                              ; $3600 .. $36FF, T0S0
+                    024             INCLUDE <a class="file" href="#FVCBUFS">FVCBUFS</a>,,2                              ; $3397 .. $35FD, T2S2 - T2S4
+                    025             INLUCDE <a class="file" href="#BOOTLDR">BOOTLDR</a>,,2                              ; $35FE .. $36FF, T0S0
                     026             INCLUDE <a class="file" href="#COREQUS">COREQUS</a>,,1                              ; n/a
                     027             INCLUDE <a class="file" href="#PRENIBL">PRENIBL</a>,,1                              ;
                     028             INCLUDE <a class="file" href="#WRITRTN">WRITRTN</a>,,1                              ;
@@ -4152,7 +4152,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     284 
 
 
-<hr>; === <a class="file" name="FVCBUFS">FVCBUFS</a> - File Volume Catalog Buffers, Page <a class="page" name="page86">86</a>, <b class="ts">T2$2</b> @ $A7 - <b class="ts">T2$3</b> @ $BA, $<span class="adr">B397</span> .. $<span class="adr">B4BA</span> ===<hr>
+<hr>; === <a class="file" name="FVCBUFS">FVCBUFS</a> - File Volume Catalog Buffers, Page <a class="page" name="page86">86</a>, <b class="ts">T2$2</b> @ $97 - <b class="ts">T2$4</b> @ $FD, $<span class="adr">B397</span> .. $<span class="adr">B5FD</span> ===<hr>
                     001             PAGE                                            ; This is why I partially dislike old source code:
                     002 ;MISC DOS WORK CELLS                                        ;   <i>(almost) Everything has been abbreviated</i>
                     003 ;                                                           ;   <i>(almost) to the point of obfuscation.</i>
@@ -4392,11 +4392,11 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     177 
                     178 
                     179 
-    :00             180 <a class="d" name="DCBDRV"     >DCBDRV      </a>DS 1            ; DRIVE NUMBER
-    :00             181 <a class="d" name="DCBVOL"     >DCBVOL      </a>DS 1            ; VOLUME DRIVER
-    :00             182 <a class="d" name="DCBVTN"     >DCBVTN      </a>DS 1            ; VTOC TRACK NUMBER
+<hr>35F8:00             180 <a class="d" name="DCBDRV"     >DCBDRV      </a>DS 1            ; DRIVE NUMBER                  ; === Page <a class="page" name="page89">89</a> ===
+35F9:00             181 <a class="d" name="DCBVOL"     >DCBVOL      </a>DS 1            ; VOLUME DRIVER
+35FA:00             182 <a class="d" name="DCBVTN"     >DCBVTN      </a>DS 1            ; VTOC TRACK NUMBER
                     183 ;
-    :00 00 00       184 <a class="d" name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES
+35FB:00 00 00       184 <a class="d" name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; *<a class="dumb" name="waste_35fb">wastes</a>* 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *unused*
                     185 ;
                     186 <a class="d" name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH
                     <a class="line" name="fvcbufs_187">187</a> <a class="d" name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH
@@ -4404,9 +4404,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 <hr>; === <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <a class="page" name="page8">8</a>, <b class="ts">T0$0</b>, $<span class="adr">B600</span> - $<span class="adr">Bxxx</span> ===<hr>
                     001             SBTL '16-SECTOR DOS BOOT'
-                    002 <a class="d" name="HERE3L"     id="HERE3L"     >HERE3L      </a>EQU &gt;*
+                    002 <a class="d" name="HERE3L"     id="HERE3L"     >HERE3L      </a>EQU &gt;*                                          ; End of FVCBUFS = $35FD
                     003 <a class="d" name="REMDR3"     id="REMDR3"     >REMDR3      </a>EQU 256-HERE3L                                  ; Remainder 3
-                    004             ORG *+<a class="v" href="#REMDR3">REMDR3</a>
+35FE:00 00          004             ORG *+<a class="v" href="#REMDR3">REMDR3</a>                                    ; *<a class="dumb" name="waste_35fe">wastes</a>* 2 bytes to page align BOOTLDR
                     005 <a class="d" name="TRK0LDR"    id="TRK0LDR"    >TRK0LDR     </a>EQU *
                     006     DO &gt;<a class="v" href="#TRK0LDR">TRK0LDR</a><span class="macro">
                     007         ??? ;DELIBERATE ERROR IF NOT AT PAGE BOUNDARY       </span>
