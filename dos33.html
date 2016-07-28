@@ -275,8 +275,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     019             INCLUDE <a class="file" href="#FOPCLRW">FOPCLRW</a>,,2                              ;
                     020             INCLUDE <a class="file" href="#FDELCAT">FDELCAT</a>,,2                              ;
                     021             INCLUDE <a class="file" href="#FMTRWIO">FMTRWIO</a>,,2                              ;       .. $2FF6,      - T1SE
-                    022             INCLUDE <a class="file" href="#FLOCNXB">FLOCNXB</a>,,2                              ; $2FF7 .. $3???, T1SE - T1SF
-                    023             INCLUDE <a class="file" href="#FLOCSEC">FLOCSEC</a>,,2                              ;
+                    022             INCLUDE <a class="file" href="#FLOCNXB">FLOCNXB</a>,,2                              ; $2FF7 .. $31C8, T1SE - T2S0
+                    023             INCLUDE <a class="file" href="#FLOCSEC">FLOCSEC</a>,,2                              ; $31C9 .. $3396, T2S0 - T2S2
                     024             INCLUDE <a class="file" href="#FVCBUFS">FVCBUFS</a>,,2                              ; $3397 .. $35FD, T2S2 - T2S4
                     025             INLUCDE <a class="file" href="#BOOTLDR">BOOTLDR</a>,,2                              ; $35FE .. $36FF, T0S0
                     026             INCLUDE <a class="file" href="#COREQUS">COREQUS</a>,,1                              ; n/a
@@ -3865,18 +3865,18 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     280 
 
 
-<hr>; === <a class="file" name="FLOCSEC">FLOCSEC</a> - Locate Sector, Page <a class="page" name="page68">68</a>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
+<hr>; === <a class="file" name="FLOCSEC">FLOCSEC</a> - Locate Sector, Page <a class="page" name="page68">68</a>, <b class="ts">T2S0</b> - <b class="ts">T2S2</b>, $<span class="adr">B1C9</span> ..$<span class="adr">B396</span>  ===<hr>
                     001             PAGE
                     002 ;
                     003 ;FNDFIL - FIND FILE NAME IN VOLUUME DIR                     ; *spelling* VOLUME
                     004 ;
                     005 <a class="f" name="FNDFIL" >FNDFIL      </a>EQU *
-                    006             JSR <a class="x" href="#RDVTOC">RDVTOC</a>      ; GO GET VTOC
-                    007 
-                    008 
-                    009 
-                    010 
-                    011 
+31C9:20 F7 2F       006             JSR <a class="x" href="#RDVTOC">RDVTOC</a>      ; GO GET VTOC
+31CC:AD C3 35       007             LDA CCBFN       ; MOVE FN PTR
+31CD:85 42          008             STA ZPGFCB      ; TO ZERO PAGE
+31D1:AD C4 35       009             LDA CCBFN+1
+31D5:85 43          010             STA ZPGFCB+1
+31D6:A9 01          011             LDA #1                                          ; *sigh* magic number:
                     012 
                     013 
                     014 
