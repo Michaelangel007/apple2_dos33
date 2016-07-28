@@ -313,8 +313,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     025             INLUCDE <a class="_c25 file" href="#BOOTLDR">BOOTLDR</a>,,2  ; $35FE .. $37FF, T0S0 - T0S1
                     026             INCLUDE <a class="_c26 file" href="#COREQUS">COREQUS</a>,,1  ; n/a
                     027             INCLUDE <a class="_c27 file" href="#PRENIBL">PRENIBL</a>,,1  ; $3800 .. $3829, T0S2
-                    028             INCLUDE <a class="_c28 file" href="#WRITRTN">WRITRTN</a>,,1  ; $382A .. $3???, T0S2 - T0S?
-                    029             INCLUDE <a class="_c29 file" href="#POSTNRD">POSTNRD</a>,,1  ; $3??? .. $3???, T0S? - T0S?
+                    028             INCLUDE <a class="_c28 file" href="#WRITRTN">WRITRTN</a>,,1  ; $382A .. $38C1, T0S2
+                    029             INCLUDE <a class="_c29 file" href="#POSTNRD">POSTNRD</a>,,1  ; $38C2 .. $3???, T0S2 - T0S?
                     030             INCLDUE <a class="_c30 file" href="#RDADSEK">RDADSEK</a>,,1  ; $3??? .. $39FC, T?S? - T0S3
                     031             INCLUDE <a class="_c31 file" href="#MSWAITR">MSWAITR</a>,,1  ; $39FD .. $3C55, T0S3 - T0S6
                     032             INCLUDE <a class="_c40 file" href="#WRITADR">WRITADR</a>,,1  ; $3C56 .. $3CFF, T0S6
@@ -5162,7 +5162,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 3828:60             054             RTS             ;RETURN.                        ; o7 Captain Obvious
 
 
-<hr>; === <a class="file" name="WRITRTN">WRITRTN</a> - Write Routine, Page <a class="page" name="page137">137</a>, <b class="ts">T0$2</b>, $<span class="adr">B82A</span> ===<hr>
+<hr>; === <a class="file" name="WRITRTN">WRITRTN</a> - Write Routine, Page <a class="page" name="page137">137</a>, <b class="ts">T0S2</b>, $<span class="adr">B82A</span> .. $<span class="adr">B8C1</span> ===<hr>
                     001                 SBTL '16-SECTOR WRITE'
                     002 ************************
                     003 *                      *
@@ -6975,9 +6975,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
  <span class="c25" href="#BOOTLDR">BOOTLDR</span> ; $35FE .. $37FF, T0S0 - T0S1
  <span class="c26" href="#COREQUS">COREQUS</span> ; n/a
  <span class="c27" href="#PRENIBL">PRENIBL</span> ; $3800 .. $3829, T0S2
- <span class="c28" href="#WRITRTN">WRITRTN</span> ; $382A .. $3???, T0S2 - T0S?
- <span class="c29" href="#POSTNRD">POSTNRD</span> ; $3??? .. $3???, T0S? - T0S?
- <span class="c30" href="#RDADSEK">RDADSEK</span> ; $3??? .. $39FC, T0S? - T0S4
+ <span class="c28" href="#WRITRTN">WRITRTN</span> ; $382A .. $38C1, T0S2
+ <span class="c29" href="#POSTNRD">POSTNRD</span> ; $38C2 .. $3???, T0S2 - T0S?
+ <span class="c30" href="#RDADSEK">RDADSEK</span> ; $3??? .. $39FC, T0S? - T0S3
  <span class="c31" href="#MSWAITR">MSWAITR</span> ; $39FD .. $3C55, T0S3 - T0S6
  <span class="c40" href="#WRITADR">WRITADR</span> ; $3C56 .. $3CFF, T0S6
  <span class="c41" href="#RWTSONE">RWTSONE</span> ; $3D00 .. $3DAA, T0S7
@@ -7921,26 +7921,26 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 3810:<span class="c27">00 3B E8 E0 56 90 ED A2</span> |.;h`V.m"|
 3818:<span class="c27">00 98 D0 E8 A2 55 BD 00</span> |..Ph"U=.|
 3820:<span class="c27">3C 29 3F 9D 00 3C CA 10</span> |&lt;)?..&lt;J.|
-3828:<span class="c27">F5 60</span> 38 86 27 8E 78 06 |u`8.'.x.|
-3830:BD 8D C0 BD 8E C0 30 7C |=.@=.@0||
-3838:AD 00 3C 85 26 A9 FF 9D |-.&lt;.&amp;)..|
-3840:8F C0 1D 8C C0 48 68 EA |.@..@Hhj|
-3848:A0 04 48 68 20 B9 38 88 | .Hh 98.|
-3850:D0 F8 A9 D5 20 B8 38 A9 |Px)U 88)|
-3858:AA 20 B8 38 A9 AD 20 B8 |* 88)- 8|
-3860:38 98 A0 56 D0 03 B9 00 |8. VP.9.|
-3868:3C 59 FF 3B AA BD 29 3A |&lt;Y.;*=):|
-3870:A6 27 9D 8D C0 BD 8C C0 |&amp;'..@=.@|
-3878:88 D0 EB A5 26 EA 59 00 |.Pk%&amp;jY.|
-3880:3B AA BD 29 3A AE 78 06 |;*=):.x.|
-3888:9D 8D C0 BD 8C C0 B9 00 |..@=.@9.|
-3890:3B C8 D0 EA AA BD 29 3A |;HPj*=):|
-3898:A6 27 20 BB 38 A9 DE 20 |&amp;' ;8)^ |
-38A0:B8 38 A9 AA 20 B8 38 A9 |88)* 88)|
-38A8:EB 20 B8 38 A9 FF 20 B8 |k 88). 8|
-38B0:38 BD 8E C0 BD 8C C0 60 |8=.@=.@`|
-38B8:18 48 68 9D 8D C0 1D 8C |.Hh..@..|
-38C0:C0 60 A0 00 A2 56 CA 30 |@` ."VJ0|
+3828:<span class="c27">F5 60</span> <span class="c28">38 86 27 8E 78 06</span> |u`8.'.x.| WRITRTN, $382A .. $38C1, T0S2
+3830:<span class="c28">BD 8D C0 BD 8E C0 30 7C</span> |=.@=.@0||
+3838:<span class="c28">AD 00 3C 85 26 A9 FF 9D</span> |-.&lt;.&amp;)..|
+3840:<span class="c28">8F C0 1D 8C C0 48 68 EA</span> |.@..@Hhj|
+3848:<span class="c28">A0 04 48 68 20 B9 38 88</span> | .Hh 98.|
+3850:<span class="c28">D0 F8 A9 D5 20 B8 38 A9</span> |Px)U 88)|
+3858:<span class="c28">AA 20 B8 38 A9 AD 20 B8</span> |* 88)- 8|
+3860:<span class="c28">38 98 A0 56 D0 03 B9 00</span> |8. VP.9.|
+3868:<span class="c28">3C 59 FF 3B AA BD 29 3A</span> |&lt;Y.;*=):|
+3870:<span class="c28">A6 27 9D 8D C0 BD 8C C0</span> |&amp;'..@=.@|
+3878:<span class="c28">88 D0 EB A5 26 EA 59 00</span> |.Pk%&amp;jY.|
+3880:<span class="c28">3B AA BD 29 3A AE 78 06</span> |;*=):.x.|
+3888:<span class="c28">9D 8D C0 BD 8C C0 B9 00</span> |..@=.@9.|
+3890:<span class="c28">3B C8 D0 EA AA BD 29 3A</span> |;HPj*=):|
+3898:<span class="c28">A6 27 20 BB 38 A9 DE 20</span> |&amp;' ;8)^ |
+38A0:<span class="c28">B8 38 A9 AA 20 B8 38 A9</span> |88)* 88)|
+38A8:<span class="c28">EB 20 B8 38 A9 FF 20 B8</span> |k 88). 8|
+38B0:<span class="c28">38 BD 8E C0 BD 8C C0 60</span> |8=.@=.@`|
+38B8:<span class="c28">18 48 68 9D 8D C0 1D 8C</span> |.Hh..@..|
+38C0:<span class="c28">C0 60</span> <span class="c29">A0 00 A2 56 CA 30</span> |@` ."VJ0|
 38C8:FB B9 00 3B 5E 00 3C 2A |{9.;^.&lt;*|
 38D0:5E 00 3C 2A 91 3E C8 C4 |^.&lt;*.&gt;HD|
 38D8:26 D0 EB 60 A0 20 88 F0 |&amp;Pk`  .p|
