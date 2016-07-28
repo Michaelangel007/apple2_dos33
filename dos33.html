@@ -4224,8 +4224,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     047 ;                                                           ;As Mike Acton says: "<i>Solve the <b>actual</b> problem,</i>
                     048 ;                                                           ;                     <i>NOT the one you <b>think</b> you have.</i>"
                     049            PAGE                                             ;<span class="adr">B3F3</span> =T00
-33F3:00 00 00 00    050            ORG VTOC+256                                     ; [38]=T00 *hack* uninitialized memory is never a good idea
-33F7:00 00 00 00                                                                    ; [3C]=T01
+33F3:00 00 00 00    050            ORG VTOC+256                                     ; [38]=T00 *hack* Since we're wasting disk space anyways ...
+33F7:00 00 00 00                                                                    ; [3C]=T01    ... uninitialized memory is <b>never</b> a good idea
 33FB:00 00 00 00                                                                    ; [40]=T02 Why not simply <span class="macro">DS 256-&gt;VSECAL,0</span> ???
 33FF:00 00 00 00                                                                    ; [44]=T03 === <b class="ts">T2$3</b> === 
 3403:00 00 00 00                                                                    ; [48]=T03 *<a class="dumb" name="fvcbufs_3400">wastes</a>* an <b>entire</b> sector for <i>1 bloody byte</i>!?
