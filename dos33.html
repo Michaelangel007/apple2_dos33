@@ -316,7 +316,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     028             INCLUDE <a class="_c28 file" href="#WRITRTN">WRITRTN</a>,,1  ; $382A .. $3???, T0S2 - T0S?
                     029             INCLUDE <a class="_c29 file" href="#POSTNRD">POSTNRD</a>,,1  ; $3??? .. $3???, T0S? - T0S?
                     030             INCLDUE <a class="_c30 file" href="#RDADSEK">RDADSEK</a>,,1  ; $3??? .. $39FC, T?S? - T0S3
-                    031             INCLUDE <a class="_c31 file" href="#MSWAITR">MSWAITR</a>,,1  ; $39FD .. $3C55, T0S4 - T0S6
+                    031             INCLUDE <a class="_c31 file" href="#MSWAITR">MSWAITR</a>,,1  ; $39FD .. $3C55, T0S3 - T0S6
                     032             INCLUDE <a class="_c40 file" href="#WRITADR">WRITADR</a>,,1  ; $3C56 .. $3CFF, T0S6
                     033             INCLUDE <a class="_c41 file" href="#RWTSONE">RWTSONE</a>,,1  ; $3D00 .. $3DAA, T0S7
                     034             INCLUDE <a class="_c42 file" href="#RWTSTWO">RWTSTWO</a>,,1  ; $3DAB .. $3EAE, T0S7 - T0S8
@@ -5665,7 +5665,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 39FA:A6 2B          202             LDX <a class="v" href="#SLOTTEMP">SLOTTEMP</a>    ;RESTORE X-REG
 39FC:60             203 <a class="f" name="SEEKRTS"    >SEEKRTS     </a>RTS             ;AND RETURN                     ; /sarcasm I don't know what we would do without you Captain Obvious!
 
-<hr>; === <a class="file" name="MSWAITR">MSWAITR</a> - Microsecond wait routine, Page <a class="page" name="page97">97</a>, <b class="ts">T0$4</b>-<b class="ts">T0$6</b> @ $55, $<span class="adr">B9FD</span> - $<span class="adr">BC55</span> ===<hr>
+<hr>; === <a class="file" name="MSWAITR">MSWAITR</a> - Microsecond wait routine, Page <a class="page" name="page97">97</a>, <b class="ts">T0$3</b> @ $FD - <b class="ts">T0$6</b> @ $55, $<span class="adr">B9FD</span> - $<span class="adr">BC55</span> ===<hr>
                     001                 SBTL '16-SECTOR MSWAIT'
                     002 **************************
                     003 *   MSWAIT SUBROUTINE    *
@@ -5695,7 +5695,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     027 *    ---- ASSUMES ----   *
                     028 * 1 USEC CYCLE TIME      *
                     029 **************************
-39FD:00 00 00       <a class="line" name="mswaitr_030">030</a>         DS 3,0              ;AVOID PAGE BOUNDARY CROSSING...; T0$3 @ $FC *wastes* 3 bytes
+39FD:00 00 00       <a class="line" name="mswaitr_030">030</a>         DS 3,0              ;AVOID PAGE BOUNDARY CROSSING...; === <b class="ts">T0S3</b> === @ $FC *wastes* 3 bytes
 3A00:A2 11          031 <a class="f"    name="MSWAIT"     >MSWAIT      </a>LDX #$<span class="adr">11</span>                                        ; === <b class="ts">T0$4</b> === *sigh* Typical bloated code ...
 3A02:CA             032 <a class="f"    name="MSW1"       >MSW1        </a>DEX             DELAY 86 USEC.                  ; ... should just adjust algorithm timing instead!
 3A03:D0 FD          033             BNE <a class="x" href="#MSW1"    >MSW1</a>
@@ -6978,7 +6978,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
  <span class="c28" href="#WRITRTN">WRITRTN</span> ; $382A .. $3???, T0S2 - T0S?
  <span class="c29" href="#POSTNRD">POSTNRD</span> ; $3??? .. $3???, T0S? - T0S?
  <span class="c30" href="#RDADSEK">RDADSEK</span> ; $3??? .. $39FC, T0S? - T0S4
- <span class="c31" href="#MSWAITR">MSWAITR</span> ; $39FD .. $3C55, T0S4 - T0S6
+ <span class="c31" href="#MSWAITR">MSWAITR</span> ; $39FD .. $3C55, T0S3 - T0S6
  <span class="c40" href="#WRITADR">WRITADR</span> ; $3C56 .. $3CFF, T0S6
  <span class="c41" href="#RWTSONE">RWTSONE</span> ; $3D00 .. $3DAA, T0S7
  <span class="c42" href="#RWTSTWO">RWTSTWO</span> ; $3DAB .. $3EAE, T0S7 - T0S8
