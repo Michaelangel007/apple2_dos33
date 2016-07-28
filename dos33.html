@@ -6928,6 +6928,1235 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <hr><hr>
 </pre>
 
+<h1>Color-Coded Memory by Source File</h1>
+<!--
+    :%s/</\&lt;/g
+    :%s/>/\&gt;/g
+    :%s/\&[^[lg]t]/\&amp;/g
+    hexdump8 dos33.bin 1B00 2
+-->
+
+<pre>
+ <span class="c00" href="#RELOCTR">RELOCTR</span> ; $1B00 .. $1CFF, T0SA - T0SB
+ <span class="c01" href="#DOSINIT">DOSINIT</span> ; $1D00 .. $1E80, T0SC - T0SD
+ <span class="c02" href="#DOSHOOK">DOSHOOK</span> ; $1E81 .. $####, T0SD
+ <span class="c03" href="#CMDSCAN">CMDSCAN</span> ; $#### .. $####
+ <span class="c04" href="#XOPNCLS">XOPNCLS</span> ; $#### .. $####
+ <span class="c05" href="#XLODSAV">XLODSAV</span> ; $#### .. $####
+ <span class="c06" href="#XMISCMD">XMISCMD</span> ;
+ <span class="c07" href="#DOSGOER">DOSGOER</span> ;       .. $27D3,      - T1S6
+ <span class="c08" href="#BLDFTAB">BLDFTAB</span> ; $27D4 .. $2883, T1S6 - T1S7
+ <span class="c09" href="#CMDTBLS">CMDTBLS</span> ; $2884 .. $####, T1S7 - T?S?
+ <span class="c10" href="#FDOSENT">FDOSENT</span> ;
+ <span class="c11" href="#FOPCLRW">FOPCLRW</span> ;
+ <span class="c00" href="#FDELCAT">FDELCAT</span> ;
+ <span class="c01" href="#FMTRWIO">FMTRWIO</span> ;       .. $2FF6,      - T1SE
+ <span class="c02" href="#FLOCNXB">FLOCNXB</span> ; $2FF7 .. $31C8, T1SE - T2S0
+ <span class="c03" href="#FLOCSEC">FLOCSEC</span> ; $31C9 .. $3396, T2S0 - T2S2
+ <span class="c04" href="#FVCBUFS">FVCBUFS</span> ; $3397 .. $35FD, T2S2 - T2S4
+ <span class="c05" href="#BOOTLDR">BOOTLDR</span> ; $35FE .. $37FF, T0S0
+ <span class="c06" href="#COREQUS">COREQUS</span> ; n/a
+ <span class="c07" href="#PRENIBL">PRENIBL</span> ; $3800 .. $3829, T0S2
+ <span class="c08" href="#WRITRTN">WRITRTN</span> ; $382A .. $3???  T0S2
+ <span class="c09" href="#POSTNRD">POSTNRD</span> ;
+ <span class="c10" href="#RDADSEK">RDADSEK</span> ; $3??? .. $3C55, T?S? - T0$6
+ <span class="c11" href="#MSWAITR">MSWAITR</span> ; $3C56 .. $3Cxx, T0$6 - T0$?
+ <span class="c00" href="#WRITADR">WRITADR</span> ;
+ <span class="c01" href="#RWTSONE">RWTSONE</span> ; $3D00 .. $3DAA, T0S7
+ <span class="c02" href="#RWTSTWO">RWTSTWO</span> ; $3DAB .. $3EAE, T0S7 - T0S8
+ <span class="c03" href="#FORMATR">FORMATR</span> ; $3EAF .. $3FC7, T0S8 - T?S?
+ <span class="c04" href="#DOSPTCH">DOSPTCH</span> ; $3FC8 .. $3FFF
+</pre>
+
+
+<pre>
+1B00:<span class="c00">4C 84 1D A9 BF 85 41 A2</span> |L..)?.A"|
+1B08:<span class="c00">00 86 40 A0 00 A1 40 85</span> |..@ .!@.|
+1B10:<span class="c00">26 98 45 26 85 26 98 41</span> |&amp;.E&amp;.&amp;.A|
+1B18:<span class="c00">40 81 40 C5 26 D0 05 C8</span> |@.@E&amp;P.H|
+1B20:<span class="c00">D0 EF F0 04 C6 41 D0 E3</span> |Pop.FAPc|
+1B28:<span class="c00">A5 41 29 DF 85 43 86 42</span> |%A)_.C.B|
+1B30:<span class="c00">A1 42 48 85 26 98 45 26</span> |!BH.&amp;.E&amp;|
+1B38:<span class="c00">85 26 98 41 40 81 42 C5</span> |.&amp;.A@.BE|
+1B40:<span class="c00">26 D0 09 C8 D0 EF A4 43</span> |&amp;P.HPo$C|
+1B48:<span class="c00">68 4C 51 1B 68 81 42 A4</span> |hLQ.h.B$|
+1B50:<span class="c00">41 C8 8C 7D 1C 38 98 ED</span> |AH.}.8.m|
+1B58:<span class="c00">7E 1C 8D 7C 1C 38 ED 7A</span> |~..|.8mz|
+1B60:<span class="c00">1C F0 9D 8D 7F 1C AD 7A</span> |.p....-z|
+1B68:<span class="c00">1C 8D 0D 1D A9 1D 8D 49</span> |....)..I|
+1B70:<span class="c00">37 A9 84 8D 48 37 A2 00</span> |7)..H7".|
+1B78:<span class="c00">86 40 BD 29 1C A8 BD 2A</span> |.@=).(=*|
+1B80:<span class="c00">1C 85 41 4C 93 1B 18 B1</span> |..AL...1|
+1B88:<span class="c00">40 6D 7F 1C 91 40 C8 D0</span> |@m...@HP|
+1B90:<span class="c00">02 E6 41 C8 D0 02 E6 41</span> |.fAHP.fA|
+1B98:<span class="c00">A5 41 DD 2C 1C 90 E7 98</span> |%A],..g.|
+1BA0:<span class="c00">DD 2B 1C 90 E1 8A 18 69</span> |]+..a..i|
+1BA8:<span class="c00">04 AA EC 28 1C 90 CB A2</span> |.*l(..K"|
+1BB0:<span class="c00">00 8E 9C 33 BD 5A 1C 85</span> |...3=Z..|
+1BB8:<span class="c00">40 BD 5B 1C 85 41 A2 00</span> |@=[..A".|
+1BC0:<span class="c00">A1 40 20 8E F8 A4 2F C0</span> |!@ .x$/@|
+1BC8:<span class="c00">02 D0 11 B1 40 CD 7A 1C</span> |.P.1@Mz.|
+1BD0:<span class="c00">90 0A CD 7B 1C B0 05 6D</span> |..M{.0.m|
+1BD8:<span class="c00">7F 1C 91 40 38 A5 2F 65</span> |...@8%/e|
+1BE0:<span class="c00">40 85 40 A9 00 65 41 85</span> |@.@).eA.|
+1BE8:<span class="c00">41 AE 9C 33 DD 5D 1C 90</span> |A..3]]..|
+1BF0:<span class="c00">CD A5 40 DD 5C 1C 90 C6</span> |M%@]\..F|
+1BF8:<span class="c00">8A 18 69 04 AA EC 59 1C</span> |..i.*lY.|
+1C00:<span class="c00">90 AF A9 3F 85 41 AC 7D</span> |./)?.A,}|
+1C08:<span class="c00">1C 88 84 43 A9 00 85 40</span> |...C)..@|
+1C10:<span class="c00">85 42 A8 B1 40 91 42 C8</span> |.B(1@.BH|
+1C18:<span class="c00">D0 F9 CE 80 1C F0 06 C6</span> |PyN..p.F|
+1C20:<span class="c00">41 C6 43 D0 EE 4C 54 1E</span> |AFCPnLT.|
+1C28:<span class="c00">24 00 1D 56 1D 58 1D 5A</span> |$..V.X.Z|
+1C30:<span class="c00">1D 64 1D 66 1D 6C 1D 70</span> |.d.f.l.p|
+1C38:<span class="c00">1D 78 1D 7C 1D 7E 1D 80</span> |.x.|.~..|
+1C40:<span class="c00">1D C1 2A FD 2A E4 37 E8</span> |.A*}*d7h|
+1C48:<span class="c00">37 EE 37 F0 37 00 00 00</span> |7n7p7...|
+1C50:<span class="c00">00 00 00 00 00 00 00 00</span> |........|
+1C58:<span class="c00">00 20 84 1D 84 28 FD 2A</span> |. ...(}*|
+1C60:<span class="c00">97 33 5D 36 E0 37 56 3C</span> |.3]6`7V&lt;|
+1C68:<span class="c00">DF 3C 00 38 11 3A 69 3A</span> |_&lt;.8.:i:|
+1C70:<span class="c00">84 3A 00 3D A8 3F C8 3F</span> |.:.=(?H?|
+1C78:<span class="c00">FF 3F 1D 40 00 00 23 00</span> |.?.@..#.|
+1C80:<span class="c00">23 FC FC FC FC FC FC FD</span> |#||||||}|
+1C88:<span class="c00">FC FC FF FC FD FC FC FF</span> |||.|}||.|
+1C90:<span class="c00">FF FC FE FD FE FD FD FE</span> |.|~}~}}~|
+1C98:<span class="c00">FF FC FE FF FD FE FF FD</span> |.|~.}~.}|
+1CA0:<span class="c00">FC FD FD FC FD FE FD FF</span> ||}}|}~}.|
+1CA8:<span class="c00">FC FE FC FC FC FC FC FC</span> ||~|||||||
+1CB0:<span class="c00">FD FC FC FE FC FD FC FC</span> |}||~|}|||
+1CB8:<span class="c00">FF FC FC FE FD FC FD FF</span> |.||~}|}.|
+1CC0:<span class="c00">FC FF FD FE FF FD FF FC</span> ||.}~.}.||
+1CC8:<span class="c00">FC FD FE FF FF FF FC FC</span> ||}~...|||
+1CD0:<span class="c00">FF FF FC FE FD FC FD FD</span> |..|~}|}}|
+1CD8:<span class="c00">FE FF FD FE FF FC FE FE</span> |~.}~.|~~|
+1CE0:<span class="c00">FC FD FC FD FE FD FD FC</span> ||}|}~}}||
+1CE8:<span class="c00">FD FC FF FD FC FF FC FC</span> |}|.}|.|||
+1CF0:<span class="c00">FE FD FC FC FD FC FE FC</span> |~}||}|~||
+1CF8:<span class="c00">FC FD FF FC FC FD FC FC</span> ||}.||}|||
+1D00:<span class="c01">D3 1C 81 1E BD 1E 75 2A</span> |S...=.u*|
+1D08:<span class="c01">93 2A 60 2A 00 1B BB 35</span> |.*`*..;5|
+1D10:<span class="c01">EA 1E 11 1F 22 1F 2E 1F</span> |j..."...|
+1D18:<span class="c01">51 1F 60 1F 70 1F 4E 25</span> |Q.`.p.N%|
+1D20:<span class="c01">12 24 96 23 D0 24 EF 24</span> |.$.#P$o$|
+1D28:<span class="c01">62 22 70 22 74 22 E9 22</span> |b"p"t"i"|
+1D30:<span class="c01">1A 25 C5 25 0F 25 DC 25</span> |.%E%.%\%|
+1D38:<span class="c01">A2 22 97 22 80 22 6D 25</span> |""."."m%|
+1D40:<span class="c01">32 22 3C 22 28 22 2D 22</span> |2"&lt;"("-"|
+1D48:<span class="c01">50 22 79 25 9D 25 30 23</span> |P"y%.%0#|
+1D50:<span class="c01">5C 23 8D 23 7C 22 36 E8</span> |\#.#|"6h|
+1D58:<span class="c01">E5 24 E3 E3 00 E0 03 E0</span> |e$cc.`.`|
+1D60:<span class="c01">00 00 36 E8 E5 24 E3 E3</span> |..6he$cc|
+1D68:<span class="c01">00 E0 03 E0 FC 24 FC 24</span> |.`.`|$|$|
+1D70:<span class="c01">65 D8 00 E0 3C D4 F2 D4</span> |eX.`&lt;TrT|
+1D78:<span class="c01">06 25 06 25 67 10 84 1D</span> |.%.%g...|
+1D80:<span class="c01">3C 0C F2 0C AD E9 37 4A</span> |&lt;.r.-i7J|
+1D88:<span class="c01">4A 4A 4A 8D 6A 2A AD EA</span> |JJJ.j*-j|
+1D90:<span class="c01">37 8D 68 2A AD 00 E0 49</span> |7.h*-.`I|
+1D98:<span class="c01">20 D0 11 8D B6 2A A2 0A</span> | P..6*".|
+1DA0:<span class="c01">BD 61 1D 9D 55 1D CA D0</span> |=a..U.JP|
+1DA8:<span class="c01">F7 4C BC 1D A9 40 8D B6</span> |wL&lt;.)@.6|
+1DB0:<span class="c01">2A A2 0C BD 6B 1D 9D 55</span> |*".=k..U|
+1DB8:<span class="c01">1D CA D0 F7 38 B0 12 AD</span> |.JPw80.-|
+1DC0:<span class="c01">B6 2A D0 04 A9 20 D0 05</span> |6*P.) P.|
+1DC8:<span class="c01">0A 10 05 A9 4C 20 B2 25</span> |...)L 2%|
+1DD0:<span class="c01">18 08 20 51 28 A9 00 8D</span> |.. Q()..|
+1DD8:<span class="c01">5E 2A 8D 52 2A 28 6A 8D</span> |^*.R*(j.|
+1DE0:<span class="c01">51 2A 30 03 6C 5E 1D 6C</span> |Q*0.l^.l|
+1DE8:<span class="c01">5C 1D 0A 10 19 8D B6 2A</span> |\.....6*|
+1DF0:<span class="c01">A2 0C BD 77 1D 9D 55 1D</span> |".=w..U.|
+1DF8:<span class="c01">CA D0 F7 A2 1D BD 93 2A</span> |JPw".=.*|
+1E00:<span class="c01">9D 75 2A CA 10 F7 AD B1</span> |.u*J.w-1|
+1E08:<span class="c01">2A 8D 57 2A 20 D4 27 AD</span> |*.W* T'-|
+1E10:<span class="c01">B3 2A F0 09 48 20 9D 26</span> |3*p.H .&amp;|
+1E18:<span class="c01">68 A0 00 91 40 20 5B 27</span> |h ..@ ['|
+1E20:<span class="c01">AD 5F 2A D0 20 A2 2F BD</span> |-_*P "/=|
+1E28:<span class="c01">51 1E 9D D0 03 CA 10 F7</span> |Q..P.J.w|
+1E30:<span class="c01">AD 53 1E 8D F3 03 49 A5</span> |-S..s.I%|
+1E38:<span class="c01">8D F4 03 AD 52 1E 8D F2</span> |.t.-R..r|
+1E40:<span class="c01">03 A9 06 D0 05 AD 62 2A</span> |.).P.-b*|
+1E48:<span class="c01">F0 06 8D 5F 2A 4C 80 21</span> |p.._*L.!|
+1E50:<span class="c01">60 4C BF 1D 4C 84 1D 4C</span> |`L?.L..L|
+1E58:<span class="c01">FD 2A 4C B5 37 AD 0F 1D</span> |}*L57-..|
+1E60:<span class="c01">AC 0E 1D 60 AD C2 2A AC</span> |,..`-B*,|
+1E68:<span class="c01">C1 2A 60 4C 51 28 EA EA</span> |A*`LQ(jj|
+1E70:<span class="c01">4C 59 FA 4C 65 FF 4C 58</span> |LYzLe.LX|
+1E78:<span class="c01">FF 4C 65 FF 4C 65 FF 65</span> |.Le.Le.e|
+1E80:<span class="c01">FF</span> <span class="c02">20 D1 1E AD 51 2A F0</span> |. Q.-Q*p|
+1E88:<span class="c02">15 48 AD 5C 2A 91 28 68</span> |.H-\*.(h|
+1E90:<span class="c02">30 03 4C 26 26 20 EA 1D</span> |0.L&amp;&amp; j.|
+1E98:A4 24 A9 60 91 28 AD B3 |$$)`.(-3|
+1EA0:2A F0 03 20 82 26 A9 03 |*p. .&amp;).|
+1EA8:8D 52 2A 20 BA 1F 20 BA |.R* :. :|
+1EB0:1E 8D 5C 2A 8E 5A 2A 4C |..\*.Z*L|
+1EB8:B3 1F 6C 38 00 20 D1 1E |3.l8. Q.|
+1EC0:AD 52 2A 0A AA BD 11 1D |-R*.*=..|
+1EC8:48 BD 10 1D 48 AD 5C 2A |H=..H-\*|
+1ED0:60 8D 5C 2A 8E 5A 2A 8C |`.\*.Z*.|
+1ED8:5B 2A BA E8 E8 8E 59 2A |[*:hh.Y*|
+1EE0:A2 03 BD 53 2A 95 36 CA |".=S*.6J|
+1EE8:10 F8 60 AE B7 2A F0 03 |.x`.7*p.|
+1EF0:4C 78 1F AE 51 2A F0 08 |Lx..Q*p.|
+1EF8:C9 BF F0 75 C5 33 F0 27 |I?puE3p'|
+1F00:A2 02 8E 52 2A CD B2 2A |"..R*M2*|
+1F08:D0 19 CA 8E 52 2A CA 8E |P.J.R*J.|
+1F10:5D 2A AE 5D 2A 9D 00 02 |]*.]*...|
+1F18:E8 8E 5D 2A C9 8D D0 75 |h.]*I.Pu|
+1F20:4C CD 1F C9 8D D0 7D A2 |LM.I.P}"|
+1F28:00 8E 52 2A 4C A4 1F A2 |..R*L$."|
+1F30:00 8E 52 2A C9 8D F0 07 |..R*I.p.|
+1F38:AD B3 2A F0 67 D0 5E 48 |-3*pgP^H|
+1F40:38 AD B3 2A D0 03 20 5E |8-3*P. ^|
+1F48:26 68 90 EC AE 5A 2A 4C |&amp;h.l.Z*L|
+1F50:15 1F C9 8D D0 05 A9 05 |..I.P.).|
+1F58:8D 52 2A 20 0E 26 4C 99 |.R* .&amp;L.|
+1F60:1F CD B2 2A F0 85 C9 8A |.M2*p.I.|
+1F68:F0 F1 A2 04 8E 52 2A D0 |pq"..R*P|
+1F70:E1 A9 00 8D 52 2A F0 25 |a)..R*p%|
+1F78:A9 00 8D B7 2A 20 51 28 |)..7* Q(|
+1F80:4C DC 24 AD 00 02 CD B2 |L\$-..M2|
+1F88:2A F0 0A A9 8D 8D 00 02 |*p.)....|
+1F90:A2 00 8E 5A 2A A9 40 D0 |"..Z*)@P|
+1F98:06 A9 10 D0 02 A9 20 2D |.).P.) -|
+1FA0:5E 2A F0 0F 20 BA 1F 20 |^*p. :. |
+1FA8:C5 1F 8D 5C 2A 8C 5B 2A |E..\*.[*|
+1FB0:8E 5A 2A 20 51 28 AE 59 |.Z* Q(.Y|
+1FB8:2A 9A AD 5C 2A AC 5B 2A |*.-\*,[*|
+1FC0:AE 5A 2A 38 60 6C 36 00 |.Z*8`l6.|
+1FC8:A9 8D 4C C5 1F A0 FF 8C |).LE. ..|
+1FD0:5F 2A C8 8C 62 2A EE 5F |_*H.b*n_|
+1FD8:2A A2 00 08 BD 00 02 CD |*"..=..M|
+1FE0:B2 2A D0 01 E8 8E 5D 2A |2*P.h.]*|
+1FE8:20 A4 21 29 7F 59 84 28 | $!).Y.(|
+1FF0:C8 0A F0 02 68 08 90 F0 |H.p.h..p|
+1FF8:28 F0 20 B9 84 28 D0 D6 |(p 9.(PV|
+2000:AD 00 02 CD B2 2A F0 03 |-..M2*p.|
+2008:4C A4 1F AD 01 02 C9 8D |L$.-..I.|
+2010:D0 06 20 5B 27 4C 95 1F |P. ['L..|
+2018:4C C4 26 0E 5F 2A AC 5F |LD&amp;._*,_|
+2020:2A 20 5E 26 90 0C A9 02 |* ^&amp;..).|
+2028:39 09 29 F0 05 A9 0F 4C |9.)p.).L|
+2030:D2 26 C0 06 D0 02 84 33 |R&amp;@.P..3|
+2038:A9 20 39 09 29 F0 61 20 |) 9.)pa |
+2040:95 20 08 20 A4 21 F0 1E |. . $!p.|
+2048:0A 90 05 30 03 4C 00 20 |...0.L. |
+2050:6A 4C 59 20 20 93 21 F0 |jLY  .!p|
+2058:0D 99 75 2A C8 C0 3C 90 |..u*H@&lt;.|
+2060:F3 20 93 21 D0 FB 28 D0 |s .!P{(P|
+2068:0F AC 5F 2A A9 10 39 09 |.,_*).9.|
+2070:29 F0 0C A0 1E 08 D0 CB |)p. ..PK|
+2078:AD 93 2A C9 A0 F0 13 AD |-.*I p.-|
+2080:75 2A C9 A0 D0 4B AC 5F |u*I PK,_|
+2088:2A A9 C0 39 09 29 F0 02 |*)@9.)p.|
+2090:10 3F 4C 00 20 A0 3C A9 |.?L.  &lt;)|
+2098:A0 99 74 2A 88 D0 FA 60 | .t*.Pz`|
+20A0:8D 75 2A A9 0C 39 09 29 |.u*).9.)|
+20A8:F0 27 20 B9 21 B0 1F A8 |p' 9!0.(|
+20B0:D0 17 E0 11 B0 13 AC 5F |P.`.0.,_|
+20B8:2A A9 08 39 09 29 F0 06 |*).9.)p.|
+20C0:E0 08 B0 CE 90 0B 8A D0 |`.0N...P|
+20C8:08 A9 02 4C D2 26 4C C4 |.).LR&amp;LD|
+20D0:26 A9 00 8D 65 2A 8D 74 |&amp;)..e*.t|
+20D8:2A 8D 66 2A 8D 6C 2A 8D |*.f*.l*.|
+20E0:6D 2A 20 DC 3F AD 5D 2A |m* \?-]*|
+20E8:20 A4 21 D0 1F C9 8D D0 | $!P.I.P|
+20F0:F7 AE 5F 2A AD 65 2A 1D |w._*-e*.|
+20F8:0A 29 5D 0A 29 D0 93 AE |.)].)P..|
+2100:63 2A F0 76 8D 63 2A 8E |c*pv.c*.|
+2108:5D 2A D0 DC A2 0A DD 40 |]*P\".]@|
+2110:29 F0 05 CA D0 F8 F0 B6 |)p.JPxp6|
+2118:BD 4A 29 30 47 0D 65 2A |=J)0G.e*|
+2120:8D 65 2A CA 8E 64 2A 20 |.e*J.d* |
+2128:B9 21 B0 A2 AD 64 2A 0A |9!0"-d*.|
+2130:0A A8 A5 45 D0 09 A5 44 |.(%EP.%D|
+2138:D9 55 29 90 8C A5 45 D9 |YU)..%EY|
+2140:58 29 90 0B D0 83 A5 44 |X)..P.%D|
+2148:D9 57 29 90 02 D0 F5 AD |YW)..Pu-|
+2150:63 2A D0 94 98 4A A8 A5 |c*P..J(%|
+2158:45 99 67 2A A5 44 99 66 |E.g*%D.f|
+2160:2A 4C E8 20 48 A9 80 0D |*Lh H)..|
+2168:65 2A 8D 65 2A 68 29 7F |e*.e*h).|
+2170:0D 74 2A 8D 74 2A D0 E9 |.t*.t*Pi|
+2178:F0 9C 20 80 21 4C 83 1F |p. .!L..|
+2180:20 5B 27 20 AE 21 AD 5F | [' .!-_|
+2188:2A AA BD 1F 1D 48 BD 1E |**=..H=.|
+2190:1D 48 60 AE 5D 2A BD 00 |.H`.]*=.|
+2198:02 C9 8D F0 06 E8 8E 5D |.I.p.h.]|
+21A0:2A C9 AC 60 20 93 21 F0 |*I,` .!p|
+21A8:FA C9 A0 F0 F7 60 A9 00 |zI pw`).|
+21B0:A0 16 99 BA 35 88 D0 FA | ..:5.Pz|
+21B8:60 A9 00 85 44 85 45 20 |`)..D.E |
+21C0:A4 21 08 C9 A4 F0 3C 28 |$!.I$p&lt;(|
+21C8:4C CE 21 20 A4 21 D0 06 |LN! $!P.|
+21D0:A6 44 A5 45 18 60 38 E9 |&amp;D%E.`8i|
+21D8:B0 30 21 C9 0A B0 1D 20 |00!I.0. |
+21E0:FE 21 65 44 AA A9 00 65 |~!eD*).e|
+21E8:45 A8 20 FE 21 20 FE 21 |E( ~! ~!|
+21F0:8A 65 44 85 44 98 65 45 |.eD.D.eE|
+21F8:85 45 90 CF 38 60 06 44 |.E.O8`.D|
+2200:26 45 60 28 20 A4 21 F0 |&amp;E`( $!p|
+2208:C5 38 E9 B0 30 EE C9 0A |E8i00nI.|
+2210:90 08 E9 07 30 E6 C9 10 |..i.0fI.|
+2218:B0 E2 A2 04 20 FE 21 CA |0b". ~!J|
+2220:D0 FA 05 44 85 44 4C 04 |Pz.D.DL.|
+2228:22 A5 44 4C 95 FE A5 44 |"%DL.~%D|
+2230:4C 8B FE AD 5E 2A 0D 74 |L.~-^*.t|
+2238:2A 8D 5E 2A 60 2C 74 2A |*.^*`,t*|
+2240:50 03 20 C8 1F A9 70 4D |P. H.)pM|
+2248:74 2A 2D 5E 2A 8D 5E 2A |t*-^*.^*|
+2250:60 A9 00 8D B3 2A A5 44 |`)..3*%D|
+2258:48 20 16 23 68 8D 57 2A |H .#h.W*|
+2260:4C D4 27 A9 05 20 AA 22 |LT'). *"|
+2268:20 64 27 A0 00 98 91 40 | d' ...@|
+2270:60 A9 07 D0 02 A9 08 20 |`).P.). |
+2278:AA 22 4C EA 22 A9 0C D0 |*"Lj").P|
+2280:F6 AD 08 1D 8D BD 35 AD |v-...=5-|
+2288:09 1D 8D BE 35 A9 09 8D |...&gt;5)..|
+2290:63 2A 20 C8 22 4C EA 22 |c* H"Lj"|
+2298:20 A3 22 20 8C 26 D0 FB | #" .&amp;P{|
+22A0:4C 71 36 A9 00 4C D5 23 |Lq6).LU#|
+22A8:A9 01 8D 63 2A AD 6C 2A |)..c*-l*|
+22B0:D0 0A AD 6D 2A D0 05 A9 |P.-m*P.)|
+22B8:01 8D 6C 2A AD 6C 2A 8D |..l*-l*.|
+22C0:BD 35 AD 6D 2A 8D BE 35 |=5-m*.&gt;5|
+22C8:20 EA 22 A5 45 D0 03 4C | j"%EP.L|
+22D0:C8 26 85 41 A5 44 85 40 |H&amp;.A%D.@|
+22D8:20 43 27 20 4E 27 20 1A | C' N' .|
+22E0:27 AD 63 2A 8D BB 35 4C |'-c*.;5L|
+22E8:A8 26 AD 75 2A C9 A0 F0 |(&amp;-u*I p|
+22F0:25 20 64 27 B0 3A 20 FC |% d'0: ||
+22F8:22 4C EA 22 20 AF 27 D0 |"Lj" /'P|
+2300:05 A9 00 8D B3 2A A0 00 |.)..3* .|
+2308:98 91 40 20 4E 27 A9 02 |..@ N').|
+2310:8D BB 35 4C A8 26 20 92 |.;5L(&amp; .|
+2318:27 D0 05 20 9A 27 F0 10 |'P. .'p.|
+2320:20 AF 27 F0 F6 20 AA 27 | /'pv *'|
+2328:F0 F1 20 FC 22 4C 16 23 |pq |"L.#|
+2330:60 A9 09 2D 65 2A C9 09 |`).-e*I.|
+2338:F0 03 4C 00 20 A9 04 20 |p.L. ). |
+2340:D5 23 AD 73 2A AC 72 2A |U#-s*,r*|
+2348:20 E0 23 AD 6D 2A AC 6C | `#-m*,l|
+2350:2A 20 E0 23 AD 73 2A AC |* `#-s*,|
+2358:72 2A 4C FF 23 20 A8 22 |r*L.# ("|
+2360:A9 7F 2D C2 35 C9 04 F0 |).-B5I.p|
+2368:03 4C D0 26 A9 04 20 D5 |.LP&amp;). U|
+2370:23 20 7A 24 AA AD 65 2A |# z$*-e*|
+2378:29 01 D0 06 8E 72 2A 8C |).P..r*.|
+2380:73 2A 20 7A 24 AE 72 2A |s* z$.r*|
+2388:AC 73 2A 4C 71 24 20 5D |,s*Lq$ ]|
+2390:23 20 51 28 6C 72 2A AD |# Q(lr*-|
+2398:B6 2A F0 20 A5 D6 10 03 |6*p %V..|
+23A0:4C CC 26 A9 02 20 D5 23 |LL&amp;). U#|
+23A8:38 A5 AF E5 67 A8 A5 B0 |8%/eg(%0|
+23B0:E5 68 20 E0 23 A5 68 A4 |eh `#%h$|
+23B8:67 4C FF 23 A9 01 20 D5 |gL.#). U|
+23C0:23 38 A5 4C E5 CA A8 A5 |#8%LeJ(%|
+23C8:4D E5 CB 20 E0 23 A5 CB |MeK `#%K|
+23D0:A4 CA 4C FF 23 8D C2 35 |$JL.#.B5|
+23D8:48 20 A8 22 68 4C C4 27 |H ("hLD'|
+23E0:8C C1 35 8C C3 35 8D C2 |.A5.C5.B|
+23E8:35 A9 04 8D BB 35 A9 01 |5)..;5).|
+23F0:8D BC 35 20 A8 26 AD C2 |.&lt;5 (&amp;-B|
+23F8:35 8D C3 35 4C A8 26 8C |5.C5L(&amp;.|
+2400:C3 35 8D C4 35 A9 02 4C |C5.D5).L|
+2408:86 36 20 A8 26 4C EA 22 |.6 (&amp;Lj"|
+2410:4C D0 26 20 16 23 20 A8 |LP&amp; .# (|
+2418:22 A9 23 2D C2 35 F0 F0 |")#-B5pp|
+2420:8D C2 35 AD B6 2A F0 28 |.B5-6*p(|
+2428:A9 02 20 B1 24 20 7A 24 |). 1$ z$|
+2430:18 65 67 AA 98 65 68 C5 |.eg*.ehE|
+2438:74 B0 70 85 B0 85 6A 86 |t0p.0.j.|
+2440:AF 86 69 A6 67 A4 68 20 |/.i&amp;g$h |
+2448:71 24 20 51 28 6C 60 1D |q$ Q(l`.|
+2450:A9 01 20 B1 24 20 7A 24 |). 1$ z$|
+2458:38 A5 4C ED 60 2A AA A5 |8%Lm`**%|
+2460:4D ED 61 2A 90 45 A8 C4 |Mma*.E(D|
+2468:4B 90 40 F0 3E 84 CB 86 |K.@p&gt;.K.|
+2470:CA 8E C3 35 8C C4 35 4C |J.C5.D5L|
+2478:0A 24 AD 0A 1D 8D C3 35 |.$-...C5|
+2480:AD 0B 1D 8D C4 35 A9 00 |-...D5).|
+2488:8D C2 35 A9 02 8D C1 35 |.B5)..A5|
+2490:A9 03 8D BB 35 A9 02 8D |)..;5)..|
+2498:BC 35 20 A8 26 AD 61 2A |&lt;5 (&amp;-a*|
+24A0:8D C2 35 A8 AD 60 2A 8D |.B5(-`*.|
+24A8:C1 35 60 20 EA 22 4C CC |A5` j"LL|
+24B0:26 CD C2 35 F0 1A AE 5F |&amp;MB5p.._|
+24B8:2A 8E 62 2A 4A F0 03 4C |*.b*Jp.L|
+24C0:9E 25 A2 1D BD 75 2A 9D |.%".=u*.|
+24C8:93 2A CA 10 F7 4C 7A 25 |.*J.wLz%|
+24D0:60 AD B6 2A F0 03 8D B7 |`-6*p..7|
+24D8:2A 20 13 24 20 C8 1F 20 |* .$ H. |
+24E0:51 28 6C 58 1D A5 4A 85 |Q(lX.%J.|
+24E8:CC A5 4B 85 CD 6C 56 1D |L%K.MlV.|
+24F0:20 16 24 20 C8 1F 20 51 | .$ H. Q|
+24F8:28 6C 56 1D 20 65 D6 85 |(lV. eV.|
+2500:33 85 D8 4C D2 D7 20 65 |3.XLRW e|
+2508:0E 85 33 85 D8 4C D4 0F |..3.XLT.|
+2510:20 26 25 A9 05 8D 52 2A | &amp;%)..R*|
+2518:4C 83 1F 20 26 25 A9 01 |L.. &amp;%).|
+2520:8D 51 2A 4C 83 1F 20 64 |.Q*L.. d|
+2528:27 90 06 20 A3 22 4C 34 |'.. #"L4|
+2530:25 20 4E 27 AD 65 2A 29 |% N'-e*)|
+2538:06 F0 13 A2 03 BD 6E 2A |.p.".=n*|
+2540:9D BD 35 CA 10 F7 A9 0A |.=5J.w).|
+2548:8D BB 35 20 A8 26 60 A9 |.;5 (&amp;`)|
+2550:40 2D 65 2A F0 05 AD 66 |@-e*p.-f|
+2558:2A D0 05 A9 FE 8D 66 2A |*P.)~.f*|
+2560:AD 0D 1D 8D BC 35 A9 0B |-...&lt;5).|
+2568:20 AA 22 4C 97 23 A9 06 | *"L.#).|
+2570:20 AA 22 AD BF 35 8D 66 | *"-?5.f|
+2578:2A 60 A9 4C 20 B2 25 F0 |*`)L 2%p|
+2580:2E A9 00 8D B6 2A A0 1E |.)..6* .|
+2588:20 97 20 A2 09 BD B7 2A | . ".=7*|
+2590:9D 74 2A CA D0 F7 A9 C0 |.t*JPw)@|
+2598:8D 51 2A 4C D1 24 A9 20 |.Q*LQ$) |
+25A0:20 B2 25 F0 05 A9 01 4C | 2%p.).L|
+25A8:D2 26 A9 00 8D B7 2A 4C |R&amp;)..7*L|
+25B0:84 1D CD 00 E0 F0 0E 8D |..M.`p..|
+25B8:80 C0 CD 00 E0 F0 06 8D |.@M.`p..|
+25C0:81 C0 CD 00 E0 60 20 A3 |.@M.`` #|
+25C8:22 AD 4F 2A 8D B4 2A AD |"-O*.4*-|
+25D0:50 2A 8D B5 2A AD 75 2A |P*.5*-u*|
+25D8:8D B3 2A D0 0E 20 64 27 |.3*P. d'|
+25E0:90 06 20 A3 22 4C EB 25 |.. #"Lk%|
+25E8:20 4E 27 AD 65 2A 29 04 | N'-e*).|
+25F0:F0 1B AD 6E 2A D0 08 AE |p.-n*P..|
+25F8:6F 2A F0 11 CE 6F 2A CE |o*p.No*N|
+2600:6E 2A 20 8C 26 F0 38 C9 |n* .&amp;p8I|
+2608:8D D0 F7 F0 E5 60 20 5E |.Pwpe` ^|
+2610:26 B0 66 AD 5C 2A 8D C3 |&amp;0f-\*.C|
+2618:35 A9 04 8D BB 35 A9 01 |5)..;5).|
+2620:8D BC 35 4C A8 26 20 5E |.&lt;5L(&amp; ^|
+2628:26 B0 4E A9 06 8D 52 2A |&amp;0N)..R*|
+2630:20 8C 26 D0 0F 20 FC 22 | .&amp;P. |"|
+2638:A9 03 CD 52 2A F0 CE A9 |).MR*pN)|
+2640:05 4C D2 26 C9 E0 90 02 |.LR&amp;I`..|
+2648:29 7F 8D 5C 2A AE 5A 2A |)..\*.Z*|
+2650:F0 09 CA BD 00 02 09 80 |p.J=....|
+2658:9D 00 02 4C B3 1F 48 AD |...L3.H-|
+2660:B6 2A F0 0E A6 76 E8 F0 |6*p.&amp;vhp|
+2668:0D A6 33 E0 DD F0 07 68 |.&amp;3`]p.h|
+2670:18 60 A5 D9 30 F9 68 38 |.`%Y0yh8|
+2678:60 20 FC 22 20 5B 27 4C |` |" ['L|
+2680:B3 1F 20 9D 26 20 4E 27 |3. .&amp; N'|
+2688:A9 03 D0 A1 A9 03 8D BB |).P!)..;|
+2690:35 A9 01 8D BC 35 20 A8 |5)..&lt;5 (|
+2698:26 AD C3 35 60 AD B5 2A |&amp;-C5`-5*|
+26A0:85 41 AD B4 2A 85 40 60 |.A-4*.@`|
+26A8:20 06 2B 90 16 AD C5 35 | .+..-E5|
+26B0:C9 05 F0 03 4C 5E 36 4C |I.p.L^6L|
+26B8:92 36 EA 20 69 3A A2 00 |.6j i:".|
+26C0:8E C3 35 60 A9 0B D0 0A |.C5`).P.|
+26C8:A9 0C D0 06 A9 0E D0 02 |).P.).P.|
+26D0:A9 0D 8D 5C 2A 20 E6 3F |)..\* f?|
+26D8:AD B6 2A F0 04 A5 D8 30 |-6*p.%X0|
+26E0:0E A2 00 20 02 27 AE 5C |.". .'.\|
+26E8:2A 20 02 27 20 C8 1F 20 |* .' H. |
+26F0:51 28 20 5E 26 AE 5C 2A |Q( ^&amp;.\*|
+26F8:A9 03 B0 03 6C 5A 1D 6C |).0.lZ.l|
+2700:5E 1D BD 3F 2A AA 8E 63 |^.=?**.c|
+2708:2A BD 71 29 48 09 80 20 |*=q)H.. |
+2710:C5 1F AE 63 2A E8 68 10 |E..c*hh.|
+2718:ED 60 AD 66 2A 8D BF 35 |m`-f*.?5|
+2720:AD 68 2A 8D C0 35 AD 6A |-h*.@5-j|
+2728:2A 8D C1 35 AD 06 1D 8D |*.A5-...|
+2730:C3 35 AD 07 1D 8D C4 35 |C5-...D5|
+2738:A5 40 8D 4F 2A A5 41 8D |%@.O*%A.|
+2740:50 2A 60 A0 1D B9 75 2A |P*` .9u*|
+2748:91 40 88 10 F8 60 A0 1E |.@..x` .|
+2750:B1 40 99 A9 35 C8 C0 26 |1@.)5H@&amp;|
+2758:D0 F6 60 A0 00 8C 51 2A |Pv` ..Q*|
+2760:8C 52 2A 60 A9 00 85 45 |.R*`)..E|
+2768:20 92 27 4C 73 27 20 9A | .'Ls' .|
+2770:27 F0 1D 20 AA 27 D0 0A |'p. *'P.|
+2778:A5 40 85 44 A5 41 85 45 |%@.D%A.E|
+2780:D0 EC A0 1D B1 40 D9 75 |Pl .1@Yu|
+2788:2A D0 E3 88 10 F6 18 60 |*Pc..v.`|
+2790:38 60 AD 00 1D AE 01 1D |8`-.....|
+2798:D0 0A A0 25 B1 40 F0 09 |P. %1@p.|
+27A0:AA 88 B1 40 86 41 85 40 |*.1@.A.@|
+27A8:8A 60 A0 00 B1 40 60 AD |.` .1@`-|
+27B0:B3 2A F0 0E AD B4 2A C5 |3*p.-4*E|
+27B8:40 D0 08 AD B5 2A C5 41 |@P.-5*EA|
+27C0:F0 01 CA 60 4D C2 35 F0 |p.J`MB5p|
+27C8:0A 29 7F F0 06 20 EA 22 |.).p. j"|
+27D0:4C D0 26 60 38 AD 00 1D |LP&amp;`8-..|
+27D8:85 40 AD 01 1D 85 41 AD |.@-...A-|
+27E0:57 2A 8D 63 2A A0 00 98 |W*.c* ..|
+27E8:91 40 A0 1E 38 A5 40 E9 |.@ .8%@i|
+27F0:2D 91 40 48 A5 41 E9 00 |-.@H%Ai.|
+27F8:C8 91 40 AA CA 68 48 C8 |H.@*JhHH|
+2800:91 40 8A C8 91 40 AA CA |.@.H.@*J|
+2808:68 48 C8 91 40 C8 8A 91 |hHH.@H..|
+2810:40 CE 63 2A F0 17 AA 68 |@Nc*p.*h|
+2818:38 E9 26 C8 91 40 48 8A |8i&amp;H.@H.|
+2820:E9 00 C8 91 40 85 41 68 |i.H.@.Ah|
+2828:85 40 4C E5 27 48 A9 00 |.@Le'H).|
+2830:C8 91 40 C8 91 40 AD B6 |H.@H.@-6|
+2838:2A F0 0B 68 85 74 85 70 |*p.h.t.p|
+2840:68 85 73 85 6F 60 68 85 |h.s.o`h.|
+2848:4D 85 CB 68 85 4C 85 CA |M.Kh.L.J|
+2850:60 A5 39 CD 03 1D F0 12 |`%9M..p.|
+2858:8D 56 2A A5 38 8D 55 2A |.V*%8.U*|
+2860:AD 02 1D 85 38 AD 03 1D |-...8-..|
+2868:85 39 A5 37 CD 05 1D F0 |.9%7M..p|
+2870:12 8D 54 2A A5 36 8D 53 |..T*%6.S|
+2878:2A AD 04 1D 85 36 AD 05 |*-...6-.|
+2880:1D 85 37 60 49 4E 49 D4 |..7`INIT|
+2888:4C 4F 41 C4 53 41 56 C5 |LOADSAVE|
+2890:52 55 CE 43 48 41 49 CE |RUNCHAIN|
+2898:44 45 4C 45 54 C5 4C 4F |DELETELO|
+28A0:43 CB 55 4E 4C 4F 43 CB |CKUNLOCK|
+28A8:43 4C 4F 53 C5 52 45 41 |CLOSEREA|
+28B0:C4 45 58 45 C3 57 52 49 |DEXECWRI|
+28B8:54 C5 50 4F 53 49 54 49 |TEPOSITI|
+28C0:4F CE 4F 50 45 CE 41 50 |ONOPENAP|
+28C8:50 45 4E C4 52 45 4E 41 |PENDRENA|
+28D0:4D C5 43 41 54 41 4C 4F |MECATALO|
+28D8:C7 4D 4F CE 4E 4F 4D 4F |GMONNOMO|
+28E0:CE 50 52 A3 49 4E A3 4D |NPR#IN#M|
+28E8:41 58 46 49 4C 45 D3 46 |AXFILESF|
+28F0:D0 49 4E D4 42 53 41 56 |PINTBSAV|
+28F8:C5 42 4C 4F 41 C4 42 52 |EBLOADBR|
+2900:55 CE 56 45 52 49 46 D9 |UNVERIFY|
+2908:00 21 70 A0 70 A1 70 A0 |.!p p!p |
+2910:70 20 70 20 70 20 70 20 |p p p p |
+2918:70 60 00 22 06 20 74 22 |p`.". t"|
+2920:06 22 04 23 78 22 70 30 |.".#x"p0|
+2928:70 40 70 40 80 40 80 08 |p@p@.@..|
+2930:00 08 00 04 00 40 70 40 |.....@p@|
+2938:00 21 79 20 71 20 71 20 |.!y q q |
+2940:70 D6 C4 D3 CC D2 C2 C1 |pVDSLRBA|
+2948:C3 C9 CF 40 20 10 08 04 |CIO@ ...|
+2950:02 01 C0 A0 90 00 00 FE |..@ ...~|
+2958:00 01 00 02 00 01 00 07 |........|
+2960:00 01 00 FF 7F 00 00 FF |........|
+2968:7F 00 00 FF 7F 00 00 FF |........|
+2970:FF 0D 07 8D 4C 41 4E 47 |....LANG|
+2978:55 41 47 45 20 4E 4F 54 |UAGE NOT|
+2980:20 41 56 41 49 4C 41 42 | AVAILAB|
+2988:4C C5 52 41 4E 47 45 20 |LERANGE |
+2990:45 52 52 4F D2 57 52 49 |ERRORWRI|
+2998:54 45 20 50 52 4F 54 45 |TE PROTE|
+29A0:43 54 45 C4 45 4E 44 20 |CTEDEND |
+29A8:4F 46 20 44 41 54 C1 46 |OF DATAF|
+29B0:49 4C 45 20 4E 4F 54 20 |ILE NOT |
+29B8:46 4F 55 4E C4 56 4F 4C |FOUNDVOL|
+29C0:55 4D 45 20 4D 49 53 4D |UME MISM|
+29C8:41 54 43 C8 49 2F 4F 20 |ATCHI/O |
+29D0:45 52 52 4F D2 44 49 53 |ERRORDIS|
+29D8:4B 20 46 55 4C CC 46 49 |K FULLFI|
+29E0:4C 45 20 4C 4F 43 4B 45 |LE LOCKE|
+29E8:C4 53 59 4E 54 41 58 20 |DSYNTAX |
+29F0:45 52 52 4F D2 4E 4F 20 |ERRORNO |
+29F8:42 55 46 46 45 52 53 20 |BUFFERS |
+2A00:41 56 41 49 4C 41 42 4C |AVAILABL|
+2A08:C5 46 49 4C 45 20 54 59 |EFILE TY|
+2A10:50 45 20 4D 49 53 4D 41 |PE MISMA|
+2A18:54 43 C8 50 52 4F 47 52 |TCHPROGR|
+2A20:41 4D 20 54 4F 4F 20 4C |AM TOO L|
+2A28:41 52 47 C5 4E 4F 54 20 |ARGENOT |
+2A30:44 49 52 45 43 54 20 43 |DIRECT C|
+2A38:4F 4D 4D 41 4E C4 8D 00 |OMMAND..|
+2A40:03 19 19 24 33 3E 4C 5B |...$3&gt;L[|
+2A48:64 6D 78 84 98 AA BB 00 |dmx..*;.|
+2A50:00 00 00 00 00 00 00 00 |........|
+2A58:03 00 00 00 00 00 00 00 |........|
+2A60:00 00 00 00 00 00 00 00 |........|
+2A68:00 00 00 00 01 00 00 00 |........|
+2A70:00 00 00 00 00 C8 C5 CC |.....HEL|
+2A78:CC CF A0 A0 A0 A0 A0 A0 |LO      |
+2A80:A0 A0 A0 A0 A0 A0 A0 A0 |        |
+2A88:A0 A0 A0 A0 A0 A0 A0 A0 |        |
+2A90:A0 A0 A0 A0 A0 A0 A0 A0 |        |
+2A98:A0 A0 A0 A0 A0 A0 A0 A0 |        |
+2AA0:A0 A0 A0 A0 A0 A0 A0 A0 |        |
+2AA8:A0 A0 A0 A0 A0 A0 A0 A0 |        |
+2AB0:A0 03 84 00 00 00 00 00 | .......|
+2AB8:C1 D0 D0 CC C5 D3 CF C6 |APPLESOF|
+2AC0:D4 E8 37 BB 33 BB 34 00 |Th7;3;4.|
+2AC8:40 7E 33 21 2B 05 2C 57 |@~3!+.,W|
+2AD0:2C 6F 2C 2A 2D 97 2D EE |,o,*-.-n|
+2AD8:2C F5 2C 39 2C 11 2D 8D |,u,9,.-.|
+2AE0:2E 17 2D 7E 33 7E 33 89 |..-~3~3.|
+2AE8:2C 95 2C 86 2C 92 2C 7E |,.,.,.,~|
+2AF0:33 7E 33 BD 2C C9 2C BA |3~3=,I,:|
+2AF8:2C C6 2C 7E 33 E0 00 F0 |,F,~3`.p|
+2B00:02 A2 02 8E 5F 2A BA 8E |.".._*:.|
+2B08:9B 33 20 6A 2E AD BB 35 |.3 j.-;5|
+2B10:C9 0D B0 0B 0A AA BD CA |I.0..*=J|
+2B18:2A 48 BD C9 2A 48 60 4C |*H=I*H`L|
+2B20:63 33 20 28 2B 4C 7F 33 |c3 (+L.3|
+2B28:20 DC 2B A9 01 8D E3 35 | \+)..c5|
+2B30:AE BE 35 AD BD 35 D0 05 |.&gt;5-=5P.|
+2B38:E0 00 D0 01 E8 8D E8 35 |`.P.h.h5|
+2B40:8E E9 35 20 C9 31 90 5E |.i5 I1.^|
+2B48:8E 9C 33 AE 5F 2A BD 09 |..3._*=.|
+2B50:29 AE 9C 33 4A B0 0D AD |)..3J0.-|
+2B58:51 2A C9 C0 D0 03 4C 5F |Q*I@P.L_|
+2B60:33 4C 73 33 A9 00 9D E8 |3Ls3)..h|
+2B68:34 A9 01 9D E7 34 8E 9C |4)..g4..|
+2B70:33 20 44 32 AE 9C 33 9D |3 D2..3.|
+2B78:C7 34 8D D2 35 8D D4 35 |G4.R5.T5|
+2B80:AD F1 35 9D C6 34 8D D1 |-q5.F4.Q|
+2B88:35 8D D3 35 AD C2 35 9D |5.S5-B5.|
+2B90:C8 34 20 37 30 20 0C 2F |H4 70 ./|
+2B98:20 D6 37 20 3A 2F AE 9C | V7 :/..|
+2BA0:33 A9 06 8D C5 35 BD C6 |3)..E5=F|
+2BA8:34 8D D1 35 BD C7 34 8D |4.Q5=G4.|
+2BB0:D2 35 BD C8 34 8D C2 35 |R5=H4.B5|
+2BB8:8D F6 35 BD E7 34 8D EE |.v5=g4.n|
+2BC0:35 BD E8 34 8D EF 35 8E |5=h4.o5.|
+2BC8:D9 35 A9 FF 8D E0 35 8D |Y5)..`5.|
+2BD0:E1 35 AD E2 33 8D DA 35 |a5-b3.Z5|
+2BD8:18 4C 5E 2F A9 00 AA 9D |.L^/).*.|
+2BE0:D1 35 E8 E0 2D D0 F8 AD |Q5h`-Px-|
+2BE8:BF 35 49 FF 8D F9 35 AD |?5I..y5-|
+2BF0:C0 35 8D F8 35 AD C1 35 |@5.x5-A5|
+2BF8:0A 0A 0A 0A AA 8E F7 35 |....*.w5|
+2C00:A9 11 8D FA 35 60 20 1D |)..z5` .|
+2C08:2F 20 34 2F 20 C3 32 A9 |/ 4/ C2)|
+2C10:02 2D D5 35 F0 21 20 F7 |.-U5p! w|
+2C18:2F A9 00 18 20 11 30 38 |/).. .08|
+2C20:CE D8 35 D0 F7 AE D9 35 |NX5Pw.Y5|
+2C28:AD EE 35 9D E7 34 AD EF |-n5.g4-o|
+2C30:35 9D E8 34 20 37 30 4C |5.h4 70L|
+2C38:7F 33 20 28 2B AD F6 35 |.3 (+-v5|
+2C40:30 2B AD BD 35 85 42 AD |0+-=5.B-|
+2C48:BE 35 85 43 AE 9C 33 20 |&gt;5.C..3 |
+2C50:1C 32 20 37 30 4C 7F 33 |.2 70L.3|
+2C58:AD BC 35 C9 05 B0 0B 0A |-&lt;5I.0..|
+2C60:AA BD E6 2A 48 BD E5 2A |*=f*H=e*|
+2C68:48 60 4C 67 33 4C 7B 33 |H`Lg3L{3|
+2C70:AD F6 35 30 F8 AD BC 35 |-v50x-&lt;5|
+2C78:C9 05 B0 EE 0A AA BD F2 |I.0n.*=r|
+2C80:2A 48 BD F1 2A 48 60 20 |*H=q*H` |
+2C88:00 33 20 A8 2C 8D C3 35 |.3 (,.C5|
+2C90:4C 7F 33 20 00 33 20 B5 |L.3 .3 5|
+2C98:31 20 A8 2C 48 20 A2 31 |1 (,H "1|
+2CA0:A0 00 68 91 42 4C 96 2C | .h.BL.,|
+2CA8:20 B6 30 B0 0B B1 42 48 | 600.1BH|
+2CB0:20 5B 31 20 94 31 68 60 | [1 .1h`|
+2CB8:4C 6F 33 20 00 33 AD C3 |Lo3 .3-C|
+2CC0:35 20 DA 2C 4C 7F 33 20 |5 Z,L.3 |
+2CC8:00 33 20 A2 31 A0 00 B1 |.3 "1 .1|
+2CD0:42 20 DA 2C 20 B5 31 4C |B Z, 51L|
+2CD8:CA 2C 48 20 B6 30 68 91 |J,H 60h.|
+2CE0:42 A9 40 0D D5 35 8D D5 |B)@.U5.U|
+2CE8:35 20 5B 31 4C 94 31 A9 |5 [1L.1)|
+2CF0:80 8D 9E 33 D0 05 A9 00 |...3P.).|
+2CF8:8D 9E 33 20 28 2B AE 9C |..3 (+..|
+2D00:33 BD C8 34 29 7F 0D 9E |3=H4)...|
+2D08:33 9D C8 34 20 37 30 4C |3.H4 70L|
+2D10:7F 33 20 00 33 4C 7F 33 |.3 .3L.3|
+2D18:20 28 2B 20 B6 30 B0 EF | (+ 600o|
+2D20:EE E4 35 D0 F6 EE E5 35 |nd5Pvne5|
+2D28:4C 1B 2D 20 28 2B AE 9C |L.- (+..|
+2D30:33 BD C8 34 10 03 4C 7B |3=H4..L{|
+2D38:33 AE 9C 33 BD C6 34 8D |3..3=F4.|
+2D40:D1 35 9D E6 34 A9 FF 9D |Q5.f4)..|
+2D48:C6 34 BC C7 34 8C D2 35 |F4&lt;G4.R5|
+2D50:20 37 30 18 20 5E 2F B0 | 70. ^/0|
+2D58:2A 20 0C 2F A0 0C 8C 9C |* ./ ...|
+2D60:33 B1 42 30 0B F0 09 48 |31B0.p.H|
+2D68:C8 B1 42 A8 68 20 89 2D |H1B(h .-|
+2D70:AC 9C 33 C8 C8 D0 E7 AD |,.3HHPg-|
+2D78:D3 35 AC D4 35 20 89 2D |S5,T5 .-|
+2D80:38 B0 D1 20 FB 2F 4C 7F |80Q {/L.|
+2D88:33 38 20 DD 32 A9 00 A2 |38 ]2)."|
+2D90:05 9D F0 35 CA 10 FA 60 |..p5J.z`|
+2D98:20 DC 2B A9 FF 8D F9 35 | \+)..y5|
+2DA0:20 F7 2F A9 16 8D 9D 33 | w/)...3|
+2DA8:20 2F 2E 20 2F 2E A2 0B | /. /.".|
+2DB0:BD AF 33 20 ED FD CA 10 |=/3 m}J.|
+2DB8:F7 86 45 AD F6 37 85 44 |w.E-v7.D|
+2DC0:20 42 2E 20 2F 2E 20 2F | B. /. /|
+2DC8:2E 18 20 11 30 B0 5D A2 |.. .00]"|
+2DD0:00 8E 9C 33 BD C6 34 F0 |...3=F4p|
+2DD8:53 30 4A A0 A0 BD C8 34 |S0J  =H4|
+2DE0:10 02 A0 AA 98 20 ED FD |.. *. m}|
+2DE8:BD C8 34 29 7F A0 07 0A |=H4). ..|
+2DF0:0A B0 03 88 D0 FA B9 A7 |.0..Pz9'|
+2DF8:33 20 ED FD A9 A0 20 ED |3 m})  m|
+2E00:FD BD E7 34 85 44 BD E8 |}=g4.D=h|
+2E08:34 85 45 20 42 2E A9 A0 |4.E B.) |
+2E10:20 ED FD E8 E8 E8 A0 1D | m}hhh .|
+2E18:BD C6 34 20 ED FD E8 88 |=F4 m}h.|
+2E20:10 F6 20 2F 2E 20 30 32 |.v /. 02|
+2E28:90 A7 B0 9E 4C 7F 33 A9 |.'0.L.3)|
+2E30:8D 20 ED FD CE 9D 33 D0 |. m}N.3P|
+2E38:08 20 0C FD A9 15 8D 9D |. .})...|
+2E40:33 60 A0 02 A9 00 48 A5 |3` .).H%|
+2E48:44 D9 A4 33 90 12 F9 A4 |DY$3..y$|
+2E50:33 85 44 A5 45 E9 00 85 |3.D%Ei..|
+2E58:45 68 69 00 48 4C 47 2E |Ehi.HLG.|
+2E60:68 09 B0 20 ED FD 88 10 |h.0 m}..|
+2E68:DB 60 20 08 2F A0 00 8C |[` ./ ..|
+2E70:C5 35 B1 42 99 D1 35 C8 |E51B.Q5H|
+2E78:C0 2D D0 F6 18 60 20 08 |@-Pv.` .|
+2E80:2F A0 00 B9 D1 35 91 42 |/ .9Q5.B|
+2E88:C8 C0 2D D0 F6 60 20 DC |H@-Pv` \|
+2E90:2B A9 04 20 58 30 AD F9 |+). X0-y|
+2E98:35 49 FF 8D C1 33 A9 11 |5I..A3).|
+2EA0:8D EB 33 A9 01 8D EC 33 |.k3)..l3|
+2EA8:A2 38 A9 00 9D BB 33 E8 |"8)..;3h|
+2EB0:D0 FA A2 0C E0 8C F0 14 |Pz".`.p.|
+2EB8:A0 03 B9 A0 33 9D F3 33 | .9 3.s3|
+2EC0:E8 88 10 F6 E0 44 D0 EC |h..v`DPl|
+2EC8:A2 48 D0 E8 20 FB 2F A2 |"HPh {/"|
+2ED0:00 8A 9D BB 34 E8 D0 FA |...;4hPz|
+2ED8:20 45 30 A9 11 AC F0 33 | E0).,p3|
+2EE0:88 88 8D EC 37 8D BC 34 |...l7.&lt;4|
+2EE8:8C BD 34 C8 8C ED 37 A9 |.=4H.m7)|
+2EF0:02 20 58 30 AC BD 34 88 |. X0,=4.|
+2EF8:30 05 D0 EC 98 F0 E6 20 |0.Pl.pf |
+2F00:C2 37 20 4A 37 4C 7F 33 |B7 J7L.3|
+2F08:A2 00 F0 06 A2 02 D0 02 |".p.".P.|
+2F10:A2 04 BD C7 35 85 42 BD |".=G5.B=|
+2F18:C8 35 85 43 60 2C D5 35 |H5.C`,U5|
+2F20:70 01 60 20 E4 2F A9 02 |p.` d/).|
+2F28:20 52 30 A9 BF 2D D5 35 | R0)?-U5|
+2F30:8D D5 35 60 AD D5 35 30 |.U5`-U50|
+2F38:01 60 20 4B 2F A9 02 20 |.` K/). |
+2F40:52 30 A9 7F 2D D5 35 8D |R0).-U5.|
+2F48:D5 35 60 AD C9 35 8D F0 |U5`-I5.p|
+2F50:37 AD CA 35 8D F1 37 AE |7-J5.q7.|
+2F58:D3 35 AC D4 35 60 08 20 |S5,T5`. |
+2F60:34 2F 20 4B 2F 20 0C 2F |4/ K/ ./|
+2F68:28 B0 09 AE D1 35 AC D2 |(0..Q5,R|
+2F70:35 4C B5 2F A0 01 B1 42 |5L5/ .1B|
+2F78:F0 08 AA C8 B1 42 A8 4C |p.*H1B(L|
+2F80:B5 2F AD BB 35 C9 04 F0 |5/-;5I.p|
+2F88:02 38 60 20 44 32 A0 02 |.8` D2 .|
+2F90:91 42 48 88 AD F1 35 91 |.BH.-q5.|
+2F98:42 48 20 3A 2F 20 D6 37 |BH :/ V7|
+2FA0:A0 05 AD DE 35 91 42 C8 | .-^5.BH|
+2FA8:AD DF 35 91 42 68 AA 68 |-_5.Bh*h|
+2FB0:A8 A9 02 D0 02 A9 01 8E |().P.)..|
+2FB8:D3 35 8C D4 35 20 52 30 |S5.T5 R0|
+2FC0:A0 05 B1 42 8D DC 35 18 | .1B.\5.|
+2FC8:6D DA 35 8D DE 35 C8 B1 |mZ5.^5H1|
+2FD0:42 8D DD 35 6D DB 35 8D |B.]5m[5.|
+2FD8:DF 35 18 60 20 E4 2F A9 |_5.` d/)|
+2FE0:01 4C 52 30 AC CB 35 AD |.LR0,K5-|
+2FE8:CC 35 8C F0 37 8D F1 37 |L5.p7.q7|
+2FF0:AE D6 35 AC D7 35 60 A9 |.V5,W5`)|
+2FF8:<span class="c02">01 D0 02 A9 02 AC C3 2A</span> |.P.).,C*|
+3000:<span class="c02">8C F0 37 AC C4 2A 8C F1</span> |.p7,D*.q|
+3008:<span class="c02">37 AE FA 35 A0 00 4C 52</span> |7.z5 .LR|
+3010:<span class="c02">30 08 20 45 30 28 B0 08</span> |0. E0(0.|
+3018:<span class="c02">AC BD 33 AE BC 33 D0 0A</span> |,=3.&lt;3P.|
+3020:<span class="c02">AE BC 34 D0 02 38 60 AC</span> |.&lt;4P.8`,|
+3028:<span class="c02">BD 34 8E 97 33 8C 98 33</span> |=4..3..3|
+3030:<span class="c02">A9 01 20 52 30 18 60 20</span> |). R0.` |
+3038:<span class="c02">45 30 AE 97 33 AC 98 33</span> |E0..3,.3|
+3040:<span class="c02">A9 02 4C 52 30 AD C5 2A</span> |).LR0-E*|
+3048:<span class="c02">8D F0 37 AD C6 2A 8D F1</span> |.p7-F*.q|
+3050:<span class="c02">37 60 8E EC 37 8C ED 37</span> |7`.l7.m7|
+3058:<span class="c02">8D F4 37 C9 02 D0 06 0D</span> |.t7I.P..|
+3060:<span class="c02">D5 35 8D D5 35 AD F9 35</span> |U5.U5-y5|
+3068:<span class="c02">49 FF 8D EB 37 AD F7 35</span> |I..k7-w5|
+3070:<span class="c02">8D E9 37 AD F8 35 8D EA</span> |.i7-x5.j|
+3078:<span class="c02">37 AD E2 35 8D F2 37 AD</span> |7-b5.r7-|
+3080:<span class="c02">E3 35 8D F3 37 A9 01 8D</span> |c5.s7)..|
+3088:<span class="c02">E8 37 AC C1 2A AD C2 2A</span> |h7,A*-B*|
+3090:<span class="c02">20 B5 37 AD F6 37 8D BF</span> | 57-v7.?|
+3098:<span class="c02">35 A9 FF 8D EB 37 B0 01</span> |5)..k70.|
+30A0:<span class="c02">60 AD F5 37 A0 07 C9 20</span> |`-u7 .I |
+30A8:<span class="c02">F0 08 A0 04 C9 10 F0 02</span> |p. .I.p.|
+30B0:<span class="c02">A0 08 98 4C 85 33 AD E4</span> | ..L.3-d|
+30B8:<span class="c02">35 CD E0 35 D0 08 AD E5</span> |5M`5P.-e|
+30C0:<span class="c02">35 CD E1 35 F0 66 20 1D</span> |5Ma5pf .|
+30C8:<span class="c02">2F AD E5 35 CD DD 35 90</span> |/-e5M]5.|
+30D0:<span class="c02">1C D0 08 AD E4 35 CD DC</span> |.P.-d5M\|
+30D8:<span class="c02">35 90 12 AD E5 35 CD DF</span> |5..-e5M_|
+30E0:<span class="c02">35 90 10 D0 08 AD E4 35</span> |5..P.-d5|
+30E8:<span class="c02">CD DE 35 90 06 20 5E 2F</span> |M^5.. ^/|
+30F0:<span class="c02">90 D7 60 38 AD E4 35 ED</span> |.W`8-d5m|
+30F8:<span class="c02">DC 35 0A 69 0C A8 20 0C</span> |\5.i.( .|
+3100:<span class="c02">2F B1 42 D0 0F AD BB 35</span> |/1BP.-;5|
+3108:<span class="c02">C9 04 F0 02 38 60 20 34</span> |I.p.8` 4|
+3110:<span class="c02">31 4C 20 31 8D D6 35 C8</span> |1L 1.V5H|
+3118:<span class="c02">B1 42 8D D7 35 20 DC 2F</span> |1B.W5 \/|
+3120:<span class="c02">AD E4 35 8D E0 35 AD E5</span> |-d5.`5-e|
+3128:<span class="c02">35 8D E1 35 20 10 2F AC</span> |5.a5 ./,|
+3130:<span class="c02">E6 35 18 60 8C 9D 33 20</span> |f5.`..3 |
+3138:<span class="c02">44 32 AC 9D 33 C8 91 42</span> |D2,.3H.B|
+3140:<span class="c02">8D D7 35 88 AD F1 35 91</span> |.W5.-q5.|
+3148:<span class="c02">42 8D D6 35 20 10 2F 20</span> |B.V5 ./ |
+3150:<span class="c02">D6 37 A9 C0 0D D5 35 8D</span> |V7)@.U5.|
+3158:<span class="c02">D5 35 60 AE EA 35 8E BD</span> |U5`.j5.=|
+3160:<span class="c02">35 AE EB 35 8E BE 35 AE</span> |5.k5.&gt;5.|
+3168:<span class="c02">EC 35 AC ED 35 8E BF 35</span> |l5,m5.?5|
+3170:<span class="c02">8C C0 35 E8 D0 01 C8 CC</span> |.@5hP.HL|
+3178:<span class="c02">E9 35 D0 11 EC E8 35 D0</span> |i5P.lh5P|
+3180:<span class="c02">0C A2 00 A0 00 EE EA 35</span> |.". .nj5|
+3188:<span class="c02">D0 03 EE EB 35 8E EC 35</span> |P.nk5.l5|
+3190:<span class="c02">8C ED 35 60 EE E6 35 D0</span> |.m5`nf5P|
+3198:<span class="c02">08 EE E4 35 D0 03 EE E5</span> |.nd5P.ne|
+31A0:<span class="c02">35 60 AC C3 35 AE C4 35</span> |5`,C5.D5|
+31A8:<span class="c02">84 42 86 43 EE C3 35 D0</span> |.B.CnC5P|
+31B0:<span class="c02">03 EE C4 35 60 AC C1 35</span> |.nD5`,A5|
+31B8:<span class="c02">D0 08 AE C2 35 F0 07 CE</span> |P..B5p.N|
+31C0:<span class="c02">C2 35 CE C1 35 60 4C 7F</span> |B5NA5`L.|
+31C8:<span class="c02">33</span> <span class="c03">20 F7 2F AD C3 35 85</span> |3 w/-C5.|
+31D0:<span class="c03">42 AD C4 35 85 43 A9 01</span> |B-D5.C).|
+31D8:<span class="c03">8D 9D 33 A9 00 8D D8 35</span> |..3)..X5|
+31E0:<span class="c03">18 EE D8 35 20 11 30 B0</span> |.nX5 .00|
+31E8:<span class="c03">51 A2 00 8E 9C 33 BD C6</span> |Q"...3=F|
+31F0:<span class="c03">34 F0 1F 30 22 A0 00 E8</span> |4p.0" .h|
+31F8:<span class="c03">E8 E8 B1 42 DD C6 34 D0</span> |hh1B]F4P|
+3200:<span class="c03">0A C8 C0 1E D0 F3 AE 9C</span> |.H@.Ps..|
+3208:<span class="c03">33 18 60 20 30 32 90 DB</span> |3.` 02.[|
+3210:<span class="c03">B0 CF AC 9D 33 D0 C1 AC</span> |0O,.3PA,|
+3218:<span class="c03">9D 33 D0 EF A0 00 E8 E8</span> |.3Po .hh|
+3220:<span class="c03">E8 B1 42 9D C6 34 C8 C0</span> |h1B.F4H@|
+3228:<span class="c03">1E D0 F5 AE 9C 33 38 60</span> |.Pu..38`|
+3230:<span class="c03">18 AD 9C 33 69 23 AA E0</span> |.-.3i#*`|
+3238:<span class="c03">F5 60 A9 00 AC 9D 33 D0</span> |u`).,.3P|
+3240:<span class="c03">97 4C 77 33 AD F1 35 F0</span> |.Lw3-q5p|
+3248:<span class="c03">21 CE F0 35 30 17 18 A2</span> |!Np50.."|
+3250:<span class="c03">04 3E F1 35 CA D0 FA 90</span> |.&gt;q5JPz.|
+3258:<span class="c03">F0 EE EE 35 D0 03 EE EF</span> |pnn5P.no|
+3260:<span class="c03">35 AD F0 35 60 A9 00 8D</span> |5-p5`)..|
+3268:<span class="c03">F1 35 A9 00 8D 9E 33 20</span> |q5)...3 |
+3270:<span class="c03">F7 2F 18 AD EB 33 6D EC</span> |w/.-k3ml|
+3278:<span class="c03">33 F0 09 CD EF 33 90 14</span> |3p.Mo3..|
+3280:<span class="c03">A9 FF D0 0A AD 9E 33 D0</span> |).P.-.3P|
+3288:<span class="c03">37 A9 01 8D 9E 33 8D EC</span> |7)...3.l|
+3290:<span class="c03">33 18 69 11 8D EB 33 8D</span> |3.i..k3.|
+3298:<span class="c03">F1 35 A8 0A 0A A8 A2 04</span> |q5(..(".|
+32A0:<span class="c03">18 B9 F6 33 9D F1 35 F0</span> |.9v3.q5p|
+32A8:<span class="c03">06 38 A9 00 99 F6 33 88</span> |.8)..v3.|
+32B0:<span class="c03">CA D0 EE 90 BD 20 FB 2F</span> |JPn.= {/|
+32B8:<span class="c03">AD F0 33 8D F0 35 D0 89</span> |-p3.p5P.|
+32C0:<span class="c03">4C 77 33 AD F1 35 D0 01</span> |Lw3-q5P.|
+32C8:<span class="c03">60 48 20 F7 2F AC F0 35</span> |`H w/,p5|
+32D0:<span class="c03">68 18 20 DD 32 A9 00 8D</span> |h. ]2)..|
+32D8:<span class="c03">F1 35 4C FB 2F A2 FC 7E</span> |q5L{/"|~|
+32E0:<span class="c03">F6 34 E8 D0 FA C8 CC F0</span> |v4hPzHLp|
+32E8:<span class="c03">33 D0 F2 0A 0A A8 F0 0F</span> |3Pr..(p.|
+32F0:<span class="c03">A2 04 BD F1 35 19 F6 33</span> |".=q5.v3|
+32F8:<span class="c03">99 F6 33 88 CA D0 F3 60</span> |.v3.JPs`|
+3300:<span class="c03">AD BD 35 8D E6 35 8D EA</span> |-=5.f5.j|
+3308:<span class="c03">35 AD BE 35 8D E4 35 8D</span> |5-&gt;5.d5.|
+3310:<span class="c03">EB 35 A9 00 8D E5 35 A0</span> |k5)..e5 |
+3318:<span class="c03">10 AA AD E6 35 4A B0 03</span> |.*-f5J0.|
+3320:<span class="c03">8A 90 0E 18 AD E5 35 6D</span> |....-e5m|
+3328:<span class="c03">E8 35 8D E5 35 8A 6D E9</span> |h5.e5.mi|
+3330:<span class="c03">35 6A 6E E5 35 6E E4 35</span> |5jne5nd5|
+3338:<span class="c03">6E E6 35 88 D0 DB 18 AD</span> |nf5.P[.-|
+3340:<span class="c03">BF 35 8D EC 35 6D E6 35</span> |?5.l5mf5|
+3348:<span class="c03">8D E6 35 AD C0 35 8D ED</span> |.f5-@5.m|
+3350:<span class="c03">35 6D E4 35 8D E4 35 90</span> |5md5.d5.|
+3358:<span class="c03">03 EE E5 35 60 00 00 A9</span> |.ne5`..)|
+3360:<span class="c03">01 D0 22 A9 02 D0 1E A9</span> |.P").P.)|
+3368:<span class="c03">03 D0 1A A9 04 D0 16 A9</span> |.P.).P.)|
+3370:<span class="c03">05 D0 12 A9 06 D0 0E 4C</span> |.P.).P.L|
+3378:<span class="c03">ED 3F EA A9 0A D0 06 AD</span> |m?j).P.-|
+3380:<span class="c03">C5 35 18 90 01 38 08 8D</span> |E5...8..|
+3388:<span class="c03">C5 35 A9 00 85 48 20 7E</span> |E5)..H ~|
+3390:<span class="c03">2E 28 AE 9B 33 9A 60</span> <span class="c04">00</span> |.(..3.`.|
+3398:<span class="c04">00 00 00 00 00 00 00 00</span> |........|
+33A0:<span class="c04">00 00 FF FF 01 0A 64 D4</span> |......dT|
+33A8:<span class="c04">C9 C1 C2 D3 D2 C1 C2 A0</span> |IABSRAB |
+33B0:<span class="c04">C5 CD D5 CC CF D6 A0 CB</span> |EMULOV K|
+33B8:<span class="c04">D3 C9 C4 04 11 0F 04 00</span> |SID.....|
+33C0:<span class="c04">00 FE FC FD FF FC FF FC</span> |.~|}.|.||
+33C8:<span class="c04">FC FE FF FC FD FF FE FF</span> ||~.|}.~.|
+33D0:<span class="c04">FD FE FF FD FD FD FF FE</span> |}~.}}}.~|
+33D8:<span class="c04">FD FF FC FF FF FD FD FC</span> |}.|..}}||
+33E0:<span class="c04">FE FE 7A FE FD FF FD FE</span> |~~z~}.}~|
+33E8:<span class="c04">FE FF FC 11 01 00 00 23</span> |~.|....#|
+33F0:<span class="c04">10 00 01 FF FC FC FD FC</span> |....||}||
+33F8:<span class="c04">FE FC FC FD FD FE FC FC</span> |~||}}~|||
+3400:<span class="c04">FF FC FC FD FC FD FD FC</span> |.||}|}}||
+3408:<span class="c04">FF FE FC FC FC FC FE FE</span> |.~||||~~|
+3410:<span class="c04">FC FD FC FC FC FE FC FD</span> ||}|||~|}|
+3418:<span class="c04">FC FC FE FC FC FC FE FC</span> |||~|||~||
+3420:<span class="c04">FC FF FC FC FC FC FD FD</span> ||.||||}}|
+3428:<span class="c04">FC FF FF FC FE FD FE FD</span> ||..|~}~}|
+3430:<span class="c04">FE FC FF FC FE FF FD FC</span> |~|.|~.}||
+3438:<span class="c04">FF FC FC FC FD FE FD FE</span> |.|||}~}~|
+3440:<span class="c04">FC FC FC FF FE FC FC FD</span> ||||.~||}|
+3448:<span class="c04">FC FD FF FC FC FC FC FE</span> ||}.||||~|
+3450:<span class="c04">FD FC FD FC FC FC FD FC</span> |}|}|||}||
+3458:<span class="c04">FD FF FC FE FD FC FC FD</span> |}.|~}||}|
+3460:<span class="c04">FC FC FC FC FC FC FF FF</span> |||||||..|
+3468:<span class="c04">FE FC FF FC FD FF FE FF</span> |~|.|}.~.|
+3470:<span class="c04">FE FE FC FC FD FC FC FC</span> |~~||}||||
+3478:<span class="c04">FE FE FE FD FE FD FC FE</span> |~~~}~}|~|
+3480:<span class="c04">FD FD FC FC FE FE FC FC</span> |}}||~~|||
+3488:<span class="c04">FD FC FC FE FC FC FD FC</span> |}||~||}||
+3490:<span class="c04">FE FE FC FD FC FC FC FC</span> |~~|}|||||
+3498:<span class="c04">FC FD FD FC FE FD FC FC</span> ||}}|~}|||
+34A0:<span class="c04">FE FC FC FC FC FC FE FC</span> |~|||||~||
+34A8:<span class="c04">FD FD FC FF FD FC FE FE</span> |}}|.}|~~|
+34B0:<span class="c04">FC FD FD FE FF FD FE FF</span> ||}}~.}~.|
+34B8:<span class="c04">FE FF FC 02 FC FD FC FC</span> |~.|.|}|||
+34C0:<span class="c04">FC FE FE FE FD FE FF FE</span> ||~~~}~.~|
+34C8:<span class="c04">FC FC FC FC FC FE FC FD</span> ||||||~|}|
+34D0:<span class="c04">FC FC FF FD FC FE FC FC</span> |||.}|~|||
+34D8:<span class="c04">FD FE FE FF FC FE FF FD</span> |}~~.|~.}|
+34E0:<span class="c04">FF FE FC FC FE FE FD FF</span> |.~||~~}.|
+34E8:<span class="c04">FE FF FF FD FC FE FF FC</span> |~..}|~.||
+34F0:<span class="c04">FE FD FE FC FE FC FF FE</span> |~}~|~|.~|
+34F8:<span class="c04">FE FE FC FD FD FE FF FC</span> |~~|}}~.||
+3500:<span class="c04">FC FC FC FC FC FE FC FD</span> ||||||~|}|
+3508:<span class="c04">FD FC FF FD FC FE FE FC</span> |}|.}|~~||
+3510:<span class="c04">FE FD FC FF FF FC FC FE</span> |~}|..||~|
+3518:<span class="c04">FE FD FE FD FE FE FC FC</span> |~}~}~~|||
+3520:<span class="c04">FE FD FD FC FE FD FC FC</span> |~}}|~}|||
+3528:<span class="c04">FE FC FC FE FC FC FD FC</span> |~||~||}||
+3530:<span class="c04">FD FD FC FF FD FC FE FD</span> |}}|.}|~}|
+3538:<span class="c04">FC FD FF FC FE FC FC FC</span> ||}.|~||||
+3540:<span class="c04">FC FC FC FD FC FC FE FC</span> ||||}||~||
+3548:<span class="c04">FD FC FC FF FC FC FE FD</span> |}||.||~}|
+3550:<span class="c04">FC FD FF FC FF FD FE FF</span> ||}.|.}~.|
+3558:<span class="c04">FD FF FE FC FD FF FF FF</span> |}.~|}...|
+3560:<span class="c04">FC FC FE FC FC FF FF FC</span> |||~||..||
+3568:<span class="c04">FC FD FC FE FC FC FC FC</span> ||}|~|||||
+3570:<span class="c04">FC FE FC FC FD FD FC FC</span> ||~||}}|||
+3578:<span class="c04">FE FC FD FC FC FE FE FC</span> |~|}||~~||
+3580:<span class="c04">FC FC FC FC FF FC FC FC</span> |||||.||||
+3588:<span class="c04">FC FD FD FC FF FC FC FE</span> ||}}|.||~|
+3590:<span class="c04">FF FC FD FF FC FF FD FE</span> |.|}.|.}~|
+3598:<span class="c04">FF FD FD FD FF FE FD FF</span> |.}}}.~}.|
+35A0:<span class="c04">FC FF FD FD FD FC FE FC</span> ||.}}}|~||
+35A8:<span class="c04">FC FF FE FC FC FE FC FC</span> ||.~||~|||
+35B0:<span class="c04">FE FC FD FD FC FF FD FC</span> |~|}}|.}||
+35B8:<span class="c04">FE FC FC FF FF FC FC FD</span> |~||..||}|
+35C0:<span class="c04">FC FE FE FE FC FF FC FF</span> ||~~~|.|.|
+35C8:<span class="c04">FC FF FF FE FC FE FC FD</span> ||..~|~|}|
+35D0:<span class="c04">FF FF FD FD FE FC FC FC</span> |..}}~||||
+35D8:<span class="c04">FC FC FE FD FD FF FE FC</span> |||~}}.~||
+35E0:<span class="c04">FE FC FC FC FF FC FC FE</span> |~|||.||~|
+35E8:<span class="c04">FE FC FE FC FC FC FF FC</span> |~|~|||.||
+35F0:<span class="c04">FC FC FE FC FC FF FD FE</span> |||~||.}~|
+35F8:<span class="c04">FC FC FD FC FC FF</span> <span class="c05">FD FC</span> |||}||.}||
+3600:<span class="c05">01 A5 27 C9 09 D0 18 A5</span> |.%'I.P.%|
+3608:<span class="c05">2B 4A 4A 4A 4A 09 C0 85</span> |+JJJJ.@.|
+3610:<span class="c05">3F A9 5C 85 3E 18 AD FE</span> |?)\.&gt;.-~|
+3618:<span class="c05">08 6D FF 08 8D FE 08 AE</span> |.m...~..|
+3620:<span class="c05">FF 08 30 15 BD 4D 08 85</span> |..0.=M..|
+3628:<span class="c05">3D CE FF 08 AD FE 08 85</span> |=N..-~..|
+3630:<span class="c05">27 CE FE 08 A6 2B 6C 3E</span> |'N~.&amp;+l&gt;|
+3638:<span class="c05">00 EE FE 08 EE FE 08 20</span> |.n~.n~. |
+3640:<span class="c05">89 FE 20 93 FE 20 2F FB</span> |.~ .~ /{|
+3648:<span class="c05">A6 2B 6C FD 08 00 0D 0B</span> |&amp;+l}....|
+3650:<span class="c05">09 07 05 03 01 0E 0C 0A</span> |........|
+3658:<span class="c05">08 06 04 02 0F 00 20 64</span> |...... d|
+3660:<span class="c05">27 B0 08 A9 00 A8 8D 5D</span> |'0.).(.]|
+3668:<span class="c05">36 91 40 AD C5 35 4C D2</span> |6.@-E5LR|
+3670:<span class="c05">26 AD 5D 36 F0 08 EE BD</span> |&amp;-]6p.n=|
+3678:<span class="c05">35 D0 03 EE BE 35 A9 00</span> |5P.n&gt;5).|
+3680:<span class="c05">8D 5D 36 4C B3 36 8D BC</span> |.]6L36.&lt;|
+3688:<span class="c05">35 20 A8 26 20 EA 22 4C</span> |5 (&amp; j"L|
+3690:<span class="c05">7D 22 A0 13 B1 42 D0 14</span> |}" .1BP.|
+3698:<span class="c05">C8 C0 17 D0 F7 A0 19 B1</span> |H@.Pw .1|
+36A0:<span class="c05">42 99 A4 35 C8 C0 1D D0</span> |B.$5H@.P|
+36A8:<span class="c05">F6 4C BB 26 A2 FF 8E 5D</span> |vL;&amp;"..]|
+36B0:<span class="c05">36 D0 F6 AD BD 35 8D E6</span> |6Pv-=5.f|
+36B8:<span class="c05">35 8D EA 35 AD BE 35 8D</span> |5.j5-&gt;5.|
+36C0:<span class="c05">E7 35 8D EB 35 8D E4 35</span> |g5.k5.d5|
+36C8:<span class="c05">BA 8E 9B 33 4C 7F 33 00</span> |:..3L.3.|
+36D0:<span class="c05">00 00 00 00 00 00 00 00</span> |........|
+36D8:<span class="c05">00 00 00 00 00 00 00 00</span> |........|
+36E0:<span class="c05">00 00 00 00 00 00 00 00</span> |........|
+36E8:<span class="c05">00 00 00 00 00 00 00 00</span> |........|
+36F0:<span class="c05">00 00 00 00 00 00 00 00</span> |........|
+36F8:<span class="c05">00 00 00 00 00 00 36 09</span> |......6.|
+3700:<span class="c05">8E E9 37 8E F7 37 A9 01</span> |.i7.w7).|
+3708:<span class="c05">8D F8 37 8D EA 37 AD E0</span> |.x7.j7-`|
+3710:<span class="c05">37 8D E1 37 A9 02 8D EC</span> |7.a7)..l|
+3718:<span class="c05">37 A9 04 8D ED 37 AC E7</span> |7)..m7,g|
+3720:<span class="c05">37 88 8C F1 37 A9 01 8D</span> |7..q7)..|
+3728:<span class="c05">F4 37 8A 4A 4A 4A 4A AA</span> |t7.JJJJ*|
+3730:<span class="c05">A9 00 9D F8 04 9D 78 04</span> |)..x..x.|
+3738:<span class="c05">20 93 37 A2 FF 9A 8E EB</span> | .7"...k|
+3740:<span class="c05">37 4C C8 3F 20 89 FE 4C</span> |7LH? .~L|
+3748:<span class="c05">03 1B AD E7 37 38 ED F1</span> |..-g78mq|
+3750:<span class="c05">37 8D E1 37 AD E7 37 8D</span> |7.a7-g7.|
+3758:<span class="c05">F1 37 CE F1 37 A9 02 8D</span> |q7Nq7)..|
+3760:<span class="c05">EC 37 A9 04 8D ED 37 A9</span> |l7)..m7)|
+3768:<span class="c05">02 8D F4 37 20 93 37 AD</span> |..t7 .7-|
+3770:<span class="c05">E7 37 8D FE 36 18 69 09</span> |g7.~6.i.|
+3778:<span class="c05">8D F1 37 A9 0A 8D E1 37</span> |.q7)..a7|
+3780:<span class="c05">38 E9 01 8D FF 36 8D ED</span> |8i...6.m|
+3788:<span class="c05">37 20 93 37 60 00 00 00</span> |7 .7`...|
+3790:<span class="c05">00 00 00 AD E5 37 AC E4</span> |...-e7,d|
+3798:<span class="c05">37 20 B5 37 AC ED 37 88</span> |7 57,m7.|
+37A0:<span class="c05">10 07 A0 0F EA EA CE EC</span> |.. .jjNl|
+37A8:<span class="c05">37 8C ED 37 CE F1 37 CE</span> |7.m7Nq7N|
+37B0:<span class="c05">E1 37 D0 DF 60 08 78 20</span> |a7P_`.x |
+37B8:<span class="c05">00 3D B0 03 28 18 60 28</span> |.=0.(.`(|
+37C0:<span class="c05">38 60 AD BC 35 8D F1 37</span> |8`-&lt;5.q7|
+37C8:<span class="c05">A9 00 8D F0 37 AD F9 35</span> |)..p7-y5|
+37D0:<span class="c05">49 FF 8D EB 37 60 A9 00</span> |I..k7`).|
+37D8:<span class="c05">A8 91 42 C8 D0 FB 60 00</span> |(.BHP{`.|
+37E0:<span class="c05">1B 00 0A 1B E8 37 00 36</span> |....h7.6|
+37E8:<span class="c05">01 60 01 00 00 00 FB 37</span> |.`....{7|
+37F0:<span class="c05">00 00 00 01 00 00 00 60</span> |.......`|
+37F8:<span class="c05">01 00 00 00 01 EF D8 00</span> |.....oX.|
+3800:<span class="c05">A2 00 A0 02 88 B1 3E 4A</span> |". ..1&gt;J|
+3808:<span class="c05">3E 00 3C 4A 3E 00 3C 99</span> |&gt;.&lt;J&gt;.&lt;.|
+3810:<span class="c05">00 3B E8 E0 56 90 ED A2</span> |.;h`V.m"|
+3818:<span class="c05">00 98 D0 E8 A2 55 BD 00</span> |..Ph"U=.|
+3820:<span class="c05">3C 29 3F 9D 00 3C CA 10</span> |&lt;)?..&lt;J.|
+3828:<span class="c05">F5 60</span> 38 86 27 8E 78 06 |u`8.'.x.|
+3830:BD 8D C0 BD 8E C0 30 7C |=.@=.@0||
+3838:AD 00 3C 85 26 A9 FF 9D |-.&lt;.&amp;)..|
+3840:8F C0 1D 8C C0 48 68 EA |.@..@Hhj|
+3848:A0 04 48 68 20 B9 38 88 | .Hh 98.|
+3850:D0 F8 A9 D5 20 B8 38 A9 |Px)U 88)|
+3858:AA 20 B8 38 A9 AD 20 B8 |* 88)- 8|
+3860:38 98 A0 56 D0 03 B9 00 |8. VP.9.|
+3868:3C 59 FF 3B AA BD 29 3A |&lt;Y.;*=):|
+3870:A6 27 9D 8D C0 BD 8C C0 |&amp;'..@=.@|
+3878:88 D0 EB A5 26 EA 59 00 |.Pk%&amp;jY.|
+3880:3B AA BD 29 3A AE 78 06 |;*=):.x.|
+3888:9D 8D C0 BD 8C C0 B9 00 |..@=.@9.|
+3890:3B C8 D0 EA AA BD 29 3A |;HPj*=):|
+3898:A6 27 20 BB 38 A9 DE 20 |&amp;' ;8)^ |
+38A0:B8 38 A9 AA 20 B8 38 A9 |88)* 88)|
+38A8:EB 20 B8 38 A9 FF 20 B8 |k 88). 8|
+38B0:38 BD 8E C0 BD 8C C0 60 |8=.@=.@`|
+38B8:18 48 68 9D 8D C0 1D 8C |.Hh..@..|
+38C0:C0 60 A0 00 A2 56 CA 30 |@` ."VJ0|
+38C8:FB B9 00 3B 5E 00 3C 2A |{9.;^.&lt;*|
+38D0:5E 00 3C 2A 91 3E C8 C4 |^.&lt;*.&gt;HD|
+38D8:26 D0 EB 60 A0 20 88 F0 |&amp;Pk`  .p|
+38E0:61 BD 8C C0 10 FB 49 D5 |a=.@.{IU|
+38E8:D0 F4 EA BD 8C C0 10 FB |Ptj=.@.{|
+38F0:C9 AA D0 F2 A0 56 BD 8C |I*Pr V=.|
+38F8:C0 10 FB C9 AD D0 E7 A9 |@.{I-Pg)|
+3900:00 88 84 26 BC 8C C0 10 |...&amp;&lt;.@.|
+3908:FB 59 00 3A A4 26 99 00 |{Y.:$&amp;..|
+3910:3C D0 EE 84 26 BC 8C C0 |&lt;Pn.&amp;&lt;.@|
+3918:10 FB 59 00 3A A4 26 99 |.{Y.:$&amp;.|
+3920:00 3B C8 D0 EE BC 8C C0 |.;HPn&lt;.@|
+3928:10 FB D9 00 3A D0 13 BD |.{Y.:P.=|
+3930:8C C0 10 FB C9 DE D0 0A |.@.{I^P.|
+3938:EA BD 8C C0 10 FB C9 AA |j=.@.{I*|
+3940:F0 5C 38 60 A0 FC 84 26 |p\8` |.&amp;|
+3948:C8 D0 04 E6 26 F0 F3 BD |HP.f&amp;ps=|
+3950:8C C0 10 FB C9 D5 D0 F0 |.@.{IUPp|
+3958:EA BD 8C C0 10 FB C9 AA |j=.@.{I*|
+3960:D0 F2 A0 03 BD 8C C0 10 |Pr .=.@.|
+3968:FB C9 96 D0 E7 A9 00 85 |{I.Pg)..|
+3970:27 BD 8C C0 10 FB 2A 85 |'=.@.{*.|
+3978:26 BD 8C C0 10 FB 25 26 |&amp;=.@.{%&amp;|
+3980:99 2C 00 45 27 88 10 E7 |.,.E'..g|
+3988:A8 D0 B7 BD 8C C0 10 FB |(P7=.@.{|
+3990:C9 DE D0 AE EA BD 8C C0 |I^P.j=.@|
+3998:10 FB C9 AA D0 A4 18 60 |.{I*P$.`|
+39A0:86 2B 85 2A CD 78 04 F0 |.+.*Mx.p|
+39A8:53 A9 00 85 26 AD 78 04 |S)..&amp;-x.|
+39B0:85 27 38 E5 2A F0 33 B0 |.'8e*p30|
+39B8:07 49 FF EE 78 04 90 05 |.I.nx...|
+39C0:69 FE CE 78 04 C5 26 90 |i~Nx.E&amp;.|
+39C8:02 A5 26 C9 0C B0 01 A8 |.%&amp;I.0.(|
+39D0:38 20 EE 39 B9 11 3A 20 |8 n99.: |
+39D8:00 3A A5 27 18 20 F1 39 |.:%'. q9|
+39E0:B9 1D 3A 20 00 3A E6 26 |9.: .:f&amp;|
+39E8:D0 C3 20 00 3A 18 AD 78 |PC .:.-x|
+39F0:04 29 03 2A 05 2B AA BD |.).*.+*=|
+39F8:80 C0 A6 2B 60 00 00 00 |.@&amp;+`...|
+3A00:A2 11 CA D0 FD E6 46 D0 |".JP}fFP|
+3A08:02 E6 47 38 E9 01 D0 F0 |.fG8i.Pp|
+3A10:60 01 30 28 24 20 1E 1D |`.0($ ..|
+3A18:1C 1C 1C 1C 1C 70 2C 26 |.....p,&amp;|
+3A20:22 1F 1E 1D 1C 1C 1C 1C |".......|
+3A28:1C 96 97 9A 9B 9D 9E 9F |........|
+3A30:A6 A7 AB AC AD AE AF B2 |&amp;'+,-./2|
+3A38:B3 B4 B5 B6 B7 B9 BA BB |345679:;|
+3A40:BC BD BE BF CB CD CE CF |&lt;=&gt;?KMNO|
+3A48:D3 D6 D7 D9 DA DB DC DD |SVWYZ[\]|
+3A50:DE DF E5 E6 E7 E9 EA EB |^_efgijk|
+3A58:EC ED EE EF F2 F3 F4 F5 |lmnorstu|
+3A60:F6 F7 F9 FA FB FC FD FE |vwyz{|}~|
+3A68:FF AE 5F 2A E0 1C F0 05 |.._*`.p.|
+3A70:A2 00 8E 5D 36 60 A9 FF |"..]6`).|
+3A78:8D FB 04 8D 0C C0 8D 0E |.{...@..|
+3A80:C0 4C 2F FB 00 00 00 00 |@L/{....|
+3A88:00 00 00 00 00 00 00 00 |........|
+3A90:00 00 00 00 00 00 00 01 |........|
+3A98:98 99 02 03 9C 04 05 06 |........|
+3AA0:A0 A1 A2 A3 A4 A5 07 08 | !"#$%..|
+3AA8:A8 A9 AA 09 0A 0B 0C 0D |()*.....|
+3AB0:B0 B1 0E 0F 10 11 12 13 |01......|
+3AB8:B8 14 15 16 17 18 19 1A |8.......|
+3AC0:C0 C1 C2 C3 C4 C5 C6 C7 |@ABCDEFG|
+3AC8:C8 C9 CA 1B CC 1C 1D 1E |HIJ.L...|
+3AD0:D0 D1 D2 1F D4 D5 20 21 |PQR.TU !|
+3AD8:D8 22 23 24 25 26 27 28 |X"#$%&amp;'(|
+3AE0:E0 E1 E2 E3 E4 29 2A 2B |`abcd)*+|
+3AE8:E8 2C 2D 2E 2F 30 31 32 |h,-./012|
+3AF0:F0 F1 33 34 35 36 37 38 |pq345678|
+3AF8:F8 39 3A 3B 3C 3D 3E 3F |x9:;&lt;=&gt;?|
+3B00:00 00 00 00 00 00 00 00 |........|
+3B08:00 00 00 00 00 00 00 00 |........|
+3B10:00 00 00 00 00 00 00 00 |........|
+3B18:00 00 00 00 00 00 00 00 |........|
+3B20:00 00 00 00 00 00 00 00 |........|
+3B28:00 00 00 00 00 00 00 00 |........|
+3B30:00 00 00 00 00 00 00 00 |........|
+3B38:00 00 00 00 00 00 00 00 |........|
+3B40:00 00 00 00 00 00 00 00 |........|
+3B48:00 00 00 00 00 00 00 00 |........|
+3B50:00 00 00 00 00 00 00 00 |........|
+3B58:00 00 00 00 00 00 00 00 |........|
+3B60:00 00 00 00 00 00 00 00 |........|
+3B68:00 00 00 00 00 00 00 00 |........|
+3B70:00 00 00 00 00 00 00 00 |........|
+3B78:00 00 00 00 00 00 00 00 |........|
+3B80:00 00 00 00 00 00 00 00 |........|
+3B88:00 00 00 00 00 00 00 00 |........|
+3B90:00 00 00 00 00 00 00 00 |........|
+3B98:00 00 00 00 00 00 00 00 |........|
+3BA0:00 00 00 00 00 00 00 00 |........|
+3BA8:00 00 00 00 00 00 00 00 |........|
+3BB0:00 00 00 00 00 00 00 00 |........|
+3BB8:00 00 00 00 00 00 00 00 |........|
+3BC0:00 00 00 00 00 00 00 00 |........|
+3BC8:00 00 00 00 00 00 00 00 |........|
+3BD0:00 00 00 00 00 00 00 00 |........|
+3BD8:00 00 00 00 00 00 00 00 |........|
+3BE0:00 00 00 00 00 00 00 00 |........|
+3BE8:00 00 00 00 00 00 00 00 |........|
+3BF0:00 00 00 00 00 00 00 00 |........|
+3BF8:00 00 00 00 00 00 00 00 |........|
+3C00:00 00 00 00 00 00 00 00 |........|
+3C08:00 00 00 00 00 00 00 00 |........|
+3C10:00 00 00 00 00 00 00 00 |........|
+3C18:00 00 00 00 00 00 00 00 |........|
+3C20:00 00 00 00 00 00 00 00 |........|
+3C28:00 00 00 00 00 00 00 00 |........|
+3C30:00 00 00 00 00 00 00 00 |........|
+3C38:00 00 00 00 00 00 00 00 |........|
+3C40:00 00 00 00 00 00 00 00 |........|
+3C48:00 00 00 00 00 00 00 00 |........|
+3C50:00 00 00 00 00 00 38 BD |......8=|
+3C58:8D C0 BD 8E C0 30 5E A9 |.@=.@0^)|
+3C60:FF 9D 8F C0 DD 8C C0 48 |...@].@H|
+3C68:68 20 C3 3C 20 C3 3C 9D |h C&lt; C&lt;.|
+3C70:8D C0 DD 8C C0 EA 88 D0 |.@].@j.P|
+3C78:F0 A9 D5 20 D5 3C A9 AA |p)U U&lt;)*|
+3C80:20 D5 3C A9 96 20 D5 3C | U&lt;). U&lt;|
+3C88:A5 41 20 C4 3C A5 44 20 |%A D&lt;%D |
+3C90:C4 3C A5 3F 20 C4 3C A5 |D&lt;%? D&lt;%|
+3C98:41 45 44 45 3F 48 4A 05 |AEDE?HJ.|
+3CA0:3E 9D 8D C0 BD 8C C0 68 |&gt;..@=.@h|
+3CA8:09 AA 20 D4 3C A9 DE 20 |.* T&lt;)^ |
+3CB0:D5 3C A9 AA 20 D5 3C A9 |U&lt;)* U&lt;)|
+3CB8:EB 20 D5 3C 18 BD 8E C0 |k U&lt;.=.@|
+3CC0:BD 8C C0 60 48 4A 05 3E |=.@`HJ.&gt;|
+3CC8:9D 8D C0 DD 8C C0 68 EA |..@].@hj|
+3CD0:EA EA 09 AA EA EA 48 68 |jj.*jjHh|
+3CD8:9D 8D C0 DD 8C C0 60 00 |..@].@`.|
+3CE0:00 00 00 00 00 00 00 00 |........|
+3CE8:00 00 00 00 00 00 00 00 |........|
+3CF0:00 00 00 00 00 00 00 00 |........|
+3CF8:00 00 00 00 00 00 00 00 |........|
+3D00:<span class="c01">84 48 85 49 A0 02 8C F8</span> |.H.I ..x|
+3D08:<span class="c01">06 A0 04 8C F8 04 A0 01</span> |. ..x. .|
+3D10:<span class="c01">B1 48 AA A0 0F D1 48 F0</span> |1H* .QHp|
+3D18:<span class="c01">1B 8A 48 B1 48 AA 68 48</span> |..H1H*hH|
+3D20:<span class="c01">91 48 BD 8E C0 A0 08 BD</span> |.H=.@ .=|
+3D28:<span class="c01">8C C0 DD 8C C0 D0 F6 88</span> |.@].@Pv.|
+3D30:<span class="c01">D0 F8 68 AA BD 8E C0 BD</span> |Pxh*=.@=|
+3D38:<span class="c01">8C C0 A0 08 BD 8C C0 48</span> |.@ .=.@H|
+3D40:<span class="c01">68 48 68 8E F8 05 DD 8C</span> |hHh.x.].|
+3D48:<span class="c01">C0 D0 03 88 D0 EE 08 BD</span> |@P..Pn.=|
+3D50:<span class="c01">89 C0 A0 06 B1 48 99 36</span> |.@ .1H.6|
+3D58:<span class="c01">00 C8 C0 0A D0 F6 A0 03</span> |.H@.Pv .|
+3D60:<span class="c01">B1 3C 85 47 A0 02 B1 48</span> |1&lt;.G .1H|
+3D68:<span class="c01">A0 10 D1 48 F0 06 91 48</span> | .QHp..H|
+3D70:<span class="c01">28 A0 00 08 6A 90 05 BD</span> |( ..j..=|
+3D78:<span class="c01">8A C0 B0 03 BD 8B C0 66</span> |.@0.=.@f|
+3D80:<span class="c01">35 28 08 D0 0B A0 07 20</span> |5(.P. . |
+3D88:<span class="c01">00 3A 88 D0 FA AE F8 05</span> |.:.Pz.x.|
+3D90:<span class="c01">A0 04 B1 48 20 5A 3E 28</span> | .1H Z&gt;(|
+3D98:<span class="c01">D0 11 A4 47 10 0D A0 12</span> |P.$G.. .|
+3DA0:<span class="c01">88 D0 FD E6 46 D0 F7 E6</span> |.P}fFPwf|
+3DA8:<span class="c01">47 D0 F3</span> <span class="c02">A0 0C B1 48 F0</span> |GPs .1Hp|
+3DB0:<span class="c02">5A C9 04 F0 58 6A 08 B0</span> |ZI.pXj.0|
+3DB8:<span class="c02">03 20 00 38 A0 30 8C 78</span> |. .8 0.x|
+3DC0:<span class="c02">05 AE F8 05 20 44 39 90</span> |..x. D9.|
+3DC8:<span class="c02">24 CE 78 05 10 F3 AD 78</span> |$Nx..s-x|
+3DD0:<span class="c02">04 48 A9 60 20 95 3E CE</span> |.H)` .&gt;N|
+3DD8:<span class="c02">F8 06 F0 28 A9 04 8D F8</span> |x.p()..x|
+3DE0:<span class="c02">04 A9 00 20 5A 3E 68 20</span> |.). Z&gt;h |
+3DE8:<span class="c02">5A 3E 4C BC 3D A4 2E CC</span> |Z&gt;L&lt;=$.L|
+3DF0:<span class="c02">78 04 F0 1C AD 78 04 48</span> |x.p.-x.H|
+3DF8:<span class="c02">98 20 95 3E 68 CE F8 04</span> |. .&gt;hNx.|
+3E00:<span class="c02">D0 E5 F0 CA 68 A9 40 28</span> |PepJh)@(|
+3E08:<span class="c02">4C 48 3E F0 39 4C AF 3E</span> |LH&gt;p9L/&gt;|
+3E10:<span class="c02">A0 03 B1 48 48 A5 2F A0</span> | .1HH%/ |
+3E18:<span class="c02">0E 91 48 68 F0 08 C5 2F</span> |..Hhp.E/|
+3E20:<span class="c02">F0 04 A9 20 D0 E1 A0 05</span> |p.) Pa .|
+3E28:<span class="c02">B1 48 A8 B9 B8 3F C5 2D</span> |1H(98?E-|
+3E30:<span class="c02">D0 97 28 90 1C 20 DC 38</span> |P.(.. \8|
+3E38:<span class="c02">08 B0 8E 28 A2 00 86 26</span> |.0.("..&amp;|
+3E40:<span class="c02">20 C2 38 AE F8 05 18 24</span> | B8.x..$|
+3E48:<span class="c02">38 A0 0D 91 48 BD 88 C0</span> |8 ..H=.@|
+3E50:<span class="c02">60 20 2A 38 90 F0 A9 10</span> |` *8.p).|
+3E58:<span class="c02">B0 EE 48 A0 01 B1 3C 6A</span> |0nH .1&lt;j|
+3E60:<span class="c02">68 90 08 0A 20 6B 3E 4E</span> |h... k&gt;N|
+3E68:<span class="c02">78 04 60 85 2A 20 8E 3E</span> |x.`.* .&gt;|
+3E70:<span class="c02">B9 78 04 24 35 30 03 B9</span> |9x.$50.9|
+3E78:<span class="c02">F8 04 8D 78 04 A5 2A 24</span> |x..x.%*$|
+3E80:<span class="c02">35 30 05 99 F8 04 10 03</span> |50..x...|
+3E88:<span class="c02">99 78 04 4C A0 39 8A 4A</span> |.x.L 9.J|
+3E90:<span class="c02">4A 4A 4A A8 60 48 A0 02</span> |JJJ(`H .|
+3E98:<span class="c02">B1 48 6A 66 35 20 8E 3E</span> |1Hjf5 .&gt;|
+3EA0:<span class="c02">68 0A 24 35 30 05 99 F8</span> |h.$50..x|
+3EA8:<span class="c02">04 10 03 99 78 04 60</span> <span class="c03">A0</span> |....x.` |
+3EB0:<span class="c03">03 B1 48 85 41 A9 AA 85</span> |.1H.A)*.|
+3EB8:<span class="c03">3E A0 56 A9 00 85 44 99</span> |&gt; V)..D.|
+3EC0:<span class="c03">FF 3B 88 D0 FA 99 00 3B</span> |.;.Pz..;|
+3EC8:<span class="c03">88 D0 FA A9 50 20 95 3E</span> |.Pz)P .&gt;|
+3ED0:<span class="c03">A9 28 85 45 A5 44 20 5A</span> |)(.E%D Z|
+3ED8:<span class="c03">3E 20 0D 3F A9 08 B0 24</span> |&gt; .?).0$|
+3EE0:<span class="c03">A9 30 8D 78 05 38 CE 78</span> |)0.x.8Nx|
+3EE8:<span class="c03">05 F0 19 20 44 39 B0 F5</span> |.p. D90u|
+3EF0:<span class="c03">A5 2D D0 F1 20 DC 38 B0</span> |%-Pq \80|
+3EF8:<span class="c03">EC E6 44 A5 44 C9 23 90</span> |lfD%DI#.|
+3F00:<span class="c03">D3 18 90 05 A0 0D 91 48</span> |S... ..H|
+3F08:<span class="c03">38 BD 88 C0 60 A9 00 85</span> |8=.@`)..|
+3F10:<span class="c03">3F A0 80 D0 02 A4 45 20</span> |? .P.$E |
+3F18:<span class="c03">56 3C B0 6B 20 2A 38 B0</span> |V&lt;0k *80|
+3F20:<span class="c03">66 E6 3F A5 3F C9 10 90</span> |ff?%?I..|
+3F28:<span class="c03">EC A0 0F 84 3F A9 30 8D</span> |l ..?)0.|
+3F30:<span class="c03">78 05 99 A8 3F 88 10 FA</span> |x..(?..z|
+3F38:<span class="c03">A4 45 20 87 3F 20 87 3F</span> |$E .? .?|
+3F40:<span class="c03">20 87 3F 48 68 EA 88 D0</span> | .?Hhj.P|
+3F48:<span class="c03">F1 20 44 39 B0 23 A5 2D</span> |q D90#%-|
+3F50:<span class="c03">F0 15 A9 10 C5 45 A5 45</span> |p.).EE%E|
+3F58:<span class="c03">E9 01 85 45 C9 05 B0 11</span> |i..EI.0.|
+3F60:<span class="c03">38 60 20 44 39 B0 05 20</span> |8` D90. |
+3F68:<span class="c03">DC 38 90 1C CE 78 05 D0</span> |\8..Nx.P|
+3F70:<span class="c03">F1 20 44 39 B0 0B A5 2D</span> |q D90.%-|
+3F78:<span class="c03">C9 0F D0 05 20 DC 38 90</span> |I.P. \8.|
+3F80:<span class="c03">8C CE 78 05 D0 EB 38 60</span> |.Nx.Pk8`|
+3F88:<span class="c03">A4 2D B9 A8 3F 30 DD A9</span> |$-9(?0])|
+3F90:<span class="c03">FF 99 A8 3F C6 3F 10 CA</span> |..(?F?.J|
+3F98:<span class="c03">A5 44 D0 0A A5 45 C9 10</span> |%DP.%EI.|
+3FA0:<span class="c03">90 E5 C6 45 C6 45 18 60</span> |.eFEFE.`|
+3FA8:<span class="c03">00 00 00 00 00 00 00 00</span> |........|
+3FB0:<span class="c03">00 00 00 00 00 00 00 00</span> |........|
+3FB8:<span class="c03">00 0D 0B 09 07 05 03 01</span> |........|
+3FC0:<span class="c03">0E 0C 0A 08 06 04 02 0F</span> |........|
+3FC8:<span class="c04">20 93 FE AD 81 C0 AD 81</span> | .~-.@-.|
+3FD0:<span class="c04">C0 A9 00 8D 00 E0 20 76</span> |@)...` v|
+3FD8:<span class="c04">3A 4C 44 37 8D 63 2A 8D</span> |:LD7.c*.|
+3FE0:<span class="c04">70 2A 8D 71 2A 60 20 5B</span> |p*.q*` [|
+3FE8:<span class="c04">27 8C B7 2A 60 20 7E 2E</span> |'.7*` ~.|
+3FF0:<span class="c04">AE 9B 33 9A 20 16 23 BA</span> |..3. .#:|
+3FF8:<span class="c04">8E 9B 33 A9 09 4C 85 33</span> |..3).L.3|
+</pre>
+
+
 <h1>Wasted Memory</h1>
 <p>
 I've annotated <b>*wastes*</b> listing locations where memory is wasted.
