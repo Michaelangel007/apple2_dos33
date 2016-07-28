@@ -324,7 +324,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     036             INCLUDE <a class="_c44 file" href="#DOSPTCH">DOSPTCH</a>,,1  ; $3FC8 .. $3FFF, T0S9
 
 
-<hr>; === <a class="file" name="RELOCTR">RELOCTR</a> - Relocate DOS to high (48K) memory, Page <a class="page" name="page110">110</a>, <b class="ts">T0$A</b>, $<span class="adr">??00</span> ===<hr>
+<hr>; === <a class="file" name="RELOCTR">RELOCTR</a> - Relocate DOS to high (48K) memory, Page <a class="page" name="page110">110</a>, <b class="ts">T0SA</b>, $<span class="adr">1B00</span> .. $<span class="adr">1CFF</span> ===<hr>
                     001             PAGE
                     002 *****************************************************
                     003 *                                                   *
@@ -638,7 +638,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     337             PAGE
 
 
-<hr>; === <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <b class="ts">T0$C</b>, $<span class="adr">9D00</span> ===<hr>
+<hr>; === <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <b class="ts">T0SC</b>, $<span class="adr">9D00</span> .. $<span class="adr">9E80</span> ===<hr>
                     001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*
                     002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>
                     003             ORG *+<a class="v" href="#REMDR">REMDR</a>
@@ -867,7 +867,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     226 
 
 
-<hr>; === <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Page <a class="page" name="page44">44</a>, <b class="ts">T0SD</b> .. , $<span class="adr">9E81</span> - $<span class="adr">????</span> ===<hr>
+<hr>; === <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Page <a class="page" name="page44">44</a>, <b class="ts">T0SD</b> - <b class="ts">T?S?</b>, $<span class="adr">9E81</span> .. $<span class="adr">????</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ;CHRIN - CHAR RCVD VIA IN SWITCH
@@ -2181,7 +2181,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     254 
 
 
-<hr>; === <a class="file" name="DOSGOER">DOSGOER</a> - Print Error message, Page <a class="page" name="page40">40</a>, T?S?, $<span class="adr">????</span> ===<hr>
+<hr>; === <a class="file" name="DOSGOER">DOSGOER</a> - Print Error message, Page <a class="page" name="page40">40</a>, <b class="ts">T?S?</b> - <b class="ts">T?S?</b>, $<span class="adr">????</span> .. $<span class="adr">A7D3</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; DOSGO - GOTO DOS
@@ -3378,7 +3378,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     249 
 
 
-<hr>; === <a class="file" name="FMTRWIO">FMTRWIO</a> - Execute Format Request, Page <a class="page" name="page73">73</a>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
+<hr>; === <a class="file" name="FMTRWIO">FMTRWIO</a> - Execute Format Request, Page <a class="page" name="page73">73</a>, <b class="ts">T?$?</b> - <b class="ts">T1SE</b>, $<span class="adr">####</span> .. $<span class="adr">AFF6</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 * FFMT - Execute Format Request
@@ -3614,7 +3614,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2FF6:60             233             RTS             ; RTN
 
 
-<hr>; === <a class="file" name="FLOCNXB">FLOCNXB</a> - Locate Next Byte, Page <a class="page" name="page63">63</a>, <b class="ts">T1SE</b> - <b class="ts">T1SF</b>, $<span class="adr">AFF7</span> .. $<span class="adr">B???</span> ===<hr>
+<hr>; === <a class="file" name="FLOCNXB">FLOCNXB</a> - Locate Next Byte, Page <a class="page" name="page63">63</a>, <b class="ts">T1SE</b> - <b class="ts">T2S0</b>, $<span class="adr">AFF7</span> .. $<span class="adr">B1C8</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ;RDVTOC - READ VTOC
@@ -3897,7 +3897,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     280 
 
 
-<hr>; === <a class="file" name="FLOCSEC">FLOCSEC</a> - Locate Sector, Page <a class="page" name="page68">68</a>, <b class="ts">T2S0</b> - <b class="ts">T2S2</b>, $<span class="adr">B1C9</span> ..$<span class="adr">B396</span>  ===<hr>
+<hr>; === <a class="file" name="FLOCSEC">FLOCSEC</a> - Locate Sector, Page <a class="page" name="page68">68</a>, <b class="ts">T2S0</b> - <b class="ts">T2S2</b>, $<span class="adr">B1C9</span> .. $<span class="adr">B396</span>  ===<hr>
                     001             PAGE
                     002 ;
                     003 ;FNDFIL - FIND FILE NAME IN VOLUUME DIR                     ; *spelling* VOLUME
@@ -4489,7 +4489,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     <a class="line" name="fvcbufs_187">187</a> <a class="d" name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH
 
 
-<hr>; === <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <a class="page" name="page8">8</a>, <b class="ts">T0$0</b>, $<span class="adr">B600</span> - $<span class="adr">Bxxx</span> ===<hr>
+<hr>; === <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <a class="page" name="page8">8</a>, <b class="ts">T0S0</b> - <b class="ts">T0S1</b>, $<span class="adr">B5FE</span> .. $<span class="adr">B7FF</span> ===<hr>
                     001             SBTL '16-SECTOR DOS BOOT'
                     002 <a class="d" name="HERE3L"     id="HERE3L"     >HERE3L      </a>EQU &gt;*                                          ; End of FVCBUFS = $35FD
                     003 <a class="d" name="REMDR3"     id="REMDR3"     >REMDR3      </a>EQU 256-HERE3L                                  ; Remainder 3
@@ -5293,7 +5293,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 38C1:60             128             RTS
 
 
-<hr>; === <a class="file" name="POSTNRD">POSTNRD</a> - Post Nibbilize Read, Page <a class="page" name="page101">101</a>, <b class="ts">T0$2</b> @ $C2 - <b class="ts">T0S3 @ $43, $<span class="adr">B8C2</span> .. $<span class="adr">B943</span> ===<hr>
+<hr>; === <a class="file" name="POSTNRD">POSTNRD</a> - Post Nibbilize Read, Page <a class="page" name="page101">101</a>, <b class="ts">T0$2</b> @ $C2 - <b class="ts">T0S3</b> @ $43, $<span class="adr">B8C2</span> .. $<span class="adr">B943</span> ===<hr>
                     001             SBTL '16-SECTOR POSTNIBLIZE'
                     002 ***************************
                     003 *                         *
@@ -5460,7 +5460,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 3943:60             165             RTS             FROM READ16 OR RDADR16.
 
 
-<hr>; === <a class="file" name="RDADSEK">RDADSEK</a> - Read Disk Address; Seek, Page <a class="page" name="page106">106</a>, <b class="ts">T0$3</b> @ $44, $<span class="adr">B944</span>-<span class="adr">B9FC</span> ===<hr>
+<hr>; === <a class="file" name="RDADSEK">RDADSEK</a> - Read Disk Address; Seek, Page <a class="page" name="page106">106</a>, <b class="ts">T0$3</b> @ $44, $<span class="adr">B944</span> .. $<span class="adr">B9FC</span> ===<hr>
                     001             SBTL '16-SECTOR READ ADDRESS'
                     002 
                     003 
@@ -5665,7 +5665,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 39FA:A6 2B          202             LDX <a class="v" href="#SLOTTEMP">SLOTTEMP</a>    ;RESTORE X-REG
 39FC:60             203 <a class="f" name="SEEKRTS"    >SEEKRTS     </a>RTS             ;AND RETURN                     ; /sarcasm I don't know what we would do without you Captain Obvious!
 
-<hr>; === <a class="file" name="MSWAITR">MSWAITR</a> - Microsecond wait routine, Page <a class="page" name="page97">97</a>, <b class="ts">T0$3</b> @ $FD - <b class="ts">T0$6</b> @ $55, $<span class="adr">B9FD</span> - $<span class="adr">BC55</span> ===<hr>
+<hr>; === <a class="file" name="MSWAITR">MSWAITR</a> - Microsecond wait routine, Page <a class="page" name="page97">97</a>, <b class="ts">T0$3</b> @ $FD - <b class="ts">T0$6</b> @ $55, $<span class="adr">B9FD</span> .. $<span class="adr">BC55</span> ===<hr>
                     001                 SBTL '16-SECTOR MSWAIT'
                     002 **************************
                     003 *   MSWAIT SUBROUTINE    *
@@ -5909,7 +5909,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 3C40:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 3C50:00 00 00 00 00 00
 
-<hr>; === <a class="file" name="WRITADR">WRITADR</a> - Write Address, Page <a class="page" name="page134">134</a>, <b class="ts">T0$6</b> @ $56, $<b class="adr">BC56</b>-<b class="adr">B???</b> ===<hr>
+<hr>; === <a class="file" name="WRITADR">WRITADR</a> - Write Address, Page <a class="page" name="page134">134</a>, <b class="ts">T0$6</b> @ $56, $<b class="adr">BC56</b> .. $<b class="adr">BCFF</b> ===<hr>
                     001             SBTL '16-SECTOR WRITE ADDRESS'
                     002 
                     003 
@@ -6036,7 +6036,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     123 
 
 
-<hr>; === <a class="file" name="RWTSONE">RWTSONE</a> - Read Write Track Sector - Part 1, Page <a class="page" name="page116">116</a>, <b class="ts">T0$7</b>, $<b class="adr">BD00</b>-<b class="adr">BDAA</b> ===<hr>
+<hr>; === <a class="file" name="RWTSONE">RWTSONE</a> - Read Write Track Sector - Part 1, Page <a class="page" name="page116">116</a>, <b class="ts">T0$7</b>, $<b class="adr">BD00</b> .. $<b class="adr">BDAA</b> ===<hr>
                     001             STBL '16-SECTOR RWTS'
                     002 
                     003 
@@ -6362,7 +6362,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     323 
 
 
-<hr>; === <a class="file" name="RWTSTWO">RWTSTWO</a> - Read Write Track Sector - Part 2, Page <a class="page" name="page122">122</a>, <b class="ts">T0$7</b> - <b class="ts">T0$8</b> , $<b class="adr">BDAB</b> - $<b class="adr">BEAE</b> ===<hr>
+<hr>; === <a class="file" name="RWTSTWO">RWTSTWO</a> - Read Write Track Sector - Part 2, Page <a class="page" name="page122">122</a>, <b class="ts">T0$7</b> - <b class="ts">T0$8</b>, $<b class="adr">BDAB</b> .. $<b class="adr">BEAE</b> ===<hr>
                     001 *
                     002 * DISK IS NOW UP TO SPEED: READ IT!
                     003 * NOW CHECK: IF IT IS NOT THE FORMAT DISK COMMAND,
@@ -6668,7 +6668,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 3EAE:60             302 <a class="f" name="SETRTS"     id="SETRTS"    >SETRTS      </a>RTS
 
 
-<hr>; === <a class="file" name="FORMATR">FORMATR</a> - Format Disk, Page <a class="page" name="page82">82</a>, <b class="ts">T0$8</b> @ $AF..  <b class="ts">T0$9</b> @ $C7, $<span class="adr">BEAF</span>-<span class="adr">BFC7</span> ===<hr>
+<hr>; === <a class="file" name="FORMATR">FORMATR</a> - Format Disk, Page <a class="page" name="page82">82</a>, <b class="ts">T0$8</b> @ $AF..  <b class="ts">T0$9</b> @ $C7, $<span class="adr">BEAF</span> .. $<span class="adr">BFC7</span> ===<hr>
                     001                SBTL '16-SECTOR FORMATTER'
                     002 ****************************
                     003 *                          *
