@@ -4164,7 +4164,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 339D:00             009 <a class="d" name="TEMP2" >TEMP2       </a>DFB 0           ; TEMP BYTE 2                   ; *note* All the cool kids use "o7" for salute these days
 339E:00             010 <a class="d" name="TEMP3" >TEMP3       </a>DFB 0           ; TEMP BYTE 3
 339F:00             011 <a class="d" name="ENTSLT">ENTSLT      </a>DFB 0           ; BOOT SLOT SAVE
-33A0:00 00 FF FF    012 <a class="d" name="ALC10S">ALC10S      </a>DFB 0,0,$FF,$FF ; ALLOCATION TRACK BIT MAP      ; *wastes* 70 bytes (2 bytes/track since 32 sectors/track!)
+33A0:00 00 FF FF    012 <a class="d" name="ALC10S">ALC10S      </a>DFB 0,0,$FF,$FF ; ALLOCATION TRACK BIT MAP      ; *<a class="dumb" name="fvcbufs_33A0">wastes</a>* 35*2=70 bytes (2 bytes/track since 32 sectors/track!)
                                                                                     ; The thinking was probably:
                                                                                     ;     DOS 3.2 = 13 sector
                                                                                     ;     DOS 3.3 = 16 sector
