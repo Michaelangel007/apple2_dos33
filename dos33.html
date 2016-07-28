@@ -4242,42 +4242,59 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     047 ;                                                           ;As Mike Acton says: "<i>Solve the <b>actual</b> problem,</i>
                     048 ;                                                           ;                     <i>NOT the one you <b>think</b> you have.</i>"
                     049            PAGE                                             ;<span class="adr">B3F3</span> =T00
-33F3:00 00 00 00    050            ORG VTOC+256                                     ; [38]=T00 *hack* Since we're wasting disk space anyways,
-33F7:00 00 00 00                                                                    ; [3C]=T01        why not simply <span class="macro">DS 256-&gt;VSECAL,0</span> ???
-33FB:00 00 00 00                                                                    ; [40]=T02        Uninitialized memory is <b>never</b> a good idea
-33FF:00 00 00 00                                                                    ; [44]=T03 === <b class="ts">T2$3</b> === 
-3403:00 00 00 00                                                                    ; [48]=T03 *<a class="dumb" name="fvcbufs_3400">wastes</a>* an <b>entire</b> sector for <i>1 bloody byte</i>!?
-3407:00 00 00 00                                                                    ; [4C]=T04   *<a class="dumb" href="http://i.imgur.com/iWKad22.jpg">facepalm</a>*
-340B:00 00 00 00                                                                    ; [50]=T05
-340F:00 00 00 00                                                                    ; [54]=T06
-3413:00 00 00 00                                                                    ; [58]=T07
-3417:00 00 00 00                                                                    ; [5C]=T08
-341B:00 00 00 00                                                                    ; [60]=T09
-341F:00 00 00 00                                                                    ; [64]=T0A
-3423:00 00 00 00                                                                    ; [68]=T0B
-3427:00 00 00 00                                                                    ; [6C]=T0C
-342B:00 00 00 00                                                                    ; [70]=T0D
-342F:00 00 00 00                                                                    ; [74]=T0E
-3433:00 00 00 00                                                                    ; [78]=T0F
-3437:00 00 00 00                                                                    ; [7C]=T10
-343B:00 00 00 00                                                                    ; [80]=T11
-343F:00 00 00 00                                                                    ; [84]=T12
-3443:00 00 00 00                                                                    ; [88]=T13
-3447:00 00 00 00                                                                    ; [8C]=T14
-
-3410:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; *sigh* let's waste $C4 bytes as we span 2 sectors
-3420:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; instead of copying the VTOC header ($38 byte)
-3430:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ;       into a new temporary page on init!
-3440:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-3450:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; <a class="dumb" name="HNTDAFS3">HNTDAFS #3</a>
-3460:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; Design fault: DOS is <b>unable</b> to use Track 0 to store user files.
-3470:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; This means a non-bootable <i>data disk</i> is robbed of 16 sectors.
-3480:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; See File <a class="file" href="#FLOCSEC">FLOCSEC</a>, Func <a class="x" href="#GETSEC">GETSEC</a>, Line <span class="todo">TODO</span>
-3490:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-34A0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-34B0:0 0 0 0        051 ;
-34B4:0 0 0 0        052 ;VOLUME DIRECTORY AREA                                      ; === CATALOG ===
-34B8:0 0 0          053 ;                                                           ; <b class="ts">T11SF</b>
+33F3:00 00 FF FF    050            ORG VTOC+256                                     ; [38]=T00 *hack* Since we're wasting disk space anyways,
+33F7:00 00 FF FF                                                                    ; [3C]=T01        why not simply <span class="macro">DS 256-&gt;VSECAL,0</span> ???
+33FB:00 00 FF FF                                                                    ; [40]=T02        Uninitialized memory is <b>never</b> a good idea
+33FF:00 00 FF FF                                                                    ; [44]=T03 === <b class="ts">T2$3</b> === 
+3403:FF FF FF FF                                                                    ; [48]=T04 *<a class="dumb" name="fvcbufs_3400">wastes</a>* an <b>entire</b> sector for <i>1 bloody byte</i>!?
+3407:FF FF FF FF                                                                    ; [4C]=T05   *<a class="dumb" href="http://i.imgur.com/iWKad22.jpg">facepalm</a>*
+340B:FF FF FF FF                                                                    ; [50]=T06
+340F:FF FF FF FF                                                                    ; [54]=T07
+3413:FF FF FF FF                                                                    ; [58]=T08 *sigh* let's waste $C4 bytes as we span 2 sectors
+3417:FF FF FF FF                                                                    ; [5C]=T09        instead of copying the VTOC header ($38 byte)
+341B:FF FF FF FF                                                                    ; [60]=T0A        into a new temporary page on init!
+341F:FF FF FF FF                                                                    ; [64]=T0B
+3423:FF FF FF FF                                                                    ; [68]=T0C
+3427:FF FF FF FF                                                                    ; [6C]=T0D
+342B:FF FF FF FF                                                                    ; [70]=T0E
+342F:FF FF FF FF                                                                    ; [74]=T0F
+3433:FF FF FF FF                                                                    ; [78]=T10
+3437:FF FF FF FF                                                                    ; [7C]=T11  S0=VTOC, S1..15=CATALOG
+343B:00 00 FF FF                                                                    ; [80]=T12
+343F:FF FF FF FF                                                                    ; [84]=T13
+3443:FF FF FF FF                                                                    ; [88]=T14
+3447:FF FF FF FF                                                                    ; [8C]=T15
+344B:FF FF FF FF                                                                    ; [90]=T16
+344F:FF FF FF FF                                                                    ; [94]=T17
+3453:FF FF FF FF                                                                    ; [98]=T18
+3457:FF FF FF FF                                                                    ; [9C]=T19
+345B:FF FF FF FF                                                                    ; [A0]=T1A
+345F:FF FF FF FF                                                                    ; [A4]=T1B
+3463:FF FF FF FF                                                                    ; [A8]=T1C
+3467:FF FF FF FF                                                                    ; [AC]=T1D
+346B:FF FF FF FF                                                                    ; [B0]=T1E
+346F:FF FF FF FF                                                                    ; [B4]=T1F
+3473:FF FF FF FF                                                                    ; [B8]=T20
+3477:FF FF FF FF                                                                    ; [BC]=T21
+347B:FF FF FF FF                                                                    ; [C0]=T22
+347F:FF FF FF FF                                                                    ; [C4]=T23 Extra track 35
+3483:FF FF FF FF                                                                    ; [C8]=T24 Extra track 36
+3487:FF FF FF FF                                                                    ; [CC]=T25 Extra track 37
+348B:FF FF FF FF                                                                    ; [D0]=T26 Extra track 38
+348F:FF FF FF FF                                                                    ; [D4]=T27 Extra track 39
+3493:FF FF FF FF                                                                    ; [D8]=T28 Extra track 40
+3497:FF FF FF FF                                                                    ; [DC]=T29 *wastes* 36 bytes [$DC..$FF] = $24
+349B:FF FF FF FF                                                                    ; [E0]=T2A
+349F:FF FF FF FF                                                                    ; [E4]=T2B
+34A3:FF FF FF FF                                                                    ; [E8]=T2C
+34A7:FF FF FF FF                                                                    ; [EC]=T2D  <a class="dumb" name="HNTDAFS3">HNTDAFS #3</a>
+34AB:FF FF FF FF                                                                    ; [F0]=T2E  Design fault: DOS is <b>unable</b> to use Track 0 to store user files.
+34AF:FF FF FF FF                                                                    ; [F4]=T2F  This means a non-bootable <i>data disk</i> is robbed of 16 sectors.
+34B3:FF FF FF FF                                                                    ; [F8]=T30  See File <a class="file" href="#FLOCSEC">FLOCSEC</a>, Func <a class="x" href="#GETSEC">GETSEC</a>, Line <span class="todo">TODO</span>
+34B7:FF FF FF FF                                                                    ; [FC]=T31
+                    051 ;
+                    052 ;VOLUME DIRECTORY AREA                                      ; === CATALOG ===
+                    053 ;                                                           ; <b class="ts">T11SF</b>
 <hr>                    054 <a class="d" name="VOLDIR"   >VOLDIR      </a>EQU *           ;                               ; === Page <a class="page" name="page87">87</a> ===
 34BB:02             055 <a class="d" name="VDTCDE"   >VDTCDE      </a>DFB 2           ; VOLUME DIRECTORY TYPE CODE    ; [00] *sigh* magic number: /sarcasm If only FILESYSTEM_TYPE_CATALOG = $2
                     056 <a class="d" name="VDLTRK"   >VDLTRK      </a>DS 1            ; VD LINK TRACK                 ; [01]
