@@ -4196,8 +4196,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 33BC:11             024 <a class="d" name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <i>TRACK</i> not sector
 33BD:0F             025 <a class="d" name="VDIRSC">VDIRSC      </a>DFB 15          ; VOLUME DIRECTORY SECTOR       ; [02] <span class="todo">TODO:</span> VTOC T/S can be changed via ... ?
 33BE:04             026 <a class="d" name="VDOSRN">VDOSRN      </a>DFB 4           ; DOS RELEASE NUMBER            ; [03] *sarcasm* I guess <b>VERSION</b> made too much sense.
-33BF:00             027             DFB 0           ; SPARE                         ; [04] *<a class="dumb" name="fvcbufs_33BF">wastes</a>* 1 byte *sarcasm* "Because <i>someday</i> these <i>might</i> be used ...
-33C0:00             028             DFB 0           ; SPARE                         ; [05] *<a class="dumb" name="fvcbufs_33C0">wastes</a>* 1 byte 
+33BF:00             027             DFB 0           ; SPARE                         ; [04] *<a class="dumb" name="fvcbufs_33BF">wastes</a>* 1 byte *sarcasm* "Because <i>someday</i> these
+33C0:00             028             DFB 0           ; SPARE                         ; [05] *<a class="dumb" name="fvcbufs_33C0">wastes</a>* 1 byte            <i>might</i> be used ..."
 33C1:FE             029 <a class="d" name="VVOLNO">VVOLNO      </a>DFB $FE         ; VOLUME NUMBER                 ; [06]
 33C2:0 0 0 0 0 0    030             DS 32           ; SPARE                         ; [07] Gee, here's an idea, instead of wasting space in the VTOC:
 33C8:0 0 0 0 0 0 0 0                                                                ;       1) Pack our data by removing all unused crap,
