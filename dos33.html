@@ -5105,7 +5105,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     174 <a class="d" name="Q7H"        >Q7H         </a>EQU $C08F       Q7H,Q6H=WRITE STORE             ; DRIVE_MODE_W
 
 
-<hr>; === <a class="file" name="PRENIBL">PRENIBL</a> - Pre nibblize sector data for writing, Page <a class="page" name="page104">104</a>, <b class="ts">T?$?</b>, $<span class="adr">????</span> ===<hr>
+<hr>; === <a class="file" name="PRENIBL">PRENIBL</a> - Prenibblize sector data for writing, Page <a class="page" name="page104">104</a>, <b class="ts">T?$?</b>, $<span class="adr">????</span> ===<hr>
                     001             SBTL '16-SECTOR PRENIBLIZE'
                     002 ****************************
                     003 *                          *
@@ -5138,27 +5138,27 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     030 *   00ABCDEF.              *
                     031 *                          *
                     032 ****************************
-                    033 PRENIB16    LDX #$0         ;START NBUF2 INDEX. CHANGED BY WOZ
-                    034             LDY #2          ;START USER BUF INDEX. CHANGED BY WOZ.
-                    035 PRENIB1     DEY             ;NEXT USER BYTE.
-                    036             LDA (BUF),Y
+                    033 <a class="f" name="PRENIB16"  >PRENIB16    </a>LDX #$<span class="adr">0</span>         ;START NBUF2 INDEX. CHANGED BY WOZ
+                    034             LDY #<span class="adr">2</span>          ;START USER BUF INDEX. CHANGED BY WOZ.
+                    035 <a class="f" name="PRENIB1"   >PRENIB1     </a>DEY             ;NEXT USER BYTE.
+                    036             LDA (<a class="v" hre="#BUF">BUF</a>),Y
                     037             LSR A           ;SHIFT TWO BITS OF
-                    038             ROL NBUF2,X     ;CURRENT USER BYTE
+                    038             ROL <a class="v" hre="#NBUF2">NBUF2</a>,X     ;CURRENT USER BYTE
                     039             LSR A           ;INTO CURRENT NBUF2
-                    040             ROL NBUF2,X     ;BYTE.
-                    041             STA NBUF1,Y     ;(6 BITS LEFT).
+                    040             ROL <a class="v" hre="#NBUF2">NBUF2</a>,X     ;BYTE.
+                    041             STA <a class="v" hre="#NBUF1">NBUF1</a>,Y     ;(6 BITS LEFT).
                     042             INX             ;FROM 0 TO $55.
-                    043             CPX #$56
-                    044             BCC PRENIB1     ;BR IF NO WRAPAROUND.
-                    045             LDX #0          ;RESET NBUF2 INDEX.
+                    043             CPX #$<span class="adr">56</span>
+                    044             BCC <a class="x" href="#PRENIB1">PRENIB1</a>     ;BR IF NO WRAPAROUND.
+                    045             LDX #<span class="adr">0</span>          ;RESET NBUF2 INDEX.
                     046             TYA             ;USER BUF INDEX.
-                    047             BNE PRENIB1     ;(DONE IF ZERO)
-                    048             LDX #$55        ;NBUF2 IDX $55 TO 0.
-                    049 PRENBI2     LDA NBUF2,X
-                    050             AND #$3F        ;STRIP EACH BYTE
-                    051             STA NBUF2,X     ;OF NBUF2 TO 6 BITS.
+                    047             BNE <a class="x" href="#PRENIB1">PRENIB1</a>     ;(DONE IF ZERO)
+                    048             LDX #$<span class="adr">55</span>        ;NBUF2 IDX $55 TO 0.
+                    049 <a class="f" name="PRENIB2"   >PRENIB2     </a>LDA <a class="v" hre="#NBUF2">NBUF2</a>,X
+                    050             AND #$<span class="adr">3F</span>        ;STRIP EACH BYTE
+                    051             STA <a class="v" hre="#NBUF2">NBUF2</a>,X     ;OF NBUF2 TO 6 BITS.
                     052             DEX
-                    053             BPL PRENIB2     ;LOOP UNTIL X NEG.
+                    053             BPL <a class="x" href="#PRENIB2">PRENIB2</a>     ;LOOP UNTIL X NEG.
                     054             RTS             ;RETURN.                        ; o7 Captain Obvious
 
 
