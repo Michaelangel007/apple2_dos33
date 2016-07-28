@@ -4190,7 +4190,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     018             MSB OFF                                         ; Switch back to 7-bit ASCII
                     019 <a class="d" name="VML"   >VML         </a>EQU *-<a class="v" href="#VOLMES">VOLMES</a>-1                                  ; File <a class="file" href="#FDELCAT">FDELCAT</a>, Func <a class="x" href="#RDIR">RDIR</a>, Line <span class="todo">TODO</span>
                     020             PAGE
-                    021 ;VTOC RECORD AREA                                           ; === VTOC ===
+                    021 ;VTOC RECORD AREA                                           ; === VTOC === Let the clusterfuck of bad design commence in <a href="https://www.nasa.gov/audience/foreducators/topnav/materials/listbytype/3_2_1_Puff.html">3..2..1..</a>
                     022 <a class="d" name="VTOC"  >VTOC        </a>EQU *                                           ; <b class="ts">T11S0</b> [offset], Right = normal snarky commentary
 33BB:04             023 <a class="d" name="VDOST" >VDOST       </a>DFB 4           ; DOS TYPE                      ; [00] *sigh* magic number: /sarcasm If only FILESYSTEM_TYPE_VTOC = $4
 33BC:11             024 <a class="d" name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <i>TRACK</i> not sector
