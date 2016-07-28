@@ -4192,10 +4192,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     020             PAGE
                     021 ;VTOC RECORD AREA                                           ; === VTOC ===
                     022 <a class="d" name="VTOC"  >VTOC        </a>EQU *                                           ; <b class="ts">T11S0</b> [offset], Right = normal snarky commentary
-33BB:04             023 <a class="d" name="VDOST" >VDOST       </a>DFB 4     ; 00:04 DOS TYPE                      ; [00] *sigh* magic number: /sarcasm If only FILESYSTEM_TYPE_VTOC = $4
-33BC:11             024 <a class="d" name="VDIRTK">VDIRTK      </a>DFB 17    ; 01:11 COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <i>TRACK</i> not sector
-33BD:0F             025 <a class="d" name="VDIRSC">VDIRSC      </a>DFB 15    ; 02:0F VOLUME DIRECTORY SECTOR       ; [02]
-33BE:04             026 <a class="d" name="VDOSRN">VDOSRN      </a>DFB 4     ; 03:04 DOS RELEASE NUMBER            ; [03] *sarcasm* I guess <b>VERSION</b> made too much sense.
+33BB:04             023 <a class="d" name="VDOST" >VDOST       </a>DFB 4           ; DOS TYPE                      ; [00] *sigh* magic number: /sarcasm If only FILESYSTEM_TYPE_VTOC = $4
+33BC:11             024 <a class="d" name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <i>TRACK</i> not sector
+33BD:0F             025 <a class="d" name="VDIRSC">VDIRSC      </a>DFB 15          ; VOLUME DIRECTORY SECTOR       ; [02]
+33BE:04             026 <a class="d" name="VDOSRN">VDOSRN      </a>DFB 4           ; DOS RELEASE NUMBER            ; [03] *sarcasm* I guess <b>VERSION</b> made too much sense.
 33BF:00             027             DFB 0           ; SPARE                         ; [04] *sarcasm* Because <i>someday</i> these <i>might</i> be used ...
 33C0:00             028             DFB 0           ; SPARE                         ; [05]
 33C1:FE             029 <a class="d" name="VVOLNO">VVOLNO      </a>DFB $FE         ; VOLUME NUMBER                 ; [06]
