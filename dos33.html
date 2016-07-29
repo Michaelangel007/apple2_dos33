@@ -295,15 +295,15 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     007 <a class="macro" name="ULC"    >ULC         </a>EQU  0              ; Unofficial commentary
                     008             INCLUDE <a class="_c00 file" href="#RELOCTR">RELOCTR</a>,,2  ; $1B00 .. $1CFF, T0SA - T0SB
                     009             INCLUDE <a class="_c01 file" href="#DOSINIT">DOSINIT</a>,,2  ; $1D00 .. $1E80, T0SC - T0SD
-                    010             INCLUDE <a class="_c02 file" href="#DOSHOOK">DOSHOOK</a>,,2  ; $1E81 .. $####, T0SD
-                    011             INCLUDE <a class="_c03 file" href="#CMDSCAN">CMDSCAN</a>,,2  ; $#### .. $####
-                    012             INCLUDE <a class="_c04 file" href="#XOPNCLS">XOPNCLS</a>,,2  ; $#### .. $####
+                    010             INCLUDE <a class="_c02 file" href="#DOSHOOK">DOSHOOK</a>,,2  ; $1E81 .. $1FCC, T0SD - T0SE
+                    011             INCLUDE <a class="_c03 file" href="#CMDSCAN">CMDSCAN</a>,,2  ; $1FCD .. $2192, T0SE - T1S0
+                    012             INCLUDE <a class="_c04 file" href="#XOPNCLS">XOPNCLS</a>,,2  ; $2193 .. $####, T1S0 - ?
                     013             INCLUDE <a class="_c05 file" href="#XLODSAV">XLODSAV</a>,,2  ; $#### .. $####
                     014             INCLUDE <a class="_c06 file" href="#XMISCMD">XMISCMD</a>,,2  ;
                     015             INCLUDE <a class="_c07 file" href="#DOSGOER">DOSGOER</a>,,2  ;       .. $27D3,      - T1S6
                     016             INCLUDE <a class="_c08 file" href="#BLDFTAB">BLDFTAB</a>,,2  ; $27D4 .. $2883, T1S6 - T1S7
-                    017             INCLUDE <a class="_c09 file" href="#CMDTBLS">CMDTBLS</a>,,2  ; $2884 .. $####, T1S7 - T?S?
-                    018             INCLUDE <a class="_c10 file" href="#FDOSENT">FDOSENT</a>,,2  ;
+                    017             INCLUDE <a class="_c09 file" href="#CMDTBLS">CMDTBLS</a>,,2  ; $2884 .. $2A4E, T1S7 - T1S9
+                    018             INCLUDE <a class="_c10 file" href="#FDOSENT">FDOSENT</a>,,2  ; $2A4F .. $????, T1S9 - ?
                     019             INCLUDE <a class="_c11 file" href="#FOPCLRW">FOPCLRW</a>,,2  ;
                     020             INCLUDE <a class="_c20 file" href="#FDELCAT">FDELCAT</a>,,2  ;
                     021             INCLUDE <a class="_c21 file" href="#FMTRWIO">FMTRWIO</a>,,2  ;       .. $2FF6,      - T1SE
@@ -1086,33 +1086,33 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     215 
 
 
-<hr>; === <a class="file" name="CMDSCAN">CMDSCAN</a> - Scan for commands, Page <a class="page" page="page16">16</a>, <b class="ts">T?S?</b>, $<span class="adr">????</span> ===<hr>
+<hr>; === <a class="file" name="CMDSCAN">CMDSCAN</a> - Scan for commands, Page <a class="page" page="page16">16</a>, <b class="ts">T0SE</b> - <b class="ts">T1S0</b>, $<span class="adr">9FCD</span> .. $<span class="adr">A192</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; SCNCMD - SCAN A COMMAND
                     004 ;
                     005 <a class="f" name="SCNCMD"      >SCNCMD      </a>EQU *
-                    006 
-                    007 
-                    008 
-                    009 
-                    010 
-                    011 
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
+                    006     DO ULC
+                    007             LDX #0          ;Init X for lower case check
+                    008             JSR UPRCASE     ;Go check
+                    009     ELSE
+1FCD:A0 FF          010             LDY #$FF        ;Set CMDNO to -1
+1FCF:8C 5F 2A       011             STY CMDNO
+                    012     FIN
+1FD2:C8             013             INY             ; INCR TABLE INDEX
+1FD3:8C 62 2A       014             STY SVCMD
+                    015 SC0         EQU *
+1FD6:EE 5F 2A       016             INC CMDNO       ; INCR CMD NO                   ; Thanks Captain Obvious
+1FD9:A2 00          017             LDX #0          ; RESET LINE INDEX TO 0
+1FDB:08             018             PHP             ; SAVE EQ STATUS
+1FDC:BD 00 02       019             LDA LBUFF,X     ; GET 1ST LINE  CHAR
+1FDF:CD B2 2A       020             CMP CCHAR       ; IS IT CONTROL D
+1FE2:D0 01          021             BNE SC0A        ; BR /IF NOT
+1FE4:E8             022             INX             ; INCR OVER CNTLD
+1FE5:8E 5D 2A       023 SC0A        STX LBUFD
+                    024 ;
+                    025 SC1X        EQU *
+                    026             JSR GNBC        ; GET NON BLACK INPUT CHAR
                     027 
                     028 
                     029 
@@ -1356,10 +1356,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     267 
                     268 
                     269 
-                    270 
+2192:60             270             RTS
 
 
-<hr>; === <a class="file" name="XOPNCLS">XOPNCLS</a> - Execute Open / Close, Page <a class="page" name="page150">150</a>, <b class="ts">T?S?</b>, $<span class="adr">????</span> ===<hr>
+<hr>; === <a class="file" name="XOPNCLS">XOPNCLS</a> - Execute Open / Close, Page <a class="page" name="page150">150</a>, <b class="ts">T1S0</b> - <b class="ts">T?S?</b>, $<span class="adr">A193</span> .. $<span class="adr">????</span>  ===<hr>
                     001             PAGE
                     002 
                     003 
@@ -2545,7 +2545,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     143 <a class="f" name="MVSRTN" >MVSRTN      </a>EQU *
 2883:60             144             RTS
 
-<hr>; === <a class="file" name="CMDTBLS">CMDTBLS</a> - Commands, Page <a class="page" name="page21">21</a>, <b class="ts">T1S7</b>, $<span class="adr">A884</span> ===<hr>
+<hr>; === <a class="file" name="CMDTBLS">CMDTBLS</a> - Commands, Page <a class="page" name="page21">21</a>, <b class="ts">T1S7</b> - <b class="ts">T1S9</b>, $<span class="adr">A884</span> .. $<span class="adr">AA4E</span> ===<hr>
                     001                 PAGE
                     002 ;
                     003 ; COMMAND NAME TABLE
@@ -2712,18 +2712,18 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     164 
 
 
-<hr>; === <a class="file" name="FDOSENT">FDOSENT</a> - External Entry Point, Page <a class="page" name="page60">60</a>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
+<hr>; === <a class="file" name="FDOSENT">FDOSENT</a> - External Entry Point, Page <a class="page" name="page60">60</a>, <b class="ts">T1S9</b>, $<span class="adr">2A4F</span> ===<hr>
                     001                 PAGE
                     002 ;
                     003 ; MISC BUT REQD CELLS
                     004 ;
-                    005 CFTABA DDB 0 ; CURRENT FILE TABLE POINTER
-                    006 
-                    007 
-                    008 
-                    009 
-                    010 
-                    011 
+2A4F:00 00          005 CFTABA      DDB 0           ; CURRENT FILE TABLE POINTER
+2A51:00             006 ISTATE      DFB 0
+2A52:00             007 OSTATE      DFB 0
+2A53:00 00          008 SVOUTS      DDB 0
+2A55:00 00          009 SVINS       DDB 0
+2A57:00             010 CNFTBS      DFB 0           ; CURRENT NO FILE TABLES        ; "NO" == Number
+2A58:03             011 DFNFB       DFB 3           ; DEFAULT NO FILE TABLES        ; Does anyone actually use > 2 ?
                     012 
                     013 
                     014 
@@ -2733,7 +2733,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     018 
                     019 
                     020 
-                    021 
+2A75:00             021 CMDNO       DFB $00         ; COMMAND NO IS ZERO FOR BOOT UP
                     022 
                     023 
                     024 
@@ -6957,15 +6957,15 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <pre>
  <span class="c00" href="#RELOCTR">RELOCTR</span> ; $1B00 .. $1CFF, T0SA - T0SB
  <span class="c01" href="#DOSINIT">DOSINIT</span> ; $1D00 .. $1E80, T0SC - T0SD
- <span class="c02" href="#DOSHOOK">DOSHOOK</span> ; $1E81 .. $####, T0SD
- <span class="c03" href="#CMDSCAN">CMDSCAN</span> ; $#### .. $####
- <span class="c04" href="#XOPNCLS">XOPNCLS</span> ; $#### .. $####
+ <span class="c02" href="#DOSHOOK">DOSHOOK</span> ; $1E81 .. $1FCC, T0SD - T0SE
+ <span class="c03" href="#CMDSCAN">CMDSCAN</span> ; $1FCD .. $2192, T0SE - T1S0
+ <span class="c04" href="#XOPNCLS">XOPNCLS</span> ; $2193 .. $####, T1S0 - ?
  <span class="c05" href="#XLODSAV">XLODSAV</span> ; $#### .. $####
  <span class="c06" href="#XMISCMD">XMISCMD</span> ;
  <span class="c07" href="#DOSGOER">DOSGOER</span> ;       .. $27D3,      - T1S6
  <span class="c08" href="#BLDFTAB">BLDFTAB</span> ; $27D4 .. $2883, T1S6 - T1S7
- <span class="c09" href="#CMDTBLS">CMDTBLS</span> ; $2884 .. $####, T1S7 - T?S?
- <span class="c10" href="#FDOSENT">FDOSENT</span> ;
+ <span class="c09" href="#CMDTBLS">CMDTBLS</span> ; $2884 .. $2A4E, T1S7 - T1S9
+ <span class="c10" href="#FDOSENT">FDOSENT</span> ; $2A4F .. 
  <span class="c11" href="#FOPCLRW">FOPCLRW</span> ;
  <span class="c20" href="#FDELCAT">FDELCAT</span> ;
  <span class="c21" href="#FMTRWIO">FMTRWIO</span> ;       .. $2FF6,      - T1SE
@@ -7100,7 +7100,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1E68:<span class="c01">C1 2A 60 4C 51 28 EA EA</span> |A*`LQ(jj|
 1E70:<span class="c01">4C 59 FA 4C 65 FF 4C 58</span> |LYzLe.LX|
 1E78:<span class="c01">FF 4C 65 FF 4C 65 FF 65</span> |.Le.Le.e|
-1E80:<span class="c01">FF</span> <span class="c02">20 D1 1E AD 51 2A F0</span> |. Q.-Q*p| DOSHOOK, $1E81 - ?
+1E80:<span class="c01">FF</span> <span class="c02">20 D1 1E AD 51 2A F0</span> |. Q.-Q*p| DOSHOOK, $1E81 - $1FCC, T0SD - T0SE
 1E88:<span class="c02">15 48 AD 5C 2A 91 28 68</span> |.H-\*.(h|
 1E90:<span class="c02">30 03 4C 26 26 20 EA 1D</span> |0.L&amp;&amp; j.|
 1E98:A4 24 A9 60 91 28 AD B3 |$$)`.(-3|
@@ -7140,8 +7140,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1FA8:C5 1F 8D 5C 2A 8C 5B 2A |E..\*.[*|
 1FB0:8E 5A 2A 20 51 28 AE 59 |.Z* Q(.Y|
 1FB8:2A 9A AD 5C 2A AC 5B 2A |*.-\*,[*|
-1FC0:AE 5A 2A 38 60 6C 36 00 |.Z*8`l6.|
-1FC8:A9 8D 4C C5 1F A0 FF 8C |).LE. ..|
+1FC0:AE 5A 2A 38 60 6C 36 00 |.Z*8`l6.| 
+1FC8:A9 8D 4C C5 1F A0 FF 8C |).LE. ..| CMDSCAN, $1FCD .. $2192, T0SE - T1S0
 1FD0:5F 2A C8 8C 62 2A EE 5F |_*H.b*n_|
 1FD8:2A A2 00 08 BD 00 02 CD |*"..=..M|
 1FE0:B2 2A D0 01 E8 8E 5D 2A |2*P.h.]*|
@@ -7198,7 +7198,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2178:F0 9C 20 80 21 4C 83 1F |p. .!L..|
 2180:20 5B 27 20 AE 21 AD 5F | [' .!-_|
 2188:2A AA BD 1F 1D 48 BD 1E |**=..H=.|
-2190:1D 48 60 AE 5D 2A BD 00 |.H`.]*=.|
+2190:1D 48 60 AE 5D 2A BD 00 |.H`.]*=.| XOPNCLS, $2193 .. $?, T1S0 - ?
 2198:02 C9 8D F0 06 E8 8E 5D |.I.p.h.]|
 21A0:2A C9 AC 60 20 93 21 F0 |*I,` .!p|
 21A8:FA C9 A0 F0 F7 60 A9 00 |zI pw`).|
