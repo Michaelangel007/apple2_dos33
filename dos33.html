@@ -8209,7 +8209,7 @@ I've annotated <a class="mem">*wastes*</a> locations in the listing where memory
             <tr><td>T0S3</td><td>$FD..$FF      </td><td><a class="file" href="#MSWAITR">MSWAITR</a></td><td align="right">    3</td><td>Func n/a, Line #<a class="line" href="#mswaitr_030">30</a> (page align <a class="x" href="#MSWAIT">MSWAIT</a>)</a></td></tr>
             <tr><td>T0S6</td><td>$00..$55      </td><td><a class="file" href="#MSWAITR">MSWAITR</a></td><td align="right">   86</td><td>Func n/a, Variable <a class="d" href="#NBUF2"      >NBUF2</a></td></tr>
             <tr><td>T0S9</td><td>$DA..$DB      </td><td><a class="file" href="#DOSPTCH">DOSPTCH</a></td><td align="right">    2</td><td>Func <class="x" href="#RCPATCH">RCPATCH</a>, Line #<a class="line" href="#dosptch_028">28</a>, (JMP <a class="x" href="#RCBACK">RCBACK</a> instead of RTS</td></tr>
-            <tr><td>T0SA</td><td>$1B49 .. $1B49</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td><td align="right">    1</td><td><a class="d" href="#_1B49"></a> Since ZPGFCB page is never 0 can switch<br>
+            <tr><td>T0SA</td><td>$1B49 .. $1B49</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td><td align="right">    1</td><td><a class="d" href="#_1B49"></a> Since <a class="v" href="#ZPGFCB">ZPGFCB</a> can never point to page 0 we can switch<br>
 From: LDY ZPGFCB+1, PLA, JMP<br>
 To..: PLA, LDY ZPGFCB+1, BNE</tr></td>
 
