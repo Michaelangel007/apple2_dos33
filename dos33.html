@@ -4324,12 +4324,12 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3473:FF FF FF FF                                                                    ; [B8]=T20 The <a class="file" href="#BOOTLDR">BOOTLDR</a> would just need to move the
 3477:FF FF FF FF                                                                    ; [BC]=T21 disk head to track <b class="ts">T1</b> and then load as normal.
 347B:FF FF FF FF                                                                    ; [C0]=T22 
-347F:FF FF FF FF                                                                    ; [C4]=T23 (Extra track 35)
-3483:FF FF FF FF                                                                    ; [C8]=T24 (Extra track 36)
-3487:FF FF FF FF                                                                    ; [CC]=T25 (Extra track 37)
-348B:FF FF FF FF                                                                    ; [D0]=T26 (Extra track 38)
-348F:FF FF FF FF                                                                    ; [D4]=T27 (Extra track 39)
-3493:FF FF FF FF                                                                    ; [D8]=T28 (Extra track 40)
+347F:FF FF FF FF                                                                    ; [C4]=T23 (Extra track 36)
+3483:FF FF FF FF                                                                    ; [C8]=T24 (Extra track 37)
+3487:FF FF FF FF                                                                    ; [CC]=T25 (Extra track 38)
+348B:FF FF FF FF                                                                    ; [D0]=T26 (Extra track 39)
+348F:FF FF FF FF                                                                    ; [D4]=T27 (Extra track 40)
+3493:FF FF FF FF                                                                    ; [D8]=T28 (Extra track 41)
 3497:FF FF FF FF                                                                    ; [DC]=T29 *<a class="mem" name="_3497">wastes</a>* 36 bytes [$DC..$FF] = $24
 349B:FF FF FF FF                                                                    ; [E0]=T2A          *note* Tracks 41+ are not accessible
 349F:FF FF FF FF                                                                    ; [E4]=T2B                 on any drive that I know of.
@@ -4338,7 +4338,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 34AB:FF FF FF FF                                                                    ; [F0]=T2E 
 34AF:FF FF FF FF                                                                    ; [F4]=T2F 
 34B3:FF FF FF FF                                                                    ; [F8]=T30 
-34B7:FF FF FF FF                                                                    ; [FC]=T31
+34B7:FF FF FF FF                                                                    ; [FC]=T31 (Extra track )
                     051 ;
                     052 ;VOLUME DIRECTORY AREA                                      ; === CATALOG ===
                     053 ;                                                           ; <b class="ts">T11SF</b>
@@ -8198,32 +8198,33 @@ I've annotated <a class="mem">*wastes*</a> locations in the listing where memory
 <div style="padding-left:5%">
     <font style="font-family: monospace;">
         <table border="1" style="border-width: 1px; border-collapse: collapse">
-            <tr><td>T/S </td><td>Range         </td><td>File   </td><td align="right">Bytes</td><td>Description                             </td></tr>
-            <tr><td>T0S0</td><td>$B3..$FD      </td><td><a class="file" href="#BOOTLDR">BOOTLDR</a></td><td align="right">   75</td><td><a class="d" href="#"           >     </a></td></tr>
-            <tr><td>T0S1</td><td>     $FF      </td><td><a class="file" href="#BOOTLDR">BOOTLDR</a></td><td align="right">    1</td><td><a class="d" href="#"           >     </a></td></tr>
-            <tr><td>T0S3</td><td>$FD..$FF      </td><td><a class="file" href="#MSWAITR">MSWAITR</a></td><td align="right">    3</td><td>Func n/a, Line #<a class="line" href="#mswaitr_030">30</a> (page align <a class="x" href="#MSWAIT">MSWAIT</a>)</a></td></tr>
-            <tr><td>T0S6</td><td>$00..$55      </td><td><a class="file" href="#MSWAITR">MSWAITR</a></td><td align="right">   86</td><td>Func n/a, Variable <a class="d" href="#NBUF2"      >NBUF2</a> -- data should be AFTER code</td></tr>
-            <tr><td>T0S9</td><td>$DA..$DB      </td><td><a class="file" href="#DOSPTCH">DOSPTCH</a></td><td align="right">    2</td><td>Func <a class="x" href="#RCPATCH">RCPATCH</a>, Line #<a class="line" href="#dosptch_028">28</a>, (JMP <a class="x" href="#RCBACK">RCBACK</a> instead of RTS</td></tr>
-            <tr><td>T0SA</td><td>$1B49 .. $1B49</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td><td align="right">    1</td><td>Func <a class="x" href="#DR2A">DR2A</a>, Since <a class="v" href="#ZPGFCB">ZPGFCB</a> can never point to page 0 we can switch the order of these <a class="x" href="#_1B49">instructions</a>:
+            <tr><td>T/S </td><td>Range         </td><td>File                                       </td> <td>Func/Var                                </td>  <td align="right">Bytes</td><td>Description                                                            </td></tr>
+            <tr><td>T0S0</td><td>$36B3..$36FD  </td><td><a class="file" href="#BOOTLDR">BOOTLDR</a></td> <td>n/a                                     </td>  <td align="right">   75</td><td><a class="d" href="#"           >     </a>  Padding for boot sector    </td></tr>
+            <tr><td>T0S1</td><td>$37FF         </td><td><a class="file" href="#BOOTLDR">BOOTLDR</a></td> <td>n/a                                     </td>  <td align="right">    1</td><td><a class="d" href="#"           >     </a>  Unused slack at end        </td></tr>
+            <tr><td>T0S3</td><td>$FD..$FF      </td><td><a class="file" href="#MSWAITR">MSWAITR</a></td> <td>n/a                                     </td>  <td align="right">    3</td><td>Line #<a class="line" href="#mswaitr_030">30</a> page align <a class="x" href="#MSWAIT" >MSWAIT </a></td></tr>
+            <tr><td>T0S6</td><td>$00..$55      </td><td><a class="file" href="#MSWAITR">MSWAITR</a></td> <td><a class="d" href="#NBUF2"  >NBUF2  </a></td>  <td align="right">   86</td><td>While we need <i>run-time</i> memory for NBUF2 there is need to waste <i>disk</i> space.<br>Data should always be AFTER code</td></tr>
+            <tr><td>T0S9</td><td>$DA..$DB      </td><td><a class="file" href="#DOSPTCH">DOSPTCH</a></td> <td><a class="x" href="#RCPATCH">RCPATCH</a></td>  <td align="right">    2</td><td>Line #<a class="line" href="#dosptch_028">28</a>, (JMP <a class="x" href="#RCBACK">RCBACK</a> instead of RTS</td></tr>
+            <tr><td>T0SA</td><td>$1B49 .. $1B49</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td> <td><a class="x" href="#DR2A"   >DR2A   </a></td>  <td align="right">    1</td><td>Since <a class="v"    href="#ZPGFCB">ZPGFCB</a> can never point to page 0 we can switch the order of these <a class="x" href="#_1B49">instructions</a>:
 <br>From: LDY ZPGFCB+1
 <br>&nbsp; &nbsp; &nbsp; PLA
 <br>&nbsp; &nbsp; &nbsp; JMP DR2C
 <br>To..: PLA
 <br>&nbsp; &nbsp; &nbsp; LDY ZPGFCB+1
 <br>&nbsp; &nbsp; &nbsp; BNE DR2C</tr></td>
-            <tr><td>T0SB</td><td>$81..$FF</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td><td align="right">  127</td><td><a class="d" href="#"           >     </a></td></tr>
-            <tr><td>T0SC</td><td>$1D78 .. $1D  </td><td><a class="file" href="#DOSINIT">DOSINIT</a></td><td align="right">   10</td><td><a class="d" href="#_1D78">AS2VT </a></td></tr>
-            <tr><td>T2S2</td><td>$33BB .. $33BB</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    1</td><td>Unused <a class="v" href="#_33BB">sector type 4</a> = VTOC</a></td></tr>
-            <tr><td>T2S2</td><td>$33A0 .. $33A3</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    4</td><td>32 sectors/track allocation bitmap mask <a class="v" href="#_33A0">ALC10S</a></td></tr>
-            <tr><td>T2S2</td><td>$33BF .. $33BF</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    1</td><td>VTOC <a class="v" href="#_33BF">spare</a> shenanigans </td></tr>
-            <tr><td>T2S2</td><td>$33C0 .. $33C0</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    1</td><td>VTOC <a class="v" href="#_33C0">spare</a> shenanigans </td></tr>
-            <tr><td>T2S2</td><td>$33C2 .. $33E1</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">   32</td><td>VTOC <a class="v" href="#_33C2">spare</a> shenanigans </td></tr>
-            <tr><td>T2S2</td><td>$33E3 .. $33EA</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    8</td><td>VTOC <a class="v" href="#_33E3">spare</a> shenanigans </td></tr>
-            <tr><td>T2S2</td><td>$33ED .. $33ED</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    2</td><td>VTOC <a class="v" href="#_#3ED">Track Allocation</a>  </td></tr>
-            <tr><td>T2S2</td><td>$33F3 .. $ </td></tr>
-            <tr><td>T2S2</td><td>$3497 .. $34BA</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    8</td><td>VTOC <a class="v" href="#_3497">tracks 41+</a> sector bitmaps</td></tr>
-            <tr><td>T2S2</td><td>$34BB .. $34BB</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    1</td><td>CAT Unused <a class="v" href="#_34BB">sector type 2</a> = CATALOG</a></td></tr>
-            <tr class="macro"><td>Total</td><td>n/a           </td><td>n/a                                       </td><td align="right">  160</td><td> </td></tr>
+            <tr><td>T0SB</td><td>$81..$FF      </td><td><a class="file" href="#RELOCTR">RELOCTR</a></td> <td> </td> <td align="right">  127</td><td><a class="d" href="#"           >     </a></td></tr>
+            <tr><td>T0SC</td><td>$1D78 .. $1D  </td><td><a class="file" href="#DOSINIT">DOSINIT</a></td> <td><a class="d" href="#AS2VT" >AS2VT </a> </td> <td align="right">   10</td><td><a class="d" href="#_1D78" >Applesoft in RAM vector table </a></td></tr>
+            <tr><td>T2S2</td><td>$33BB .. $33BB</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td>                                       </td> <td align="right">    1</td><td>Unused <a class="v" href="#_33BB">sector type 4</a> = VTOC</a></td></tr>
+            <tr><td>T2S2</td><td>$33A0 .. $33A3</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td><a class="v" href="#_33A0" >ALC10S</a> </td> <td align="right">    4</td><td>32 sectors/track allocation bitmap mask                       </td></tr>
+            <tr><td>T2S2</td><td>$33BF .. $33BF</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td>n/a                                    </td> <td align="right">    1</td><td>VTOC <a class="v" href="#_33BF" >spare</a> shenanigans        </td></tr>
+            <tr><td>T2S2</td><td>$33C0 .. $33C0</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td>n/a                                    </td> <td align="right">    1</td><td>VTOC <a class="v" href="#_33C0" >spare</a> shenanigans        </td></tr>
+            <tr><td>T2S2</td><td>$33C2 .. $33E1</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td>n/a                                    </td> <td align="right">   32</td><td>VTOC <a class="v" href="#_33C2" >spare</a> shenanigans        </td></tr>
+            <tr><td>T2S2</td><td>$33E3 .. $33EA</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td>n/a                                    </td> <td align="right">    8</td><td>VTOC <a class="v" href="#_33E3" >spare</a> shenanigans        </td></tr>
+            <tr><td>T2S2</td><td>$33ED .. $33ED</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td><a class="v" href="#VALCA3">VALCA3</a> </td> <td align="right">    1</td><td>VTOC <a class="v" href="#_#3ED">Track Allocation</a> byte 3   </td></tr>
+            <tr><td>T2S2</td><td>$33EE .. $33EE</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td><a class="v" href="#VALCA4">VALCA4</a> </td> <td align="right">    1</td><td>VTOC <a class="v" href="#_#3ED">Track Allocation</a> byte 4   </td></tr>
+            <tr><td>T2S2</td><td>$33F3 .. $    </td><td><a class="file" href="#"       >       </a></td> <td>                                       </td> <td align="right">    ?</td><td>                                                              </td></tr>
+            <tr><td>T2S2</td><td>$3497 .. $34BA</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td>n/a                                    </td> <td align="right">    8</td><td>VTOC <a class="v" href="#_3497">tracks 41+</a> sector bitmaps</td></tr>
+            <tr><td>T2S2</td><td>$34BB .. $34BB</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td><a class="v" href="#VDTCDE">VDTCDE</a> </td> <td align="right">    1</td><td>CAT Unused <a class="v" href="#_34BB">sector type 2</a> = CATALOG</a></td></tr>
+            <tr class="macro"><td>Total</td><td>---           </td><td>---                               <td>---                                    </td> </td><td align="right">  160</td><td> </td></tr>
         </table>
     </font>
 </div>
