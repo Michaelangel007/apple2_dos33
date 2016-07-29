@@ -4265,7 +4265,8 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                                                                                     ;           -$FF outwards to <span class="ts">T00</span>.
 33ED:00             036 <a class="d" name="VALCA3">VALCA3      </a>DFB 0           ; AA BYTE3                      ; [32] *<a class="mem" href="_33ED">wastes</a>* 1 byte *sarcasm* <i>I <b>really</b> don't know what we</i>
 33EE:00             037 <a class="d" name="VALCA4">VALCA4      </a>DFB 0           ; AA BYTE4                      ; [33] *<a class="mem" href="_33EE">wastes</a>* 1 byte   <i>would do without you Captain Obvious!</i>
-33EF:23             038 <a class="d" name="VNOTRK">VNOTRK      </a>DFB 35          ; NO TRACKS ON VOL              ; [34] *note* "No" = Number
+33EF:23             038 <a class="d" name="VNOTRK">VNOTRK      </a>DFB 35          ; NO TRACKS ON VOL              ; [34] *note* "No" = Number; To format more then 35 tracks:
+                                                                                    ;      $<span class="adr">AEFE</span>:## ($3EFE), See: <a class="file" href="#FORMATR">FORMATR</a>, Line #<a class="line" href="#FORMATR_054">054</a>
 33F0:10             039 <a class="d" name="VNOSEC">VNOSEC      </a>DFB 16          ; NO SECTORS PER TRACK          ; [35]          Evidence that one day DOS 3.4+ might support:
 33F1:00 01          040 <a class="d" name="VSECLN">VSECLN      </a>DW 256          ; NO. BYTES PER SECTOR          ; [36] (Little)     &gt;  16 sectors/track
                     041 ;                                                           ; [37] (Endian) and &gt; 256 bytes/sector.
@@ -6737,7 +6738,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     051 
                     052 
                     053 
-3EFD:C9 23          054             CMP #$23        CONTINUE IF LESS THEN 35        ; *sigh* DISK_MAX_TRACK
+3EFD:C9 23          <a class="line" name="FORMATR_054">054</a>             CMP #$23        CONTINUE IF LESS THEN 35        ; <b class="magic">magic number</b>* DISK_MAX_TRACK or at least <a class="d" href="#VNOTRK">VNOTRK</a>
 3EFF:90 D3          055             BCC <a class="x" href="#FORMTRK">FORMTRK</a>
 3F01:18             056             CLC             CLEAR CARRY TO INDICATE 'NO ERR'; === <b class="ts">T0$9</b> ===
 3F02:90 05          057             BCC <a class="x" href="#FORMDONE">FORMDONE</a>    ELSE TURN OFF MOTOR AND RETURN
