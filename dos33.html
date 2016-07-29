@@ -6738,7 +6738,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     051 
                     052 
                     053 
-3EFD:C9 23          <a class="line" name="FORMATR_054">054</a>             CMP #$23        CONTINUE IF LESS THEN 35        ; <b class="magic">magic number</b>* DISK_MAX_TRACK or at least <a class="d" href="#VNOTRK">VNOTRK</a>
+3EFD:C9 23          <a class="line" name="FORMATR_054">054</a>             CMP #$23        CONTINUE IF LESS THEN 35        ; <b class="magic">magic number</b>* DISK_MAX_TRACK or at least <a class="v" href="#VNOTRK">VNOTRK</a>
 3EFF:90 D3          055             BCC <a class="x" href="#FORMTRK">FORMTRK</a>
 3F01:18             056             CLC             CLEAR CARRY TO INDICATE 'NO ERR'; === <b class="ts">T0$9</b> ===
 3F02:90 05          057             BCC <a class="x" href="#FORMDONE">FORMDONE</a>    ELSE TURN OFF MOTOR AND RETURN
@@ -6765,7 +6765,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     078             BCS WEXIT2      ERR IF WRITE PROTECTED.
                     079             INC NSECT       NEXT OF 16 SECTORS.
                     080             LDA NSECT
-                    081             CMP #$10                                        ; What's the point of storing max sectors in VTOC then?!?!
+                    081             CMP #$<span class="adr">10</span>                                        ; What's the point of <a class="v" href="#VNOSEC">VNOSEC</a> in VTOC then?!?!
                     082             BCC WSECT       CONTINUE IF NOT DONE.
                     083             PAGE
                     084 *****************************
