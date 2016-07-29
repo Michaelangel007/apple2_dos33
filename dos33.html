@@ -82,10 +82,14 @@ Misc.
 a.dumb { /* How Not To Design a File System (HNTDAFS) */
     color: #808; /* purple */
 }
-a.file {
-    color: #F00;           /* FILE = Red */
+.file {
+    color: #088;           /* old filename red */
     text-decoration: none; /* remove underlink from data link */
     font-weight: normal;   /* remove bold */
+}
+a.line { /* line number */
+    color: #088; /* cyan */
+    text-decoration: none; /* remove underlink from data link */
 }
 /* Link to Macro Definition */
 a.macro {
@@ -99,10 +103,6 @@ a.name {
     font-style: italic;
 }
 
-a.line {
-    color: #080;
-    text-decoration: none; /* remove underlink from data link */
-}
 /* Page Definition -- link comes here */
 a.page {
     color: #080;
@@ -133,9 +133,6 @@ h1 {
 b.adr {
     color: #F80;
 }
-b.file {
-    color: #F00; /* filenames in red */
-}
 /* Track/Sector */
 b.ts {
     color: #F00;
@@ -158,9 +155,6 @@ hr {
 span.adr {
     color: #F80;
     font-weight: bold;
-}
-span.line {
-    color: #088; /* cyan */
 }
 .magic { /* hard-coded magic number hack */
     color           :#FFF; /* white on */
