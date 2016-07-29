@@ -4297,11 +4297,11 @@ Let the clusterfrak of bad design commence in <a href="https://www.nasa.gov/audi
 33F3:00 00 FF FF    050            ORG VTOC+256                                     ; [38]=T00 See <a class="dumb" href="#HNTDAFS3">HNTDAFS #3</a>; Why not simply <span class="macro">DS 256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>,0</span> ???
 33F7:00 00 FF FF                                                                    ; [3C]=T01                 Uninitialized memory is <b>never</b> a good idea
 33FB:00 00 FF FF                                                                    ; [40]=T02 See <a class="dumb" href="#HNTDAFS4">HNTDAFS #4</a>
-33FF:FF FF FF FF                                                                    ; [44]=T03 === <b class="ts">T2$3</b> === *<a class="mem" name="fvcbufs_3400">wastes</a>* an <b>entire</b> sector for <i>1 bloody byte</i>!?
-3403:FF FF FF FF                                                                    ; [48]=T04 *<a class="dumb" href="http://i.imgur.com/iWKad22.jpg">facepalm</a>*
+33FF:FF FF FF FF                                                                    ; [44]=T03 === <b class="ts">T2$3</b> === *<a class="mem" name="fvcbufs_3400">wastes</a>* <i>an <b>entire</b> sector for a <b>single</b> byte!?</i>
+3403:FF FF FF FF                                                                    ; [48]=T04 The real kicker? <a class="d" href="#VDTCDE">VDTCDE</a> <i>isn't even <b>bloody</b> used!</i> *<a class="dumb" href="http://i.imgur.com/iWKad22.jpg">facepalm</a>*
 3407:FF FF FF FF                                                                    ; [4C]=T05 Since we're wasting disk space anyways,
 340B:FF FF FF FF                                                                    ; [50]=T06 let's waste $C8 bytes (256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>)
-340F:FF FF FF FF                                                                    ; [54]=T07 to force us to span 2 sectors
+340F:FF FF FF FF                                                                    ; [54]=T07 to <i>force us to span 2 sectors</i>
 3413:FF FF FF FF                                                                    ; [58]=T08 instead of copying the VTOC header ($38 byte)
 3417:FF FF FF FF                                                                    ; [5C]=T09 into a new temporary page on init!
 341B:FF FF FF FF                                                                    ; [60]=T0A 
