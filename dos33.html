@@ -298,9 +298,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     010             INCLUDE <a class="_c02 file" href="#DOSHOOK">DOSHOOK</a>,,2  ; $1E81 .. $1FCC, T0SD - T0SE
                     011             INCLUDE <a class="_c03 file" href="#CMDSCAN">CMDSCAN</a>,,2  ; $1FCD .. $2192, T0SE - T1S0
                     012             INCLUDE <a class="_c04 file" href="#XOPNCLS">XOPNCLS</a>,,2  ; $2193 .. $2330, T1S0 - T1S2
-                    013             INCLUDE <a class="_c05 file" href="#XLODSAV">XLODSAV</a>,,2  ; $2331 .. $####, T1S2 - ?
-                    014             INCLUDE <a class="_c06 file" href="#XMISCMD">XMISCMD</a>,,2  ;
-                    015             INCLUDE <a class="_c07 file" href="#DOSGOER">DOSGOER</a>,,2  ;       .. $27D3,      - T1S6
+                    013             INCLUDE <a class="_c05 file" href="#XLODSAV">XLODSAV</a>,,2  ; $2331 .. $250F, T1S2 - T1S4
+                    014             INCLUDE <a class="_c06 file" href="#XMISCMD">XMISCMD</a>,,2  ; $2510 .. $26A7, T1S4 - T1S5
+                    015             INCLUDE <a class="_c07 file" href="#DOSGOER">DOSGOER</a>,,2  ; $26A8 .. $27D3, T1S5 - T1S6
                     016             INCLUDE <a class="_c08 file" href="#BLDFTAB">BLDFTAB</a>,,2  ; $27D4 .. $2883, T1S6 - T1S7
                     017             INCLUDE <a class="_c09 file" href="#CMDTBLS">CMDTBLS</a>,,2  ; $2884 .. $2A4E, T1S7 - T1S9
                     018             INCLUDE <a class="_c10 file" href="#FDOSENT">FDOSENT</a>,,2  ; $2A4F .. $????, T1S9 - ?
@@ -721,9 +721,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     080 
                     081 
                     082 
-                    083 
-                    084 
-                    085 
+1D78:06 25          083 AS2VT       DW ASRUN2                                       ; R/O, copied via INITC
+1D7A:06 25          084             DW ASRUN2                                       ; If Applesoft is in RAM
+                    085             DW ASBRK2                                       ; *wastes* TODO bytes on 48K
                     086 
                     087 
                     088 
@@ -1652,19 +1652,19 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2330:60             290 CL2         RTS             ; DONE
 
 
-<hr>; === <a class="file" name="XLODSAV">XLODSAV</a> - Execute Load / Save, Page <a class="page" name="page140">140</a>, <b class="ts">T1S2</b> - <b class="ts">T1S?</b>, $<span class="adr">A331</span> .. $<span class="adr">A???</span>===<hr>
-                    001 
-                    002 
-                    003 
-                    004 
-                    005 
-                    006 
-                    007 
-                    008 
-                    009 
-                    010 
-                    011 
-                    012 
+<hr>; === <a class="file" name="XLODSAV">XLODSAV</a> - Execute Load / Save, Page <a class="page" name="page140">140</a>, <b class="ts">T1S2</b> - <b class="ts">T1S4</b>, $<span class="adr">A331</span> .. $<span class="adr">A50F</span> ===<hr>
+                    001             PAGE
+                    002 ;
+                    003 ; EBSV - EXECUTE BINARY SAVE
+                    004 ;
+                    005 EBSV        EQU *
+2331:A9 09          006             LDA #ADR+L      ; IF A&amp;L
+2333:2D 65 2A       007             AND INOPS       ; NOT GIVEN
+2336:C9 09          008             CMP #ADR+L
+2338:F0 03          009             BEQ EBSV1
+233A:4C 00 20       010             JMP CNF         ; THEN ERROR
+                    011 EBSV1       EQU *
+233D:A9 04          012             LDA #4
                     013 
                     014 
                     015 
@@ -1918,22 +1918,22 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     263 
                     264 
                     265 
-                    266 
-                    267 
-                    268 
-                    269 
+2506:20 65 0E       266 ASRUN2      JSR $E65        ; RAM                           ; <a class="d" href="#AS2VT">AS2VT</a> has pointer to us
+2509:85 33          267             STA PROMP       ;INSURES APPLESOFT RUN DETECT (A=0) ; *<a class="dumb" name="xlodsav_2506">wastes</a>* 10 bytes on 48K machine
+250B:85 D8          268             STA ASONER      ;RESET APPLESOFT ONERR FLAG     ; 
+250D:4C D4 0F       269             JMP $FD4
 
 
-<hr>; === <a class="file" name="XMISCMD">XMISCMD</a> - Execute misc. commands, Page <a class="page" name="page145">145</a>, <b class="ts">T?S?</b>, $<span class="adr">????</span> ===<hr>
-                    001 
-                    002 
-                    003 
-                    004 
-                    005 
-                    006 
-                    007 
-                    008 
-                    009 
+<hr>; === <a class="file" name="XMISCMD">XMISCMD</a> - Execute misc. commands, Page <a class="page" name="page145">145</a>, <b class="ts">T1S4</b> - <b class="ts">T1S5</b>, $<span class="adr">A510</span> .. $<span class="adr">A6A7</span> ===<hr>
+                    001             PAGE
+                    002 ;
+                    003 ; EWRITE - WRITE CMD EXECUTE
+                    004 ;
+                    005 EWRITE      EQU *
+2510:20 26 25       006             JSR RWPOSN      ; GO POSITION FILE IF REQD
+2513:A9 05          007             LDA #5
+2515:8D 52 2A       008             STA OSTATE      ; SET OSTATE=5                  ; WTF is state 5 ??
+2518:4C 83 1F       009             JMP CERTN
                     010 
                     011 
                     012 
@@ -2174,21 +2174,21 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     247 
                     248 
                     249 
-                    250 
-                    251 
-                    252 
-                    253 
-                    254 
+269D:AD B5 2A       250             LDA EFTABA+1        ; MOVE TABLE ADR
+26A0:85 41          251             STA ZPGWRK+1        ; NO ZPG
+26A2:AD B4 2A       252             LDA EFTABA
+26A5:85 40          253             STA ZPGWRK
+26A7:60             254             RTS
 
 
-<hr>; === <a class="file" name="DOSGOER">DOSGOER</a> - Print Error message, Page <a class="page" name="page40">40</a>, <b class="ts">T?S?</b> - <b class="ts">T?S?</b>, $<span class="adr">????</span> .. $<span class="adr">A7D3</span> ===<hr>
+<hr>; === <a class="file" name="DOSGOER">DOSGOER</a> - Print Error message, Page <a class="page" name="page40">40</a>, <b class="ts">T1S5</b> - <b class="ts">T1S6</b>, $<span class="adr">A6A8</span> .. $<span class="adr">A7D3</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; DOSGO - GOTO DOS
                     004 ;
                     005 <a class="f" name="DOSGO"       >DOSGO       </a>EQU *
-                    006 
-                    007 
+26A8:20 06 2B       006             JSR DOSENT      ; GO TO DOS
+26AB:90 16          007             BCC DG3         ; BR IF NOT ERROR
                     008 
                     009 
                     010 
@@ -6960,12 +6960,12 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
  <span class="c02" href="#DOSHOOK">DOSHOOK</span> ; $1E81 .. $1FCC, T0SD - T0SE
  <span class="c03" href="#CMDSCAN">CMDSCAN</span> ; $1FCD .. $2192, T0SE - T1S0
  <span class="c04" href="#XOPNCLS">XOPNCLS</span> ; $2193 .. $2330, T1S0 - T1S2
- <span class="c05" href="#XLODSAV">XLODSAV</span> ; $2331 .. $####, T1S2 - ?
- <span class="c06" href="#XMISCMD">XMISCMD</span> ;
- <span class="c07" href="#DOSGOER">DOSGOER</span> ;       .. $27D3,      - T1S6
+ <span class="c05" href="#XLODSAV">XLODSAV</span> ; $2331 .. $250F, T1S2 - T1S4
+ <span class="c06" href="#XMISCMD">XMISCMD</span> ; $2510 .. $26A7, T1S4 - T1S5
+ <span class="c07" href="#DOSGOER">DOSGOER</span> ; $26A8 .. $27D3, T1S5 - T1S6
  <span class="c08" href="#BLDFTAB">BLDFTAB</span> ; $27D4 .. $2883, T1S6 - T1S7
  <span class="c09" href="#CMDTBLS">CMDTBLS</span> ; $2884 .. $2A4E, T1S7 - T1S9
- <span class="c10" href="#FDOSENT">FDOSENT</span> ; $2A4F .. 
+ <span class="c10" href="#FDOSENT">FDOSENT</span> ; $2A4F .. $    , T1S9 - ?
  <span class="c11" href="#FOPCLRW">FOPCLRW</span> ;
  <span class="c20" href="#FDELCAT">FDELCAT</span> ;
  <span class="c21" href="#FMTRWIO">FMTRWIO</span> ;       .. $2FF6,      - T1SE
