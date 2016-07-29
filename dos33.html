@@ -4323,22 +4323,22 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 346F:FF FF FF FF                                                                    ; [B4]=T1F 
 3473:FF FF FF FF                                                                    ; [B8]=T20 The <a class="file" href="#BOOTLDR">BOOTLDR</a> would just need to move the
 3477:FF FF FF FF                                                                    ; [BC]=T21 disk head to track <b class="ts">T1</b> and then load as normal.
-347B:FF FF FF FF                                                                    ; [C0]=T22 
-347F:FF FF FF FF                                                                    ; [C4]=T23 (Extra track 36)
-3483:FF FF FF FF                                                                    ; [C8]=T24 (Extra track 37)
-3487:FF FF FF FF                                                                    ; [CC]=T25 (Extra track 38)
-348B:FF FF FF FF                                                                    ; [D0]=T26 (Extra track 39)
-348F:FF FF FF FF                                                                    ; [D4]=T27 (Extra track 40)
-3493:FF FF FF FF                                                                    ; [D8]=T28 (Extra track 41)
-3497:FF FF FF FF                                                                    ; [DC]=T29 *<a class="mem" name="_3497">wastes</a>* 36 bytes [$DC..$FF] = $24
+347B:FF FF FF FF                                                                    ; [C0]=T22 (Normal last 35th accessible track)
+347F:FF FF FF FF                                                                    ; [C4]=T23 (Extra 36th track)
+3483:FF FF FF FF                                                                    ; [C8]=T24 (Extra 37th track)
+3487:FF FF FF FF                                                                    ; [CC]=T25 (Extra 38th track)
+348B:FF FF FF FF                                                                    ; [D0]=T26 (Extra 39th track)
+348F:FF FF FF FF                                                                    ; [D4]=T27 (Extra 40th track)
+3493:FF FF FF FF                                                                    ; [D8]=T28
+3497:FF FF FF FF                                                                    ; [DC]=T29 *<a class="mem" name="_3497">wastes</a>* 40 bytes [$D8..$FF] = $28
 349B:FF FF FF FF                                                                    ; [E0]=T2A          *note* Tracks 41+ are not accessible
 349F:FF FF FF FF                                                                    ; [E4]=T2B                 on any drive that I know of.
-34A3:FF FF FF FF                                                                    ; [E8]=T2C
-34A7:FF FF FF FF                                                                    ; [EC]=T2D 
-34AB:FF FF FF FF                                                                    ; [F0]=T2E 
-34AF:FF FF FF FF                                                                    ; [F4]=T2F 
-34B3:FF FF FF FF                                                                    ; [F8]=T30 
-34B7:FF FF FF FF                                                                    ; [FC]=T31 (Extra track )
+34A3:FF FF FF FF                                                                    ; [E8]=T2C                 That's not to say that they <i>don't</i>
+34A7:FF FF FF FF                                                                    ; [EC]=T2D                 exist but basic engineering and repair
+34AB:FF FF FF FF                                                                    ; [F0]=T2E                 should tell us that accessing
+34AF:FF FF FF FF                                                                    ; [F4]=T2F                 more then 40 tracks is not possible.
+34B3:FF FF FF FF                                                                    ; [F8]=T30
+34B7:FF FF FF FF                                                                    ; [FC]=T31 (Extra 50th track)
                     051 ;
                     052 ;VOLUME DIRECTORY AREA                                      ; === CATALOG ===
                     053 ;                                                           ; <b class="ts">T11SF</b>
@@ -8222,7 +8222,7 @@ I've annotated <a class="mem">*wastes*</a> locations in the listing where memory
             <tr><td>T2S2</td><td>$33ED .. $33ED</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td><a class="v" href="#VALCA3">VALCA3</a> </td> <td align="right">    1</td><td>VTOC <a class="v" href="#_#3ED">Track Allocation</a> byte 3   </td></tr>
             <tr><td>T2S2</td><td>$33EE .. $33EE</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td><a class="v" href="#VALCA4">VALCA4</a> </td> <td align="right">    1</td><td>VTOC <a class="v" href="#_#3ED">Track Allocation</a> byte 4   </td></tr>
             <tr><td>T2S2</td><td>$33F3 .. $    </td><td><a class="file" href="#"       >       </a></td> <td>                                       </td> <td align="right">    ?</td><td>                                                              </td></tr>
-            <tr><td>T2S2</td><td>$3497 .. $34BA</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td>n/a                                    </td> <td align="right">    8</td><td>VTOC <a class="v" href="#_3497">tracks 41+</a> sector bitmaps</td></tr>
+            <tr><td>T2S2</td><td>$3497 .. $34BA</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td>n/a                                    </td> <td align="right">   40</td><td>VTOC <a class="v" href="#_3497">tracks 41 - 50</a> sector bitmaps</td></tr>
             <tr><td>T2S2</td><td>$34BB .. $34BB</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td><a class="v" href="#VDTCDE">VDTCDE</a> </td> <td align="right">    1</td><td>CAT Unused <a class="v" href="#_34BB">sector type 2</a> = CATALOG</a></td></tr>
             <tr class="macro"><td>Total</td><td>---           </td><td>---                               <td>---                                    </td> </td><td align="right">  160</td><td> </td></tr>
         </table>
