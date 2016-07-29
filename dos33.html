@@ -308,8 +308,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     016             INCLUDE <a class="_c08 file" href="#BLDFTAB">BLDFTAB</a>,,2  ; $27D4 .. $2883, T1S6 - T1S7
                     017             INCLUDE <a class="_c09 file" href="#CMDTBLS">CMDTBLS</a>,,2  ; $2884 .. $2A4E, T1S7 - T1S9
                     018             INCLUDE <a class="_c10 file" href="#FDOSENT">FDOSENT</a>,,2  ; $2A4F .. $????, T1S9 - ?
-                    019             INCLUDE <a class="_c11 file" href="#FOPCLRW">FOPCLRW</a>,,2  ;
-                    020             INCLUDE <a class="_c20 file" href="#FDELCAT">FDELCAT</a>,,2  ;
+                    019             INCLUDE <a class="_c11 file" href="#FOPCLRW">FOPCLRW</a>,,2  ;       .. $2CEE,      - T1SB
+                    020             INCLUDE <a class="_c20 file" href="#FDELCAT">FDELCAT</a>,,2  ; $2CEF .. $????, T1SB - T1SC
                     021             INCLUDE <a class="_c21 file" href="#FMTRWIO">FMTRWIO</a>,,2  ;       .. $2FF6,      - T1SE
                     022             INCLUDE <a class="_c22 file" href="#FLOCNXB">FLOCNXB</a>,,2  ; $2FF7 .. $31C8, T1SE - T2S0
                     023             INCLUDE <a class="_c23 file" href="#FLOCSEC">FLOCSEC</a>,,2  ; $31C9 .. $3396, T2S0 - T2S2
@@ -3130,47 +3130,47 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     286 
 
 
-<hr>; === <a class="file" name="FDELCAT">FDELCAT</a> - Delete, Catalog, Page <a class="page" name="page55">55</a>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
+<hr>; === <a class="file" name="FDELCAT">FDELCAT</a> - Delete, Catalog, Page <a class="page" name="page55">55</a>, <b class="ts">T1SB</b> @ $EF - <b class="ts">T1SC</b>, $<span class="adr">ACEF</span> .. $<span class="adr">A???</span>===<hr>
                     001             PAGE
                     002 ;
                     003 * FLOCK - LOCK A FILE
                     004 ;
-                    005 <a class="f" name="FLOCK"      id="FLOCK"      >FLOCK       </a>LDA #$<span class="adr">80</span>
-                    006 
-                    007 
-                    008 
-                    009 
-                    010 
-                    011 
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
+2CEF:A9 80          005 <a class="f" name="FLOCK"      >FLOCK       </a>LDA #$<span class="adr">80</span>        ; REMEMBER LOCK                 ; *<a class="magic">magic number</a>* LOCK_MASK
+2CF1:8D 9E 33       006             STA <a class="v" href="#TEMP3">TEMP3</a>                                       ; <a class="mem" name="_">wastes</a> 3 bytes, BNE line #<a class="line" href="#FDELCAT_012">12</a>
+2CF4:D0 05          007             BNE <a class="x" href="#LCKGO">LCKGO</a>                                       ; even better, change to BIT $abs ($00A9)
+                    008 ;
+                    009 * FUNLOCK - UNLOCK A FILE
+                    010 ;
+2CF6:A9 00          011 <a class="f" name="FUNLCK"     >FUNLCK      </a>LDA #<span class="adr">00</span>         ; REMEMBER UNLOCK               ; *<a class="magic">magic number</a>*
+2CF8:8D 9E 33       <a class="line" name="FDELCAT_012">012</a>             STA <a class="v" href="#TEMP3">TEMP3</a>
+                    013 ;
+                    014 <a class="f" name="LCKGO"   >LCKGO       </a>EQU *
+                    015 ;
+2CFB:20 28 2B       016             JSR <a class="x" href="#DOPEN" >DOPEN</a>       ; GO OPEN FILE
+2CFE:AE 9C 33       017             LDX <a class="v" href="#TEMP1" >TEMP1</a>                                       ; === <b class="ts">T1SC</b> ===
+2D01:BD C8 34       018             LDA <a class="v" href="#VDFILE">VDFILE</a>+<span class="adr">2</span>,X  ; GET FILE USE CODE             ; *<a class="magic">magic number</a>*
+2D04:29 7F          019             AND #$<span class="adr">7F</span>        ; TURN OFF LOCK                 ; *<a class="magic">magic number</a>* ~LOCK_MASK
+2D06:0D 9E 33       020             ORA <a class="v" href="#TEMP3" >TEMP3</a>
+2D09:9D C8 34       021             STA <a class="v" href="#VDFILE">VDFILE</a>+<span class="adr">2</span>,X
+2D0C:20 37 30       022             JSR <a class="x" href="#WRVDIR">WRVDIR</a>
+2D0F:4C 7F 33       023 <a class="f" name="GOGOOD"     >GOGOOD      </a>JMP <a class="x" href="#GOODIO">GOODIO</a>
+                    024 ;
+                    025 * FPOSTN - POSITION A FILE
+2D12:20 00 33       026 <a class="f" name="FPOSTN"     >FPOSTN      </a>JSR LOCSEC      ; GO POSITION
+2D15:4C 7F 33       027             JMP GOODIO      ; DONE
+                    028 ;
+                    029 ;
+                    030 * FVAR - VARIFY A FILE                                      ; *spelling* VERIFY
+                    031 ;
+                    032 <a class="f" name="FVAR"       >FVAR        </a>EQU *
+2D18:20 28 2B       033             JSR <a class="x" href="#DOPEN" >DOPEN</a>       ; OPEN FILE
+2D1B:20 B6 30       034 <a class="f" name="VAR1"       >VAR1        </a>JSR <a class="x" href="#LOCNXB">LOCNXB</a>      ; READ A SECTOR
+2D1E:B0 EF          035             BCS <a class="x" href="#GOGOOD">GOGOOD</a>      ; BR IF EOF
+2D20:EE E4 35       036             INC <a class="v" href="#DCBCRS">DCBCRS</a>      ; INCREMENT SECTOR
+2D23:D0 F6          037             BNE <a class="x" href="#VAR1"  >VAR1</a>                                        ; Can't save &gt; 32KB (<span class="todo">TODO</span>)
+2D25:EE E5 35       038             INC <a class="v" href="#DCBCRS">DCBCRS</a>+1                                    ; Therfore Current Relative Sector can never overflow to zero
+2D28:4C 1B 2D       039             JMP <a class="x" href="#VAR1"  >VAR1</a>        ; READ THIS ONE                 ; <a class="mem" href="_">wastes</a> 1 bytes: BNE VAR1
+                    040             PAGE
                     041 
                     042 
                     043 
@@ -6983,7 +6983,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
  <span class="c09" href="#CMDTBLS">CMDTBLS</span> ; $2884 .. $2A4E, T1S7 - T1S9
  <span class="c10" href="#FDOSENT">FDOSENT</span> ; $2A4F .. $    , T1S9 - ?
  <span class="c11" href="#FOPCLRW">FOPCLRW</span> ;
- <span class="c20" href="#FDELCAT">FDELCAT</span> ;
+ <span class="c20" href="#FDELCAT">FDELCAT</span> ; $2CEF .. $????, T1SB - ?
  <span class="c21" href="#FMTRWIO">FMTRWIO</span> ;       .. $2FF6,      - T1SE
  <span class="c22" href="#FLOCNXB">FLOCNXB</span> ; $2FF7 .. $31C8, T1SE - T2S0
  <span class="c23" href="#FLOCSEC">FLOCSEC</span> ; $31C9 .. $3396, T2S0 - T2S2
