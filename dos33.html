@@ -4357,13 +4357,13 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     065 ;  FILE USE CODE                                            ;     uint8_t  type
                     066 ;  FILE NAME         (30)                                   ;     char     name[30]
                     067 ;  FILE SECTOR COUNT (2)                                    ;     uint16_t num_sectors
-34BC:00 00 00 00    068             ORG VOLDIR+256                                  ; *<a class="dumb" name="fvcbufs_34BC">wastes</a>* 256 bytes *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>* 
+34BC:00 00 00 00    068             ORG VOLDIR+256                                  ; *<a class="mem" name="_34BC">wastes</a>* 256 bytes of disk space *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>* 
 34C0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 34D0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 34E0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 34F0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 3500:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; === <b class="ts">T2S4</b> ===
-3510:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; /sarcasm* Who cares, we have 140KB, right!
+3510:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; /sarcasm Who cares, we have 140KB, right!
 3520:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 3530:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 3540:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
@@ -8238,8 +8238,8 @@ I've annotated <a class="mem">*wastes*</a> locations in the listing where memory
         <table border="1" style="border-width: 1px; border-collapse: collapse">
             <tr><td>T/S        </td><td>File   </td><td>Description                             </td></tr>
             <tr><td>T0S5       </td><td>MSWAITR</td><td>Wastes 256 bytes for <a class="v" href="#NBUF1">NBUF1</a> - entire sector is zero              </td></tr>
-            <tr><td>T2S3       </td><td>FCVBUFS</td><td>Wastes 255 bytes for a <a class="dumb" href="#_3F00">single byte</a> ($02) @ $BB !</td></tr>
-            <tr><td>T2S4       </td><td>FCVBUFS</td><td>Wastes 256 bytes!                       </td></tr>
+            <tr><td>T2S3       </td><td>FCVBUFS</td><td>Wastes 255 bytes for a <a class="dumb" href="#_3400">single byte</a> ($02) @ $BB !</td></tr>
+            <tr><td>T2S4       </td><td>FCVBUFS</td><td>Wastes 256 bytes for <a class="dumb"    href="#_34BC">catalog</a>                       </td></tr>
             <tr><td>T2S5 - T2SF</td><td>n/a    </td><td>Rest of Track 2 is reserved. See: <a class="dumb" href="#HNTDAFS4">HNTDAFS #4</a> and <span class="todo">TODO</span></td></tr>
         </table>
     </font>
