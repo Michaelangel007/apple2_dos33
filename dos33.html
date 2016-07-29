@@ -6438,10 +6438,10 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     057 *
                     058 RECAL       EQU *
 3DCE:AD 78 04       059             LDA CURTRK
-3DD1:48             060             PHA             ;SAVE TRACK WE REALLY WANT
-3DD2:A9 60          061             LDA #$60        ;RECALIBRATE ALL OVER AGAIN!    ; /sarcasm Yeah ... let's bang the user's drive head against
-3DD4:20 95 3E       062             JSR <a class="x" href="#SETTRKK">SETTRKK</a>     ;PRETEND TO BE ON TRACK 96      ; the case -- that will make it work and won't
-3DD7:CE F8 06       063             DEC RECALCCNT   ;ONCE TOO MANY??                ; cause any head alignment prolems over time ... NOT!
+3DD1:48             060             PHA             ;SAVE TRACK WE REALLY WANT      ; /sarcasm Nice to read <a class="v" href="#VNOTRK">VNOTRK</a> * 2 phases/track
+3DD2:A9 60          061             LDA #$<span class="adr">60</span>        ;RECALIBRATE ALL OVER AGAIN!    ; /sarcasm <i>Yeah ... let's bang the user's drive head against</i>
+3DD4:20 95 3E       062             JSR <a class="x" href="#SETTRK">SETTRK</a>      ;PRETEND TO BE ON TRACK 96      ; <i>the case -- that will make it work and won't cause</i>
+3DD7:CE F8 06       063             DEC RECALCCNT   ;ONCE TOO MANY??                ; <i>any head alignment problems over time ...</i> <b>NOT!</b>
 3DDC:F0 28          064             BEQ <a class="x" href="#DRVERR">DRVERR</a>      ;TRIED TO RECALIBRATE TOO MANY TIMES, ERROR! ; v
 3DDE:A9 04          065             LDA #MAXSEEKS   ;RESET THE
 3DDE:8D F8 04       066             STA SEEKCNT     ; SEEK COUNTER
