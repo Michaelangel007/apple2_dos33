@@ -4237,7 +4237,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                                                                                     ;    D = Directory (child)
                                                                                     ; Yeah, yeah 20/20
 33AF:A0 C5 CD D5    017 <a class="d" name="VOLMES">VOLMES      </a>ASC " EMULOV DISK" ; "DISK VOLUME " BACWARDS    ; *sigh* Micro-optimization; Not that these are bad but
-33B3:CC CF D6 A0                                                                    ;    /sarcasm <i>Lets focus on <b>single</b> tree,</i>
+33B3:CC CF D6 A0                                                                    ;    /sarcasm <i>Lets focus on a <b>single</b> tree,</i>
 33B7:CB D3 C9 C4                                                                    ;             and <b>completely</b> miss the <i>entire <a href="https://en.wikipedia.org/wiki/Frak_(expletive)">fraking</a> forest!</i>
                     018             MSB OFF                                         ; Switch back to 7-bit ASCII
                     019 <a class="d" name="VML"   >VML         </a>EQU *-<a class="v" href="#VOLMES">VOLMES</a>-1                                  ; Used by File <a class="file" href="#FDELCAT">FDELCAT</a>, Func <a class="x" href="#RDIR">RDIR</a>, Line <span class="todo">TODO</span>
@@ -4297,7 +4297,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 33F3:00 00 FF FF    050            ORG VTOC+256                                     ; [38]=T00 See <a class="dumb" href="#HNTDAFS3">HNTDAFS #3</a>; Why not simply <span class="macro">DS 256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>,0</span> ???
 33F7:00 00 FF FF                                                                    ; [3C]=T01                 Uninitialized memory is <b>never</b> a good idea
 33FB:00 00 FF FF                                                                    ; [40]=T02 See <a class="dumb" href="#HNTDAFS4">HNTDAFS #4</a>
-33FF:FF FF FF FF                                                                    ; [44]=T03 === <b class="ts">T2$3</b> === *<a class="mem" name="fvcbufs_3400">wastes</a>* <i>an <b>entire</b> sector for a <b>single</b> byte!?</i>
+33FF:FF FF FF FF                                                                    ; [44]=T03 === <b class="ts">T2$3</b> === *<a class="mem" name="_3400">wastes</a>* <i>an <b>entire</b> sector for a <b>single</b> byte!?</i>
 3403:FF FF FF FF                                                                    ; [48]=T04 The real kicker? <a class="d" href="#VDTCDE">VDTCDE</a> <i>isn't even <b>bloody</b> used!</i> *<a class="dumb" href="http://i.imgur.com/iWKad22.jpg">facepalm</a>*
 3407:FF FF FF FF                                                                    ; [4C]=T05 Since we're wasting disk space anyways,
 340B:FF FF FF FF                                                                    ; [50]=T06 let's waste $C8 bytes (256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>)
@@ -8198,7 +8198,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 
 <h1>Wasted Memory</h1>
 <p>
-I've annotated <a class="mem">*wastes*</a> listing locations where memory is wasted.
+I've annotated <a class="mem">*wastes*</a> locations in the listing where memory is wasted.
 <p>
 <div style="padding-left:5%">
     <font style="font-family: monospace;">
@@ -8217,14 +8217,14 @@ To..: PLA, LDY ZPGFCB+1, BNE</tr></td>
             <tr><td>T0SC</td><td>$1D78 .. $1D  </td><td><a class="file" href="#DOSINIT">DOSINIT</a></td><td align="right">   10</td><td><a class="d" href="#_1D78">AS2VT </a></td></tr>
             <tr><td>T2S2</td><td>$33BB .. $33BB</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    1</td><td>Unused <a class="_33BB">sector type 4</a> = VTOC</a></td></tr>
             <tr><td>T2S2</td><td>$33A0 .. $33A3</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    4</td><td>32 sectors/track allocation bitmap mask <a class="d" href="#_33A0">ALC10S</a></td></tr>
-            <tr><td>T2S2</td><td>$33BF .. $33BF</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    1</td><td> <a class="d" href="#_33BF">Spare</a> shenanigans </td></tr>
-            <tr><td>T2S2</td><td>$33C0 .. $33C0</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    1</td><td> <a class="d" href="#_33C0">Spare</a> shenanigans </td></tr>
-            <tr><td>T2S2</td><td>$33C2 .. $33E1</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">   32</td><td> <a class="d" href="#_33C2">Spare</a> shenanigans </td></tr>
-            <tr><td>T2S2</td><td>$33E3 .. $33EA</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    8</td><td> <a class="d" href="#_33E3">Spare</a> shenanigans </td></tr>
-            <tr><td>T2S2</td><td>$33ED .. $33ED</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    2</td><td> <a class="d" href="#_#3ED">Track Allocation</a>  </td></tr>
+            <tr><td>T2S2</td><td>$33BF .. $33BF</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    1</td><td>VTOC <a class="d" href="#_33BF">spare</a> shenanigans </td></tr>
+            <tr><td>T2S2</td><td>$33C0 .. $33C0</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    1</td><td>VTOC <a class="d" href="#_33C0">spare</a> shenanigans </td></tr>
+            <tr><td>T2S2</td><td>$33C2 .. $33E1</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">   32</td><td>VTOC <a class="d" href="#_33C2">spare</a> shenanigans </td></tr>
+            <tr><td>T2S2</td><td>$33E3 .. $33EA</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    8</td><td>VTOC <a class="d" href="#_33E3">spare</a> shenanigans </td></tr>
+            <tr><td>T2S2</td><td>$33ED .. $33ED</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    2</td><td>VTOC <a class="d" href="#_#3ED">Track Allocation</a>  </td></tr>
             <tr><td>T2S2</td><td>$33F3 .. $ </td></tr>
-            <tr><td>T2S2</td><td>$3497 .. $34BA</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    8</td><td> <a class="d" href="#_3497">VTOC Tracks 41+</a> sector bitmaps</td></tr>
-            <tr><td>T2S2</td><td>$34BB .. $34BB</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    1</td><td>Unused <a class="_34BB">sector type 2</a> = CATALOG</a></td></tr>
+            <tr><td>T2S2</td><td>$3497 .. $34BA</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    8</td><td>VTOC <a class="d" href="#_3497">tracks 41+</a> sector bitmaps</td></tr>
+            <tr><td>T2S2</td><td>$34BB .. $34BB</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td><td align="right">    1</td><td>CAT Unused <a class="_34BB">sector type 2</a> = CATALOG</a></td></tr>
         </table>
     </font>
 </div>
@@ -8239,7 +8239,7 @@ To..: PLA, LDY ZPGFCB+1, BNE</tr></td>
         <table border="1" style="border-width: 1px; border-collapse: collapse">
             <tr><td>T/S        </td><td>File   </td><td>Description                             </td></tr>
             <tr><td>T0S5       </td><td>MSWAITR</td><td>Wastes 256 bytes for NBUF1              </td></tr>
-            <tr><td>T2S3       </td><td>FCVBUFS</td><td>Wastes 255 bytes for a single byte $02 @ $BB !</td></tr>
+            <tr><td>T2S3       </td><td>FCVBUFS</td><td>Wastes 255 bytes for a <a class="dumb" href="#_3F00">single byte</a> ($02) @ $BB !</td></tr>
             <tr><td>T2S4       </td><td>FCVBUFS</td><td>Wastes 256 bytes!                       </td></tr>
             <tr><td>T2S5 - T2SF</td><td>n/a    </td><td>Rest of Track 2 is reserved. See: <a class="dumb" href="#HNTDAFS4">HNTDAFS #4</a> and <span class="todo">TODO</span></td></tr>
         </table>
