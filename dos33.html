@@ -4313,16 +4313,16 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3447:FF FF FF FF                                                                    ; [8C]=T15
 344B:FF FF FF FF                                                                    ; [90]=T16 === <a class="dumb" name="HNTDAFS3">HNTDAFS #3</a> ===
 344F:FF FF FF FF                                                                    ; [94]=T17 DOS is <b>unable</b> to use Track 0 to store user files.
-3453:FF FF FF FF                                                                    ; [98]=T18 This means a non-bootable <i>data disk</i>
-3457:FF FF FF FF                                                                    ; [9C]=T19 is robbed of an <i>additional</i> 16 sectors!
+3453:FF FF FF FF                                                                    ; [98]=T18 This means a non-bootable <i>data disk</i> is robbed of
+3457:FF FF FF FF                                                                    ; [9C]=T19 an <i>additional</i> 15 sectors! (Boot sector would display text)
 345B:FF FF FF FF                                                                    ; [A0]=T1A See File <a class="file" href="#FLOCSEC">FLOCSEC</a>, Func <a class="x" href="#GETSEC">GETSEC</a>, Line <span class="todo">TODO</span>
 345F:FF FF FF FF                                                                    ; [A4]=T1B The <b>smart</b> thing to have done would be to
 3463:FF FF FF FF                                                                    ; [A8]=T1C put the VTOC and CATALOG on <b class="ts">T0SF</b> - <b class="ts">T0S1</b>
-3467:FF FF FF FF                                                                    ; [AC]=T1D That way <b>both</b> a master and data disk would
+3467:FF FF FF FF                                                                    ; [AC]=T1D That way <b>both</b> a bootable and data disk would
 346B:FF FF FF FF                                                                    ; [B0]=T1E get an extra 16 sectors of free disk space.
 346F:FF FF FF FF                                                                    ; [B4]=T1F 
 3473:FF FF FF FF                                                                    ; [B8]=T20 The <a class="file" href="#BOOTLDR">BOOTLDR</a> would just need to move the
-3477:FF FF FF FF                                                                    ; [BC]=T21 disk head to track <b class="ts">T1</b> and then load as normal.
+3477:FF FF FF FF                                                                    ; [BC]=T21 disk head to track <b class="ts">T1</b> and continue loading as normal.
 347B:FF FF FF FF                                                                    ; [C0]=T22 (Normal last 35th accessible track)
 347F:FF FF FF FF                                                                    ; [C4]=T23 (Extra 36th track)
 3483:FF FF FF FF                                                                    ; [C8]=T24 (Extra 37th track)
