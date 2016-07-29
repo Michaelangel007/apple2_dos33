@@ -33,12 +33,12 @@ span.i { color: #00F; font-style: italic; } /* Original italic blue  */
 
 /* Bold = Blue */
 b {
-    color: #00F; /* -- old: 080 */
+    color: #004; /* history: 080, 00F, 004 */
 }
 
 /* Italic = Green */
 i {
-    color: #080; /* 00F */
+    color: #040; /* history: 00F, 080, 040 */
 }
 a {
     color: #F0F; /* Should never see purple -- means link wasn't marked up propery */
@@ -64,13 +64,13 @@ a.x { /* func name reference TARGET */
     font-weight    : normal; /* remove bold */
 }
 a.d { /* var name definition LABEL*/
-    color          : #080  ; /* green */
+    color          : #0C0  ; /* green */
     text-decoration: none  ; /* remove underlink from data link */
     font-weight    : bold  ; /* make bold */
  /* font-style     : italic; /* optional italic for data */
 }
 a.v { /* var name reference OPERAND */
-    color          : #040  ; /* dark green */
+    color          : #080  ; /* dark green */
     text-decoration: none  ; /* remove underlink from data link */
     font-weight    : normal; /* remove bold */
 }
