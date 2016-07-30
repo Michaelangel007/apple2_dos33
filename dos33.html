@@ -1383,20 +1383,20 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     254 
                     255 
                     256 
-                    257 
-                    258 
-                    259 
-                    260 
-                    261 
-                    262 
-                    263 
-                    264 
-                    265 
-                    266 
-                    267 
-                    268 
-                    269 
-2192:60             270             RTS
+217A:20 80 21       257 <a class="f" name="CMDGO"  >CMDGO       </a>JSR <a class="x" href="#CMDGO1">CMDGO1</a>          ; CMDGO - EXECUTE COMMAND
+217D:4C 83 1F       258             JMP <a class="x" href="#CERTN">CERTN</a>
+                    259 ;
+                    260 <a class="f" name="CMDGO1">CMDGO1      </a>EQU *
+2180:20 5B 27       261             JSR <a class="x" href="#CLRSTS">CLRSTS</a>                                      ; STS = <span class="todo">TODO</span>
+2183:20 AE 21       262             JSR <a class="x" href="#CLRCCB">CLRCCB</a>          ; GO CLEAR CCB              ; /sarcasm I never would have guessed
+                    263 <a class="f" name="ECMD"   >ECMD        </a>EQU *
+2186:AD 5F 2A       264             LDA <a class="v" href="#CMDNO">CMDNO</a>           ; COMMAND NO
+2189:AA             265             TAX                 ; IS CMD EXEC TAB INDEX     ; <a class="mem" href="_2189">wastes</a> 1 byte /sarcasm If only we had LDX CMDNO
+218A:BD 1F 1D       266             LDA <a class="v" href="#CMDETAB">CMDETAB</a>+1,X     ; GET CMD ADR
+218D:48             267             PHA                 ; ONTO STACK
+218E:BD 1E 1D       268             LDA <a class="v" href="#CMDETAB">CMDETB</a>,X
+2191:48             269             PHA
+2192:60             270             RTS                 ; AND GOTO COMMAND
 
 
 <hr>; === <a class="file" name="XOPNCLS">XOPNCLS</a> - Execute Open / Close, Page <a class="page" name="page150">150</a>, <b class="ts">T1S0</b> - <b class="ts">T1S2</b>, $<span class="adr">A193</span> .. $<span class="adr">A330</span>  ===<hr>
@@ -1405,7 +1405,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     003 ; GNXTC - GET NEXT CHAR
                     004 ;
                     005 GNXTC       EQU *
-2193:AE 5D 2A       006             LDX LBUFD
+2193:AE 5D 2A       006             LDX <a class="v" href="#LBUFD">LBUFD</a>
 2196:BD 00 02       007             LDA LFUFF,X     ; GET NEXT CHAR AND IF
 2199:C9 8D          008             CMP #$8D        ; IS IT A CR
 219B:F0 06          009             BEQ GNXTCR      ; THEN RETURN WITHOUT
@@ -2758,27 +2758,27 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     003 ; MISC BUT REQD CELLS
                     004 ;
 2A4F:00 00          005 CFTABA      DDB 0           ; CURRENT FILE TABLE POINTER
-2A51:00             006 ISTATE      DFB 0
-2A52:00             007 OSTATE      DFB 0
-2A53:00 00          008 SVOUTS      DDB 0
-2A55:00 00          009 SVINS       DDB 0
+2A51:00             006 ISTATE      DFB 0           ; INPUT STATE
+2A52:00             007 OSTATE      DFB 0           ; OUTPUT STATE
+2A53:00 00          008 SVOUTS      DDB 0           ; SAVED OUT SWITCH
+2A55:00 00          009 SVINS       DDB 0           ; SAVED IN SWITCH
 2A57:00             010 CNFTBS      DFB 0           ; CURRENT NO FILE TABLES        ; "NO" == Number
 2A58:03             011 DFNFB       DFB 3           ; DEFAULT NO FILE TABLES        ; Does anyone actually use &gt; 2 ?
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-2A75:00             021 CMDNO       DFB $00         ; COMMAND NO IS ZERO FOR BOOT UP
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
+2A59:00             012 SVSTK       DFB 0           ; SAVED STACK PTR
+2A5A:00             013 SVX         DFB 0           ; DSAVED X REG                  ; *spelling* Saved
+2A5B:00             014 SVY         DFB 0           : SAVED Y REG
+2A5C:00             015 SVA         DFB 0           ; SAVED ACU
+2A5D:00             016 LBUFD       DFB 0           ; LINE BUFF DISPL
+2A5E:00             017 MONMOD      DFB 0           ; MONITOR MODE BITS
+                    018 MC          EQU $40         ; MONITOR CMDS
+                    019 *MI EQU $20 ; MONITOR INPUT
+                    020 *MO EQU $10 ; MONITOR OUTPUT
+2A5F:00             021 CMDNO       DFB $00         ; COMMAND NO IS ZERO FOR BOOT UP
+                    022 SVBL        DFB 0,0
+                    023 SVCMD       DFB 0
+                    024 TEMP1A      DFB 0
+                    025 TEMP2A      DFB 0
+                    026 INOPTS      DFB 0           ; INPUT OPTIONS
                     027 
                     028 
                     029 
