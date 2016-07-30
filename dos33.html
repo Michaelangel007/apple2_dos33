@@ -732,7 +732,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1D1A:60 1F          024             DW COS5-1
 1D1C:70 1F          025             DW COS6-1
                     026 ;COMMAND EXECUTION TABLE
-                    027 CMDETB      EQU *                                           ; /sarcasm Yay for crappy 5 &amp; 6 letter var names
+                    027 CMDETB      EQU *                                           ; /sarcasm Yay for shitty 5 &amp; 6 letter var names!
 1D1E:4E 25          028             DW EINIT-1
 1D20:12 24          029             DW ELOAD-1
 1D22:96 23          030             DW ESAVE-1
@@ -740,7 +740,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1D26:EF 24          032             DW ECHAIN-1
 1D28:62 22          033             DW EDEL-1
 1D2A:70 22          034             DW <a class='x' href='#ELOCK'>ELOCK</a>-1
-1D2C:74 22          035             DW <a class='x' href='EEUNLK'>UNLK</a>-1
+1D2C:74 22          035             DW <a class='x' href='#EUNLK'>EUNLK</a>-1                                      ; /sarcasm Oh, noes! That 'OC' is too much work!
 1D2E:E9 22          036             DW ECLOSE-1
 1D30:1A 25          037             DW EREAD-1
 1D32:C5 25          038             DW EEXEC-1
@@ -757,8 +757,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1D48:50 22          049             DW EMAXF-1
 1D4A:79 25          050             DW EAS-1
 1D4C:9D 25          051             DW EINT-1
-1D4E:30 23          052             DW EBSV-1
-1D50:5C 23          053             DW EBLD-1
+1D4E:30 23          052             DW EBSV-1                                       ; *sigh* EBSAVE - I'm sorry, we blew our key budget for A,E
+1D50:5C 23          053             DW EBLD-1                                       ; *sigh* EBLOAD - and for O,A
 <hr>1D52:8D 23          054             DW EBRUN-1                                      ; === Page <a class="page" name="page49">49</a> ===
 1D54:7C 22          055             DW EVAR-1
                     056 <a class='d' name='EAT1'>EAT1        </a>EQU *                                           ; = $1D56
