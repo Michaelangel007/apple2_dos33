@@ -2470,7 +2470,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 27D8:85 40          028             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>      ; IS 1ST FTB PTR                ; $1D00: ptr $1CD3
 27DA:AD 01 1D       029             LDA <a class="v" href="#FTAB"  >FTAB</a>+1      ; HEADER
 27DD:85 41          030             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>+1
-27DF:AD 57 2A       031             LDA <a class="v" href="#CNFTBS">CNFTBS</a>      ; MOVE NO FTABS                 ; default 3 buffers
+27DF:AD 57 2A       031             LDA <a class="v" href="#CNFTBS">CNFTBS</a>      ; MOVE NO FTABS                 ; <a class="v" href="#DFNFTS">DFNFTS</a> default 3 buffers, <a class="x" href="#INITD">INITD</a>
 27E2:8D 63 2A       032             STA <a class="v" href="#TEMP1A">TEMP1A</a>      ; TO TEMP                       ; fdosent, 60
                     033 ;
 27E5:A0 00          034 <a class="f" name="BFT1"       >BFT1        </a>LDY #<span class="adr">0</span>
@@ -2757,60 +2757,74 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     002 ;
                     003 ; MISC BUT REQD CELLS
                     004 ;
-2A4F:00 00          005 CFTABA      DDB 0           ; CURRENT FILE TABLE POINTER
-2A51:00             006 ISTATE      DFB 0           ; INPUT STATE
-2A52:00             007 OSTATE      DFB 0           ; OUTPUT STATE
-2A53:00 00          008 SVOUTS      DDB 0           ; SAVED OUT SWITCH
-2A55:00 00          009 SVINS       DDB 0           ; SAVED IN SWITCH
-2A57:00             010 CNFTBS      DFB 0           ; CURRENT NO FILE TABLES        ; "NO" == Number
-2A58:03             011 DFNFB       DFB 3           ; DEFAULT NO FILE TABLES        ; Does anyone actually use &gt; 2 ?
-2A59:00             012 SVSTK       DFB 0           ; SAVED STACK PTR
-2A5A:00             013 SVX         DFB 0           ; DSAVED X REG                  ; *spelling* Saved
-2A5B:00             014 SVY         DFB 0           : SAVED Y REG
-2A5C:00             015 SVA         DFB 0           ; SAVED ACU
-2A5D:00             016 LBUFD       DFB 0           ; LINE BUFF DISPL
-2A5E:00             017 MONMOD      DFB 0           ; MONITOR MODE BITS
-                    018 MC          EQU $40         ; MONITOR CMDS
+2A4F:00 00          005 <a class="d" name="CFTABA">CFTABA      </a>DDB 0           ; CURRENT FILE TABLE POINTER    ; Why Big Endian??? DW easier to tell this is 2 bytes
+2A51:00             006 <a class="d" name="ISTATE">ISTATE      </a>DFB 0           ; INPUT STATE
+2A52:00             007 <a class="d" name="OSTATE">OSTATE      </a>DFB 0           ; OUTPUT STATE
+2A53:00 00          008 <a class="d" name="SVOUTS">SVOUTS      </a>DDB 0           ; SAVED OUT SWITCH              ; Why Big Endian???
+2A55:00 00          009 <a class="d" name="SVINS" >SVINS       </a>DDB 0           ; SAVED IN SWITCH               ; Why Big Endian???
+2A57:00             010 <a class="d" name="CNFTBS">CNFTBS      </a>DFB 0           ; CURRENT NO FILE TABLES        ; "NO" == Number
+2A58:03             011 <a class="d" name="DFNFB" >DFNFB       </a>DFB 3           ; DEFAULT NO FILE TABLES        ; Does anyone actually use &gt; 2 ?
+2A59:00             012 <a class="d" name="SVSTK" >SVSTK       </a>DFB 0           ; SAVED STACK PTR
+2A5A:00             013 <a class="d" name="SVX"   >SVX         </a>DFB 0           ; DSAVED X REG                  ; *spelling* Saved
+2A5B:00             014 <a class="d" name="SVY"   >SVY         </a>DFB 0           : SAVED Y REG
+2A5C:00             015 <a class="d" name="SVA"   >SVA         </a>DFB 0           ; SAVED ACU
+2A5D:00             016 <a class="d" name="LBUFD" >LBUFD       </a>DFB 0           ; LINE BUFF DISPL
+2A5E:00             017 <a class="d" name="MONMOD">MONMOD      </a>DFB 0           ; MONITOR MODE BITS
+                    018 <a class="d" name="MC"    >MC          </a>EQU $40         ; MONITOR CMDS
                     019 *MI EQU $20 ; MONITOR INPUT
                     020 *MO EQU $10 ; MONITOR OUTPUT
-2A5F:00             021 CMDNO       DFB $00         ; COMMAND NO IS ZERO FOR BOOT UP
-                    022 SVBL        DFB 0,0
-                    023 SVCMD       DFB 0
-                    024 TEMP1A      DFB 0
-                    025 TEMP2A      DFB 0
-                    026 INOPTS      DFB 0           ; INPUT OPTIONS
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
-                    055 
-                    056 
-                    057 
-                    058 
+2A5F:00             021 <a class="d" name="CMDNO" >CMDNO       </a>DFB $00         ; COMMAND NO IS ZERO FOR BOOT UP
+2A60:00 00          022 <a class="d" name="SVBL"  >SVBL        </a>DFB 0,0                                         ; SaVed Binary Length $AA60:Length of last BLOAD, BSAVE
+2A62:00             023 <a class="d" name="SVCMD" >SVCMD       </a>DFB 0                                           ; SaVed CoMmanD
+2A63:00             024 <a class="d" name="TEMP1A">TEMP1A      </a>DFB 0
+2A64:00             025 <a class="d" name="TEMP2A">TEMP2A      </a>DFB 0
+2A65:00             026 <a class="d" name="INOPTS">INOPTS      </a>DFB 0           ; INPUT OPTIONS
+                    027 <a class="d" name="CUROPT">CUROPT      </a>EQU *           ; CURRENT OPTIONS               ; So we <i>can</i> type CUR ... but too lazy to type CUR_VOL, CUR_DRV, CUR_SLT?
+2A66:00 00          028 <a class="d" name="CV"    >CV          </a>DW 0            ; VOLUME                        ; <a class="mem" name="_2A67">wastes</a> 1 byte
+2A68:00 00          029 <a class="d" name="CD"    >CD          </a>DW 0            ; DRIVE                         ; <a class="mem" name="_2A69">wastes</a> 1 byte
+2A6A:00 00          030 <a class="d" name="CS"    >CS          </a>DW 0            ; SLOT                          ; <a class="mem" name="_2A6B">wastes</a> 1 byte /sarcasm Because <a class="x" href="#DBINIT">DBINIT</a> <a class="x" href="#OPNSUP">OPNSUP</a> need 2 bytes, right?
+2A6C:01 00          031 <a class="d" name="CL"    >CL          </a>DW 1            ; RECORD LENGTH
+2A6E:00 00          032 <a class="d" name="CR"    >CR          </a>DW 0            ; RECORD NUMBER
+2A70:00 00          033 <a class="d" name="CB"    >CB          </a>DW 0            ; RECORD BYTE
+2A72:00 00          034 <a class="d" name="CA"    >CA          </a>DW 0            ; ADDRESS                       ; $AA72:Address of last BLOAD
+2A74:00             035 <a class="d" name="IMBITS">IMBITS      </a>DFB 0                                           ; ???
+                    036             MSB ON                                          ; We can't <span class="macro">DS 30-5,$A0</span> ???
+2A75:C8 C5 CC CC    037 <a class="d" name="FNAME1">FNAME1      </a>ASC "HELLO                         " ; FILENAME 1"
+2A79:CF A0 A0 A0
+2A7D:A0 A0 A0 A0
+2A81:A0 A0 A0 A0
+2A85:A0 A0 A0 A0
+2A89:A0 A0 A0 A0
+2A8D:A0 A0 A0 A0
+2A91:A0 A0
+                    038             MSB OFF
+2A93:A0 A0 A0 A0    039 <a class="d" name="FNAME2">FNAME2      </a>DS 30,$A0       ;FILENAME 2                     ; Too lazy to leave MSB ON, and DS 30, " " ?
+2A97:A0 A0 A0 A0
+2A9B:A0 A0 A0 A0
+2A9F:A0 A0 A0 A0
+2AA3:A0 A0 A0 A0
+2AA7:A0 A0 A0 A0
+2AAB:A0 A0 A0 A0
+2AAF:A0 A0
+2AB1:03             040 <a class="d" name="DFNFTS">DFNFTS      </a>DFB 3           ; DEFAULT FILE TABLES = 3       ; <a class="x" href="#INITD">INITD</a> copies to <a class="v" href="#CNFTBS">CNFTBS</a>
+2AB2:84             041 <a class="d" name="CCHAR" >CCHAR       </a>DFB $84         ; CONTROL CHAR                  ; Control-D actives DOS for next ASCII command
+2AB3:00             042 <a class="d" name="ESTATE">ESTATE      </a>DFB 0           ; EXECUTE STATE
+2AB4:00 00          043 <a class="d" name="EFTABA">EFTABA      </a>DFB 0,0         ; EXECUTE FILE TABLE POINTER
+2AB6:00             044 <a class="d" name="ASIBSW">ASIBSW      </a>DFB 0           ; APPLESOFT, IB SWITCH          ; <a class="x" href="#TSTRUN">00=Integer</a>, <a class="x" href="#IAS1">40=Applesoft ROM</a>, 80=Applesoft RAM
+2AB7:00             045 <a class="d" name="RSTATE">RSTATE      </a>DFB 0           ; FOR APPLESOFT RUN PROGRAM AFTER RELOC
+2AB8:C1 D0 D0 CC    046 <a class="d" name="FASB"  >FASB        </a>DFB $C1,$D0,$D0,$CC ;'APPLESOFT' WITH BIT 7 HIGH    ; /sarcasm If only we had a MSB ON directive
+2ABC:C5 D3 CF C6    047             DFB $C5,$D3,$CF,$C6                             ; Binary to run if Integer active and user types <a class="x" href="#EAS">FP</a>
+2AC0:D4             048             DFB $D4
+                    049 <a class="d" name="FASBL" >FASBL       </a>EQU *-<a class="v" href="#FASB"  >FASB</a>                                            ; Length of FASB, copied in <a class="x" href="#EAS0">EAS0</a>
+                    050             PAGE
+                    051 ;
+                    052 ; DOS ADR TABLES (RELOCATED)
+<hr>                    053 ;
+                    054 <a class="d" name="SAT2"  >SAT2        </a>EQU *                                           ; Start Address Table
+2AC1:E8 37          055 <a class="d" name="AIOB"  >AIOB        </a>DW <a class="v" href="#IOB"     >IOB</a>          ; 5-ADR IOB                     ; What happened to 1 .. 4 ??? At RVT, WVT ?
+2AC3:BB 33          056 <a class="d" name="AVTOC" >AVTOC       </a>DW <a class="v" href="#VTOC"    >VTOC</a>         ; 6-ADR VTOC
+2AC5:BB 34          057 <a class="d" name="AVOLDR">AVOLDR      </a>DW <a class="v" href="#VOLDIR"  >VOLDIR</a>       ; 7-ADR VOLDIR
+2AC7:00 40          058 <a class="d" name="AEND"  >AEND        </a>DW <a class="v" href="#ENDOFDOS">ENDOFDOS</a>     ;END OF DOS
                     059 
                     060 
                     061 
