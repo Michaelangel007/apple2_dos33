@@ -129,10 +129,6 @@ h1 {
 h1 {
     font-size: 150%;
 }
-/* Dec, Hex, Number, Memory Address */
-b.adr {
-    color: #F80;
-}
 /* Track/Sector */
 b.ts {
     color: #F00;
@@ -152,7 +148,8 @@ hr {
 */
 }
 
-span.adr {
+/* Dec, Hex, Number, Memory Address */
+.n {
     color: #F80;
     font-weight: bold;
 }
@@ -242,7 +239,7 @@ Numerous improvements have been made over the original source code listings:
 Header Format is:
 
 <pre>
-; === <b class="file">FILENAME</b> - Description, Page <a class="page" name="page0">#</a>, <b class="ts">Track/Sector</b> @ $offset, $<b class="adr">####</b> (Relocated Address in high memory) ===
+; === <b class="file">FILENAME</b> - Description, Page <a class="page" name="page0">#</a>, <b class="ts">Track/Sector</b> @ $offset, $<b class='n'>####</b> (Relocated Address in high memory) ===
 </pre>
 
 Line format is:
@@ -333,7 +330,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     036             INCLUDE <a class="_c44 file" href="#DOSPTCH">DOSPTCH</a>,,1  ; $3FC8 .. $3FFF, T0S9
 
 
-<hr>; === <a class="file" name="RELOCTR">RELOCTR</a> - Relocate DOS to high (48K) memory, Page <a class="page" name="page110">110</a>, <b class="ts">T0SA</b>, $<span class="adr">1B00</span> .. $<span class="adr">1CFF</span> ===<hr>
+<hr>; === <a class="file" name="RELOCTR">RELOCTR</a> - Relocate DOS to high (48K) memory, Page <a class="page" name="page110">110</a>, <b class="ts">T0SA</b>, $<span class='n'>1B00</span> .. $<span class='n'>1CFF</span> ===<hr>
                     001             PAGE
                     002 *****************************************************
                     003 *                                                   *
@@ -442,11 +439,11 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     106 ;
                     107 <a class="f" name="DR0"     >DR0         </a>EQU *
                     108 <a class="d" name="LOC1"    >LOC1        </a>EQU $26                                         ; Monitor ROM GBASL = $26
-1B03:A9 BF          109             LDA #$<span class="adr">BF</span>        ; START AT BF00                 ; Top of 48K
+1B03:A9 BF          109             LDA #$<span class='n'>BF</span>        ; START AT BF00                 ; Top of 48K
 1B05:85 41          110             STA <a class="v" href="#ZPGWRK" >ZPGWRK</a>+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
-1B07:A2 00          111             LDX #<span class="adr">0</span>          ; HIGH RAM
+1B07:A2 00          111             LDX #<span class='n'>0</span>          ; HIGH RAM
 1B09:86 40          112             STX ZPGWRK
-1B0B:A0 00          113 <a class="f" name="DR0A"    >DR0A        </a>LDY #<span class="adr">0</span>          ; APPLE TEST
+1B0B:A0 00          113 <a class="f" name="DR0A"    >DR0A        </a>LDY #<span class='n'>0</span>          ; APPLE TEST
                     114 <a class="f" name="DR1B"    >DR1B        </a>EQU *                                           ; unused label
 1B0D:A1 40          115             LDA (<a class="v" href="#ZPGWRK" >ZPGWRK</a>,X)
 1B0F:85 26          116             STA <a class="v" href="#LOC1" >LOC1</a>                                        ; LOC1 = MemTestVal
@@ -468,7 +465,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     132 <a class="f" name="DR2"         >DR2         </a>EQU *
                     133 ;
 1B28:A5 41          134             LDA <a class="v" href="#ZPGWRK" >ZPGWRK</a>+1    ;BEGIN PATCH TO INSURE   *****  ; note: '*****' is BEGIN_PATCH
-1B2A:29 DF          135             AND #$<span class="adr">DF</span>        ; PROPER HIGH MEMORY CHECK.
+1B2A:29 DF          135             AND #$<span class='n'>DF</span>        ; PROPER HIGH MEMORY CHECK.
 1B2C:85 43          136             STA <a class="v" href="#ZPGFCB" >ZPGFCB</a>+1    ;(DOS MASTER 3.1 CONTAINS
 1B2E:86 42          137             STX <a class="v" href="#ZPGFCB" >ZPGFCB</a>      ; THIS ROUTINE STARTING AT LOCATION
 1B30:A1 42          138             LDA (<a class="v" href="#ZPGFCB">ZPGFCB</a>,X)  ; $3540)
@@ -510,7 +507,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     174 ;
                     175 ;RELOCATE ADR TABLES
                     176 ;
-<hr>1B76:A2 00          177             LDX #<span class="adr">0</span>                                          ; === Page <a class="page" name="page113">113</a> ===
+<hr>1B76:A2 00          177             LDX #<span class='n'>0</span>                                          ; === Page <a class="page" name="page113">113</a> ===
 1B78:86 40          178             STX ZPGWRK
                     179 <a class="f" name="DR3"         >DR3         </a>EQU *
 1B7A:BD 29 1C       180             LDA ADRTAB+1,X                                  ; [SrcLo] If only we had an ($BC) LDY ADRTAB+1,X instruction ...
@@ -549,7 +546,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     213 ;
                     214 ;RELOCATE CODE
                     215 ;
-1BAF:A2 00          216             LDX #<span class="adr">0</span>
+1BAF:A2 00          216             LDX #<span class='n'>0</span>
 1BB1:8E 9C 33       217 <a class="f" name="DR7"         >DR7         </a>STX <a class="v" href="#TEMP1">TEMP1</a>
                     218 ;
 1BB4:BD 5A 1C       219             LDA <a class="v" href="#CDETAB">CDETAB</a>+1,X  ; GET A START OF CODE ADR
@@ -557,12 +554,12 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1BB9:BD 5B 1C       221             LDA <a class="v" href="#CDTAB" >CDETAB</a>+2,X
 1BBC:85 41          222             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>+1
                     223 ;
-1BBE:A2 00          224 <a class="f" name="DR8"         >DR8         </a>LDX #<span class="adr">0</span>         ; GET OP CODE
+1BBE:A2 00          224 <a class="f" name="DR8"         >DR8         </a>LDX #<span class='n'>0</span>         ; GET OP CODE
 1BC0:A1 40          225             LDA (<a class="v" href="#ZPGWRK">ZPGWRK</a>,X)  ; GO FIND OUT HOW LONG          ; Interesting hack of using
 1BC2:20 8E F8       226             JSR <a class="x" href="#INSDS2">INSDS2</a>                                      ; monitor ROM to get instruction opcode length
                     227 ;
 1BC5:A4 2F          228             LDY <a  class="v" href="#LENGTH">LENGTH</a>      ; GET HOW LONG
-1BC7:C0 02          229             CPY #<span class="adr">2</span>          ; IF IT AIN'T                   ; *sigh* #3-1 is clearer since zero based
+1BC7:C0 02          229             CPY #<span class='n'>2</span>          ; IF IT AIN'T                   ; *sigh* #3-1 is clearer since zero based
 1BC9:D0 11          230             BNE <a  class="x" href="#DR9"   >DR9</a>         ; 3 THEN DON'T RELOC            ; 300:A9 20 20 8E F8 A5 2F 09 30 4C ED FD
 1BCB:B1 40          231             LDA (<a class="v" href="#ZPGWRK">ZPGWRK</a>),Y  ; GET PAGE FROM INST
 1BCD:CD 7A 1C       232             CMP <a  class="v" href="#RSPAGE">RSPAGE</a>      ; IF PAGE &lt; REL START
@@ -576,7 +573,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <hr>1BDD:A5 2F          240             LDA <a class="v" href="#LENGTH">LENGTH</a>      ; ADD LENGTH
 1BDF:65 40          241             ADC <a class="v" href="#ZPGWRK">ZPGWRK</a>      ; TO PC
 1BE1:95 40          242             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>
-1BE3:A9 00          243             LDA #<span class="adr">0</span>
+1BE3:A9 00          243             LDA #<span class='n'>0</span>
 1BE5:65 41          244             ADC <a class="v" href="#ZPGWRK">ZPGWRK</a>+1
 1BE7:85 41          245             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>+1
                     246 ;
@@ -589,7 +586,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     253 ;
 1BF8:8A             254             TXA
 1BF9:18             255             CLC
-1BFA:69 04          256             ADC #<span class="adr">04</span>         ; INCREMENT TABLE INDEX
+1BFA:69 04          256             ADC #<span class='n'>04</span>         ; INCREMENT TABLE INDEX
 1BFC:AA             257             TAX
 1BFD:EC 59 1C       258             CPX <a class="x" href="#CDETAB">CDETAB</a>      ; DONE
 1C00:90 AF          259             BCC <a class="x" href="#DR7">DR7</a>         ; BR IF NOT                     ; === <b class="ts">T0$B</b> ===
@@ -603,7 +600,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C06:AC 7D 1C       267             LDY <a class="v" href="#NEPAGE">NEPAGE</a>
 1C09:88             268             DEY
 1C0A:84 43          269             STY <a class="v" href="#ZPGFCB">ZPGFCB</a>+1    ; ZPGFCB = TOO
-1C0C:A9 00          <a class='line' name='RELOCTR.270'>270</a>             LDA #<span class="adr">0</span>                                          ; /sarcasm If only we had a LDY #0 instruction ...
+1C0C:A9 00          <a class='line' name='RELOCTR.270'>270</a>             LDA #<span class='n'>0</span>                                          ; /sarcasm If only we had a LDY #0 instruction ...
 1C0E:85 40          271             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>
 1C10:85 42          272             STA <a class="v" href="#ZPGFCB">ZPGFCB</a>
 1C12:A8             273             TAY                                             ; <a class='mem' name='_1C12'>wastes</a> 1 byte; ... to remove this one. See Line #<a class='line' href='#RELOCTR.270'>270</a>
@@ -673,7 +670,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     337             PAGE
 
 
-<hr>; === <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <b class="ts">T0SC</b>, $<span class="adr">9D00</span> .. $<span class="adr">9E80</span> ===<hr>
+<hr>; === <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <b class="ts">T0SC</b>, $<span class='n'>9D00</span> .. $<span class='n'>9E80</span> ===<hr>
                     001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*
                     002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>
 1C81:00 00 00       003             ORG *+<a class="v" href="#REMDR">REMDR</a>              ; <a class="mem" name="_1C81">wastes</a> 82 bytes ($1CD3-$1C81 = $52)
@@ -937,7 +934,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     226 
 
 
-<hr>; === <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Page <a class="page" name="page44">44</a>, <b class="ts">T0SD</b> - <b class="ts">T0SE</b>, $<span class="adr">9E81</span> .. $<span class="adr">9FCC</span> ===<hr>
+<hr>; === <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Page <a class="page" name="page44">44</a>, <b class="ts">T0SD</b> - <b class="ts">T0SE</b>, $<span class='n'>9E81</span> .. $<span class='n'>9FCC</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ;CHRIN - CHAR RCVD VIA IN SWITCH
@@ -948,14 +945,14 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1E87:F0 15          008             BEQ CHIN1       ; THEN BRANCH, ELSE
 1E89:48             009             PHA             ;SAVE ISTATE
 1E8A:AD 5C 2A       010             LDA SVA
-1E8D:91 28          011             STA ($<span class="adr">28</span>),Y                                     ; *<b class="magic">magic number</b>* /sarcasm If only F800.S ROM defined BASL EQU $28
+1E8D:91 28          011             STA ($<span class='n'>28</span>),Y                                     ; *<b class="magic">magic number</b>* /sarcasm If only F800.S ROM defined BASL EQU $28
 1E8F:68             012             PLA             ;GET ISTATE AGAIN
 1E90:30 03          013             BMI CHIN0
 1E92:4C 26 26       014             JMP ICFD
 1E95:20 EA 1D       015 CHIN0       JSR INITC
-1E98:A4 24          016             LDY $<span class="adr">24</span>                                         ; *<b class="magic">magic number</b>* /sarcasm If only F800.S ROM defined CH EQU $24
-1E9A:A9 60          017             LDA #$<span class="adr">60</span>        ;RESTORE A FLASHING CURSOR      ; #' ' + FLASH ; INVERSE = $00..$3F, FLASH = $40..$7F, NORMAL = $80..FF
-1E9C:91 28          018             STA ($<span class="adr">28</span>),Y     ; TO PROMPT USER                ; *<b class="magic">magic number</b>*
+1E98:A4 24          016             LDY $<span class='n'>24</span>                                         ; *<b class="magic">magic number</b>* /sarcasm If only F800.S ROM defined CH EQU $24
+1E9A:A9 60          017             LDA #$<span class='n'>60</span>        ;RESTORE A FLASHING CURSOR      ; #' ' + FLASH ; INVERSE = $00..$3F, FLASH = $40..$7F, NORMAL = $80..FF
+1E9C:91 28          018             STA ($<span class='n'>28</span>),Y     ; TO PROMPT USER                ; *<b class="magic">magic number</b>*
                     019 CHIN1       EQU *
 1E9E:AD B3 2A       020             LDA ESTATE
 1EA1:F0 03          021             BEQ CHIN2
@@ -1156,7 +1153,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     215 
 
 
-<hr>; === <a class="file" name="CMDSCAN">CMDSCAN</a> - Scan for commands, Page <a class="page" page="page16">16</a>, <b class="ts">T0SE</b> - <b class="ts">T1S0</b>, $<span class="adr">9FCD</span> .. $<span class="adr">A192</span> ===<hr>
+<hr>; === <a class="file" name="CMDSCAN">CMDSCAN</a> - Scan for commands, Page <a class="page" page="page16">16</a>, <b class="ts">T0SE</b> - <b class="ts">T1S0</b>, $<span class='n'>9FCD</span> .. $<span class='n'>A192</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; SCNCMD - SCAN A COMMAND
@@ -1429,7 +1426,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2192:60             270             RTS                 ; AND GOTO COMMAND
 
 
-<hr>; === <a class="file" name="XOPNCLS">XOPNCLS</a> - Execute Open / Close, Page <a class="page" name="page150">150</a>, <b class="ts">T1S0</b> - <b class="ts">T1S2</b>, $<span class="adr">A193</span> .. $<span class="adr">A330</span>  ===<hr>
+<hr>; === <a class="file" name="XOPNCLS">XOPNCLS</a> - Execute Open / Close, Page <a class="page" name="page150">150</a>, <b class="ts">T1S0</b> - <b class="ts">T1S2</b>, $<span class='n'>A193</span> .. $<span class='n'>A330</span>  ===<hr>
                     001             PAGE
                     002 ;
                     003 ; GNXTC - GET NEXT CHAR
@@ -1722,7 +1719,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2330:60             290 CL2         RTS             ; DONE
 
 
-<hr>; === <a class="file" name="XLODSAV">XLODSAV</a> - Execute Load / Save, Page <a class="page" name="page140">140</a>, <b class="ts">T1S2</b> - <b class="ts">T1S4</b>, $<span class="adr">A331</span> .. $<span class="adr">A50F</span> ===<hr>
+<hr>; === <a class="file" name="XLODSAV">XLODSAV</a> - Execute Load / Save, Page <a class="page" name="page140">140</a>, <b class="ts">T1S2</b> - <b class="ts">T1S4</b>, $<span class='n'>A331</span> .. $<span class='n'>A50F</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; EBSV - EXECUTE BINARY SAVE
@@ -1994,7 +1991,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 250D:4C D4 0F       269             JMP $FD4                                        ; *<b class="magic">magic number</b>*
 
 
-<hr>; === <a class="file" name="XMISCMD">XMISCMD</a> - Execute misc. commands, Page <a class="page" name="page145">145</a>, <b class="ts">T1S4</b> - <b class="ts">T1S5</b>, $<span class="adr">A510</span> .. $<span class="adr">A6A7</span> ===<hr>
+<hr>; === <a class="file" name="XMISCMD">XMISCMD</a> - Execute misc. commands, Page <a class="page" name="page145">145</a>, <b class="ts">T1S4</b> - <b class="ts">T1S5</b>, $<span class='n'>A510</span> .. $<span class='n'>A6A7</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; EWRITE - WRITE CMD EXECUTE
@@ -2251,7 +2248,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 26A7:60             254             RTS
 
 
-<hr>; === <a class="file" name="DOSGOER">DOSGOER</a> - Print Error message, Page <a class="page" name="page40">40</a>, <b class="ts">T1S5</b> - <b class="ts">T1S6</b>, $<span class="adr">A6A8</span> .. $<span class="adr">A7D3</span> ===<hr>
+<hr>; === <a class="file" name="DOSGOER">DOSGOER</a> - Print Error message, Page <a class="page" name="page40">40</a>, <b class="ts">T1S5</b> - <b class="ts">T1S6</b>, $<span class='n'>A6A8</span> .. $<span class='n'>A7D3</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; DOSGO - GOTO DOS
@@ -2469,7 +2466,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     215 
 
 
-<hr>; === <a class="file" name="BLDFTAB">BLDFTAB</a> - Build File Tables, Page <a class="page" name="page4">4</a>, <b class="ts">T1$6</b> @ $D4 - <b class="ts">T1$7</b> @ $83, $<span class="adr">A7D4</span> .. $<span class="adr">A883</span> ===<hr>
+<hr>; === <a class="file" name="BLDFTAB">BLDFTAB</a> - Build File Tables, Page <a class="page" name="page4">4</a>, <b class="ts">T1$6</b> @ $D4 - <b class="ts">T1$7</b> @ $83, $<span class='n'>A7D4</span> .. $<span class='n'>A883</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; BLDFTB - BUILD FILE TABLES
@@ -2503,17 +2500,17 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 27DF:AD 57 2A       031             LDA <a class="v" href="#CNFTBS">CNFTBS</a>      ; MOVE NO FTABS                 ; <a class="v" href="#DFNFTS">DFNFTS</a> default 3 buffers, <a class="x" href="#INITD">INITD</a>
 27E2:8D 63 2A       032             STA <a class="v" href="#TEMP1A">TEMP1A</a>      ; TO TEMP                       ; fdosent, 60
                     033 ;
-27E5:A0 00          034 <a class="f" name="BFT1"       >BFT1        </a>LDY #<span class="adr">0</span>
+27E5:A0 00          034 <a class="f" name="BFT1"       >BFT1        </a>LDY #<span class='n'>0</span>
 27E7:98             035             TYA
 27E8:91 40          <a class="line" name="BLDFTAB_036">036</a>             STA (ZPGWRK),Y  ; 1ST CHAR FN=0                 ; Init [00] $9CD3: 00
-27EA:A0 1E          037             LDY #<span class="adr">30</span>         ; INC Y TO FCB PTR              ; [[FTAB] + offset $1E] = $1CF1
+27EA:A0 1E          037             LDY #<span class='n'>30</span>         ; INC Y TO FCB PTR              ; [[FTAB] + offset $1E] = $1CF1
 27EC:38             038             SEC
 27ED:A5 40          039             LDA ZPGWRK      ; END OF PTR HEADER
 27EF:E9 2D          040             SBC #FCBLEN     ; MINUS FTAB LENGTH
 27F1:91 40          <a class="line" name="BLDFTAB_041">041</a>             STA (ZPGWRK),Y  ; IS START OF FTB               ; Init [1E] $9CD3 = $9CF1: $9CA6 buf #1 ptr
 27F3:48             042             PHA             ; SAVE LOW ADR BYTE
 27F4:A5 41          043             LDA ZPGWKR+1
-27F6:48             044             SBC #<span class="adr">0</span>
+27F6:48             044             SBC #<span class='n'>0</span>
 27F8:C8             045             INY
 27F9:91 40          046             STA (ZPGWKR),Y                                  ; [1F] = page
 27FB:AA             047             TAX
@@ -2540,22 +2537,22 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2816:AA             068             TAX
 2817:68             069             PLA
 2818:38             070             SEC
-2819:E9 26          071             SBC #<span class="adr">38</span>         ; SBUFF ADR - 38
+2819:E9 26          071             SBC #<span class='n'>38</span>         ; SBUFF ADR - 38
 281B:C8             072             INY
 281C:91 40          073             STA (ZPGWRK),Y  ; IF ADR OF NEXT TAB            ; [24] $9CD3 = $9CF7: $9A80
 281E:48             074             PHA             ; WHICH GOES INTO
 281F:8A             075             TXA             ; LINK
-2820:E9 00          076             SBC #<span class="adr">0</span>
+2820:E9 00          076             SBC #<span class='n'>0</span>
 2822:C8             077             INY
 2823:91 40          078             STA (ZPGWRK),Y
 2825:85 41          079             STA ZPGWRK+1    ; AND INTO ZPGWRK
 2827:68             080             PLA             ; FOR NEXT ENTRY
 2828:85 40          081             STA ZPGWRK      ; BUILD
-282A:4C E5 27       082             JMP <a class="x" href="#BFT1">BFT1</a>                                        ; ^ BFT1 @ $<b class="adr">A7E4</b> <a class="mem" name="_282A">wastes</a> 1 byte, A = addr lo: $80
+282A:4C E5 27       082             JMP <a class="x" href="#BFT1">BFT1</a>                                        ; ^ BFT1 @ $<b class='n'>A7E4</b> <a class="mem" name="_282A">wastes</a> 1 byte, A = addr lo: $80
                     083 ;
                     084 <a class="f" name="BFT2"      id="BFT2"       >BFT2        </a>EQU *
 282D:48             085             PHA
-282E:A9 00          086             LDA #<span class="adr">0</span>          ; SET LAST LINK
+282E:A9 00          086             LDA #<span class='n'>0</span>          ; SET LAST LINK
 2830:C8             087             INY             ; TO ZERO
 2831:91 40          088             STA (ZPGWRK),Y
 2833:C8             089             INY
@@ -2615,7 +2612,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     143 <a class="f" name="MVSRTN" >MVSRTN      </a>EQU *
 2883:60             144             RTS
 
-<hr>; === <a class="file" name="CMDTBLS">CMDTBLS</a> - Commands, Page <a class="page" name="page21">21</a>, <b class="ts">T1S7</b> - <b class="ts">T1S9</b>, $<span class="adr">A884</span> .. $<span class="adr">AA4E</span> ===<hr>
+<hr>; === <a class="file" name="CMDTBLS">CMDTBLS</a> - Commands, Page <a class="page" name="page21">21</a>, <b class="ts">T1S7</b> - <b class="ts">T1S9</b>, $<span class='n'>A884</span> .. $<span class='n'>AA4E</span> ===<hr>
                     001                 PAGE
                     002 ;
                     003 ; COMMAND NAME TABLE
@@ -2782,7 +2779,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     164 
 
 
-<hr>; === <a class="file" name="FDOSENT">FDOSENT</a> - External Entry Point, Page <a class="page" name="page60">60</a>, <b class="ts">T1S9</b>, $<span class="adr">2A4F</span> ===<hr>
+<hr>; === <a class="file" name="FDOSENT">FDOSENT</a> - External Entry Point, Page <a class="page" name="page60">60</a>, <b class="ts">T1S9</b>, $<span class='n'>2A4F</span> ===<hr>
                     001                 PAGE
                     002 ;
                     003 ; MISC BUT REQD CELLS
@@ -2921,7 +2918,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     122 
 
 
-<hr>; === <a class="file" name="FOPCLRW">FOPCLRW</a> - Open; Close; Rename; Read, Page <a class="page" name="page77">77</a>, <b class="ts">T?$?</b>, $<span class="adr">####</span> ===<hr>
+<hr>; === <a class="file" name="FOPCLRW">FOPCLRW</a> - Open; Close; Rename; Read, Page <a class="page" name="page77">77</a>, <b class="ts">T?$?</b>, $<span class='n'>####</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ; FOPEN - OPEN A FILE
@@ -3210,28 +3207,28 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     286 
 
 
-<hr>; === <a class="file" name="FDELCAT">FDELCAT</a> - Delete, Catalog, Page <a class="page" name="page55">55</a>, <b class="ts">T1SB</b> @ $EF - <b class="ts">T1SC</b>, $<span class="adr">ACEF</span> .. $<span class="adr">A???</span>===<hr>
+<hr>; === <a class="file" name="FDELCAT">FDELCAT</a> - Delete, Catalog, Page <a class="page" name="page55">55</a>, <b class="ts">T1SB</b> @ $EF - <b class="ts">T1SC</b>, $<span class='n'>ACEF</span> .. $<span class='n'>A???</span>===<hr>
                     001             PAGE
                     002 ;
                     003 * FLOCK - LOCK A FILE
                     004 ;
-2CEF:A9 80          005 <a class="f" name="FLOCK"      >FLOCK       </a>LDA #$<span class="adr">80</span>        ; REMEMBER LOCK                 ; *<a class="magic">magic number</a>* LOCK_MASK
+2CEF:A9 80          005 <a class="f" name="FLOCK"      >FLOCK       </a>LDA #$<span class='n'>80</span>        ; REMEMBER LOCK                 ; *<a class="magic">magic number</a>* LOCK_MASK
 2CF1:8D 9E 33       006             STA <a class="v" href="#TEMP3">TEMP3</a>                                       ; <a class="mem" name="_">wastes</a> 3 bytes, BNE line #<a class="line" href="#FDELCAT_012">12</a>
 2CF4:D0 05          007             BNE <a class="x" href="#LCKGO">LCKGO</a>                                       ; even better, change to BIT $abs ($00A9)
                     008 ;
                     009 * FUNLOCK - UNLOCK A FILE
                     010 ;
-2CF6:A9 00          011 <a class="f" name="FUNLCK"     >FUNLCK      </a>LDA #<span class="adr">00</span>         ; REMEMBER UNLOCK               ; *<a class="magic">magic number</a>*
+2CF6:A9 00          011 <a class="f" name="FUNLCK"     >FUNLCK      </a>LDA #<span class='n'>00</span>         ; REMEMBER UNLOCK               ; *<a class="magic">magic number</a>*
 2CF8:8D 9E 33       <a class="line" name="FDELCAT_012">012</a>             STA <a class="v" href="#TEMP3">TEMP3</a>
                     013 ;
                     014 <a class="f" name="LCKGO"   >LCKGO       </a>EQU *
                     015 ;
 2CFB:20 28 2B       016             JSR <a class="x" href="#DOPEN" >DOPEN</a>       ; GO OPEN FILE
 2CFE:AE 9C 33       017             LDX <a class="v" href="#TEMP1" >TEMP1</a>                                       ; === <b class="ts">T1SC</b> ===
-2D01:BD C8 34       018             LDA <a class="v" href="#VDFILE">VDFILE</a>+<span class="adr">2</span>,X  ; GET FILE USE CODE             ; *<a class="magic">magic number</a>*
-2D04:29 7F          019             AND #$<span class="adr">7F</span>        ; TURN OFF LOCK                 ; *<a class="magic">magic number</a>* ~LOCK_MASK
+2D01:BD C8 34       018             LDA <a class="v" href="#VDFILE">VDFILE</a>+<span class='n'>2</span>,X  ; GET FILE USE CODE             ; *<a class="magic">magic number</a>*
+2D04:29 7F          019             AND #$<span class='n'>7F</span>        ; TURN OFF LOCK                 ; *<a class="magic">magic number</a>* ~LOCK_MASK
 2D06:0D 9E 33       020             ORA <a class="v" href="#TEMP3" >TEMP3</a>
-2D09:9D C8 34       021             STA <a class="v" href="#VDFILE">VDFILE</a>+<span class="adr">2</span>,X
+2D09:9D C8 34       021             STA <a class="v" href="#VDFILE">VDFILE</a>+<span class='n'>2</span>,X
 2D0C:20 37 30       022             JSR <a class="x" href="#WRVDIR">WRVDIR</a>
 2D0F:4C 7F 33       023 <a class="f" name="GOGOOD"     >GOGOOD      </a>JMP <a class="x" href="#GOODIO">GOODIO</a>
                     024 ;
@@ -3462,7 +3459,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     249 
 
 
-<hr>; === <a class="file" name="FMTRWIO">FMTRWIO</a> - Execute Format Request, Page <a class="page" name="page73">73</a>, <b class="ts">T?$?</b> - <b class="ts">T1SE</b>, $<span class="adr">####</span> .. $<span class="adr">AFF6</span> ===<hr>
+<hr>; === <a class="file" name="FMTRWIO">FMTRWIO</a> - Execute Format Request, Page <a class="page" name="page73">73</a>, <b class="ts">T?$?</b> - <b class="ts">T1SE</b>, $<span class='n'>####</span> .. $<span class='n'>AFF6</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 * FFMT - Execute Format Request
@@ -3698,7 +3695,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2FF6:60             233             RTS             ; RTN
 
 
-<hr>; === <a class="file" name="FLOCNXB">FLOCNXB</a> - Locate Next Byte, Page <a class="page" name="page63">63</a>, <b class="ts">T1SE</b> - <b class="ts">T2S0</b>, $<span class="adr">AFF7</span> .. $<span class="adr">B1C8</span> ===<hr>
+<hr>; === <a class="file" name="FLOCNXB">FLOCNXB</a> - Locate Next Byte, Page <a class="page" name="page63">63</a>, <b class="ts">T1SE</b> - <b class="ts">T2S0</b>, $<span class='n'>AFF7</span> .. $<span class='n'>B1C8</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 ;RDVTOC - READ VTOC
@@ -3716,7 +3713,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 3006:8C F1 37       015             STY IBBUFP+1
                     016 ;
 3009:AE FA 35       017             LDX DCBVTN      ; GET TRACK
-300C:A0 00          018             LDY #<span class="adr">0</span>
+300C:A0 00          018             LDY #<span class='n'>0</span>
 300E:4C 52 30       019             JMP <a class="x" href="#DCBIO">DCBIO</a>       ; GO DO I/O
                     020             PAGE
                     021 ;
@@ -3981,7 +3978,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     280 
 
 
-<hr>; === <a class="file" name="FLOCSEC">FLOCSEC</a> - Locate Sector, Page <a class="page" name="page68">68</a>, <b class="ts">T2S0</b> - <b class="ts">T2S2</b>, $<span class="adr">B1C9</span> .. $<span class="adr">B396</span>  ===<hr>
+<hr>; === <a class="file" name="FLOCSEC">FLOCSEC</a> - Locate Sector, Page <a class="page" name="page68">68</a>, <b class="ts">T2S0</b> - <b class="ts">T2S2</b>, $<span class='n'>B1C9</span> .. $<span class='n'>B396</span>  ===<hr>
                     001             PAGE
                     002 ;
                     003 ;FNDFIL - FIND FILE NAME IN VOLUUME DIR                     ; *spelling* VOLUME
@@ -4268,7 +4265,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     284 
 
 
-<hr>; === <a class="file" name="FVCBUFS">FVCBUFS</a> - File Volume Catalog Buffers, Page <a class="page" name="page86">86</a>, <b class="ts">T2$2</b> @ $97 - <b class="ts">T2$4</b> @ $FD, $<span class="adr">B397</span> .. $<span class="adr">B5FD</span> ===<hr>
+<hr>; === <a class="file" name="FVCBUFS">FVCBUFS</a> - File Volume Catalog Buffers, Page <a class="page" name="page86">86</a>, <b class="ts">T2$2</b> @ $97 - <b class="ts">T2$4</b> @ $FD, $<span class='n'>B397</span> .. $<span class='n'>B5FD</span> ===<hr>
 "<i>Show me your code and I'll have to guess at your data (structures),
  Show me your data and I won't have to see your code, I'll already know it.</i>"
  -- Michael, paraphrasing Fred Brooks
@@ -4300,7 +4297,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                                                                                     ; your spidey sense should be tingling.
                                                                                     ; Translation: <i>I pulled this out of my ass -- </i>
                                                                                     ;              <i>because I didn't actually <b>measure</b> what is <b>needed</b>!"</i>
-33A4:01 0A 64       013 <a class="d" name="CVTAB" >CVTAB       </a>DFB 1,10,100    ; CONVERSION TABLE              ; Powers of 10; sadly Applesoft's DECTBL @ $<span class="adr">EE6C</span> is useless :-/
+33A4:01 0A 64       013 <a class="d" name="CVTAB" >CVTAB       </a>DFB 1,10,100    ; CONVERSION TABLE              ; Powers of 10; sadly Applesoft's DECTBL @ $<span class='n'>EE6C</span> is useless :-/
                     014             MSC ON                                          ; Switch ASCII to Apple Text (high bit set)
 33A7:D4 C9 C1 C2    015 <a class="d" name="FTTAB" >FTTAB       </a>ASC "TIAB"      ; FILE COVERSTION TABLE"        ;
 33AB:D3 D2 C1 C2    016             ASC "SRAB"                                      ; *sigh* <b>Really</b>, you just <i>had</i> to re-use AB ??
@@ -4322,7 +4319,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                                                                                     ;      <b class="magic">magic number</b>: /sarcasm If only FILESYSTEM_TYPE_VTOC = $4
 33BC:11             024 <a class="d" name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <i>TRACK</i> not sector
                                                                                     ;      *note* This is only a copy.  To change DOS while running
-                                                                                    ;             $<span class="adr">AC01</span>:11 ($2C01) CATALOG Track <span class="todo">TODO</span> FILE/LINE/FUNC
+                                                                                    ;             $<span class='n'>AC01</span>:11 ($2C01) CATALOG Track <span class="todo">TODO</span> FILE/LINE/FUNC
 33BD:0F             025 <a class="d" name="VDIRSC">VDIRSC      </a>DFB 15          ; VOLUME DIRECTORY SECTOR       ; [02] Used by File <a class="file" href="#FLOCNXB">FLOCNXB</a>, Func <a class="x" href="#RVDC">RVDC</a>, Line <span class="todo">??</span>
 33BE:04             026 <a class="d" name="VDOSRN">VDOSRN      </a>DFB 4           ; DOS RELEASE NUMBER            ; [03] *sarcasm* I guess <b>VERSION</b> made too much sense.
 33BF:00             027             DFB 0           ; SPARE                         ; [04] *<a class="mem" name="_33BF">wastes</a>* 1 byte /sarcasm "<i>Because <b>someday</b> these</i>
@@ -4346,7 +4343,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 33ED:00             036 <a class="d" name="VALCA3">VALCA3      </a>DFB 0           ; AA BYTE3                      ; [32] *<a class="mem" href="_33ED">wastes</a>* 1 byte *sarcasm* <i>I <b>really</b> don't know what we</i>
 33EE:00             037 <a class="d" name="VALCA4">VALCA4      </a>DFB 0           ; AA BYTE4                      ; [33] *<a class="mem" href="_33EE">wastes</a>* 1 byte   <i>would do without you Captain Obvious!</i>
 33EF:23             038 <a class="d" name="VNOTRK">VNOTRK      </a>DFB 35          ; NO TRACKS ON VOL              ; [34] *note* "No" = Number; To format more then 35 tracks:
-                                                                                    ;      $<span class="adr">AEFE</span>:## ($3EFE), See: <a class="file" href="#FORMATR">FORMATR</a>, Line #<a class="line" href="#FORMATR_054">054</a>
+                                                                                    ;      $<span class='n'>AEFE</span>:## ($3EFE), See: <a class="file" href="#FORMATR">FORMATR</a>, Line #<a class="line" href="#FORMATR_054">054</a>
 33F0:10             039 <a class="d" name="VNOSEC">VNOSEC      </a>DFB 16          ; NO SECTORS PER TRACK          ; [35]          Evidence that one day DOS 3.4+ might support:
 33F1:00 01          040 <a class="d" name="VSECLN">VSECLN      </a>DW 256          ; NO. BYTES PER SECTOR          ; [36] (Little)     &gt;  16 sectors/track
                     041 ;                                                           ; [37] (Endian) and &gt; 256 bytes/sector.
@@ -4368,7 +4365,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                                                                                     ;       When we only <b>need</b>: 35*2 bytes =  70 bytes ($46)
                                                                                     ;As Mike Acton says: "<i>Solve the <b>actual</b> problem,</i>
                                                                                     ;                     <i>NOT the one you <b>think</b> you have.</i>"
-                    049            PAGE                                             ;<span class="adr">B3F3</span> =T00
+                    049            PAGE                                             ;<span class='n'>B3F3</span> =T00
 33F3:00 00 FF FF    050            ORG VTOC+256                                     ; [38]=T00 See <a class="dumb" href="#HNTDAFS3">HNTDAFS #3</a>; Why not simply <span class="macro">DS 256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>,0</span> ???
 33F7:00 00 FF FF                                                                    ; [3C]=T01                 Uninitialized memory is <b>never</b> a good idea
 33FB:00 00 FF FF                                                                    ; [40]=T02 See <a class="dumb" href="#HNTDAFS4">HNTDAFS #4</a>
@@ -4585,7 +4582,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     <a class="line" name="fvcbufs_187">187</a> <a class="d" name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH
 
 
-<hr>; === <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <a class="page" name="page8">8</a>, <b class="ts">T0S0</b> - <b class="ts">T0S1</b>, $<span class="adr">B5FE</span> .. $<span class="adr">B7FF</span> ===<hr>
+<hr>; === <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <a class="page" name="page8">8</a>, <b class="ts">T0S0</b> - <b class="ts">T0S1</b>, $<span class='n'>B5FE</span> .. $<span class='n'>B7FF</span> ===<hr>
                     001             SBTL '16-SECTOR DOS BOOT'
                     002 <a class="d" name="HERE3L"     id="HERE3L"     >HERE3L      </a>EQU &gt;*                                          ; End of FVCBUFS = $35FD
                     003 <a class="d" name="REMDR3"     id="REMDR3"     >REMDR3      </a>EQU 256-HERE3L                                  ; Remainder 3
@@ -4634,7 +4631,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     046             DFB 01                                          ; Number sectors for P6 PROM to read
                     047             PAGE
                     048             LDA <a class="d" href="#POINTA">POINTA</a>+1    ;WHERE DID BSECTR GET LOADED?   ; Get memory page of last load
-                    049             CMP #<span class="adr">09</span>         ; (AT 0800)?
+                    049             CMP #<span class='n'>09</span>         ; (AT 0800)?
                     050             BNE <a class="x" href="#READNEXT">READNEXT</a>    ;=&gt;NO. WE'RE LOADING SOMETHING
                     051 * WE'VE BEEN BOOTED. SET UP
                     052 * PARAMS FOR BOOT PROM SO
@@ -5024,7 +5021,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     436 
 
 
-<hr>; === <a class="file" name="COREQUS">COREQUS</a> - Core Equates, Page <a class="page" name="page24">24</a>, <b class="ts">n/a</b>, $<span class="adr">n/a</span> ===<hr>
+<hr>; === <a class="file" name="COREQUS">COREQUS</a> - Core Equates, Page <a class="page" name="page24">24</a>, <b class="ts">n/a</b>, $<span class='n'>n/a</span> ===<hr>
                     001 
                     002 
                     003 
@@ -5201,7 +5198,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     174 <a class="d" name="Q7H"        >Q7H         </a>EQU $C08F       Q7H,Q6H=WRITE STORE             ; DRIVE_MODE_W
 
 
-<hr>; === <a class="file" name="PRENIBL">PRENIBL</a> - Prenibblize sector data for writing, Page <a class="page" name="page104">104</a>, <b class="ts">T0S2</b>, $<span class="adr">B800</span> .. $<span class="adr">B829</span> ===<hr>
+<hr>; === <a class="file" name="PRENIBL">PRENIBL</a> - Prenibblize sector data for writing, Page <a class="page" name="page104">104</a>, <b class="ts">T0S2</b>, $<span class='n'>B800</span> .. $<span class='n'>B829</span> ===<hr>
                     001             SBTL '16-SECTOR PRENIBLIZE'
                     002 ****************************
                     003 *                          *
@@ -5234,8 +5231,8 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     030 *   00ABCDEF.              *
                     031 *                          *
                     032 ****************************
-3800:A2 00          033 <a class="f" name="PRENIB16"  >PRENIB16    </a>LDX #$<span class="adr">0</span>         ;START NBUF2 INDEX. CHANGED BY WOZ
-3802:A0 02          034             LDY #<span class="adr">2</span>          ;START USER BUF INDEX. CHANGED BY WOZ.
+3800:A2 00          033 <a class="f" name="PRENIB16"  >PRENIB16    </a>LDX #$<span class='n'>0</span>         ;START NBUF2 INDEX. CHANGED BY WOZ
+3802:A0 02          034             LDY #<span class='n'>2</span>          ;START USER BUF INDEX. CHANGED BY WOZ.
 3803:88             035 <a class="f" name="PRENIB1"   >PRENIB1     </a>DEY             ;NEXT USER BYTE.
 3805:B1 3E          036             LDA (<a class="v" hre="#BUF">BUF</a>),Y
 3807:4A             037             LSR A           ;SHIFT TWO BITS OF
@@ -5244,21 +5241,21 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 380C:3E 00 3C       040             ROL <a class="v" hre="#NBUF2">NBUF2</a>,X     ;BYTE.
 380F:99 00 3B       041             STA <a class="v" hre="#NBUF1">NBUF1</a>,Y     ;(6 BITS LEFT).
 3812:E8             042             INX             ;FROM 0 TO $55.
-3813:E0 56          043             CPX #$<span class="adr">56</span>
+3813:E0 56          043             CPX #$<span class='n'>56</span>
 3815:90 ED          044             BCC <a class="x" href="#PRENIB1">PRENIB1</a>     ;BR IF NO WRAPAROUND.
-3817:A2 00          045             LDX #<span class="adr">0</span>          ;RESET NBUF2 INDEX.
+3817:A2 00          045             LDX #<span class='n'>0</span>          ;RESET NBUF2 INDEX.
 3819:98             046             TYA             ;USER BUF INDEX.
 381A:D0 E8          047             BNE <a class="x" href="#PRENIB1">PRENIB1</a>     ;(DONE IF ZERO)
-381C:A2 55          048             LDX #$<span class="adr">55</span>        ;NBUF2 IDX $55 TO 0.
+381C:A2 55          048             LDX #$<span class='n'>55</span>        ;NBUF2 IDX $55 TO 0.
 381E:BD 00 3C       049 <a class="f" name="PRENIB2"   >PRENIB2     </a>LDA <a class="v" hre="#NBUF2">NBUF2</a>,X
-3821:29 3F          050             AND #$<span class="adr">3F</span>        ;STRIP EACH BYTE
+3821:29 3F          050             AND #$<span class='n'>3F</span>        ;STRIP EACH BYTE
 3823:9D 00 3C       051             STA <a class="v" hre="#NBUF2">NBUF2</a>,X     ;OF NBUF2 TO 6 BITS.
 3826:CA             052             DEX
 3827:10 F5          053             BPL <a class="x" href="#PRENIB2">PRENIB2</a>     ;LOOP UNTIL X NEG.
 3828:60             054             RTS             ;RETURN.                        ; o7 Captain Obvious
 
 
-<hr>; === <a class="file" name="WRITRTN">WRITRTN</a> - Write Routine, Page <a class="page" name="page137">137</a>, <b class="ts">T0S2</b>, $<span class="adr">B82A</span> .. $<span class="adr">B8C1</span> ===<hr>
+<hr>; === <a class="file" name="WRITRTN">WRITRTN</a> - Write Routine, Page <a class="page" name="page137">137</a>, <b class="ts">T0S2</b>, $<span class='n'>B82A</span> .. $<span class='n'>B8C1</span> ===<hr>
                     001                 SBTL '16-SECTOR WRITE'
                     002 ************************
                     003 *                      *
@@ -5316,13 +5313,13 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3836:30 7C          055             BMI <a class="x" href="#WEXIT"  >WEXIT</a>       ;IF HIGH, THEN ERR.             ; v
 3838:AD 00 3C       056             LDA <a class="v" href="#NBUF2"  >NBUF2</a>
 383B:85 26          057             STA <a class="v" href="#WTEMP"  >WTEMP</a>       ;FOR ZERO-PAGE ACCESS.
-383D:A9 FF          058             LDA #$<span class="adr">FF</span>        ;SYNC DATA
+383D:A9 FF          058             LDA #$<span class='n'>FF</span>        ;SYNC DATA
 383F:9D 8F C0       059             STA <a class="v" href="#">Q7H</a>,X       ;(5) WRITE 1ST NIBL.
 3842:1D 8C C0       060             ORA <a class="v" href="#">Q6L</a>,X       ;(4)
 3845:48             061             PHA             ;(3)
 3846:68             062             PLA             ;(4) CRITICAL TIMING!
 3847:EA             063             NOP             ;(2)
-3848:A0 04          064             LDY #<span class="adr">4</span>          ;(2)  FOR 5 NIBLS.
+3848:A0 04          064             LDY #<span class='n'>4</span>          ;(2)  FOR 5 NIBLS.
 384A:48             065 <a class="f"    name="WSYNC"        >WSYNC       </a>PHA             ;(3) EXACT TIMING               ; --- Sync FF ---
 384B:68             066             PLA             ;(4) EXACT TIMING
 384C:20 B9 38       067             JSR <a class="x" href="#WNIBL7"   >WNIBL7</a>      ;(13,9,6)  WRITE SYNC
@@ -5362,13 +5359,13 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3895:BD 29 3A       101             LDA <a class="v" href="#NIBL"   >NIBL</a>,X      ;(4)  INDEX TO 7-BIT NIBL
 3898:A6 27          102             LDX <a class="v" href="#SLOTZ"  >SLOTZ</a>       ;(3)
 389A:20 BB 38       103             JSR <a class="x" href="#WNIBL"  >WNIBL</a>       ;(6,9,6)  WRITE CHKSUM
-389D:A9 DE          104             LDA #$<span class="adr">DE</span>        ;(2)  DM4, BIT SLIP MARK.
+389D:A9 DE          104             LDA #$<span class='n'>DE</span>        ;(2)  DM4, BIT SLIP MARK.
 389F:20 B8 38       105             JSR <a class="x" href="#WNIBL9" >WNIBL9</a>      ;(15,9,6)    WRITE IT.
-38A2:A9 AA          106             LDA #$<span class="adr">AA</span>        ;(2)  DM5, BIT SLIP MARK.
+38A2:A9 AA          106             LDA #$<span class='n'>AA</span>        ;(2)  DM5, BIT SLIP MARK.
 38A4:20 B8 38       107             JSR <a class="x" href="#WNIBL9" >WNIBL9</a>      ;(15,9,6)    WRITE IT.
-38A7:A9 EB          108             LDA #$<span class="adr">EB</span>        ;(2)  DM6, BIT SLIP MARK.
+38A7:A9 EB          108             LDA #$<span class='n'>EB</span>        ;(2)  DM6, BIT SLIP MARK.
 38A9:20 B8 38       109             JSR <a class="x" href="#WNIBL9" >WNIBL9</a>      ;(15,9,6)    WRITE IT.
-38AC:A9 FF          110             LDA #$<span class="adr">FF</span>        ;(2) TURN-OFF BYTE.
+38AC:A9 FF          110             LDA #$<span class='n'>FF</span>        ;(2) TURN-OFF BYTE.
 38AE:20 B8 38       111             JSR <a class="x" href="#WNIBL9" >WNIBL9</a>      ;(15,9,9) WRITE IT.             ; TODO: 15,9,6??
 38B1:BD 8E C0       112             LDA <a class="v" href="#Q7L"    >Q7L,X</a>       ;OUT OF WRITE MODE.
 38B4:BD 8C C0       113 <a class="f"    name="WEXIT"        >WEXIT       </a>LDA <a class="v" href="#Q6L"    >Q6L</a>,X       ;TO READ MODE.
@@ -5389,7 +5386,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 38C1:60             128             RTS
 
 
-<hr>; === <a class="file" name="POSTNRD">POSTNRD</a> - Post Nibbilize Read, Page <a class="page" name="page101">101</a>, <b class="ts">T0$2</b> @ $C2 - <b class="ts">T0S3</b> @ $43, $<span class="adr">B8C2</span> .. $<span class="adr">B943</span> ===<hr>
+<hr>; === <a class="file" name="POSTNRD">POSTNRD</a> - Post Nibbilize Read, Page <a class="page" name="page101">101</a>, <b class="ts">T0$2</b> @ $C2 - <b class="ts">T0S3</b> @ $43, $<span class='n'>B8C2</span> .. $<span class='n'>B943</span> ===<hr>
                     001             SBTL '16-SECTOR POSTNIBLIZE'
                     002 ***************************
                     003 *                         *
@@ -5435,8 +5432,8 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     043 *    AND NBUF2.           *
                     044 *      (242 NIBLS)        *
                     045 ***************************
-38C2:A0 00          046 <a class="f"    name="POSTNB16"   >POSTNB16    </a>LDA #$<span class="adr">0</span>         USER DATA BUF IDX.              ; <b class="ts">T0$2</b> <span class="todo">TODO</span>
-38C4:A2 56          047 <a class="f"    name="POST1"      >POST1       </a>LDX #$<span class="adr">56</span>        INIT NBUF2 INDEX.
+38C2:A0 00          046 <a class="f"    name="POSTNB16"   >POSTNB16    </a>LDA #$<span class='n'>0</span>         USER DATA BUF IDX.              ; <b class="ts">T0$2</b> <span class="todo">TODO</span>
+38C4:A2 56          047 <a class="f"    name="POST1"      >POST1       </a>LDX #$<span class='n'>56</span>        INIT NBUF2 INDEX.
 38C6:CA             048 <a class="f"    name="POST2"      >POST2       </a>DEX             IDX $55 TO $0
 38C7:30 FB          049             BMI <a class="x" href="#POST1">POST1</a>       WRAPAROUND IF NEG.              ; ^
 38C9:B9 00 3B       050             LDA <a class="v" href="#NBUF1">NBUF1</a>,Y
@@ -5556,7 +5553,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3943:60             165             RTS             FROM READ16 OR RDADR16.
 
 
-<hr>; === <a class="file" name="RDADSEK">RDADSEK</a> - Read Disk Address; Seek, Page <a class="page" name="page106">106</a>, <b class="ts">T0$3</b> @ $44, $<span class="adr">B944</span> .. $<span class="adr">B9FC</span> ===<hr>
+<hr>; === <a class="file" name="RDADSEK">RDADSEK</a> - Read Disk Address; Seek, Page <a class="page" name="page106">106</a>, <b class="ts">T0$3</b> @ $44, $<span class='n'>B944</span> .. $<span class='n'>B9FC</span> ===<hr>
                     001             SBTL '16-SECTOR READ ADDRESS'
                     002 
                     003 
@@ -5612,7 +5609,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     053 
                     054 * *
                     055 ****************************
-3944:A0 FC          056 <a class="f" name="RDADR16"    >RDADR16     </a>LDY #$<span class="adr">FC</span>
+3944:A0 FC          056 <a class="f" name="RDADR16"    >RDADR16     </a>LDY #$<span class='n'>FC</span>
 3946:84 26          057 <!--                   -->            STY COUNT       'MUST FIND' COUNT.
 3948:C8             058 <a class="f" name="RDASYN"     >RDASYN      </a>INY
                     059 
@@ -5753,7 +5750,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     194 <a class="f" name="SETPHASE"   >SETPHASE    </a>EQU *
 39EE:AD 78 04       195             LDA <a class="v" href="#CURTRK">CURTRK</a>      ;GET CURRENT PHASE
                     196 <a class="f" name="CLRPHASE"   >CLRPHASE    </a>EQU *
-39F1:29 03          197             AND #<span class="adr">3</span>          ;MASK FOR 1 OF 4 PHASES
+39F1:29 03          197             AND #<span class='n'>3</span>          ;MASK FOR 1 OF 4 PHASES
 39F3:2A             198             ROL A           ;DOUBLE FOR PHASE INDEX
 39F4:05 2B          199             ORA <a class="v" href="#SLOTTEMP">SLOTTEMP</a>
 39F6:AA             200             TAX
@@ -5761,7 +5758,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 39FA:A6 2B          202             LDX <a class="v" href="#SLOTTEMP">SLOTTEMP</a>    ;RESTORE X-REG
 39FC:60             203 <a class="f" name="SEEKRTS"    >SEEKRTS     </a>RTS             ;AND RETURN                     ; /sarcasm I don't know what we would do without you Captain Obvious!
 
-<hr>; === <a class="file" name="MSWAITR">MSWAITR</a> - Microsecond wait routine, Page <a class="page" name="page97">97</a>, <b class="ts">T0$3</b> @ $FD - <b class="ts">T0$6</b> @ $55, $<span class="adr">B9FD</span> .. $<span class="adr">BC55</span> ===<hr>
+<hr>; === <a class="file" name="MSWAITR">MSWAITR</a> - Microsecond wait routine, Page <a class="page" name="page97">97</a>, <b class="ts">T0$3</b> @ $FD - <b class="ts">T0$6</b> @ $55, $<span class='n'>B9FD</span> .. $<span class='n'>BC55</span> ===<hr>
                     001                 SBTL '16-SECTOR MSWAIT'
                     002 **************************
                     003 *   MSWAIT SUBROUTINE    *
@@ -5792,14 +5789,14 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     028 * 1 USEC CYCLE TIME      *
                     029 **************************
 39FD:00 00 00       <a class="line" name="mswaitr_030">030</a>         DS 3,0              ;AVOID PAGE BOUNDARY CROSSING...; === <b class="ts">T0S3</b> === @ $FC *wastes* 3 bytes
-3A00:A2 11          031 <a class="f"    name="MSWAIT"     >MSWAIT      </a>LDX #$<span class="adr">11</span>                                        ; === <b class="ts">T0$4</b> === *sigh* Typical bloated code ...
+3A00:A2 11          031 <a class="f"    name="MSWAIT"     >MSWAIT      </a>LDX #$<span class='n'>11</span>                                        ; === <b class="ts">T0$4</b> === *sigh* Typical bloated code ...
 3A02:CA             032 <a class="f"    name="MSW1"       >MSW1        </a>DEX             DELAY 86 USEC.                  ; ... should just adjust algorithm timing instead!
 3A03:D0 FD          033             BNE <a class="x" href="#MSW1"    >MSW1</a>
 3A05:E6 46          034             INC <a class="v" href="#MONTIMEL">MONTIMEL</a>
 3A07:D0 02          035             BNE <a class="x" href="#MSW2"    >MSW2</a>        ; DOUBLE-BYTE
 3A09:E6 47          036             INC <a class="v" href="#MONTIMEH">MONTIMEH</a>    INCREMENT.
 3A0B:38             037 <a class="f"    name="MSW2"       >MSW2        </a>SEC
-3A0C:E9 01          038             SBC #$<span class="adr">1</span>         DONE 'N' INTERVALS?
+3A0C:E9 01          038             SBC #$<span class='n'>1</span>         DONE 'N' INTERVALS?
 3A0E:D0 F0          039             BNE <a class="x" href="#MSWAIT">MSWAIT</a></b>            (A-REG COUNTS)
 3A10:60             040             RTS
                     041 AEC1        EQU *           ;TELL RELOCATOR WHERE CORE ENDS
@@ -5901,22 +5898,22 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     137 
                     138 
                     139 <a class="f"    name="OFF80"      >OFF80       </a>EQU *
-3A76:A9 FF          140             LDA #$<span class="adr">FF</span>
-3A78:8D FB 04       141             STA $<span class="adr">4FB</span>        ; CLEARS FUNNY 80 COL STUFF
-3A7B:8D 0C C0       142             STA $<span class="adr">C00C</span>       ; TURNS 80 COL OFF
-3A7E:8D 0E C0       143             STA $<span class="adr">C00E</span>       ; TURN OFF  ALT CHAR SET
-3A81:4C 2F FB       144             JMP $<span class="adr">FB2F</span>       ; MONITOR INIT ROUTINE          ; /sarcasm If only we could define symbols ...
+3A76:A9 FF          140             LDA #$<span class='n'>FF</span>
+3A78:8D FB 04       141             STA $<span class='n'>4FB</span>        ; CLEARS FUNNY 80 COL STUFF
+3A7B:8D 0C C0       142             STA $<span class='n'>C00C</span>       ; TURNS 80 COL OFF
+3A7E:8D 0E C0       143             STA $<span class='n'>C00E</span>       ; TURN OFF  ALT CHAR SET
+3A81:4C 2F FB       144             JMP $<span class='n'>FB2F</span>       ; MONITOR INIT ROUTINE          ; /sarcasm If only we could define symbols ...
                     145             PAGE
                     146 <a class="f" name="PEC1"        >PEC1        </a>EQU *           ;Tell relocater where to stop   ; See <a class="v" href="#CDETAB">CDETAB</a>, <a class="file" href="#RELOCTR">RELOCTR</a>, Page <a class="page" href="#page115">115</a>
                     147 PD1         EQU &gt;*
                     148 <a class="f" name="PD2"         >PD2         </a>EQU $96-PD1<span class="patch">
                     === DOS 3.3 D? PATCH ===        
-                    3A84:AD BD 35   LDA $<span class="adr">35BD</span> ; <span class="todo">TODO</span>
-                    3A87:8D E6 35   STA $<span class="adr">35E6</span> ; <span class="todo">TODO</span>
-                    3A8A:8D EA 35   STA $<span class="adr">35EA</span> ; <span class="todo">TODO</span>
+                    3A84:AD BD 35   LDA $<span class='n'>35BD</span> ; <span class="todo">TODO</span>
+                    3A87:8D E6 35   STA $<span class='n'>35E6</span> ; <span class="todo">TODO</span>
+                    3A8A:8D EA 35   STA $<span class='n'>35EA</span> ; <span class="todo">TODO</span>
                     3A8D:BA         TSX             
-                    3A8E:8E 9B 33   STX $<span class="adr">339B</span> ; <span class="todo">TODO</span>
-                    3A91:4C 7F 33   JMP $<span class="adr">337F</span> ; <span class="todo">TODO</span>
+                    3A8E:8E 9B 33   STX $<span class='n'>339B</span> ; <span class="todo">TODO</span>
+                    3A91:4C 7F 33   JMP $<span class='n'>337F</span> ; <span class="todo">TODO</span>
                     === DOS 3.3 ? PATCH ===         </span>
 3A84:00 00 00 00    149             DS  PD2,0       ;Must pad to $XX96              ; *wastes* 18 bytes
 3A88:00 00 00 00                                                                    ; No, no, no!
@@ -6005,7 +6002,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3C40:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 3C50:00 00 00 00 00 00
 
-<hr>; === <a class="file" name="WRITADR">WRITADR</a> - Write Address, Page <a class="page" name="page134">134</a>, <b class="ts">T0$6</b> @ $56, $<b class="adr">BC56</b> .. $<b class="adr">BCFF</b> ===<hr>
+<hr>; === <a class="file" name="WRITADR">WRITADR</a> - Write Address, Page <a class="page" name="page134">134</a>, <b class="ts">T0$6</b> @ $56, $<b class='n'>BC56</b> .. $<b class='n'>BCFF</b> ===<hr>
                     001             SBTL '16-SECTOR WRITE ADDRESS'
                     002 
                     003 
@@ -6063,7 +6060,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3C5A:BD 8E C0       055             LDA <a class="v" href="#Q7L"   >Q7L</a>,X       SENSE IT (NEG=PROTECTED)
 3C5D:30 5E          056             BMI <a class="x" href="#WADRTS">WADRTS</a>      ERR EXIT IF PROTECTED.
 
-3C5F:A9 FF          057             LDA #$<span class="adr">FF</span>        SELF-SYNC NIBL.
+3C5F:A9 FF          057             LDA #$<span class='n'>FF</span>        SELF-SYNC NIBL.
 3C61:9D 8F C0       058             STA <a class="v" href="#Q7H"   >Q7H</a>,X       WRITE FRIST NIBL.
 3C64:DD 8C C0       059             CMP <a class="v" href="#Q6L"   >Q6L</a>,X       (4) BACK TO WRITE MODE.
 3C67:48             060             PHA             (3) FOR DELAY
@@ -6132,7 +6129,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     123 
 
 
-<hr>; === <a class="file" name="RWTSONE">RWTSONE</a> - Read Write Track Sector - Part 1, Page <a class="page" name="page116">116</a>, <b class="ts">T0$7</b>, $<b class="adr">BD00</b> .. $<b class="adr">BDAA</b> ===<hr>
+<hr>; === <a class="file" name="RWTSONE">RWTSONE</a> - Read Write Track Sector - Part 1, Page <a class="page" name="page116">116</a>, <b class="ts">T0$7</b>, $<b class='n'>BD00</b> .. $<b class='n'>BDAA</b> ===<hr>
                     001             STBL '16-SECTOR RWTS'
                     002 
                     003 
@@ -6458,17 +6455,17 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     323 
 
 
-<hr>; === <a class="file" name="RWTSTWO">RWTSTWO</a> - Read Write Track Sector - Part 2, Page <a class="page" name="page122">122</a>, <b class="ts">T0$7</b> - <b class="ts">T0$8</b>, $<b class="adr">BDAB</b> .. $<b class="adr">BEAE</b> ===<hr>
+<hr>; === <a class="file" name="RWTSTWO">RWTSTWO</a> - Read Write Track Sector - Part 2, Page <a class="page" name="page122">122</a>, <b class="ts">T0$7</b> - <b class="ts">T0$8</b>, $<b class='n'>BDAB</b> .. $<b class='n'>BEAE</b> ===<hr>
                     001 *
                     002 * DISK IS NOW UP TO SPEED: READ IT!
                     003 * NOW CHECK: IF IT IS NOT THE FORMAT DISK COMMAND,
                     004 * LOCATE THE CORRECT SECTOR FOR THIS OPERATION.
                     005 *
                     006 <a class="f"    name="TRYTRK"     >TRYTRK      </a>EQU *
-3DAB:A0 0C          007             LDY #$<span class="adr">0C</span>                                        ; *<b class="magic">magic number</b>* IOB_OFFSET_CMD = $C
+3DAB:A0 0C          007             LDY #$<span class='n'>0C</span>                                        ; *<b class="magic">magic number</b>* IOB_OFFSET_CMD = $C
 3DAD:B1 48          008             LDA (<a class="d" href="#IOBPL">IOBPL</a>),Y   ;GET COMMAND CODE #
 3DAF:F0 5A          009             BEQ <a class="x" href="#GALLDONE">GALLDONE</a>    ;IF NULL COMMAND, GO HOME TO BED.           ; v
-3DB1:C9 04          010             CMP #$<span class="adr">04</span>        ;FORMAT THE DISK?               ; *sigh* RWTS_CMD_FORMAT = 4
+3DB1:C9 04          010             CMP #$<span class='n'>04</span>        ;FORMAT THE DISK?               ; *sigh* RWTS_CMD_FORMAT = 4
 3DB3:F0 58          011             BEQ <a class="x" href="#FORMDSK">FORMDSK</a>     ;ALLRIGHT,ALLRIGHT, I WILL...
 3DB5:6A             012             ROR A           ;SET CARRY=1 FOR READ, 0 FOR WRITE
 3DB6:08             013             PHP             ;AND SAVE THAT
@@ -6519,7 +6516,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     058 RECAL       EQU *
 3DCE:AD 78 04       059             LDA CURTRK
 3DD1:48             060             PHA             ;SAVE TRACK WE REALLY WANT      ; /sarcasm Nice to read <a class="v" href="#VNOTRK">VNOTRK</a> * 2 phases/track
-3DD2:A9 60          061             LDA #$<span class="adr">60</span>        ;RECALIBRATE ALL OVER AGAIN!    ; /sarcasm <i>Yeah ... let's bang the user's drive head against</i>
+3DD2:A9 60          061             LDA #$<span class='n'>60</span>        ;RECALIBRATE ALL OVER AGAIN!    ; /sarcasm <i>Yeah ... let's bang the user's drive head against</i>
 3DD4:20 95 3E       062             JSR <a class="x" href="#SETTRK">SETTRK</a>      ;PRETEND TO BE ON TRACK 96      ; <i>the case -- that will make it work and won't cause</i>
 3DD7:CE F8 06       063             DEC RECALCCNT   ;ONCE TOO MANY??                ; <i>any head alignment problems over time ...</i> <b>NOT!</b>
 3DDC:F0 28          064             BEQ <a class="x" href="#DRVERR">DRVERR</a>      ;TRIED TO RECALIBRATE TOO MANY TIMES, ERROR! ; v
@@ -6561,7 +6558,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3E12:B1 48          100             LDA (<a class="v" href="#IOBPL"     >IOBPL</a>),Y   ;GET DESIRED VOLUM
 3E14:48             101             PHA             ;PRESERVE DESIRED VOLUME#
 3E15:A5 2F          102             LDA <a class="v"  href="#VOLUME"    >VOLUME</a>      ;GET ACTUAL VOLUME HERE
-3E17:A0 0E          103             LDY #$<span class="adr">0E</span>        ;TELL OPSYS WHAT VOLUME WAS THERE ; *<b class="magic">magic number</b>* IOB_OFFSET_VOL = $E
+3E17:A0 0E          103             LDY #$<span class='n'>0E</span>        ;TELL OPSYS WHAT VOLUME WAS THERE ; *<b class="magic">magic number</b>* IOB_OFFSET_VOL = $E
 3E19:91 48          104             STA (<a class="v" href="#IOBPL"     >IOBPL</a>),Y
 3E1B:68             105             PLA             ;GET DESIRED VOLUME BACK
 3E1C:F0 08          106             BEQ <a class="x"  href="#CORRECTVOL">CORRECTVOL</a>  ;DESIRED VOLUME 00 MATCHES ALL. ; v
@@ -6570,7 +6567,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3E22:A9 20          109             LDA #<a class="v" href="#IBVMME"    >IBVMME</a>     ;HE SWITCHED DISCS!
 3E24:D0 E1          110             BNE <a class="x"  href="#JMPTO1"    >JMPTO1</a>      ;ALWAYS TAKEN                   ; ^
                     111 <a class=="f" name="CORRECTVOL" >CORRECTVOL  </a>EQU *
-3E26:A0 05          112             LDY #<span class="adr">5</span>                                          ; *<b class="magic">magic number</b>* IOB_OFFSET_SECTOR = $5
+3E26:A0 05          112             LDY #<span class='n'>5</span>                                          ; *<b class="magic">magic number</b>* IOB_OFFSET_SECTOR = $5
 3E28:B1 48          113             LDA (<a class="v" href="#IOBPL">IOBPL</a>),Y   ; TO ALLOW FOR INTERLEAVE
 3E2A:A8             114             TAY
 3E2B:B9 B8 3F       115             LDA <a class="v" href="#INTRLEAV"   >INTRLEAV</a>,Y  ;COMPUTE PHYSICAL SECTOR        ; DOS Sector Interleave/Skew Mapping
@@ -6650,7 +6647,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3E46:18             189 <a class="x" name="ALLDONE"     >ALLDONE     </a>CLC
 3E47:24             190             DFB $24         ;SKIP OVER NEXT BYTE WITH BIT OPCODE        ; BIT $zp
 3E48:38             191 <a class="x" name="HNDLERR"     >HNDLERR     </a>SEC             ;INDICATE AN ERROR
-3E49:A0 0D          192             LDY #$<span class="adr">0D</span>        ;GIVE HIM ERROR#                ; *<b class="magic">magic number</b>* IOB_OFFSET_ERROR = $D
+3E49:A0 0D          192             LDY #$<span class='n'>0D</span>        ;GIVE HIM ERROR#                ; *<b class="magic">magic number</b>* IOB_OFFSET_ERROR = $D
 3E4B:91 48          193             STA (<a class="v" href="#IOBPL"   >IOBPL</a>),Y
 3E4D:BD 88 C0       194             LDA <a class="v"  href="#MOTOROFF">MOTOROFF</a>,X  ; TURN IT OFF...
                     195     LST OFF
@@ -6764,7 +6761,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3EAE:60             302 <a class="f" name="SETRTS"     id="SETRTS"    >SETRTS      </a>RTS
 
 
-<hr>; === <a class="file" name="FORMATR">FORMATR</a> - Format Disk, Page <a class="page" name="page82">82</a>, <b class="ts">T0$8</b> @ $AF..  <b class="ts">T0$9</b> @ $C7, $<span class="adr">BEAF</span> .. $<span class="adr">BFC7</span> ===<hr>
+<hr>; === <a class="file" name="FORMATR">FORMATR</a> - Format Disk, Page <a class="page" name="page82">82</a>, <b class="ts">T0$8</b> @ $AF..  <b class="ts">T0$9</b> @ $C7, $<span class='n'>BEAF</span> .. $<span class='n'>BFC7</span> ===<hr>
                     001                SBTL '16-SECTOR FORMATTER'
                     002 ****************************
                     003 *                          *
@@ -6781,13 +6778,13 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     014     DO <a class="do" href="#DIAGMOD">DIAGMOD</a>              ;ELIMINATE FMTR FROM DIAG ASSEMBLY<span class="macro">
                     015         LST OFF                                             </span>
                     016     ELSE
-3EAF:A0 03          017             LDY #<span class="adr">3</span>                                          ; *<b class="magic">magic number</b>* IOB_OFFSET_VOL = $3
+3EAF:A0 03          017             LDY #<span class='n'>3</span>                                          ; *<b class="magic">magic number</b>* IOB_OFFSET_VOL = $3
 3EB1:B1 48          018             STY (IOBPL),Y   VOLUME NUMBER IN IOB.
 3EB3:85 41          019             STA NVOL        FOR FORMATTER.
-3EB5:A9 AA          020             LDA #$<span class="adr">AA</span>        SET Z-PAG LOC TO $AA FOR
+3EB5:A9 AA          020             LDA #$<span class='n'>AA</span>        SET Z-PAG LOC TO $AA FOR
 3EB7:85 3E          021             STA AA          TIME DEPENDENT REFERENCES.      ; *sigh* Because AA is _so_ descriptive ...
-3EB9:A0 56          022             LDY #$<span class="adr">56</span>
-3EBB:A9 00          023             LDA #<span class="adr">0</span>
+3EB9:A0 56          022             LDY #$<span class='n'>56</span>
+3EBB:A9 00          023             LDA #<span class='n'>0</span>
 3EBD:85 44          024             STA TRK         TRACK NUMBER, 0 TO 34
 3EBF:99 FF BB       025             STA NBUF2-1,Y   CLEAR NBUFS TO WRITE
 3EC2:88             026             
@@ -6845,7 +6842,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     078             BCS WEXIT2      ERR IF WRITE PROTECTED.
                     079             INC NSECT       NEXT OF 16 SECTORS.
                     080             LDA NSECT
-                    081             CMP #$<span class="adr">10</span>                                        ; What's the point of <a class="v" href="#VNOSEC">VNOSEC</a> in VTOC then?!?!
+                    081             CMP #$<span class='n'>10</span>                                        ; What's the point of <a class="v" href="#VNOSEC">VNOSEC</a> in VTOC then?!?!
                     082             BCC WSECT       CONTINUE IF NOT DONE.
                     083             PAGE
                     084 *****************************
@@ -6982,7 +6979,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3FC4:06 04 02 0F    215             DFB $06,$04,$02,$0F                             ; need to waste memory with this table at all !
 
 
-<hr>; === <a class="file" name="DOSPTCH">DOSPTCH</a> - Revision B Patches, Page <a class="page" name="page52">52</a>, <b class="ts">T0$9</b> @ $C8, $<span class="adr">BFC8</span> .. $<span class="adr">BFFF</span> ===<hr>
+<hr>; === <a class="file" name="DOSPTCH">DOSPTCH</a> - Revision B Patches, Page <a class="page" name="page52">52</a>, <b class="ts">T0$9</b> @ $C8, $<span class='n'>BFC8</span> .. $<span class='n'>BFFF</span> ===<hr>
                     001             SBTL "DOS PATCHES"
                     002 ********************************
                     003 *
@@ -7004,10 +7001,10 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     019 <a class="f" name="SDP1"       >SDP1        </a>EQU *                                           ; Start Dos Patch
                     020 <a class="f" name="RCPATCH"    >RCPATCH     </a>EQU *                                           ; "Called" from <a class="file" href="#BOOTLDR">BOOTLDR</a>, Func <a class="x" href="#DOSINT">DOSINT</a>, Line <a class="line" href="#bootldr_295">295</a>
 3FC8:20 93 FE       021             JSR <a class="x" href="#SETVID">SETVID</a>
-3FCB:AD 81 C0       022             LDA $<span class="adr">C081</span>                                       ; *<b class="magic">magic number</b>* If only ROMIN = $C081 for Language Card (LC)
-3FCE:AD 81 C0       023             LDA $<span class="adr">C081</span>                                       ; *<b class="magic">magic number</b>* 1st read = read ROM, 2nd read = write enable LC Bank 2
-3FD1:A9 00          024             LDA #<span class="adr">0</span>
-3FD3:8D 00 E0       025             STA $<span class="adr">E000</span>                                       ; *<b class="magic">magic number</b>* *sigh* Forces Language Card to reload
+3FCB:AD 81 C0       022             LDA $<span class='n'>C081</span>                                       ; *<b class="magic">magic number</b>* If only ROMIN = $C081 for Language Card (LC)
+3FCE:AD 81 C0       023             LDA $<span class='n'>C081</span>                                       ; *<b class="magic">magic number</b>* 1st read = read ROM, 2nd read = write enable LC Bank 2
+3FD1:A9 00          024             LDA #<span class='n'>0</span>
+3FD3:8D 00 E0       025             STA $<span class='n'>E000</span>                                       ; *<b class="magic">magic number</b>* *sigh* Forces Language Card to reload
                     026     DO <a class="do" href="#DOS33B">DOS33B</a>
 3FD6:20 76 3A       027             JSR <a class="x" href="#OFF80" >OFF80</a>                                       
 3FD9:4C 44 37       <a class="line" name="dosptch_028">028</a>             JMP <a class="x" href="#RCBACK">RCBACK</a>                                      ; *wastes* 2 bytes Why not RTS ???
