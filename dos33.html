@@ -378,8 +378,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     042 ;
                     043 ;EQUATES REQD TO FIND THINGS IN APPLE II
                     044 ;
-                    045 <a class="f" name="SETVID" >SETVID      </a>EQU $FE93
-                    046 <a class="f" name="SETKBD" >SETKBD      </a>EQU $FE89
+                    045 <a class="f" name="SETVID" >SETVID      </a>EQU $FE93                                       ; Monitor: 0 Ctrl-P
+                    046 <a class="f" name="SETKBD" >SETKBD      </a>EQU $FE89                                       ; Monitor: 0 Ctrl-K
                     047 <a class="d" name="PROMPT" >PROMPT      </a>EQU $33         ; PROMPT CHAR
                     048 <a class="d" name="OUTSW"  >OUTSW       </a>EQU $36         ; OUTPUT VECTOR SWITCH
                     049 <a class="d" name="INSW"   >INSW        </a>EQU $38         ; INPUT VECTOR SWITCH
@@ -441,28 +441,28 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     105 ; GET RELOCATION PARMS
                     106 ;
                     107 <a class="f" name="DR0"     >DR0         </a>EQU *
-                    108 <a class="d" name="LOC1"    >LOC1        </a>EQU $26
+                    108 <a class="d" name="LOC1"    >LOC1        </a>EQU $26                                         ; Monitor ROM GBASL = $26
 1B03:A9 BF          109             LDA #$<span class="adr">BF</span>        ; START AT BF00                 ; Top of 48K
-1B05:85 41          110             STA ZPGWRK+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
+1B05:85 41          110             STA <a class="v" href="#ZPGWRK" >ZPGWRK</a>+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
 1B07:A2 00          111             LDX #<span class="adr">0</span>          ; HIGH RAM
 1B09:86 40          112             STX ZPGWRK
 1B0B:A0 00          113 <a class="f" name="DR0A"    >DR0A        </a>LDY #<span class="adr">0</span>          ; APPLE TEST
                     114 <a class="f" name="DR1B"    >DR1B        </a>EQU *                                           ; unused label
-1B0D:A1 40          115             LDA (ZPGWRK,X)
-1B0F:85 26          116             STA LOC1                                        ; LOC1 = MemTestVal
+1B0D:A1 40          115             LDA (<a class="v" href="#ZPGWRK" >ZPGWRK</a>,X)
+1B0F:85 26          116             STA <a class="v" href="#LOC1" >LOC1</a>                                        ; LOC1 = MemTestVal
 <hr>1B11:98             117 <a class="f" name="DR1"         >DR1         </a>TYA                                             ; === Page <a class="page" name="page112">112</a> ===
-1B12:45 26          118             EOR LOC1
-1B14:85 26          119             STA LOC1
+1B12:45 26          118             EOR <a class="v" href="#LOC1" >LOC1</a>
+1B14:85 26          119             STA <a class="v" href="#LOC1" >LOC1</a>
 1B16:98             120             TYA
-1B17:41 40          121             EOR (ZPGWRK,X)
-1B19:81 40          122             STA (ZPGWRK,X)
-1B1B:C5 26          123             CMP LOC1
+1B17:41 40          121             EOR (<a class="v" href="#ZPGWRK" >ZPGWRK</a>,X)
+1B19:81 40          122             STA (<a class="v" href="#ZPGWRK" >ZPGWRK</a>,X)
+1B1B:C5 26          123             CMP <a class="v" href="#LOC1" >LOC1</a>
 1B1D:D0 05          124             BNE <a class="x" href="#DR1A" >DR1A</a>                                        ; v
 1B1F:C8             125             INY
 1B20:D0 EF          126             BNE <a class="x" href="#DR1"  >DR1</a>                                         ; ^
 1B22:F0 04          127             BEQ <a class="x" href="#DR2"  >DR2</a>         ; BR IF TOOK                    ; v
                     128 <a class="f" name="DR1A"        >DR1A        </a>EQU *
-1B24:C6 41          129             DEC ZPGWRK+1    ; NOT RAM
+1B24:C6 41          129             DEC <a class="v" href="#ZPGWRK" >ZPGWRK</a>+1    ; NOT RAM
 1B26:D0 E3          130             BNE <a class="x" href="#DR0A" >DR0A</a>        ; TRY NEXT PAGE                 ; ^
                     131 ;
                     132 <a class="f" name="DR2"         >DR2         </a>EQU *
@@ -532,8 +532,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1BBC:85 41          222             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>+1
                     223 ;
 1BBE:A2 00          224 <a class="f" name="DR8"         >DR8         </a>LDX #<span class="adr">0</span>         ; GET OP CODE
-1BC0:A1 40          225             LDA (ZPGWRK,X)  ; GO FIND OUT HOW LONG          ; Interesting hack of using
-1BC2:20 8E F8       226             JSR INSDS2                                      ; monitor ROM to get instruction opcode length
+1BC0:A1 40          225             LDA (<a class="v" href="#ZPGWRK">ZPGWRK</a>,X)  ; GO FIND OUT HOW LONG          ; Interesting hack of using
+1BC2:20 8E F8       226             JSR <a class="x" href="#INSDS2">INSDS2</a>                                      ; monitor ROM to get instruction opcode length
                     227 ;
 1BC5:A4 2F          228             LDY <a  class="v" href="#LENGTH">LENGTH</a>      ; GET HOW LONG
 1BC7:C0 02          229             CPY #<span class="adr">2</span>          ; IF IT AIN'T                   ; *sigh* #3-1 is clearer since zero based
@@ -543,8 +543,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1BD0:90 0A          233             BCC <a  class="x" href="#DR9"   >DR9</a>         ; THEN  IGNOR
 1BD2:CD 7B 1C       234             CMP <a  class="v" href="#REPAGE">REPAGE</a>      ; IF PAGE &gt;= REL END
 1BD5:B0 05          235             BCS <a  class="x" href="#DR9"   >DR9</a>         ; THEN IGNORE
-1BD7:6D 7F 1C       236             ADC DELTA       ; ELSE ADD DELTA
-1BDA:91 40          237             STA (ZPGWRK),Y  ; TO RELOCATE
+1BD7:6D 7F 1C       236             ADC <a class="v" href="#DELTA">DELTA</a>       ; ELSE ADD DELTA
+1BDA:91 40          237             STA (<a class="v" href="#ZPGWRK">ZPGWRK</a>),Y  ; TO RELOCATE
                     238 ;
 1BDC:38             239 <a class="f" name="DR9"         >DR9         </a>SEC
 <hr>1BDD:A5 2F          240             LDA <a class="v" href="#LENGTH">LENGTH</a>      ; ADD LENGTH
@@ -565,7 +565,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1BF9:18             255             CLC
 1BFA:69 04          256             ADC #<span class="adr">04</span>         ; INCREMENT TABLE INDEX
 1BFC:AA             257             TAX
-1BFD:EC 59 1C       258             CPX CDETAB      ; DONE
+1BFD:EC 59 1C       258             CPX <a class="x" href="#CDETAB">CDETAB</a>      ; DONE
 1C00:90 AF          259             BCC <a class="x" href="#DR7">DR7</a>         ; BR IF NOT                     ; === <b class="ts">T0$B</b> ===
                     260 ;
                     261             PAGE
@@ -583,10 +583,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C12:A8             273             TAY
                     274 ;
 1C13:B1 40          275 <a class="f" name="DR10"       id="DR10"       >DR10        </a>LDA (<a class="v" href="#ZPGWRK">ZPGWRK</a>),Y  ; BYTE FROM
-1C15:91 42          276             STA (ZPGFCB),Y  ; BYTE  TO
+1C15:91 42          276             STA (<a class="v" href="#ZPGFCB">ZPGFCB</a>),Y  ; BYTE  TO
 1C17:C8             277             INY             ; INCREMENT                     ; /sarcasm No shit, Sherlock
 1C18:D0 F9          278             BNE <a class="x" href="#DR10">DR10</a>        ; BR NOT FULL PAGE
-1C1A:CE 80 1C       279             DEC DPGCNT      ; DECREMENT PAGE CNT
+1C1A:CE 80 1C       279             DEC <a class="v" href="#DPGCNT">DPGCNT</a>      ; DECREMENT PAGE CNT
 1C1D:F0 06          280             BEQ <a class="x" href="#DR11"  >DR11</a>        ; BR IF DONE
 1C1F:C6 41          281             DEC <a class="v" href="#ZPGWRK">ZPGWRK</a>+1    ; INC FROM PAGE
 1C21:C6 43          282             DEC <a class="v" href="#ZPGFCB">ZPGFCB</a>+1    ; INC TOO PAGE
