@@ -639,8 +639,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <hr>1C47:E8 37          303             DW  <a class="v" href="#">ADOSLD</a>+2                                    ; === Page <a class="page" name="page115">115</a> ===
 1C49:EE 37          304             DW  <a class="v" href="#IBDCTP">IBDCTP </a>                                     ; [8]
 1C4B:F0 37          305             DW  <a class="v" href="#IBDCTP">IBDCTP</a>+2
-1C4D:00 00 00 00    306             DFB 0,0,0,0                                     ; sentinel ? <span class="todo">TODO</span>
-1C51:00 00 00 00    307             DFB 0,0,0,0                                     ; 
+1C4D:00 00 00 00    306             DFB 0,0,0,0                                     ; <a class='mem' name="_1C4D">wastes</a> 12 bytes -- never referenced !
+1C51:00 00 00 00    307             DFB 0,0,0,0
 1C55:00 00 00 00    308             DFB 0,0,0,0
                     309 <a class="d"    name="CDETAB"     id="CDETAB"     >CDETAB      </a>EQU *                                           ; int CodeRelocTable[ 8 ]
 1C59:20             310             DFB 8*4
@@ -3249,7 +3249,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2D20:EE E4 35       036             INC <a class="v" href="#DCBCRS">DCBCRS</a>      ; INCREMENT SECTOR
 2D23:D0 F6          037             BNE <a class="x" href="#VAR1"  >VAR1</a>                                        ; Can't save &gt; 32KB (<span class="todo">TODO</span>)
 2D25:EE E5 35       038             INC <a class="v" href="#DCBCRS">DCBCRS</a>+1                                    ; Therfore Current Relative Sector can never overflow to zero
-2D28:4C 1B 2D       039             JMP <a class="x" href="#VAR1"  >VAR1</a>        ; READ THIS ONE                 ; <a class="mem" href="_">wastes</a> 1 bytes: BNE VAR1
+2D28:4C 1B 2D       039             JMP <a class="x" href="#VAR1"  >VAR1</a>        ; READ THIS ONE                 ; <a class="mem" href="_">wastes</a> 1 bytes BNE VAR1
                     040             PAGE
                     041 
                     042 
@@ -4318,7 +4318,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     020             PAGE                                            ;
                     021 ;VTOC RECORD AREA                                           ; === VTOC ===
                     022 <a class="d" name="VTOC"  >VTOC        </a>EQU *                                           ; <b class="ts">T11S0</b> [offset], Right side = normal snarky commentary
-33BB:04             023 <a class="d" name="VDOST" >VDOST       </a>DFB 4           ; DOS TYPE                      ; [00] *<a class="mem" name="_33BB">wastes</a>* 1 byte -- not even referenced!
+33BB:04             023 <a class="d" name="VDOST" >VDOST       </a>DFB 4           ; DOS TYPE                      ; [00] *<a class="mem" name="_33BB">wastes</a>* 1 byte -- never referenced !
                                                                                     ;      <b class="magic">magic number</b>: /sarcasm If only FILESYSTEM_TYPE_VTOC = $4
 33BC:11             024 <a class="d" name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <i>TRACK</i> not sector
                                                                                     ;      *note* This is only a copy.  To change DOS while running
