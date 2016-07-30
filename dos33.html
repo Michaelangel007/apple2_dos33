@@ -484,9 +484,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B41:D0 09          148             BNE <a class="x" href="#DR2B"   >DR2B</a>        ; BYTE NOT MIRRORED, THEN GOOD MEMORY   ; *sigh* more crap code: S-L-O-W
 1B43:C8             149             INY             ;MAYBE IT WAS COINCIDENCE               ; Instead of testing *every* byte (256 times WTF!)
 1B44:D0 EF          150             BNE <a class="x" href="#DR2A"   >DR2A</a>        ; BRANCH UNLESS IT'S MATCHED 256 TIMES  ; just test the last byte of every page
-1B46:A4 43          151             LDY <a class="v" href="#ZPGFCB" >ZPGFCB</a>+1    ;HIMEM IS 8K LOWER THEN WAS
-1B48:68             152             PLA             ;ORIGINALLY THOUGHT!                    ; *<a class="mem" name="_1B49">wastes</a>* 1 bytes with JMP
-1B49:4C 51 1B       153             JMP <a class="x" href="#DR2C"   >DR2C</a>                                                ; Switch LDY, PLA around and BNE instead
+1B46:A4 43          <a class='line' name='RELOCTR.151'>151</a>             LDY <a class="v" href="#ZPGFCB" >ZPGFCB</a>+1    ;HIMEM IS 8K LOWER THEN WAS             ;        Switch PLA, LDY, then BNE instead
+1B48:68             152             PLA             ;ORIGINALLY THOUGHT!                    ;        since ZPGFCB can never be on mem page $00
+1B49:4C 51 1B       153             JMP <a class="x" href="#DR2C"   >DR2C</a>                                                ; <a class="mem" name="_1B49">wastes</a> 1 byte with JMP instead of BNE. See Line #<a class='line' href='#RELOCTR.151'>151</a>
 1B4C:68             154 <a class="f" name="DR2B"        >DR2B        </a>PLA             ; ORIGINAL HIMEM PROVED GOOD
 1B4D:81 42          155             STA (<a class="v" href="#ZPGFCB">ZPGFCB</a>,X)  ;RESTORE BYTE ORIGINALLY MESSED WITH.
 1B4F:A4 41          156             LDY <a class="v" href="#ZPGWRK" >ZPGWRK</a>+1    ;END OF PATCH   *****           ; ***** = END_PATCH
