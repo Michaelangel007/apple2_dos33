@@ -624,21 +624,21 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C29:00 1D          288             DW  <a class="v" href="#SAT1"  >SAT1   </a>                                     ; [0] Start Address Table 1 in <a class="x" href="#DOSINIT">DOSINIT</a>
 1C2B:56 1D          289             DW  <a class="v" href="#EAT1"  >EAT1   </a>                                     ;     End   Address Table 1
 1C2D:58 1D          290             DW  <a class="v" href="#RUN"   >RUN    </a>                                     ; [1]
-1C2F:5A 1D          291             DW  <a class="v" href="#RUN"   >RUN+2  </a>
-1C31:64 1D          292             DW  <a class="v" href="#IBVT"  >IBVT+2 </a>                                     ; [2] Integer Basic Vector Table
-1C33:66 1D          293             DW  <a class="v" href="#IBVT"  >IBVT+4 </a>
+1C2F:5A 1D          291             DW  <a class="v" href="#RUN"   >RUN</a>+2
+1C31:64 1D          292             DW  <a class="v" href="#IBVT"  >IBVT</a>+2                                      ; [2] Integer Basic Vector Table
+1C33:66 1D          293             DW  <a class="v" href="#IBVT"  >IBVT</a>+4
 1C35:6C 1D          294             DW  <a class="v" href="#AS1VT" >AS1VT  </a>                                     ; [3] Applesoft (ROM) Vector Table
-1C37:70 1D          295             DW  <a class="v" href="#AS1VT" >AS1VT+4</a>
+1C37:70 1D          295             DW  <a class="v" href="#AS1VT" >AS1VT</a>+4
 1C39:78 1D          296             DW  <a class="v" href="#AS2VT" >AS2VT  </a>                                     ; [4] Applesoft (RAM) Vector Table
-1C3B:7C 1D          297             DW  <a class="v" href="#AS2VT" >AS2VT+4</a>
-1C3D:7E 1D          298             DW  <a class="v" href="#AS2VT" >AS2VT+6</a>                                     ; [5] Applesoft (RAM) Vetor Table
-1C3F:80 1D          299             DW  <a class="v" href="#AS2VT" >AS2VT+8</a>
+1C3B:7C 1D          297             DW  <a class="v" href="#AS2VT" >AS2VT</a>+4
+1C3D:7E 1D          298             DW  <a class="v" href="#AS2VT" >AS2VT</a>+6                                     ; [5] Applesoft (RAM) Vetor Table
+1C3F:80 1D          299             DW  <a class="v" href="#AS2VT" >AS2VT</a>+8
 1C41:C1 2A          300             DW  <a class="v" href="#SAT2"  >SAT2   </a>                                     ; [6] Start Address Table 2 in <a class="x" href="#FDOSENT">FDOSENT</a>
 1C43:FD 2A          301             DW  <a class="v" href="#EAT2"  >EAT2   </a>
 1C45:E4 37          302             DW  <a class="v" href="#BAIOB" >BAIOB  </a>                                     ; [7]
-<hr>1C47:E8 37          303             DW  <a class="v" href="#">ADOSLD+2</a>                                    ; === Page <a class="page" name="page115">115</a> ===
+<hr>1C47:E8 37          303             DW  <a class="v" href="#">ADOSLD</a>+2                                    ; === Page <a class="page" name="page115">115</a> ===
 1C49:EE 37          304             DW  <a class="v" href="#IBDCTP">IBDCTP </a>                                     ; [8]
-1C4B:F0 37          305             DW  <a class="v" href="#IBDCTP">IBDCTP </a>+2
+1C4B:F0 37          305             DW  <a class="v" href="#IBDCTP">IBDCTP</a>+2
 1C4D:00 00 00 00    306             DFB 0,0,0,0                                     ; sentinel ? <span class="todo">TODO</span>
 1C51:00 00 00 00    307             DFB 0,0,0,0                                     ; 
 1C55:00 00 00 00    308             DFB 0,0,0,0
