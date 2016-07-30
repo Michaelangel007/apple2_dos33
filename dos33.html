@@ -387,42 +387,42 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     051 <a class="d" name="CNUM"   >CNUM        </a>EQU $44         ; CONVERTED NUMERIC
                     052 <a class="d" name="LBUFF"  >LBUFF       </a>EQU $200        ; LINE BUFFER                   ; Keyboard buffer of 255 chars
                     053 <a class="f" name="MULT"   >MULT        </a>EQU $FB63       ; MULT ROUTINE
-<hr>                    054 INPRT       EQU $FE8B       ; SET IN PORT                   ; === Page <a class="page" name="page111">111</a> ===
+<hr>                    054 <a class="f" name="INPRT">INPRT       </a>EQU $FE8B       ; SET IN PORT                   ; === Page <a class="page" name="page111">111</a> ===
                     055 <a class="f" name="OUTPTR" >OUTPRT      </a>EQU $FE95       ; SET OUT PORT
                     056 <a class="f" name="IBCHN"  >IBCHN       </a>EQU $E836       ; BASIC RUN                     ; Integer Basic
                     057 <a class="d" name="IBLMEM" >IBLMEM      </a>EQU $4A         ; BASIC LOW MEM                 ; Integer Basic
                     058 <a class="d" name="IBHMEM" >IBHMEM      </a>EQU $4C         ; INTEGER BASIC HIMEM           ; Integer Basic
-                    059 IBSOP       EQU $CA         ; INTEGER BASIC START OF CGM    ; Integer Basic CGM ???
-                    060 IBBRK       EQU $E3E3       ; BASIC BREAK                   ; Integer Basic
-                    061 IBGO        EQU $E000       ; BASIC ENTRY POINT             ; Integer Basic
-                    062 IBCONT      EQU $E003       ; BASIC CONTINUE ENTRY POINT    ; Integer Basic
-                    063 IBSOV       EQU $CC         ; BASIC START OF VARIABLES      ; Integer Basic
-                    064 ASSOP       EQU $67         ; AS START OF PROGRAM           ; Applesoft Basic
-                    065 ASEOP       EQU $AF         ; AS END OF PROGRAM             ; Applesoft Basic
-                    066 ASEOP2      EQU $69         ; AS END-OF PGM 2               ; Applesoft Basic
-                    067 ASHM1       EQU $73         ; AS HIGH MEM 1                 ; Applesoft Basic
-                    068 ASHM2       EQU $6F         ; AS HIGH MEM 2                 ; Applesoft Basic
-                    069 ASRNX       EQU $D6         ; AS RUN-ONLY FLAG              ; Applesoft Basic
+                    059 <a class="d" name="IBSOP"  >IBSOP       </a>EQU $CA         ; INTEGER BASIC START OF CGM    ; Integer Basic CGM ???
+                    060 <a class="f" name="IBBRK"  >IBBRK       </a>EQU $E3E3       ; BASIC BREAK                   ; Integer Basic
+                    061 <a class="f" name="IBGO"   >IBGO        </a>EQU $E000       ; BASIC ENTRY POINT             ; Integer Basic
+                    062 <a class="f" name="IBCONT" >IBCONT      </a>EQU $E003       ; BASIC CONTINUE ENTRY POINT    ; Integer Basic
+                    063 <a class="d" name="IBSOV"  >IBSOV       </a>EQU $CC         ; BASIC START OF VARIABLES      ; Integer Basic
+                    064 <a class="d" name="ASSOP"  >ASSOP       </a>EQU $67         ; AS START OF PROGRAM           ; Applesoft Basic
+                    065 <a class="d" name="ASEOP"  >ASEOP       </a>EQU $AF         ; AS END OF PROGRAM             ; Applesoft Basic
+                    066 <a class="d" name="ASEOP2" >ASEOP2      </a>EQU $69         ; AS END-OF PGM 2               ; Applesoft Basic
+                    067 <a class="d" name="ASHM1"  >ASHM1       </a>EQU $73         ; AS HIGH MEM 1                 ; Applesoft Basic
+                    068 <a class="d" name="ASHM2"  >ASHM2       </a>EQU $6F         ; AS HIGH MEM 2                 ; Applesoft Basic
+                    069 <a class="d" name="ASRNX"  >ASRNX       </a>EQU $D6         ; AS RUN-ONLY FLAG              ; Applesoft Basic
                     070 <a class="d" name="ASONERR">ASONERR     </a>EQU $D8         ; AS ON-ERR GOTO FLAG           ; Applesoft Basic
                     071 <a class="d" name="ASLMEM" >ASLMEM      </a>EQU ASSOP       ; AS LOW MEM                    ; Applesoft Basic
-                    072 ASBRK1      EQU $D865       ; AS ROM BREAK                  ; Applesoft Basic
-                    073 ASBRK2      EQU $1067       ; AS RAM BREAK                  ; Applesoft Basic
-                    074 <a class="x" name="ASCNTU1">ASCNTU1     </a>EQU $D43C
-                    075 ASCNTU2     EQU $C3C
-                    076 <a class="x" name="ASRSEQ1">ASRSEQ1     </a>EQU $D4F2
-                    077 ASRSEQ2     EQU $CF2
-                    078 <a class="x" name="AITSTL" >AITSTL      </a>EQU $E000       ; AS 1 IB TEST LOC              ; Applesoft Basic E000: JMP $F128
+                    072 <a class="f" name="ASBRK1" >ASBRK1      </a>EQU $D865       ; AS ROM BREAK                  ; Applesoft Basic
+                    073 <a class="f" name="ASBRK2" >ASBRK2      </a>EQU $1067       ; AS RAM BREAK                  ; Applesoft Basic
+                    074 <a class="f" name="ASCNTU1">ASCNTU1     </a>EQU $D43C                                       ; ROM entry point
+                    075 <a class="f" name="ASCNTU2">ASCNTU2     </a>EQU $C3C                                        ; RAM entry point
+                    076 <a class="f" name="ASRSEQ1">ASRSEQ1     </a>EQU $D4F2                                       ; ROM entry point
+                    077 <a class="f" name="ASRSEQ2">ASRSEQ2     </a>EQU $CF2                                        ; RAM entry point
+                    078 <a class="f" name="AITSTL" >AITSTL      </a>EQU $E000       ; AS 1 IB TEST LOC              ; Applesoft Basic E000: JMP $F128
                     079 <a class="d" name="ATSTV"  >ATSTV       </a>EQU $4C         ; AS TEST VALUE                 ; Applesoft Basic
                     080 <a class="d" name="ITSTV"  >ITSTV       </a>EQU $20         ; IB TEST VALUE                 ; Integer Basic
                     081 <a class="d" name="BOOTSL" >BOOTSL      </a>EQU $2E         ; BOOT FROM SLOT                ; Slot from Boot
                     082 <a class="d" name="ZPGFCB" >ZPGFCB      </a>EQU $42         ; ZERO PAGE WORK CELL           ; File Control Block
-                    083 <a class="x" name="MONRST" >MONRST      </a>EQU $FF65       ; MONITOR RESET ENTRY
-                    084 <a class="x" name="MONBRK" >MONBRK      </a>EQU $FA59       ; MONITOR BREAK ENTRY
-                    085 <a class="x" name="IORTS"  >IORTS       </a>EQU $FF58       ; KNOWN RTS IN MONITOR ROM
-                    086 <a class="x" name="HOME"   >HOME        </a>EQU $FC58                                       ; Clear the text screen
-                    087 <a class="x" name="PRINT"  >PRINT       </a>EQU $FDED                                       ; putchar()
-                    088 <a class="x" name="GETKEY" >GETKEY      </a>EQU $FD0C
-                    089 <a class="x" name="INSDS2" >INSDS2      </a>EQU $F88E                                       ; Instruction Disassembly Opcode Length
+                    083 <a class="f" name="MONRST" >MONRST      </a>EQU $FF65       ; MONITOR RESET ENTRY
+                    084 <a class="f" name="MONBRK" >MONBRK      </a>EQU $FA59       ; MONITOR BREAK ENTRY
+                    085 <a class="f" name="IORTS"  >IORTS       </a>EQU $FF58       ; KNOWN RTS IN MONITOR ROM
+                    086 <a class="f" name="HOME"   >HOME        </a>EQU $FC58                                       ; Clear the text screen
+                    087 <a class="f" name="PRINT"  >PRINT       </a>EQU $FDED                                       ; putchar()
+                    088 <a class="f" name="GETKEY" >GETKEY      </a>EQU $FD0C
+                    089 <a class="f" name="INSDS2" >INSDS2      </a>EQU $F88E                                       ; Instruction Disassembly Opcode Length
                     090 <a class="d" name="LENGTH" >LENGTH      </a>EQU $2F
                     091 <a class="d" name="ZRSET"  >ZRSET       </a>EQU $3F2        ; NEW MONITOR ROM RESET VECTOR
                     092 <a class="d" name="PWCNST" >PWCNST      </a>EQU $3F4        ; NEW MONITOR ROM POWER UP CONSTANT
@@ -736,7 +736,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1D7E:84 1D          086             DW <a class="x" href="#DBINIT">DBINIT</a>                                       ; *note* entire struct is R/O
 1D80:3C 0C          087             DW <a class="x" href="#ASCNTU2">ASCNTU2</a>                                      ; copied into <a class="v" href="#IBASVT">IBASVT</a> via <a class="x" href=#"INITC">INITC</a>
 1D82:F2 0C          088             DW <a class="x" href="#ASRSEQ2">ASRSEQ2</a>
-                    089 <a class="d" name="AS2VTL"   >AS2VTL      </a>EQU *-<a class="d" href="#AS2VT">AS2VT</a>
+                    089 <a class="d" name="AS2VTL"   >AS2VTL      </a>EQU *-<a class="v" href="#AS2VT">AS2VT</a>
                     090 
                     091 
                     092 
