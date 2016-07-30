@@ -603,10 +603,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C06:AC 7D 1C       267             LDY <a class="v" href="#NEPAGE">NEPAGE</a>
 1C09:88             268             DEY
 1C0A:84 43          269             STY <a class="v" href="#ZPGFCB">ZPGFCB</a>+1    ; ZPGFCB = TOO
-1C0C:A9 00          270             LDA #<span class="adr">0</span>
+1C0C:A9 00          <a class='line' name='RELOCTR.270'>270</a>             LDA #<span class="adr">0</span>                                          ; /sarcasm If only we had a LDY #0 instruction ...
 1C0E:85 40          271             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>
 1C10:85 42          272             STA <a class="v" href="#ZPGFCB">ZPGFCB</a>
-1C12:A8             273             TAY
+1C12:A8             273             TAY                                             ; <a class='mem' name='_1C12'>wastes</a> 1 byte; ... to remove this one. See Line #<a class='line' href='#RELOCTR.270'>270</a>
                     274 ;
 1C13:B1 40          275 <a class="f" name="DR10"       id="DR10"       >DR10        </a>LDA (<a class="v" href="#ZPGWRK">ZPGWRK</a>),Y  ; BYTE FROM
 1C15:91 42          276             STA (<a class="v" href="#ZPGFCB">ZPGFCB</a>),Y  ; BYTE  TO
@@ -643,7 +643,6 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C51:00 00 00 00    307             DFB 0,0,0,0                                     ; 
 1C55:00 00 00 00    308             DFB 0,0,0,0
                     309 <a class="d"    name="CDETAB"     id="CDETAB"     >CDETAB      </a>EQU *                                           ; int CodeRelocTable[ 8 ]
-####:## ## ##       ### LABEL       NMEMONIC        COMMENT                         ; Annotation
 1C59:20             310             DFB 8*4
 1C5A:84 1D          311             DW  <a class="x" href="#SC1"   >SC1   </a>                                      ; [0]
 1C5C:84 28          312             DW  <a class="x" href="#EC1"   >EC1   </a>
