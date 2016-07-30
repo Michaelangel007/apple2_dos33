@@ -98,7 +98,7 @@ a.do { /* do macroname */
     font-weight: normal;   /* remove bold */
 }
 /* Link to Macro Label */
-a..name {
+a.name {
     color: #444;
     font-style: italic;
 }
@@ -6617,7 +6617,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3E38:08             159             PHP             ;SAVE STATUS OF READ OPERATION
                     160     LST OFF
                     161     DO <a class="do" href="#DIAGMOD">DIAGMOD</a><span class="macro">
-                    162         BCC <a class="x" href="#GOODREAD">GOODREAD</a>        ;NO ERROR                       
+                    162         BCC <a class="name" href="#GOODREAD">GOODREAD</a>        ;NO ERROR                       
                     163         LDA #TC10           ;SAY 'READ ERROR'               
                     164         STA TL10                                            
                     165         JMP <a class="x" href="#TRYADR2">TRYADR2</a>         ;RETRY ON ERROR                 
