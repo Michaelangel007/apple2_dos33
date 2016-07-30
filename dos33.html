@@ -515,10 +515,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     179 <a class="f" name="DR3"         >DR3         </a>EQU *
 1B7A:BD 29 1C       180             LDA ADRTAB+1,X                                  ; [SrcLo] If only we had an ($BC) LDY ADRTAB+1,X instruction ...
 1B7D:A8             181             TAY                                             ; <a class="mem" name="_1B7D">wastes</a> 1 byte; ... to skip this useless instruction.
-1B7E:BD 2A 1C       182             LDA ADRTAB+2,X                                  ; [SrcHi]               Evident code quality to come. :-/
-1B81:85 41          183             STA ZPGWRK+1                                    ;
-1B83:4C 93 1B       184             JMP DR5                                         ; <a class="mem" name="_1B83">wastes</a> 1 byte; BNE
-                    185 ;
+1B7E:BD 2A 1C       182             LDA ADRTAB+2,X                                  ; [SrcHi]            Oh wait, we do! /rhetorical Who knew!
+1B81:85 41          183             STA ZPGWRK+1                                    ;                    Evident code quality to come. :-/
+1B83:4C 93 1B       184             JMP DR5                                         ; <a class="mem" name="_1B83">wastes</a> 1 byte instead of BNE; skip low address ptr
+                    185 ;                                                           ; See software was bloated in the "good ol' days" too. :-(
                     186 <a class="f" name="DR4"         >DR4         </a>EQU *
                     187             CLC
                     188             LDA (ZPGWRK),Y
