@@ -723,90 +723,93 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1D0C:00 1B          015 <a class="d" name="ASTART"     >ASTART      </a>DW <a class="x" href="#BEGIN">BEGIN</a>
 1D0E:BB 35          016 <a class="d" name="CCBADR"     >CCBADR      </a>DW CCB
                     017 ;
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
-                    055 
-                    056 
-                    057 
-                    058 
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-1D78:06 25          083 <a class="d" name="AS2VT"    >AS2VT       </a>DW <a class="x" href="#ASRUN2">ASRUN2</a>                                       ; *<a class="mem" name="_1D78">wastes</a>* 12 bytes on 48K
-1D7A:06 25          084             DW <a class="x" href="#ASRUN2">ASRUN2</a>                                       ; Type 2: AppleSoft in RAM Vector Table (early Apple ][ ???)
-1D7C:67 10          085             DW <a class="x" href="#ASBRK2">ASBRK2</a>                                       ;
-1D7E:84 1D          086             DW <a class="x" href="#DBINIT">DBINIT</a>                                       ; *note* entire struct is R/O
-1D80:3C 0C          087             DW <a class="x" href="#ASCNTU2">ASCNTU2</a>                                      ; copied into <a class="v" href="#IBASVT">IBASVT</a> via <a class="x" href=#"INITC">INITC</a>
-1D82:F2 0C          088             DW <a class="x" href="#ASRSEQ2">ASRSEQ2</a>
+                    018 OUTSVT      EQU *           ; CHAR OUTPUT STATE VECTOR TABLE
+1D10:EA 1E          019             DW COS0-1
+1D12:11 1F          020             DW COS1-1
+1D14:22 1F          021             DW COS2-1
+1D16:2E 1F          022             DW COS3-1
+1D18:51 1F          023             DW COS4-1
+1D1A:60 1F          024             DW COS5-1
+1D1C:70 1F          025             DW COS6-1
+                    026 ;COMMAND EXECUTION TABLE
+                    027 CMDETB      EQU *                                           ; /sarcasm Yay for crappy 6 letter var names
+1D1E:4E 25          028             DW EINIT-1
+1D20:12 24          029             DW ELOAD-1
+1D22:96 23          030             DW ESAVE-1
+1D24:D0 24          031             DW ERUN-1
+1D26:EF 24          032             DW ECHAIN-1
+1D28:62 22          033             DW EDEL-1
+1D2A:70 22          034             DW <a class='x' href='#ELOCK'>ELOCK</a>-1
+1D2C:74 22          035             DW <a class='x' href='EEUNLK'>UNLK</a>-1
+1D2E:E9 22          036             DW ECLOSE-1
+1D30:1A 25          037             DW EREAD-1
+1D32:C5 25          038             DW EEXEC-1
+1D34:0F 25          039             DW EWRITE-1
+1D36:DC 25          040             DW EPOS-1
+1D38:A2 22          041             DW EOPEN-1
+1D3A:97 22          042             DW EAPND-1
+1D3C:80 22          043             DW EREN-1
+1D3E:6D 25          044             DW ECAT-1
+1D40:32 22          045             DW EMON-1
+1D42:3C 22          046             DW ENOMON-1
+1D44:28 22          047             DW EPR-1
+1D46:2D 22          048             DW EIN-1
+1D48:50 22          049             DW EMAXF-1
+1D4A:79 25          050             DW EAS-1
+1D4C:9D 25          051             DW EINT-1
+1D4E:30 23          052             DW EBSV-1
+1D50:5C 23          053             DW EBLD-1
+<hr>1D52:8D 23          054             DW EBRUN-1                                      ; === Page <a class="page" name="page49">49</a> ===
+1D54:7C 22          055             DW EVAR-1
+                    056 <a class='d' name='EAT1'>EAT1        </a>EQU *                                           ; = $1D56
+                    057             PAGE
+                    058 ;
+                    059 ;NON-RELOCATING ADRS                                        ;  *note* Annotating [-] to mean <i>addresss is not relocated</i>
+                    060 ;
+                    061 IBASVT      EQU *                                           ; <i>ACTIVE</i> table but <a class='mem' name='_1D56'>waste</a> disk space (12 bytes @ $56) storing it!
+1D56:36 E8          062 CHAIN       DW IBCHN                                        ; [-] Really? Forces <i>another</i> table entry [1] in <a class='v' href='#ADRTAB'>ADRTAB</a>
+1D58:E5 24          063 RUN         DW IBRUN                                        ;     People, repeat after me: You **group**
+1D5A:E3 E3          064 BREAK       DW IBBRK                                        ;         CONST data together
+1D5C:00 E0          065 GO          DW IBGO                                         ;         VARIABLE data together
+1D5E:03 E0          066 CONT        DW IBCONT       ; BASIC CONT ENTRY POINT        ;     You (almost) *never* interleave them
+1D60:00 00          067 ASEQ        DW 0                                            ;     that just leads to data+code bloat
+                                                                                    ; *sigh* Too lazy to add empty ';' line seperator ???
+                                                                                    ; Intentionally adding empty line as spacer to improve readability *<b>shock</b>*
+                                                                                    ; The IBVT, AS1VT, and AS2VT are Read-Only (after being relocated)
+1D62:36 E8          068 IBVT        DW IBCHN                                        ; <i>CONST</i> Integer Basic Vector Table
+1D64:E5 25          069             DW IBRUN
+1D66:E3 E3          070             DW IBBRK
+1D68:00 E0          071             DW IBGO
+1D6A:03 E0          072             DW IBCONT
+                    073 IBVTL       EQU *-<a class='v' href='IBVT'>IBVT</a>                                      ; Length = $A bytes so we don't over-write ASEQ
+                    074 ;
+1D6C:FC 24          075 <a class="d" name="AS1VT"    >AS1VT       </a>DW <a class='x' href='#ASRUN1'>ASRUN1</a>                                       ; <i>CONST</i> /sarcasm Because it is obvious
+1D6E:FC 24          076             DW <a class='x' href='#ASRUN1' >ASRUN1 </a>                                      ;        1 = ROM, and
+1D70:65 D8          077             DW <a class='x' href='#ASBRK1' >ASBRK1 </a>                                      ;        2 = RAM, right?
+1D72:00 E0          078             DW <a class='x' href='#IBGO'   >IBGO   </a>                                      ; /sarcasm because ASCNTU1 and ASRSEQ1 are obvious
+1D74:3C D4          079             DW <a class='x' href='#ASCNTU1'>ASCNTU1</a>                                      ; Applesoft <a href='http://jamtronix.com/files/applesoft.html#RESTART'  >RESTART</a> or <a href='http://www.txbobsc.com/scsc/scdocumentor/D365.html'>S-C DocuMentor $D365</a>
+1D76:F2 D4          080             DW <a class='x' href='#ASRSEQ1'>ASRSEQ1</a>                                      ; Applesoft <a href='http://jamtronix.com/files/applesoft.html#FIX.LINKS'>FIX.LINKS</a>
+                    081 <a class="d" name="AS1VTL"   >AS1VTL      </a>EQU *-<a class='v' href='AS1VT'>AS1VT</a>
+                    082 ;                                                           ;  copied into <a class="v" href="#IBASVT">IBASVT</a> via <a class="x" href=#"INITC">INITC</a>
+1D78:06 25          083 <a class="d" name="AS2VT"    >AS2VT       </a>DW <a class="x" href="#ASRUN2">ASRUN2</a>                                       ; <i>CONST</i> *<a class="mem" name="_1D78">wastes</a>* 12 bytes on 48K
+1D7A:06 25          084             DW <a class="x" href="#ASRUN2" >ASRUN2 </a>                                      ; Type 2: AppleSoft in RAM Vector Table (early Apple ][ ???)
+1D7C:67 10          085             DW <a class="x" href="#ASBRK2" >ASBRK2 </a>                                      ;
+1D7E:84 1D          086             DW <a class="x" href="#DBINIT" >DBINIT </a>                                      ;
+1D80:3C 0C          087             DW <a class="x" href="#ASCNTU2">ASCNTU2</a>                                      ;
+1D82:F2 0C          088             DW <a class="x" href="#ASRSEQ2">ASRSEQ2</a>                                      ; See Official source Line #70 <a href='https://github.com/mist64/msbasic/blob/master/program.s#L70'>RESTART</a> and Line #270 <a href='https://github.com/mist64/msbasic/blob/master/program.s#L270'>FIX LINKS</a>
                     089 <a class="d" name="AS2VTL"   >AS2VTL      </a>EQU *-<a class="v" href="#AS2VT">AS2VT</a>
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-1D84:AD E9 37       096             LDA IBSLOT      ; GET BOOT SLOT
+                    090             PAGE
+                    091 ;
+                    092 ; DOS BASIC INTERPRETER - INITIAL ENTRY
+                    093 ;
+                    094 <a class='x' name='SC1'      >SC1         </a>EQU *                                          ; Start Relocate Code 1
+                    095 <a class='x' name='DBINIT'   >DBINIT      </a>EQU *
+1D84:AD E9 37       096             LDA <a class='v' href='#IBSLOT'>IBSLOT</a>      ; GET BOOT SLOT
 1D87:4A             097             LSR A
 1D88:4A             098             LSR A
 1D89:4A             099             LSR A
-1D8A:4A             100             LSR A
-1D8B:8D 6A 2A       101             STA CS          ; SET AS CUURENT SLOT           ; *spelling* CURRENT
+1D8A:4A             100             LSR A                                           ; /sarcasm Gee, maybe we wouldn't even need the next comment
+1D8B:8D 6A 2A       101             STA <a class='v' href='#CS'>CS</a>          ; SET AS CUURENT SLOT           ; *spelling* CURRENT; if we labled it CUR_SLOT
                     102 
                     103 
                     104 
