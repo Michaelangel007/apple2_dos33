@@ -515,9 +515,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <hr>1B76:A2 00          177             LDX #<span class='n'>0</span>                                          ; === Page <a class="page" name="page113">113</a> ===
 1B78:86 40          178             STX ZPGWRK
                     179 <a class="f" name="DR3"         >DR3         </a>EQU *
-1B7A:BD 29 1C       180             LDA ADRTAB+1,X                                  ; [SrcLo] If only we had an ($BC) LDY ADRTAB+1,X instruction ...
+1B7A:BD 29 1C       180             LDA ADRTAB+1,X                                  ; [StartLo] If only we had an ($BC) LDY ADRTAB+1,X instruction ...
 1B7D:A8             <a class='line' name='RELOCTR.181'>181</a>             TAY                                             ; <a class='mem' name='_1B7D'>wastes</a> 1 byte; ... to skip this useless instruction.
-1B7E:BD 2A 1C       182             LDA ADRTAB+2,X                                  ; [SrcHi]            Oh wait, we do! /rhetorical Who knew!
+1B7E:BD 2A 1C       182             LDA ADRTAB+2,X                                  ; [StartHi]            Oh wait, we do! /rhetorical Who knew!
 1B81:85 41          183             STA ZPGWRK+1                                    ;                    Evident code quality to come. :-/
 1B83:4C 93 1B       <a class='line' name='RELOCTR.184'>184</a>             JMP DR5                                         ; <a class='mem' name='_1B83'>wastes</a> 1 byte instead of BNE; skip low address ptr
                     185 ;                                                           ; See software was bloated in the "good ol' days" too. :-(
@@ -535,10 +535,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     197 ;
                     198 <a class="f" name="DR6"         >DR6         </a>EQU *
                     199             LDA ZPGWRK+1
-                    200             CMP ADRTAB+4,X                                  ; Peek ahead to start of next entry
+                    200             CMP ADRTAB+4,X                                  ; [EndHi]
                     201             BCC DR4
                     202             TYA
-                    <a class='line' name='RELOCTR.203'>203</a>             CMP ADRTAB+3,X
+                    <a class='line' name='RELOCTR.203'>203</a>             CMP ADRTAB+3,X                                  ; [EndLo]
                     204             BCC DR4
                     205 ;
                     206             TXA
@@ -8303,10 +8303,15 @@ I've annotated <a class='mem'>*wastes*</a> locations in the listing where memory
 <br>To:
 <br>&nbsp; &nbsp; &nbsp; LDY ADRTAB+1,X
 </td></tr>
-            <tr><td>T0SB</td><td>$<a class="n" href='#_1B83'>1B83</a> .. $1B83</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td> <td><a class="x" href='#DR3'   >DR3   </a> </td> <td><a class='line' href='#RELOCTR.184'>184</a></td> <td align='right'>    1</td><td>Start Address in ADRTAB is never on page 0; Change Absolute JMP to BNE:
+            <tr><td>T0SB</td><td>$<a class="n" href='#_1B83'>1B83</a> .. $1B83</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td> <td><a class="x" href='#DR3'   >DR3   </a> </td> <td><a class='line' href='#RELOCTR.184'>184</a></td> <td align='right'>    1</td><td>Start Address (+2) in ADRTAB is never on page 0;
+<br>Change (absolute) JMP to (relative) BNE:
 <br>From:
+<br>&nbsp; &nbsp; &nbsp; LDA ADRTAB+2,X
+<br>&nbsp; &nbsp; &nbsp; STA ZPGWRK+1
 <br>&nbsp; &nbsp; &nbsp; JMP DR5
 <br>To:
+<br>&nbsp; &nbsp; &nbsp; LDA ADRTAB+2,X
+<br>&nbsp; &nbsp; &nbsp; STA ZPGWRK+1
 <br>&nbsp; &nbsp; &nbsp; BNE DR5
 </td></tr>
             <tr><td>T0SB</td><td>$<a class='n' href='#_1C12'>1C12</a> .. $1C12</td><td><a class='file' href='#RELOCTR'>RELOCTR</a></td> <td><a class='x' href='#DR9'   >DR9   </a> </td> <td><a class='line' href='#RELOCTR.273'>273</a></td> <td align='right'>    1</td><td>Useless TAY when LDY and STY would suffice
