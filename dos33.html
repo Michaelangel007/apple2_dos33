@@ -535,7 +535,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     197 ;
                     198 <a class="f" name="DR6"         >DR6         </a>EQU *
 1B98:A5 41          199             LDA ZPGWRK+1
-1B9A:DD 2C 1C       200             CMP ADRTAB+4,X                                  ; [EndHi]
+1B9A:DD 2C 1C       200             CMP ADRTAB+4,X                                  ; [EndHi] Crappy array offset, see comments starting on Line #<a class='line' href='#RELOCTR.286'>286</a>
 1B9D:90 E7          201             BCC DR4
 1B9F:98             202             TYA
 1BA0:DD 2B 1C       <a class='line' name='RELOCTR.203'>203</a>             CMP ADRTAB+3,X                                  ; [EndLo]
@@ -621,10 +621,47 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C23:D0 EE          283             BNE <a class="x" href="#DR10">DR10</a>        ; MOVE PAGE
                     284 ;
 1C25:4C 54 1E       285 <a class="f" name="DR11" id="DR11"       >DR11        </a>JMP <a class="x" href="#DBVECT">DBVECT</a>+3    ; DONE                          ; <a class="file" href="#DOSINIT">DOSINIT</a>, Page <a class="page" href="#page51">51</a> -&gt; JMP <a class="x" href="#DBINIT">DBINIT</a>
-                    286             PAGE
+                    <a class='line' name='RELOCTR.286'>286</a>             PAGE
+                                                                                    ; This is <b>really crappy table formatting</b> due to 2 reasons:
+                                                                                    ; 1) An +1 offset is needed in code since the length of the array
+                                                                                    ;    doesn't have its own label
+                                                                                    ;        ADRTABL DFB 9*4
+                                                                                    ; 2) The start and end address are not on a single line
+                                                                                    ;    with <i>no visual indicators</i> to tell what is the start or end address
+                                                                                    ;    This makes it extremely hard to tell which addresses belong to
+                                                                                    ;    which entry.  I've added the array offset [#] to make the original code
+                                                                                    ;    more readable.
+                                                                                    ;    <b>Better Solution</b>: Place each <b>entry</b> on a single line
+                                                                                    ;      along with the correct half-open range interval notation [,)
+                                                                                    ;      each block of memory to relocate becomes very crystal clear:
+                                                                                    ;        ;         [Start, End)
+                                                                                    ;        ADRTAB  DW SAT1 , EAT1
+                                                                                    ;                DW RUN  , RUN
+                                                                                    ;                DW IBVT , IBVT
+                                                                                    ;                DW AS1VT, AS1VT
+                                                                                    ;    <b>Best Solution</b>: Even better would be to use <i>two labels</i>
+                                                                                    ;       offset by two bytes to simulate an struct member variable:
+                                                                                    ;        ADRTABS DW SAT1        ; Start Address
+                                                                                    ;        ADRTABE DW        EAT  ; End Address
+                                                                                    ;                DW RUN  , RUN
+                                                                                    ;                DW IBVT , IBVT
+                                                                                    ;                DW AS1VT, AS1VT
+                                                                                    ;    While the second line, ADRTABE, is a little unorthodox,
+                                                                                    ;    using dual labels makes the array offsets
+                                                                                    ;    in code less non-descript:
+                                                                                    ;
+                                                                                    ;        LDY ADRTABS+0,X    ; lo byte of start address; was LDA ADRTAB+1,X
+                                                                                    ;        LDA ADRTABS+1,X    ; hi byte of start address; was LDA ADRTAB+2,X
+                                                                                    ;        CMP ADRTABE+1,X    ; hi byte of end   address; was CMP ADRTAB+4,X
+                                                                                    ;        CMP ADRTABE+0,X    ; lo byte of end   address; was CMP ADRTAB+3,X
 1C28:24             287 <a class="f" name="ADRTAB"     id="ADRTAB"     >ADRTAB      </a>DFB 9*4                                         ; int AddressRelocTable[ 9 ]
 1C29:00 1D          288             DW  <a class="v" href="#SAT1"  >SAT1   </a>                                     ; [0] Start Address Table 1 in <a class="x" href="#DOSINIT">DOSINIT</a>
 1C2B:56 1D          289             DW  <a class="v" href="#EAT1"  >EAT1   </a>                                     ;     End   Address Table 1
+                                                                                    ;     <a class='mem' name='_1C2D'>wastes</a> 10 bytes (5 entries) due to non-contiguous memory
+                                                                                    ;     $1D56, $1D57 = <a class='d' href='#CHAIN' >CHAIN</a>
+                                                                                    ;     Solution would be to add our own stub of 3 bytes
+                                                                                    ;         DOS_CHAIN_IB: JMP $E836
+                                                                                    ;     Allowing us to remove 4 bytes from the table: end[0], start[1]
 1C2D:58 1D          290             DW  <a class="v" href="#RUN"   >RUN    </a>                                     ; [1]
 1C2F:5A 1D          291             DW  <a class="v" href="#RUN"   >RUN</a>+2
 1C31:64 1D          292             DW  <a class="v" href="#IBVT"  >IBVT</a>+2                                      ; [2] Integer Basic Vector Table
