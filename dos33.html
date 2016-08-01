@@ -3,7 +3,7 @@
 <span class="todo">TODO</span> add fixed header on scroll for filenames
 <a class="page" href="#page1"></a>
 === Page <a class="page" name="page1"></a> ===
-<a class="mem" name="_1D7D">wastes</a>
+<a class='mem' name='_1D7D'>wastes</a>
 <a class="f" name="CORRECTVOL" id="CORRECTVOL" >CORRECTVOL  </a>
 <a class="f" name="_8"       >12_         </a>
                         25          37              53                              85  89  93
@@ -148,6 +148,11 @@ hr {
 */
 }
 
+/* Indent 5% */
+.indent5 {
+     padding-left:5%;
+}
+
 /* Dec, Hex, Number, Memory Address */
 .n {
     color: #F80;
@@ -250,7 +255,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 <b>Legend:</b>
 <p>
-<div style="padding-left:5%">
+<div class='indent5'>
 <table border="1" style="border-width: 1px; border-collapse: collapse" >
     <tr>
         <td>Addr</td>
@@ -483,7 +488,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B44:D0 EF          150             BNE <a class="x" href="#DR2A"   >DR2A</a>        ; BRANCH UNLESS IT'S MATCHED 256 TIMES  ; just test the last byte of every page
 1B46:A4 43          <a class='line' name='RELOCTR.151'>151</a>             LDY <a class="v" href="#ZPGFCB" >ZPGFCB</a>+1    ;HIMEM IS 8K LOWER THEN WAS             ;        Switch PLA, LDY, then BNE instead
 1B48:68             152             PLA             ;ORIGINALLY THOUGHT!                    ;        since ZPGFCB can never be on mem page $00
-1B49:4C 51 1B       153             JMP <a class="x" href="#DR2C"   >DR2C</a>                                                ; <a class="mem" name="_1B49">wastes</a> 1 byte with JMP instead of BNE. See Line #<a class='line' href='#RELOCTR.151'>151</a>
+1B49:4C 51 1B       <a class='line' name='RELOCTR.153'>153</a>             JMP <a class="x" href="#DR2C"   >DR2C</a>                                                ; <a class='mem' name='_1B49'>wastes</a> 1 byte with JMP instead of BNE. See Line #<a class='line' href='#RELOCTR.151'>151</a>
 1B4C:68             154 <a class="f" name="DR2B"        >DR2B        </a>PLA             ; ORIGINAL HIMEM PROVED GOOD
 1B4D:81 42          155             STA (<a class="v" href="#ZPGFCB">ZPGFCB</a>,X)  ;RESTORE BYTE ORIGINALLY MESSED WITH.
 1B4F:A4 41          156             LDY <a class="v" href="#ZPGWRK" >ZPGWRK</a>+1    ;END OF PATCH   *****           ; ***** = END_PATCH
@@ -511,10 +516,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B78:86 40          178             STX ZPGWRK
                     179 <a class="f" name="DR3"         >DR3         </a>EQU *
 1B7A:BD 29 1C       180             LDA ADRTAB+1,X                                  ; [SrcLo] If only we had an ($BC) LDY ADRTAB+1,X instruction ...
-1B7D:A8             181             TAY                                             ; <a class="mem" name="_1B7D">wastes</a> 1 byte; ... to skip this useless instruction.
+1B7D:A8             <a class='line' name='RELOCTR.181'>181</a>             TAY                                             ; <a class='mem' name='_1B7D'>wastes</a> 1 byte; ... to skip this useless instruction.
 1B7E:BD 2A 1C       182             LDA ADRTAB+2,X                                  ; [SrcHi]            Oh wait, we do! /rhetorical Who knew!
 1B81:85 41          183             STA ZPGWRK+1                                    ;                    Evident code quality to come. :-/
-1B83:4C 93 1B       184             JMP DR5                                         ; <a class="mem" name="_1B83">wastes</a> 1 byte instead of BNE; skip low address ptr
+1B83:4C 93 1B       <a class='line' name='RELOCTR.184'>184</a>             JMP DR5                                         ; <a class='mem' name='_1B83'>wastes</a> 1 byte instead of BNE; skip low address ptr
                     185 ;                                                           ; See software was bloated in the "good ol' days" too. :-(
                     186 <a class="f" name="DR4"         >DR4         </a>EQU *
                     187             CLC
@@ -603,7 +608,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C0C:A9 00          <a class='line' name='RELOCTR.270'>270</a>             LDA #<span class='n'>0</span>                                          ; /sarcasm If only we had a LDY #0 instruction ...
 1C0E:85 40          271             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>
 1C10:85 42          272             STA <a class="v" href="#ZPGFCB">ZPGFCB</a>
-1C12:A8             273             TAY                                             ; <a class='mem' name='_1C12'>wastes</a> 1 byte; ... to remove this one. See Line #<a class='line' href='#RELOCTR.270'>270</a>
+1C12:A8             <a class='line' name='RELOCTR.273'>273</a>             TAY                                             ; <a class='mem' name='_1C12'>wastes</a> 1 byte; ... to remove this one. See Line #<a class='line' href='#RELOCTR.270'>270</a>
                     274 ;
 1C13:B1 40          275 <a class="f" name="DR10"       id="DR10"       >DR10        </a>LDA (<a class="v" href="#ZPGWRK">ZPGWRK</a>),Y  ; BYTE FROM
 1C15:91 42          276             STA (<a class="v" href="#ZPGFCB">ZPGFCB</a>),Y  ; BYTE  TO
@@ -636,7 +641,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <hr>1C47:E8 37          303             DW  <a class="v" href="#">ADOSLD</a>+2                                    ; === Page <a class="page" name="page115">115</a> ===
 1C49:EE 37          304             DW  <a class="v" href="#IBDCTP">IBDCTP </a>                                     ; [8]
 1C4B:F0 37          305             DW  <a class="v" href="#IBDCTP">IBDCTP</a>+2
-1C4D:00 00 00 00    306             DFB 0,0,0,0                                     ; <a class='mem' name="_1C4D">wastes</a> 12 bytes -- never referenced !
+1C4D:00 00 00 00    <a class='line' name='RELOCTR.306'>306</a>             DFB 0,0,0,0                                     ; <a class='mem' name="_1C4D">wastes</a> 12 bytes -- never referenced !
 1C51:00 00 00 00    307             DFB 0,0,0,0
 1C55:00 00 00 00    308             DFB 0,0,0,0
                     309 <a class="d"    name="CDETAB"     id="CDETAB"     >CDETAB      </a>EQU *                                           ; int CodeRelocTable[ 8 ]
@@ -673,12 +678,12 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <hr>; === <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <b class="ts">T0SC</b>, $<span class='n'>9D00</span> .. $<span class='n'>9E80</span> ===<hr>
                     001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*
                     002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>
-1C81:00 00 00       <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>              ; <a class="mem" name="_1C81">wastes</a> 82 bytes ($1CD3-$1C81 = $52)
-1C84:00 00 00 00
-1C88:00 00 00 00
-1C8C:00 00 00 00
-1C90:00 00 00 00
-1C94:00 00 00 00
+1C81:00 00 00       <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; <a class='mem' name='_1C81'>wastes</a> 127 bytes padding to end of sector
+1C84:00 00 00 00                                                                    ; Technically only 82 bytes ($1CD3-$1C81 = $52) are wasted
+1C88:00 00 00 00                                                                    ; but <span class="macro">FTAB DW *-45</span> is sloppy code
+1C8C:00 00 00 00                                                                    ; Why isn't this "allocated" at run-time?
+1C90:00 00 00 00                                                                    ; Meaning this should be placed <b>after</b> ALL the code.
+1C94:00 00 00 00                                                                    ; See: <a class='dumb' href="#WastedDisk">Wasted Disk Space</a>
 1C98:00 00 00 00
 1C9C:00 00 00 00
 1CA0:00 00 00 00
@@ -788,7 +793,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1D76:F2 D4          080             DW <a class='x' href='#ASRSEQ1'>ASRSEQ1</a>                                      ; Applesoft <a href='http://jamtronix.com/files/applesoft.html#FIX.LINKS'>FIX.LINKS</a>
                     081 <a class="d" name="AS1VTL"   >AS1VTL      </a>EQU *-<a class='v' href='#AS1VT'>AS1VT</a>
                     082 ;                                                           ; copied into <a class="v" href="#IBASVT">IBASVT</a> via INIT_AS_RAM, oh wait, <a class="x" href=#"INITC">INITC</a> 
-1D78:06 25          083 <a class="d" name="AS2VT"    >AS2VT       </a>DW <a class="x" href="#ASRUN2">ASRUN2</a>                                       ; <i>CONST</i> *<a class="mem" name="_1D78">wastes</a>* 12 bytes on Apple ][+ or newer
+1D78:06 25          083 <a class="d" name="AS2VT"    >AS2VT       </a>DW <a class="x" href="#ASRUN2">ASRUN2</a>                                       ; <i>CONST</i> <a class='mem' name='_1D78'>wastes</a> 12 bytes on Apple ][+ or newer
 1D7A:06 25          084             DW <a class="x" href="#ASRUN2" >ASRUN2 </a>                                      ; Type 2: AppleSoft in RAM Vector Table (early Apple 1 or ][ ???)
 1D7C:67 10          085             DW <a class="x" href="#ASBRK2" >ASBRK2 </a>                                      ;
 1D7E:84 1D          086             DW <a class="x" href="#DBINIT" >DBINIT </a>                                      ;
@@ -1329,7 +1334,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     173 
                     174 
                     175 
-                    176 
+                    <a class='line' name='CMDSCAN.176'>176</a> 
                     177 
                     178 
                     179 
@@ -1418,7 +1423,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2183:20 AE 21       262             JSR <a class="x" href="#CLRCCB">CLRCCB</a>          ; GO CLEAR CCB              ; /sarcasm I never would have guessed
                     263 <a class="f" name="ECMD"   >ECMD        </a>EQU *
 2186:AD 5F 2A       264             LDA <a class="v" href="#CMDNO">CMDNO</a>           ; COMMAND NO
-2189:AA             265             TAX                 ; IS CMD EXEC TAB INDEX     ; <a class="mem" href="_2189">wastes</a> 1 byte /sarcasm If only we had LDX CMDNO
+2189:AA             265             TAX                 ; IS CMD EXEC TAB INDEX     ; <a class='mem' name='_2189'>wastes</a> 1 byte /sarcasm If only we had LDX CMDNO
 218A:BD 1F 1D       266             LDA <a class="v" href="#CMDETAB">CMDETAB</a>+1,X     ; GET CMD ADR
 218D:48             267             PHA                 ; ONTO STACK
 218E:BD 1E 1D       268             LDA <a class="v" href="#CMDETAB">CMDETB</a>,X
@@ -1986,7 +1991,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     264 
                     265 
 2506:20 65 0E       266 <a class="f" name="ASRUN2"  >ASRUN2      </a>JSR $E65        ; RAM                           ; *<b class="magic">magic number</b>* <a class="d" href="#AS2VT">AS2VT</a> has pointer to us
-2509:85 33          267             STA <a class="d" href="#PROMPT">PROMPT</a>      ;INSURES APPLESOFT RUN DETECT (A=0) ; (dead code) *<a class="mem" name="_2506">wastes</a>* 10 bytes on Apple ][+ or later
+2509:85 33          267             STA <a class="d" href="#PROMPT">PROMPT</a>      ;INSURES APPLESOFT RUN DETECT (A=0) ; (dead code) <a class='mem' name='_2506'>wastes</a> 10 bytes on Apple ][+ or later
 250B:85 D8          268             STA <a class="d" href="#ASONER">ASONER</a>      ;RESET APPLESOFT ONERR FLAG     ;
 250D:4C D4 0F       269             JMP $FD4                                        ; *<b class="magic">magic number</b>*
 
@@ -2548,7 +2553,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2825:85 41          079             STA ZPGWRK+1    ; AND INTO ZPGWRK
 2827:68             080             PLA             ; FOR NEXT ENTRY
 2828:85 40          081             STA ZPGWRK      ; BUILD
-282A:4C E5 27       082             JMP <a class="x" href="#BFT1">BFT1</a>                                        ; ^ BFT1 @ $<b class='n'>A7E4</b> <a class="mem" name="_282A">wastes</a> 1 byte, A = addr lo: $80
+282A:4C E5 27       082             JMP <a class="x" href="#BFT1">BFT1</a>                                        ; ^ BFT1 @ $<b class='n'>A7E4</b> <a class='mem' name='_282A'>wastes</a> 1 byte, A = addr lo: $80
                     083 ;
                     084 <a class="f" name="BFT2"      id="BFT2"       >BFT2        </a>EQU *
 282D:48             085             PHA
@@ -2807,9 +2812,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2A64:00             025 <a class="d" name="TEMP2A">TEMP2A      </a>DFB 0
 2A65:00             026 <a class="d" name="INOPTS">INOPTS      </a>DFB 0           ; INPUT OPTIONS
                     027 <a class="d" name="CUROPT">CUROPT      </a>EQU *           ; CURRENT OPTIONS               ; So we <i>can</i> type CUR ... but too lazy to type CUR_VOL, CUR_DRV, CUR_SLT?
-2A66:00 00          028 <a class="d" name="CV"    >CV          </a>DW 0            ; VOLUME                        ; <a class="mem" name="_2A67">wastes</a> 1 byte
-2A68:00 00          029 <a class="d" name="CD"    >CD          </a>DW 0            ; DRIVE                         ; <a class="mem" name="_2A69">wastes</a> 1 byte
-2A6A:00 00          030 <a class="d" name="CS"    >CS          </a>DW 0            ; SLOT                          ; <a class="mem" name="_2A6B">wastes</a> 1 byte /sarcasm Because <a class="x" href="#DBINIT">DBINIT</a> <a class="x" href="#OPNSUP">OPNSUP</a> need 2 bytes, right?
+2A66:00 00          028 <a class="d" name="CV"    >CV          </a>DW 0            ; VOLUME                        ; <a class='mem' name='_2A67'>wastes</a> 1 byte
+2A68:00 00          029 <a class="d" name="CD"    >CD          </a>DW 0            ; DRIVE                         ; <a class='mem' name='_2A69'>wastes</a> 1 byte
+2A6A:00 00          030 <a class="d" name="CS"    >CS          </a>DW 0            ; SLOT                          ; <a class='mem' name='_2A6B'>wastes</a> 1 byte /sarcasm Because <a class="x" href="#DBINIT">DBINIT</a> <a class="x" href="#OPNSUP">OPNSUP</a> need 2 bytes, right?
 2A6C:01 00          031 <a class="d" name="CL"    >CL          </a>DW 1            ; RECORD LENGTH
 2A6E:00 00          032 <a class="d" name="CR"    >CR          </a>DW 0            ; RECORD NUMBER
 2A70:00 00          033 <a class="d" name="CB"    >CB          </a>DW 0            ; RECORD BYTE
@@ -3213,7 +3218,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     003 * FLOCK - LOCK A FILE
                     004 ;
 2CEF:A9 80          005 <a class="f" name="FLOCK"      >FLOCK       </a>LDA #$<span class='n'>80</span>        ; REMEMBER LOCK                 ; *<a class="magic">magic number</a>* LOCK_MASK
-2CF1:8D 9E 33       006             STA <a class="v" href="#TEMP3">TEMP3</a>                                       ; <a class="mem" name="_">wastes</a> 3 bytes, BNE line #<a class='line' href='#FDELCAT.012'>12</a>
+2CF1:8D 9E 33       006             STA <a class="v" href="#TEMP3">TEMP3</a>                                       ; <a class='mem' name='_2CF1'>wastes</a> 3 bytes, BNE line #<a class='line' href='#FDELCAT.012'>12</a>
 2CF4:D0 05          007             BNE <a class="x" href="#LCKGO">LCKGO</a>                                       ; even better, change to BIT $abs ($00A9)
                     008 ;
                     009 * FUNLOCK - UNLOCK A FILE
@@ -3246,7 +3251,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2D20:EE E4 35       036             INC <a class="v" href="#DCBCRS">DCBCRS</a>      ; INCREMENT SECTOR
 2D23:D0 F6          037             BNE <a class="x" href="#VAR1"  >VAR1</a>                                        ; Can't save &gt; 32KB (<span class="todo">TODO</span>)
 2D25:EE E5 35       038             INC <a class="v" href="#DCBCRS">DCBCRS</a>+1                                    ; Therfore Current Relative Sector can never overflow to zero
-2D28:4C 1B 2D       039             JMP <a class="x" href="#VAR1"  >VAR1</a>        ; READ THIS ONE                 ; <a class="mem" href="_">wastes</a> 1 bytes BNE VAR1
+2D28:4C 1B 2D       039             JMP <a class="x" href="#VAR1"  >VAR1</a>        ; READ THIS ONE                 ; <a class='mem' name='_2D28'>wastes</a> 1 bytes BNE VAR1
                     040             PAGE
                     041 
                     042 
@@ -4287,7 +4292,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 339D:00             009 <a class="d" name="TEMP2" >TEMP2       </a>DFB 0           ; TEMP BYTE 2                   ;   *note* All the cool kids use "o7" for salute these days
 339E:00             010 <a class="d" name="TEMP3" >TEMP3       </a>DFB 0           ; TEMP BYTE 3                   ; Used by <a class="x" href="#FLOCK">FLOCK</a>, <a class="x" href="#FUNLCK">FUNLCK</a> and <a class="x" href="#GSS1">GSS1</a>
 339F:00             011 <a class="d" name="ENTSLT">ENTSLT      </a>DFB 0           ; BOOT SLOT SAVE
-33A0:00 00 FF FF    012 <a class="d" name="ALC10S">ALC10S      </a>DFB 0,0,$FF,$FF ; ALLOCATION TRACK BIT MAP      ; *<a class="mem" name="_33A0">wastes</a>* 4 bytes sector free bitmap mask 
+33A0:00 00 FF FF    012 <a class="d" name="ALC10S">ALC10S      </a>DFB 0,0,$FF,$FF ; ALLOCATION TRACK BIT MAP      ; <a class='mem' name='_33A0'>wastes</a> 4 bytes sector free bitmap mask 
                                                                                     ; The thinking was probably:
                                                                                     ;     DOS 3.2 = 13 sector
                                                                                     ;     DOS 3.3 = 16 sector
@@ -4315,17 +4320,17 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     020             PAGE                                            ;
                     021 ;VTOC RECORD AREA                                           ; === VTOC ===
                     022 <a class="d" name="VTOC"  >VTOC        </a>EQU *                                           ; <b class="ts">T11S0</b> [offset], Right side = normal snarky commentary
-33BB:04             023 <a class="d" name="VDOST" >VDOST       </a>DFB 4           ; DOS TYPE                      ; [00] *<a class="mem" name="_33BB">wastes</a>* 1 byte -- never referenced !
+33BB:04             <a class="line" name="FVCBUFS.023">023</a> <a class="d" name="VDOST" >VDOST       </a>DFB 4           ; DOS TYPE                      ; [00] <a class='mem' name='_33BB'>wastes</a> 1 byte -- never referenced !
                                                                                     ;      <b class="magic">magic number</b>: /sarcasm If only FILESYSTEM_TYPE_VTOC = $4
 33BC:11             024 <a class="d" name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <i>TRACK</i> not sector
                                                                                     ;      *note* This is only a copy.  To change DOS while running
                                                                                     ;             $<span class='n'>AC01</span>:11 ($2C01) CATALOG Track <span class="todo">TODO</span> FILE/LINE/FUNC
 33BD:0F             025 <a class="d" name="VDIRSC">VDIRSC      </a>DFB 15          ; VOLUME DIRECTORY SECTOR       ; [02] Used by File <a class="file" href="#FLOCNXB">FLOCNXB</a>, Func <a class="x" href="#RVDC">RVDC</a>, Line <span class="todo">??</span>
 33BE:04             026 <a class="d" name="VDOSRN">VDOSRN      </a>DFB 4           ; DOS RELEASE NUMBER            ; [03] *sarcasm* I guess <b>VERSION</b> made too much sense.
-33BF:00             027             DFB 0           ; SPARE                         ; [04] *<a class="mem" name="_33BF">wastes</a>* 1 byte /sarcasm "<i>Because <b>someday</b> these</i>
-33C0:00             028             DFB 0           ; SPARE                         ; [05] *<a class="mem" name="_33C0">wastes</a>* 1 byte &#x0CA0;_&#x0CA0;      <i><b>might</b> be used ... ?</i>" Uh-huh.
+33BF:00             027             DFB 0           ; SPARE                         ; [04] <a class='mem' name='_33BF'>wastes</a> 1 byte /sarcasm "<i>Because <b>someday</b> these</i>
+33C0:00             028             DFB 0           ; SPARE                         ; [05] <a class='mem' name='_33C0'>wastes</a> 1 byte &#x0CA0;_&#x0CA0;      <i><b>might</b> be used ... ?</i>" Uh-huh.
 33C1:FE             029 <a class="d" name="VVOLNO">VVOLNO      </a>DFB $FE         ; VOLUME NUMBER                 ; [06]          Design for <i>today</i>, not *someday*
-33C2:00 00 00 00    030             DS 32           ; SPARE                         ; [07] *<a class="mem" name="_33C2">wastes</a>* 32 bytes, <b>WTF !</b>
+33C2:00 00 00 00    030             DS 32           ; SPARE                         ; [07] <a class='mem' name='_33C2'>wastes</a> 32 bytes, <b>WTF !</b>
 33C6:00 00 00 00                                                                    ;      Gee, here's an idea:
 33CA:00 00 00 00                                                                    ;      Instead of wasting space in the VTOC
 33CE:00 00 00 00                                                                    ;        1) Pack our data by removing all the <i>unused crap:</i>
@@ -4334,14 +4339,14 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 33DA:00 00 00 00                                                                    ;      
 33DE:00 00 00 00                                                                    ;      
 33E2:7A             031 <a class="d" name="VTDMS" >VTDMS       </a>DFB 122         ; MAX SECTORS IN A FILE DIR     ; [27] *sigh* not 128 so we can BMI (Branch on Minus) ???
-33E3:00 00 00 00    032 <a class="d" name="VSPARE">VSPARE      </a>DS 8            ; SPARES                        ; [28] *<a class="mem" name="_33E3">wastes</a>* 8 bytes, <i>Oh FFS already ...</i>
+33E3:00 00 00 00    032 <a class="d" name="VSPARE">VSPARE      </a>DS 8            ; SPARES                        ; [28] <a class='mem' name='_33E3'>wastes</a> 8 bytes, <i>Oh FFS already ...</i>
 33E7:00 00 00 00    033 ;                                                           ;      Who 1) <i>designed</i>, and 2) <b>implemented</b> this crap?!?!
 33EB:11             034 <a class="d" name="VALCA1">VALCA1      </a>DFB 17          ; ALOCATION ALGORITHM BYTE 1    ; [30] Last allocated track <span class="todo">TODO</span> Cross-Ref
 33EC:01             035 <a class="d" name="VALCA2">VALCA2      </a>DFB 1           ; AA BYTE2                      ; [31] Direction of last tack allocation --  Used by <a class="x" href="#GS4">GS4</a>
                                                                                     ;           +$01 inwards  to <span class="ts">T22</span>,
                                                                                     ;           -$FF outwards to <span class="ts">T00</span>.
-33ED:00             036 <a class="d" name="VALCA3">VALCA3      </a>DFB 0           ; AA BYTE3                      ; [32] *<a class="mem" href="_33ED">wastes</a>* 1 byte *sarcasm* <i>I <b>really</b> don't know what we</i>
-33EE:00             037 <a class="d" name="VALCA4">VALCA4      </a>DFB 0           ; AA BYTE4                      ; [33] *<a class="mem" href="_33EE">wastes</a>* 1 byte   <i>would do without you Captain Obvious!</i>
+33ED:00             036 <a class="d" name="VALCA3">VALCA3      </a>DFB 0           ; AA BYTE3                      ; [32] <a class='mem' name='_33ED'>wastes</a> 1 byte *sarcasm* <i>I <b>really</b> don't know what we</i>
+33EE:00             037 <a class="d" name="VALCA4">VALCA4      </a>DFB 0           ; AA BYTE4                      ; [33] <a class='mem' href='_33EE'>wastes</a> 1 byte   <i>would do without you Captain Obvious!</i>
 33EF:23             038 <a class="d" name="VNOTRK">VNOTRK      </a>DFB 35          ; NO TRACKS ON VOL              ; [34] *note* "No" = Number; To format more then 35 tracks:
                                                                                     ;      $<span class='n'>AEFE</span>:## ($3EFE), See: <a class="file" href="#FORMATR">FORMATR</a>, Line #<a class='line' href='#FORMATR.054'>054</a>
 33F0:10             039 <a class="d" name="VNOSEC">VNOSEC      </a>DFB 16          ; NO SECTORS PER TRACK          ; [35]          Evidence that one day DOS 3.4+ might support:
@@ -4354,7 +4359,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                                                                                     ;         VALCA2
                                                                                     ;       a total of <b>3 bytes</b> out of 56!
                                                                                     ;       That is ~5% usage!?!?
-                                                                                    ;*<a class="mem" name="_33F3">wastes</a>* 70 bytes (35 tracks * 2) due to allocating 32 sectors/track!
+                                                                                    ; <a class='mem' name='_33F3'>wastes</a> 70 bytes (35 tracks * 2) due to allocating 32 sectors/track!
                     043 ;SECTORS ALLOCATED BY BIT MAP                               ;struct TrackBitmap {   //    Bits =   MSB.LSB
                     044 ;4 BYTES OF BITS PER TRACK                                  ;    uint8_t _f_8;      //[0] Sectors: FEDCBA98    0=Used
                     045 ;LEFT MOST BIT REPRESENTS SECTOR                            ;    uint8_t _7_0;      //[1] Sectors: 76543210    1=Free
@@ -4369,7 +4374,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 33F3:00 00 FF FF    050            ORG VTOC+256                                     ; [38]=T00 See <a class="dumb" href="#HNTDAFS3">HNTDAFS #3</a>; Why not simply <span class="macro">DS 256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>,0</span> ???
 33F7:00 00 FF FF                                                                    ; [3C]=T01                 Uninitialized memory is <b>never</b> a good idea
 33FB:00 00 FF FF                                                                    ; [40]=T02 See <a class="dumb" href="#HNTDAFS4">HNTDAFS #4</a>
-33FF:FF FF FF FF                                                                    ; [44]=T03 === <b class="ts">T2$3</b> === *<a class="mem" name="_3400">wastes</a>* <i>an <b>entire</b> sector for a <b>single</b> byte!?</i>
+33FF:FF FF FF FF                                                                    ; [44]=T03 === <b class="ts">T2$3</b> === <a class='mem' name='_3400'>wastes</a> <i>an <b>entire</b> sector for a <b>single</b> byte!?</i>
 3403:FF FF FF FF                                                                    ; [48]=T04 The real kicker? <a class="d" href="#VDTCDE">VDTCDE</a> <i>isn't even <b>bloody</b> used!</i> *<a class="dumb" href="http://i.imgur.com/iWKad22.jpg">facepalm</a>*
 3407:FF FF FF FF                                                                    ; [4C]=T05 Since we're wasting disk space anyways,
 340B:FF FF FF FF                                                                    ; [50]=T06 let's waste $C8 bytes (256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>)
@@ -4407,7 +4412,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 348B:FF FF FF FF                                                                    ; [D0]=T26 (Extra 39th track)
 348F:FF FF FF FF                                                                    ; [D4]=T27 (Extra 40th track)
 3493:FF FF FF FF                                                                    ; [D8]=T28
-3497:FF FF FF FF                                                                    ; [DC]=T29 *<a class="mem" name="_3497">wastes</a>* 40 bytes [$D8..$FF] = $28
+3497:FF FF FF FF                                                                    ; [DC]=T29 <a class='mem' name='_3497'>wastes</a> 40 bytes [$D8..$FF] = $28
 349B:FF FF FF FF                                                                    ; [E0]=T2A          *note* Tracks 41+ are not accessible
 349F:FF FF FF FF                                                                    ; [E4]=T2B                 on any drive that I know of.
 34A3:FF FF FF FF                                                                    ; [E8]=T2C                 That's not to say that they <i>don't</i>
@@ -4420,7 +4425,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     052 ;VOLUME DIRECTORY AREA                                      ; === CATALOG ===
                     053 ;                                                           ; <b class="ts">T11SF</b>
 <hr>                    054 <a class="d" name="VOLDIR"   >VOLDIR      </a>EQU *           ;                               ; === Page <a class="page" name="page87">87</a> ===
-34BB:02             055 <a class="d" name="VDTCDE"   >VDTCDE      </a>DFB 2           ; VOLUME DIRECTORY TYPE CODE    ; [00] *<a class="mem" name="_34BB">wastes</a>* 1 byte -- not even referenced!
+34BB:02             055 <a class="d" name="VDTCDE"   >VDTCDE      </a>DFB 2           ; VOLUME DIRECTORY TYPE CODE    ; [00] <a class='mem' name='_34BB'>wastes</a> 1 byte -- not even referenced!
                                                                                     ; *<b class="magic">magic number</b>* /sarcasm If only FILESYSTEM_TYPE_CATALOG = $2
                     056 <a class="d" name="VDLTRK"   >VDLTRK      </a>DS 1            ; VD LINK TRACK                 ; [01]
                     057 <a class="d" name="VDLSEC"   >VDLSEC      </a>DS 1            ; VD LINK SECTOR                ; [02]
@@ -4434,7 +4439,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     065 ;  FILE USE CODE                                            ;     uint8_t  type
                     066 ;  FILE NAME         (30)                                   ;     char     name[30]
                     067 ;  FILE SECTOR COUNT (2)                                    ;     uint16_t num_sectors
-34BC:00 00 00 00    068             ORG VOLDIR+256                                  ; *<a class="mem" name="_34BC">wastes</a>* 256 bytes of disk space *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>* 
+34BC:00 00 00 00    068             ORG VOLDIR+256                                  ; <a class='mem' name='_34BC'>wastes</a> 256 bytes of disk space *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>* 
 34C0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 34D0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 34E0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
@@ -4568,7 +4573,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     173 ;
 35F0:00             174 <a class="d" name="DCBALS"     >DCBALS      </a> DS 1           ; ALLOCATION SECTOR BYTE
 35F1:00             175 <a class="d" name="DCBATK"     >DCBFUC      </a> DS 1           ; ALLOCATION TRACK
-35F2:00 00 00 00    176 <a class="d" name="DCBABM"     >DCBABM      </a> DS 4           ; ALLOCATION TRACK SECTOR BIT MAP   ; *<a class="mem" href="_35F2">wastes</a> 2 bytes, See <a class="x" href="#FS3">FS3</a> and Line #<a class='line' href='#FLOCSEC.184'>184</a>
+35F2:00 00 00 00    176 <a class="d" name="DCBABM"     >DCBABM      </a> DS 4           ; ALLOCATION TRACK SECTOR BIT MAP   ; <a class='mem' name='_35F2'>wastes</a> 2 bytes, See <a class="x" href="#FS3">FS3</a> and Line #<a class='line' href='#FLOCSEC.184'>184</a>
                     177 ;
 35F6:00             178 <a class="d" name="DCBFUC"     >DCBFUC      </a> DS 1           ; FILE USE CODE
 35F7:00             179 <a class="d" name="DCBSLT"     >DCBSLT      </a> DS 1           ; SLOT NUMBER
@@ -7007,13 +7012,13 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3FD3:8D 00 E0       025             STA $<span class='n'>E000</span>                                       ; *<b class="magic">magic number</b>* *sigh* Forces Language Card to reload
                     026     DO <a class="do" href="#DOS33B">DOS33B</a>
 3FD6:20 76 3A       027             JSR <a class="x" href="#OFF80" >OFF80</a>                                       
-3FD9:4C 44 37       <a class='line' name='DOSPTCH.028'>028</a>             JMP <a class="x" href="#RCBACK">RCBACK</a>                                      ; *wastes* 2 bytes Why not RTS ???
+3FD9:4C 44 37       <a class='line' name='DOSPTCH.028'>028</a>             JMP <a class="x" href="#RCBACK">RCBACK</a>                                      ; <a class='mem' name='_3FDA'>wastes</a> 2 bytes Why not RTS ???
                     029     ELSE<span class="macro">
                     030         JMP RCBACK                                          
                     031         DS  3,0                                             </span>
                     032     FIN
                     033 *****************************
-3FDC:8D 63 2A       034 <a class="f" name="CLRBYTE"    >CLRBYTE     </a>STA <a class="v" href="#TEMP1A">TEMP1A</a>                                      ; <span class="todo">TODO</span> called from <a class="x" href="#SOPTS">SOPTS</a>, Page <a class="page" hre="#page18">18</a>, Line <a class='line' href='#CMDSCAN.176'>176</a>
+3FDC:8D 63 2A       034 <a class="f" name="CLRBYTE"    >CLRBYTE     </a>STA <a class="v" href="#TEMP1A">TEMP1A</a>                                      ; Called from <a class="x" href="#SOPTS">SOPTS</a>, Page <a class="page" hre="#page18">18</a>, Line <a class='line' href='#CMDSCAN.176'>176</a>
 3FDF:8D 70 2A       035             STA <a class="v" href="#CB">CB</a>          ;SET TYPE PARAM DEFAUTL=0       ; *spelling* DEFAULT
 3FE2:8D 71 2A       036             STA <a class="v" href="#CB">CB</a>+1
 3FE5:60             037             RTS
@@ -8268,31 +8273,57 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 </pre>
 
 
-<h1>Wasted Memory</h1>
+<h1><a name="WastedMemory"></a>Wasted Memory</h1>
 <p>
-I've annotated <a class="mem">*wastes*</a> locations in the listing where memory is wasted.
+I've annotated <a class='mem'>*wastes*</a> locations in the listing where memory is wasted.
 <p>
 <div style="padding-left:5%">
     <font style="font-family: monospace;">
         <table border="1" style="border-width: 1px; border-collapse: collapse">
-            <tr><td>T/S </td><td>Range         </td><td>File                                       </td> <td>Func/Var                                </td>  <td>Line #                                     </td> <td align="right">Bytes</td><td>Description                                                            </td></tr>
+            <tr><td>T/S </td><td>Range         </td><td>File                                       </td> <td>Func/Var                                </td>  <td>Line                                       </td> <td align="right">Bytes</td><td>Description                                                            </td></tr>
             <tr><td>T0S0</td><td>$36B3..$36FD  </td><td><a class="file" href="#BOOTLDR">BOOTLDR</a></td> <td>n/a                                     </td>  <td></td> <td align="right">   75</td><td><a class="d" href="#"           >     </a>  Padding for boot sector    </td></tr>
             <tr><td>T0S1</td><td>$37FF         </td><td><a class="file" href="#BOOTLDR">BOOTLDR</a></td> <td>n/a                                     </td>  <td></td> <td align="right">    1</td><td><a class="d" href="#"           >     </a>  Unused slack at end        </td></tr>
             <tr><td>T0S3</td><td>$FD..$FF      </td><td><a class="file" href="#MSWAITR">MSWAITR</a></td> <td>n/a                                     </td>  <td></td> <td align="right">    3</td><td>Line #<a class='line' href='#MSWAITR.030'>30</a> page align <a class="x" href="#MSWAIT" >MSWAIT </a></td></tr>
             <tr><td>T0S6</td><td>$00..$55      </td><td><a class="file" href="#MSWAITR">MSWAITR</a></td> <td><a class="v" href="#NBUF2"  >NBUF2  </a></td>  <td></td> <td align="right">   86</td><td>While we need <i>run-time</i> memory for NBUF2 there is need to waste <i>disk</i> space.<br>Data should always be AFTER code</td></tr>
-            <tr><td>T0S9</td><td>$DA..$DB      </td><td><a class="file" href="#DOSPTCH">DOSPTCH</a></td> <td><a class="x" href="#RCPATCH">RCPATCH</a></td>  <td><a class='line' href='#DOSPTCH.028'>028</a></td> <td align="right">    2</td><td>, (JMP <a class="x" href="#RCBACK">RCBACK</a> instead of RTS</td></tr>
-            <tr><td>T0SA</td><td>$1B49 .. $1B49</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td> <td><a class="x" href="#DR2A"   >DR2A   </a></td>  <td><a class='line' href='#RELOCTR.151'>151</a></td> <td align="right">    1</td><td>Since <a class="v"    href="#ZPGFCB">ZPGFCB</a> can never point to page 0 we can switch the order of 
-<br>From: LDY ZPGFCB+1
+            <tr><td>T0S9</td><td>$<a class='n' href='#_3FDA'>3FDA</a> .. $3FDB</td><td><a class="file" href="#DOSPTCH">DOSPTCH</a></td> <td><a class="x" href="#RCPATCH">RCPATCH</a></td>  <td><a class='line' href='#DOSPTCH.028'>028</a></td> <td align="right">    2</td><td>JMP <a class="x" href="#RCBACK">RCBACK</a> instead of RTS</td></tr>
+            <tr><td>T0SA</td><td>$<a class='n' href='#_1B49'>1B49</a> .. $1B49</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td> <td><a class="x" href="#DR2A"   >DR2A   </a></td>  <td><a class='line' href='#RELOCTR.153'>153</a></td> <td align="right">    1</td><td><a class="v"    href="#ZPGFCB">ZPGFCB</a> can never point to page 0. We can switch the order:
+<br>From:
+<br>&nbsp; &nbsp; &nbsp; LDY ZPGFCB+1
 <br>&nbsp; &nbsp; &nbsp; PLA
 <br>&nbsp; &nbsp; &nbsp; JMP DR2C
-<br>To..: PLA
+<br>To:
+<br>&nbsp; &nbsp; &nbsp; PLA
 <br>&nbsp; &nbsp; &nbsp; LDY ZPGFCB+1
-<br>&nbsp; &nbsp; &nbsp; BNE DR2C</tr></td>
-            <tr><td>T0SB</td><td>$1B7D .. $1B7D</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td> <td><a class="x" href='#DR3'   >DR3   </a> </td> <td><a class='line' name='DOSINIT.103'>003</a> </td> <td align='right'>    1</td><td>LDA followed by <a class="x" href="#_1B7D">useless TAY</a>, when LDY would suffice</td></tr>
-            <tr><td>T0SB</td><td>$<a class="n" href="#_1B83">1B83</a> .. $1B83</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td> <td><a class="x" href='#DR3'   >DR3   </a> </td> <td></td> <td align='right'>    1</td><td>LDA followed by <a class="x" href="#_1B7D">useless TAY</a>, when LDY would suffice</td></tr>
-            <tr><td>T0SB</td><td>$<a class="n" href="#_1C81">1C81</a> .. $1CFF</td><td><a class="file" href="#DOSINIT">RELOCTR</a></td> <td>                                       </td> <td></td> <td align="right">  127</td><td><a class="d" href="#"           >     </a></td></tr>
-            <tr><td>T0SC</td><td>$<a class="n" href='#_1D78'>1D78</a> .. $1D  </td><td><a class="file" href="#DOSINIT">DOSINIT</a></td> <td><a class="v" href="#AS2VT" >AS2VT </a> </td> <td></td> <td align="right">   10</td><td><a class="d" href="#_1D78" >Applesoft in RAM vector table </a></td></tr>
-            <tr><td>T2S2</td><td>$33BB .. $33BB</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td>                                       </td> <td></td> <td align="right">    1</td><td>Unused <a class="v" href="#_33BB">sector type 4</a> = VTOC</a></td></tr>
+<br>&nbsp; &nbsp; &nbsp; BNE DR2C
+</td></tr>
+            <tr><td>T0SB</td><td>$<a class='n' href='#_1B7D'>1B7D</a> .. $1B7D</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td> <td><a class="x" href='#DR3'   >DR3   </a> </td> <td><a class='line' href='#RELOCTR.181'>181</a></td> <td align='right'>    1</td><td>Useless TAY when LDY would suffice
+<br>From:
+<br>&nbsp; &nbsp; &nbsp; LDA ADRTAB+1,X
+<br>&nbsp; &nbsp; &nbsp; TAY
+<br>To:
+</td></tr>
+            <tr><td>T0SB</td><td>$<a class="n" href='#_1B83'>1B83</a> .. $1B83</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td> <td><a class="x" href='#DR3'   >DR3   </a> </td> <td><a class='line' href='#RELOCTR.184'>184</a></td> <td align='right'>    1</td><td>Start Address in ADRTAB is never on page 0; Change Absolute JMP to BNE:
+<br>From:
+<br>&nbsp; &nbsp; &nbsp; JMP DR5
+<br>To:
+<br>&nbsp; &nbsp; &nbsp; BNE DR5
+</td></tr>
+            <tr><td>T0SB</td><td>$<a class='n' href='#_1C12'>1C12</a> .. $1C12</td><td><a class='file' href='#RELOCTR'>RELOCTR</a></td> <td><a class='x' href='#DR9'   >DR9   </a> </td> <td><a class='line' href='#RELOCTR.273'>273</a></td> <td align='right'>    1</td><td>Useless TAY when LDY and STY would suffice
+<br>From:
+<br>&nbsp; &nbsp; &nbsp; LDA #0
+<br>&nbsp; &nbsp; &nbsp; STA ZPGWRK
+<br>&nbsp; &nbsp; &nbsp; STA ZPGFCB
+<br>&nbsp; &nbsp; &nbsp; TAY
+<br>To:
+<br>&nbsp; &nbsp; &nbsp; LDY #0
+<br>&nbsp; &nbsp; &nbsp; STY ZPGWRK
+<br>&nbsp; &nbsp; &nbsp; STY ZPGFCB
+</td</tr>
+            <tr><td>T0SB</td><td>$<a class='n' href='#_1C4D'>1C4D</a> .. $1C58</td><td><a class="file" href="#RELOCTR">RELOCTR</a></td> <td><a class='v' href='#ADRTAB'>ADRTAB</a> </td> <td><a class='line' href='#RELOCTR.306'>306</a></td> <td align="right">   11</td><td>Unreferenced data after <a class='v' href='#ADRTAB'>ADRTAB</a> </td></tr>
+            <tr><td>T0SB</td><td>$<a class='n' href='#_1C81'>1C81</a> .. $1CFF</td><td><a class="file" href="#DOSINIT">DOSINIT</a></td> <td><a class='v' href='#START' >START </a> </td> <td><a class='line' href='#DOSINIT.003'>003</a></td> <td align="right">  127</td><td>Padding so <a class='v' href='#START'>START</a> is aligned on a new memory page
+<br>Technically, only 82 bytes.  See note at address.</td></tr>
+            <tr><td>T0SC</td><td>$<a class='n' href='#_1D78'>1D78</a> .. $1D83</td><td><a class="file" href="#DOSINIT">DOSINIT</a></td> <td><a class="v" href="#AS2VT" >AS2VT </a> </td> <td><a class='line' href='#DOSINIT.103'>103</a></td> <td align="right">   10</td><td>Dead data: <a class='v' href="#_1D78" >Applesoft in RAM vector table </a></td></tr>
+            <tr><td>T2S2</td><td>$<a class='n' href='#_33BB'>33BB</a> .. $33BB</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td>                                       </td> <td><a class="line" href="#FVCBUFS.023">023</a></td> <td align="right">    1</td><td>Unused <a class="v" href="#_33BB">sector type 4</a> = VTOC</a></td></tr>
             <tr><td>T2S2</td><td>$33A0 .. $33A3</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td><a class="v" href="#_33A0" >ALC10S</a> </td> <td></td> <td align="right">    4</td><td>32 sectors/track allocation bitmap mask                       </td></tr>
             <tr><td>T2S2</td><td>$33BF .. $33BF</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td>n/a                                    </td> <td></td> <td align="right">    1</td><td>VTOC <a class="v" href="#_33BF" >spare</a> shenanigans        </td></tr>
             <tr><td>T2S2</td><td>$33C0 .. $33C0</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td>n/a                                    </td> <td></td> <td align="right">    1</td><td>VTOC <a class="v" href="#_33C0" >spare</a> shenanigans        </td></tr>
@@ -8309,7 +8340,211 @@ I've annotated <a class="mem">*wastes*</a> locations in the listing where memory
 </div>
 <p>
 
-<h1>Wasted Sectors</h1>
+<h1><a name="WastedDisk"></a>Wasted Disk Space</h1>
+<p>
+There are <i>two</i> types of <b>data</b> that reside in both memory and on disk:
+<p>
+<ul>
+<li>initialized, and</li>
+<li>uninitialized.</li>
+</ul>
+<p>
+There is no need store the <i>uninitialized</i> ones on disk IF they are placed after code.
+ (<b>Note</b>: This may cause slightly more code, say copying a block of data that has both initialized and uninitialized parts,
+ since the initialized and uninitialized data will no longer be <i>contiguous</i>.
+ Usually uninitialized data are "large", say &gt; 16 bytes, such as an array or buffer.)
+ Even the EDASM manual states on Page 45 (my emphasis added):
+<div class='indent5'>
+<pre>
+This means that if you accidently enter a DS with an expression that
+comes up with a value of, say 48K bytes, you will suddenly get a very
+large output file. The expression is most often used as a relatively
+small constant, for small data areas, since <span class="todo">large buffers and work</span>
+<span class="todo">areas should <b>not</b> be part of an object</span> program, (<i>unless of course you
+have disk space burning a hole in your diskette).</i>
+</pre>
+</div>
+Apparently the authors of DOS 3.3 never got the memo -- see the section <a href="#WastedSectors">Wasted Sectors</a> below.
+<p>
+For example, <b>DOS does dumb shit like this</b>: Interleaving code and data bloating the program stored on disk.
+<p><b>Example 1:</b>
+<div class='indent5'>
+<pre>
+            ORG $2000
+WRK         EQU $40
+COUT        EQU $FDED
+PRNTYX      EQU $F940
+
+; --- begin code ---
+MAIN        EQU *           ;=12 $2000
+            JSR FUNC1       ;  +3
+            JSR FUNC2       ;  +3
+            LDY #&gt;END       ;  +2 hi byte of addr
+            LDX #&lt;END       ;  +2 lo byte of addr
+            JMP PRNTYX      ;  +2
+
+; Pade to end of page to page align BUF1
+; $200D .. $20FF = wasted bytes when clearly have room for FUNC1 and FUNC2
+HEREL       EQU &lt;*          ; lo byte ca65, merlin; EDASM &gt;*
+REMDR       EQU 256-HEREL   ; pad to end of page
+            ORG *+REMDR
+                            ;   $2100
+BUF1        DS  256,0       ;+256 initialized
+
+FNAME       EQU *           ;   $2200
+FNAME1      ASC "HELLO_________________________" ; +30 filename
+FNAME1LEN   EQU *-FNAME
+
+FUNC1       EQU *           ;=14 $221E
+            LDX #0          ;  +2
+PUTCHAR
+            LDA FNAME,X     ;  +3
+            JSR COUT        ;  +3
+            INX             ;  +1
+            CPX #FNAME1LEN  ;  +2
+            BNE PUTCHAR     ;  +2
+            RTS             ;  +1
+
+FCB         EQU *           ;=4  $222C
+FCB_SLOT    DS 1            ;  +1
+FCB_DRIVE   DS 1            ;  +1
+FCB_TRACK   DS 1            ;  +1
+FCB_SECTOR  DS 1            ;  +1
+FCB_LEN     EQU *-FCB       ;
+
+FUNC2       EQU *           ;=7  $2230
+            LDA #6          ;  +2
+            STA FCB_SLOT    ;  +3
+            RTS             ;  +1
+
+VTOC        EQU *           ;    $2236 uninitialized
+            ORG VTOC+256    ;+256
+
+END         EQU *           ;=822 $2336 bytes on disk
+</pre>
+</div>
+<p>
+Which takes up a whopping total of 822 bytes ($336) in memory or (822 + 255)/256) = <b>4 sectors</b> on disk!
+<p>
+Instead if we grouped all the code first, followed by all initialized data, and then all uninitialized data at the end "pre-allocating" them we will use significantly less disk space.
+<p>
+The only thing left to do is to add short "<i>zero uninitialized data</i>" stub at the beginning of our programs.
+<p>
+<b>Example 2:</b>
+<div class='indent5'>
+<pre>
+            ORG $2000
+WRK         EQU $40
+COUT        EQU $FDED
+PRNTYX      EQU $F940
+
+; --- begin zero uninitialized data (similiar to init bss) ---
+; Zero memory from DATA_START .. DATA_END
+; in 2 stages:
+;
+;     DATA_START       .. page of DATA_END
+;     page of DATA_END .. DATA_END
+;
+; +---------------+-------------+
+; | 00 ..      00 | 00 ..    00 |
+; +---------------+-------------|
+; ^               ^             ^
+; DATA_START      DataEndPage   DATA_END
+; $2100           $2400         $2403
+;
+INIT                            ;=33 $2000
+            LDY #&lt;DATA_START    ; +2 lo byte of addr: ca65, merlin; EDASM #&gt;
+            LDX #&gt;DATA_START    ; +2 hi byte of addr: ca65, merlin; EDASM #&lt;
+            STY WRK+0           ; +2
+            STX WRK+1           ; +2
+            LDA #0              ; +2
+CHECK_PAGE
+            LDX WRK+1           ; +2
+            CPX #&gt;DATA_END      ; +2 hi byte of addr
+            BCS CHECK_PART      ; +2 src &gt;= end ?
+CLEAR_PAGE
+            STA (WRK),Y         ; +2
+            INY                 ; +1
+            BNE CLEAR_PAGE      ; +2
+            INC WRK+1           ; +2
+            BNE CHECK_PAGE      ; +2
+
+; Zero from start of memory page of DATA_END .. DATA_END
+CHECK_PART
+            LDX #&lt;DATA_END      ; +2 lo byte of addr; ca65, merlin; EDASM #&gt;
+CLEAR_PART
+            STA (WRK),Y         ; +2
+            INY                 ; +1
+            DEX                 ; +1
+            BNE CLEAR_PART      ; +2
+; --- end clear stub ---        ;Sub-Total 33 bytes header code
+
+; --- begin code ---
+MAIN        EQU *           ;=12 $2021
+            JSR FUNC1       ;  +3
+            JSR FUNC2       ;  +3
+            LDY #&gt;END       ;  +2 hi byte of addr
+            LDX #&lt;END       ;  +2 lo byte of addr
+            JMP PRNTYX      ;  +2
+
+FUNC1       EQU *           ;=14 $202E
+            LDX #0          ;  +2
+PUTCHAR
+            LDA FNAME,X     ;  +3
+            JSR COUT        ;  +3
+            INX             ;  +1
+            CPX #FNAME1LEN  ;  +2
+            BNE PUTCHAR     ;  +2
+            RTS             ;  +1
+
+FUNC2       EQU *           ;=6
+            LDA #6          ;  +2
+            STA FCB_SLOT    ;  +3
+            RTS             ;  +1
+;--- end code ---           ;Sub-Total 27 bytes program code
+
+; All data grouped together
+; There are 2 types of data:
+;    initialized
+;    uninitialized
+; Only the initialized data needs to be stored on disk
+
+; --- begin data --- Initialized data
+FNAME       EQU *           ;=30 $2042
+FNAME1      ASC "HELLO_________________________" ; +30 filename
+FNAME1LEN   EQU *-FNAME
+
+FCB         EQU *           ; $2060
+FCB_SLOT    DS 1
+FCB_DRIVE   DS 1
+FCB_TRACK   DS 1
+FCB_SECTOR  DS 1
+FCB_LEN     EQU *-FCB
+; --- end data ---
+END         EQU *           ; $2064
+
+; Pad to end of page to page align BUF1
+HEREL       EQU &lt;*          ; lo byte ca65, merlin; EDASM &gt;*
+REMDR       EQU 256-HEREL   ; pad to end of page
+            ORG *+REMDR
+
+; === begin data === Uninitialized data
+DATA_START  EQU *
+BUF1        EQU *           ; $2100
+            ORG *+256
+
+VTOC        EQU *           ; $2200
+            ORG *+256
+
+DATA_END    EQU *           ; $2300
+; === end data ===
+</pre>
+</div>
+
+In contradistinction to the previous example, our new code plus initialized data only takes up 100 bytes ($64) in memory; This is only <b>1 sector</b> on disk <i>even though it uses the same Total run-time memory data bytes as Example 1 !</i>
+<p>
+
+<h1><a name="WastedSectors"></a>Wasted Sectors</h1>
 <p>
 <b>Legend</b>: Track/Sector, Range on memory page, Source File, Bytes, Description, Link
 </p>
