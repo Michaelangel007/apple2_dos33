@@ -522,31 +522,31 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B83:4C 93 1B       <a class='line' name='RELOCTR.184'>184</a>             JMP DR5                                         ; <a class='mem' name='_1B83'>wastes</a> 1 byte instead of BNE; skip low address ptr
                     185 ;                                                           ; See software was bloated in the "good ol' days" too. :-(
                     186 <a class="f" name="DR4"         >DR4         </a>EQU *
-                    187             CLC
-                    188             LDA (ZPGWRK),Y
-                    189             ADC DELTA
-                    190             STA (ZPGWRK),Y
-                    191             INY                                             ; Line #<a class='line' href='#RELOCTR.203'>203</a>
-                    192             BNE DR5
-                    193             INC ZPGWRK+1
-####:C8             194 <a class="f" name="DR5"         >DR5         </a>INY
-                    195             BNE DR6
-                    196             INC ZPGWRK+1
+1B86:18             187             CLC
+1B87:B1 40          188             LDA (ZPGWRK),Y
+1B89:6D 7F 1C       189             ADC DELTA
+1B8C:91 40          190             STA (ZPGWRK),Y
+1B8E:C8             191             INY                                             ; Line #<a class='line' href='#RELOCTR.203'>203</a>
+1B8F:D) 02          192             BNE DR5
+1B91:E6 41          193             INC ZPGWRK+1
+1B93:C8             194 <a class="f" name="DR5"         >DR5         </a>INY
+1B94:D0 02          195             BNE DR6
+1B96:E6 41          196             INC ZPGWRK+1
                     197 ;
                     198 <a class="f" name="DR6"         >DR6         </a>EQU *
-                    199             LDA ZPGWRK+1
-                    200             CMP ADRTAB+4,X                                  ; [EndHi]
-                    201             BCC DR4
-                    202             TYA
-                    <a class='line' name='RELOCTR.203'>203</a>             CMP ADRTAB+3,X                                  ; [EndLo]
-                    204             BCC DR4
+1B98:A5 41          199             LDA ZPGWRK+1
+1B9A:DD 2C 1C       200             CMP ADRTAB+4,X                                  ; [EndHi]
+1B9D:90 E7          201             BCC DR4
+1B9F:98             202             TYA
+1BA0:DD 2B 1C       <a class='line' name='RELOCTR.203'>203</a>             CMP ADRTAB+3,X                                  ; [EndLo]
+1BA3:90 E1          204             BCC DR4
                     205 ;
-                    206             TXA
-                    207             CLC
-                    208             ADC #4
-                    209             TAX
-                    210             CPX ADRTAB                                      ; Done all bytes?
-                    211             BCC DR3
+1BA5:8A             206             TXA
+1BA6:18             207             CLC
+1BA7:69 04          208             ADC #4                                          ; 4 bytes per entry: {StartAdr,EndAdr}
+1BA9:AA             209             TAX
+1BAA:EC 28 1C       210             CPX ADRTAB                                      ; Done all bytes?
+1BAD:90 CB          211             BCC DR3
                     212             PAGE
                     213 ;
                     214 ;RELOCATE CODE
