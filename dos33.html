@@ -658,7 +658,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C29:00 1D          288             DW  <a class="v" href="#SAT1"  >SAT1   </a>                                     ; [0] Start Address Table 1 in <a class="x" href="#DOSINIT">DOSINIT</a>
 1C2B:56 1D          289             DW  <a class="v" href="#EAT1"  >EAT1   </a>                                     ;     End   Address Table 1
                                                                                     ;     <a class='mem' name='_1C2D'>wastes</a> 10 bytes (5 entries) due to non-contiguous memory
-                                                                                    ;     $1D56, $1D57 = <a class='d' href='#CHAIN' >CHAIN</a>
+                                                                                    ;     $1D56, $1D57 = <a class='v' href='#CHAIN' >CHAIN</a>
                                                                                     ;     Solution would be to add our own stub of 3 bytes
                                                                                     ;         DOS_CHAIN_IB: JMP $E836
                                                                                     ;     Allowing us to remove 4 bytes from the table: end[0], start[1]
