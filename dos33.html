@@ -177,6 +177,10 @@ span.page {
 span.patch {
     background-color:#EEC; /* faded yellow */
 }
+.toc { /* Table of Contents */
+    list-style: none;
+    margin-bottom: 0px;
+}
 .todo {
     background-color:#FF0; /* yellow */
 }
@@ -221,23 +225,27 @@ span.patch {
 <h1>Apple DOS 3.3C Source Code (HTML Version)</h1>
 
 <h1>0.0 Table of Contents</h1>
-<div class="indent2">
-    <table>
-        <tr><td>1.0 Introduction                                </td></tr>
-        <tr><td>2.0 Assembly Source Code                        </td></tr>
-        <tr><td>3.0 Symbols                                     </td></tr>
-        <tr><td> &nbsp; 3.1 Symbols (Alphabetical)              </td></tr>
-        <tr><td> &nbsp; 3.2 Symbols (Address)                   </td></tr>
-        <tr><td>2.0 Miscellaneous Information                   </td></tr>
-        <tr><td> &nbsp; 2.1 Waste                               </td></tr>
-        <tr><td> &nbsp; 2.2 Color-Coded Memory by Source File   </td></tr>
-        <tr><td>3.0 Waste                                       </td></tr>
-        <tr><td> &nbsp; 3.1 Wasted Memory                       </td></tr>
-        <tr><td> &nbsp; 3.2 Wasted Disk Space                   </td></tr>
-        <tr><td> &nbsp; 3.3 Wasted Sectors                      </td></tr>
-        <tr><td>4.0 Acknolwedgements                            </td></tr>
-    </table>
-</div>
+    <ul class="toc">
+        <li>1.0 Introduction                                </li>
+        <li>2.0 Assembly Source Code                        </li>
+        <li>3.0 Symbols                                     </li>
+        <ul class="toc">
+            <li>3.1 Symbols (Alphabetical)              </li>
+            <li>3.2 Symbols (Address)                   </li>
+        </ul>
+        <li>2.0 Miscellaneous Information           </li>
+        <ul class="toc">
+            <li>2.1 Waste                               </li>
+            <li>2.2 Color-Coded Memory by Source File   </li>
+        </ul>
+        <li>3.0 Waste                               </li>
+        <ul class="toc">
+            <li>3.1 Wasted Memory                       </li>
+            <li>3.2 Wasted Disk Space                   </li>
+            <li>3.3 Wasted Sectors                      </li>
+        </ul>
+        <li>4.0 Acknolwedgements                    </li>
+    </ul>
 <p>
 
 <h1>1.0 Introduction</h1>
