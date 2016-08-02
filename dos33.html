@@ -2937,7 +2937,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2AC5:BB 34          057 <a class="d" name="AVOLDR">AVOLDR      </a>DW <a class="v" href="#VOLDIR"  >VOLDIR</a>       ; 7-ADR VOLDIR
 2AC7:00 40          058 <a class="d" name="AEND"  >AEND        </a>DW <a class="v" href="#ENDOFDOS">ENDOFDOS</a>     ;END OF DOS
                     059 ;                                                           ; File Manager
-2AC9:7E 33          060 CMDVT       DW GOODIO-1     ; 0-NULL                        ; [0] <a class='mem' name='_2AC9'>wastes</a> 2 bytes
+2AC9:7E 33          060 <a class='d' name='CMDVT'>CMDVT       </a>DW GOODIO-1     ; 0-NULL                        ; [0] <a class='mem' name='_2AC9'>wastes</a> 2 bytes
 2ACB:21 2B          061             DW FOPEN-1      ; 1-OPEN FILE                   ; [1]
 2ACD:05 2C          062             DW FCLOSE-1     ; 2-CLOSE FILE                  ; [2]
 2ACF:57 2C          063             DW FREAD-1      ; 3-READ DATA                   ; [3]
