@@ -845,9 +845,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     057             PAGE
                     058 ;                                                           ; *note* Annotating [-] to mean <i>addresss is not relocated</i> in <a class='v' href='#ADRTAB'>ADRTAB</a>
                     059 ;NON-RELOCATING ADRS
-                    060 ;                                                           ; Using a,b,c,d,e,f for abbreviated field names in IBASVT
+                    060 ;                                                           ; Using <b>a</b>,b,c,d,e,f for abbreviated field names in IBASVT
                     061 <a class='d' name='IBASVT'>IBASVT      </a>EQU *                                           ; <i>ACTIVE</i> table but <a class='mem' name='_1D56'>waste</a> disk space (12 bytes @ $56) storing it!
-1D56:36 E8          062 <a class='d' name='CHAIN' >CHAIN       </a>DW <a class='x' href='#IBCHN' >IBCHN </a>                                       ;a[-] Really? Forces <i>another</i> table entry [1] in <a class='v' href='#ADRTAB'>ADRTAB</a>
+1D56:36 E8          062 <a class='d' name='CHAIN' >CHAIN       </a>DW <a class='x' href='#IBCHN' >IBCHN </a>                                       ;<b>a</b>[-] Really? Forces <i>another</i> table entry [1] in <a class='v' href='#ADRTAB'>ADRTAB</a>
 1D58:E5 24          063 <a class='d' name='RUN'   >RUN         </a>DW <a class='x' href='#IBRUN' >IBRUN </a>                                       ;b[<a class='line' href='#RELOCTR.290'>1</a>] Repeat after me: You **group**
 1D5A:E3 E3          064 <a class='d' name='BREAK' >BREAK       </a>DW <a class='x' href='#IBBRK' >IBBRK </a>                                       ;c[-]     CONST data together THEN
 1D5C:00 E0          065 <a class='d' name='GO'    >GO          </a>DW <a class='x' href='#IBGO'  >IBGO  </a>                                       ;d[-]     VARIABLE data together
@@ -857,14 +857,14 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                                                                                     ; Intentionally adding an empty line as a spacer to improve readability *<b>shock</b>*
                                                                                     ;
                                                                                     ; *<span class='note'>note</span>* IBVT, AS1VT, and AS2VT are Read-Only (after being relocated to high mem.)
-1D62:36 E8          068 <a class='d' name='IBVT'     >IBVT        </a>DW <a class='x' href='#IBCHN'>IBCHN</a>                                        ;a[-] Integer Basic Vector Table
+1D62:36 E8          068 <a class='d' name='IBVT'     >IBVT        </a>DW <a class='x' href='#IBCHN'>IBCHN</a>                                        ;<b>a</b>[-] Integer Basic Vector Table
 1D64:E5 24          069             DW <a class='x' href='#IBRUN' >IBRUN </a>                                       ;b[<a class='line' href='#RELOCTR.292'>2</a>]
 1D66:E3 E3          070             DW <a class='x' href='#IBBRK' >IBBRK </a>                                       ;c[-]
 1D68:00 E0          071             DW <a class='x' href='#IBGO'  >IBGO  </a>                                       ;d[-]
 1D6A:03 E0          072             DW <a class='x' href='#IBCONT'>IBCONT</a>                                       ;e[-]
                     073 <a class='d' name='IBVTL'    >IBVTL       </a>EQU *-<a class='v' href='#IBVT'>IBVT</a>                                      ; Length = $A bytes so we don't over-write ASEQ
                     074 ;                                                           ;     /sarcasm Because it is obvious
-1D6C:FC 24          075 <a class="d" name="AS1VT"    >AS1VT       </a>DW <a class='x' href='#ASRUN1'>ASRUN1</a>                                       ;a[<a class='line' href='#RELOCTR.294'>3</a>]   1 = ROM, and
+1D6C:FC 24          075 <a class="d" name="AS1VT"    >AS1VT       </a>DW <a class='x' href='#ASRUN1'>ASRUN1</a>                                       ;<b>a</b>[<a class='line' href='#RELOCTR.294'>3</a>]   1 = ROM, and
 1D6E:FC 24          076             DW <a class='x' href='#ASRUN1' >ASRUN1 </a>                                      ;b[3]   2 = RAM, right?
 1D70:65 D8          077             DW <a class='x' href='#ASBRK1' >ASBRK1 </a>                                      ;c[-]   ASCNTU1 (Continue) <a href='http://www.txbobsc.com/scsc/scdocumentor/D365.html'>S-C DocuMentor $D365</a>
 1D72:00 E0          078             DW <a class='x' href='#IBGO'   >IBGO   </a>                                      ;d[-]   ASRSEQ1 (ResetQ???)
@@ -872,7 +872,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1D76:F2 D4          080             DW <a class='x' href='#ASRSEQ1'>ASRSEQ1</a>                                      ;f[-] Applesoft <a href='http://jamtronix.com/files/applesoft.html#FIX.LINKS'>FIX.LINKS</a>
                     081 <a class="d" name="AS1VTL"   >AS1VTL      </a>EQU *-<a class='v' href='#AS1VT'>AS1VT</a>
                     082 ;                                                           ; Copied into <a class="v" href="#IBASVT">IBASVT</a> via INIT_AS_RAM, oh wait, <a class='x' href='#INITC'>INITC</a>
-1D78:06 25          083 <a class="d" name="AS2VT"    >AS2VT       </a>DW <a class="x" href="#ASRUN2">ASRUN2</a>                                       ;a[<a class='line' href='#RELOCTR.296'>4</a>] <a class='mem' name='_1D78'>wastes</a> 12 bytes on Apple ][+ or newer
+1D78:06 25          083 <a class="d" name="AS2VT"    >AS2VT       </a>DW <a class="x" href="#ASRUN2">ASRUN2</a>                                       ;<b>a</b>[<a class='line' href='#RELOCTR.296'>4</a>] <a class='mem' name='_1D78'>wastes</a> 12 bytes on Apple ][+ or newer
 1D7A:06 25          084             DW <a class="x" href="#ASRUN2" >ASRUN2 </a>                                      ;b[4] Type 2: AppleSoft in RAM Vector Table (early Apple 1 or ][ ???)
 1D7C:67 10          085             DW <a class="x" href="#ASBRK2" >ASBRK2 </a>                                      ;c[-]
 1D7E:84 1D          086             DW <a class="x" href="#DBINIT" >DBINIT </a>                                      ;d   [<a class='line' href='#RELOCTR.298'>5</a>]
