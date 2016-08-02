@@ -828,7 +828,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1D74:3C D4          079             DW <a class='x' href='#ASCNTU1'>ASCNTU1</a>                                      ; [-] Why not IBCONT??? $E003: JMP $D43C ; Applesoft (Warm) <a href='http://jamtronix.com/files/applesoft.html#RESTART'  >RESTART</a> 
 1D76:F2 D4          080             DW <a class='x' href='#ASRSEQ1'>ASRSEQ1</a>                                      ; [-] Applesoft <a href='http://jamtronix.com/files/applesoft.html#FIX.LINKS'>FIX.LINKS</a>
                     081 <a class="d" name="AS1VTL"   >AS1VTL      </a>EQU *-<a class='v' href='#AS1VT'>AS1VT</a>
-                    082 ;                                                           ; Copied into <a class="v" href="#IBASVT">IBASVT</a> via INIT_AS_RAM, oh wait, <a class="x" href=#"INITC">INITC</a> 
+                    082 ;                                                           ; Copied into <a class="v" href="#IBASVT">IBASVT</a> via INIT_AS_RAM, oh wait, <a class='x' href='#INITC'>INITC</a>
 1D78:06 25          083 <a class="d" name="AS2VT"    >AS2VT       </a>DW <a class="x" href="#ASRUN2">ASRUN2</a>                                       ; [<a class='line' href='#RELOCTR.296'>4</a>] <a class='mem' name='_1D78'>wastes</a> 12 bytes on Apple ][+ or newer
 1D7A:06 25          084             DW <a class="x" href="#ASRUN2" >ASRUN2 </a>                                      ; [4] Type 2: AppleSoft in RAM Vector Table (early Apple 1 or ][ ???)
 1D7C:67 10          085             DW <a class="x" href="#ASBRK2" >ASBRK2 </a>                                      ; [-]
