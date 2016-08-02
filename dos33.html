@@ -994,7 +994,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     202 
                     203 
                     204 IFB         EQU *                                           ; --- Copied to $3D0 ---
-1E51:4C BF 1D       205 DBVECT      JMP DBRST                                       ; $3D0: DOS Warm RESET JMP $9BF
+1E51:4C BF 1D       205 <a class='f' name='DBVECT'>DBVECT      </a>JMP DBRST                                       ; $3D0: DOS Warm RESET JMP $9BF
 1E54:4C 84 1D       206             JMP DBINIT                                      : $3D3: DOS Cold RESET JMP $9D84
 1E57:4C FD 2A       207             JMP <a class='x' href='#USERENT'>USERENT</a> ;USER EXTERNAL ENTRY TO FILE MANAGER; $3D6: File Manager   JMP $AAFD
 1E5A:4C B5 37       208             JMP DISKIO                                      ; $3D9
@@ -2981,7 +2981,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     101 ;  CARRY SET = ERROR
                     102 ;
                     103 SC2         EQU *
-2AFD:E0 00          104 USERENT     CPX #0          ;IF X=0 THEN FILE CREATED IF NOT
+2AFD:E0 00          104 <a class='f' name='USERENT'>USERENT     </a>CPX #<span class='n'>0</span>          ;IF X=0 THEN FILE CREATED IF NOT
 2AFF:F0 02          105             BEQ USRCR       ; FOUND. NOTE: FILE NOT FOUND ERROR STILL IS RETURNED ; === <b class="ts">T1SA</b> ===
 2B01:A2 02          106             LDX #2          ;INDICATE NO CREATE ALLOWED
 2B03:8E 5F 2A       107 USRCR       STX CMDNO       ;SET UP FOR CREATE CAPIBILITY   ; *spelling* CAPABILITY /sarcasm Is that like our potential to be cap'd or knock'd off??
