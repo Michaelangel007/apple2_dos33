@@ -359,8 +359,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     017             INCLUDE <a class="_c09 file" href="#CMDTBLS">CMDTBLS</a>,,2  ; $2884 .. $2A4E, T1S7 - T1S9
                     018             INCLUDE <a class="_c10 file" href="#FDOSENT">FDOSENT</a>,,2  ; $2A4F .. $????, T1S9 - ?
                     019             INCLUDE <a class="_c11 file" href="#FOPCLRW">FOPCLRW</a>,,2  ;       .. $2CEE,      - T1SB
-                    020             INCLUDE <a class="_c20 file" href="#FDELCAT">FDELCAT</a>,,2  ; $2CEF .. $????, T1SB - T1SC
-                    021             INCLUDE <a class="_c21 file" href="#FMTRWIO">FMTRWIO</a>,,2  ;       .. $2FF6,      - T1SE
+                    020             INCLUDE <a class="_c20 file" href="#FDELCAT">FDELCAT</a>,,2  ; $2CEF .. $2E8D, T1SB - T1SD
+                    021             INCLUDE <a class="_c21 file" href="#FMTRWIO">FMTRWIO</a>,,2  ; $2E8E .. $2FF6, T1SD - T1SE
                     022             INCLUDE <a class="_c22 file" href="#FLOCNXB">FLOCNXB</a>,,2  ; $2FF7 .. $31C8, T1SE - T2S0
                     023             INCLUDE <a class="_c23 file" href="#FLOCSEC">FLOCSEC</a>,,2  ; $31C9 .. $3396, T2S0 - T2S2
                     024             INCLUDE <a class="_c24 file" href="#FVCBUFS">FVCBUFS</a>,,2  ; $3397 .. $35FD, T2S2 - T2S4
@@ -3291,7 +3291,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     286 
 
 
-<hr>; === <a class="file" name="FDELCAT">FDELCAT</a> - Delete, Catalog, Page <a class="page" name="page55">55</a>, <b class="ts">T1SB</b> @ $EF - <b class="ts">T1SC</b>, $<span class='n'>ACEF</span> .. $<span class='n'>A???</span>===<hr>
+<hr>; === <a class="file" name="FDELCAT">FDELCAT</a> - Delete, Catalog, Page <a class="page" name="page55">55</a>, <b class="ts">T1SB</b> @ $EF - <b class="ts">T1SD</b>, $<span class='n'>ACEF</span> .. $<span class='n'>A???</span>===<hr>
                     001             PAGE
                     002 ;
                     003 * FLOCK - LOCK A FILE
@@ -3515,44 +3515,44 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     221 
                     222 
                     223 
-                    224 
-                    225 
-                    226 
-                    227 
-                    228 
-                    229 
-                    230 
-                    231 
-                    232 
-                    233 
-                    234 
-                    235 
-                    236 
-                    237 
-                    238 
-                    239 
-                    240 
-                    241 
-                    242 
-                    243 
-                    244 
-                    245 
-                    246 
-                    247 
-                    248 
-                    249 
+                    224 CLCFCB      EQU *                                           ; /sarcasm Oh I see, CLC_FB is clearer then COPY_FCB
+                    225 ;
+2E6A:20 08 2F       226             JSR MVFCBP      ; MOVE FCB PTR TO ZP
+2E6D:A0 00          227             LDY #0
+2E6F:8C C5 35       228             STY CCBSTA
+2E72:B1 42          229 CF3         LDA (ZPGFCB),Y  ; MOVE FCB TO
+2E74:99 D1 35       230             STA FCB,Y       ; FCB WORK AREA
+2E77:C8             231             INY
+2E78:C0 2D          232             CPY #FCBLEN
+2E7A:D0 F6          233             BNE CF3
+                    234 ;
+2E7C:18             235             CLC
+2E7D:60             236             RTS
+                    237 ;
+                    238 * RTNFCB - MOVE FCB FROM WORK AREA TO FCB
+                    239 ;
+                    240 RTNFCB      EQU *
+2E7E:20 08 2F       241             JSR MVFCBP      ; MOVE FCB ADR TO ZPG
+                    242 ;
+<hr>2E81:A0 00          243         LDY #<span class='n'>0</span>                                              ; === Page <a class='page' name='page59'>59</a> ===
+2E83:B9 D1 35       244 RF1         LDA FCB,Y
+2E86:91 42          245             STA (ZPGFCB),Y
+2E88:C8             246             INY
+2E89:C0 2D          247             CPY #FCBLEN
+2E8B:D0 F6          248             BNE RF1
+2E8D:60             249             RTS
 
 
-<hr>; === <a class="file" name="FMTRWIO">FMTRWIO</a> - Execute Format Request, Page <a class="page" name="page73">73</a>, <b class="ts">T?$?</b> - <b class="ts">T1SE</b>, $<span class='n'>####</span> .. $<span class='n'>AFF6</span> ===<hr>
+<hr>; === <a class="file" name="FMTRWIO">FMTRWIO</a> - Execute Format Request, Page <a class="page" name="page73">73</a>, <b class="ts">T1SD</b> - <b class="ts">T1SE</b>, $<span class='n'>AE8E</span> .. $<span class='n'>AFF6</span> ===<hr>
                     001             PAGE
                     002 ;
                     003 * FFMT - Execute Format Request
                     004 ;
                     005 <a class="f" name="FFMT"       id="FFMT"       >FFMT        </a>EQU *
-                    006 
-                    007 
-                    008 
-                    009 
+2E8E:20 DC 2B       006             JSR DCBSUP      ; SET UP DCB
+2E91:A9 04          007             LDA #IBFMT
+2E93:20 58 30       008             JSR DCBIO2
+2E96:AD F9 35       009             LDA DCBVOL
                     010 
                     011 
                     012 
@@ -7144,8 +7144,8 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
  <span class="c09" href="#CMDTBLS">CMDTBLS</span> ; $2884 .. $2A4E, T1S7 - T1S9
  <span class="c10" href="#FDOSENT">FDOSENT</span> ; $2A4F .. $    , T1S9 - ?
  <span class="c11" href="#FOPCLRW">FOPCLRW</span> ;
- <span class="c20" href="#FDELCAT">FDELCAT</span> ; $2CEF .. $????, T1SB - ?
- <span class="c21" href="#FMTRWIO">FMTRWIO</span> ;       .. $2FF6,      - T1SE
+ <span class="c20" href="#FDELCAT">FDELCAT</span> ; $2CEF .. $2E8D, T1SB - T1SD
+ <span class="c21" href="#FMTRWIO">FMTRWIO</span> ; $2E8E .. $2FF6, T1SD - T1SE
  <span class="c22" href="#FLOCNXB">FLOCNXB</span> ; $2FF7 .. $31C8, T1SE - T2S0
  <span class="c23" href="#FLOCSEC">FLOCSEC</span> ; $31C9 .. $3396, T2S0 - T2S2
  <span class="c24" href="#FVCBUFS">FVCBUFS</span> ; $3397 .. $35FD, T2S2 - T2S4
