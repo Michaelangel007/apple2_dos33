@@ -2958,7 +2958,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2AE9:95 2C          078             DW RNXBLK-1
 2AEB:86 2C          079             DW RSPBYT-1
 2AED:92 2C          080             DW RSPBLK-1
-2AEF:7E 33          081             DW GOODIO-1                                     ; <span class="todo">TODO</span> Off-by-1 bug ??
+2AEF:7E 33          081             DW GOODIO-1                                     ; <a class='mem' name'_2AEF'>wastes</a> 2 bytes off-by-1 allocation, see <a class='v' href='#CRMMAX'>CRMMAX</a>, <a class='x' href='#FREAD'>FREAD</a>
                     082 ;
                     083 WVT         EQU *
 2AF1:7E 33          084             DW GOODIO-1                                     ; *sigh* stop, please stop
