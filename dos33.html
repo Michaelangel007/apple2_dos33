@@ -993,29 +993,29 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     201 
                     202 
                     203 
-                    204 
-                    205 
-                    206 
-                    207 
-                    208 
-                    209 
-                    210 
-                    211 
-                    212 
-                    213 
-                    214 
-                    215 
-                    216 
-                    217 
-                    218 
-                    219 
-                    220 
-                    221 
-                    222 
-                    223 
-                    224 
-                    225 
-                    226 
+                    204 IFB         EQU *                                           ; --- Copied to $3D0 ---
+1E51:4C BF 1D       205 DBVECT      JMP DBRST                                       ; $3D0: DOS Warm RESET JMP $9BF
+1E54:4C 84 1D       206             JMP DBINIT                                      : $3D3: DOS Cold RESET JMP $9D84
+1E57:4C FD 2A       207             JMP <a class='x' href='#USERENT'>USERENT</a> ;USER EXTERNAL ENTRY TO FILE MANAGER; $3D6: File Manager   JMP $AAFD
+1E5A:4C B5 37       208             JMP DISKIO                                      ; $3D9
+                    209 CCBLDR      EQU *                                           ; $3DC GetFCB
+1E5D:AD 0F 1D       210             LDA CCBADR+1
+1E60:AC 0E 1D       211             LDY CCBADR
+1E63:60             212             RTS
+                    213 IOBLDR      EQU *                                           ; $3E3
+1E64:AD C2 2A       214             LDA AIOB+1
+1E67:AC C1 2A       215             LDY AIOB
+1E6A:60             216             RTS
+1E6B:4C 51 28       217             JMP MVCSW                                       ; $3EA <span class="TODO">TODO</span> Who call us???
+1E6E:EA             218             NOP
+1E6F:EA             219             NOP
+1E70:4C 59 FA       220             JMP MONBRK                                      ; $3EF
+1E73:4C 65 FF       221             JMP MONRST                                      ; $3F2 Control-Reset JMP $9DBF
+1E76:4C 58 FF       222             JMP IORTS                                       ; $3F5: JMP $FF58
+1E79:4C 65 FF       223             JMP MONRST                                      ; $3F8: JMP $FF65
+1E7C:4C 65 FF       224             JMP MONRST                                      ; $3FB: JMP $FF65
+1E7F:65 FF          225             DW MONRST                                       ; $3FE: dw  $FF65
+                    226 IFBL        EQU *-IFB-1
 
 
 <hr>; === <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Page <a class="page" name="page44">44</a>, <b class="ts">T0SD</b> - <b class="ts">T0SE</b>, $<span class='n'>9E81</span> .. $<span class='n'>9FCC</span> ===<hr>
