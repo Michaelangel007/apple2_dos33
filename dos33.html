@@ -2930,79 +2930,79 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     050             PAGE
                     051 ;
                     052 ; DOS ADR TABLES (RELOCATED)
-<hr>                    053 ;
-                    054 <a class="d" name="SAT2"  >SAT2        </a>EQU *                                           ; Start Address Table
+<hr>                    053 ;                                                           ; === Page <a class='page' name='page61'>61</a>
+                    054 <a class="d" name="SAT2"  >SAT2        </a>EQU *                                           ; Start Address Table; Gee, we couldn't have put this at $1D00 to save 4 bytes in ADRTAB?!
 2AC1:E8 37          055 <a class="d" name="AIOB"  >AIOB        </a>DW <a class="v" href="#IOB"     >IOB</a>          ; 5-ADR IOB                     ; What happened to 1 .. 4 ??? At RVT, WVT ?
 2AC3:BB 33          056 <a class="d" name="AVTOC" >AVTOC       </a>DW <a class="v" href="#VTOC"    >VTOC</a>         ; 6-ADR VTOC
 2AC5:BB 34          057 <a class="d" name="AVOLDR">AVOLDR      </a>DW <a class="v" href="#VOLDIR"  >VOLDIR</a>       ; 7-ADR VOLDIR
 2AC7:00 40          058 <a class="d" name="AEND"  >AEND        </a>DW <a class="v" href="#ENDOFDOS">ENDOFDOS</a>     ;END OF DOS
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
+                    059 ;                                                           ; File Manager
+2AC9:7E 33          060 CMDVT       DW GOODIO-1     ; 0-NULL                        ; [0] <a class='mem' name='_2AC9'>wastes</a> 2 bytes
+2ACB:21 2B          061             DW FOPEN-1      ; 1-OPEN FILE                   ; [1]
+2ACD:05 2C          062             DW FCLOSE-1     ; 2-CLOSE FILE                  ; [2]
+2ACF:57 2C          063             DW FREAD-1      ; 3-READ DATA                   ; [3]
+2AD1:6F 2C          064             DW FWRITE-1     ; 4-WRITE DATA                  ; [4]
+2AD3:2A 2D          065             DW FDEL-1       ; 5-DELETE FILE                 ; [5]
+2AD5:97 2D          066             DW RDIR-1       ; 6-READ DIRECTORY              ; [6] /sarcasm Yay for consistent naming: FDIR
+2AD7:EE 2C          067             DW FLOCK-1      ; 7-LOCK A FILE                 ; [7]
+2AD9:F5 2C          068             DW FUNLCK-1     ; 8-UNLOCK A FILE               ; [8]
+2ADB:39 2C          069             DW FRNME-1      ; 9-RENAME                      ; [9]
+2ADC:11 2D          070             DW FPOSTN-1     ; 10-POSITION A FILE            ; [A]
+2ADE:8D 2E          071             DW FFMT-1       ; FORMAT                        ; [B]
+2AE1:17 2D          072             DW FVAR-1       ; VARIFY                        ; [C] *spelling* VERIFY !
+2AE3:7E 33          073             DW GOODIO-1     ; 11-SPARE                      ; [D] <a class='mem' name='_2AE3'>wastes</a> 2 bytes; Uh, calling 13 "eleven" doesn't make it so. 
+                    074 ;                                                           ;     *sigh Off bye one allocation
+                    075 RVT         EQU *                                           ; <a class='x' href='#USERNT'>USERENT</a> calls <a class='x' href='#FREAD'>FREAD</a>
+2AE5:7E 33          076             DW GOODIO-1                                     ; <a class='mem' name='_2AE5'>wastes</a> 2 bytes; See <a class='v' href='CRMNUL'>CRMNUL</a>
+2AE7:89 2C          077             DW RNXBYT-1
+2AE9:95 2C          078             DW RNXBLK-1
+2AEB:86 2C          079             DW RSPBYT-1
+2AED:92 2C          080             DW RSPBLK-1
+2AEF:7E 33          081             DW GOODIO-1                                     ; <span class="todo">TODO</span> Off-by-1 bug ??
+                    082 ;
+                    083 WVT         EQU *
+2AF1:7E 33          084             DW GOODIO-1                                     ; *sigh* stop, please stop
+2AF3:BD 2C          085             DW WNXBYT-1
+2AF5:C9 2C          086             DW WNXBLK-1
+2AF7:BA 2C          087             DW WSPBYT-1
+2AF9:C6 2C          088             DW WSPBLK-1
+2AFB:7E 33          089             DW GOODIO-1
+                    090 <a class='d' name='EAT2'>EAT2        </a>EQU *
+                    091             PAGE
+                    092 ;
+                    093 ; USERENT - DOS EXTERNAL ENTRY POINT (USER ENTRY)
+                    094 ; ENTRY PARM:
+                    095 ;  A= HIGH ADDRESS OF CCB
+                    096 ;  Y= LOW ADDRESS OF CCB
+                    097 ;  X= 0 IF CREATE DESIRED
+                    098 ;  X&gt; 0 IF CREATE NOT DESIRED
+                    099 ; EXIT PARM:
+                    100 ;  CARRY CLEAR = OPERATION OK
+                    101 ;  CARRY SET = ERROR
+                    102 ;
+                    103 SC2         EQU *
+2AFD:E0 00          104 USERENT     CPX #0          ;IF X=0 THEN FILE CREATED IF NOT
+2AFF:F0 02          105             BEQ USRCR       ; FOUND. NOTE: FILE NOT FOUND ERROR STILL IS RETURNED ; === <b class="ts">T1SA</b> ===
+2B01:A2 02          106             LDX #2          ;INDICATE NO CREATE ALLOWED
+2B03:8E 5F 2A       107 USRCR       STX CMDNO       ;SET UP FOR CREATE CAPIBILITY   ; *spelling* CAPABILITY /sarcasm Is that like our potential to be cap'd or knock'd off??
+                    108 DOSENT      EQU *
+2B06:BA             109             TSX
+2B07:8E 9B 33       110             STX ENTSTK
+2B0A:20 6A 2E       111             JSR CLCFCB      ; GO CALCULATE FCB
+2B0D:AD BB 35       112             LDA CCBREQ      ; GET REQUEST
+2B10:C9 0D          113             CMP #CRQMAX     ; TTEST REQ RANGE               ; /sarcasm South Park: Jimmy: A-a-n-d you still have an off-by-one bug allocation in array <a class='v' href='#CMDVT'>CMDVT</a>!
+2B12:B0 0B          114             BCS ERR2
+2B14:0A             115             ASL A
+2B15:AA             116             TAX
+2B16:BD CA 2A       117             LDA CMDVT+1,X
+2B19:48             118             PHA
+2B1A:BD C9 2A       119             LDA CMDVT,X
+2B1D:48             120             PHA
+2B1E:60             121 DENRTS      RTS
+2B1F:4C 63 33       122 ERR2        JMP ERROR2
 
 
-<hr>; === <a class="file" name="FOPCLRW">FOPCLRW</a> - Open; Close; Rename; Read, Page <a class="page" name="page77">77</a>, <b class="ts">T?$?</b>, $<span class='n'>####</span> ===<hr>
+<hr>; === <a class="file" name="FOPCLRW">FOPCLRW</a> - Open; Close; Rename; Read, Page <a class="page" name="page77">77</a>, <b class="ts">T1S?</b>, $<span class='n'>2B22</span> ($AB22) ===<hr>
                     001             PAGE
                     002 ;
                     003 ; FOPEN - OPEN A FILE
