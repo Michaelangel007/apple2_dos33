@@ -357,8 +357,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     015             INCLUDE <a class="_c07 file" href="#DOSGOER">DOSGOER</a>,,2  ; $26A8 .. $27D3, T1S5 - T1S6
                     016             INCLUDE <a class="_c08 file" href="#BLDFTAB">BLDFTAB</a>,,2  ; $27D4 .. $2883, T1S6 - T1S7
                     017             INCLUDE <a class="_c09 file" href="#CMDTBLS">CMDTBLS</a>,,2  ; $2884 .. $2A4E, T1S7 - T1S9
-                    018             INCLUDE <a class="_c10 file" href="#FDOSENT">FDOSENT</a>,,2  ; $2A4F .. $????, T1S9 - ?
-                    019             INCLUDE <a class="_c11 file" href="#FOPCLRW">FOPCLRW</a>,,2  ;       .. $2CEE,      - T1SB
+                    018             INCLUDE <a class="_c10 file" href="#FDOSENT">FDOSENT</a>,,2  ; $2A4F .. $2B21, T1S9 - T1SA
+                    019             INCLUDE <a class="_c11 file" href="#FOPCLRW">FOPCLRW</a>,,2  ; $2B22 .. $2CEE, T1SA - T1SB
                     020             INCLUDE <a class="_c20 file" href="#FDELCAT">FDELCAT</a>,,2  ; $2CEF .. $2E8D, T1SB - T1SD
                     021             INCLUDE <a class="_c21 file" href="#FMTRWIO">FMTRWIO</a>,,2  ; $2E8E .. $2FF6, T1SD - T1SE
                     022             INCLUDE <a class="_c22 file" href="#FLOCNXB">FLOCNXB</a>,,2  ; $2FF7 .. $31C8, T1SE - T2S0
@@ -3002,15 +3002,15 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2B1F:4C 63 33       122 ERR2        JMP ERROR2
 
 
-<hr>; === <a class="file" name="FOPCLRW">FOPCLRW</a> - Open; Close; Rename; Read, Page <a class="page" name="page77">77</a>, <b class="ts">T1S?</b>, $<span class='n'>2B22</span> ($AB22) ===<hr>
+<hr>; === <a class="file" name="FOPCLRW">FOPCLRW</a> - Open; Close; Rename; Read, Page <a class="page" name="page77">77</a>, <b class="ts">T1SA</b> - <b class="ts">T1SB</b>, $<span class='n'>2B22</span> ($AB22) ===<hr>
                     001             PAGE
                     002 ;
                     003 ; FOPEN - OPEN A FILE
                     004 ;
                     005 <a class="f" name="FOPEN"      id="FOPEN"      >FOPEN       </a>EQU *
-                    006 
-                    007 
-                    008 
+2B22:20 28 2B       006             JSR DOPEN
+2B24:20 7F 33       007             JMP GOODIO
+                    008 ;
                     009 
                     010 
                     011 
@@ -7142,8 +7142,8 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
  <span class="c07" href="#DOSGOER">DOSGOER</span> ; $26A8 .. $27D3, T1S5 - T1S6
  <span class="c08" href="#BLDFTAB">BLDFTAB</span> ; $27D4 .. $2883, T1S6 - T1S7
  <span class="c09" href="#CMDTBLS">CMDTBLS</span> ; $2884 .. $2A4E, T1S7 - T1S9
- <span class="c10" href="#FDOSENT">FDOSENT</span> ; $2A4F .. $    , T1S9 - ?
- <span class="c11" href="#FOPCLRW">FOPCLRW</span> ;
+ <span class="c10" href="#FDOSENT">FDOSENT</span> ; $2A4F .. $2B21, T1S9 - T1SA
+ <span class="c11" href="#FOPCLRW">FOPCLRW</span> ; $2B22 .. $2CEE, T1SA - T1SB
  <span class="c20" href="#FDELCAT">FDELCAT</span> ; $2CEF .. $2E8D, T1SB - T1SD
  <span class="c21" href="#FMTRWIO">FMTRWIO</span> ; $2E8E .. $2FF6, T1SD - T1SE
  <span class="c22" href="#FLOCNXB">FLOCNXB</span> ; $2FF7 .. $31C8, T1SE - T2S0
