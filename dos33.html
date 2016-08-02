@@ -305,7 +305,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     006 <a class="do" name="DOS33B" >DOS33B      </a>EQU  1
                     007 <a class="do" name="ULC"    >ULC         </a>EQU  0              ; Unofficial commentary
                     008             INCLUDE <a class="_c00 file" href="#RELOCTR">RELOCTR</a>,,2  ; $1B00 .. $1CFF, T0SA - T0SB
-                    009             INCLUDE <a class="_c01 file" href="#DOSINIT">DOSINIT</a>,,2  ; $1D00 .. $1E80, T0SC - T0SD
+                    009             INCLUDE <a class="_c01 file" href="#DOSINIT">DOSINIT</a>,,2  ; $1D00 .. $1E80, T0SB - T0SD
                     010             INCLUDE <a class="_c02 file" href="#DOSHOOK">DOSHOOK</a>,,2  ; $1E81 .. $1FCC, T0SD - T0SE
                     011             INCLUDE <a class="_c03 file" href="#CMDSCAN">CMDSCAN</a>,,2  ; $1FCD .. $2192, T0SE - T1S0
                     012             INCLUDE <a class="_c04 file" href="#XOPNCLS">XOPNCLS</a>,,2  ; $2193 .. $2330, T1S0 - T1S2
@@ -711,7 +711,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     337             PAGE
 
 
-<hr>; === <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <b class="ts">T0SC</b>, $<span class='n'>9D00</span> .. $<span class='n'>9E80</span> ===<hr>
+<hr>; === <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <b class="ts">T0SB</b>, $<span class='n'>9D00</span> .. $<span class='n'>9E80</span> ===<hr>
                     001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*
                     002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>
 1C81:00 00 00       <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; <a class='mem' name='_1C81'>wastes</a> 127 bytes padding to end of sector
@@ -751,7 +751,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     006 ;
                     007 <a class="d" name="START"      >START       </a>EQU *
                     008 <a class="d" name="SAT1"       >SAT1        </a>EQU *                                           ; Start Address Table 1 of relocation
-1D00:D3 1C          009 <a class="d" name="FTAB"       >FTAB        </a>DW *-45                                         ; = $1CD3; Really? Couldn't do <span class="macro">FTAB DS 45, 0</span>
+1D00:D3 1C          009 <a class="d" name="FTAB"       >FTAB        </a>DW *-45                                         ; === <b class="ts">T0SC</b> === = $1CD3; Really? Couldn't do <span class="macro">FTAB DS 45, 0</span>
 1D02:81 1E          010 <a class="d" name="CINA"       >CINA        </a>DW <a class='x' href='#CHRIN' >CHRIN </a>
 1D04:BD 1E          011 <a class="d" name="COUTA"      >COUTA       </a>DW <a class='x' href='#CHROUT'>CHROUT</a>
 1D06:75 2A          012 <a class="d" name="FN1ADR"     >FN1ADR      </a>DW <a class='v' href='#FNAME1'>FNAME1</a>
@@ -7090,7 +7090,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 
 <pre>
  <span class="c00" href="#RELOCTR">RELOCTR</span> ; $1B00 .. $1CFF, T0SA - T0SB
- <span class="c01" href="#DOSINIT">DOSINIT</span> ; $1D00 .. $1E80, T0SC - T0SD
+ <span class="c01" href="#DOSINIT">DOSINIT</span> ; $1D00 .. $1E80, T0SB - T0SD
  <span class="c02" href="#DOSHOOK">DOSHOOK</span> ; $1E81 .. $1FCC, T0SD - T0SE
  <span class="c03" href="#CMDSCAN">CMDSCAN</span> ; $1FCD .. $2192, T0SE - T1S0
  <span class="c04" href="#XOPNCLS">XOPNCLS</span> ; $2193 .. $2330, T1S0 - T1S2
