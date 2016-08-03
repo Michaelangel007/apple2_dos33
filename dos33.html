@@ -2094,7 +2094,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     004 ;
                     005 EWRITE      EQU *
 2510:20 26 25       006             JSR RWPOSN      ; GO POSITION FILE IF REQD
-2513:A9 05          007             LDA #5                                          ; WTF is state 5 ?? Where is the state table transition spec.?
+2513:A9 05          007             LDA #5                                          ; WTF is state 5 ?? OK, <a class='x' href='#COS5'>COS5</a> And the state table transition is where again?
 2515:8D 52 2A       008             STA OSTATE      ; SET OSTATE=5                  ; /sarcasm <i>No Shit, Sherlock</i>
 2518:4C 83 1F       009             JMP CERTN
                     010 
