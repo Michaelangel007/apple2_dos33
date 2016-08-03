@@ -551,7 +551,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B66:AD 7A 1C       167             LDA <a class="v" href="#RSPAGE">RSPAGE</a>      ; RESET START PAGE TO NORMAL
 1B69:8D 0D 1D       168             STA <a class="v" href="#ASTART">ASTART</a>+1
                     169 ;
-1B6C:A9 1D          170             LDA #&lt;<a class="x" href="#DBINIT">DBINIT</a>    ; RESET PI RTN TO NORMAL        ; PI = ??? <span class="todo">TODO</span>
+1B6C:A9 1D          170             LDA #&lt;<a class="x" href="#DBINIT">DBINIT</a>    ; RESET PI RTN TO NORMAL        ; PI = Post Init; @ boot defaults to us, our relocator: <a class='x' href='#DOSREL'>DOSREL</a>
 1B6E:8D 49 37       171             STA <a class="x" href="#DI3">DI3</a>+2
 1B71:A9 84          172             LDA #&gt;<a class="x" href="#DBINIT">DBINIT</a>
 1B73:8D 48 37       173             STA <a class="x" href="#DI3">DI3</a>+1
