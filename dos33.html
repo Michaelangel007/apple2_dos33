@@ -44,6 +44,7 @@ a {
     color: #F0F; /* Should never see purple -- means link wasn't marked up propery */
     /* background-color:#F0F; */
 }
+
 /*
     There are 4 lights, er, links!
 
@@ -89,6 +90,13 @@ a.dumb { /* How Not To Design a File System (HNTDAFS) */
 }
 a.line { /* line number */
     color: #088; /* cyan */
+    text-decoration: none; /* remove underlink from data link */
+}
+a.link {
+    color: #08F; /* Baby Blue */
+}
+a.section {
+    color: #000;
     text-decoration: none; /* remove underlink from data link */
 }
 /* Link to Macro Definition */
@@ -229,29 +237,29 @@ span.patch {
 
 <h1>0.0 Table of Contents</h1>
     <ul class="toc">
-        <li>1.0 Introduction                                </li>
-        <li>2.0 Assembly Source Code                        </li>
-        <li>3.0 Symbols                                     </li>
+        <li>1.0 <a class='link' href='#Introduction'    >Introduction</a>                   </li>
+        <li>2.0 <a class='link' href='#Listing'         >Assembly Source Code Listing</a>   </li>
+        <li>3.0 <a class='link' href='#Symbols'         >Symbols</a>                        </li>
         <ul class="toc">
-            <li>3.1 Symbols (Alphabetical)              </li>
-            <li>3.2 Symbols (Address)                   </li>
+            <li>3.1 <a class='link' href='#Alphabetical'>Symbols (Alphabetical)</a>         </li>
+            <li>3.2 <a class='link' href='#Address'     >Symbols (Address)</a>              </li>
         </ul>
-        <li>2.0 Miscellaneous Information           </li>
+        <li>2.0 Miscellaneous Information               </li>
         <ul class="toc">
-            <li>2.1 Waste                               </li>
+            <li>2.1 Statistics                          </li>
             <li>2.2 Color-Coded Memory by Source File   </li>
         </ul>
-        <li>3.0 Waste                               </li>
+        <li>3.0 <a class='link' href='#Inefficiencies'  >Inefficiencies</a>                 </li>
         <ul class="toc">
-            <li>3.1 Wasted Memory                       </li>
+            <li>3.1 <a class='link' href='#WastedMemory'>Wasted Memory</a>                  </li>
             <li>3.2 Wasted Disk Space                   </li>
             <li>3.3 Wasted Sectors                      </li>
         </ul>
-        <li>4.0 Acknolwedgements                    </li>
+        <li>4.0 <a class='link' href='#Acknowledgements'>Acknowledgements</a>               </li>
     </ul>
 <p>
 
-<h1>1.0 Introduction</h1>
+<h1><a class='section' name='Introduction'>1.0 Introduction</a></h1>
 <br>Transcribed and Annotated by Michael Pohoreski.
 <br>Latest version on GitHub: <a href="http://htmlpreview.github.com/?https://github.com/Michaelangel007/apple2_dos33/blob/master/dos33.html">dos33.html</a>
 <p>
@@ -340,8 +348,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 </div>
 
 
+<h1><a class='section' name='Listing'>2.0 Assembly Source Code Listing</a></h1>
 <pre>
-
 ; === <b class="file">DOS33C</b> - Master Source File, Page <a class="page" name="page39">39</a> ===
                     001             SBTL "DOS3.3C w/APPEND fix, U/L case"
                     002             LST  ON,VSYM
@@ -7126,7 +7134,93 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 <hr><hr>
 </pre>
 
-<h1><a name='ColorMemory'></a>Color-Coded Memory by Source File</h1>
+<h1><a class='section' name='Symbols'     >3.0 Symbols</a></h1>
+<h2><a class='section' name='Alphabetical'>3.1 Symbols (Alphabetical)</a></h2>
+<pre>
+<h3>A</h3>
+    ASHM1       =   $73
+    ASHM2       =   $6F
+
+<h3>B</h3>
+
+<h3>C</h3>
+    COUT        =   $26
+
+<h3>D</h3>
+    DBVECT      = $1E51
+    DELTA       = $1C7F
+
+<h3>E</h3>
+    EC1         = $2884
+    EC2         = $3397
+    EC3         = $37E0
+    ERRORA      = $3F85
+    EWADR1      = $3CDF
+    EAT1        = $1D56
+
+<h3>F</h3>
+
+<h3>G</h3>
+
+<h3>H</h3>
+
+<h3>I</h3>
+    IBVT        = $1D62
+
+<h3>J</h3>
+
+<h3>K</h3>
+
+<h3>L</h3>
+
+<h3>M</h3>
+
+<h3>N</h3>
+    NEPAGE      = $1C7D
+
+<h3>O</h3>
+
+<h3>P</h3>
+    PRENIB16    = $B800
+
+<h3>Q</h3>
+
+<h3>R</h3>
+    RUN         = $1D58
+    RSPAGE      = $1C7A
+
+<h3>S</h3>
+    SAT1        = $1D00
+    SC1         = $1D84
+    SC2         = $2AFD
+    SC3         = $365D
+    SWADR1      = $3C56
+
+<h3>T</h3>
+
+<h3>U</h3>
+
+<h3>W</h3>
+
+<h3>X</h3>
+
+<h3>Y</h3>
+
+<h3>Z</h3>
+    ZPGFCB      =   $42
+    ZPGWRK      =   $40
+
+
+</pre>
+
+<h2><a class='section' name='Address'>3.2 Symbols (Address)</a></h2>
+
+<pre>
+</pre>
+
+
+
+<h1><a class='section' name='ColorMemory'>Color-Coded Memory by Source File</a></h1>
 <!--
     :%s/</\&lt;/g
     :%s/>/\&gt;/g
@@ -8354,8 +8448,13 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3FF8:<span class="c44">8E 9B 33 A9 09 4C 85 33</span> |..3).L.3|
 </pre>
 
+<a class='section' name='Waste'></a>
+<h1><a class='section' name='Inefficiencies'>3.0 Inefficiencies</a></h1>
+<p>
+There are several locations where memory and disk space are wasted.
+<p>
 
-<h1><a name="WastedMemory"></a>Wasted Memory</h1>
+<h2><a class='section' name='WastedMemory'>3.1 Wasted Memory</a></h2>
 <p>
 I've annotated <a class='mem'>*wastes*</a> locations in the listing where memory is wasted.
 <p>
@@ -8428,7 +8527,7 @@ I've annotated <a class='mem'>*wastes*</a> locations in the listing where memory
 </div>
 <p>
 
-<h1><a name="WastedDisk"></a>Wasted Disk Space</h1>
+<h2><a class='section' name='WastedDisk'>3.2 Wasted Disk Space</a></h2>
 <p>
 There are <i>two</i> types of <b>data</b> that reside in both memory and on disk:
 <p>
@@ -8649,7 +8748,8 @@ In contradistinction to the previous example, our new code plus initialized data
 </div>
 <p>
 
-<h1>Stats.</h1>
+<h1>Miscellaneous Information</a>
+<h2>Statistics</h2>
 <p>
 <table>
     <tr><td>Total Spelling mistakes:             </td><td>  5</td></tr> <!-- :%s/\*spelling\*//gn -->
@@ -8660,98 +8760,15 @@ In contradistinction to the previous example, our new code plus initialized data
 </table>
 <p>
 
-<h1>Symbols (Alphabetical)</h1>
-<pre>
-<h2>A</h2>
-    ASHM1       =   $73
-    ASHM2       =   $6F
-
-<h2>B</h2>
-
-<h2>C</h2>
-    COUT        =   $26
-
-<h2>D</h2>
-    DBVECT      = $1E51
-    DELTA       = $1C7F
-
-<h2>E</h2>
-    EC1         = $2884
-    EC2         = $3397
-    EC3         = $37E0
-    ERRORA      = $3F85
-    EWADR1      = $3CDF
-    EAT1        = $1D56
-
-<h2>F</h2>
-
-<h2>G</h2>
-
-<h2>H</h2>
-
-<h2>I</h2>
-    IBVT        = $1D62
-
-<h2>J</h2>
-
-<h2>K</h2>
-
-<h2>L</h2>
-
-<h2>M</h2>
-
-<h2>N</h2>
-    NEPAGE      = $1C7D
-
-<h2>O</h2>
-
-<h2>P</h2>
-    PRENIB16    = $B800
-
-<h2>Q</h2>
-
-<h2>R</h2>
-    RUN         = $1D58
-    RSPAGE      = $1C7A
-
-<h2>S</h2>
-    SAT1        = $1D00
-    SC1         = $1D84
-    SC2         = $2AFD
-    SC3         = $365D
-    SWADR1      = $3C56
-
-<h2>T</h2>
-
-<h2>U</h2>
-
-<h2>W</h2>
-
-<h2>X</h2>
-
-<h2>Y</h2>
-
-<h2>Z</h2>
-    ZPGFCB      =   $42
-    ZPGWRK      =   $40
-
-
-</pre>
-
-<h1>Symbols (Address)</h1>
-
-<pre>
-</pre>
-
-<h1>4.0 Acknolwedgements</h1>
+<h1><a class='section' name='Acknowledgements'>4.0 Acknowledgements</a></h1>
 <p>
-Special Thank-You to:
+A special Thank-You to:
 <ul>
     <li>Apple Computer, Inc., for releasing the DOS 3.3C Source Code</li>
-    <li>Brutal Deluxe for mirroring the DOS 3.3 PDF Source Code</li>
-    <li>Usenet: <a href="https://groups.google.com/forum/#!forum/comp.sys.apple2">comp.sys.apple2</a></li>
+    <li>Brutal Deluxe for mirroring the DOS 3.3 Source Code PDF</li>
+    <li>Usenet: <a class='link' href="https://groups.google.com/forum/#!forum/comp.sys.apple2">comp.sys.apple2</a></li>
     <li>Bob SanderCleff for his amazing Applesoft Disassembly</li>
-    <li><a href="http://jamtronix.com/files/applesoft.html">Jamtronix Applesoft Listing</a> -- Your clean HTML was a starting point for this HTML file!</li>
+    <li><a class='link' href="http://jamtronix.com/files/applesoft.html">Jamtronix Applesoft Listing</a> -- Your clean HTML was a starting point for this HTML file!</li>
 </ul>
 
 <p>
