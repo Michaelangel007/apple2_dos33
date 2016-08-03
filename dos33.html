@@ -237,25 +237,26 @@ span.patch {
 
 <h1>0.0 Table of Contents</h1>
     <ul class="toc">
-        <li>1.0 <a class='link' href='#Introduction'    >Introduction</a>                   </li>
-        <li>2.0 <a class='link' href='#Listing'         >Assembly Source Code Listing</a>   </li>
-        <li>3.0 <a class='link' href='#Symbols'         >Symbols</a>                        </li>
+        <li>1.0 <a class='link' href='#Introduction'       >Introduction</a>                   </li>
+        <li>2.0 <a class='link' href='#Listing'            >Assembly Source Code Listing</a>   </li>
+        <li>3.0 <a class='link' href='#Symbols'            >Symbols</a>                        </li>
         <ul class="toc">
-            <li>3.1 <a class='link' href='#Alphabetical'>Symbols (Alphabetical)</a>         </li>
-            <li>3.2 <a class='link' href='#Address'     >Symbols (Address)</a>              </li>
+            <li>3.1 <a class='link' href='#Alphabetical'   >Symbols (Alphabetical)</a>         </li>
+            <li>3.2 <a class='link' href='#Address'        >Symbols (Address)</a>              </li>
         </ul>
         <li>2.0 Miscellaneous Information               </li>
         <ul class="toc">
             <li>2.1 Statistics                          </li>
             <li>2.2 Color-Coded Memory by Source File   </li>
         </ul>
-        <li>3.0 <a class='link' href='#Inefficiencies'  >Inefficiencies</a>                 </li>
+        <li>3.0 <a class='link' href='#Inefficiencies'     >Inefficiencies</a>                 </li>
         <ul class="toc">
-            <li>3.1 <a class='link' href='#WastedMemory'>Wasted Memory</a>                  </li>
-            <li>3.2 Wasted Disk Space                   </li>
-            <li>3.3 Wasted Sectors                      </li>
+            <li>3.1 <a class='link' href='#WastedMemory'   >Wasted Memory</a>                  </li>
+            <li>3.2 <a class='link' href='#WastedDiskSpace'>Wasted Disk Space</a>              </li>
+            <li>3.3 <a class='link' href='#WastedSectors'  >Wasted Sectors</a>                 </li>
+            <li>3.4 <a class='link' href='#BufferBloat'    >Buffer Bloat</a>                   </li>
         </ul>
-        <li>4.0 <a class='link' href='#Acknowledgements'>Acknowledgements</a>               </li>
+        <li>4.0 <a class='link' href='#Acknowledgements'   >Acknowledgements</a>               </li>
     </ul>
 <p>
 
@@ -8747,6 +8748,116 @@ In contradistinction to the previous example, our new code plus initialized data
     </font>
 </div>
 <p>
+
+<h2><a class='section' name='BufferBloat'>3.4 Buffer Bloat</a></h2>
+<p>
+Why is DOS 3.3 so slow loading files when faster DOS's such as DiversiDOS, Pronto DOS, FastDOS, are able to load significantly faster?
+<p>
+When DOS has finished reading the raw disk nibbles into a buffer, it must "decode" the 342 nibbles into 256 bytes.
+ Then it must copy the sector back to the caller's address space.
+ This doesn't leave a whole lot of time.
+ While there is sector interleaving DOS to help alleviate the lack of time this it isn't enough due to excessing buffering.p
+ DOS has significant overhead where it copies data from/to 3 buffers.
+ In modern terminology this is known as <a class='link' href=''>buffer bloat</a>
+<p>
+Let's trace the BLOAD command to see what happens.
+<p>
+First, prepare a new blank disk that we'll use for testing.
+<p>
+<ul>
+    <li>1. Boot DOS 3.3</li>
+    <li>2. Eject the DOS 3.3 master from the drive</li>
+    <li>3. Insert a new blank disk</li>
+    <li>4. Initialize it and prepare a binary file</li>
+</ul>
+<pre>
+<span class='macro'>
+    NEW                                  
+    1 ? CHR$(4);"CATALOG"                
+    2 END                                
+    3 HGR                                
+    4 FOR C=0 TO 7                       
+    5 HCOLOR=C:X=C*14:Z=(C+1)*14-1       
+    6 FOR Y=0 TO 16:HPLOT X,Y TO Z,Y:NEXT
+    7 NEXT                               
+    INIT HELLO                           
+    RUN 3                                
+    BSAVE TEST,A$2000,L$1FF8             
+</span>
+</pre>
+<p>
+    We've created a binary graphics file on track $13, sector $F .. track $14, sector $0. (Remember, DOS start at sector $F and works "down" sector $0.)
+<p>
+Here is the corresponding Track / Sector <b>usage</b>:
+<pre>
+    T13S0 $2EFC .. $2FFB
+    T13S1 $2DFC .. $2EFB
+    T13S2 $2CFC .. $2DFB
+    T13S3 $2BFC .. $2CFB
+    T13S4 $2AFC .. $2BFB
+    T13S5 $29FC .. $2AFB
+    T13S6 $28FC .. $29FB
+    T13S7 $27FC .. $28FB
+    T13S8 $26FC .. $27FB
+    T13S9 $25FC .. $26FB
+    T13SA $24FC .. $25FB
+    T13SB $23FC .. $24FB
+    T13SC $22FC .. $23FB
+    T13SD $21FC .. $22FB
+    T13SE $20FC .. $21FB
+    T13SE $2000 .. $20FB
+    T13SF Array of sectors for file TEST
+
+    T14S0 $3EFB .. $3FF7
+    T14S1 $3DFB .. $3EFB
+    T14S2 $3CFB .. $3DFB
+    T14S3 $3BFB .. $3CFB
+    T14S4 $3AFB .. $3BFB
+    T14S5 $39FB .. $3AFB
+    T14S6 $38FB .. $39FB
+    T14S7 $37FB .. $38FB
+    T14S8 $36FC .. $37FB
+    T14S9 $35FC .. $36FB
+    T14SA $34FC .. $35FB
+    T14SB $33FC .. $34FB
+    T14SC $32FC .. $33FB
+    T14SD $31FC .. $32FB
+    T14SE $30FC .. $31FB
+    T14SF $2FFC .. $30FB
+</pre>
+<p>
+And the corresponding Track / Sector <b>disk map</b>
+<pre>
+     T00000000000000001111111111111111222
+     T0123456789ABCDEF0123456789ABCDEF012
+    0.DDD..............V.BB..............
+    1.DDD..............C.BB..............
+    2.DDD..............C.BB..............
+    3.DDD..............C.BB..............
+    4.DDD..............C.BB..............
+    5.DD...............C.BB..............
+    6.DD...............C.BB..............
+    7.DD...............C.BB..............
+    8.DD...............C.BB..............
+    9.DD...............C.BB..............
+    A.DD...............C.BB..............
+    B.DD...............C.BB..............
+    C.DD...............C.BB..............
+    D.DD...............C.BB..............
+    E.DD...............CABB..............
+    F.DD...............CabB..............
+     T00000000000000001111111111111111222
+     T0123456789ABCDEF0123456789ABCDEF012
+
+    Legend:
+        a = Track/Sector List: HELLO
+        A = Applesoft program: HELLO
+        b = Track/Sector list of: TEST
+        B = Binary graphics file: TEST
+        C = Catalog
+        D = DOS 3.3 Boot
+        V = VTOC (Volume Table of Contents -- Free/Used sectors bitmap)
+</pre>
 
 <h1>Miscellaneous Information</a>
 <h2>Statistics</h2>
