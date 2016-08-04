@@ -1104,8 +1104,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     070 ;                                                           ; we're <b>both</b> inconsistently dropping vowels: CoNTRoL
                     071 COS0        EQU *
                     072             LDX RSTATE      ;FIRST CHECK FOR 'AFTER APSFT RELOC'
-                    073             BEQ COS00       ;BRANCH IF NOT                  ; COS0 and COS00 are crap function names; they are WAY to easy to mis-type
-1EF0:4C 78 1F       074             JMP COS7                                        ; <a class='mem' name='_'>wastes</a> 3 bytes, but since $1F78-$1EF0 > $80 move <a class='x' href='#COS5'>COS5</a>..<a class='x' href='#COS7'>COS7</a> <b>before</b> <a class='x' href='#COS0'>COS0</a>; change Line #<a class='line' href='#DOSHOOK.074'>74</a> to BNE COS7
+                    073             BEQ COS00       ;BRANCH IF NOT                  ; <b>Really?!</b> You couldn't use COS0A and COS0B like you do for the <i>other</i> states??
+                                                                                    ; COS0 &amp; COS00 are <b>crap function names</b>; they are WAY to easy to mis-type
+1EF0:4C 78 1F       074             JMP COS7                                        ; <a class='mem' name='_'>wastes</a> 3 bytes, but since $1F78-$1EF0 &gt; $80 move <a class='x' href='#COS5'>COS5</a>..<a class='x' href='#COS7'>COS7</a> <b>before</b> <a class='x' href='#COS0'>COS0</a>; change Line #<a class='line' href='#DOSHOOK.074'>74</a> to BNE COS7
                     075 COS00       LDX ISTATE      ;IS IN STATE NOT ZERO           ; I'm serious, someone <i>please</i> shoot Captain Obvious
                     076             BEQ COS01                                       ; 
                     077 
