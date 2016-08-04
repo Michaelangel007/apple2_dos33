@@ -1055,7 +1055,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1EA3:20 82 26       022             JSR NXTEXC      ;RETURNS TO HERE ONLY WHEN 'EXEC' IS EXHAUSTED
 
                     023 CHIN2       EQU *
-1EA6:A9 03          024             LDA #<span class='n'>3</span>          ; SET OUT CHAR                   ; <b class="magic">magic number</b> STATE_INPUT_ECHO = 3
+1EA6:A9 03          024             LDA #<span class='n'>3</span>          ; SET OUT CHAR                   ; <b class="magic">magic number</b> COS_INPUT_ECHO = 3
 1EA8:8D 52 2A       025             STA OSTATE      ; STATE TO INPUT ECHO
                     026             JSR LDREGS
                     027             JSR GETIN
@@ -1083,78 +1083,78 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     049 ;SVREGS - SAVE REGS WHILE PROCESSING CHARS
                     050 ;
                     051 SVREGS      EQU *
-                    052             STA SVA         ; SAVE ACU                      ; Captain Obvious to the rescue!
+1ED1:8D 5C 2A       052             STA SVA         ; SAVE ACU                      ; Captain Obvious to the rescue!
                     053 SVRGSA      EQU *                                           ; SaveRegsA, uh, NO, SaveRegsXY
-                    054             STX SVX         ; SAVE X                        ; Good variable naming, SAVEX, SAVEY
-                    055             STY SVY         ; SAVE Y                        ; negates the need for these useless comments
-                    056             TSX
-                    057             INX
-                    058             INX             ;ADJUST IT TO ORIGINAL
-                    059             STX SVSTK
-                    060             LDX #<span class='n'>3</span>          ; SET FOR FOUR BYTE MOVE        ; /sarcasm If only we could read assembly ...
-                    061 SVRB        LDA SVOUTS,X
-                    062             STA OUTSW,X
-                    063             DEX
-                    064             BPL SVRB
-                    065             RTS             ; DONE                          ; Can someone please put Captain Obvious out of _our_ misery?
+1ED4:8D 5A 2A       054             STX SVX         ; SAVE X                        ; Good variable naming, SAVEX, SAVEY
+1ED7:8C 5B 2A       055             STY SVY         ; SAVE Y                        ; negates the need for these useless comments
+1EDA:BA             056             TSX
+1EDB:E8             057             INX
+1EDC:E8             058             INX             ;ADJUST IT TO ORIGINAL
+1EDD:8E 59 2A       059             STX SVSTK
+1EE0:A2 03          060             LDX #<span class='n'>3</span>          ; SET FOR FOUR BYTE MOVE        ; /sarcasm If only we could read assembly ...
+1EE2:BD 53 2A       061 SVRB        LDA SVOUTS,X
+1EE5:95 36,X        062             STA OUTSW,X
+1EE7:CA             063             DEX
+1EE8:10 F8          064             BPL SVRB
+1EEA:60             065             RTS             ; DONE                          ; Can someone please put Captain Obvious out of _our_ misery?
                     066             PAGE
                     067 ;
                     068 ; COS0 - 1ST CHAR OF PRINTED OUTPUT LINE
                     069 ;CHECK FOR  CNTL-D                                          ; "<i>You say CNTL-D, I say CTRL-D</i>"
                     070 ;                                                           ; We're <b>both</b> inconsistently dropping <i>a consonant</i>: CoNTRoL
                     071 COS0        EQU *
-                    072             LDX RSTATE      ;FIRST CHECK FOR 'AFTER APSFT RELOC'
-                    073             BEQ COS00       ;BRANCH IF NOT                  ; <b>Really?!</b> You couldn't use COS0A and COS0B like you do for the <i>other</i> states??
-                                                                                    ; COS0 &amp; COS00 are <b>crap function names</b>; they are WAY to easy to mis-type
+1EEB:AE B7 2A       072             LDX RSTATE      ;FIRST CHECK FOR 'AFTER APSFT RELOC'
+1EEE:F0 03          073             BEQ COS00       ;BRANCH IF NOT                  ; <b>Really?!</b> You couldn't use COS0A and COS0B like you do for the <i>other</i> states??
+                                                                                    ; COS0 &amp; COS00 are <b>crap function names</b>; they are WAY too easy to mis-read/type
 1EF0:4C 78 1F       074             JMP COS7                                        ; <a class='mem' name='_'>wastes</a> 3 bytes, but since $1F78-$1EF0 &gt; $80 move <a class='x' href='#COS5'>COS5</a>..<a class='x' href='#COS7'>COS7</a> <b>before</b> <a class='x' href='#COS0'>COS0</a>; change Line #<a class='line' href='#DOSHOOK.074'>74</a> to BNE COS7
-                    075 COS00       LDX ISTATE      ;IS IN STATE NOT ZERO           ; I'm serious, someone <i>please</i> shoot Captain Obvious
-                    076             BEQ COS01                                       ; 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
+1EF3:AE 51 2A       075 COS00       LDX ISTATE      ;IS IN STATE NOT ZERO           ; I'm serious, someone <i>please</i> shoot Captain Obvious
+1EF6:F0 08          076             BEQ COS01                                       ; 
+1EF8:C9 BF          077             CMP #'?'+$80    ; THEN IS THIS ?
+1EFA:F0 75          078             BEQ COS6        ; THEN PRINT ONLY IF MONITOR
+1EFC:C5 33          079             CMP PROMPT
+1EFE:F0 27          080             BEQ COS2A
+                    081 COS01       EQU *                                           ; === <b class="ts">T0SE</b> ===
+1F00:A2 02          082             LDX #<span class='n'>2</span>                                          ; <a class='magic' name=''>magic number</a>
+1F02:8E 52 2A       083             STX OSTATE
+1F05:CD B2 2A       084             CMP CCHAR       ; IF NOT CNTL-D
+1F08:D0 19          085             BNE COS2        ; THEN GO TO STATE 2
+1F0A:CA             086             DEX
+1F0B:8E 52 2A       087             STX OSTATE      ; ELSE STATE=1
+1F0E:CA             088             DEX
+1F0F:8E 5D 2A       089             STX LBUFD       ; AND LBUFD=0
+                    090 ;
+                    091 ;COS1 - ACCUMULATE CMD FROM PRINTED OUTPUT
+                    092 ;
+                    093 COS1        EQU *
+1F12:AE 5D 2A       094             LDX LBUFD       ; GET LINE BUFF DISPL
+1F15:9D 00 02       095 COS1A       STA LBUFF,X     ; PUT CHAR IN BUFF
+1F18:E8             096             INX             ; INCR PTR
+1F19:8E FD 2A       097             STX LBUFD       ; SAVE PTR
+1F1C:C9 8D          098             CMP #$8D        ; WAS THIS A CR                 ; <a class='magic'>magic number</a>
+1F1E:D0 75          099             BNE CMDRTN      ; IF NOT THEN PR CHAR
+                    100 ;
+1F20:4C CD 1F       101             JMP SCNCMD      ; GO SCAN COMMAND
+                    102 ;
+                    103 ;COS2 - PRINTED OUTPUT, NOT FIRST CHAR
+                    104 ;
+                    105 COS2        EQU *
+1F23:C9 8D          106             CMP #$8D        ; IS IT A CR                    ; <a class='magic'>magic number</a>
+1F25:D0 7D          107             BNE PRRTN       ; BR IF NOT
+1F27:A2 00          108 COS2A       LDX #<span class='n'>0</span>          ; SET FOR POSSIBLE C-D NEXT     ; C-D = Control-D <a class='magic'>magic number</a> COS_STATE_FIRST_CONTROL_D = 0
+1F29:8E 52 2A       109             STX OSTATE      ; NEXT STATE
+                    110             JMP PRRTN       ; GO PRINT CHAR
+                    111             PAGE
+                    112 ;
+                    113 ;COS3 - KEY IN ECHO PRINT
+                    114 ;
+                    115 COS3        EQU *
+                    116             LDX #0
+                    117             STX OSTATE      ; RESET OUT STATE
+                    118             CMP #$8D        ; IS IT CR
+                    119             BEQ COS3A       ; IF CR THEN CMD CHECK
+                    120 COS3B       LDA ESTATE      ; ELSE: IF NOT EXECUTE
+                    121             BEQ PRRTN       ; THEN PRINT CHAR
+                    122             BNE DRTNI       ; ELSE: PRINT IF MON INPUT      ; Data Return In
                     123 
                     124 
                     125 
