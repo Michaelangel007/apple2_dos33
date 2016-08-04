@@ -514,9 +514,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B17:41 40          121             EOR (<a class="v" href="#ZPGWRK" >ZPGWRK</a>,X)
 1B19:81 40          122             STA (<a class="v" href="#ZPGWRK" >ZPGWRK</a>,X)
 1B1B:C5 26          123             CMP <a class="v" href="#LOC1" >LOC1</a>
-1B1D:D0 05          124             BNE <a class="x" href="#DR1A" >DR1A</a>                                        ; v
+1B1D:D0 05          124             BNE <a class="x" href="#DR1A" >DR1A</a>                                        ; &darr;   /rant Crappy HTML name <span class='macro'>&amp;darr;</span> instead of simpler \v
 1B1F:C8             125             INY
-1B20:D0 EF          126             BNE <a class="x" href="#DR1"  >DR1</a>                                         ; ^
+1B20:D0 EF          126             BNE <a class="x" href="#DR1"  >DR1</a>                                         ; &uarr;   /rant Crappy HTML name <span class='macro'>&amp;uarr;</span> instead of simpler \^
 1B22:F0 04          127             BEQ <a class="x" href="#DR2"  >DR2</a>         ; BR IF TOOK                    ; v
                     128 <a class="f" name="DR1A"        >DR1A        </a>EQU *
 1B24:C6 41          129             DEC <a class="v" href="#ZPGWRK" >ZPGWRK</a>+1    ; NOT RAM
