@@ -352,12 +352,12 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
     </tr>
     <tr>
         <td>Annotation</td>
-        <td>Modern commentary by me. References to Code and Data are color-coded:
+        <td style='padding:0px;'>Modern commentary by me. References to Code and Data are color-coded:
 <table  style="border-width: 1px; border-collapse: collapse" >
 <tr><td><a class='dumb' >dumb        </a></td><td> How NOT to Design A File System</tr>
 <tr><td><a class='mem'  >wastes      </a></td><td># bytes due to inefficient code </tr>
 <tr><td><a class='disk' >disk        </a></td><td> unitialized data, wasted sector</tr>
-<tr><td><a class='magic'>magic number</a></td><td> Hard-Coded magic number        </tr>
+<tr><td><a class='magic'>magic number</a></td><td> Hard-Coded constant that the reader is assumed to know what it means</tr>
 <tr><td><a class='todo' >TODO        </a></td><td> Unanswered questions           </tr>
 </table>
 
@@ -4124,7 +4124,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 31CD:85 42          008             STA ZPGFCB      ; TO ZERO PAGE
 31D1:AD C4 35       009             LDA CCBFN+1
 31D5:85 43          010             STA ZPGFCB+1
-31D6:A9 01          011             LDA #1                                          ; *sigh* magic number:
+31D6:A9 01          011             LDA #<span class='n'>1</span>                                          ; *sigh* <a class='magic' name='_31D6'>magic number</a> <span class='todo'>TODO</span>
                     012 
                     013 
                     014 
@@ -4451,7 +4451,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     021 ;VTOC RECORD AREA                                           ; === VTOC ===
                     022 <a class="d" name="VTOC"  >VTOC        </a>EQU *                                           ; <b class="ts">T11S0</b> [offset], Right side = normal snarky commentary
 33BB:04             <a class="line" name="FVCBUFS.023">023</a> <a class="d" name="VDOST" >VDOST       </a>DFB 4           ; DOS TYPE                      ; [00] <a class='mem' name='_33BB'>wastes</a> 1 byte -- never referenced !
-                                                                                    ;      <b class="magic">magic number</b>: /sarcasm If only FILESYSTEM_TYPE_VTOC = $4
+                                                                                    ;      <a class='magic' name='#_33BC'>magic number</a> /sarcasm If only FILESYSTEM_TYPE_VTOC = $4
 33BC:11             024 <a class="d" name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <i>TRACK</i> not sector
                                                                                     ;      *note* This is only a copy.  To change DOS while running
                                                                                     ;             $<span class='n'>AC01</span>:11 ($2C01) CATALOG Track <span class="todo">TODO</span> FILE/LINE/FUNC
@@ -4556,7 +4556,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     053 ;                                                           ; [--] <b class="ts">T11SF</b> offsets === <a class='section' name='CATALOG'>CATALOG</a> ===
 <hr>                    054 <a class="d" name="VOLDIR"   >VOLDIR      </a>EQU *           ;                               ; === Page <a class="page" name="page87">87</a> ===
 34BB:02             055 <a class="d" name="VDTCDE"   >VDTCDE      </a>DFB 2           ; VOLUME DIRECTORY TYPE CODE    ; [00] <a class='mem' name='_34BB'>wastes</a> 1 byte -- and not even used !?!?!
-                                                                                    ; *<b class="magic">magic number</b>* /sarcasm If only FILESYSTEM_SECTOR_TYPE_CATALOG = $2
+                                                                                    ; <a class='magic' name='_34BC'>magic number</a> /sarcasm If only FILESYSTEM_SECTOR_TYPE_CATALOG = $2
 34BC:FD             056 <a class="d" name="VDLTRK"   >VDLTRK      </a>DS 1            ; VD LINK TRACK                 ; [01]
 34BD:FC             057 <a class="d" name="VDLSEC"   >VDLSEC      </a>DS 1            ; VD LINK SECTOR                ; [02]
 34BE:FC             058 <a class="d" name="VDNF"     >VDNF        </a>DS 1            ; VD NUMBER FILES THIS SECTOR   ; [03]
@@ -6607,7 +6607,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     004 * LOCATE THE CORRECT SECTOR FOR THIS OPERATION.
                     005 *
                     006 <a class="f"    name="TRYTRK"     >TRYTRK      </a>EQU *
-3DAB:A0 0C          007             LDY #$<span class='n'>0C</span>                                        ; *<b class="magic">magic number</b>* IOB_OFFSET_CMD = $C
+3DAB:A0 0C          007             LDY #$<span class='n'>0C</span>                                        ; <a class='magic' name='_3DAB'>magic number</a> IOB_OFFSET_CMD = $C
 3DAD:B1 48          008             LDA (<a class="d" href="#IOBPL">IOBPL</a>),Y   ;GET COMMAND CODE #
 3DAF:F0 5A          009             BEQ <a class="x" href="#GALLDONE">GALLDONE</a>    ;IF NULL COMMAND, GO HOME TO BED.           ; v
 3DB1:C9 04          010             CMP #$<span class='n'>04</span>        ;FORMAT THE DISK?               ; *sigh* RWTS_CMD_FORMAT = 4
@@ -6703,7 +6703,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3E12:B1 48          100             LDA (<a class="v" href="#IOBPL"     >IOBPL</a>),Y   ;GET DESIRED VOLUM
 3E14:48             101             PHA             ;PRESERVE DESIRED VOLUME#
 3E15:A5 2F          102             LDA <a class="v"  href="#VOLUME"    >VOLUME</a>      ;GET ACTUAL VOLUME HERE
-3E17:A0 0E          103             LDY #$<span class='n'>0E</span>        ;TELL OPSYS WHAT VOLUME WAS THERE ; *<b class="magic">magic number</b>* IOB_OFFSET_VOL = $E
+3E17:A0 0E          103             LDY #$<span class='n'>0E</span>        ;TELL OPSYS WHAT VOLUME WAS THERE ; <a class='magic' name='_3E17'>magic number</a> IOB_OFFSET_VOL = $E
 3E19:91 48          104             STA (<a class="v" href="#IOBPL"     >IOBPL</a>),Y
 3E1B:68             105             PLA             ;GET DESIRED VOLUME BACK
 3E1C:F0 08          106             BEQ <a class="x"  href="#CORRECTVOL">CORRECTVOL</a>  ;DESIRED VOLUME 00 MATCHES ALL. ; v
@@ -6712,7 +6712,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3E22:A9 20          109             LDA #<a class="v" href="#IBVMME"    >IBVMME</a>     ;HE SWITCHED DISCS!
 3E24:D0 E1          110             BNE <a class="x"  href="#JMPTO1"    >JMPTO1</a>      ;ALWAYS TAKEN                   ; ^
                     111 <a class=="f" name="CORRECTVOL" >CORRECTVOL  </a>EQU *
-3E26:A0 05          112             LDY #<span class='n'>5</span>                                          ; *<b class="magic">magic number</b>* IOB_OFFSET_SECTOR = $5
+3E26:A0 05          112             LDY #<span class='n'>5</span>                                          ; <a class='magic' name='_3E26'>magic number</a> IOB_OFFSET_SECTOR = $5
 3E28:B1 48          113             LDA (<a class="v" href="#IOBPL">IOBPL</a>),Y   ; TO ALLOW FOR INTERLEAVE
 3E2A:A8             114             TAY
 3E2B:B9 B8 3F       115             LDA <a class="v" href="#INTRLEAV"   >INTRLEAV</a>,Y  ;COMPUTE PHYSICAL SECTOR        ; DOS Sector Interleave/Skew Mapping
@@ -6792,7 +6792,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3E46:18             189 <a class="x" name="ALLDONE"     >ALLDONE     </a>CLC
 3E47:24             190             DFB $24         ;SKIP OVER NEXT BYTE WITH BIT OPCODE        ; BIT $zp
 3E48:38             191 <a class="x" name="HNDLERR"     >HNDLERR     </a>SEC             ;INDICATE AN ERROR
-3E49:A0 0D          192             LDY #$<span class='n'>0D</span>        ;GIVE HIM ERROR#                ; *<b class="magic">magic number</b>* IOB_OFFSET_ERROR = $D
+3E49:A0 0D          192             LDY #$<span class='n'>0D</span>        ;GIVE HIM ERROR#                ; <a class='magic' name='_3E49'>magic number</a> IOB_OFFSET_ERROR = $D
 3E4B:91 48          193             STA (<a class="v" href="#IOBPL"   >IOBPL</a>),Y
 3E4D:BD 88 C0       194             LDA <a class="v"  href="#MOTOROFF">MOTOROFF</a>,X  ; TURN IT OFF...
                     195     LST OFF
@@ -6891,7 +6891,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     287 * LOCATION.
                     288 *
 3E95:48             289 <a class="f" name="SETTRK"     id="SETTRK"     >SETTRK      </a>PHA             ;PRESERVE DESTINATION TRACK
-3E96:A0 02          290             LDY #$02                                        ; *<b class="magic">magic number</b>* IOB_OFFSET_DRIVE = $2
+3E96:A0 02          290             LDY #$02                                        ; <a class='magic' name='_3E96'>magic number</a> IOB_OFFSET_DRIVE = $2
 3E98:B1 48          291             LDA (IOBPL),Y
 3E9A:6A             292             ROR A           ;GET DRIVE # INTO CARRY
 3E9B:66 35          293             ROR DRIVNO      ;INTO (DRIVNO)
@@ -6923,7 +6923,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     <a class='line' name='FORMATR.014'>014</a>     DO <a class="do" href="#DIAGMOD">DIAGMOD</a>              ;ELIMINATE FMTR FROM DIAG ASSEMBLY<span class="macro">
                     015         LST OFF                                             </span>
                     016     ELSE
-3EAF:A0 03          017             LDY #<span class='n'>3</span>                                          ; *<b class="magic">magic number</b>* IOB_OFFSET_VOL = $3
+3EAF:A0 03          017             LDY #<span class='n'>3</span>                                          ; <a class='magic' name='_3EAF'>magic number</a> IOB_OFFSET_VOL = $3
 3EB1:B1 48          018             STY (IOBPL),Y   VOLUME NUMBER IN IOB.
 3EB3:85 41          019             STA NVOL        FOR FORMATTER.
 3EB5:A9 AA          020             LDA #$<span class='n'>AA</span>        SET Z-PAG LOC TO $AA FOR
@@ -6960,11 +6960,11 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     051 
                     052 
                     053 
-3EFD:C9 23          <a class='line' name='FORMATR.054'>054</a>             CMP #$23        CONTINUE IF LESS THEN 35        ; <b class="magic">magic number</b>* DISK_MAX_TRACK or at least <a class="v" href="#VNOTRK">VNOTRK</a>
+3EFD:C9 23          <a class='line' name='FORMATR.054'>054</a>             CMP #$23        CONTINUE IF LESS THEN 35        ; <a class='magic' name='_3EFD'>magic number</a> DISK_MAX_TRACK or at least <a class="v" href="#VNOTRK">VNOTRK</a>
 3EFF:90 D3          055             BCC <a class="x" href="#FORMTRK">FORMTRK</a>
 3F01:18             056             CLC             CLEAR CARRY TO INDICATE 'NO ERR'; === <b class="ts">T0$9</b> ===
 3F02:90 05          057             BCC <a class="x" href="#FORMDONE">FORMDONE</a>    ELSE TURN OFF MOTOR AND RETURN
-3F04:A0 0D          058 <a class="f" name="FORMERR"    >FORMERR     </a>LDY #$0D                                        ; *<b class="magic">magic number</b>* IOB_OFFSET_ERR = $D
+3F04:A0 0D          058 <a class="f" name="FORMERR"    >FORMERR     </a>LDY #$0D                                        ; <a class='magic' name='_3F04'>magic number</a> IOB_OFFSET_ERR = $D
 3F06:91 48          059             STA (IOBPL),Y   RETURN ERROR CODE.
 3F08:38             060             SEC             SET CARRY TO INDICATE ERR.
 3F09:AD 88 C0       061 <a class="f" name="FORMDONE"   >FORMDONE    </a>LDA <a class="v" href="#MOTOROFF">MOTOROFF</a>,X  ; TURN MOTOR OFF.
@@ -7146,10 +7146,10 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     019 <a class="f" name="SDP1"       >SDP1        </a>EQU *                                           ; Start Dos Patch
                     020 <a class="f" name="RCPATCH"    >RCPATCH     </a>EQU *                                           ; "Called" from <a class="file" href="#BOOTLDR">BOOTLDR</a>, Func <a class="x" href="#DOSINT">DOSINT</a>, Line <a class='line' href='#BOOTLDR.295'>295</a>
 3FC8:20 93 FE       021             JSR <a class="x" href="#SETVID">SETVID</a>
-3FCB:AD 81 C0       022             LDA $<span class='n'>C081</span>                                       ; *<b class="magic">magic number</b>* If only ROMIN = $C081 for Language Card (LC)
-3FCE:AD 81 C0       023             LDA $<span class='n'>C081</span>                                       ; *<b class="magic">magic number</b>* 1st read = read ROM, 2nd read = write enable LC Bank 2
+3FCB:AD 81 C0       022             LDA $<span class='n'>C081</span>                                       ; <a class='magic' name='_3FCB'>magic number</a> If only ROMIN = $C081 for Language Card (LC)
+3FCE:AD 81 C0       023             LDA $<span class='n'>C081</span>                                       ; <a class='magic' name='_3FCE'>magic number</a> 1st read = read ROM, 2nd read = write enable LC Bank 2
 3FD1:A9 00          024             LDA #<span class='n'>0</span>
-3FD3:8D 00 E0       025             STA $<span class='n'>E000</span>                                       ; *<b class="magic">magic number</b>* *sigh* Forces Language Card to reload
+3FD3:8D 00 E0       025             STA $<span class='n'>E000</span>                                       ; <a class='magic' name='_3FD3'>magic number</a> *sigh* Forces Language Card to reload
                     026     DO <a class="do" href="#DOS33B">DOS33B</a>
 3FD6:20 76 3A       027             JSR <a class="x" href="#OFF80" >OFF80</a>                                       
 3FD9:4C 44 37       <a class='line' name='DOSPTCH.028'>028</a>             JMP <a class="x" href="#RCBACK">RCBACK</a>                                      ; <a class='mem' name='_3FDA'>wastes</a> 2 bytes Why not RTS ???
@@ -7173,7 +7173,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3FF4:20 16 23       046             JSR <a class="x" href="#CLALL">CLALL</a>       ;GO CLOSE EVERYBODY
 3FF7:BA             047             TSX
 3FF8:8E 9B 33       048             STX <a class="v" href="#ENTSTK">ENTSTK</a>      ;RESTORE SAVE STK
-3FFB:A9 09          049             LDA #9                                          ; *<b class="magic">magic number</b>* <span class="todo">TODO</span> What error??
+3FFB:A9 09          049             LDA #9                                          ; <a class='magic' name='_3FFB'>magic number</a> <span class="todo">TODO</span> What error??
 3FFD:4C 85 33       050             JMP <a class="x" href="#ERRORA">ERRORA</a>      ;AND BACK
                     051 *****************************
                     052 <a class="d" name="ENDP1"      >ENDP1       </a>EQU *-1         ; END OF DOS PATCHES FOR RELOCTR
@@ -8910,12 +8910,13 @@ And the corresponding Track / Sector <b>disk map</b>
 </pre>
 
 <h1>Miscellaneous Information</a>
-<h2>Statistics</h2>
+<h2><a class='section' name='Stats'>Statistics</a></h2>
 <p>
-<table>
+<table class='border'>
     <tr><td>Total Spelling mistakes:             </td><td> 13</td></tr> <!-- :%s/\*spelling\*//gn -->
     <tr><td>Total Functions:                     </td><td> 99</td></tr> <!-- :%s/class="f"//gn -->
     <tr><td>Total Variables:                     </td><td>102</td></tr> <!-- :%s/class="d"//gn -->
+    <tr><td>Total Magic Numbers:                 </td><td> 37</td></tr>
     <tr><td>Total Wasted bytes (run-time memory):</td><td>160</td></tr>
     <tr><td>Total Wasted sectors:                </td><td> 14</td></tr>
 </table>
