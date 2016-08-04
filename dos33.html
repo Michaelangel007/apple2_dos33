@@ -1548,7 +1548,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 217D:4C 83 1F       258             JMP <a class="x" href="#CERTN">CERTN</a>
                     259 ;
                     260 <a class="f" name="CMDGO1">CMDGO1      </a>EQU *
-2180:20 5B 27       261             JSR <a class="x" href="#CLRSTS">CLRSTS</a>                                      ; STS = <span class="todo">TODO</span>
+2180:20 5B 27       261             JSR <a class="x" href="#CLRSTS">CLRSTS</a>                                      ; Clear States
 2183:20 AE 21       262             JSR <a class="x" href="#CLRCCB">CLRCCB</a>          ; GO CLEAR CCB              ; /sarcasm I never would have guessed
                     263 <a class="f" name="ECMD"   >ECMD        </a>EQU *
 2186:AD 5F 2A       264             LDA <a class="v" href="#CMDNO">CMDNO</a>           ; COMMAND NO
