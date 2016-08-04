@@ -92,12 +92,12 @@ a.line { /* line number */
     color: #088; /* cyan */
     text-decoration: none; /* remove underlink from data link */
 }
-a.link {
+a.link { /* we link TO somthing -- source */
     color: #08F; /* Baby Blue */
 }
 a.section {
     color: #000;
-    text-decoration: none; /* remove underlink from data link */
+    text-decoration: none; /* we are linking FROM something -- destination -- remove underlink from data link */
 }
 /* Link to Macro Definition */
 a.do { /* do macroname */
@@ -903,32 +903,50 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1D89:4A             099             LSR A                                           ;          but who would want that? Isn't it <i>obvious</i> that
 1D8A:4A             100             LSR A                                           ;          CS means Current Slot * 16 !?
 1D8B:8D 6A 2A       101             STA <a class='v' href='#CS'>CS</a>          ; SET AS CUURENT SLOT           ; *spelling* CURRENT
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
+1D8E:AD EA 37       102             LDA IBDRVN      ; GET BOOT DRIVE NUMBER
+1D91:8D 68 2A       <a class='line' name='DOSINIT.103'>103</a>             STA CD          ; SET AS CURRENT DRIVE
+1D94:AD 00 E0       104             LDA AITSTL      ; GET APPLESOFT/IB TEST
+1D97:49 20          105             EOR #ITSTV      ; IF AS THEN
+1D99:D0 11          106             BNE IAS1        ; GO TO AS INIT                 ; 
+                    107 ;                           ; ELSE INIT FOR IB
+1D9B:8D B6 2A       108             STA ASIBSW      ; SET SW FOR IB                 ; <a class='magic' name='#_'>magic number</a> BASIC_TYPE_INTEGER = $00
+                                                                                    ;        30 = $1D9E .. $1DBB
+                                                                                    ;        -5 = Don't count opcodes at Lines #117,118
+                                                                                    ;       -18 = Replacement code at Line <a class='link' href='#DOSINIT.118.Solution'>118 Solution</a>
+1D9E:A2 0A          <a class='line' name='DOSINIT.109'>109</a>             LDX #IBVTL      ; GET IB VT LENGTH              ; <a class='mem' name='_1D9E'>wastes</a> =7 bytes
+1DA0:BD 61 1D       110 IIB1        LDA IBVT-1,X    ; MOVE IB ADDR                  ; <b>Problem</b>: *sigh* due to IBVTL=$A != AS1VTL=$C
+1DA3:9D 55 1D       111             STA IBASVT-1,X                                  ;           we end up with <i>duplicate code</i> to
+1DA6:CA             112             DEX                                             ;           copy the BASIC Vector Table! (An array of function pointers)
+1DA7:D0 F7          113             BNE IIB1                                        ;
+1DA9:4C BC 1D       114             JMP INITAA                                      ; normally <a class='mem' name='#_1DA9'>wastes</a> 1 byte, BEQ INITAA; but see bigger optimization on Line #<a class='line' href='#DOSINIT.109'>109</a>
+                    115 ;
+                    116 IAS1        EQU *                                           ; IAS1 = Init Applesoft ROM; /cynical "<i>There will be a test</i>"
+<hr>1DAC:A9 40          117             LDA #$<span class='n'>40</span>        ; INDICATE ROM APPLESOFT        ; <a class='magic' name='#_'>magic number</a> BASIC_TYPE_APPLESOFT_ROM = $40
+1DAE:8D B6 2A       118             STA ASIBSW                                      ; <b><a class='section' name='DOSINIT.118.Solution'>Solution</a></b>: a) Lines 117-118 should be moved <i>after</i> Line #<a class='line' href='#DOSINIT.103'>103</a> to <b>anticipate the common case</b>
+                                                                                    ;           b) This is one of those <b>rare times</b> where we
+                                                                                    ;              <b>padd IBVT</b> (with 2 bytes data on the end)
+                                                                                    ;              to make IBVT, AS1VT, and AS2VT all the <b>same length</b>
+                                                                                    ;
+                                                                                    ;                  Table SourceOffset
+                                                                                    ;                  IBVT  $00
+                                                                                    ;                  AS1VT $0C
+                                                                                    ;                  AS2VT $1E
+                                                                                    ;
+                                                                                    ; AA       109     TAX                  ; X = SourceOffset $0 = IBVT
+                                                                                    ; 2C               DB  $2C              ; BIT $adr to skip next instruction
+                                                                                    ;
+                                                                                    ; A2 0C    IAS1    LDX #AS1VT-IBVTL     ;     SourceOffset $C = AS1VT 
+1DB1:A2 0C          119             LDX #AS1VTL                                     ; A0 00            LDY #0               ; Y = DestOffset = BytesCopied
+1DB3:BD 6B 1D       120 IAS1A       LDA AS1VT-1,X   ; MOVE ROM AS ADRS              ; BD 62 1D 1AS1A   LDA IBVT,X           ; X = $0, $C, or $18 to start 
+1DB6:9D 55 1D       121             STA IBASVT-1,X                                  ; 99 56 1D         STA IBASVT,Y                                       
+1DB9:CA             122             DEX                                             ; E8               INX                                                
+1DBA:D0 F7          123             BNE IAS1A                                       ; C8               INY                                                
+                    124 ;                                                           ; C0 0C            CPY #C                                             
+                                                                                    ; D0 F4            BNE copy                                           
+                                                                                    ;
+                    125 INITAA      EQU                                             ; crappy "Init After Applesoft" name -&gt; CopyBasicTablesDone
+1DBC:38             126             SEC             ; INDICATE INIT
+                    127             BCS INITA                                       ; &darr; (always)
                     128 
                     129 
                     130 
