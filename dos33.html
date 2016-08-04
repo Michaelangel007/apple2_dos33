@@ -787,7 +787,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <hr>; === <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <b class="ts">T0SB</b> - <b class="ts">T0SD</b>, $<span class='n'>9C81</span> .. $<span class='n'>9E80</span> ===<hr>
                     001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*
                     002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>
-1C81:00 00 00       <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; <a class='dumb' name='_1C81'>wastes</a> 127 bytes padding to end of sector
+1C81:00 00 00       <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; <a class='disk' name='_1C81'>disk</a> wastes 127 bytes padding to end of sector
 1C84:00 00 00 00                                                                    ; Technically only 82 bytes ($1CD3-$1C81 = $52) are wasted
 1C88:00 00 00 00                                                                    ; but <span class="macro">FTAB DW *-45</span> is sloppy code
 1C8C:00 00 00 00                                                                    ; Why isn't this "allocated" at run-time?
@@ -4504,14 +4504,14 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 33F3:00 00 FF FF    050            ORG VTOC+256                                     ; [38]=T00 See <a class="dumb" href="#HNTDAFS3">HNTDAFS #3</a>; Why not simply <span class="macro">DS 256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>,0</span> ???
 33F7:00 00 FF FF                                                                    ; [3C]=T01                 Uninitialized memory is <b>never</b> a good idea
 33FB:00 00 FF FF                                                                    ; [40]=T02 See <a class="dumb" href="#HNTDAFS4">HNTDAFS #4</a>
-33FF:FF FF FF FF                                                                    ; [44]=T03 === <b class="ts">T2$3</b> === <a class='mem' name='_3400'>wastes</a> <i>an <b>entire</b> sector for a <b>single</b> byte!?</i>
+33FF:FF FF FF FF                                                                    ; [44]=T03 === <b class="ts">T2S3</b> === <a class='disk' name='_3400'>disk</a> wastes <i>an <b>entire</b> sector for a <b>single</b> byte!?</i>
 3403:FF FF FF FF                                                                    ; [48]=T04 The real kicker? <a class="d" href="#VDTCDE">VDTCDE</a> <i>isn't even <b>bloody</b> used!</i> *<a class="dumb" href="http://i.imgur.com/iWKad22.jpg">facepalm</a>*
-3407:FF FF FF FF                                                                    ; [4C]=T05 Since we're wasting disk space anyways,
-340B:FF FF FF FF                                                                    ; [50]=T06 let's waste $C8 bytes (256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>)
-340F:FF FF FF FF                                                                    ; [54]=T07 to <i>force us to span 2 sectors</i>
-3413:FF FF FF FF                                                                    ; [58]=T08 instead of copying the VTOC header ($38 byte)
-3417:FF FF FF FF                                                                    ; [5C]=T09 into a new temporary page on init!
-341B:FF FF FF FF                                                                    ; [60]=T0A 
+3407:FF FF FF FF                                                                    ; [4C]=T05
+340B:FF FF FF FF                                                                    ; [50]=T06 Since we're wasting disk space anyways, let's pretend it was.
+340F:FF FF FF FF                                                                    ; [54]=T07 We then waste $C8 bytes (256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>)
+3413:FF FF FF FF                                                                    ; [58]=T08 to <b>force us to span 2 sectors</b> with this dumb shit
+3417:FF FF FF FF                                                                    ; [5C]=T09 instead of copying the VTOC header ($38 byte)
+341B:FF FF FF FF                                                                    ; [60]=T0A into a new temporary page on init!
 341F:FF FF FF FF                                                                    ; [64]=T0B 
 3423:FF FF FF FF                                                                    ; [68]=T0C === <a class="dumb" name="HNTDAFS4">HNTDAFS #4</a> ===
 3427:FF FF FF FF                                                                    ; [6C]=T0D DOS reserves the <b>entire</b> Track 2
@@ -4552,28 +4552,38 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 34B3:FF FF FF FF                                                                    ; [F8]=T30
 34B7:FF FF FF FF                                                                    ; [FC]=T31 (Extra 50th track)
                     051 ;
-                    052 ;VOLUME DIRECTORY AREA                                      ; === CATALOG ===
-                    053 ;                                                           ; <b class="ts">T11SF</b>
+                    052 ;VOLUME DIRECTORY AREA                                      ; 
+                    053 ;                                                           ; [--] <b class="ts">T11SF</b> offsets === <a class='section' name='CATALOG'>CATALOG</a> ===
 <hr>                    054 <a class="d" name="VOLDIR"   >VOLDIR      </a>EQU *           ;                               ; === Page <a class="page" name="page87">87</a> ===
-34BB:02             055 <a class="d" name="VDTCDE"   >VDTCDE      </a>DFB 2           ; VOLUME DIRECTORY TYPE CODE    ; [00] <a class='mem' name='_34BB'>wastes</a> 1 byte -- not even referenced!
-                                                                                    ; *<b class="magic">magic number</b>* /sarcasm If only FILESYSTEM_TYPE_CATALOG = $2
-                    056 <a class="d" name="VDLTRK"   >VDLTRK      </a>DS 1            ; VD LINK TRACK                 ; [01]
-                    057 <a class="d" name="VDLSEC"   >VDLSEC      </a>DS 1            ; VD LINK SECTOR                ; [02]
-                    058 <a class="d" name="VDNF"     >VDNF        </a>DS 1            ; VD NUMBER FILES THIS SECTOR   ; [03]
-                    059 <a class="d" name="VDSPAR"   >VDSPAR      </a>DS 7            ; SPARES                        ; [04] *wastes* 7 bytes
-                    060 ;                                                           ;      /sarcasm Glad to see this was put to good use ... NOT
+34BB:02             055 <a class="d" name="VDTCDE"   >VDTCDE      </a>DFB 2           ; VOLUME DIRECTORY TYPE CODE    ; [00] <a class='mem' name='_34BB'>wastes</a> 1 byte -- and not even used !?!?!
+                                                                                    ; *<b class="magic">magic number</b>* /sarcasm If only FILESYSTEM_SECTOR_TYPE_CATALOG = $2
+34BC:FD             056 <a class="d" name="VDLTRK"   >VDLTRK      </a>DS 1            ; VD LINK TRACK                 ; [01]
+34BD:FC             057 <a class="d" name="VDLSEC"   >VDLSEC      </a>DS 1            ; VD LINK SECTOR                ; [02]
+34BE:FC             058 <a class="d" name="VDNF"     >VDNF        </a>DS 1            ; VD NUMBER FILES THIS SECTOR   ; [03]
+34BF:FC FD FC FD    059 <a class="d" name="VDSPAR"   >VDSPAR      </a>DS 7            ; SPARES                        ; [04] <a class='mem' name='#_34BF'>wastes</a> 7 bytes;
+34C3:FD FC FC       060 ;                                                           ;      /sarcasm Glad to see this was put to <i>good</i> use ... NOT!
                     061 <a class="d" name="VDFILE"   >VDFILE      </a>EQU *           ; FILE ALLOCATION AREA (7 FILES); [0B] NO, this is the _not_ the allocation; this is the *meta* data
-                    062 ;EACH FILE:                                                 ; *note* indented "struct" for readability
+                    062 ;EACH FILE:                                                 ; *note* indented "struct FileEntry" for readability
                     063 ;  FILE DIR TRK                                             ;     uint8_t  track
                     064 ;  FILE DIR SECTOR                                          ;     uint8_t  sector
                     065 ;  FILE USE CODE                                            ;     uint8_t  type
-                    066 ;  FILE NAME         (30)                                   ;     char     name[30]
-                    067 ;  FILE SECTOR COUNT (2)                                    ;     uint16_t num_sectors
-34BC:00 00 00 00    068             ORG VOLDIR+256                                  ; <a class='mem' name='_34BC'>wastes</a> 256 bytes of disk space *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>* 
-34C0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-34D0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-34E0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-34F0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+                    066 ;  FILE NAME         (30)                                   ;     char     name[30]      <b>WTF</b> -- sizeof( FileEntry ) == 35 bytes; make it 27
+                    067 ;  FILE SECTOR COUNT (2)                                    ;     uint16_t num_sectors   so entire struct is 32 bytes
+34C6:FC FF          068             ORG VOLDIR+256                                  ; <a class='mem' name='_34BC'>wastes</a> 256 bytes of disk space *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>* 
+34C8:FC FC FD FC
+34CC:FC FC FE FC
+34D0:FF FC FC FF
+34D4:FF FD FF FF
+34D8:FE FF FD FC
+34DC:FE FC FC FC
+34E0:FC FE FE FE
+34E4:FC FD FC FE
+34E8:FC FE FC FC
+34EC:FF FC FC FC
+34F0:FD FC FD FD
+34F4:FC FC FF FC
+34F8:FD FD FF FD
+34FC:FE FC FD FD
 3500:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; === <b class="ts">T2S4</b> ===
 3510:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; /sarcasm Who cares, we have 140KB, right!
 3520:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
@@ -8562,7 +8572,6 @@ I've annotated <a class='mem'>*wastes*</a> locations in the listing where memory
             <tr><td>T2S2</td><td>$33F3 .. $    </td><td><a class="file" href="#"       >       </a></td> <td>                                       </td> <td></td> <td align="right">    ?</td><td>                                                              </td></tr>
             <tr><td>T2S2</td><td>$3497 .. $34BA</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td>n/a                                    </td> <td></td> <td align="right">   40</td><td>VTOC <a class="v" href="#_3497">tracks 41 - 50</a> sector bitmaps</td></tr>
             <tr><td>T2S2</td><td>$34BB .. $34BB</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td><a class="v" href="#VDTCDE">VDTCDE</a> </td> <td></td> <td align="right">    1</td><td>CAT Unused <a class="v" href="#_34BB">sector type 2</a> = CATALOG</a></td></tr>
-            <tr><td>T0SB       </td><td>DOSINIT</td><td>Wastes 127 bytes for <a   class='dumb' href='#_1C81'>padding</a> to page align <a class='v' href='START'>START</a> DOS Vectors    </td></tr>
             <tr><td>T0SC       </td><td>DOSINIT</td><td>Wastes  12 bytes for <a   class='dumb' href='#_1D56'>Applesoft/Integer Func Pointers</a> -- <a class='v' href='#IBASVT'>IBASVT</a></td></tr>
             <tr class="macro"><td>Total</td><td>---           </td><td>---                               <td>---                                    </td> <td></td> <td align="right">  160</td><td> </td></tr>
         </table>
@@ -8779,9 +8788,10 @@ In contradistinction to the previous example, our new code plus initialized data
     <font style="font-family: monospace;">
         <table border="1" style="border-width: 1px; border-collapse: collapse">
             <tr><td>Track/Sector</td><td>File   </td><td>Description                             </td></tr>
-            <tr><td>T0S5        </td><td>MSWAITR</td><td>Wastes 256 bytes for <a   class="dumb" href="#NBUF1">NBUF1</a> - entire sector is zero!                                           </td></tr>
-            <tr><td>T2S3        </td><td>FCVBUFS</td><td>Wastes 255 bytes for a <a class="dumb" href="#_3400">single byte</a> ($02) @ $BB ! (First byte of CATALOG)                        </td></tr>
-            <tr><td>T2S4        </td><td>FCVBUFS</td><td>Wastes 256 bytes for <a   class="dumb" href="#_34BC">CATALOG</a> remaining bytes since it spans two sectors                       </td></tr>
+            <tr><td>T0S5        </td><td>MSWAITR</td><td>Wastes 256 bytes for <a class="disk" href="#NBUF1">NBUF1</a> - entire sector is zero!                                           </td></tr>
+            <tr><td>T0SB        </td><td>DOSINIT</td><td>Wastes 127 bytes for <a class='disk' href='#_1C81'>padding</a> to page align <a class='v' href='#START'>START</a> DOS Vectors    </td></tr>
+            <tr><td>T2S3        </td><td>FCVBUFS</td><td>Wastes 255 bytes for <a class="disk" href="#_3400">VTOC</a> and an <b>unused</b> single byte of the start of the CATALOG ($02) @ $BB !                          </td></tr>
+            <tr><td>T2S4        </td><td>FCVBUFS</td><td>Wastes 256 bytes for <a class="disk" href="#_34BC">CATALOG</a> remaining bytes since it spans two sectors                       </td></tr>
             <tr><td>T2S5 - T2SF </td><td>n/a    </td><td>Rest of Track 2 is reserved. See: <a class="dumb" href="#HNTDAFS4">HNTDAFS #4</a> and <span class="todo">TODO</span>              </td></tr>
         </table>
     </font>
