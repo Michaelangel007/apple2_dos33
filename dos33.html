@@ -896,10 +896,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     074 ;                                                           ;     /sarcasm Because it is obvious
 1D6C:FC 24          075 <a class="d" name="AS1VT"    >AS1VT       </a>DW <a class='x' href='#ASRUN1'>ASRUN1</a>                                       ;<b>a</b>[<a class='line' href='#RELOCTR.294'>3</a>]   1 = ROM, and
 1D6E:FC 24          076             DW <a class='x' href='#ASRUN1' >ASRUN1 </a>                                      ;b[3]   2 = RAM, right?
-1D70:65 D8          077             DW <a class='x' href='#ASBRK1' >ASBRK1 </a>                                      ;c[-]   ASCNTU1 (Continue) <a href='http://www.txbobsc.com/scsc/scdocumentor/D365.html'>S-C DocuMentor $D365</a>
+1D70:65 D8          077             DW <a class='x' href='#ASBRK1' >ASBRK1 </a>                                      ;c[-]   ASCNTU1 (Continue) <a class='link' href='http://www.txbobsc.com/scsc/scdocumentor/D365.html'>S-C DocuMentor $D365</a>
 1D72:00 E0          078             DW <a class='x' href='#IBGO'   >IBGO   </a>                                      ;d[-]   ASRSEQ1 (ResetQ???)
-1D74:3C D4          079             DW <a class='x' href='#ASCNTU1'>ASCNTU1</a>                                      ;e[-] Why not IBCONT??? $E003: JMP $D43C ; Applesoft (Warm) <a href='http://jamtronix.com/files/applesoft.html#RESTART'  >RESTART</a> 
-1D76:F2 D4          080             DW <a class='x' href='#ASRSEQ1'>ASRSEQ1</a>                                      ;f[-] Applesoft <a href='http://jamtronix.com/files/applesoft.html#FIX.LINKS'>FIX.LINKS</a>
+1D74:3C D4          079             DW <a class='x' href='#ASCNTU1'>ASCNTU1</a>                                      ;e[-] Why not IBCONT??? $E003: JMP $D43C ; Applesoft (Warm) <a class='link' href='http://jamtronix.com/files/applesoft.html#RESTART'  >RESTART</a> 
+1D76:F2 D4          080             DW <a class='x' href='#ASRSEQ1'>ASRSEQ1</a>                                      ;f[-] Applesoft <a class='link' href='http://jamtronix.com/files/applesoft.html#FIX.LINKS'>FIX.LINKS</a>
                     081 <a class="d" name="AS1VTL"   >AS1VTL      </a>EQU *-<a class='v' href='#AS1VT'>AS1VT</a>
                     082 ;                                                           ; Copied into <a class="v" href="#IBASVT">IBASVT</a> via INIT_AS_RAM, oh wait, <a class='x' href='#INITC'>INITC</a>
 1D78:06 25          083 <a class="d" name="AS2VT"    >AS2VT       </a>DW <a class="x" href="#ASRUN2">ASRUN2</a>                                       ;<b>a</b>[<a class='line' href='#RELOCTR.296'>4</a>] <a class='mem' name='_1D78'>wastes</a> 12 bytes on Apple ][+ or newer
@@ -4444,7 +4444,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                                                                                     ; Yeah, yeah 20/20
 33AF:A0 C5 CD D5    017 <a class="d" name="VOLMES">VOLMES      </a>ASC " EMULOV DISK" ; "DISK VOLUME " BACWARDS    ; *sigh* Micro-optimization; Not that these are bad but
 33B3:CC CF D6 A0                                                                    ;    /sarcasm <i>Lets focus on a <b>single</b> tree,</i>
-33B7:CB D3 C9 C4                                                                    ;             and <b>completely</b> miss the <i>entire <a href="https://en.wikipedia.org/wiki/Frak_(expletive)">fraking</a> forest!</i>
+33B7:CB D3 C9 C4                                                                    ;             and <b>completely</b> miss the <i>entire <a class='link' href="https://en.wikipedia.org/wiki/Frak_(expletive)">fraking</a> forest!</i>
                     018             MSB OFF                                         ; Switch back to 7-bit ASCII
                     019 <a class="d" name="VML"   >VML         </a>EQU *-<a class="v" href="#VOLMES">VOLMES</a>-1                                  ; Used by File <a class="file" href="#FDELCAT">FDELCAT</a>, Func <a class="x" href="#RDIR">RDIR</a>, Line <span class="todo">TODO</span>
                     020             PAGE                                            ;
