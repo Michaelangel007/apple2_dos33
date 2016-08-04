@@ -727,7 +727,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                                                                                     ;        LDA ADRTABS+1,X    ; hi byte of start address; was LDA ADRTAB+2,X
                                                                                     ;        CMP ADRTABE+1,X    ; hi byte of end   address; was CMP ADRTAB+4,X
                                                                                     ;        CMP ADRTABE+0,X    ; lo byte of end   address; was CMP ADRTAB+3,X
-1C28:24             287 <a class='d' name='ADRTAB'     id='ADRTAB'     >ADRTAB      </a>DFB 9*4                                         ; int AddressRelocTable[ 9 ]
+1C28:24             287 <a class='d' name='ADRTAB'     id='ADRTAB'     >ADRTAB      </a>DFB 9*4                                         ; <a class='magic' name='#_1C28'>magic number</a> <i>Really?!</i> We can't do <span class='macro'>ADRTAB_LEN DFB ADRTAB_END - ADRTAB_START</span> ???
 1C29:00 1D          288             DW  <a class="v" href="#SAT1"  >SAT1   </a>                                     ; [0] Start Address Table 1 in <a class="x" href="#DOSINIT">DOSINIT</a>
 1C2B:56 1D          289             DW  <a class="v" href="#EAT1"  >EAT1   </a>                                     ;     End   Address Table 1
                                                                                     ;     <a class='mem' name='_1C2D'>wastes</a> 4 bytes due to non-contiguous memory
@@ -753,8 +753,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C4D:00 00 00 00    <a class='line' name='RELOCTR.306'>306</a>             DFB 0,0,0,0                                     ; <a class='mem' name="_1C4D">wastes</a> 12 bytes -- never referenced !
 1C51:00 00 00 00    307             DFB 0,0,0,0
 1C55:00 00 00 00    308             DFB 0,0,0,0
-                    309 <a class="d"    name="CDETAB"     id="CDETAB"     >CDETAB      </a>EQU *                                           ; int CodeRelocTable[ 8 ]
-1C59:20             310             DFB 8*4
+                    309 <a class="d"    name="CDETAB"     id="CDETAB"     >CDETAB      </a>EQU *
+1C59:20             310             DFB 8*4                                         ; <a class='magic' name='#_1C28'>magic number</a> <i>Really?!</i> We can't do <span class='macro'>CDETAB_LEN DFB CDETAB_END - CDETAB_START</span> ???
 1C5A:84 1D          311             DW  <a class="x" href="#SC1"   >SC1   </a>                                      ; [0]
 1C5C:84 28          312             DW  <a class="x" href="#EC1"   >EC1   </a>
 1C5E:FD 2A          313             DW  <a class="x" href="#SC2"   >SC2   </a>                                      ; [1]
