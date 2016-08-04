@@ -8778,9 +8778,9 @@ Why is DOS 3.3 so slow loading files when faster DOS's such as DiversiDOS, Pront
 When DOS has finished reading the raw disk nibbles into a buffer, it must "decode" the 342 nibbles into 256 bytes.
  Then it must copy the sector back to the caller's address space.
  This doesn't leave a whole lot of time.
- While there is sector interleaving DOS to help alleviate the lack of time this it isn't enough due to excessing buffering.p
- DOS has significant overhead where it copies data from/to 3 buffers.
- In modern terminology this is known as <a class='link' href=''>buffer bloat</a>
+ While there is sector interleaving DOS to help alleviate the lack of time this it isn't enough due to excessing buffering.
+ DOS has significant overhead where it copies data from/to 3 buffers. <span class='todo'>TODO: citation</span>
+ In modern terminology this is known as <a class='link' href=''>buffer bloat</a>.
 <p>
 Let's trace the BLOAD command to see what happens.
 <p>
