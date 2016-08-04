@@ -769,7 +769,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <hr>; === <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <b class="ts">T0SB</b> - <b class="ts">T0SD</b>, $<span class='n'>9C81</span> .. $<span class='n'>9E80</span> ===<hr>
                     001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*
                     002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>
-1C81:00 00 00       <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; <a class='mem' name='_1C81'>wastes</a> 127 bytes padding to end of sector
+1C81:00 00 00       <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; <a class='dumb' name='_1C81'>wastes</a> 127 bytes padding to end of sector
 1C84:00 00 00 00                                                                    ; Technically only 82 bytes ($1CD3-$1C81 = $52) are wasted
 1C88:00 00 00 00                                                                    ; but <span class="macro">FTAB DW *-45</span> is sloppy code
 1C8C:00 00 00 00                                                                    ; Why isn't this "allocated" at run-time?
@@ -8544,6 +8544,8 @@ I've annotated <a class='mem'>*wastes*</a> locations in the listing where memory
             <tr><td>T2S2</td><td>$33F3 .. $    </td><td><a class="file" href="#"       >       </a></td> <td>                                       </td> <td></td> <td align="right">    ?</td><td>                                                              </td></tr>
             <tr><td>T2S2</td><td>$3497 .. $34BA</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td>n/a                                    </td> <td></td> <td align="right">   40</td><td>VTOC <a class="v" href="#_3497">tracks 41 - 50</a> sector bitmaps</td></tr>
             <tr><td>T2S2</td><td>$34BB .. $34BB</td><td><a class="file" href="#FVCBUFS">FVCBUFS</a></td> <td><a class="v" href="#VDTCDE">VDTCDE</a> </td> <td></td> <td align="right">    1</td><td>CAT Unused <a class="v" href="#_34BB">sector type 2</a> = CATALOG</a></td></tr>
+            <tr><td>T0SB       </td><td>DOSINIT</td><td>Wastes 127 bytes for <a   class='dumb' href='#_1C81'>padding</a> to page align <a class='v' href='START'>START</a> DOS Vectors    </td></tr>
+            <tr><td>T0SC       </td><td>DOSINIT</td><td>Wastes  12 bytes for <a   class='dumb' href='#_1D56'>Applesoft/Integer Func Pointers</a> -- <a class='v' href='#IBASVT'>IBASVT</a></td></tr>
             <tr class="macro"><td>Total</td><td>---           </td><td>---                               <td>---                                    </td> <td></td> <td align="right">  160</td><td> </td></tr>
         </table>
     </font>
@@ -8755,22 +8757,20 @@ In contradistinction to the previous example, our new code plus initialized data
 <p>
 
 <h2><a class='section' name='WastedSectors'>3.3 Wasted Sectors</a></h2>
-<p>
-<b>Legend</b>: Track/Sector, Range on memory page, Source File, Bytes, Description, Link
-</p>
 <div style="padding-left:5%">
     <font style="font-family: monospace;">
         <table border="1" style="border-width: 1px; border-collapse: collapse">
-            <tr><td>T/S        </td><td>File   </td><td>Description                             </td></tr>
-            <tr><td>T0S5       </td><td>MSWAITR</td><td>Wastes 256 bytes for <a class="v" href="#NBUF1">NBUF1</a> - entire sector is zero              </td></tr>
-            <tr><td>T2S3       </td><td>FCVBUFS</td><td>Wastes 255 bytes for a <a class="dumb" href="#_3400">single byte</a> ($02) @ $BB !</td></tr>
-            <tr><td>T2S4       </td><td>FCVBUFS</td><td>Wastes 256 bytes for <a class="dumb"    href="#_34BC">catalog</a>                       </td></tr>
-            <tr><td>T2S5 - T2SF</td><td>n/a    </td><td>Rest of Track 2 is reserved. See: <a class="dumb" href="#HNTDAFS4">HNTDAFS #4</a> and <span class="todo">TODO</span></td></tr>
+            <tr><td>Track/Sector</td><td>File   </td><td>Description                             </td></tr>
+            <tr><td>T0S5        </td><td>MSWAITR</td><td>Wastes 256 bytes for <a   class="dumb" href="#NBUF1">NBUF1</a> - entire sector is zero!                                           </td></tr>
+            <tr><td>T2S3        </td><td>FCVBUFS</td><td>Wastes 255 bytes for a <a class="dumb" href="#_3400">single byte</a> ($02) @ $BB ! (First byte of CATALOG)                        </td></tr>
+            <tr><td>T2S4        </td><td>FCVBUFS</td><td>Wastes 256 bytes for <a   class="dumb" href="#_34BC">CATALOG</a> remaining bytes since it spans two sectors                       </td></tr>
+            <tr><td>T2S5 - T2SF </td><td>n/a    </td><td>Rest of Track 2 is reserved. See: <a class="dumb" href="#HNTDAFS4">HNTDAFS #4</a> and <span class="todo">TODO</span>              </td></tr>
         </table>
     </font>
 </div>
 <p>
-
+<b>Total sectors wasted</b>: 14 !
+<p>
 <h2><a class='section' name='BufferBloat'>3.4 Buffer Bloat</a></h2>
 <p>
 Why is DOS 3.3 so slow loading files when faster DOS's such as DiversiDOS, Pronto DOS, FastDOS, are able to load significantly faster?
