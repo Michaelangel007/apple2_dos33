@@ -896,7 +896,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     092 ; DOS BASIC INTERPRETER - INITIAL ENTRY
                     093 ;
                     094 <a class='x' name='SC1'      >SC1         </a>EQU *                                           ; Start Relocate Code 1
-                    095 <a class='x' name='DBINIT'   >DBINIT      </a>EQU *
+                    095 <a class='x' name='DBINIT'   >DBINIT      </a>EQU *                     ; DB = Dos Basic
 1D84:AD E9 37       096             LDA <a class='v' href='#IBSLOT'>IBSLOT</a>      ; GET BOOT SLOT
 1D87:4A             097             LSR A                                           ; /sarcasm Gee, maybe we wouldn't even <i>need</i> the next comment
 1D88:4A             098             LSR A                                           ;          if we <b>used good variable names</b> such as CUR_SLOTx16
@@ -927,10 +927,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                                                                                     ;              <b>padd IBVT</b> (with 2 bytes data on the end)
                                                                                     ;              to make IBVT, AS1VT, and AS2VT all the <b>same length</b>
                                                                                     ;
-                                                                                    ;                  Table SourceOffset
-                                                                                    ;                  IBVT  $00
-                                                                                    ;                  AS1VT $0C
-                                                                                    ;                  AS2VT $1E
+                                                                                    ;                  Table  SourceOffset  Instructios
+                                                                                    ;                  IBVT   $00           #IBVT -IBVT
+                                                                                    ;                  AS1VT  $0C           #AS1VT-IBVT
+                                                                                    ;                  AS2VT  $1E           #AS2VT-IBVT
                                                                                     ;
                                                                                     ; AA       109     TAX                  ; X = SourceOffset $0 = IBVT
                                                                                     ; 2C               DB  $2C              ; BIT $adr to skip next instruction
@@ -941,88 +941,89 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1DB6:9D 55 1D       121             STA IBASVT-1,X                                  ; 99 56 1D         STA IBASVT,Y                                       
 1DB9:CA             122             DEX                                             ; E8               INX                                                
 1DBA:D0 F7          123             BNE IAS1A                                       ; C8               INY                                                
-                    124 ;                                                           ; C0 0C            CPY #C                                             
+                                                                                    ; C0 0C            CPY #C                                             
                                                                                     ; D0 F4            BNE copy                                           
+                    124 ;
+                    125 INITAA      EQU                                             ; /sarcasm Hey, we need a new label inbetween INITA, and INITB
+1DBC:38             126             SEC             ; INDICATE INIT                 ;          I know, let's call it crappy "INITAA" instead of DoneCopyBasicVectors
+                    127             BCS INITA                                       ; &darr; (always) (*note* Intentional next empty line spacer for readability)
                                                                                     ;
-                    125 INITAA      EQU                                             ; crappy "Init After Applesoft" name -&gt; CopyBasicTablesDone
-1DBC:38             126             SEC             ; INDICATE INIT
-                    127             BCS INITA                                       ; &darr; (always)
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
-                    165 
-                    166 
-                    167 
-                    168 
-                    169 
-                    170 
-                    171 
-                    172 
-                    173 
-                    174 
-                    175 
-                    176 
-                    177 
-                    178 
-                    179 
-                    180 
-                    181 
-                    182 
-                    183 
-                    184 
-                    185 
-                    186 
-                    187 
-                    188 
-                    189 
-                    190 
-                    191 
-                    192 
-                    193 
-                    194 
-                    195 
-                    196 
-                    197 
-                    198 
-                    199 
-                    200 
-                    201 
-                    202 
-                    203 
+                    128 <a class='f' name='DBRST'>DBRST       </a>LDA ASIBSW      ;GET APPLESOFT/INITGER BASIC FLAG   ; *spelling* INTEGER; DBRST = DosBasicReset
+                    129             BNE INITA1      ;BRANCH IF NOT INITGER BASIC        ; *spelling* INTEGER
+                    130             LDA #ITSTV      ;GET INTIGER TEST VALUE AND GO SET  ; *spelling* INTEGER
+                    131             BNE INITA2      ; ROM SWITCH TO 'IB'. (BRANCH ALWAYS)
+                    132 INITA1      ASL A           ;TEST FOR ROM APPLESOFT         ; $40 = Applesoft RAM
+                    133             BPL INITA3      ;BRANCH IF RAM VERSION          ; /cynical <b>Test time!</b> INITA3 referes to InitApplesoftRAM or InitApplesoftROM ?
+                    134             LDA #ATSTV      ;GET APPLESOFT TEST VALUE AND GO SET
+                    135 INITA2      JSR SWTST       ;GO SELECT PROPER ROM BASIC.    ; more crappy naming: _which_ Switch Test
+                    136 INITA3      CLC
+                    137 ;
+                    138 INITA       EQU *
+                    139             PHP             ;SAVE INIT/RESET
+                    140             JSR MVCSW       ; GO MOVE CHAR SWITCH
+                    141             LDA #0          ; CLR MONITOR MODES             ; MON C,I,O
+                    142             STA MONMOD
+                    143 ;
+                    144             STA OSTATE      ; CLEAR OUTSTATE AND EXECUTE STATE  ; what happened to STA ESTATE ??
+                    145             PLP             ; GET INIT/RESET
+                    146             ROR A           ; SHIFT CARRY TO MSB            ; /sarcasm Gee, if only we could understand 6502 instructions, $00 = Reset, $80 = Init
+                    147             STA ISTATE      ; SAVE INSTATE                  ; Frak-You Captain Obvious with a STA IN_STATE
+                    148             BMI INITB       ; BR IF INIT
+                    149             JMP (CONT)      ; GO TO CONTINUE ENTRY          ; No Shit, Sherlock; _what_ is the difference between CONT and GO ???
+                    150 INITB       JMP (GO)        ; GO TO GO ENTRY                ;
+                    151             PAGE
+                    152 INITC       EQU *                                           ; Called by <a class='x' href='#CHIN0'>CHIN0</a>
+                    153             ASL A           ; OF ISTATE NOT ON
+                    154             BPL INITD       ; THEN NOT RAM AS               ; 
+                    155             STA ASIBSW      ; SET RAM AS
+                    156             LDX #AS2VTL                                     ; more duplicate code, we should <span class='macro'>LDA #AS2VT-IBVT</span> and JSR <a class='link' href='#DOSINIT.118.Solution'>118 Solution</a> (make a subroutine)
+                    157 IAS2A       LDA AS2VT-1,X   ; MOVE RAM AS ADRS              ; <a class='mem' name='_'>wastes</a> 6 bytes, (9 - 3 for JSR SOLUTION.118)</a>
+                    158             STA IBASVT-1,X
+                    159             DEX
+                    160             BNE IAS2A
+                    161             LDX #<span class='n'>29</span>                                         ; <a class='magic' name='_'>magic number</a> <i>better</i>: 30-1, <b>best</b>: FILENAME_MAX-1
+                    162 IAS2B       LDA FNAME2,X
+                    163             STA FNAME1,X
+                    164             DEX
+                    165             BPL IAS2B
+                    166 ;
+                    167 INITD       EQU *
+                    168             LDA DFNFTS      ; GO BUILD FILE TABS
+                    169             STA CNFTBS      ; AND SET MEM BOUNDS
+                    170             JSR BLDFTB
+                    171             LDA ESTATE      ; GET EXEC STATE
+                    172             BEQ INITZ       ; BR IF NOT EXECUTE
+                    173             PHA             ; SVE CHAR                      ; *spelling* SAVE
+                    174             JSR MVEFTA      ; GO MOVE EX FILE TAB ADR TO ZP
+                    175             PLA
+                    176             LDA #<span class='n'>0</span>
+                    177             STA (ZPGWRK),Y                                  ; Oh, we're still around?
+                    178 INITZ       EQU *
+<hr>                    179             JSR CLRSTS      ; SET IN AND OUT STATES TO ZERO ; === Page <a class='page' name='page51'>51</a> === ClearStates
+                    180             LDA CMDNO       ; IF NOT BOOT (DUPLICATED FROM LINES 4540, 4550)
+                    181             BNE INITF       ; THEN DONE
+                    182             LDX #IFBL
+                    183 INITE       LDA DBVECT,X    ; MOVE RESTART VECTORS
+                    184             STA $<span class='n'>3D0</span>,X                                      ; <a class='magic' name='_'>magic number</a>
+                    185             DEX
+                    186             BPL INITE
+                    187             LDA DBVECT+2    ;SET RESET VECTORS FOR NEW MONITOR.
+                    188             STA ZRSET+1     ;NOTE: THESE ARE NOT NORMALLY USED AND
+                    189             EOR #$<span class='n'>A5</span>        ; ARE ONLY SET ONCE ON BOOT     ; <a class='magic' name='_'>magic number</a> F800 Monitor Ctrl-Reset Powered Up Checksum
+                    190             STA PWCNST      ;POWER UP CONSTANT=COMPLIMENT OF HI RESET VECTOR.
+                    191             LDA DBVECT+1    ;SET LOW VECTOR ADDRESS.
+                    192             STA ZRSET       ;NOW APPLE RESET WILL KEEP DOS IN I/O LOOP
+                    193             LDA #<span class='n'>6</span>          ;INIDICATE RUN                  ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span> 
+                    194             BNE INITF1      ;LOAD AND RUN THE 'HELLO' PROGRAM   ; &darr; (always) 
+                    195 ;
+                    196 INITF       EQU *
+                    197             LDA SVCMD
+                    198             BEQ INITG
+                    199 INITF1      STA CMDNO
+                    200             JMP CMDGO1
+                    201 INITG       EQU *
+                    202             RTS
+                    203 ;
                     204 IFB         EQU *                                           ; --- Copied to $3D0 ---
 1E51:4C BF 1D       205 <a class='f' name='DBVECT'>DBVECT      </a>JMP DBRST                                       ; $3D0: DOS Warm RESET JMP $9BF
 1E54:4C 84 1D       206             JMP DBINIT                                      : $3D3: DOS Cold RESET JMP $9D84
@@ -1036,7 +1037,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1E64:AD C2 2A       214             LDA AIOB+1
 1E67:AC C1 2A       215             LDY AIOB
 1E6A:60             216             RTS
-1E6B:4C 51 28       217             JMP MVCSW                                       ; $3EA <span class="TODO">TODO</span> Who call us???
+1E6B:4C 51 28       217             JMP MVCSW                                       ; $3EA <span class='todo'>TODO</span> Who calls us??
 1E6E:EA             218             NOP
 1E6F:EA             219             NOP
 1E70:4C 59 FA       220             JMP MONBRK                                      ; $3EF
