@@ -978,8 +978,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     155             STA ASIBSW      ; SET RAM AS
                     156             LDX #AS2VTL                                     ; more duplicate code, we should <span class='macro'>LDA #AS2VT-IBVT</span> and JSR <a class='link' href='#DOSINIT.118.Solution'>118 Solution</a> (make a subroutine)
                     157 IAS2A       LDA AS2VT-1,X   ; MOVE RAM AS ADRS              ; <a class='mem' name='_'>wastes</a> 6 bytes, (9 - 3 for JSR SOLUTION.118)</a>
-                    158             STA IBASVT-1,X
-                    159             DEX
+                    158             STA IBASVT-1,X                                  ;        When you see the <b>same block of code</b> your <i>spidey sense</i> should be tingling:
+                    159             DEX                                             ;        Is there a way to refactor this common code?
                     160             BNE IAS2A
                     161             LDX #<span class='n'>29</span>                                         ; <a class='magic' name='_'>magic number</a> <i>better</i>: 30-1, <b>best</b>: FILENAME_MAX-1
                     162 IAS2B       LDA FNAME2,X
