@@ -1041,12 +1041,12 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1E87:F0 15          008             BEQ CHIN1       ; THEN BRANCH, ELSE
 1E89:48             009             PHA             ;SAVE ISTATE
 1E8A:AD 5C 2A       010             LDA SVA
-1E8D:91 28          011             STA ($<span class='n'>28</span>),Y                                     ; *<b class="magic">magic number</b>* /sarcasm If only F800.S ROM defined BASL EQU $28
+1E8D:91 28          011             STA ($<span class='n'>28</span>),Y     ;REPLACE CURSOR                 ; *<b class="magic">magic number</b>* /sarcasm If only F800.S ROM defined BASL EQU $28
 1E8F:68             012             PLA             ;GET ISTATE AGAIN
-1E90:30 03          013             BMI CHIN0
-1E92:4C 26 26       014             JMP ICFD
+1E90:30 03          013             BMI CHIN0       ;BRANCH IF NOT 'READ' FROM DISK
+1E92:4C 26 26       014             JMP ICFD        ; AND GET CHAR FROM DISK
 1E95:20 EA 1D       015 CHIN0       JSR INITC
-1E98:A4 24          016             LDY $<span class='n'>24</span>                                         ; *<b class="magic">magic number</b>* /sarcasm If only F800.S ROM defined CH EQU $24
+1E98:A4 24          016             LDY $<span class='n'>24</span>         ;GET CURSOR HORIZ               ; *<b class="magic">magic number</b>* /sarcasm If only F800.S ROM defined CH EQU $24
 1E9A:A9 60          017             LDA #$<span class='n'>60</span>        ;RESTORE A FLASHING CURSOR      ; #' ' + FLASH ; INVERSE = $00..$3F, FLASH = $40..$7F, NORMAL = $80..FF
 1E9C:91 28          018             STA ($<span class='n'>28</span>),Y     ; TO PROMPT USER                ; *<b class="magic">magic number</b>*
                     019 CHIN1       EQU *
@@ -1054,60 +1054,60 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1EA1:F0 03          021             BEQ CHIN2
 1EA3:20 82 26       022             JSR NXTEXC      ;RETURNS TO HERE ONLY WHEN 'EXEC' IS EXHAUSTED
 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
-                    055 
-                    056 
-                    057 
-                    058 
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
+                    023 CHIN2       EQU *
+1EA6:A9 03          024             LDA #<span class='n'>3</span>          ; SET OUT CHAR                   ; <b class="magic">magic number</b> STATE_INPUT_ECHO = 3
+1EA8:8D 52 2A       025             STA OSTATE      ; STATE TO INPUT ECHO
+                    026             JSR LDREGS
+                    027             JSR GETIN
+                    028             STA SVA         ; SAVE CHAR &apm; INDEX
+                    029             STX SVX
+                    030             JMP ORTN
+                    031 ;
+                    032 GETIN       JMP (INSW)
+                    033 ;
+                    034 ;CHROUT - CHAR RCVD VIA OUTPUT SWITCH
+                    035 ;
+                    036 CHROUT      EQU *
+                    037             JSR SVREGS      ; SAVE REGS
+                    038 ;
+                    039             LDA OSTATE      ; GET OUT SPARE
+                    040             ASL A
+                    041             TAX
+                    042             LDA OUTSVT1+1,X ; GET ROUTINE ADR
+                    043             PHA
+                    044             LDA OUTSVT+1,X
+                    045             PHA
+                    046             LDA SVA
+1ED0:60             047             RTS             ; GO TO ROUTINE
+                    048 ;
+                    049 ;SVREGS - SAVE REGS WHILE PROCESSING CHARS
+                    050 ;
+                    051 SVREGS      EQU *
+                    052             STA SVA         ; SAVE ACU                      ; Captain Obvious to the rescue!
+                    053 SVRGSA      EQU *                                           ; SaveRegsA, uh, NO, SaveRegsXY
+                    054             STX SVX         ; SAVE X                        ; Good variable naming, SAVEX, SAVEY
+                    055             STY SVY         ; SAVE Y                        ; negates the need for these useless comments
+                    056             TSX
+                    057             INX
+                    058             INX             ;ADJUST IT TO ORIGINAL
+                    059             STX SVSTK
+                    060             LDX #<span class='n'>3</span>          ; SET FOR FOUR BYTE MOVE        ; /sarcasm If only we could read assembly ...
+                    061 SVRB        LDA SVOUTS,X
+                    062             STA OUTSW,X
+                    063             DEX
+                    064             BPL SVRB
+                    065             RTS             ; DONE                          ; Can someone please put Captain Obvious out of _our_ misery?
+                    066             PAGE
+                    067 ;
+                    068 ; COS0 - 1ST CHAR OF PRINTED OUTPUT LINE
+                    069 ;CHECK FOR  CNTL-D                                          ; "<i>You say CNTL-D, I say CTRL-D</i>"
+                    070 ;                                                           ; we're <b>both</b> inconsistently dropping vowels: CoNTRoL
+                    071 COS0        EQU *
+                    072             LDX RSTATE      ;FIRST CHECK FOR 'AFTER APSFT RELOC'
+                    073             BEQ COS00       ;BRANCH IF NOT                  ; COS0 and COS00 are crap function names; they are WAY to easy to mis-type
+1EF0:4C 78 1F       074             JMP COS7                                        ; <a class='mem' name='_'>wastes</a> 3 bytes, but since $1F78-$1EF0 > $80 move <a class='x' href='#COS5'>COS5</a>..<a class='x' href='#COS7'>COS7</a> <b>before</b> <a class='x' href='#COS0'>COS0</a>; change Line #<a class='line' href='#DOSHOOK.074'>74</a> to BNE COS7
+                    075 COS00       LDX ISTATE      ;IS IN STATE NOT ZERO           ; I'm serious, someone <i>please</i> shoot Captain Obvious
+                    076             BEQ COS01                                       ; 
                     077 
                     078 
                     079 
@@ -2096,6 +2096,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2510:20 26 25       006             JSR RWPOSN      ; GO POSITION FILE IF REQD
 2513:A9 05          007             LDA #5                                          ; WTF is state 5 ?? OK, <a class='x' href='#COS5'>COS5</a> And the state table transition is where again?
 2515:8D 52 2A       008             STA OSTATE      ; SET OSTATE=5                  ; /sarcasm <i>No Shit, Sherlock</i>
+<img src="char_output_state.png">
 2518:4C 83 1F       009             JMP CERTN
                     010 
                     011 

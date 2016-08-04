@@ -1,0 +1,89 @@
+digraph d {
+    COS0     [label="COS0 reloc == 0 ?"       ];
+    COS00    [label="COS00 istate == 0"       ];
+    COS01
+    COS1     [label="COS1 x = keybuf.length"  ];
+    COS1A    [label="COS1A keybuf[ x ] = char"]
+    COS2     [label="COS2 char == CR ?"       ];
+    COS2A
+    COS3
+    COS3B    [label="COS3B estate == 0 ?"     ];
+    COS3A    [label="COS3A estate == 0 ?"     ];
+    COS3C    [label="COS3C exec input == 0 ?" ];
+    COS4     [label="COS4 char == CR ?"       ];
+    COS4A    [label="COS4A output char disk"  ];
+    COS5     [label="COS5 char == ^D ?"       ];
+    COS6
+    COS7
+    PRRTN    [label="PRRTN print char"        ];
+    ctrld1   [label="char == ^D ?"            ];
+    ctrlm3   [label="char == CR ?"            ];
+    data_in1 [label="data in"                 ];
+    data_in2 [label="data in"                 ];
+    data_out [label="data out"                ];
+    linefeed [label="char == LF ?"            ];
+    prompt   [label="char == PROMPT ?"        ];
+    state0_2 [label="ostate = 0" shape=box    ];
+    state0_3 [label="ostate = 0" shape=box    ];
+    state0_6 [label="ostate = 0" shape=box    ];
+    state1   [label="ostate = 1\nkeybuf.length = 0" shape=box    ];
+    state2   [label="ostate = 2" shape=box    ];
+    state4   [label="ostate = 4" shape=box    ];
+    state5   [label="ostate = 5" shape=box    ];
+    istateq  [label="char == '?'"             ];
+    rstate0  [label="rstate = 0" shape=box    ];
+
+/*
+    solid  = yes, or next statement
+    dashed = no
+*/
+    COS0     -> COS00
+    COS0     -> COS7    [style="dashed"];
+    COS00    -> COS01
+    COS00    -> istateq [style="dashed"];
+    istateq  -> COS6
+    istateq  -> prompt  [style="dashed"];
+    prompt   -> COS2A
+    prompt   -> COS01   [style="dashed"];
+
+    COS01    -> state2
+    state2   -> ctrld1
+    ctrld1   -> state1
+    ctrld1   -> COS2  [style="dashed"];
+    state1   -> COS1
+
+    COS1     -> COS1A
+
+    COS2     -> COS2A
+    COS2     -> PRRTN [style="dashed"];
+    COS2A    -> state0_2
+    state0_2 -> PRRTN
+
+    COS3     -> state0_3
+    state0_3 -> ctrlm3
+    ctrlm3   -> COS3A
+    ctrlm3   -> COS3B    [style="dashed"];
+    COS3B    -> PRRTN
+    COS3B    -> data_in1 [style="dashed"];
+    COS3A    -> tstrun
+    COS3A    -> COS3C    [style="dashed"];
+    tstrun   -> COS3C
+    COS3C    -> COS1A
+    COS3C    -> COS3B    [style="dashed"];
+
+    COS4     -> state5
+    state5   -> COS4A
+    COS4A    -> data_out
+    COS4     -> COS4A    [style="dashed"];
+
+    COS5     -> COS0
+    COS5     -> linefeed [style="dashed"];
+    linefeed -> COS4A
+    linefeed -> state4   [style="dashed"];
+    state4   -> COS4
+
+    COS6     -> state0_6
+    state0_6 -> data_in2
+
+    COS7     -> rstate0
+}
