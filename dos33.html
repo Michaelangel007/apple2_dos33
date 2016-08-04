@@ -1101,7 +1101,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     067 ;
                     068 ; COS0 - 1ST CHAR OF PRINTED OUTPUT LINE
                     069 ;CHECK FOR  CNTL-D                                          ; "<i>You say CNTL-D, I say CTRL-D</i>"
-                    070 ;                                                           ; we're <b>both</b> inconsistently dropping vowels: CoNTRoL
+                    070 ;                                                           ; We're <b>both</b> inconsistently dropping <i>a consonant</i>: CoNTRoL
                     071 COS0        EQU *
                     072             LDX RSTATE      ;FIRST CHECK FOR 'AFTER APSFT RELOC'
                     073             BEQ COS00       ;BRANCH IF NOT                  ; <b>Really?!</b> You couldn't use COS0A and COS0B like you do for the <i>other</i> states??
