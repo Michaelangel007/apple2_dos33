@@ -1084,7 +1084,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     050 ;
                     051 SVREGS      EQU *
 1ED1:8D 5C 2A       052             STA SVA         ; SAVE ACU                      ; Captain Obvious to the rescue!
-                    053 SVRGSA      EQU *                                           ; SaveRegsA, uh, NO, SaveRegsXY
+                    053 SVRGSA      EQU *                                           ; SaveRegsA, uh, NO, SaveRegsXY, we _already_ saved A
 1ED4:8D 5A 2A       054             STX SVX         ; SAVE X                        ; Good variable naming, SAVEX, SAVEY
 1ED7:8C 5B 2A       055             STY SVY         ; SAVE Y                        ; negates the need for these useless comments
 1EDA:BA             056             TSX             ;SAVE STACK POINTER
@@ -1092,7 +1092,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1EDC:E8             058             INX             ;ADJUST IT TO ORIGINAL
 1EDD:8E 59 2A       059             STX SVSTK
 1EE0:A2 03          060             LDX #<span class='n'>3</span>          ; SET FOR FOUR BYTE MOVE        ; /sarcasm If only we could read assembly ...
-1EE2:BD 53 2A       061 SVRB        LDA SVOUTS,X    ; MOVE SAVED OUT AND IN SW
+1EE2:BD 53 2A       061 SVRB        LDA SVOUTS,X    ; MOVE SAVED OUT AND IN SW      ; Save RB??? <span class='todo'>TOOD</span>
 1EE5:95 36,X        062             STA OUTSW,X     ; TO APPLE OUT/IN SW
 1EE7:CA             063             DEX
 1EE8:10 F8          064             BPL SVRB
