@@ -80,6 +80,12 @@ Misc.
  - can't use '$' in css name *
  - http://stackoverflow.com/questions/448981/which-characters-are-valid-in-css-class-names-selectors 
 */
+a.disk {
+    background-color:#F00; /* red */
+    color           :#FFF; /* white */
+    text-decoration: none; /* remove underlink from data link */
+    font-weight: normal;   /* remove bold */
+}
 a.dumb { /* How Not To Design a File System (HNTDAFS) */
     color: #808; /* purple */
 }
@@ -327,14 +333,17 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
     <tr>
         <td>LABEL</td>
         <td>Function name, or branch target name
-<br><a class="f">Function Definition</a>, or 
-<br><a class="d">Data Definition</a></td>
+<br><a class="f" >Function Definition</a>
+<br><a class="d" >Data Definition</a>
+<br><a class='do'>Macro Definition</a>
+</td>
     </tr>
     <tr>
         <td>MNEMONIC</td>
         <td>Assembly language instruction
 <br><a class="x">Function Reference</a>
 <br><a class="v">Variable Reference</a>
+<br><span class='n'>0-9</span>, <span class='n'>A-F</span>
 </td>
     </tr>
     <tr>
@@ -343,7 +352,16 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
     </tr>
     <tr>
         <td>Annotation</td>
-        <td>Modern commentary by me</td>
+        <td>Modern commentary by me. References to Code and Data are color-coded:
+<table  style="border-width: 1px; border-collapse: collapse" >
+<tr><td><a class='dumb' >dumb        </a></td><td> How NOT to Design A File System</tr>
+<tr><td><a class='mem'  >wastes      </a></td><td># bytes due to inefficient code </tr>
+<tr><td><a class='disk' >disk        </a></td><td> unitialized data, wasted sector</tr>
+<tr><td><a class='magic'>magic number</a></td><td> Hard-Coded magic number        </tr>
+<tr><td><a class='todo' >TODO        </a></td><td> Unanswered questions           </tr>
+</table>
+
+</td>
     </tr>
 </table>
 </div>
