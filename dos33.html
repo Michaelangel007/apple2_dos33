@@ -915,7 +915,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                                                                                     ;       -18 = Replacement code at Line <a class='link' href='#DOSINIT.118.Solution'>118 Solution</a>
 1D9E:A2 0A          <a class='line' name='DOSINIT.109'>109</a>             LDX #IBVTL      ; GET IB VT LENGTH              ; <a class='mem' name='_1D9E'>wastes</a> =7 bytes
 1DA0:BD 61 1D       110 IIB1        LDA IBVT-1,X    ; MOVE IB ADDR                  ; <b>Problem</b>: *sigh* due to IBVTL=$A != AS1VTL=$C
-1DA3:9D 55 1D       111             STA IBASVT-1,X                                  ;           we end up with <i>duplicate code</i> to
+1DA3:9D 55 1D       111             STA IBASVT-1,X                                  ;           we end up with <i>duplicate code</i> (**9 times**, er, 3 times!) to
 1DA6:CA             112             DEX                                             ;           copy the BASIC Vector Table! (An array of function pointers)
 1DA7:D0 F7          113             BNE IIB1                                        ;
 1DA9:4C BC 1D       114             JMP INITAA                                      ; normally <a class='mem' name='#_1DA9'>wastes</a> 1 byte, BEQ INITAA; but see bigger optimization on Line #<a class='line' href='#DOSINIT.109'>109</a>
