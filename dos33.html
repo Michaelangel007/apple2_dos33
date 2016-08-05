@@ -2637,7 +2637,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     005 ;   HIMEM,SOP                                               ; $9D00 = SOP = Start of Program
                     006 ;   SBUFF  N (256)
                     007 ;   DBUFF  N (256)
-                    008 ;   FTB    N (FCBLEN)                                       ; <a class="file" href="#FVCBUFS">FVCBUFS</a>, Line #<a class='line' href='#FVCBUFS.187'>187</a>
+                    008 ;   FTB    N (FCBLEN)                                       ; <a class="file" href="#FVCBUFS">FVCBUFS</a>, Line #<a class='line' href='#FVCBUFS.186'>186</a>
                     009 ;   HEADER N (38)                                           ; See Header Map below
                     010 ;   .
                     011 ;   .
@@ -4597,7 +4597,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     065 ;  FILE USE CODE                                            ;     uint8_t  type
                     066 ;  FILE NAME         (30)                                   ;     char     name[30]      <b>WTF</b> -- sizeof( FileEntry ) == 35 bytes; make it 27
                     067 ;  FILE SECTOR COUNT (2)                                    ;     uint16_t num_sectors   so entire struct is 32 bytes
-34C6:FC FF          068             ORG VOLDIR+256                                  ; <a class='mem' name='_34BC'>wastes</a> 256 bytes of disk space *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>* 
+34C6:FC FF          068             ORG VOLDIR+256                                  ; <a class='mem' name='_34BC'>wastes</a> 256 bytes of disk space <b>spanning two sectors</b> *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>* 
 34C8:FC FC FD FC
 34CC:FC FC FE FC
 34D0:FF FC FC FF
@@ -4612,17 +4612,26 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 34F4:FC FC FF FC
 34F8:FD FD FF FD
 34FC:FE FC FD FD
-3500:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; === <b class="ts">T2S4</b> ===
-3510:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                                                ; /sarcasm Who cares, we have 140KB, right!
-3520:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-3530:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-3540:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-3550:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-3560:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-3570:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-3580:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-3590:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-35A0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+3500:FC FE FF FC                                                                    ; === <b class="ts">T2S4</b> ===
+3504:FC FF FC FF
+3508:FE FD FE FC                                                                    ; /sarcasm Who cares, we have 140KB, right!
+350C:FC FD FC FD
+3510:FE FC FC FC
+3514:FC FF FD FC
+3518:FF FC FC FC
+351C:FC FF FC FC
+3520:FC FD FC FC
+3524:FD FC FE FF
+3528:FE FC FC FC
+352C:FF FC FC FC
+3530:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+3540:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+3550:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+3560:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+3570:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+3580:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+3590:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+35A0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 35B0:00 00 00 00
 35B4:00 00 00 00    069 VDEND       EQU *
 35B8:00 00 00       070 VDLEN       EQU *-VOLDIR
@@ -4633,126 +4642,116 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     075 ;COMMAND CONTROL BLOCK (CCB)
                     076 ;
                     077 CCB         EQU *
-35BB:00             078 CCBREQ      DS 1        ; USER REQUEST BYTE
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
-                    165 
-35E2:00 00          166 <a class="d" name="DCBCDL"     >DCBCDL      </a> DS 2           ; SECTOR DATA LENGTH
-35E4:00 00          167 <a class="d" name="DCBCRS"     >DCBCRS      </a> DS 2           ; CURRENT RELATIVE SECTOR           ; See <a class="x" href="#FVAR">FVAR</a>
-35E6:00 00          168 <a class="d" name="DCBCSB"     >DCBCSB      </a> DS 2           ; CURRENT SECTOR BYTE
-35E8:00 00          169 <a class="d" name="DCBCRL"     >DCBCRL      </a> DS 2           ; RECORD LENGTH
-35EA:00 00          170 <a class="d" name="DCBCRR"     >DCBCRR      </a> DS 2           ; CURRENT RELATIVE REC
-35EC:00 00          171 <a class="d" name="DCBCRB"     >DCBCRB      </a> DS 2           ; CURRENT RELATIVE BYTE
-35EE:00 00          172 <a class="d" name="DCBNSA"     >DCBNSA      </a> DS 2           ; NO SECTORS ALLOCATED
-                    173 ;
-35F0:00             174 <a class="d" name="DCBALS"     >DCBALS      </a> DS 1           ; ALLOCATION SECTOR BYTE
-35F1:00             175 <a class="d" name="DCBATK"     >DCBFUC      </a> DS 1           ; ALLOCATION TRACK
-35F2:00 00 00 00    176 <a class="d" name="DCBABM"     >DCBABM      </a> DS 4           ; ALLOCATION TRACK SECTOR BIT MAP   ; <a class='mem' name='_35F2'>wastes</a> 2 bytes, See <a class="x" href="#FS3">FS3</a> and Line #<a class='line' href='#FLOCSEC.184'>184</a>
-                    177 ;
-35F6:00             178 <a class="d" name="DCBFUC"     >DCBFUC      </a> DS 1           ; FILE USE CODE
-35F7:00             179 <a class="d" name="DCBSLT"     >DCBSLT      </a> DS 1           ; SLOT NUMBER
-<hr>35F8:00             180 <a class="d" name="DCBDRV"     >DCBDRV      </a>DS 1            ; DRIVE NUMBER                  ; === Page <a class="page" name="page89">89</a> ===
-35F9:00             181 <a class="d" name="DCBVOL"     >DCBVOL      </a>DS 1            ; VOLUME DRIVER
-35FA:00             182 <a class="d" name="DCBVTN"     >DCBVTN      </a>DS 1            ; VTOC TRACK NUMBER
-                    183 ;
-35FB:00 00 00       184 <a class="d" name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; *<a class="dumb" name="waste_35fb">wastes</a>* 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *unused*
-                    185 ;
-                    186 <a class="d" name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH
-                    <a class='line' name='FVCBUFS.187'>187</a> <a class="d" name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH
+35BB:FD             078 CCBREQ      DS 1        ; USER REQUEST BYTE
+                    079 CRQNUL      EQU 0
+                    080 CRQOPN      EQU 1
+                    081 CRQCLS      EQU 2
+                    082 CRQRD       EQU 3
+                    083 CRQWR       EQU 4
+                    084 CRQDEL      EQU 5
+                    085 CRQDIR      EQU 6
+                    086 CRQLCK      EQU 7
+                    087 CRQUNL      EQU 8
+                    088 CRQRNM      EQU 9
+                    089 CRQPOS      EQU 10
+                    090 CRQFMT      EQU 11
+                    091 CRQVAR      EQU 12
+                    092 CRQMAX      EQU 13
+                    093 ;
+                    094 CCBBSA      EQU *
+35BC:FD             095 CCBRQM      DS 1
+                    096 CRMNUL      EQU 0
+                    097 CRMNBT      EQU 1
+                    098 CRMNBL      EQU 2
+                    099 CRMSBT      EQU 3
+                    100 CRMSBL      EQU 4
+                    101 CRMMAX      EQU 5
+                    102 ;
+                    103 CCBRRN      EQU *
+                    104 CCBFN2      EQU *
+35BD:FD FC          105 CCBRLN      DS 2
+                    106 ;
+                    107 CCBBYT      EQU *
+35BF:FC             108 CCBVOL      DS 1
+35C0:FD             109 CCBDRV      DS 1
+                    110 ;
+                    111 CCBBLN      EQU *
+35C1:FF             112 CCBSLT      DS 1
+35C2:FD             113 CCBFUC      DS 1
+                    114 ;
+                    115 CCBFN1      EQU *           ; OPEN, DELETE, LOCK, UNLOCK, RENAME - FILENAME
+<hr>                    116 CCBBBA      EQU *           ; BLOCKK I/O - BLOCK BUFFER PTR ; === Page <a class='page' name='page88'>88</a> ===
+35C3:FC FD          117 CCBDAT      DS 2
+                    118 ;
+35C5:FD             119 CCBSTA      DS 1
+                    120 CREFUN      EQU 1
+                    121 CRERR       EQU 2
+                    122 CREMRE      EQU 3
+                    123 CREPRO      EQU 4
+                    124 CREEOF      EQU 5
+                    125 CREFNF      EQU 6
+                    126 CREVMM      EQU 7
+                    127 CREIOE      EQU 8
+                    128 CRENSA      EQU 9
+                    129 CREFLK      EQU 10
+                    130 ;
+35C6:FD             131 CCBSM       DS 1            ; STATUS MODIFIER
+35C7:FF FC          132 CCBFCB      DS 2            ; FCB PTR
+35C9:FC FC          133 CCBDBP      DS 2            ; DIR BUF PTR
+35CB:FC FC          134 CCBSBP      DS 2            ; SECTOR BUF PTR
+35CD:FF FC FC FC    135 CCBSPR      DS 4            ; SPARE                         ; <a class='mem' name='_35CD'>wastes</a> 4 bytes
+                    136 CCBLEN      EQU *-CCB       ; CCB LENGTH
+                    137 CFCBAD      EQU CCBFCB
+                    138 CFCBDR      EQU CCBDBP
+                    139 CFCBSB      EQU CCBSBP
+                    140             PAGE
+                    141 ;
+                    142 ;FILE CONTROL BLOCK (FCB) DEFINITION
+                    143 ;DCB - FILE DATA CONTROL BLOCK
+                    144 ;
+                    145 FCB EQU *
+                    146 ;
+                    147 ;DATA CONTROL BLOCK
+                    148 ;
+                    149 FCBDCB      EQU *
+35D1:FC             150 <a class='d' name='DCBFDT'     >DCBFDT      </a>DS 1            ; 1ST FILE DIRECTORY TRACK
+35D2:FC             151 <a class='d' name='DCBFDS'     >DCBFDS      </a>DS 1            ; 1ST FILE DIRECTORY SECTOR
+35D3:FF             152 <a class='d' name='DCBCDT'     >DCBCDT      </a>DS 1            ; CURRENT FILE DIRECTORY TRACK
+35D4:FC             153 <a class='d' name='DCBCDS'     >DCBCDS      </a>DS 1            ; CURRENT FILE DIRECTORY SECTOR
+35D5:FC             154 <a class='d' name='DCBWRF'     >DCBWRF      </a>DS 1            ; WRITE REQD FLAG
+                    155 ;$80=WRITE FILE DIR
+                    156 ;$40=WRITE SECTOR DIR
+35D6:FF             157 <a class='d' name='DCBTRK'     >DCBTRK      </a>DS 1            ; SECTOR TRACK ADR
+35D7:FF             158 <a class='d' name='DCBSEC'     >DCBSEC      </a>DS 1            ; SECTOR ADR
+35D8:FE             159 <a class='d' name='DCBVDR'     >DCBVDR      </a>DS 1            ; VOL DIR REC
+35D9:FC             160 <a class='d' name='DCBVDI'     >DCBVDI      </a>DS 1            ; VOL DIR INDEX
+35DA:FC FE          161 <a class='d' name='DCBDMS'     >DCBDMS      </a>DS 2            ; MAX NO DIRECTORY SECTORS
+35DC:FC FC          162 <a class='d' name='DCBDFS'     >DCBDFS      </a>DS 2            ; CURRENT DIR 1ST REL SECTOR
+35DF:FF FC          163 <a class='d' name='DCBDNF'     >DCBDNF      </a>DS 2            ; REL SECTOR OF NXT DIR
+35E0:FE FC          164 <a class='d' name='DCBCMS'     >DCBCMS      </a>DS 2            ; SECTOR CURRENTLY IN MEMORY
+35E2:FE FC          165 <a class='d' name='DCBSDL'     >DCBSDL      </a>DS 2            ; SECTOR DATA LENGTH
+35E4:FC FC          166 <a class="d" name="DCBCRS"     >DCBCRS      </a>DS 2            ; CURRENT RELATIVE SECTOR       ; See <a class="x" href="#FVAR">FVAR</a>
+35E6:FC FD          167 <a class="d" name="DCBCSB"     >DCBCSB      </a>DS 2            ; CURRENT SECTOR BYTE
+35E8:FC FF          168 <a class="d" name="DCBCRL"     >DCBCRL      </a>DS 2            ; RECORD LENGTH
+35EA:FC FC          169 <a class="d" name="DCBCRR"     >DCBCRR      </a>DS 2            ; CURRENT RELATIVE REC
+35EC:FC FF          170 <a class="d" name="DCBCRB"     >DCBCRB      </a>DS 2            ; CURRENT RELATIVE BYTE
+35EE:FC FC          171 <a class="d" name="DCBNSA"     >DCBNSA      </a>DS 2            ; NO SECTORS ALLOCATED
+                    172 ;
+35F0:FD             173 <a class="d" name="DCBALS"     >DCBALS      </a>DS 1            ; ALLOCATION SECTOR BYTE
+35F1:FC             174 <a class="d" name="DCBATK"     >DCBFUC      </a>DS 1            ; ALLOCATION TRACK
+35F2:FE FE FF FC    175 <a class="d" name="DCBABM"     >DCBABM      </a>DS 4            ; ALLOCATION TRACK SECTOR BIT MAP   ; <a class='mem' name='_35F2'>wastes</a> 2 bytes, See <a class="x" href="#FS3">FS3</a> and Line #<a class='line' href='#FLOCSEC.184'>184</a>
+                    176 ;
+35F6:FD             177 <a class="d" name="DCBFUC"     >DCBFUC      </a>DS 1            ; FILE USE CODE
+35F7:FF             178 <a class="d" name="DCBSLT"     >DCBSLT      </a>DS 1            ; SLOT NUMBER
+35F8:FC             179 <a class="d" name="DCBDRV"     >DCBDRV      </a>DS 1            ; DRIVE NUMBER                  ; === Page <a class="page" name="page89">89</a> ===
+35F9:FE             180 <a class="d" name="DCBVOL"     >DCBVOL      </a>DS 1            ; VOLUME DRIVER
+35FA:FD             181 <a class="d" name="DCBVTN"     >DCBVTN      </a>DS 1            ; VTOC TRACK NUMBER
+                    182 ;
+35FB:FC FD FC       183 <a class="d" name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; *<a class="mem" name="_35fb">wastes</a>* 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *unused*
+                    184 ;
+                    185 <a class="d" name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH
+                    <a class='line' name='FVCBUFS.186'>186</a> <a class="d" name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH
+                    187 ;
 
 
 <hr>; === <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <a class="page" name="page8">8</a>, <b class="ts">T0S0</b> - <b class="ts">T0S1</b>, $<span class='n'>B5FE</span> .. $<span class='n'>B7FF</span> ===<hr>
@@ -4801,7 +4800,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     043 <a class="f" name="MONINIT"  >MONINIT     </a>EQU $FB2F       ;MONINIT SCREEN
                     044 <a class="d" name="BHERE3"   >BHERE3      </a>EQU &gt;*
                     045 <a class="d" name="BOOTCNT"  >BOOTCNT     </a>EQU $800+BHERE3
-                    046             DFB 01                                          ; Number sectors for P6 PROM to read
+3600:01             046             DFB 01                                          ; Number sectors for P6 PROM to read
                     047             PAGE
                     048             LDA <a class="d" href="#POINTA">POINTA</a>+1    ;WHERE DID BSECTR GET LOADED?   ; Get memory page of last load
                     049             CMP #<span class='n'>09</span>         ; (AT 0800)?
