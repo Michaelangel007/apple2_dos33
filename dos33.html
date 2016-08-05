@@ -650,7 +650,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1BA6:18             207             CLC
 1BA7:69 04          208             ADC #<span class='n'>4</span>                                          ; 4 bytes per entry: {StartAdr,EndAdr}
 1BA9:AA             209             TAX
-1BAA:EC 28 1C       210             CPX <a class='v' href='#ADRTAB'>ADRTAB</a>                                      ; Done all bytes?
+1BAA:EC 28 1C       <a class='line' name='RELOCTR.210'>210</a>             CPX <a class='v' href='#ADRTAB'>ADRTAB</a>                                      ; Done all bytes?
 1BAD:90 CB          211             BCC <a class='x' href='#DR3'>DR3</a>
                     212             PAGE
                     213 ;
@@ -728,29 +728,37 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1C25:4C 54 1E       285 <a class="f" name="DR11" id="DR11"       >DR11        </a>JMP <a class="x" href="#DBVECT">DBVECT</a>+3    ; DONE                          ; <a class="file" href="#DOSINIT">DOSINIT</a>, Page <a class="page" href="#page51">51</a> -&gt; JMP <a class="x" href="#DBINIT">DBINIT</a>
                     <a class='line' name='RELOCTR.286'>286</a>             PAGE
                                                                                     ; This is <b>really crappy table formatting</b> due to 2 reasons:
-                                                                                    ; 1) An +1 offset is needed in code since the length of the array
-                                                                                    ;    doesn't have its own label
-                                                                                    ;        ADRTABL DFB 9*4
+                                                                                    ; 1) A redundant +1 offset is needed for "almost all"(*) offsets in code
+                                                                                    ;    since the length of the array doesn't have its own label:
+                                                                                    ;
+                                                                                    ;        ADRTABLEN DFB 9*4      ; <b>Poor Solution</b>: but better then original
+                                                                                    ;
+                                                                                    ; (*) "almost all" means all except one when the length IS checked on Line #<a class='line' href='#RELOCTR.210'>210</a>
+                                                                                    ;
                                                                                     ; 2) The start and end address are not on a single line
                                                                                     ;    with <i>no visual indicators</i> to tell what is the start or end address
                                                                                     ;    This makes it extremely hard to tell which addresses belong to
                                                                                     ;    which entry.  I've added the array offset [#] to make the original code
                                                                                     ;    more readable.
                                                                                     ;    <b>Better Solution</b>: Place each <b>entry</b> on a single line
-                                                                                    ;      along with the correct half-open range interval notation [,)
-                                                                                    ;      each block of memory to relocate becomes very crystal clear:
+                                                                                    ;    along with the correct half-open range interval notation [,)
+                                                                                    ;    then each block of memory to relocate becomes very crystal clear:
+                                                                                    ;
                                                                                     ;        ;         [Start, End)
                                                                                     ;        ADRTAB  DW SAT1 , EAT1
                                                                                     ;                DW RUN  , RUN
                                                                                     ;                DW IBVT , IBVT
                                                                                     ;                DW AS1VT, AS1VT
+                                                                                    ;
                                                                                     ;    <b>Best Solution</b>: Even better would be to use <i>two labels</i>
-                                                                                    ;       offset by two bytes to simulate an struct member variable:
+                                                                                    ;    offset by two bytes to simulate two struct member variables:
+                                                                                    ;
                                                                                     ;        ADRTABS DW SAT1        ; Start Address
                                                                                     ;        ADRTABE DW        EAT  ; End Address
                                                                                     ;                DW RUN  , RUN
                                                                                     ;                DW IBVT , IBVT
                                                                                     ;                DW AS1VT, AS1VT
+                                                                                    ;
                                                                                     ;    While the second's line formatting, ADRTABE, is a little unorthodox
                                                                                     ;    using dual labels makes the array offsets obvious compared to
                                                                                     ;    the original non-descript code:
@@ -759,6 +767,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                                                                                     ;        LDA ADRTABS+1,X    ; hi byte of start address; was LDA ADRTAB+2,X
                                                                                     ;        CMP ADRTABE+1,X    ; hi byte of end   address; was CMP ADRTAB+4,X
                                                                                     ;        CMP ADRTABE+0,X    ; lo byte of end   address; was CMP ADRTAB+3,X
+                                                                                    ;
 1C28:24             287 <a class='d' name='ADRTAB'     id='ADRTAB'     >ADRTAB      </a>DFB 9*4                                         ; <a class='magic' name='#_1C28'>magic number</a> <i>Really?!</i> We can't do <span class='macro'>ADRTAB_LEN DFB ADRTAB_END - ADRTAB_START</span> ???
 1C29:00 1D          288             DW  <a class="v" href="#SAT1"  >SAT1   </a>                                     ; [0] Start Address Table 1 in <a class="x" href="#DOSINIT">DOSINIT</a>
 1C2B:56 1D          289             DW  <a class="v" href="#EAT1"  >EAT1   </a>                                     ;     End   Address Table 1
