@@ -605,7 +605,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1B5A:8D 7C 1C       162             STA <a class="v" href="#NSPAGE">NSPAGE</a>      ; IS NEW START OF DOS
 1B5D:38             163             SEC
 1B5E:ED 7A 1C       164             SBC <a class="v" href="#RSPAGE">RSPAGE</a>      ; MINUS OLD DOS START
-1B61:F0 9D          165             BEQ <a class="x" href="#BEGIN" >BEGIN</a>       ; (BREIF NO DELTA)              ; ^ NOT misspelt: BRanch Equal If
+1B61:F0 9D          165             BEQ <a class="x" href="#BEGIN" >BEGIN</a>       ; (BREIF NO DELTA)              ; ^ Giving the benefit of doubt; NOT misspelt: BRanch Equal If ?
 1B63:8D 7F 1C       166             STA <a class="v" href="#DELTA" >DELTA</a>       ; IS DELTA
 1B66:AD 7A 1C       167             LDA <a class="v" href="#RSPAGE">RSPAGE</a>      ; RESET START PAGE TO NORMAL
 1B69:8D 0D 1D       168             STA <a class="v" href="#ASTART">ASTART</a>+1
