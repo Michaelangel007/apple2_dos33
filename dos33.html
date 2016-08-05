@@ -155,11 +155,15 @@ b.ts {
 Solution: place <hr> on same line
 */
 hr {
+    margin: 1px 1px;
 /*
 #    padding: 0px;
 #    margin:  0px;
 #    margin-top:-1em
 */
+}
+hr.join { /* We have a double horizontal rule for new source files, use 0 padding on the bottom */
+    margin: 0px 0px;
 }
 
 /* Indent 2.5%, 5% */
@@ -330,7 +334,7 @@ Numerous improvements have been made over the original source code listings!
 Header Format is:
 
 <pre>
-; === <b class="file">FILENAME</b> - Description, Page <a class="page" name="page0">#</a>, <b class="ts">Track/Sector</b> @ $offset, $<b class='n'>####</b> (Relocated address in high memory) ===
+<hr><hr class='join'>=== <b class="file">FILENAME</b> - Description, Page <a class="page" name="page0">#</a>, <b class="ts">Track/Sector</b> @ $offset, $<b class='n'>####</b> (Relocated address in high memory) ===<hr class='join'><hr>
 </pre>
 
 Line format is:
@@ -397,7 +401,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 <h1><a class='section' name='Listing'>2.0 Assembly Source Code Listing</a></h1>
 <pre>
-; === <b class="file">DOS33C</b> - Master Source File, Page <a class="page" name="page39">39</a> ===
+<hr><hr class='join'>=== <b class="file">DOS33C</b> - Master Source File, Page <a class="page" name="page39">39</a> ===<hr class='join'><hr>
                     001             SBTL "DOS3.3C w/APPEND fix, U/L case"
                     002             LST  ON,VSYM
                     003             MSB  OFF
@@ -436,7 +440,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     036             INCLUDE <a class="_c44 file" href="#DOSPTCH">DOSPTCH</a>,,1  ; $3FC8 .. $3FFF, T0S9
 
 
-<hr>; === <a class="file" name="RELOCTR">RELOCTR</a> - Relocate DOS to high (48K) memory, Page <a class="page" name="page110">110</a>, <b class="ts">T0SA</b>, $<span class='n'>1B00</span> .. $<span class='n'>1CFF</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="RELOCTR">RELOCTR</a> - Relocate DOS to high (48K) memory, Page <a class="page" name="page110">110</a>, <b class="ts">T0SA</b>, $<span class='n'>1B00</span> .. $<span class='n'>1CFF</span> ===<hr class='join'><hr>
                     001             PAGE
                     002 *****************************************************
                     003 *                                                   *
@@ -812,7 +816,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     337             PAGE
 
 
-<hr>; === <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <b class="ts">T0SB</b> - <b class="ts">T0SD</b>, $<span class='n'>9C81</span> .. $<span class='n'>9E80</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <b class="ts">T0SB</b> - <b class="ts">T0SD</b>, $<span class='n'>9C81</span> .. $<span class='n'>9E80</span> ===<hr class='join'><hr>
                     001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*
                     002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>
 1C81:00 00 00       <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; <a class='disk' name='_1C81'>disk</a> wastes 127 bytes padding to end of sector
@@ -1095,7 +1099,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     226 IFBL        EQU *-IFB-1
 
 
-<hr>; === <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Page <a class="page" name="page44">44</a>, <b class="ts">T0SD</b> - <b class="ts">T0SE</b>, $<span class='n'>9E81</span> .. $<span class='n'>9FCC</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Page <a class="page" name="page44">44</a>, <b class="ts">T0SD</b> - <b class="ts">T0SE</b>, $<span class='n'>9E81</span> .. $<span class='n'>9FCC</span> ===<hr class='join'><hr>
                     001             PAGE
                     002 ;
                     003 ;CHRIN - CHAR RCVD VIA IN SWITCH
@@ -1315,7 +1319,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     215 
 
 
-<hr>; === <a class="file" name="CMDSCAN">CMDSCAN</a> - Scan for commands, Page <a class="page" page="page16">16</a>, <b class="ts">T0SE</b> - <b class="ts">T1S0</b>, $<span class='n'>9FCD</span> .. $<span class='n'>A192</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="CMDSCAN">CMDSCAN</a> - Scan for commands, Page <a class="page" page="page16">16</a>, <b class="ts">T0SE</b> - <b class="ts">T1S0</b>, $<span class='n'>9FCD</span> .. $<span class='n'>A192</span> ===<hr class='join'><hr>
                     001             PAGE
                     002 ;
                     003 ; SCNCMD - SCAN A COMMAND
@@ -1588,7 +1592,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2192:60             270             RTS                 ; AND GOTO COMMAND
 
 
-<hr>; === <a class="file" name="XOPNCLS">XOPNCLS</a> - Execute Open / Close, Page <a class="page" name="page150">150</a>, <b class="ts">T1S0</b> - <b class="ts">T1S2</b>, $<span class='n'>A193</span> .. $<span class='n'>A330</span>  ===<hr>
+<hr><hr class='join'>=== <a class="file" name="XOPNCLS">XOPNCLS</a> - Execute Open / Close, Page <a class="page" name="page150">150</a>, <b class="ts">T1S0</b> - <b class="ts">T1S2</b>, $<span class='n'>A193</span> .. $<span class='n'>A330</span>  ===<hr class='join'><hr>
                     001             PAGE
                     002 ;
                     003 ; GNXTC - GET NEXT CHAR
@@ -1881,7 +1885,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2330:60             290 CL2         RTS             ; DONE
 
 
-<hr>; === <a class="file" name="XLODSAV">XLODSAV</a> - Execute Load / Save, Page <a class="page" name="page140">140</a>, <b class="ts">T1S2</b> - <b class="ts">T1S4</b>, $<span class='n'>A331</span> .. $<span class='n'>A50F</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="XLODSAV">XLODSAV</a> - Execute Load / Save, Page <a class="page" name="page140">140</a>, <b class="ts">T1S2</b> - <b class="ts">T1S4</b>, $<span class='n'>A331</span> .. $<span class='n'>A50F</span> ===<hr class='join'><hr>
                     001             PAGE
                     002 ;
                     003 ; EBSV - EXECUTE BINARY SAVE
@@ -2153,7 +2157,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 250D:4C D4 0F       269             JMP $FD4                                        ; *<b class="magic">magic number</b>*
 
 
-<hr>; === <a class="file" name="XMISCMD">XMISCMD</a> - Execute misc. commands, Page <a class="page" name="page145">145</a>, <b class="ts">T1S4</b> - <b class="ts">T1S5</b>, $<span class='n'>A510</span> .. $<span class='n'>A6A7</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="XMISCMD">XMISCMD</a> - Execute misc. commands, Page <a class="page" name="page145">145</a>, <b class="ts">T1S4</b> - <b class="ts">T1S5</b>, $<span class='n'>A510</span> .. $<span class='n'>A6A7</span> ===<hr class='join'><hr>
                     001             PAGE
                     002 ;
                     003 ; EWRITE - WRITE CMD EXECUTE
@@ -2411,7 +2415,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 26A7:60             254             RTS
 
 
-<hr>; === <a class="file" name="DOSGOER">DOSGOER</a> - Print Error message, Page <a class="page" name="page40">40</a>, <b class="ts">T1S5</b> - <b class="ts">T1S6</b>, $<span class='n'>A6A8</span> .. $<span class='n'>A7D3</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="DOSGOER">DOSGOER</a> - Print Error message, Page <a class="page" name="page40">40</a>, <b class="ts">T1S5</b> - <b class="ts">T1S6</b>, $<span class='n'>A6A8</span> .. $<span class='n'>A7D3</span> ===<hr class='join'><hr>
                     001             PAGE
                     002 ;
                     003 ; DOSGO - GOTO DOS
@@ -2629,7 +2633,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     215 
 
 
-<hr>; === <a class="file" name="BLDFTAB">BLDFTAB</a> - Build File Tables, Page <a class="page" name="page4">4</a>, <b class="ts">T1$6</b> @ $D4 - <b class="ts">T1$7</b> @ $83, $<span class='n'>A7D4</span> .. $<span class='n'>A883</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="BLDFTAB">BLDFTAB</a> - Build File Tables, Page <a class="page" name="page4">4</a>, <b class="ts">T1$6</b> @ $D4 - <b class="ts">T1$7</b> @ $83, $<span class='n'>A7D4</span> .. $<span class='n'>A883</span> ===<hr class='join'><hr>
                     001             PAGE
                     002 ;
                     003 ; BLDFTB - BUILD FILE TABLES
@@ -2775,7 +2779,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     143 <a class="f" name="MVSRTN" >MVSRTN      </a>EQU *
 2883:60             144             RTS
 
-<hr>; === <a class="file" name="CMDTBLS">CMDTBLS</a> - Commands, Page <a class="page" name="page21">21</a>, <b class="ts">T1S7</b> - <b class="ts">T1S9</b>, $<span class='n'>A884</span> .. $<span class='n'>AA4E</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="CMDTBLS">CMDTBLS</a> - Commands, Page <a class="page" name="page21">21</a>, <b class="ts">T1S7</b> - <b class="ts">T1S9</b>, $<span class='n'>A884</span> .. $<span class='n'>AA4E</span> ===<hr class='join'><hr>
                     001                 PAGE
                     002 ;
                     003 ; COMMAND NAME TABLE
@@ -2942,7 +2946,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     164 
 
 
-<hr>; === <a class="file" name="FDOSENT">FDOSENT</a> - External Entry Point, Page <a class="page" name="page60">60</a>, <b class="ts">T1S9</b>, $<span class='n'>2A4F</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="FDOSENT">FDOSENT</a> - External Entry Point, Page <a class="page" name="page60">60</a>, <b class="ts">T1S9</b>, $<span class='n'>2A4F</span> ===<hr class='join'><hr>
                     001                 PAGE
                     002 ;
                     003 ; MISC BUT REQD CELLS
@@ -3081,7 +3085,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2B1F:4C 63 33       122 ERR2        JMP ERROR2
 
 
-<hr>; === <a class="file" name="FOPCLRW">FOPCLRW</a> - Open; Close; Rename; Read, Page <a class="page" name="page77">77</a>, <b class="ts">T1SA</b> - <b class="ts">T1SB</b>, $<span class='n'>2B22</span> ($AB22) ===<hr>
+<hr><hr class='join'>=== <a class="file" name="FOPCLRW">FOPCLRW</a> - Open; Close; Rename; Read, Page <a class="page" name="page77">77</a>, <b class="ts">T1SA</b> - <b class="ts">T1SB</b>, $<span class='n'>2B22</span> ($AB22) ===<hr class='join'><hr>
                     001             PAGE
                     002 ;
                     003 ; FOPEN - OPEN A FILE
@@ -3370,7 +3374,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     286 
 
 
-<hr>; === <a class="file" name="FDELCAT">FDELCAT</a> - Delete, Catalog, Page <a class="page" name="page55">55</a>, <b class="ts">T1SB</b> @ $EF - <b class="ts">T1SD</b>, $<span class='n'>ACEF</span> .. $<span class='n'>A???</span>===<hr>
+<hr><hr class='join'>=== <a class="file" name="FDELCAT">FDELCAT</a> - Delete, Catalog, Page <a class="page" name="page55">55</a>, <b class="ts">T1SB</b> @ $EF - <b class="ts">T1SD</b>, $<span class='n'>ACEF</span> .. $<span class='n'>A???</span>===<hr class='join'><hr>
                     001             PAGE
                     002 ;
                     003 * FLOCK - LOCK A FILE
@@ -3622,7 +3626,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2E8D:60             249             RTS
 
 
-<hr>; === <a class="file" name="FMTRWIO">FMTRWIO</a> - Execute Format Request, Page <a class="page" name="page73">73</a>, <b class="ts">T1SD</b> - <b class="ts">T1SE</b>, $<span class='n'>AE8E</span> .. $<span class='n'>AFF6</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="FMTRWIO">FMTRWIO</a> - Execute Format Request, Page <a class="page" name="page73">73</a>, <b class="ts">T1SD</b> - <b class="ts">T1SE</b>, $<span class='n'>AE8E</span> .. $<span class='n'>AFF6</span> ===<hr class='join'><hr>
                     001             PAGE
                     002 ;
                     003 * FFMT - Execute Format Request
@@ -3858,7 +3862,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2FF6:60             233             RTS             ; RTN
 
 
-<hr>; === <a class="file" name="FLOCNXB">FLOCNXB</a> - Locate Next Byte, Page <a class="page" name="page63">63</a>, <b class="ts">T1SE</b> - <b class="ts">T2S0</b>, $<span class='n'>AFF7</span> .. $<span class='n'>B1C8</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="FLOCNXB">FLOCNXB</a> - Locate Next Byte, Page <a class="page" name="page63">63</a>, <b class="ts">T1SE</b> - <b class="ts">T2S0</b>, $<span class='n'>AFF7</span> .. $<span class='n'>B1C8</span> ===<hr class='join'><hr>
                     001             PAGE
                     002 ;
                     003 ;RDVTOC - READ VTOC
@@ -4141,7 +4145,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     280 
 
 
-<hr>; === <a class="file" name="FLOCSEC">FLOCSEC</a> - Locate Sector, Page <a class="page" name="page68">68</a>, <b class="ts">T2S0</b> - <b class="ts">T2S2</b>, $<span class='n'>B1C9</span> .. $<span class='n'>B396</span>  ===<hr>
+<hr><hr class='join'>=== <a class="file" name="FLOCSEC">FLOCSEC</a> - Locate Sector, Page <a class="page" name="page68">68</a>, <b class="ts">T2S0</b> - <b class="ts">T2S2</b>, $<span class='n'>B1C9</span> .. $<span class='n'>B396</span>  ===<hr class='join'><hr>
                     001             PAGE
                     002 ;
                     003 ;FNDFIL - FIND FILE NAME IN VOLUUME DIR                     ; *spelling* VOLUME
@@ -4428,7 +4432,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     284 
 
 
-<hr>; === <a class="file" name="FVCBUFS">FVCBUFS</a> - File Volume Catalog Buffers, Page <a class="page" name="page86">86</a>, <b class="ts">T2$2</b> @ $97 - <b class="ts">T2$4</b> @ $FD, $<span class='n'>B397</span> .. $<span class='n'>B5FD</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="FVCBUFS">FVCBUFS</a> - File Volume Catalog Buffers, Page <a class="page" name="page86">86</a>, <b class="ts">T2$2</b> @ $97 - <b class="ts">T2$4</b> @ $FD, $<span class='n'>B397</span> .. $<span class='n'>B5FD</span> ===<hr class='join'><hr>
 "<i>Show me your code and I'll have to guess at your data (structures),
  Show me your data and I won't have to see your code, I'll already know it.</i>"
  -- Michael, paraphrasing Fred Brooks
@@ -4743,7 +4747,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     176 ;
 35F6:FD             177 <a class="d" name="DCBFUC"     >DCBFUC      </a>DS 1            ; FILE USE CODE
 35F7:FF             178 <a class="d" name="DCBSLT"     >DCBSLT      </a>DS 1            ; SLOT NUMBER
-35F8:FC             179 <a class="d" name="DCBDRV"     >DCBDRV      </a>DS 1            ; DRIVE NUMBER                  ; === Page <a class="page" name="page89">89</a> ===
+<hr>35F8:FC             179 <a class="d" name="DCBDRV"     >DCBDRV      </a>DS 1            ; DRIVE NUMBER                  ; === Page <a class="page" name="page89">89</a> ===
 35F9:FE             180 <a class="d" name="DCBVOL"     >DCBVOL      </a>DS 1            ; VOLUME DRIVER
 35FA:FD             181 <a class="d" name="DCBVTN"     >DCBVTN      </a>DS 1            ; VTOC TRACK NUMBER
                     182 ;
@@ -4754,7 +4758,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     187 ;
 
 
-<hr>; === <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <a class="page" name="page8">8</a>, <b class="ts">T0S0</b> - <b class="ts">T0S1</b>, $<span class='n'>B5FE</span> .. $<span class='n'>B7FF</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <a class="page" name="page8">8</a>, <b class="ts">T0S0</b> - <b class="ts">T0S1</b>, $<span class='n'>B5FE</span> .. $<span class='n'>B7FF</span> ===<hr class='join'><hr>
                     001             SBTL '16-SECTOR DOS BOOT'
                     002 <a class="d" name="HERE3L"     id="HERE3L"     >HERE3L      </a>EQU &gt;*                                          ; End of FVCBUFS = $35FD
                     003 <a class="d" name="REMDR3"     id="REMDR3"     >REMDR3      </a>EQU 256-HERE3L                                  ; Remainder 3
@@ -5193,7 +5197,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     436 
 
 
-<hr>; === <a class="file" name="COREQUS">COREQUS</a> - Core Equates, Page <a class="page" name="page24">24</a>, <b class="ts">n/a</b>, $<span class='n'>n/a</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="COREQUS">COREQUS</a> - Core Equates, Page <a class="page" name="page24">24</a>, <b class="ts">n/a</b>, $<span class='n'>n/a</span> ===<hr class='join'><hr>
                     001 
                     002 
                     003 
@@ -5370,7 +5374,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     174 <a class="d" name="Q7H"        >Q7H         </a>EQU $C08F       Q7H,Q6H=WRITE STORE             ; DRIVE_MODE_W
 
 
-<hr>; === <a class="file" name="PRENIBL">PRENIBL</a> - Prenibblize sector data for writing, Page <a class="page" name="page104">104</a>, <b class="ts">T0S2</b>, $<span class='n'>B800</span> .. $<span class='n'>B829</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="PRENIBL">PRENIBL</a> - Prenibblize sector data for writing, Page <a class="page" name="page104">104</a>, <b class="ts">T0S2</b>, $<span class='n'>B800</span> .. $<span class='n'>B829</span> ===<hr class='join'><hr>
                     001             SBTL '16-SECTOR PRENIBLIZE'
                     002 ****************************
                     003 *                          *
@@ -5427,7 +5431,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3828:60             054             RTS             ;RETURN.                        ; o7 Captain Obvious
 
 
-<hr>; === <a class="file" name="WRITRTN">WRITRTN</a> - Write Routine, Page <a class="page" name="page137">137</a>, <b class="ts">T0S2</b>, $<span class='n'>B82A</span> .. $<span class='n'>B8C1</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="WRITRTN">WRITRTN</a> - Write Routine, Page <a class="page" name="page137">137</a>, <b class="ts">T0S2</b>, $<span class='n'>B82A</span> .. $<span class='n'>B8C1</span> ===<hr class='join'><hr>
                     001                 SBTL '16-SECTOR WRITE'
                     002 ************************
                     003 *                      *
@@ -5558,7 +5562,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 38C1:60             128             RTS
 
 
-<hr>; === <a class="file" name="POSTNRD">POSTNRD</a> - Post Nibbilize Read, Page <a class="page" name="page101">101</a>, <b class="ts">T0$2</b> @ $C2 - <b class="ts">T0S3</b> @ $43, $<span class='n'>B8C2</span> .. $<span class='n'>B943</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="POSTNRD">POSTNRD</a> - Post Nibbilize Read, Page <a class="page" name="page101">101</a>, <b class="ts">T0$2</b> @ $C2 - <b class="ts">T0S3</b> @ $43, $<span class='n'>B8C2</span> .. $<span class='n'>B943</span> ===<hr class='join'><hr>
                     001             SBTL '16-SECTOR POSTNIBLIZE'
                     002 ***************************
                     003 *                         *
@@ -5725,7 +5729,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3943:60             165             RTS             FROM READ16 OR RDADR16.
 
 
-<hr>; === <a class="file" name="RDADSEK">RDADSEK</a> - Read Disk Address; Seek, Page <a class="page" name="page106">106</a>, <b class="ts">T0$3</b> @ $44, $<span class='n'>B944</span> .. $<span class='n'>B9FC</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="RDADSEK">RDADSEK</a> - Read Disk Address; Seek, Page <a class="page" name="page106">106</a>, <b class="ts">T0$3</b> @ $44, $<span class='n'>B944</span> .. $<span class='n'>B9FC</span> ===<hr class='join'><hr>
                     001             SBTL '16-SECTOR READ ADDRESS'
                     002 
                     003 
@@ -5930,7 +5934,8 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 39FA:A6 2B          202             LDX <a class="v" href="#SLOTTEMP">SLOTTEMP</a>    ;RESTORE X-REG
 39FC:60             203 <a class="f" name="SEEKRTS"    >SEEKRTS     </a>RTS             ;AND RETURN                     ; /sarcasm I don't know what we would do without you Captain Obvious!
 
-<hr>; === <a class="file" name="MSWAITR">MSWAITR</a> - Microsecond wait routine, Page <a class="page" name="page97">97</a>, <b class="ts">T0$3</b> @ $FD - <b class="ts">T0$6</b> @ $55, $<span class='n'>B9FD</span> .. $<span class='n'>BC55</span> ===<hr>
+
+<hr><hr class='join'>=== <a class="file" name="MSWAITR">MSWAITR</a> - Microsecond wait routine, Page <a class="page" name="page97">97</a>, <b class="ts">T0$3</b> @ $FD - <b class="ts">T0$6</b> @ $55, $<span class='n'>B9FD</span> .. $<span class='n'>BC55</span> ===<hr class='join'><hr>
                     001                 SBTL '16-SECTOR MSWAIT'
                     002 **************************
                     003 *   MSWAIT SUBROUTINE    *
@@ -6174,7 +6179,8 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3C40:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 3C50:00 00 00 00 00 00
 
-<hr>; === <a class="file" name="WRITADR">WRITADR</a> - Write Address, Page <a class="page" name="page134">134</a>, <b class="ts">T0$6</b> @ $56, $<b class='n'>BC56</b> .. $<b class='n'>BCFF</b> ===<hr>
+
+<hr><hr class='join'>=== <a class="file" name="WRITADR">WRITADR</a> - Write Address, Page <a class="page" name="page134">134</a>, <b class="ts">T0$6</b> @ $56, $<b class='n'>BC56</b> .. $<b class='n'>BCFF</b> ===<hr class='join'><hr>
                     001             SBTL '16-SECTOR WRITE ADDRESS'
                     002 
                     003 
@@ -6301,7 +6307,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     123 
 
 
-<hr>; === <a class="file" name="RWTSONE">RWTSONE</a> - Read Write Track Sector - Part 1, Page <a class="page" name="page116">116</a>, <b class="ts">T0$7</b>, $<b class='n'>BD00</b> .. $<b class='n'>BDAA</b> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="RWTSONE">RWTSONE</a> - Read Write Track Sector - Part 1, Page <a class="page" name="page116">116</a>, <b class="ts">T0$7</b>, $<b class='n'>BD00</b> .. $<b class='n'>BDAA</b> ===<hr class='join'><hr>
                     001             STBL '16-SECTOR RWTS'
                     002 
                     003 
@@ -6627,7 +6633,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
                     323 
 
 
-<hr>; === <a class="file" name="RWTSTWO">RWTSTWO</a> - Read Write Track Sector - Part 2, Page <a class="page" name="page122">122</a>, <b class="ts">T0$7</b> - <b class="ts">T0$8</b>, $<b class='n'>BDAB</b> .. $<b class='n'>BEAE</b> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="RWTSTWO">RWTSTWO</a> - Read Write Track Sector - Part 2, Page <a class="page" name="page122">122</a>, <b class="ts">T0$7</b> - <b class="ts">T0$8</b>, $<b class='n'>BDAB</b> .. $<b class='n'>BEAE</b> ===<hr class='join'><hr>
                     001 *
                     002 * DISK IS NOW UP TO SPEED: READ IT!
                     003 * NOW CHECK: IF IT IS NOT THE FORMAT DISK COMMAND,
@@ -6933,7 +6939,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3EAE:60             302 <a class="f" name="SETRTS"     id="SETRTS"    >SETRTS      </a>RTS
 
 
-<hr>; === <a class="file" name="FORMATR">FORMATR</a> - Format Disk, Page <a class="page" name="page82">82</a>, <b class="ts">T0$8</b> @ $AF..  <b class="ts">T0$9</b> @ $C7, $<span class='n'>BEAF</span> .. $<span class='n'>BFC7</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="FORMATR">FORMATR</a> - Format Disk, Page <a class="page" name="page82">82</a>, <b class="ts">T0$8</b> @ $AF..  <b class="ts">T0$9</b> @ $C7, $<span class='n'>BEAF</span> .. $<span class='n'>BFC7</span> ===<hr class='join'><hr>
                     001                SBTL '16-SECTOR FORMATTER'
                     002 ****************************
                     003 *                          *
@@ -7151,7 +7157,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3FC4:06 04 02 0F    215             DFB $06,$04,$02,$0F                             ; need to waste memory with this table at all !
 
 
-<hr>; === <a class="file" name="DOSPTCH">DOSPTCH</a> - Revision B Patches, Page <a class="page" name="page52">52</a>, <b class="ts">T0$9</b> @ $C8, $<span class='n'>BFC8</span> .. $<span class='n'>BFFF</span> ===<hr>
+<hr><hr class='join'>=== <a class="file" name="DOSPTCH">DOSPTCH</a> - Revision B Patches, Page <a class="page" name="page52">52</a>, <b class="ts">T0$9</b> @ $C8, $<span class='n'>BFC8</span> .. $<span class='n'>BFFF</span> ===<hr class='join'><hr>
                     001             SBTL "DOS PATCHES"
                     002 ********************************
                     003 *
@@ -7208,7 +7214,7 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 <hr>                    054     DO <a class="do" href="#ENDOFDOS">ENDOFDOS</a>-$4000                                       ; === Page <a class="page" name="page53">53</a> ===<span class="macro">
                     055         FAIL 2,'DOS LENGTH NOT CORRECT'                     </span>
                     056     FIN
-<hr><hr>
+<hr><hr><hr>
 </pre>
 
 <h1><a class='section' name='Symbols'     >3.0 Symbols</a></h1>
