@@ -202,6 +202,31 @@ span.patch {
     color: #F80; /* Orange */
 }
 
+.borders, .borders tr, .borders td {
+    border: 1px solid;
+    border-width: 1px;
+    border-collapse: collapse;
+    padding: 2px;
+}
+.borders th {
+    background-color: #EEE;
+    border: 1px solid;
+}
+
+/* Table nested inside table -- don't show left, right, bottom border edges */
+.rows, .rows tr {
+    border: 1px solid;
+    border-collapse: collapse; /* seperate or collapse */
+    border-left : 0px;
+    border-right: 0px;
+    border-bottom: 0px;
+    padding: 0px;
+    outline: none;
+}
+.rows td {
+    border: 0px;
+}
+
 /* 100% Saturation is too dark and over-powering. Lighten up to make it easier on the eyes. */
 /* S: ~25%, V: 100%  */
 .c00 { background-color:#Fbb; color: #000; } /* H:  0 #FFbfbf Red           */
@@ -317,7 +342,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <b>Legend:</b>
 <p>
 <div class='indent5'>
-<table border="1" style="border-width: 1px; border-collapse: collapse" >
+<table class='borders'>
     <tr>
         <td>Addr</td>
         <td>Address at assemble time</td>
@@ -352,13 +377,16 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
     </tr>
     <tr>
         <td>Annotation</td>
-        <td style='padding:0px;'>Modern commentary by me. References to Code and Data are color-coded:
-<table  style="border-width: 1px; border-collapse: collapse" >
-<tr><td><a class='dumb' >dumb        </a></td><td> How NOT to Design A File System</tr>
-<tr><td><a class='mem'  >wastes      </a></td><td># bytes due to inefficient code </tr>
-<tr><td><a class='disk' >disk        </a></td><td> unitialized data, wasted sector</tr>
-<tr><td><a class='magic'>magic number</a></td><td> Hard-Coded constant that the reader is assumed to know what it means</tr>
-<tr><td><a class='todo' >TODO        </a></td><td> Unanswered questions           </tr>
+        <td style='padding:0px;'>Modern commentary by me.
+<br>References to Code and Data are color-coded:
+<br>
+<br>
+<table class='rows'>
+<tr class="rows"><td><a class='dumb' >dumb        </a></td><td> How NOT to Design A File System</tr>
+<tr class="rows"><td><a class='mem'  >wastes      </a></td><td># bytes due to inefficient code </tr>
+<tr class="rows"><td><a class='disk' >disk        </a></td><td> unitialized data, wasted sector</tr>
+<tr class="rows"><td><a class='magic'>magic number</a></td><td> Hard-Coded constant that the reader is assumed to know what it means</tr>
+<tr class="rows"><td><a class='todo' >TODO        </a></td><td> Unanswered questions           </tr>
 </table>
 
 </td>
@@ -8511,8 +8539,8 @@ I've annotated <a class='mem'>*wastes*</a> locations in the listing where memory
 <p>
 <div style="padding-left:5%">
     <font style="font-family: monospace;">
-        <table border="1" style="border-width: 1px; border-collapse: collapse">
-            <tr><td>T/S </td><td>Range         </td><td>File                                       </td> <td>Func/Var                                </td>  <td>Line                                       </td> <td align="right">Bytes</td><td>Description                                                            </td></tr>
+        <table class="borders">
+            <tr><th>T/S </th><th>Range         </th><th>File                                       </th> <th>Func/Var                                </th>  <th>Line                                       </th> <th align="right">Bytes</th><th>Description                                                            </th></tr>
             <tr><td>T0S0</td><td>$36B3..$36FD  </td><td><a class="file" href="#BOOTLDR">BOOTLDR</a></td> <td>n/a                                     </td>  <td></td> <td align="right">   75</td><td><a class="d" href="#"           >     </a>  Padding for boot sector    </td></tr>
             <tr><td>T0S1</td><td>$37FF         </td><td><a class="file" href="#BOOTLDR">BOOTLDR</a></td> <td>n/a                                     </td>  <td></td> <td align="right">    1</td><td><a class="d" href="#"           >     </a>  Unused slack at end        </td></tr>
             <tr><td>T0S3</td><td>$FD..$FF      </td><td><a class="file" href="#MSWAITR">MSWAITR</a></td> <td>n/a                                     </td>  <td></td> <td align="right">    3</td><td>Line #<a class='line' href='#MSWAITR.030'>30</a> page align <a class="x" href="#MSWAIT" >MSWAIT </a></td></tr>
@@ -8786,8 +8814,8 @@ In contradistinction to the previous example, our new code plus initialized data
 <h2><a class='section' name='WastedSectors'>3.3 Wasted Sectors</a></h2>
 <div style="padding-left:5%">
     <font style="font-family: monospace;">
-        <table border="1" style="border-width: 1px; border-collapse: collapse">
-            <tr><td>Track/Sector</td><td>File   </td><td>Description                             </td></tr>
+        <table class='borders'>
+            <tr><th>Track/Sector</th><th>File   </th><th>Description                             </th></tr>
             <tr><td>T0S5        </td><td>MSWAITR</td><td>Wastes 256 bytes for <a class="disk" href="#NBUF1">NBUF1</a> - entire sector is zero!                                           </td></tr>
             <tr><td>T0SB        </td><td>DOSINIT</td><td>Wastes 127 bytes for <a class='disk' href='#_1C81'>padding</a> to page align <a class='v' href='#START'>START</a> DOS Vectors    </td></tr>
             <tr><td>T2S3        </td><td>FCVBUFS</td><td>Wastes 255 bytes for <a class="disk" href="#_3400">VTOC</a> and an <b>unused</b> single byte of the start of the CATALOG ($02) @ $BB !                          </td></tr>
@@ -8912,7 +8940,7 @@ And the corresponding Track / Sector <b>disk map</b>
 <h1>Miscellaneous Information</a>
 <h2><a class='section' name='Stats'>Statistics</a></h2>
 <p>
-<table class='border'>
+<table class='borders'>
     <tr><td>Total Spelling mistakes:             </td><td> 13</td></tr> <!-- :%s/\*spelling\*//gn -->
     <tr><td>Total Functions:                     </td><td> 99</td></tr> <!-- :%s/class="f"//gn -->
     <tr><td>Total Variables:                     </td><td>102</td></tr> <!-- :%s/class="d"//gn -->
