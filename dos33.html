@@ -2864,7 +2864,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     044 <a class='e' name='NUM1'   >NUM1        </a>EQU $<span class='n'>08</span>         ; NUMERIC 0-7 REGD                      ; P1_SLT -- WTF is the <i>range</i> of NUM 1 ??? <b>Sl</b>o<b>t</b> tells us 3-bit
                     045 <a class='e' name='NUM2'   >NUM2        </a>EQU $<span class='n'>04</span>         ; NUMERIC 1-10 REQD                     ; P1_DEC -- WTF is the <i>range</i> of NUM 2 ??? <b>Dec</b>imal tells us 8-bit
                     046 <a class='e' name='RDONLY' >RNONLY      </a>EQU $<span class='n'>02</span>         ; RUN TIME ONLY FLAG.                   ; P1_RUN
-                    047 <a class='e' name='CREFLG' >CREFLG      </a>EQU $<span class='n'>01</span>         ; FLAG TO INDICATE CMDS THAT MAY        ; P1_CRE
+                    047 <a class='e' name='CREFLG' >CREFLG      </a>EQU $<span class='n'>01</span>         ; FLAG TO INDICATE CMDS THAT MAY        ; P1_CRE -- FLaG tells us nothing, ALL of these are flags!
                     048 ;                                                                   ; <b>Q</b>. Why we would encode the type of paramater such as 1st or 2nd in the name?
                     049 ; COMMAND SYNTAX OP EQUATES FOR SYNTAX BYTE TWO                     ; <b>A</b>. It helps us to <i>visually</i> catch typos:
                     050 ;                                                                   ;        LDA PARAM2
