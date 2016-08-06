@@ -75,6 +75,12 @@ a.v { /* var name reference OPERAND */
     text-decoration: none  ; /* remove underlink from data link */
     font-weight    : normal; /* remove bold */
 }
+a.e { /* const equ */
+    color          : #088  ; /* dark green */
+    text-decoration: none  ; /* remove underlink from data link */
+    font-weight    : normal; /* remove bold */
+}
+
 /*
 Misc.
  - can't use '$' in css name *
@@ -4646,77 +4652,77 @@ Let the complete clusterfrak of bad design commence in <a href="https://www.nasa
 3590:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 35A0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 35B0:00 00 00 00
-35B4:00 00 00 00    069 VDEND       EQU *
-35B8:00 00 00       070 VDLEN       EQU *-VOLDIR
-                    071 VDFLEN      EQU *-VDFIL
+35B4:00 00 00 00    069 <a class='d' name='VDEND'      >VDEND       </a>EQU *
+35B8:00 00 00       070 <a class='d' name='VDLEN'      >VDLEN       </a>EQU *-VOLDIR
+                    071 <a class='d' name='VDFLEN'     >VDFLEN      </a>EQU *-VDFIL
                     072 ;
                     073             PAGE
                     074 ;
                     075 ;COMMAND CONTROL BLOCK (CCB)
                     076 ;
-                    077 CCB         EQU *
-35BB:FD             078 CCBREQ      DS 1        ; USER REQUEST BYTE
-                    079 CRQNUL      EQU 0
-                    080 CRQOPN      EQU 1
-                    081 CRQCLS      EQU 2
-                    082 CRQRD       EQU 3
-                    083 CRQWR       EQU 4
-                    084 CRQDEL      EQU 5
-                    085 CRQDIR      EQU 6
-                    086 CRQLCK      EQU 7
-                    087 CRQUNL      EQU 8
-                    088 CRQRNM      EQU 9
-                    089 CRQPOS      EQU 10
-                    090 CRQFMT      EQU 11
-                    091 CRQVAR      EQU 12
-                    092 CRQMAX      EQU 13
+                    077 <a class='d' name='CCBBSA'     >CCB         </a>EQU *
+35BB:FD             078 <a class='d' name='CCBREQ'     >CCBREQ      </a>DS 1        ; USER REQUEST BYTE
+                    079 <a class='e' name='CRQNUL'     >CRQNUL      </a>EQU 0
+                    080 <a class='e' name='CRQOPN'     >CRQOPN      </a>EQU 1
+                    081 <a class='e' name='CRQCLS'     >CRQCLS      </a>EQU 2
+                    082 <a class='e' name='CRQRD'      >CRQRD       </a>EQU 3
+                    083 <a class='e' name='CRQWR'      >CRQWR       </a>EQU 4
+                    084 <a class='e' name='CRQDEL'     >CRQDEL      </a>EQU 5
+                    085 <a class='e' name='CRQDIR'     >CRQDIR      </a>EQU 6
+                    086 <a class='e' name='CRQLCK'     >CRQLCK      </a>EQU 7
+                    087 <a class='e' name='CRQUNL'     >CRQUNL      </a>EQU 8
+                    088 <a class='e' name='CRQRNM'     >CRQRNM      </a>EQU 9
+                    089 <a class='e' name='CRQPOS'     >CRQPOS      </a>EQU 10
+                    090 <a class='e' name='CRQFMT'     >CRQFMT      </a>EQU 11
+                    091 <a class='e' name='CRQVAR'     >CRQVAR      </a>EQU 12
+                    092 <a class='e' name='CRQMAX'     >CRQMAX      </a>EQU 13
                     093 ;
-                    094 CCBBSA      EQU *
-35BC:FD             095 CCBRQM      DS 1
-                    096 CRMNUL      EQU 0
-                    097 CRMNBT      EQU 1
-                    098 CRMNBL      EQU 2
-                    099 CRMSBT      EQU 3
-                    100 CRMSBL      EQU 4
-                    101 CRMMAX      EQU 5
+                    094 <a class='d' name='CCBBSA'     >CCBBSA      </a>EQU *
+35BC:FD             095 <a class='d' name='CCBRQM'     >CCBRQM      </a>DS 1
+                    096 <a class='e' name='CRMNUL'     >CRMNUL      </a>EQU 0
+                    097 <a class='e' name='CRMNBT'     >CRMNBT      </a>EQU 1
+                    098 <a class='e' name='CRMNBL'     >CRMNBL      </a>EQU 2
+                    099 <a class='e' name='CRMSBT'     >CRMSBT      </a>EQU 3
+                    100 <a class='e' name='CRMSBL'     >CRMSBL      </a>EQU 4
+                    101 <a class='e' name='CRMMAX'     >CRMMAX      </a>EQU 5
                     102 ;
-                    103 CCBRRN      EQU *
-                    104 CCBFN2      EQU *
-35BD:FD FC          105 CCBRLN      DS 2
+                    103 <a class='d' name='CCBBYT'     >CCBRRN      </a>EQU *
+                    104 <a class='d' name='CCBBYT'     >CCBFN2      </a>EQU *
+35BD:FD FC          105 <a class='d' name='CCBBYT'     >CCBRLN      </a>DS 2
                     106 ;
-                    107 CCBBYT      EQU *
-35BF:FC             108 CCBVOL      DS 1
-35C0:FD             109 CCBDRV      DS 1
+                    107 <a class='d' name='CCBBYT'     >CCBBYT      </a>EQU *
+35BF:FC             108 <a class='d' name='CCBVOL'     >CCBVOL      </a>DS 1
+35C0:FD             109 <a class='d' name='CCBDRV'     >CCBDRV      </a>DS 1
                     110 ;
-                    111 CCBBLN      EQU *
-35C1:FF             112 CCBSLT      DS 1
-35C2:FD             113 CCBFUC      DS 1
+                    111 <a class='d' name='CCBBLN'     >CCBBLN      </a>EQU *
+35C1:FF             112 <a class='d' name='CCBSLT'     >CCBSLT      </a>DS 1
+35C2:FD             113 <a class='d' name='CCBFUC'     >CCBFUC      </a>DS 1
                     114 ;
-                    115 CCBFN1      EQU *           ; OPEN, DELETE, LOCK, UNLOCK, RENAME - FILENAME
-<hr>                    116 CCBBBA      EQU *           ; BLOCKK I/O - BLOCK BUFFER PTR ; === Page <a class='page' name='page88'>88</a> ===
-35C3:FC FD          117 CCBDAT      DS 2
+                    115 <a class='d' name='CCBFN1'     >CCBFN1      </a>EQU *           ; OPEN, DELETE, LOCK, UNLOCK, RENAME - FILENAME
+<hr>                    116 <a class='d' name='CCBBBA'     >CCBBBA      </a>EQU *           ; BLOCKK I/O - BLOCK BUFFER PTR ; === Page <a class='page' name='page88'>88</a> === **spelling* BLOCK
+35C3:FC FD          117 <a class='d' name='CCBDAT'     >CCBDAT      </a>DS 2            ; BYTE I/O - DATA BYTE
                     118 ;
-35C5:FD             119 CCBSTA      DS 1
-                    120 CREFUN      EQU 1
-                    121 CRERR       EQU 2
-                    122 CREMRE      EQU 3
-                    123 CREPRO      EQU 4
-                    124 CREEOF      EQU 5
-                    125 CREFNF      EQU 6
-                    126 CREVMM      EQU 7
-                    127 CREIOE      EQU 8
-                    128 CRENSA      EQU 9
-                    129 CREFLK      EQU 10
+35C5:FD             119 <a class='d' name='CCBSTA'     >CCBSTA      </a>DS 1            ; RESULT STATUS
+                    120 <a class='e' name='CREFUN'     >CREFUN      </a>EQU 1           ; FCB UNALLOCATED
+                    121 <a class='e' name='CRERR'      >CRERR       </a>EQU 2           ; CCB REQ RANGE ERR
+                    122 <a class='e' name='CREMRE'     >CREMRE      </a>EQU 3           ; REQ MOD RANGE ERR
+                    123 <a class='e' name='CREPRO'     >CREPRO      </a>EQU 4           ; WRITE PROTECT
+                    124 <a class='e' name='CREEOF'     >CREEOF      </a>EQU 5           ; END OF FILE ON READ
+                    125 <a class='e' name='CREFNF'     >CREFNF      </a>EQU 6           ; FILE NOT FOUND
+                    126 <a class='e' name='CREVMM'     >CREVMM      </a>EQU 7           ; VOL MIS MATCH
+                    127 <a class='e' name='CREIOE'     >CREIOE      </a>EQU 8           ; I/O ERR
+                    128 <a class='e' name='CRENSA'     >CRENSA      </a>EQU 9           ; NO SECTORS AVAILABLE
+                    129 <a class='e' name='CREFLK'     >CREFLK      </a>EQU 10          ; FILE LOCKED
                     130 ;
-35C6:FD             131 CCBSM       DS 1            ; STATUS MODIFIER
-35C7:FF FC          132 CCBFCB      DS 2            ; FCB PTR
-35C9:FC FC          133 CCBDBP      DS 2            ; DIR BUF PTR
-35CB:FC FC          134 CCBSBP      DS 2            ; SECTOR BUF PTR
-35CD:FF FC FC FC    135 CCBSPR      DS 4            ; SPARE                         ; <a class='mem' name='_35CD'>wastes</a> 4 bytes
-                    136 CCBLEN      EQU *-CCB       ; CCB LENGTH
-                    137 CFCBAD      EQU CCBFCB
-                    138 CFCBDR      EQU CCBDBP
-                    139 CFCBSB      EQU CCBSBP
+35C6:FD             131 <a class='d' name='CCBSM'      >CCBSM       </a>DDS 1           ; STATUS MODIFIER
+35C7:FF FC          132 <a class='d' name='CCBFCB'     >CCBFCB      </a>DDS 2           ; FCB PTR
+35C9:FC FC          133 <a class='d' name='CCBDBP'     >CCBDBP      </a>DDS 2           ; DIR BUF PTR
+35CB:FC FC          134 <a class='d' name='CCBSBP'     >CCBSBP      </a>DDS 2           ; SECTOR BUF PTR
+35CD:FF FC FC FC    135 <a class='d' name='CCBSPR'     >CCBSPR      </a>DDS 4           ; SPARE                         ; <a class='mem' name='_35CD'>wastes</a> 4 bytes
+                    136 <a class='d' name='CCBLEN'     >CCBLEN      </a>EQU *-CCB       ; CCB LENGTH
+                    137 <a class='d' name='CFCBAD'     >CFCBAD      </a>EQU CCBFCB
+                    138 <a class='d' name='CFCBDR'     >CFCBDR      </a>EQU CCBDBP
+                    139 <a class='d' name='CFCBSB'     >CFCBSB      </a>EQU CCBSBP
                     140             PAGE
                     141 ;
                     142 ;FILE CONTROL BLOCK (FCB) DEFINITION
