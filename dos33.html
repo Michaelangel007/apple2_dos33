@@ -4469,7 +4469,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 339D:00             009 <a class="d" name="TEMP2" >TEMP2       </a>DFB 0           ; TEMP BYTE 2                   ;   *note* All the cool kids use "o7" for salute these days
 339E:00             010 <a class="d" name="TEMP3" >TEMP3       </a>DFB 0           ; TEMP BYTE 3                   ; Used by <a class="x" href="#FLOCK">FLOCK</a>, <a class="x" href="#FUNLCK">FUNLCK</a> and <a class="x" href="#GSS1">GSS1</a>
 339F:00             011 <a class="d" name="ENTSLT">ENTSLT      </a>DFB 0           ; BOOT SLOT SAVE
-33A0:00 00 FF FF    012 <a class="d" name="ALC10S">ALC10S      </a>DFB 0,0,$FF,$FF ; ALLOCATION TRACK BIT MAP      ; <a class='mem' name='_33A0'>wastes</a> 4 bytes sector free bitmap mask 
+33A0:00 00 FF FF    012 <a class="d" name="ALC10S">ALC10S      </a>DFB 0,0,$FF,$FF ; ALLOCATION TRACK BIT MAP      ; <a class='mem' name='_33A0'>wastes</a> 4 bytes sector free bitmap mask, also see <a class='v' href='#DCBABM '>DCBABM </a>
                                                                                     ; The thinking was probably:
                                                                                     ;     DOS 3.2 = 13 sector
                                                                                     ;     DOS 3.3 = 16 sector
