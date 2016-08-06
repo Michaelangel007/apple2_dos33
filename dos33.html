@@ -2858,24 +2858,22 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                                                                                             ;           is a recipe for disaster.
                                                                                             ;           "Silient" errors (uncaught typos) are a debugging nightmare.
                                                                                             ;           Using <b>unique names</b> lets us minimize this error.
-                                                                                            ;
                     042 <a class='e' name='FN1'    >FN1         </a>EQU $<span class='n'>20</span>         ; FILE NAME1 REGD                       ; P1_SRC
                     043 <a class='e' name='FN2'    >FN2         </a>EQU $<span class='n'>10</span>         ; FILE NAME2 REQD                       : P1_DST
-                    044 <a class='e' name='NUM1'   >NUM1        </a>EQU $<span class='n'>08</span>         ; NUMERIC 0-7 REGD                      ; P1_SLT -- WTF is the _range_ of NUM 1 ??? 3-bit? <b>Slot</b> tells us
-                    045 <a class='e' name='NUM2'   >NUM2        </a>EQU $<span class='n'>04</span>         ; NUMERIC 1-10 REQD                     ; P1_DEC -- WTF is the _range_ of NUM 2 ??? 8-bit? <b>Decimal</b> tells us
+                    044 <a class='e' name='NUM1'   >NUM1        </a>EQU $<span class='n'>08</span>         ; NUMERIC 0-7 REGD                      ; P1_SLT -- WTF is the <i>range</i> of NUM 1 ??? <b>Sl</b>o<b>t</b> tells us 3-bit
+                    045 <a class='e' name='NUM2'   >NUM2        </a>EQU $<span class='n'>04</span>         ; NUMERIC 1-10 REQD                     ; P1_DEC -- WTF is the <i>range</i> of NUM 2 ??? <b>Dec</b>imal tells us 8-bit
                     046 <a class='e' name='RDONLY' >RNONLY      </a>EQU $<span class='n'>02</span>         ; RUN TIME ONLY FLAG.                   ; P1_RUN
                     047 <a class='e' name='CREFLG' >CREFLG      </a>EQU $<span class='n'>01</span>         ; FLAG TO INDICATE CMDS THAT MAY        ; P1_CRE
                     048 ;                                                                   ; <b>Q</b>. Why we would encode the type of paramater such as 1st or 2nd in the name?
                     049 ; COMMAND SYNTAX OP EQUATES FOR SYNTAX BYTE TWO                     ; <b>A</b>. It helps us to <i>visually</i> catch typos:
                     050 ;                                                                   ;        LDA PARAM2
-                                                                                            ;        CMP PARAM1_CREATE  ; &larr; param 2 doesn&lsquo;t match param 1 above
-                    051 <a class='e' name='V'      >V           </a>EQU $<span class='n'>40</span>         ; VOLUME ALLOWED
+                    051 <a class='e' name='V'      >V           </a>EQU $<span class='n'>40</span>         ; VOLUME ALLOWED                        ;        CMP PARAM1_CREATE  ; &larr; param 2 doesn&lsquo;t match param 1 above
 <hr>                    052 <a class='e' name='D'      >D           </a>EQU $<span class='n'>20</span>         ; DRIVE ALLOWED                 ; === Page <a class='page' name='page22'>22</a> ===
                     053 <a class='e' name='S'      >S           </a>EQU $<span class='n'>10</span>         ; SLOT ALLOWED
                     054 <a class='e' name='L'      >L           </a>EQU $<span class='n'>08</span>         ; LENGTH ALLOWED
                     055 <a class='e' name='R'      >R           </a>EQU $<span class='n'>04</span>         ; RECORD NUMBER ALLOWED
                     056 <a class='e' name='B'      >B           </a>EQU $<span class='n'>02</span>         ; BYTE NUMBER ALLOWED
-                    057 <a class='e' name='ADR'    >ADR         </a>EQU $<span class='n'>01</span>         ; ADDRESS                       ; Can't use A due to crappy tools: assembler reserves <span class='code'>A</span> for implicit 6502 Accumulator, such as LSR A
+                    057 <a class='e' name='ADR'    >ADR         </a>EQU $<span class='n'>01</span>         ; ADDRESS                       ; Can't use A due to crappy tools: assembler reserves <span class='code'>A</span> for implicit 6502 Accumulator such as <span class='code'>LSR A</span>
                     058 <a class='e' name='CIO'    >CIO         </a>EQU $<span class='n'>80</span>         ; C,I, OR O ALLOWED
                     059 
                     060 ;
