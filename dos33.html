@@ -6256,7 +6256,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     198 *                         *                                 ; code at <a class="file" href="#WRITRTN">WRITRTN</a>, Line #<a class='line' href='WRITRTN.080'>>80</a> needs fixing up.
                     199 ***************************                                 ;
                     200 *                                                           ;
-3B00:00 00 00 00    201 <a class="d" name="NBUF1"       >NBUF1       </a>DS 256,0        ;NBUF1                          ; === <b class="ts">T0$5</b> ===
+3B00:00 00 00 00    201 <a class="d" name="NBUF1"       >NBUF1       </a>DS 256,0        ;NBUF1                          ; === <b class="ts">T0S5</b> ===
 3B04:00 00 00 00                                                                    ; *sigh* Let's waste an *entire* sector
 3B08:00 00 00 00                                                                    ; with 342 disk nibbles of raw 96 nibbles
 3B0C:00 00 00 00                                                                    ; PLUS the time decoding it
@@ -6277,7 +6277,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3BF0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 ;     0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
 
-3C00:00 00 00 00    202 <a class="d" name="NBUF2"       >NBUF2       </a>DS  86,0        ;NBUF2                          ;  === <b class="ts">T0$5</b> ===
+3C00:00 00 00 00    202 <a class="d" name="NBUF2"       >NBUF2       </a>DS  86,0        ;NBUF2                          ;  === <b class="ts">T0S6</b> ===
 3C04:00 00 00 00                                                                    ; *sigh* more wasted disk space
 3C08:00 00 00 00                                                                    ; pack code THEN data
 3C0C:00 00 00 00                                                                    ; as interleaving it just
@@ -6288,7 +6288,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3C50:00 00 00 00 00 00
 
 
-<hr><hr class='join'>=== <a class="file" name="WRITADR">WRITADR</a> - Write Address, Page <a class="page" name="page134">134</a>, <b class="ts">T0$6</b> @ $56, $<b class='n'>BC56</b> .. $<b class='n'>BCFF</b> ===<hr class='join'><hr>
+<hr><hr class='join'>=== <a class="file" name="WRITADR">WRITADR</a> - Write Address, Page <a class="page" name="page134">134</a>, <b class="ts">T0S6</b> @ $56, $<b class='n'>BC56</b> .. $<b class='n'>BCFF</b> ===<hr class='join'><hr>
                     001             SBTL '16-SECTOR WRITE ADDRESS'
                     002 
                     003 
