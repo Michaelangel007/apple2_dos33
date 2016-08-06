@@ -6073,8 +6073,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     027 *    ---- ASSUMES ----   *
                     028 * 1 USEC CYCLE TIME      *
                     029 **************************
-39FD:00 00 00       <a class='line' name='MSWAITR.030'>030</a>         DS 3,0              ;AVOID PAGE BOUNDARY CROSSING...; === <b class="ts">T0S3</b> === @ $FC *wastes* 3 bytes
-3A00:A2 11          031 <a class="f"    name="MSWAIT"     >MSWAIT      </a>LDX #$<span class='n'>11</span>                                        ; === <b class="ts">T0$4</b> === *sigh* Typical bloated code ...
+39FD:00 00 00       <a class='line' name='MSWAITR.030'>030</a>         DS 3,0              ;AVOID PAGE BOUNDARY CROSSING...; <b class="ts">T0S3</b> @ $FC <a class='mem' name='_39FD'>wastes</a> 3 bytes
+3A00:A2 11          031 <a class="f"    name="MSWAIT"     >MSWAIT      </a>LDX #$<span class='n'>11</span>                                        ; === <b class="ts">T0S4</b> === *sigh* Typical bloated code ...
 3A02:CA             032 <a class="f"    name="MSW1"       >MSW1        </a>DEX             DELAY 86 USEC.                  ; ... should just adjust algorithm timing instead!
 3A03:D0 FD          033             BNE <a class="x" href="#MSW1"    >MSW1</a>
 3A05:E6 46          034             INC <a class="v" href="#MONTIMEL">MONTIMEL</a>
