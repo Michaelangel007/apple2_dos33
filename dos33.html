@@ -2837,22 +2837,28 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     037 ;                                                                   ; *sigh* Typical crap names; bitmask flags should be prefixed with a common name:
                     038 ; COMMAND SYNTAX OP EQUATES FOR SYNTAX BYTE ONE                     ;     <span class='code'>P1_</span>     (better, but will concede a short name is extremely convenient)
                     039 ;                                                                   ;     <span class='code'>PARAM1_</span> (best)
-                                                                                            ; Q. Why we would encode the type of paramater such as 1st or 2nd in the name?
-                                                                                            ; A. It helps catch typo's
-                                                                                            ;        LDA PARAM2
-                                                                                            ;        CMP PARAM1_CREATE  ; &larr; visual indicator: param 2 doesn&lsquo;t match param 1 above
                                                                                             ;
+                                                                                            ;(better)
                     040 <a class='e' name='NPB'    >NPB         </a>EQU $<span class='n'>80</span>         ; NO PARMS OK, COMMAND GOES TO BASIC    ; P1_BAS    The <a class='dumb' name='amateur1'>first sign</a> of an amateur programmer:
                     041 <a class='e' name='NPE'    >NPE         </a>EQU $<span class='n'>40</span>         ; NO PARMS OK, COMMAND TO EXECUTION RTN ; P1_EXC        <b>Poor variable names</b>
-                    042 <a class='e' name='FN1'    >FN1         </a>EQU $<span class='n'>20</span>         ; FILE NAME1 REGD                       ; P1_SRC    Having 2 variable names differ by only <b>1 character</b>, such as NPE, NPB, or worse NUM1, NUM2
-                    043 <a class='e' name='FN2'    >FN2         </a>EQU $<span class='n'>10</span>         ; FILE NAME2 REQD                       : P1_DST    is a recipe for disaster; "silient" errors are a debugging nightmare.
+                                                                                            ;
+                                                                                            ;           Having 2 variable names differ by only <b>1 character</b>,
+                                                                                            ;
+                                                                                            ;               such as NPE, NPB,
+                                                                                            ;               or worse NUM1, NUM2
+                                                                                            ;
+                                                                                            ;           is a recipe for disaster.
+                                                                                            ;           "Silient" errors (uncaught typos) are a debugging nightmare.
+                    042 <a class='e' name='FN1'    >FN1         </a>EQU $<span class='n'>20</span>         ; FILE NAME1 REGD                       ; P1_SRC
+                    043 <a class='e' name='FN2'    >FN2         </a>EQU $<span class='n'>10</span>         ; FILE NAME2 REQD                       : P1_DST
                     044 <a class='e' name='NUM1'   >NUM1        </a>EQU $<span class='n'>08</span>         ; NUMERIC 0-7 REGD                      ; P1_SLT -- WTF is the _range_ of NUM 1 ??? <b>Slot</b> tells us
                     045 <a class='e' name='NUM2'   >NUM2        </a>EQU $<span class='n'>04</span>         ; NUMERIC 1-10 REQD                     ; P1_DEC -- WTF is the _range_ of NUM 2 ??? <b>Decimal</b> tells us
                     046 <a class='e' name='RDONLY' >RNONLY      </a>EQU $<span class='n'>02</span>         ; RUN TIME ONLY FLAG.                   ; P1_RUN
                     047 <a class='e' name='CREFLG' >CREFLG      </a>EQU $<span class='n'>01</span>         ; FLAG TO INDICATE CMDS THAT MAY        ; P1_CRE
-                    048 ;
-                    049 ; COMMAND SYNTAX OP EQUATES FOR SYNTAX BYTE TWO
-                    050 ;
+                    048 ;                                                                   ; <b>Q</b>. Why we would encode the type of paramater such as 1st or 2nd in the name?
+                    049 ; COMMAND SYNTAX OP EQUATES FOR SYNTAX BYTE TWO                     ; <b>A</b>. It helps us to <i>visually</i> catch typos:
+                    050 ;                                                                   ;        LDA PARAM2
+                                                                                            ;        CMP PARAM1_CREATE  ; &larr; param 2 doesn&lsquo;t match param 1 above
                     051 <a class='e' name='V'      >V           </a>EQU $<span class='n'>40</span>         ; VOLUME ALLOWED
 <hr>                    052 <a class='e' name='D'      >D           </a>EQU $<span class='n'>20</span>         ; DRIVE ALLOWED                 ; === Page <a class='page' name='page22'>22</a> ===
                     053 <a class='e' name='S'      >S           </a>EQU $<span class='n'>10</span>         ; SLOT ALLOWED
