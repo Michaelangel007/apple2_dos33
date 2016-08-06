@@ -3129,35 +3129,35 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2AC7:00 40          058 <a class="d" name="AEND"  >AEND        </a>DW <a class="v" href="#ENDOFDOS">ENDOFDOS</a>     ;END OF DOS                     ; See <a class='v' href='#REPAGE'>REPAGE</a>
                     059 ;                                                           ; File Manager
 2AC9:7E 33          060 <a class='d' name='CMDVT'>CMDVT       </a>DW GOODIO-1     ; 0-NULL                        ; [0] <a class='mem' name='_2AC9'>wastes</a> 2 bytes
-2ACB:21 2B          061             DW FOPEN-1      ; 1-OPEN FILE                   ; [1]
-2ACD:05 2C          062             DW FCLOSE-1     ; 2-CLOSE FILE                  ; [2]
-2ACF:57 2C          063             DW FREAD-1      ; 3-READ DATA                   ; [3]
-2AD1:6F 2C          064             DW FWRITE-1     ; 4-WRITE DATA                  ; [4]
-2AD3:2A 2D          065             DW FDEL-1       ; 5-DELETE FILE                 ; [5]
-2AD5:97 2D          066             DW RDIR-1       ; 6-READ DIRECTORY              ; [6] /sarcasm Yay for consistent naming: FDIR
-2AD7:EE 2C          067             DW FLOCK-1      ; 7-LOCK A FILE                 ; [7]
-2AD9:F5 2C          068             DW FUNLCK-1     ; 8-UNLOCK A FILE               ; [8]
-2ADB:39 2C          069             DW FRNME-1      ; 9-RENAME                      ; [9]
-2ADC:11 2D          070             DW FPOSTN-1     ; 10-POSITION A FILE            ; [A]
-2ADE:8D 2E          071             DW FFMT-1       ; FORMAT                        ; [B]
-2AE1:17 2D          072             DW FVAR-1       ; VARIFY                        ; [C] *spelling* VERIFY !
-2AE3:7E 33          073             DW GOODIO-1     ; 11-SPARE                      ; [D] <a class='mem' name='_2AE3'>wastes</a> 2 bytes; Uh, calling 13 "eleven" doesn't make it so. 
+2ACB:21 2B          061             DW FOPEN-<span class='n'>1</span>      ; 1-OPEN FILE                   ; [1]
+2ACD:05 2C          062             DW FCLOSE-<span class='n'>1</span>     ; 2-CLOSE FILE                  ; [2]
+2ACF:57 2C          063             DW FREAD-<span class='n'>1</span>      ; 3-READ DATA                   ; [3]
+2AD1:6F 2C          064             DW FWRITE-<span class='n'>1</span>     ; 4-WRITE DATA                  ; [4]
+2AD3:2A 2D          065             DW FDEL-<span class='n'>1</span>       ; 5-DELETE FILE                 ; [5]
+2AD5:97 2D          066             DW RDIR-<span class='n'>1</span>       ; 6-READ DIRECTORY              ; [6] /sarcasm Yay for consistent naming: FDIR
+2AD7:EE 2C          067             DW FLOCK-<span class='n'>1</span>      ; 7-LOCK A FILE                 ; [7]
+2AD9:F5 2C          068             DW FUNLCK-<span class='n'>1</span>     ; 8-UNLOCK A FILE               ; [8]
+2ADB:39 2C          069             DW FRNME-<span class='n'>1</span>      ; 9-RENAME                      ; [9]
+2ADC:11 2D          070             DW FPOSTN-<span class='n'>1</span>     ; 10-POSITION A FILE            ; [A]
+2ADE:8D 2E          071             DW FFMT-<span class='n'>1</span>       ; FORMAT                        ; [B]
+2AE1:17 2D          072             DW FVAR-<span class='n'>1</span>       ; VARIFY                        ; [C] *spelling* VERIFY !
+2AE3:7E 33          073             DW GOODIO-<span class='n'>1</span>     ; 11-SPARE                      ; [D] <a class='mem' name='_2AE3'>wastes</a> 2 bytes; Uh, calling 13 "eleven" doesn't make it so. 
                     074 ;                                                           ;     *sigh Off bye one allocation
                     075 RVT         EQU *                                           ; <a class='x' href='#USERNT'>USERENT</a> calls <a class='x' href='#FREAD'>FREAD</a>
-2AE5:7E 33          076             DW GOODIO-1                                     ; <a class='mem' name='_2AE5'>wastes</a> 2 bytes; See <a class='v' href='CRMNUL'>CRMNUL</a>
-2AE7:89 2C          077             DW RNXBYT-1
-2AE9:95 2C          078             DW RNXBLK-1
-2AEB:86 2C          079             DW RSPBYT-1
-2AED:92 2C          080             DW RSPBLK-1
-2AEF:7E 33          081             DW GOODIO-1                                     ; <a class='mem' name'_2AEF'>wastes</a> 2 bytes off-by-1 allocation, see <a class='v' href='#CRMMAX'>CRMMAX</a>, <a class='x' href='#FREAD'>FREAD</a>
+2AE5:7E 33          076             DW GOODIO-<span class='n'>1</span>                                     ; <a class='mem' name='_2AE5'>wastes</a> 2 bytes; See <a class='v' href='CRMNUL'>CRMNUL</a>
+2AE7:89 2C          077             DW RNXBYT-<span class='n'>1</span>
+2AE9:95 2C          078             DW RNXBLK-<span class='n'>1</span>
+2AEB:86 2C          079             DW RSPBYT-<span class='n'>1</span>
+2AED:92 2C          080             DW RSPBLK-<span class='n'>1</span>
+2AEF:7E 33          081             DW GOODIO-<span class='n'>1</span>                                     ; <a class='mem' name'_2AEF'>wastes</a> 2 bytes off-by-1 allocation, see <a class='v' href='#CRMMAX'>CRMMAX</a>, <a class='x' href='#FREAD'>FREAD</a>
                     082 ;
                     083 WVT         EQU *
-2AF1:7E 33          084             DW GOODIO-1                                     ; *sigh* stop, please stop
-2AF3:BD 2C          085             DW WNXBYT-1
-2AF5:C9 2C          086             DW WNXBLK-1
-2AF7:BA 2C          087             DW WSPBYT-1
-2AF9:C6 2C          088             DW WSPBLK-1
-2AFB:7E 33          089             DW GOODIO-1
+2AF1:7E 33          084             DW GOODIO-<span class='n'>1</span>                                     ; *sigh* stop, please stop
+2AF3:BD 2C          085             DW WNXBYT-<span class='n'>1</span>
+2AF5:C9 2C          086             DW WNXBLK-<span class='n'>1</span>
+2AF7:BA 2C          087             DW WSPBYT-<span class='n'>1</span>
+2AF9:C6 2C          088             DW WSPBLK-<span class='n'>1</span>
+2AFB:7E 33          089             DW GOODIO-<span class='n'>1</span>
                     090 <a class='d' name='EAT2'>EAT2        </a>EQU *
                     091             PAGE
                     092 ;
