@@ -2805,7 +2805,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     004 ;
                     005 <a class="d" name='EC1'      >EC1         </a>EQU *
                     006 <a class="d" name='CMDNTB'   >CMDNTB      </a>EQU *
-2884:49 4E 49 D4    007             DCI "INIT"                                      ; <a class='dumb'>HNTODAOS: #1</a>Why is INIT listed first??? CATALOG is used <i>far more</i> then INIT
+2884:49 4E 49 D4    007             DCI "INIT"                                      ; <a class='dumb' name='HNTODAOS1'>HNTODAOS: #1</a> Why is INIT listed first??? CATALOG is used <i>far more</i> then INIT
 2888:4C 4F 41 C4    008             DCI "LOAD"                                      ; Either sorted these by:
 288C:53 41 56 C5    009             DCI "SAVE"                                      ;   a) frequency of use, (best)
 2890:52 55 CE       010             DCI "RUN"                                       ;   b) alphabetical (better)
@@ -2826,7 +2826,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 28CA:4E C4
 28CC:52 45 4E 41    022             DCI "RENAME"$
 28D0:4D C5
-28D2:43 41 54 41    023             DCI "CATALOG"$                                  ; <a class='dumb'>HNTODAOS: #2</a> Let's slow users down forcing them type 7 characters
+28D2:43 41 54 41    023             DCI "CATALOG"$                                  ; <a class='dumb' name='HNTODAOS2'>HNTODAOS: #2</a> Let's slow users down forcing them type 7 characters
 28D6:4C 4F C7
 28D9:4D 4F CE       024             DCI "MON"                                       ; which has a higher error rate of typos instead of the easier to type 3 characters CAT or DIR
 28DC:4E 4F 4D 4F CE 025             DCI "NOMON"$                                    ; /sarcasm Oh I see, we abbreviate MONITOR
