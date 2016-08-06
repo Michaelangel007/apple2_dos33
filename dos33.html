@@ -3426,7 +3426,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2D1B:20 B6 30       034 <a class="f" name="VAR1"       >VAR1        </a>JSR <a class="x" href="#LOCNXB">LOCNXB</a>      ; READ A SECTOR
 2D1E:B0 EF          035             BCS <a class="x" href="#GOGOOD">GOGOOD</a>      ; BR IF EOF
 2D20:EE E4 35       036             INC <a class="v" href="#DCBCRS">DCBCRS</a>      ; INCREMENT SECTOR
-2D23:D0 F6          037             BNE <a class="x" href="#VAR1"  >VAR1</a>                                        ; Can't save &gt; 32KB (<span class="todo">TODO</span>)
+2D23:D0 F6          037             BNE <a class="x" href="#VAR1"  >VAR1</a>                                        ; Can't save &gt; 32KB, See <a class='v' href='#OPTAB3'>OPTAB3</a> 32767
 2D25:EE E5 35       038             INC <a class="v" href="#DCBCRS">DCBCRS</a>+1                                    ; Therfore Current Relative Sector can never overflow to zero
 2D28:4C 1B 2D       039             JMP <a class="x" href="#VAR1"  >VAR1</a>        ; READ THIS ONE                 ; <a class='mem' name='_2D28'>wastes</a> 1 bytes BNE VAR1
                     040             PAGE
