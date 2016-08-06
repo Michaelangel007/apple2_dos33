@@ -195,8 +195,11 @@ hr.join { /* We have a double horizontal rule for new source files, use 0 paddin
 span.page {
     color: #080; /* green */
 }
-.macro { /* macro line bg */
+.code { /* code snippet */
     background-color:#EEE; /* grey */
+}
+.macro { /* macro line bg */
+    background-color:#FDD; /* was grey #EEE */
 }
 span.patch {
     background-color:#EEC; /* faded yellow */
@@ -2799,13 +2802,13 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     002 ;
                     003 ; COMMAND NAME TABLE
                     004 ;
-                    005 EC1 EQU *
-                    006 CMDNTB EQU *
-2884:49 4E 49 D4    007             DCI "INIT"
-2888:4C 4F 41 C4    008             DCI "LOAD"
-288C:               009             DCI "SAVE"
-                    010             DCI "RUN"
-                    011             DCI "CHAIN"$
+                    005 <a class="f" name='EC1'      >EC1         </a>EQU *
+                    006 <a class="f" name='CMDNTB'   >CMDNTB      </a>EQU *
+2884:49 4E 49 D4    007             DCI "INIT"                                      ; <a class='dumb'>HNTODAOS: #1</a>Why is INIT listed first??? CATALOG is used <i>far more</i> then INIT
+2888:4C 4F 41 C4    008             DCI "LOAD"                                      ; Either sorted these by:
+288C:               009             DCI "SAVE"                                      ;   a) frequency of use, (best)
+                    010             DCI "RUN"                                       ;   b) alphabetical (better)
+                    011             DCI "CHAIN"$                                    ; i.e. "Power Users" are more likely to use BRUN, BLOAD, BSAVE before they use DELETE
                     012             DCI "DELETE"$
                     013             DCI "LOCK"
                     014             DCI "UNLOCK"$
@@ -2829,69 +2832,111 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     032             DCI "BLOAD"$
                     033             DCI "BRUN"$
                     034             DCI "VERIFY"
-                    035             DFB 0                                           ; end sentinel
+                    035             DFB 0                                           ; end sentinel, see <span class='todo'>TODO</span>
                     036             PAGE
-                    037 ;
-                    038 ; COMMAND SYNTAX OP EQUATES FOR SYNTAX BYTE ONE
-                    039 ;
-                    040 NPB         EQU $80
-                    041 NPE         EQU $40
-                    042 FN1         EQU $20
-                    043 FN2         EQU $10
-                    044 NUM1        EQU $08
-                    045 NUM2        EQU $04
-                    046 RNONLY      EQU $02
-                    047 CREFLG      EQU $01
+                    037 ;                                                                   ; Crappy names, bitmask flags should be prefixed with a common name:
+                    038 ; COMMAND SYNTAX OP EQUATES FOR SYNTAX BYTE ONE                     ;     <span class='code'>P1_</span>     (better)
+                    039 ;                                                                   ;     <span class='code'>PARAM1_</span>
+                                                                                            ; Q. Why we would encode the type of paramater such as 1st or 2nd in the name?
+                                                                                            ; A. It helps catch typo's
+                                                                                            ;        LDA PARAM2
+                                                                                            ;        CMP PARAM1_CREATE  ; <-- visual indicator: param 2 doesn&lsquo;t match param 1 above
+                    040 <a class='e' name='NPB'    >NPB         </a>EQU $<span class='n'>80</span>         ; NO PARMS OK, COMMAND GOES TO BASIC    ; P1_BAS    The <a class='dumb' name='amateur1'>first sign</a> of an amateur programmer:
+                    041 <a class='e' name='NPE'    >NPE         </a>EQU $<span class='n'>40</span>         ; NO PARMS OK, COMMAND TO EXECUTION RTN ; P1_EXC        <b>Poor variable names</b>
+                    042 <a class='e' name='FN1'    >FN1         </a>EQU $<span class='n'>20</span>         ; FILE NAME1 REGD                       ; P1_SRC    Having 2 variable names differ by only <b>1 character</b>, such as NPE, NPB, or worse NUM1, NUM2
+                    043 <a class='e' name='FN2'    >FN2         </a>EQU $<span class='n'>10</span>         ; FILE NAME2 REQD                       : P1_DST    is a recipe for disaster; "silient" errors are a debugging nightmare.
+                    044 <a class='e' name='NUM1'   >NUM1        </a>EQU $<span class='n'>08</span>         ; NUMERIC 0-7 REGD                      ; P1_SLT -- WTF is the _range_ of NUM 1 ??? <b>Slot</b> tells us
+                    045 <a class='e' name='NUM2'   >NUM2        </a>EQU $<span class='n'>04</span>         ; NUMERIC 1-10 REQD                     ; P1_DEC -- WTF is the _range_ of NUM 2 ??? <b>Decimal</b> tells us
+                    046 <a class='e' name='RDONLY' >RNONLY      </a>EQU $<span class='n'>02</span>         ; RUN TIME ONLY FLAG.                   ; P1_RUN
+                    047 <a class='e' name='CREFLG' >CREFLG      </a>EQU $<span class='n'>01</span>         ; FLAG TO INDICATE CMDS THAT MAY        ; P1_CRE
                     048 ;
                     049 ; COMMAND SYNTAX OP EQUATES FOR SYNTAX BYTE TWO
                     050 ;
-                    051 V           EQU $40
-<hr>                    052 D           EQU $20
-                    053 S           EQU $10
-                    054 L           EQU $08
-                    055 R           EQU $04
-                    056 B           EQU $02
-                    057 ADR         EQU $01
-                    058 CIO         EQU $80
+                    051 <a class='e' name='V'      >V           </a>EQU $<span class='n'>40</span>         ; VOLUME ALLOWED
+<hr>                    052 <a class='e' name='D'      >D           </a>EQU $<span class='n'>20</span>         ; DRIVE ALLOWED                 ; === Page <a class='page' name='page22'>22</a> ===
+                    053 <a class='e' name='S'      >S           </a>EQU $<span class='n'>10</span>         ; SLOT ALLOWED
+                    054 <a class='e' name='L'      >L           </a>EQU $<span class='n'>08</span>         ; LENGTH ALLOWED
+                    055 <a class='e' name='R'      >R           </a>EQU $<span class='n'>04</span>         ; RECORD NUMBER ALLOWED
+                    056 <a class='e' name='B'      >B           </a>EQU $<span class='n'>02</span>         ; BYTE NUMBER ALLOWED
+                    057 <a class='e' name='ADR'    >ADR         </a>EQU $<span class='n'>01</span>         ; ADDRESS                       ; Can't use A due to crappy tools: assembler reserves <span class='code'>A</span> for implicit 6502 Accumulator, such as LSR A
+                    058 <a class='e' name='CIO'    >CIO         </a>EQU $<span class='n'>80</span>         ; C,I, OR O ALLOWED
                     059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
+                    060 ;
+                    061 ; COMMAND SYNTAX TABLE
+                    062 ; EACH COMMAND HAS TWO BYTE ENTRY 
+                    063 ;
+                    064 <a class='d' name='CMDSTB' >CMDSTB      </a>EQU *                                           ; This is another complete clusterfrak of bad formatting
+                                                                                    ;
+                                                                                    ; The <a class='dumb' name='amateur1'>second sign</a> of an amateur programmer:
+                                                                                    ;     <b>One who doesn't understand the importance of whitespace.</b> (Horizontal and Vertical)
+                                                                                    ;
+                                                                                    ; 1. Horizontal alignment improves readability 1000%
+                                                                                    ; 2. List the <b>common cases</b>, such as FN1, and V+D+S, <b>first</b>
+                                                                                    ;
+                                                                                    ; Notice how using a 2D grid it becomes trivial to check for typo's:
+                                                                                    ;
+                                                                                    ; FN1              +CREFLAG, V+D+S            ; INIT
+                                                                                    ; FN1+NPB                  , V+D+S            ; LOAD
+                                                                                    ; FN1+NPB          +CREFLAG, V+D+S            ; SAVE
+                                                                                    ; FN1+NPB                  , V+D+S            ; RUN
+                                                                                    ; FN1                      , V+D+S            ; CHAIN
+                                                                                    ; FN1                      , V+D+S            ; DELETE
+                                                                                    ; FN1                      , V+D+S            ; LOCK
+                                                                                    ; FN1                      , V+D+S            ; UNLOCK
+                                                                                    ; FN1    +NPE              , V+D+S            ; CLOSE
+                                                                                    ; FN1       +RNONLY        ,       B+R        ; READ
+                                                                                    ; FN1                      , V+D+S  +R        ; EXEC
+                                                                                    ; FN1       +RNONLY        ,       B+R        ; WRITE
+                                                                                    ; FN1       +RNONLY        ,         R        ; POSITION
+                                                                                    ; FN1       +RNONLY+CREFLAG, V+D+S    +L      ; OPEN
+                                                                                    ; FN1       +RNONLY        , V+D+S            ; APPEND
+                                                                                    ; FN1+FN2                  , V+D+S            ; RENAME
+                                                                                    ;         NPE              , V+D+S            ; CATALOG
+                                                                                    ;         NPE              ,             CIO  ; MONITOR
+                                                                                    ;         NPE              ,             CIO  ; NO MONITOR
+                                                                                    ; NUM1                     , 0                ; PR#
+                                                                                    ; NUM1                     , 0                ; IN#
+                                                                                    ; NUM2                     , 0                ; MAXFILES
+                                                                                    ;         NPE              , V+D+S            ; APPLESOFT
+                                                                                    ;         NPE              , 0                ; INT
+                                                                                    ; FN1              +CREFLAG, V+D+S    +L+ADR  ; BSAVE
+                                                                                    ; FN1                      , V+D+S      +ADR  ; BLOAD
+                                                                                    ; FN1                      , V+D+S      +ADR  ; BRUN
+                                                                                    ; FN1                      , V+D+S            ; VERIFY
+####:## ## ##       ### LABEL       NMEMONIC        COMMENT                         ; Annotation
+                    065             DFB FN1+CREFLG,V+D+S          ; INIT
+                    066             DFB NPB+FN1,V+D+S             ; LOAD
+                    067             DFB NPB+FN1+CREFLG,V+D+S      ; SAVE
+                    068             DFB NPB+FN1,V+D+S             ; RUN
+                    069             DFB FN1,V+D+S                 ; CHAIN
+                    070             DFB FN1,V+D+S                 ; DELETE
+                    071             DFB FN1,V+D+S                 ; LOCK
+                    072             DFB FN1,V+D+S                 ; UNLOCK
+                    073             DFB NPE+FN1,0                 ; CLOSE
+                    074             DFB FN1+RNONLY,B+R            ; READ
+                    075             DFB FN1,R+V+D+S               ; EXEC
+                    076             DFB FN1+RNONLY,B+R            ; WRITE
+                    077             DFB FN1+RNONLY,R              ; POSITION
+                    078             DFB FN1+RNONLY+CREFLG,L+V+D+S ; OPEN
+                    079             DFB FN1+RNONLY,V+D+S          ; APPEND
+                    080             DFB FN1+FN2,V+D+S             ; RENAME
+                    081             DFB NPE,V+D+S                 ; CATALOG
+                    082             DFB NPE,CIO                   ; MONITOR
+                    083             DFB NPE,CIO                   ; NO MONITOR
+                    084             DFB NUM1,0                    ; PR#
+                    085             DFB NUM1,0                    ; IN#
+                    086             DFB NUM2,0                    ; MAXFILES
+                    087             DFB NPE,V+D+S                 ; APPLESOFT
+                    088             DFB NPE,0                     ; INT
+                    089             DFB FN1+CREFLG,V+D+S+ADR+L    ; BSAVE
+                    090             DFB FN1,V+D+S+ADR             ; BLOAD
+                    091             DFB FN1,V+D+S+ADR             ; BRUN
+                    092             DFB FN1,V+D+S                 ; VERIFY
+                    093             PAGE
+                    094 ;
+                    095 ; OPTAB - OPTIONAL PARMS SYNTAX TABLES
+                    096 ;
+                    097 OPTAB1      EQU *
                     098 
                     099 
                     100 
