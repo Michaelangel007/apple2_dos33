@@ -6948,9 +6948,9 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     204         INY                 ; INCREMENT QUOTIENT            
                     205         BNE <a class="x" href="#DIVIDE">DIVIDE</a>                                          
                     206 *                                                           
-                    207 <a class="name" name="PRTLAT" id="PRTLAD">PRTLAT  </a>TYA                                                 </span>; Print Latency<span style="background-color:#EEE">
+                    207 <a class="name" name="PRTLAT" id="PRTLAD">PRTLAT  </a>TYA                                                 </span>; Print Latency<span class='macro'>
                     208         AND #$0F            ; MAX LATENCY=15                
-                    209         ORA #$B0            ; MAKE ASCII                    </span>; No, this is make Apple Text, as ASCII = $00..$7F<span style="background-color:#EEE">
+                    209         ORA #$B0            ; MAKE ASCII                    </span>; No, this is make Apple Text, as ASCII = $00..$7F<span class='macro'>
                     210         CMP #$BA            ; IS IT A-F                     
                     211         BCC <a class="x" href="#PRTL2" >PRTL2</a>           ;=&gt;NO                           
                     212         ADC #6              ;ADD 7 (INCLUDES CARRY)         
