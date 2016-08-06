@@ -417,36 +417,36 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     004 <a class="f" name="ORIGIN">ORIGIN      </a>EQU  $1B00
                     005 <a class="do" name="DIAGMOD">DIAGMOD     </a>EQU  0
                     006 <a class="do" name="DOS33B" >DOS33B      </a>EQU  1
-                    007 <a class="do" name="ULC"    >ULC         </a>EQU  0              ; Unofficial commentary
-                    008             INCLUDE <a class="_c00 file" href="#RELOCTR">RELOCTR</a>,,2  ; $1B00 .. $1C80, T0SA - T0SB
-                    009             INCLUDE <a class="_c01 file" href="#DOSINIT">DOSINIT</a>,,2  ; $1C81 .. $1E80, T0SB - T0SD
-                    010             INCLUDE <a class="_c02 file" href="#DOSHOOK">DOSHOOK</a>,,2  ; $1E81 .. $1FCC, T0SD - T0SE
-                    011             INCLUDE <a class="_c03 file" href="#CMDSCAN">CMDSCAN</a>,,2  ; $1FCD .. $2192, T0SE - T1S0
-                    012             INCLUDE <a class="_c04 file" href="#XOPNCLS">XOPNCLS</a>,,2  ; $2193 .. $2330, T1S0 - T1S2
-                    013             INCLUDE <a class="_c05 file" href="#XLODSAV">XLODSAV</a>,,2  ; $2331 .. $250F, T1S2 - T1S4
-                    014             INCLUDE <a class="_c06 file" href="#XMISCMD">XMISCMD</a>,,2  ; $2510 .. $26A7, T1S4 - T1S5
-                    015             INCLUDE <a class="_c07 file" href="#DOSGOER">DOSGOER</a>,,2  ; $26A8 .. $27D3, T1S5 - T1S6
-                    016             INCLUDE <a class="_c08 file" href="#BLDFTAB">BLDFTAB</a>,,2  ; $27D4 .. $2883, T1S6 - T1S7
-                    017             INCLUDE <a class="_c09 file" href="#CMDTBLS">CMDTBLS</a>,,2  ; $2884 .. $2A4E, T1S7 - T1S9
-                    018             INCLUDE <a class="_c10 file" href="#FDOSENT">FDOSENT</a>,,2  ; $2A4F .. $2B21, T1S9 - T1SA
-                    019             INCLUDE <a class="_c11 file" href="#FOPCLRW">FOPCLRW</a>,,2  ; $2B22 .. $2CEE, T1SA - T1SB
-                    020             INCLUDE <a class="_c20 file" href="#FDELCAT">FDELCAT</a>,,2  ; $2CEF .. $2E8D, T1SB - T1SD
-                    021             INCLUDE <a class="_c21 file" href="#FMTRWIO">FMTRWIO</a>,,2  ; $2E8E .. $2FF6, T1SD - T1SE
-                    022             INCLUDE <a class="_c22 file" href="#FLOCNXB">FLOCNXB</a>,,2  ; $2FF7 .. $31C8, T1SE - T2S0
-                    023             INCLUDE <a class="_c23 file" href="#FLOCSEC">FLOCSEC</a>,,2  ; $31C9 .. $3396, T2S0 - T2S2
-                    024             INCLUDE <a class="_c24 file" href="#FVCBUFS">FVCBUFS</a>,,2  ; $3397 .. $35FD, T2S2 - T2S4
-                    025             INLUCDE <a class="_c25 file" href="#BOOTLDR">BOOTLDR</a>,,2  ; $35FE .. $37FF, T0S0 - T0S1
-                    026             INCLUDE <a class="_c26 file" href="#COREQUS">COREQUS</a>,,1  ; n/a
-                    027             INCLUDE <a class="_c27 file" href="#PRENIBL">PRENIBL</a>,,1  ; $3800 .. $3829, T0S2
-                    028             INCLUDE <a class="_c28 file" href="#WRITRTN">WRITRTN</a>,,1  ; $382A .. $38C1, T0S2
-                    029             INCLUDE <a class="_c29 file" href="#POSTNRD">POSTNRD</a>,,1  ; $38C2 .. $3943, T0S2 - T0S3
-                    030             INCLDUE <a class="_c30 file" href="#RDADSEK">RDADSEK</a>,,1  ; $3944 .. $39FC, T0S3
-                    031             INCLUDE <a class="_c31 file" href="#MSWAITR">MSWAITR</a>,,1  ; $39FD .. $3C55, T0S3 - T0S6
-                    032             INCLUDE <a class="_c40 file" href="#WRITADR">WRITADR</a>,,1  ; $3C56 .. $3CFF, T0S6
-                    033             INCLUDE <a class="_c41 file" href="#RWTSONE">RWTSONE</a>,,1  ; $3D00 .. $3DAA, T0S7
-                    034             INCLUDE <a class="_c42 file" href="#RWTSTWO">RWTSTWO</a>,,1  ; $3DAB .. $3EAE, T0S7 - T0S8
-                    035             INCLUDE <a class="_c43 file" href="#FORMATR">FORMATR</a>,,1  ; $3EAF .. $3FC7, T0S8 - T0S9
-                    036             INCLUDE <a class="_c44 file" href="#DOSPTCH">DOSPTCH</a>,,1  ; $3FC8 .. $3FFF, T0S9
+                    007 <a class="do" name="ULC"    >ULC         </a>EQU  0                                          ; Unofficial commentary
+                    008             INCLUDE <a class="_c00 file" href="#RELOCTR">RELOCTR</a>,,2                              ; $1B00 .. $1C80, T0SA - T0SB
+                    009             INCLUDE <a class="_c01 file" href="#DOSINIT">DOSINIT</a>,,2                              ; $1C81 .. $1E80, T0SB - T0SD
+                    010             INCLUDE <a class="_c02 file" href="#DOSHOOK">DOSHOOK</a>,,2                              ; $1E81 .. $1FCC, T0SD - T0SE
+                    011             INCLUDE <a class="_c03 file" href="#CMDSCAN">CMDSCAN</a>,,2                              ; $1FCD .. $2192, T0SE - T1S0
+                    012             INCLUDE <a class="_c04 file" href="#XOPNCLS">XOPNCLS</a>,,2                              ; $2193 .. $2330, T1S0 - T1S2
+                    013             INCLUDE <a class="_c05 file" href="#XLODSAV">XLODSAV</a>,,2                              ; $2331 .. $250F, T1S2 - T1S4
+                    014             INCLUDE <a class="_c06 file" href="#XMISCMD">XMISCMD</a>,,2                              ; $2510 .. $26A7, T1S4 - T1S5
+                    015             INCLUDE <a class="_c07 file" href="#DOSGOER">DOSGOER</a>,,2                              ; $26A8 .. $27D3, T1S5 - T1S6
+                    016             INCLUDE <a class="_c08 file" href="#BLDFTAB">BLDFTAB</a>,,2                              ; $27D4 .. $2883, T1S6 - T1S7
+                    017             INCLUDE <a class="_c09 file" href="#CMDTBLS">CMDTBLS</a>,,2                              ; $2884 .. $2A4E, T1S7 - T1S9
+                    018             INCLUDE <a class="_c10 file" href="#FDOSENT">FDOSENT</a>,,2                              ; $2A4F .. $2B21, T1S9 - T1SA
+                    019             INCLUDE <a class="_c11 file" href="#FOPCLRW">FOPCLRW</a>,,2                              ; $2B22 .. $2CEE, T1SA - T1SB
+                    020             INCLUDE <a class="_c20 file" href="#FDELCAT">FDELCAT</a>,,2                              ; $2CEF .. $2E8D, T1SB - T1SD
+                    021             INCLUDE <a class="_c21 file" href="#FMTRWIO">FMTRWIO</a>,,2                              ; $2E8E .. $2FF6, T1SD - T1SE
+                    022             INCLUDE <a class="_c22 file" href="#FLOCNXB">FLOCNXB</a>,,2                              ; $2FF7 .. $31C8, T1SE - T2S0
+                    023             INCLUDE <a class="_c23 file" href="#FLOCSEC">FLOCSEC</a>,,2                              ; $31C9 .. $3396, T2S0 - T2S2
+                    024             INCLUDE <a class="_c24 file" href="#FVCBUFS">FVCBUFS</a>,,2                              ; $3397 .. $35FD, T2S2 - T2S4
+                    025             INLUCDE <a class="_c25 file" href="#BOOTLDR">BOOTLDR</a>,,2                              ; $35FE .. $37FF, T0S0 - T0S1
+                    026             INCLUDE <a class="_c26 file" href="#COREQUS">COREQUS</a>,,1                              ; n/a
+                    027             INCLUDE <a class="_c27 file" href="#PRENIBL">PRENIBL</a>,,1                              ; $3800 .. $3829, T0S2
+                    028             INCLUDE <a class="_c28 file" href="#WRITRTN">WRITRTN</a>,,1                              ; $382A .. $38C1, T0S2
+                    029             INCLUDE <a class="_c29 file" href="#POSTNRD">POSTNRD</a>,,1                              ; $38C2 .. $3943, T0S2 - T0S3
+                    030             INCLDUE <a class="_c30 file" href="#RDADSEK">RDADSEK</a>,,1                              ; $3944 .. $39FC, T0S3
+                    031             INCLUDE <a class="_c31 file" href="#MSWAITR">MSWAITR</a>,,1                              ; $39FD .. $3C55, T0S3 - T0S6
+                    032             INCLUDE <a class="_c40 file" href="#WRITADR">WRITADR</a>,,1                              ; $3C56 .. $3CFF, T0S6
+                    033             INCLUDE <a class="_c41 file" href="#RWTSONE">RWTSONE</a>,,1                              ; $3D00 .. $3DAA, T0S7
+                    034             INCLUDE <a class="_c42 file" href="#RWTSTWO">RWTSTWO</a>,,1                              ; $3DAB .. $3EAE, T0S7 - T0S8
+                    035             INCLUDE <a class="_c43 file" href="#FORMATR">FORMATR</a>,,1                              ; $3EAF .. $3FC7, T0S8 - T0S9
+                    036             INCLUDE <a class="_c44 file" href="#DOSPTCH">DOSPTCH</a>,,1                              ; $3FC8 .. $3FFF, T0S9
 
 
 <hr><hr class='join'>=== <a class="file" name="RELOCTR">RELOCTR</a> - Relocate DOS to high (48K) memory, Page <a class="page" name="page110">110</a>, <b class="ts">T0SA</b>, $<span class='n'>1B00</span> .. $<span class='n'>1CFF</span> ===<hr class='join'><hr>
@@ -6256,20 +6256,20 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     198 *                         *                                 ; code at <a class="file" href="#WRITRTN">WRITRTN</a>, Line #<a class='line' href='WRITRTN.080'>>80</a> needs fixing up.
                     199 ***************************                                 ;
                     200 *                                                           ;
-3B00:00 00 00 00    201 <a class="d" name="NBUF1"       >NBUF1       </a>DS 256,0        ;NBUF1                          ; === <b class="ts">T0S5</b> ===
+3B00:00 00 00 00    201 <a class="d" name="NBUF1"       >NBUF1       </a>DS 256,0        ;NBUF1                          ; === <b class="ts">T0S5</b> === <a class='disk'>disk</a> sector wasted
 3B04:00 00 00 00                                                                    ; *sigh* Let's waste an *entire* sector
-3B08:00 00 00 00                                                                    ; with 342 disk nibbles of raw 96 nibbles
+3B08:00 00 00 00                                                                    ; with 342 disk nibbles of raw $96 nibbles
 3B0C:00 00 00 00                                                                    ; PLUS the time decoding it
 3B10:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ; when _9 bytes_ would do
-3B20:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ; the job IF NUBF1 == $BF00
+3B20:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ; the job
 3B30:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ;
 3B40:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ;    LDA #0
 3B50:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ;    TAY
 3B60:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ;.1  STA NBUF1,Y
 3B70:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ;    INY
 3B80:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ;    BNE .1
-3B90:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-3BA0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3B90:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                :
+3BA0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ; This data should at $3F00 ($BF00)
 3BB0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 3BC0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 3BD0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
