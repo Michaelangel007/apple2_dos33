@@ -447,7 +447,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 
 <hr><hr class='join'>=== <a class="file" name="RELOCTR">RELOCTR</a> - Relocate DOS to high (48K) memory, Page <a class="page" name="page110">110</a>, <b class="ts">T0SA</b>, $<span class='n'>1B00</span> .. $<span class='n'>1CFF</span> ===<hr class='join'><hr>
-                    001             PAGE
+                    001             PAGE                                            ; === Page <a class='page' name='page110'>110</a> ===
                     002 *****************************************************
                     003 *                                                   *
                     004 * (C) COPYRIGHT 1978,1980,1982 APPLE COMPUTER, INC. *
@@ -686,7 +686,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1BDA:91 40          237             STA (<a class="v" href="#ZPGWRK">ZPGWRK</a>),Y  ; TO RELOCATE
                     238 ;
 1BDC:38             239 <a class="f" name="DR9"         >DR9         </a>SEC
-<hr>1BDD:A5 2F          240             LDA <a class="v" href="#LENGTH">LENGTH</a>      ; ADD LENGTH
+<hr>1BDD:A5 2F          240             LDA <a class="v" href="#LENGTH">LENGTH</a>      ; ADD LENGTH                    ; === Page <a class='page' name='page114'>114</a> ===
 1BDF:65 40          241             ADC <a class="v" href="#ZPGWRK">ZPGWRK</a>      ; TO PC
 1BE1:95 40          242             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>
 1BE3:A9 00          243             LDA #<span class='n'>0</span>
@@ -832,7 +832,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 
 <hr><hr class='join'>=== <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <b class="ts">T0SB</b> - <b class="ts">T0SD</b>, $<span class='n'>9C81</span> .. $<span class='n'>9E80</span> ===<hr class='join'><hr>
-                    001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*
+                    001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*                              ; === Page <a class='page' name='page48'>48</a> ===
                     002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>
 1C81:00 00 00       <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; <a class='disk' name='_1C81'>disk</a> wastes 127 bytes padding to end of sector
 1C84:00 00 00 00                                                                    ; Technically only 82 bytes ($1CD3-$1C81 = $52) are wasted
@@ -986,7 +986,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1DA9:4C BC 1D       114             JMP INITAA                                      ; normally <a class='mem' name='#_1DA9'>wastes</a> 1 byte, BEQ INITAA; but see bigger optimization on Line #<a class='line' href='#DOSINIT.109'>109</a>
                     115 ;
                     116 IAS1        EQU *                                           ; IAS1 = Init Applesoft ROM; /cynical "<i>There will be a test</i>"
-<hr>1DAC:A9 40          117             LDA #$<span class='n'>40</span>        ; INDICATE ROM APPLESOFT        ; <a class='magic' name='#_'>magic number</a> BASIC_TYPE_APPLESOFT_ROM = $40
+<hr>1DAC:A9 40          117             LDA #$<span class='n'>40</span>        ; INDICATE ROM APPLESOFT        ; === Page <a class='page' name='page50'>50</a> === <a class='magic' name='#_'>magic number</a> BASIC_TYPE_APPLESOFT_ROM = $40
 1DAE:8D B6 2A       118             STA ASIBSW                                      ; <b><a class='section' name='DOSINIT.118.Solution'>Solution</a></b>: a) Lines 117-118 should be moved <i>after</i> Line #<a class='line' href='#DOSINIT.103'>103</a> to <b>anticipate the common case</b>
                                                                                     ;           b) This is one of those <b>rare times</b> where we
                                                                                     ;              <b>padd IBVT</b> (with 2 bytes data on the end)
