@@ -2803,56 +2803,56 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     006 CMDNTB EQU *
 2884:49 4E 49 D4    007             DCI "INIT"
 2888:4C 4F 41 C4    008             DCI "LOAD"
-                    009             DCI "SAVE"
+288C:               009             DCI "SAVE"
                     010             DCI "RUN"
-                    011 
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
-                    055 
-                    056 
-                    057 
-                    058 
+                    011             DCI "CHAIN"$
+                    012             DCI "DELETE"$
+                    013             DCI "LOCK"
+                    014             DCI "UNLOCK"$
+                    015             DCI "CLOSE"$
+                    016             DCI "READ"
+                    017             DCI "EXEC"
+                    018             DCI "WRITE"$
+                    019             DCI "POSITION"$
+                    020             DCI "OPEN"
+                    021             DCI "APPEND"$
+                    022             DCI "RENAME"$
+                    023             DCI "CATALOG"$
+                    024             DCI "MON"
+                    025             DCI "NOMON"$
+                    026             DCI "PR#"
+                    027             DCI "IN#"
+                    028             DCI "MAXFILES"$
+                    029             DCI "FP"
+                    030             DCI "INT"$
+                    031             DCI "BSAVE"$
+                    032             DCI "BLOAD"$
+                    033             DCI "BRUN"$
+                    034             DCI "VERIFY"
+                    035             DFB 0                                           ; end sentinel
+                    036             PAGE
+                    037 ;
+                    038 ; COMMAND SYNTAX OP EQUATES FOR SYNTAX BYTE ONE
+                    039 ;
+                    040 NPB         EQU $80
+                    041 NPE         EQU $40
+                    042 FN1         EQU $20
+                    043 FN2         EQU $10
+                    044 NUM1        EQU $08
+                    045 NUM2        EQU $04
+                    046 RNONLY      EQU $02
+                    047 CREFLG      EQU $01
+                    048 ;
+                    049 ; COMMAND SYNTAX OP EQUATES FOR SYNTAX BYTE TWO
+                    050 ;
+                    051 V           EQU $40
+<hr>                    052 D           EQU $20
+                    053 S           EQU $10
+                    054 L           EQU $08
+                    055 R           EQU $04
+                    056 B           EQU $02
+                    057 ADR         EQU $01
+                    058 CIO         EQU $80
                     059 
                     060 
                     061 
