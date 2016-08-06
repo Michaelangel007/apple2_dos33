@@ -1111,7 +1111,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1E79:4C 65 FF       223             JMP MONRST                                      ; $3F8: JMP $FF65
 1E7C:4C 65 FF       224             JMP MONRST                                      ; $3FB: JMP $FF65
 1E7F:65 FF          225             DW MONRST                                       ; $3FE: dw  $FF65
-                    226 IFBL        EQU *-IFB-1
+                    226 IFBL        EQU *-IFB-<span class='n'>1</span>
 
 
 <hr><hr class='join'>=== <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Page <a class="page" name="page44">44</a>, <b class="ts">T0SD</b> - <b class="ts">T0SE</b>, $<span class='n'>9E81</span> .. $<span class='n'>9FCC</span> ===<hr class='join'><hr>
@@ -1157,9 +1157,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     039             LDA OSTATE      ; GET OUT SPARE
                     040             ASL A
                     041             TAX
-                    042             LDA OUTSVT1+1,X ; GET ROUTINE ADR
+                    042             LDA OUTSVT1+<span class='n'>1</span>,X ; GET ROUTINE ADR
                     043             PHA
-                    044             LDA OUTSVT+1,X
+                    044             LDA OUTSVT+<span class='n'>1</span>,X
                     045             PHA
                     046             LDA SVA
 1ED0:60             047             RTS             ; GO TO ROUTINE
@@ -1193,7 +1193,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1EF0:4C 78 1F       074             JMP COS7                                        ; <a class='mem' name='_'>wastes</a> 3 bytes, but since $1F78-$1EF0 &gt; $80 move <a class='x' href='#COS5'>COS5</a>..<a class='x' href='#COS7'>COS7</a> <b>before</b> <a class='x' href='#COS0'>COS0</a>; change Line #<a class='line' href='#DOSHOOK.074'>74</a> to BNE COS7
 1EF3:AE 51 2A       075 COS00       LDX ISTATE      ;IS IN STATE NOT ZERO           ; I'm serious, someone <i>please</i> shoot Captain Obvious
 1EF6:F0 08          076             BEQ COS01                                       ; 
-1EF8:C9 BF          077             CMP #'?'+$80    ; THEN IS THIS ?
+1EF8:C9 BF          077             CMP #'?'+$<span class='n'>80</span>    ; THEN IS THIS ?
 1EFA:F0 75          078             BEQ COS6        ; THEN PRINT ONLY IF MONITOR
 1EFC:C5 33          079             CMP PROMPT
 1EFE:F0 27          080             BEQ COS2A
@@ -1214,7 +1214,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1F15:9D 00 02       095 COS1A       STA LBUFF,X     ; PUT CHAR IN BUFF
 1F18:E8             096             INX             ; INCR PTR
 1F19:8E FD 2A       097             STX LBUFD       ; SAVE PTR
-1F1C:C9 8D          098             CMP #$8D        ; WAS THIS A CR                 ; <a class='magic'>magic number</a>
+1F1C:C9 8D          098             CMP #$<span class='n'>8D</span>        ; WAS THIS A CR                 ; <a class='magic'>magic number</a>
 1F1E:D0 75          099             BNE CMDRTN      ; IF NOT THEN PR CHAR
                     100 ;
 1F20:4C CD 1F       101             JMP SCNCMD      ; GO SCAN COMMAND
@@ -1222,7 +1222,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     103 ;COS2 - PRINTED OUTPUT, NOT FIRST CHAR
                     104 ;
                     105 COS2        EQU *
-1F23:C9 8D          106             CMP #$8D        ; IS IT A CR                    ; <a class='magic'>magic number</a>
+1F23:C9 8D          106             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; <a class='magic'>magic number</a>
 1F25:D0 7D          107             BNE PRRTN       ; BR IF NOT
 1F27:A2 00          108 COS2A       LDX #<span class='n'>0</span>          ; SET FOR POSSIBLE C-D NEXT     ; C-D = Control-D <a class='magic'>magic number</a> COS_STATE_FIRST_CONTROL_D = 0
 1F29:8E 52 2A       109             STX OSTATE      ; NEXT STATE
@@ -1232,9 +1232,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     113 ;COS3 - KEY IN ECHO PRINT
                     114 ;
                     115 COS3        EQU *
-                    116             LDX #0
+                    116             LDX #<span class='n'>0</span>                                          ; <a class='magic' name='_1Fxx'>magic number</a> COS_STATE_0
                     117             STX OSTATE      ; RESET OUT STATE
-                    118             CMP #$8D        ; IS IT CR
+                    118             CMP #$<span class='n'>8D</span>        ; IS IT CR
                     119             BEQ COS3A       ; IF CR THEN CMD CHECK
                     120 COS3B       LDA ESTATE      ; ELSE: IF NOT EXECUTE
                     121             BEQ PRRTN       ; THEN PRINT CHAR
@@ -2166,10 +2166,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     263 
                     264 
                     265 
-2506:20 65 0E       266 <a class="f" name="ASRUN2"  >ASRUN2      </a>JSR $E65        ; RAM                           ; *<b class="magic">magic number</b>* <a class="d" href="#AS2VT">AS2VT</a> has pointer to us
+2506:20 65 0E       266 <a class="f" name="ASRUN2"  >ASRUN2      </a>JSR $<span class='n'>E65</span>        ; RAM                           ; *<b class="magic">magic number</b>* <a class="d" href="#AS2VT">AS2VT</a> has pointer to us
 2509:85 33          267             STA <a class="d" href="#PROMPT">PROMPT</a>      ;INSURES APPLESOFT RUN DETECT (A=0) ; (dead code) <a class='mem' name='_2506'>wastes</a> 10 bytes on Apple ][+ or later
 250B:85 D8          268             STA <a class="d" href="#ASONER">ASONER</a>      ;RESET APPLESOFT ONERR FLAG     ;
-250D:4C D4 0F       269             JMP $FD4                                        ; *<b class="magic">magic number</b>*
+250D:4C D4 0F       269             JMP $<span class='n'>FD4</span>                                        ; *<b class="magic">magic number</b>*
 
 
 <hr><hr class='join'>=== <a class="file" name="XMISCMD">XMISCMD</a> - Execute misc. commands, Page <a class="page" name="page145">145</a>, <b class="ts">T1S4</b> - <b class="ts">T1S5</b>, $<span class='n'>A510</span> .. $<span class='n'>A6A7</span> ===<hr class='join'><hr>
@@ -2179,7 +2179,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     004 ;
                     005 EWRITE      EQU *
 2510:20 26 25       006             JSR RWPOSN      ; GO POSITION FILE IF REQD
-2513:A9 05          007             LDA #5                                          ; WTF is state 5 ?? OK, <a class='x' href='#COS5'>COS5</a> And the state table transition is where again?
+2513:A9 05          007             LDA #<span class='n'>5</span>                                          ; WTF is state 5 ?? OK, <a class='x' href='#COS5'>COS5</a> And the state table transition is where again?
 2515:8D 52 2A       008             STA OSTATE      ; SET OSTATE=5                  ; /sarcasm <i>No Shit, Sherlock</i>
 <img src="char_output_state.png">
 2518:4C 83 1F       009             JMP CERTN
@@ -2765,32 +2765,32 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     114 ;
                     115 <a class="f" name="MVCSW"  >MVCSW       </a>EQU *
 2851:A5 39          116             LDA INSW+1
-<hr>2853:CD 03 1D       117             CMP CINA+1
+<hr>2853:CD 03 1D       117             CMP CINA+<span class='n'>1</span>
 2856:F0 12          118             BEQ <a class="x" href="#MVOSW">MVOSW</a>
-2858:8D 56 2A       119             STA SVINS+1
+2858:8D 56 2A       119             STA SVINS+<span class='n'>1</span>
 285B:A5 38          120             LDA INSW        ; SAVE CHAR IN SWITCH
 285D:8D 55 2A       121             STA SVINS
                     122 ;
 2860:AD 02 1D       123             LDA CINA        ; SET DFB CHAR IN ADR
 2863:85 38          124             STA INSW
-2865:AD 03 1D       125             LDA CINA+1
-2868:85 39          126             STA INSW+1
+2865:AD 03 1D       125             LDA CINA+<span class='n'>1</span>
+2868:85 39          126             STA INSW+<span class='n'>1</span>
                     127 ;
                     128 ;
                     129 ; MVOSW - MOVE OUTPUT SWITCH
                     130 ;
                     131 <a class="f" name="MVOSW"  >MVOSW       </a>EQU *
-286A:A5 37          132             LDA OUTSW+1
-286C:CD 05 1D       133             CMP COUTA+1
+286A:A5 37          132             LDA OUTSW+<span class='n'>1</span>
+286C:CD 05 1D       133             CMP COUTA+<span class='n'>1</span>
 286F:F0 12          134             BEQ <a class="x" href="#MSVRTN">MVSRTN</a>
-2871:8D 54 2A       135             STA SVOUTS+1
+2871:8D 54 2A       135             STA SVOUTS+<span class='n'>1</span>
 2874:A5 36          136             LDA OUTSW       ; SAVE CHAR OUT SWITCH
 2876:8D 53 2A       137             STA SVOUTS
                     138 ;
 2879:AD 04 1D       139             LDA COUTA       ; SET DFB CHAR OUT ADR
 287C:85 36          140             STA OUTSW
-287E:AD 05 1D       141             LDA COUTA+1
-2881:85 37          142             STA OUTSW+1
+287E:AD 05 1D       141             LDA COUTA+<span class='n'>1</span>
+2881:85 37          142             STA OUTSW+<span class='n'>1</span>
                     143 <a class="f" name="MVSRTN" >MVSRTN      </a>EQU *
 2883:60             144             RTS
 
