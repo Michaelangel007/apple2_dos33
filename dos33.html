@@ -2923,45 +2923,45 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 290B:A0 70          066             DFB NPB+FN1,V+D+S             ; LOAD
 290D:A1 70          067             DFB NPB+FN1+CREFLG,V+D+S      ; SAVE
 290E:A0 70          068             DFB NPB+FN1,V+D+S             ; RUN
-                    069             DFB FN1,V+D+S                 ; CHAIN
-                    070             DFB FN1,V+D+S                 ; DELETE
-                    071             DFB FN1,V+D+S                 ; LOCK
-                    072             DFB FN1,V+D+S                 ; UNLOCK
-                    073             DFB NPE+FN1,0                 ; CLOSE
-                    074             DFB FN1+RNONLY,B+R            ; READ
-                    075             DFB FN1,R+V+D+S               ; EXEC
-                    076             DFB FN1+RNONLY,B+R            ; WRITE
-                    077             DFB FN1+RNONLY,R              ; POSITION
-                    078             DFB FN1+RNONLY+CREFLG,L+V+D+S ; OPEN
-                    079             DFB FN1+RNONLY,V+D+S          ; APPEND
-                    080             DFB FN1+FN2,V+D+S             ; RENAME
-                    081             DFB NPE,V+D+S                 ; CATALOG
-                    082             DFB NPE,CIO                   ; MONITOR
-                    083             DFB NPE,CIO                   ; NO MONITOR
-                    084             DFB NUM1,0                    ; PR#
-                    085             DFB NUM1,0                    ; IN#
-                    086             DFB NUM2,0                    ; MAXFILES
-                    087             DFB NPE,V+D+S                 ; APPLESOFT
-                    088             DFB NPE,0                     ; INT
-                    089             DFB FN1+CREFLG,V+D+S+ADR+L    ; BSAVE
-                    090             DFB FN1,V+D+S+ADR             ; BLOAD
-                    091             DFB FN1,V+D+S+ADR             ; BRUN
-                    092             DFB FN1,V+D+S                 ; VERIFY
+2911:20 70          069             DFB FN1,V+D+S                 ; CHAIN
+2913:20 70          070             DFB FN1,V+D+S                 ; DELETE
+2915:20 70          071             DFB FN1,V+D+S                 ; LOCK
+2917:20 70          072             DFB FN1,V+D+S                 ; UNLOCK
+2919:60 00          073             DFB NPE+FN1,0                 ; CLOSE
+291B:22 06          074             DFB FN1+RNONLY,B+R            ; READ
+291D:20 74          075             DFB FN1,R+V+D+S               ; EXEC
+291F:22 06          076             DFB FN1+RNONLY,B+R            ; WRITE
+2921:22 04          077             DFB FN1+RNONLY,R              ; POSITION
+2923:23 78          078             DFB FN1+RNONLY+CREFLG,L+V+D+S ; OPEN
+2925:22 70          079             DFB FN1+RNONLY,V+D+S          ; APPEND
+2927:30 70          080             DFB FN1+FN2,V+D+S             ; RENAME
+2929:40 70          081             DFB NPE,V+D+S                 ; CATALOG
+292B:40 80          082             DFB NPE,CIO                   ; MONITOR
+292D:40 80          083             DFB NPE,CIO                   ; NO MONITOR
+292F:08 00          084             DFB NUM1,0                    ; PR#
+2931:08 00          085             DFB NUM1,0                    ; IN#
+2933:04 00          086             DFB NUM2,0                    ; MAXFILES
+2935:40 70          087             DFB NPE,V+D+S                 ; APPLESOFT
+2937:40 00          088             DFB NPE,0                     ; INT
+2939:21 79          089             DFB FN1+CREFLG,V+D+S+ADR+L    ; BSAVE
+293B:20 71          090             DFB FN1,V+D+S+ADR             ; BLOAD
+293D:20 71          091             DFB FN1,V+D+S+ADR             ; BRUN
+293F:20 70          092             DFB FN1,V+D+S                 ; VERIFY
                     093             PAGE
                     094 ;                                                           
                     095 ; OPTAB - OPTIONAL PARMS SYNTAX TABLES                      
                     096 ;                                                           
-                    097 OPTAB1      EQU *                                           ; It would be better to interleave OPTAB1 and OPTAB2 to prevent mistakes:
-                    098             DFB 'V'+$80,'D'+$80,'S'+$80,'L'+$80'            ;    DFB 'V'+$80, V
-                    099             DFB 'R'+$80,'B'+$80,'A'+$80,'C'+$80'            ;    DFB 'D'+$80, D         ; /sarcasm Apparently <span class='code'>MSB ON</span> was broken
-                    100             DFB 'I'+$80,'O'+$80'                            ;    DFB 'S'+$80, S         ; What's the point of compacting the lines?
+                    097 OPTAB1      EQU *                                           ; It would be better to <i>interleave</i> OPTAB1 and OPTAB2 to prevent synchronization mistakes:
+2941:D6 C4 D3 CC    098             DFB 'V'+$80,'D'+$80,'S'+$80,'L'+$80'            ;    DFB 'V'+$80, V
+2945:D2 C2 C1 C3    099             DFB 'R'+$80,'B'+$80,'A'+$80,'C'+$80'            ;    DFB 'D'+$80, D         ; /sarcasm Apparently <span class='code'>MSB ON</span> was broken
+2949:C9 CF          100             DFB 'I'+$80,'O'+$80'                            ;    DFB 'S'+$80, S         ; What's the point of compacting the lines?
                     101 OPT1L       EQU *-OPTAB1                                    ;    DFB 'L'+$80, L
                     102 MI          EQU $20                                         ;    DFB 'R'+$80, R         ; <span class='todo'>TODO</span> does MI alias FN1?
                     103 MO          EQU $10                                         ;    DFB 'B'+$80, B         ; <span class='todo'>TODO</span> does MO alias FN2?
                     104 OPTAB2      EQU *                                           ;    DFB 'A'+$80, ADR
-                    105             DFB V,D,S,L                                     ;    DFB 'C'+$80, CIO+MC    ; <span class='todo'>TODO</span> Where is MC defined?
-                    106             DFB R,B,ADR,CIO+MC                              ;    DFB 'I'+$80, CIO+MI
-                    107             DFB CIO+MI,CIO+MO                               ;    DFB 'O'+$80, CIO+MO
+294B:40 20 10 08    105             DFB V,D,S,L                                     ;    DFB 'C'+$80, CIO+MC    ; <span class='todo'>TODO</span> Where is MC defined?
+294F:04 02 01 C0    106             DFB R,B,ADR,CIO+MC                              ;    DFB 'I'+$80, CIO+MI
+2953:A0 90          107             DFB CIO+MI,CIO+MO                               ;    DFB 'O'+$80, CIO+MO
                     108 OPTAB3 EQU *                                                ; *sigh* Yay for more crappy table formatting
                                                                                     ;     [Min, Max]
                                                                                     ;     DW 0, 254    ; Volume
@@ -2971,14 +2971,14 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                                                                                     ;     DW 0, 32767  ; Record Number
                                                                                     ;     DW 0, 32767  ; Record byte number
                                                                                     ;     DW 0, $FFFF  ; Address
-                    109             DW 0                                            ; [0]
-                    110             DW 254          ; VOL RANGE
-                    111             DW 1                                            ; [1]
-                    112             DW 2            ; DRIVE RANGE
-                    113             DW 1                                            ; [2]
-                    114             DW 7            ; SLOT RANGE
-                    115             DW 1                                            ; [3]
-<hr>2963:FF 7F          116             DW 32767        ; LENGTH RANGE                  ; === Page <a class='page' name='page23'>23</a> ===
+2955:00 00          109             DW 0                                            ; [0]
+2957:FE 00          110             DW 254          ; VOL RANGE
+2959:01 00          111             DW 1                                            ; [1]
+295B:02 00          112             DW 2            ; DRIVE RANGE
+295D:01 00          113             DW 1                                            ; [2]
+295F:07 01          114             DW 7            ; SLOT RANGE
+2961:01 00          115             DW 1                                            ; [3]             <span class='code'>BSAVE FOO,A$0,L$C000</span> won't work without patching DOS
+<hr>2963:FF 7F          116             DW 32767        ; LENGTH RANGE                  ; === Page <a class='page' name='page23'>23</a> === A963:FF BF to save &gt; 32KB (48KB)
 2965:00 00          117             DW 0                                            ; [4]
 2967:FF 7F          118             DW 32767        ; REC NO RANGE
 2969:00 00          119             DW 0                                            ; [5]
@@ -2995,12 +2995,12 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2978:55 41 47 45
 297C:20 4E 4F 54
 2980:20 41 56 41
-2984:49 4C 41 42
-                    130 EM2         EQU *-EMSG                                      ; unnecessary duplicate
-                    131 EM3         EQU *-EMSG
-                    132             DCI "RANGE ERROR"
-                    133 EM4         EQU *-EMSG
-                    134             DCI "WRITE PROTECTED"
+2984:49 4C 41 42    130 EM2         EQU *-EMSG                                      ; unnecessary duplicate
+2988:4C C5          131 EM3         EQU *-EMSG
+298A:52 41 4E 47    132             DCI "RANGE ERROR"
+298E:45 20 45 52
+2992:52 4F D2       133 EM4         EQU *-EMSG
+2995:               134             DCI "WRITE PROTECTED"
                     135 EM5         EQU *-EMSG
                     136             DCI "END OF DATA"
                     137 EM6         EQU *-EMSG
@@ -3024,9 +3024,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     155 
                     156 EM15        EQU *-EMSG
                     157             DCI "NOT DIRECT COMMAND"
-                    158             DFB $8D
+2A3E:8D             158             DFB $8D
                     159 EMDTB       EQU *                                           ; Array of (byte) Pointers to start of each error message
-                    160             DFB 0,EM1,EM2,EM3
+2A3F:00 03 19 19    160             DFB 0,EM1,EM2,EM3
                     161             DFB EM4,EM5,EM6,EM7
                     162             DFB EM8,EM9,EM10,EM11
                     163             DFB EM12,EM13,EM14
