@@ -2806,33 +2806,41 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     006 <a class="f" name='CMDNTB'   >CMDNTB      </a>EQU *
 2884:49 4E 49 D4    007             DCI "INIT"                                      ; <a class='dumb'>HNTODAOS: #1</a>Why is INIT listed first??? CATALOG is used <i>far more</i> then INIT
 2888:4C 4F 41 C4    008             DCI "LOAD"                                      ; Either sorted these by:
-288C:               009             DCI "SAVE"                                      ;   a) frequency of use, (best)
-                    010             DCI "RUN"                                       ;   b) alphabetical (better)
-                    011             DCI "CHAIN"$                                    ; i.e. "Power Users" are more likely to use BRUN, BLOAD, BSAVE before they use DELETE
-                    012             DCI "DELETE"$
-                    013             DCI "LOCK"
-                    014             DCI "UNLOCK"$
-                    015             DCI "CLOSE"$
-                    016             DCI "READ"
-                    017             DCI "EXEC"
-                    018             DCI "WRITE"$
-                    019             DCI "POSITION"$
-                    020             DCI "OPEN"
-                    021             DCI "APPEND"$
-                    022             DCI "RENAME"$
-                    023             DCI "CATALOG"$
-                    024             DCI "MON"
-                    025             DCI "NOMON"$
-                    026             DCI "PR#"
-                    027             DCI "IN#"
-                    028             DCI "MAXFILES"$
-                    029             DCI "FP"
-                    030             DCI "INT"$
-                    031             DCI "BSAVE"$
-                    032             DCI "BLOAD"$
-                    033             DCI "BRUN"$
-                    034             DCI "VERIFY"
-                    035             DFB 0                                           ; end sentinel, see <span class='todo'>TODO</span>
+288C:53 41 56 C5    009             DCI "SAVE"                                      ;   a) frequency of use, (best)
+2890:52 55 CE       010             DCI "RUN"                                       ;   b) alphabetical (better)
+2893:43 48 41 49 CE 011             DCI "CHAIN"$                                    ; i.e. "Power Users" are more likely to use BRUN, BLOAD, BSAVE before they use DELETE
+2898:44 45 4C 45    012             DCI "DELETE"$
+289C:54 C5
+289E:4C 4F 43 CB    013             DCI "LOCK"
+28A2:55 4E 4C 4F    014             DCI "UNLOCK"$
+28A6:43 CB
+28A8:43 4C 4F 53 C5 015             DCI "CLOSE"$
+28AD:52 45 41 C4    016             DCI "READ"
+28B1:45 58 45 C3    017             DCI "EXEC"                                      ; inconsistent abbreviation
+28B5:57 52 49 54 C5 018             DCI "WRITE"$
+28BA:50 4F 53 49    019             DCI "POSITION"$
+2854:54 49 4F CE
+28C2:45 50 45 CE    020             DCI "OPEN"
+28C6:41 50 50 45    021             DCI "APPEND"$
+28CA:4E C4
+28CC:52 45 4E 41    022             DCI "RENAME"$
+28D0:4D C5
+28D2:43 41 54 41    023             DCI "CATALOG"$                                  ; <a class='dumb'>HNTODAOS: #2</a> Let's slow users down forcing them type 7 characters
+28D6:4C 4F C7
+28D9:4D 4F CE       024             DCI "MON"                                       ; which has a higher error rate of typos instead of the easier to type 3 characters CAT or DIR
+28DC:4E 4F 4D 4F CE 025             DCI "NOMON"$                                    ; /sarcasm Oh I see, we abbreviate MONITOR
+28E1:50 52 A3       026             DCI "PR#"
+28E4:49 4E A3       027             DCI "IN#"
+28E7:4D 41 58 46    028             DCI "MAXFILES"$
+28EB:49 4C 45 D3
+28EF:46 D0          029             DCI "FP"
+28F1:49 4E D4       030             DCI "INT"
+28F4:42 53 41 56 C5 031             DCI "BSAVE"$
+28F9:42 4C 4F 41 C4 032             DCI "BLOAD"$
+28FE:42 52 55 CE    033             DCI "BRUN"$                                     ; === <a class='ts' name='T1S8'>T1S8</a>
+2902:56 45 52 49    034             DCI "VERIFY"
+2906:46 D9
+2908:00             035             DFB 0                                           ; end sentinel, see <span class='todo'>TODO</span>
                     036             PAGE
                     037 ;                                                                   ; *sigh* Typical crap names; bitmask flags should be prefixed with a common name:
                     038 ; COMMAND SYNTAX OP EQUATES FOR SYNTAX BYTE ONE                     ;     <span class='code'>P1_</span>     (better, but will concede a short name is extremely convenient)
@@ -2853,8 +2861,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                                                                                             ;
                     042 <a class='e' name='FN1'    >FN1         </a>EQU $<span class='n'>20</span>         ; FILE NAME1 REGD                       ; P1_SRC
                     043 <a class='e' name='FN2'    >FN2         </a>EQU $<span class='n'>10</span>         ; FILE NAME2 REQD                       : P1_DST
-                    044 <a class='e' name='NUM1'   >NUM1        </a>EQU $<span class='n'>08</span>         ; NUMERIC 0-7 REGD                      ; P1_SLT -- WTF is the _range_ of NUM 1 ??? <b>Slot</b> tells us
-                    045 <a class='e' name='NUM2'   >NUM2        </a>EQU $<span class='n'>04</span>         ; NUMERIC 1-10 REQD                     ; P1_DEC -- WTF is the _range_ of NUM 2 ??? <b>Decimal</b> tells us
+                    044 <a class='e' name='NUM1'   >NUM1        </a>EQU $<span class='n'>08</span>         ; NUMERIC 0-7 REGD                      ; P1_SLT -- WTF is the _range_ of NUM 1 ??? 3-bit? <b>Slot</b> tells us
+                    045 <a class='e' name='NUM2'   >NUM2        </a>EQU $<span class='n'>04</span>         ; NUMERIC 1-10 REQD                     ; P1_DEC -- WTF is the _range_ of NUM 2 ??? 8-bit? <b>Decimal</b> tells us
                     046 <a class='e' name='RDONLY' >RNONLY      </a>EQU $<span class='n'>02</span>         ; RUN TIME ONLY FLAG.                   ; P1_RUN
                     047 <a class='e' name='CREFLG' >CREFLG      </a>EQU $<span class='n'>01</span>         ; FLAG TO INDICATE CMDS THAT MAY        ; P1_CRE
                     048 ;                                                                   ; <b>Q</b>. Why we would encode the type of paramater such as 1st or 2nd in the name?
@@ -2912,10 +2920,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                                                                                     ; FN1                      , V+D+S      +ADR  ; BLOAD
                                                                                     ; FN1                      , V+D+S      +ADR  ; BRUN
                                                                                     ; FN1                      , V+D+S            ; VERIFY
-                    065             DFB FN1+CREFLG,V+D+S          ; INIT
-                    066             DFB NPB+FN1,V+D+S             ; LOAD
-                    067             DFB NPB+FN1+CREFLG,V+D+S      ; SAVE
-                    068             DFB NPB+FN1,V+D+S             ; RUN
+2909:21 70          065             DFB FN1+CREFLG,V+D+S          ; INIT
+290B:A0 70          066             DFB NPB+FN1,V+D+S             ; LOAD
+290D:A1 70          067             DFB NPB+FN1+CREFLG,V+D+S      ; SAVE
+290E:A0 70          068             DFB NPB+FN1,V+D+S             ; RUN
                     069             DFB FN1,V+D+S                 ; CHAIN
                     070             DFB FN1,V+D+S                 ; DELETE
                     071             DFB FN1,V+D+S                 ; LOCK
@@ -2941,59 +2949,72 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     091             DFB FN1,V+D+S+ADR             ; BRUN
                     092             DFB FN1,V+D+S                 ; VERIFY
                     093             PAGE
-                    094 ;
-                    095 ; OPTAB - OPTIONAL PARMS SYNTAX TABLES
-                    096 ;
-                    097 OPTAB1      EQU *
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
+                    094 ;                                                           
+                    095 ; OPTAB - OPTIONAL PARMS SYNTAX TABLES                      
+                    096 ;                                                           
+                    097 OPTAB1      EQU *                                           ; It would be better to interleave OPTAB1 and OPTAB2 to prevent mistakes:
+                    098             DFB 'V'+$80,'D'+$80,'S'+$80,'L'+$80'            ;    DFB 'V'+$80, V
+                    099             DFB 'R'+$80,'B'+$80,'A'+$80,'C'+$80'            ;    DFB 'D'+$80, D         ; /sarcasm Apparently <span class='code'>MSB ON</span> was broken
+                    100             DFB 'I'+$80,'O'+$80'                            ;    DFB 'S'+$80, S         ; What's the point of compacting the lines?
+                    101 OPT1L       EQU *-OPTAB1                                    ;    DFB 'L'+$80, L
+                    102 MI          EQU $20                                         ;    DFB 'R'+$80, R         ; <span class='todo'>TODO</span> does MI alias FN1?
+                    103 MO          EQU $10                                         ;    DFB 'B'+$80, B         ; <span class='todo'>TODO</span> does MO alias FN2?
+                    104 OPTAB2      EQU *                                           ;    DFB 'A'+$80, ADR
+                    105             DFB V,D,S,L                                     ;    DFB 'C'+$80, CIO+MC    ; <span class='todo'>TODO</span> Where is MC defined?
+                    106             DFB R,B,ADR,CIO+MC                              ;    DFB 'I'+$80, CIO+MI
+                    107             DFB CIO+MI,CIO+MO                               ;    DFB 'O'+$80, CIO+MO
+                    108 OPTAB3 EQU *                                                ; *sigh* Yay for more crappy table formatting
+                                                                                    ;     [Min, Max]
+                                                                                    ;     DW 0, 254    ; Volume
+                                                                                    ;     DW 1, 2      ; Drive
+                                                                                    ;     DW 1, 7      ; Slot
+                                                                                    ;     DW 1, 32767  ; Length
+                                                                                    ;     DW 0, 32767  ; Record Number
+                                                                                    ;     DW 0, 32767  ; Record byte number
+                                                                                    ;     DW 0, $FFFF  ; Address
+                    109             DW 0                                            ; [0]
+                    110             DW 254          ; VOL RANGE
+                    111             DW 1                                            ; [1]
+                    112             DW 2            ; DRIVE RANGE
+                    113             DW 1                                            ; [2]
+                    114             DW 7            ; SLOT RANGE
+                    115             DW 1                                            ; [3]
+<hr>
+2963:FF 7F          116             DW 32767        ; LENGTH RANGE                  ; === Page <a class='page' name='page23'>23</a> ===
+2965:00 00          117             DW 0                                            ; [4]
+2967:FF 7F          118             DW 32767        ; REC NO RANGE
+2969:00 00          119             DW 0                                            ; [5]
+296B:FF 7F          120             DW 32767        ; REC BYTE NO RANGE
+296D:00 00          121             DW 0                                            ; [6]
+296F:FF FF          122             DW $FFFF        ; ADDRESS RANGE
+                    123 ;
+                    124 ; ERROR MESSAGE TABLES
+                    125 ;
+                    126 EMSG        EQU *
+2971:0D 07 8D       127             DFB $0D, $07, $8D                               ; <a class='magic' name='_'>magic number</a> CR, BELL, CR + #$80
+                    128 EM1         EQU *-EMSG
+2974:4C 41 4E 47    129             DCI "LANGUAGE NOT AVAILABLE"
+2978:55 41 47 45
+297C:20 4E 4F 54
+2980:20 41 56 41
+2984:49 4C 41 42
+                    130 EM2         EQU *-EMSG                                      ; unnecessary duplicate
+                    131 EM3         EQU *-EMSG
+                    132             DCI "RANGE ERROR"
+                    133 EM4         EQU *-EMSG
+                    134             DCI "WRITE PROTECTED"
+                    135 EM5         EQU *-EMSG
+                    136             DCI "END OF DATA"
+                    137 EM6         EQU *-EMSG
+                    138             DCI "FILE NOT FOUND"
+                    139 EM7         EQU *-EMSG
+                    140             DCI "VOLUME MISMATCH"
+                    141 EM8         EQU *-EMSG
+                    142             DCI "I/O ERROR"
+                    143 EM9         EQU *-EMSG
+                    144             DCI "DISK FULL"
+                    145 EM10        EQU *-EMSG
+                    146             DCI "FILE LOCKED"
                     147 
                     148 
                     149 
@@ -3003,15 +3024,21 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     153 
                     154 
                     155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
+                    156 EM15        EQU *-EMSG
+                    157             DCI "NOT DIRECT COMMAND"
+                    158             DFB $8D
+                    159 EMDTB       EQU *                                           ; Array of (byte) Pointers to start of each error message
+                    160             DFB 0,EM1,EM2,EM3
+                    161             DFB EM4,EM5,EM6,EM7
+                    162             DFB EM8,EM9,EM10,EM11
+                    163             DFB EM12,EM13,EM14
+                    164             DFB EM15
+
+
+
+
+
+
 
 
 <hr><hr class='join'>=== <a class="file" name="FDOSENT">FDOSENT</a> - External Entry Point, Page <a class="page" name="page60">60</a>, <b class="ts">T1S9</b>, $<span class='n'>2A4F</span> ===<hr class='join'><hr>
