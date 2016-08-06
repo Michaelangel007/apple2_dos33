@@ -2995,63 +2995,63 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2978:55 41 47 45
 297C:20 4E 4F 54
 2980:20 41 56 41
-2984:49 4C 41 42    130 EM2         EQU *-EMSG                                      ; unnecessary duplicate
-2988:4C C5          131 EM3         EQU *-EMSG
+2984:49 4C 41 42    130 <a class='d' name='EM2'      >EM2         </a>EQU *-EMSG                                      ; unnecessary duplicate
+2988:4C C5          131 <a class='d' name='EM3'      >EM3         </a>EQU *-EMSG
 298A:52 41 4E 47    132             DCI "RANGE ERROR"
 298E:45 20 45 52
-2992:52 4F D2       133 EM4         EQU *-EMSG
+2992:52 4F D2       133 <a class='d' name='EM4'      >EM4         </a>EQU *-EMSG
 2995:57 52 49 54    134             DCI "WRITE PROTECTED"
 2999:45 20 50 52
 299D:4F 54 45 43
-29A1:54 45 C4       135 EM5         EQU *-EMSG
+29A1:54 45 C4       135 <a class='d' name='EM5'      >EM5         </a>EQU *-EMSG
 29A4:45 4E 44 20    136             DCI "END OF DATA"
 29A8:4F 46 20 44
-29AC:41 54 C1       137 EM6         EQU *-EMSG
+29AC:41 54 C1       137 <a class='d' name='EM6'      >EM6         </a>EQU *-EMSG
 29AF:46 49 4C 45    138             DCI "FILE NOT FOUND"
-29B3:20 4E 4F 54    139 EM7         EQU *-EMSG
+29B3:20 4E 4F 54    139 <a class='d' name='EM7'      >EM7         </a>EQU *-EMSG
 29B7:20 46 4F 55
 29BB:4E C4
 29BD:56 4F 4C 55    140             DCI "VOLUME MISMATCH"
 29C1:4D 45 20 4D
 29C5:49 53 4D 41
-29C9:54 43 C8       141 EM8         EQU *-EMSG
+29C9:54 43 C8       141 <a class='d' name='EM8'      >EM8         </a>EQU *-EMSG
 29CC:49 2F 4F 20    142             DCI "I/O ERROR"
-29D0:45 52 52 4F D2 143 EM9         EQU *-EMSG
+29D0:45 52 52 4F D2 143 <a class='d' name='EM9'      >EM9         </a>EQU *-EMSG
 29D5:44 49 53 4B    144             DCI "DISK FULL"
-29D9:20 46 55 4C CC 145 EM10        EQU *-EMSG
+29D9:20 46 55 4C CC 145 <a class='d' name='EM10'     >EM10        </a>EQU *-EMSG
 29DE:46 49 4C 45    146             DCI "FILE LOCKED"
-29E2:20 4C 4F 43    147 EM11        EQU *-EMSG
+29E2:20 4C 4F 43    147 <a class='d' name='EM11'     >EM11        </a>EQU *-EMSG
 29E6:4B 45 C4
 29E9:53 59 4E 5E    148             DCI "SYNTAX ERROR"
 29ED:41 58 20 45
-29F1:52 52 4F D2    149 EM12        EQU *-EMSG
+29F1:52 52 4F D2    149 <a class='d' name='EM12'     >EM12        </a>EQU *-EMSG
 29F5:4E 4F 20 42    150             DCI "NO BUFFERS AVAILABLE"
 29F9:55 46 46 45
 29FD:52 53 20 41                                                                    ; === <a class='ts' name='T1S9'>T1S9</a> ===
 2A01:56 41 49 4C
-2A05:41 42 4C C5    151 EM13        EQU *-EMSG
+2A05:41 42 4C C5    151 <a class='d' name='EM13'     >EM13        </a>EQU *-EMSG
 2A09:46 49 4C 45    152             DCI "FILE TYPE MISMATCH"
 2A0D:20 54 59 50
 2A11:45 20 4D 49
 2A15:53 4D 41 54
-2A19:43 C8          153 EM14        EQU *-EMSG
+2A19:43 C8          153 <a class='d' name='EM14'     >EM14        </a>EQU *-EMSG
 2A1B:50 52 4F 47    154             DCI "PROGRAM TOO LARGE"
 2A1F:52 41 4D 20
 2A23:54 4F 4F 20
 2A27:4C 41 52 47 C5 155 ;
-                    156 EM15        EQU *-EMSG
+                    156 <a class='d' name='EM15'     >EM15        </a>EQU *-EMSG
 2A2C:4E 4F 54 20    157             DCI "NOT DIRECT COMMAND"
 2A30:44 49 52 45
 2A34:43 54 20 43
 2A38:4F 4D 4D 41
 2A3C:4E C4
 2A3E:8D             158             DFB $8D
-                    159 EMDTB       EQU *                                           ; Array of (byte) Pointers to start of each error message
-2A3F:00 03 19 19    160             DFB 0,EM1,EM2,EM3                               ; <a class='mem' name='_2A42'>wastes</a> 1 byte for redundant error message
-2A43:24 33 3E 4C    161             DFB EM4,EM5,EM6,EM7
-2A47:5B 64 6D 78    162             DFB EM8,EM9,EM10,EM11
-2A4B:84 98 AA       163             DFB EM12,EM13,EM14
-2A4E:BB             164             DFB EM15
+                    159 <a class='d' name='EMDTB'    >EMDTB       </a>EQU *                                           ; Array of (byte) Pointers to start of each error message
+2A3F:00 03 19 19    160             DFB 0,<a class='v' href='#EM1' >EM1</a >,<a class='v' href='#EM2' >EM2</a >,<a class='v' href='#EM3' >EM3</a >                               ; <a class='mem' name='_2A42'>wastes</a> 1 byte for redundant error message EM3
+2A43:24 33 3E 4C    161             DFB <a   class='v' href='#EM4' >EM4</a >,<a class='v' href='#EM5' >EM5</a >,<a class='v' href='#EM6' >EM6</a >,<a class='v' href='#EM7'>EM7</a>
+2A47:5B 64 6D 78    162             DFB <a   class='v' href='#EM8' >EM8</a >,<a class='v' href='#EM8' >EM9</a >,<a class='v' href='#EM10'>EM10</a>,<a class='v' href='#EM11'>EM11</a>
+2A4B:84 98 AA       163             DFB <a   class='v' href='#EM12'>EM12</a>,<a class='v' href='#EM13'>EM13</a>,<a class='v' href='#EM14'>EM14</a>
+2A4E:BB             164             DFB <a   class='v' href='#EM15'>EM15</a>
 
 
 <hr><hr class='join'>=== <a class="file" name="FDOSENT">FDOSENT</a> - External Entry Point, Page <a class="page" name="page60">60</a>, <b class="ts">T1S9</b>, $<span class='n'>2A4F</span> ===<hr class='join'><hr>
