@@ -28,31 +28,18 @@ Pages left:
 <head>
     <style>
 
-span.b { color: #080; font-weight: bold;  } /* Original bold   green */
-span.i { color: #00F; font-style: italic; } /* Original italic blue  */
-
-/* Bold = Blue */
-b {
-    color: #004; /* history: 080, 00F, 004 */
-}
-
-/* Italic = Green */
-i {
-    color: #040; /* history: 00F, 080, 040 */
-}
 a {
     color: #F0F; /* Should never see purple -- means link wasn't marked up propery */
     /* background-color:#F0F; */
 }
-
 /*
-    There are 4 lights, er, links!
+    There are 4 lights, er, links! *argh* There are 5 lights.
 
     f FUNC definition: Foo EQU *
     x FUNC reference:      JSR Foo
-    d VAR  definition: Bar DFB 0
+    d VAR  definition: Bar DFB 0 or Bar EQU $00
     v VAR  reference       LDA Bar
-
+    e EQU  const       Foo EQU 1
 */
 a.f { /* func name definition LABEL */
     color          : #46F  ; /* blue (baby blue) */
@@ -75,30 +62,40 @@ a.v { /* var name reference OPERAND */
     text-decoration: none  ; /* remove underlink from data link */
     font-weight    : normal; /* remove bold */
 }
-a.e { /* const equ */
-    color          : #088  ; /* dark green */
-    text-decoration: none  ; /* remove underlink from data link */
-    font-weight    : normal; /* remove bold */
-}
 
-/*
-Misc.
- - can't use '$' in css name *
- - http://stackoverflow.com/questions/448981/which-characters-are-valid-in-css-class-names-selectors 
-*/
+.code { /* code snippet */
+    background-color:#EEE; /* grey */
+}
 a.disk {
     background-color:#F00; /* red */
     color           :#FFF; /* white */
     text-decoration: none; /* remove underlink from data link */
     font-weight: normal;   /* remove bold */
 }
-a.dumb { /* How Not To Design a File System (HNTDAFS) */
+/* Link to Macro Definition */
+a.do { /* do macroname */
+    color: #80F;           /* purple */
+    text-decoration: none; /* remove underlink from data link */
+    font-weight: normal;   /* remove bold */
+}
+a.dumb { /* How Not To Design a File System (HNTDAFS) or How Not To Design an Operating Systems (HNTDAOS) */
     color: #808; /* purple */
+}
+a.e { /* const equ */
+    color          : #088  ; /* dark green */
+    text-decoration: none  ; /* remove underlink from data link */
+    font-weight    : normal; /* remove bold */
 }
 .file {
     color: #088;           /* old filename red */
     text-decoration: none; /* remove underlink from data link */
     font-weight: normal;   /* remove bold */
+}
+.indent2 { /* Indent 2.5% */
+     padding-left:2.5%;
+}
+.indent5 { /* Indent 5% */
+     padding-left:5%;
 }
 a.line { /* line number */
     color: #088; /* cyan */
@@ -107,103 +104,36 @@ a.line { /* line number */
 a.link { /* we link TO somthing -- source */
     color: #08F; /* Baby Blue */
 }
-a.section {
-    color: #000;
-    text-decoration: none; /* we are linking FROM something -- destination -- remove underlink from data link */
+.macro { /* macro line bg */
+    background-color:#FDD; /* was grey #EEE */
 }
-/* Link to Macro Definition */
-a.do { /* do macroname */
-    color: #80F;           /* purple */
-    text-decoration: none; /* remove underlink from data link */
-    font-weight: normal;   /* remove bold */
-}
-/* Link to Macro Label */
-a.name {
-    color: #444;
-    font-style: italic;
-}
-
-/* Page Definition -- link comes here */
-a.page {
-    color: #080;
-    text-decoration: none; /* remove underlink from data link */
-}
-a.todo {
-    background-color:#FF0; /* Yellow = TODO */
-}
-/* Track/Sector Definition -- link comes here */
-a.ts {
-    color          : #F00; /* red */
-    text-decoration: none; /* remove underlink from data link */
-    font-weight    : bold; /* make bold */
+.magic { /* hard-coded magic number hack */
+    color           :#FFF; /* white on */
+    background-color:#F80; /* orange */
 }
 a.mem { /* *wastes* X bytes of memory */
     color           : #000;
     background-color: #FDE; /* purple */
     text-decoration: none; /* remove underlink from data link */
 }
-
-h1 {
-    font-size: 200%;
-}
-h2 {
-    font-size: 150%;
-}
-/* Track/Sector */
-b.ts {
-    color: #F00;
-    background-color: #00F;
-}
-
-
-/*
-# after an hr there is a line of whitespace
-    <div class="hr"><hr></div>
-Solution: place <hr> on same line
-*/
-hr {
-    margin: 1px 1px;
-/*
-#    padding: 0px;
-#    margin:  0px;
-#    margin-top:-1em
-*/
-}
-hr.join { /* We have a double horizontal rule for new source files, use 0 padding on the bottom */
-    margin: 0px 0px;
-}
-
-/* Indent 2.5%, 5% */
-.indent2 {
-     padding-left:2.5%;
-}
-.indent5 {
-     padding-left:5%;
-}
-
-/* Dec, Hex, Number, Memory Address */
-.n {
+.n { /* Dec, Hex, Number, Memory Address */
     color: #F80;
     font-weight: bold;
+}
+a.name { /* Link to Macro Label */
+    color: #444;
+    font-style: italic;
 }
 .note {
     background-color:#FF0; /* yellow */
 }
-.magic { /* hard-coded magic number hack */
-    color           :#FFF; /* white on */
-    background-color:#F80; /* orange */
+a.page { /* Page Definition -- link comes here */
+    color: #080;
+    text-decoration: none; /* remove underlink from data link */
 }
-span.page {
-    color: #080; /* green */
-}
-.code { /* code snippet */
-    background-color:#EEE; /* grey */
-}
-.macro { /* macro line bg */
-    background-color:#FDD; /* was grey #EEE */
-}
-span.patch {
-    background-color:#EEC; /* faded yellow */
+a.section {
+    color: #000;
+    text-decoration: none; /* we are linking FROM something -- destination -- remove underlink from data link */
 }
 .toc { /* Table of Contents */
     list-style: none;
@@ -212,35 +142,22 @@ span.patch {
 .todo {
     background-color:#FF0; /* yellow */
 }
+a.ts { /* Track/Sector Definition -- link comes here */
+    color          : #F00; /* red */
+    text-decoration: none; /* remove underlink from data link */
+    font-weight    : bold; /* make bold */
+}
 .warn {
     color: #F80; /* Orange */
 }
 
-.borders, .borders tr, .borders td {
-    border: 1px solid;
-    border-width: 1px;
-    border-collapse: collapse;
-    padding: 2px;
+b { /* Bold = Blue */
+    color: #004; /* history: 080, 00F, 004 */
 }
-.borders th {
-    background-color: #EEE;
-    border: 1px solid;
+b.ts { /* Track/Sector */
+    color: #F00;
+    background-color: #F0F; /* */
 }
-
-/* Table nested inside table -- don't show left, right, bottom border edges */
-.rows, .rows tr {
-    border: 1px solid;
-    border-collapse: collapse; /* seperate or collapse */
-    border-left : 0px;
-    border-right: 0px;
-    border-bottom: 0px;
-    padding: 0px;
-    outline: none;
-}
-.rows td {
-    border: 0px;
-}
-
 /* 100% Saturation is too dark and over-powering. Lighten up to make it easier on the eyes. */
 /* S: ~25%, V: 100%  */
 .c00 { background-color:#Fbb; color: #000; } /* H:  0 #FFbfbf Red           */
@@ -275,6 +192,64 @@ span.patch {
 .c42 { background-color:#FF0; color: #000; }
 .c43 { background-color:#0F0; color: #000; } /* #8F0 skip lime green -> green #0F0 */
 .c44 { background-color:#0FF; color: #000; } /* #0F0 skip green      -> cyan  #0FF */
+h1 {
+    font-size: 200%;
+}
+h2 {
+    font-size: 150%;
+}
+/*
+After an hr there is a line of whitespace
+    <div class="hr"><hr></div>
+Solution: place <hr> on same line
+*/
+hr {
+    margin: 1px 1px;
+/*
+#    padding: 0px;
+#    margin:  0px;
+#    margin-top:-1em
+*/
+}
+hr.join { /* We have a double horizontal rule for new source files, use 0 padding on the bottom */
+    margin: 0px 0px;
+}
+i { /* Italic = Green */
+    color: #040; /* history: 00F, 080, 040 */
+}
+span.b { color: #080; font-weight: bold;  } /* Original bold   green */
+span.i { color: #00F; font-style: italic; } /* Original italic blue  */
+span.page {
+    color: #080; /* green */
+}
+span.patch {
+    background-color:#EEC; /* faded yellow */
+}
+.borders, .borders tr, .borders td {
+    border: 1px solid;
+    border-width: 1px;
+    border-collapse: collapse;
+    padding: 2px;
+}
+.borders th {
+    background-color: #EEE;
+    border: 1px solid;
+}
+
+/* Table nested inside table -- don't show left, right, bottom border edges */
+.rows, .rows tr {
+    border: 1px solid;
+    border-collapse: collapse; /* seperate or collapse */
+    border-left : 0px;
+    border-right: 0px;
+    border-bottom: 0px;
+    padding: 0px;
+    outline: none;
+}
+.rows td {
+    border: 0px;
+}
+
     </style>
 </head>
 <body>
