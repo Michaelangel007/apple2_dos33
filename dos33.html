@@ -3471,21 +3471,21 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     002 ;
                     003 * FLOCK - LOCK A FILE
                     004 ;
-2CEF:A9 80          005 <a class="f" name="FLOCK"      >FLOCK       </a>LDA #$<span class='n'>80</span>        ; REMEMBER LOCK                 ; <a class='magic' name='_2CEF'>magic number</a> LOCK_MASK
+2CEF:A9 80          005 <a class="f" name="FLOCK"      >FLOCK       </a>LDA #$<span class='n'>80</span>        ; REMEMBER LOCK                 ; <a class='magic' name='_2CF0'>magic number</a> LOCK_MASK = $80
 2CF1:8D 9E 33       006             STA <a class="v" href="#TEMP3">TEMP3</a>                                       ; <a class='mem' name='_2CF1'>wastes</a> 3 bytes, BNE line #<a class='line' href='#FDELCAT.012'>12</a>
 2CF4:D0 05          007             BNE <a class="x" href="#LCKGO">LCKGO</a>                                       ; even better, change to BIT $abs ($00A9)
                     008 ;
                     009 * FUNLOCK - UNLOCK A FILE
                     010 ;
-2CF6:A9 00          011 <a class="f" name="FUNLCK"     >FUNLCK      </a>LDA #<span class='n'>00</span>         ; REMEMBER UNLOCK               ; *<a class="magic">magic number</a>*
+2CF6:A9 00          011 <a class="f" name="FUNLCK"     >FUNLCK      </a>LDA #<span class='n'>00</span>         ; REMEMBER UNLOCK               ; <a class='magic' name='_2CF7'>magic number</a>
 2CF8:8D 9E 33       <a class='line' name='FDELCAT.012'>012</a>             STA <a class="v" href="#TEMP3">TEMP3</a>
                     013 ;
                     014 <a class="f" name="LCKGO"   >LCKGO       </a>EQU *
                     015 ;
 2CFB:20 28 2B       016             JSR <a class="x" href="#DOPEN" >DOPEN</a>       ; GO OPEN FILE
 2CFE:AE 9C 33       017             LDX <a class="v" href="#TEMP1" >TEMP1</a>                                       ; === <a class='ts' href='#T1SC'>T1SC</a> ===
-2D01:BD C8 34       018             LDA <a class="v" href="#VDFILE">VDFILE</a>+<span class='n'>2</span>,X  ; GET FILE USE CODE             ; *<a class="magic">magic number</a>*
-2D04:29 7F          019             AND #$<span class='n'>7F</span>        ; TURN OFF LOCK                 ; *<a class="magic">magic number</a>* ~LOCK_MASK
+2D01:BD C8 34       018             LDA <a class="v" href="#VDFILE">VDFILE</a>+<span class='n'>2</span>,X  ; GET FILE USE CODE             ; <a class='magic' name='_2D02'>magic number</a>*
+2D04:29 7F          019             AND #$<span class='n'>7F</span>        ; TURN OFF LOCK                 ; <a class='magic' name='_2D05'>magic number</a> ~LOCK_MASK
 2D06:0D 9E 33       020             ORA <a class="v" href="#TEMP3" >TEMP3</a>
 2D09:9D C8 34       021             STA <a class="v" href="#VDFILE">VDFILE</a>+<span class='n'>2</span>,X
 2D0C:20 37 30       022             JSR <a class="x" href="#WRVDIR">WRVDIR</a>
