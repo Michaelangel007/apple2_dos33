@@ -1378,7 +1378,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     037             BEQ SYNTAX      ; THEN GO SYNTAX
                     038 ;
                     039             LDA CMDNTB,Y    ; IF NEXT TABLE CHAR NOT ZERO
-                    040             BNE SC0         ; THENSCANTHE NEXT TABLE ENTRY  ; /sarcasm whoneedsspacesanyways,amiright?
+                    040             BNE SC0         ; THENSCANTHE NEXT TABLE ENTRY  ; /sarcasm whoneedsspacesanyways
                     041 CNF         EQU *           ; COMMAND NOT FOUND
                     042             LDA LBUFF       ; LINE IS A CNOTROL-D           ; *spelling* Control-D
                     043             CMP CCHAR       ; THEN THIS IS A
@@ -1427,7 +1427,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     086 SN3         JSR GNXTC       ; GO GET NEXT CHAR              ; GetNextChar
                     087             BEQ SN6         ; BR IF COMMA OR CR
                     088 SN4         STA FNAME1,Y    ; PUT INTO FILENAME
-                    089             INY             ; INC FN INDEX                  ; Total filenames length &gt; 60 ?
+                    089             INY             ; INC FN INDEX                  ; Total filenames length &lt; 60 ?
                     090             CPY #60         ; ATFN CHAR LIMIT               ; At Filename Character Limit <span class='todo'>TODO</span> What triggers this?
                     091             BCC SN3         ; BR IF NOT
                     092 SN5         JSR GNXTC       ; LOOP UNTIL CR OR COMMA
@@ -1441,7 +1441,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     100             AND CMDSTB,Y    ; IF FN2 NOT REQD THEN
                     101             BEQ SN8         ; BRANCH
                     102 ;
-                    103             LDY #30         ; SET FN2 INDEX
+                    103             LDY #30         ; SET FN2 INDEX                 ; @filename2[0]
                     104             PHP             ; INDICATE FN2 SEEK
                     105             BNE SN2         ; GO LOOK FOR FN2
                     106 ;
@@ -1471,52 +1471,52 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     130             BNE SN1
                     131             RTS
                     132             PAGE
-                    133 SN10        EQU *
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
-                    165 
-                    166 
-                    167 
-                    168 
-                    169 
-                    170 
-                    171 
-                    172 
-                    173 
-                    174 
-                    175 
-                    <a class='line' name='CMDSCAN.176'>176</a> 
-                    177 
-                    178 
+                    133 SN10        EQU *           ; FILE NAMES NOT REQD
+                    134             STA FNAME1
+                    135             LDA #NUM1+NUM2  ; IF NEITHER NUM1
+                    136             AND CMDSTB,Y    ; OR NUM2 IS REQD
+                    137             BEQ SOPTS       ; THEN GO LOOK AT OPTIONS
+                    138 ;
+                    139             JSR GETNUM      ; GO GET NUMERICS
+                    140             BCS SERR2
+                    141 ;
+                    142             TAY             ; IF HIGH DIGIT NOT
+                    143             BNE SERR3       ; ZERO THEN BAD
+                    144 ;
+                    145             CPX #17         ; IF LOW DIGIT GT 16
+                    146             BCS SERR3       ; THEN BAD
+                    147 ;
+                    148             LDY CMDNO
+                    149             LDA #NUM1
+                    150             AND CMDSTB,Y    ; IF WE WANT NUM2
+                    151             BEQ SN11
+                    152 ;
+                    153             CPX #8          ; IF NUM2&gt;1
+                    154             BCS SERR1       ; THEN ERROR, ELSE
+                    155             BCC SOPTS       ; GO SCAN OPTIONS
+                    156 ;
+                    157 SN11        EQU *
+                    158             TXA             ; IF NUM1=0
+                    159             BNE SOPTS       ; THEN ERROR, ELSE GET OPTIONS
+                    160 ;
+                    161 SERR3       LDA #<span class='n'>2</span>          ;RANGE ERROR!                   ; <a class='magic' name='_'>magic number</a>
+                    162             JMP ERROR
+                    163 SERR2       JMP ESYNTX      ;DISK CMD SYNTAX ERROR
+                    164 ;
+                    165 PAGE
+                    166 ;
+                    167 ; SOPTS - LOOK FOR SYNTAX OPTIONS
+                    168 ;
+                    169 SOPTS EQU *
+                    170             LDA #<span class='n'>0</span>
+                    171             STA <a class='v' href='#INOPTS'>INOPTS</a>      ; CLEAR INPUT OPTIONS
+                    172             STA <a class='v' href='#IMBITS'>IMBITS</a>
+                    173             STA <a class='v' href='#CV'>CV</a>          ;DEFAULT VOLUME=0
+                    174             STA <a class='v' href='#CL'>CL</a>
+                    175             STA <a class='v' href='#CL'>CL</a>+<span class='n'>1</span>
+                    <a class='line' name='CMDSCAN.176'>176</a>             JSR <a class='x' href='#CLRBYTE'>CLRBYTE</a>     ;PATCH FOR BYTE PARAMETER (WAS STA TEMP1A)
+                    177             LDA <a class='v' href='#LBUFD'>LBUFD</a>       ; SET PASS 1
+<hr>                    178 ;                                                           ; === Page <a class='page' name='page19'>19</a> ===
                     179 
                     180 
                     181 
