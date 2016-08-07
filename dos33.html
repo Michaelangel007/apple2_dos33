@@ -1071,8 +1071,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <hr>                    179             JSR CLRSTS      ; SET IN AND OUT STATES TO ZERO ; === Page <a class='page' name='page51'>51</a> === ClearStates
                     180             LDA CMDNO       ; IF NOT BOOT (DUPLICATED FROM LINES 4540, 4550)
                     181             BNE INITF       ; THEN DONE
-                    182             LDX #IFBL
-                    183 INITE       LDA DBVECT,X    ; MOVE RESTART VECTORS
+                    182             LDX #<a class='v' href='#IFBL'>IFBL</a>
+                    183 INITE       LDA <a class='x' href='#DBVECT'>DBVECT</a>,X    ; MOVE RESTART VECTORS
                     184             STA $<span class='n'>3D0</span>,X                                      ; <a class='magic' name='_'>magic number</a>
                     185             DEX
                     186             BPL INITE
@@ -1093,16 +1093,16 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     201 INITG       EQU *
                     202             RTS
                     203 ;
-                    204 IFB         EQU *                                           ; --- Copied to $3D0 ---
+                    204 <a class='d' name='IFB'      >IFB         </a>EQU *                                           ; --- Copied to $3D0 ---
 1E51:4C BF 1D       205 <a class='f' name='DBVECT'>DBVECT      </a>JMP DBRST                                       ; $3D0: DOS Warm RESET JMP $9BF
 1E54:4C 84 1D       206             JMP DBINIT                                      : $3D3: DOS Cold RESET JMP $9D84
 1E57:4C FD 2A       207             JMP <a class='x' href='#USERENT'>USERENT</a> ;USER EXTERNAL ENTRY TO FILE MANAGER; $3D6: File Manager   JMP $AAFD
 1E5A:4C B5 37       208             JMP DISKIO                                      ; $3D9
-                    209 CCBLDR      EQU *                                           ; $3DC GetFCB
+                    209 <a class='f' name='CCBLDR'   >CCBLDR      </a>EQU *                                           ; $3DC GetCCB
 1E5D:AD 0F 1D       210             LDA CCBADR+1
 1E60:AC 0E 1D       211             LDY CCBADR
 1E63:60             212             RTS
-                    213 IOBLDR      EQU *                                           ; $3E3
+                    213 <a class='f' name='IOBLDR'   >IOBLDR      </a>EQU *                                           ; $3E3
 1E64:AD C2 2A       214             LDA AIOB+1
 1E67:AC C1 2A       215             LDY AIOB
 1E6A:60             216             RTS
@@ -1115,7 +1115,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1E79:4C 65 FF       223             JMP MONRST                                      ; $3F8: JMP $FF65
 1E7C:4C 65 FF       224             JMP MONRST                                      ; $3FB: JMP $FF65
 1E7F:65 FF          225             DW MONRST                                       ; $3FE: dw  $FF65
-                    226 IFBL        EQU *-IFB-<span class='n'>1</span>
+                    226 <a class='d' name='IFBL'     >IFBL        </a>EQU *-<a class='v' href='#IFB'>IFB</a>-<span class='n'>1</span>                                     ; IFB_Length
 
 
 <hr><hr class='join'>=== <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Page <a class="page" name="page44">44</a>, <a class='ts' href='#T0SD'>T0SD</a> - <a class='ts' href='#T0SE'>T0SE</a>, $<span class='n'>9E81</span> .. $<span class='n'>9FCC</span> ===<hr class='join'><hr>
@@ -1123,7 +1123,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     002 ;
                     003 ;CHRIN - CHAR RCVD VIA IN SWITCH
                     004 ;
-                    005 CHRIN       EQU *
+                    005 <a class='f' name='CHRIN'    >CHRIN       </a>EQU *
 1E81:20 D1 1E       006             JSR SVREGS      ;
 1E84:AD 51 2A       007             LDA ISTATE      ; IF NOT DISKIN
 1E87:F0 15          008             BEQ CHIN1       ; THEN BRANCH, ELSE
@@ -1151,11 +1151,11 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     029             STX SVX
                     030             JMP ORTN
                     031 ;
-                    032 GETIN       JMP (INSW)
+                    032 <a class='f' name='GETIN'    >GETIN       </a>JMP (<a class='v' href='#INSW'>INSW</a>)
                     033 ;
                     034 ;CHROUT - CHAR RCVD VIA OUTPUT SWITCH
                     035 ;
-                    036 CHROUT      EQU *
+                    036 <a class='f' name='CHROUT'   >CHROUT      </a>EQU *
                     037             JSR SVREGS      ; SAVE REGS
                     038 ;
                     039             LDA OSTATE      ; GET OUT SPARE
@@ -1170,7 +1170,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     048 ;
                     049 ;SVREGS - SAVE REGS WHILE PROCESSING CHARS
                     050 ;
-                    051 SVREGS      EQU *
+                    051 <a class='f' name='SVREGS'   >SVREGS      </a>EQU *
 1ED1:8D 5C 2A       052             STA SVA         ; SAVE ACU                      ; Captain Obvious to the rescue!
                     053 SVRGSA      EQU *                                           ; SaveRegsA, uh, NO, SaveRegsXY, we _already_ saved A
 1ED4:8D 5A 2A       054             STX SVX         ; SAVE X                        ; Good variable naming, SAVEX, SAVEY
@@ -1190,7 +1190,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     068 ; COS0 - 1ST CHAR OF PRINTED OUTPUT LINE
                     069 ;CHECK FOR  CNTL-D                                          ; "<i>You say CNTL-D, I say CTRL-D</i>"
                     070 ;                                                           ; We're <b>both</b> inconsistently dropping <i>a consonant</i>: CoNTRoL
-                    071 COS0        EQU *
+                    071 <a class='f' name='COS0'     >COS0        </a>EQU *
 1EEB:AE B7 2A       072             LDX RSTATE      ;FIRST CHECK FOR 'AFTER APSFT RELOC'
 1EEE:F0 03          073             BEQ COS00       ;BRANCH IF NOT                  ; <b>Really?!</b> You couldn't use COS0A and COS0B like you do for the <i>other</i> states??
                                                                                     ; COS0 &amp; COS00 are <b>crap function names</b>; they are WAY too easy to mis-read/type
@@ -1295,7 +1295,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     172 ; DRTNO - PRINT CHAR IF MONITOR DATA OUT
                     173 ; DRTNI - PRINT CHAR IF MONITOR DATA IN
                     174 ;
-                    175 CERTN       EQU *
+                    175 <a class='f' name='CERTN'    >CERTN       </a>EQU *
                     176             LDA LBUFF       ; CHECK FOR PRINTED COMMAND
                     177             CMP CCHAR
                     178             BEQ CMDRTN      ; IF PC THEN NO RESET X REG
