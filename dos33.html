@@ -1243,71 +1243,71 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     120 COS3B       LDA ESTATE      ; ELSE: IF NOT EXECUTE
                     121             BEQ PRRTN       ; THEN PRINT CHAR
                     122             BNE DRTNI       ; ELSE: PRINT IF MON INPUT      ; Data Return In
-                    123 COS3A       PHA
-                    124             SEC
-                    125             LDA ESTATE
-                    126             BNE COS3C
-                    127             JSR TSTRUN
+                    123 COS3A       PHA             ;SAVE CARRAGE RETURN
+                    124             SEC             ;ANTICIPATE EXEC FILE INPUT.
+                    125             LDA ESTATE      ;CHECK EXEC FLAG
+                    126             BNE COS3C       ;BR IF WAS INPUT FROM EXEC.
+                    127             JSR TSTRUN      ;GO TEST FOR RUN MODE.
                     128 COS3C       PLA
-                    129             BCC COS3B
-                    130             LDX SVX
+                    129             BCC COS3B       ;IGNORE INPUT IF RUNNING.
+                    130             LDX SVX         ; GET LINE INDEX
                     131             JMP COS1A
                     132 ;
                     133 ;COS4 - DISK OUTPUT MODE
                     134 ;
                     135 COS4        EQU *
-                    136             CMP #$8D
-                    137             BNE COS4A
-                    138             LDA #5
-                    139             STA OSTATE
-                    140 COS4A       JSR OCTD
-                    141             JMP DRTNO
+                    136             CMP #$8D        ; IS IT CR
+                    137             BNE COS4A       ; BR IF NOT CR
+                    138             LDA #5          ; SET STATE FOR CNTL-D
+                    139             STA OSTATE      ; EXAMINE
+                    140 COS4A       JSR OCTD        ; GO OUTPUT CJHAR TO DISK       ; *spelling* Char
+                    141             JMP DRTNO       ; GO TO DATA RETURN (OUT)
                     142 ;
                     143 ;COS5 - DISK OUTPUT MODE - 1ST CHAR
                     144 ;
                     145 COS5        EQU *
-                    146             CMP CCHAR
-                    147             BEQ COS0
-                    148             CMP #$8A
+                    146             CMP CCHAR       ; IS IT CNTL D
+                    147             BEQ COS0        ; BR IF CNTL- D
+                    148             CMP #$8A        ; LINE FEED?
                     149             BEQ COS4A
                     150             LDX #4
-                    151             STX OSTATE
-                    152             BNE COS4
+                    151             STX OSTATE      ; SET NEW OUT STATE             ; No Shit Sherlock, *what* is State 4 ??
+                    152             BNE COS4        ; BR IF NOT CNTL D
                     153 ;
                     154 ;COS6 - DISK INPUT ECHO
                     155 ;
                     156 COS6        LDA #0
-                    157             STA OSTATE
-                    158             BEQ DRTNI
+                    157             STA OSTATE      ; RESET OUT STATE = 0
+                    158             BEQ DRTNI       ; GO TO DATA IN RETURN
                     159 ;
                     160 ; COS7 - SPECIAL FOR RECOVER FROM AS ROM/RAM RELOC.
                     161 ;
-                    162 COS7        LDA #0
+                    162 COS7        LDA #0          ; RESET RELOC STATE
                     163             STA RSTATE
-                    164             JSR MVCSW
+                    164             JSR MVCSW       ;FOR COMPATABILITY ON REENTRY
                     165             JMP ERUN1
                     166             PAGE
                     167 ;
                     168 ;PRRTN - PRINT CHAR RETURN
                     169 ;
                     170 ;
-                    171 ; CMDRTN - PRINT CHAR IF MONITOR CMBS MODE
+                    171 ; CMDRTN - PRINT CHAR IF MONITOR CMBS MODE                  ; <span class='todo'>TODO</span> CMBS ???
                     172 ; DRTNO - PRINT CHAR IF MONITOR DATA OUT
                     173 ; DRTNI - PRINT CHAR IF MONITOR DATA IN
                     174 ;
                     175 CERTN       EQU *
-                    176             LDA LBUFF
+                    176             LDA LBUFF       ; CHECK FOR PRINTED COMMAND
                     177             CMP CCHAR
-                    178             BEQ CMDRTN
+                    178             BEQ CMDRTN      ; IF PC THEN NO RESET X REG
 <hr>                    179             LDA #$<span class='n'>8D</span>        ; CARRAGE RETURN                ; === Page #<a class='page' name='page47'>47</a>=== <a class='magic'>magic number</a> CR_HI
                     180             STA <a class='v' href='#LBUFF'>LBUFF</a>       ; TO OUT BUFFER
                     181             LDX #<span class='n'>0</span>          ; RESET TO SOL                  ; StartOfLine
                     182             STX <a class='v' href='#SVX'>SVX</a>
                     <a class='line' name='DOSHOOK.183'>183</a> <a class='f' name='CMDRTN'   >CMDRTN      </a>LDA #<a class='e' href='#MC'>MC</a>
                     184             BNE <a class='x' href='#MODECK'>MODECK</a>                                      ; &darr; (always)
-                    <a class='line' name='DOSHOOK.185'>185</a> <a class='f' name='DRTNO'    >DRTNO       </a>LDA #<a class='e' href='#MO'>MO</a>                                         ; Data Routine Out
+                    <a class='line' name='DOSHOOK.185'>185</a> <a class='f' name='DRTNO'    >DRTNO       </a>LDA #<a class='e' href='#MO'>MO</a>                                         ; Data Return Out
                     186             BNE <a class='x' href='#MODECK'>MODECK</a>                                      ; &darr; (always)
-                    <a class='line' name='DOSHOOK.187'>187</a> <a class='f' name='DRTNI'    >DRTNI       </a>LDA #<a class='e' href='#MI'>MI</a>                                         ; Data Routine In
+                    <a class='line' name='DOSHOOK.187'>187</a> <a class='f' name='DRTNI'    >DRTNI       </a>LDA #<a class='e' href='#MI'>MI</a>                                         ; Data Return In
                     188 ;
                     189 <a class='f' name='MODECK'   >MODECK      </a>EQU *                                           ; ModeCheck common entry
                     190             AND <a class='v' href='#MONMOD'>MONMOD</a>      ; AND WITH MODE
@@ -1323,9 +1323,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     200             LDX <a class='v' href='#SVSTK'>SVSTK</a>       ;RESTORE ORIGINAL STACK POINTER (YEEECH!)   ; /sarcasm And yet you're still futzing with the Stack Pointer
                     201             TXS
                     202 <a class='f' name='LDREGS'   >LDREGS      </a>EQU *
-                    203             LDA <a class='v' href='#SVA'>SVA</a>         ; ACU                           ; Captain Obvious
-                    204             LDY <a class='v' href='#SVY'>SVY</a>         ; Y                             ; is working
-                    205             LDX <a class='v' href='#SVX'>SVX</a>         ; X                             ; overtime today
+                    203             LDA <a class='v' href='#SVA'>SVA</a>         ; ACU                           ; Captain Obvious  SAVE_A
+                    204             LDY <a class='v' href='#SVY'>SVY</a>         ; Y                             ; is working       SAVE_Y
+                    205             LDX <a class='v' href='#SVX'>SVX</a>         ; X                             ; overtime today   SAVE_X
                     206             SEC             ;(FOR 'ESC' SCREEN FUNCTIONS)
                     207             RTS             ; BY PASS PRINT
                     208 ;
