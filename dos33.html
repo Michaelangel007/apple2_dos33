@@ -1344,12 +1344,12 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     003 ; SCNCMD - SCAN A COMMAND
                     004 ;
                     005 <a class="f" name="SCNCMD"      >SCNCMD      </a>EQU *
-                    006     DO ULC
-                    007             LDX #0          ;Init X for lower case check
-                    008             JSR UPRCASE     ;Go check
+                    006     DO <a class='do' href='#ULC'>ULC</a><span class='macro'>
+                    007             LDX #0          ;Init X for lower case check    
+                    008             JSR UPRCASE     ;Go check                       </span>
                     009     ELSE
-1FCD:A0 FF          010             LDY #$FF        ;Set CMDNO to -1
-1FCF:8C 5F 2A       011             STY CMDNO
+1FCD:A0 FF          010             LDY #$FF        ;Set CMDNO to -1                
+1FCF:8C 5F 2A       011             STY CMDNO                                       
                     012     FIN
 1FD2:C8             013             INY             ; INCR TABLE INDEX
 1FD3:8C 62 2A       014             STY SVCMD
