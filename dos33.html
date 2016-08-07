@@ -3153,7 +3153,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                                                                                     ;         91 FD     STA ($FD),Y
                                                                                     ;         4C D6 03  JMP USERENT ; $AAFD FileManager$
                     075 <a class='f' name='RVT'      >RVT         </a>EQU *                                           ; <a class='x' href='#USERNT'>USERENT</a> calls <a class='x' href='#FREAD'>FREAD</a>
-2AE5:7E 33          076             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>                                     ; [0] <a class='mem' name='_2AE5'>wastes</a> 2 bytes; See <a class='v' href='CRMNUL'>CRMNUL</a>
+2AE5:7E 33          076             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>                                     ; [0] <a class='mem' name='_2AE5'>wastes</a> 2 bytes; See <a class='v' href='#CRMNUL'>CRMNUL</a>
 2AE7:89 2C          077             DW <a class='x' href='#RNXBYT'>RNXBYT</a>-<span class='n'>1</span>    ; 1-RD NEXT BYTE                 ; [1]
 2AE9:95 2C          078             DW <a class='x' href='#RNXBLK'>NXBLK</a>-<span class='n'>1</span>     ; 1-RD NEXT BLOCK                ; [2] *sigh* copy-paste
 2AEB:86 2C          079             DW <a class='x' href='#RSPBYT'>RSPBYT</a>-<span class='n'>1</span>    ; 2-RD SPECIFIC BYTE             ; [3]
@@ -3161,7 +3161,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2AEF:7E 33          081             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>    ; 4 - SPARE                      ; [5] <a class='mem' name'_2AEF'>wastes</a> 2 bytes off-by-1 allocation, see <a class='v' href='#CRMMAX'>CRMMAX</a>, <a class='x' href='#FREAD'>FREAD</a>
                     082 ;
                     083 <a class='f' name='WVT'      >WVT         </a>EQU *
-2AF1:7E 33          084             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>                                     ; [0] *sigh* stop, please stop
+2AF1:7E 33          084             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>                                     ; [0] <a class='mem' name'_2AF1'>wastes</a> 2 bytes; Stop, please stop this stupidity
 2AF3:BD 2C          085             DW <a class='x' href='#WNXBYT'>WNXBYT</a>-<span class='n'>1</span>    ; 1-WR NEXT BYTE                 ; [1]
 2AF5:C9 2C          086             DW <a class='x' href='#WNXBLK'>WNXBLK</a>-<span class='n'>1</span>    ; WR NEXT BLOCK                  ; [2] *sigh* copy-paste
 2AF7:BA 2C          087             DW <a class='x' href='#WSPBYT'>WSPBYT</a>-<span class='n'>1</span>    ; 2-WR SPECIFIC BYTE             ; [3]
