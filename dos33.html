@@ -1364,114 +1364,114 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1FE5:8E 5D 2A       023 SC0A        STX LBUFD
                     024 ;
                     025 SC1X        EQU *
-                    026             JSR GNBC        ; GET NON BLACK INPUT CHAR
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
-                    055 
-                    056 
-                    057 
-                    058 
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
+                    026             JSR GNBC        ; GET NON BLANK INPUT CHAR
+                    027             AND #$7F        ; MSB OF CHAR OFF
+                    028             EOR CMDNTB,Y    ; EOR WITH INPUT
+                    029             INY             ; INCREMENT TABLE INDEX
+                    030             ASL A           ; IF MSB OF EOR RESULT ON
+                    031             BEQ SC1A        ; IF RESULT NOT NOW ZERO
+                    032             PLA             ; THEN INPUT DOES NOT
+                    033             PHP             ; EQUAL ENTRY
+                    034 SC1A        BCC SC1X        ; LOOP FOR END OF ENTRY
+                    035 ;
+                    036             PLP             ; IF INPUT EQUALS END           ;
+                    037             BEQ SYNTAX      ; THEN GO SYNTAX
+                    038 ;
+                    039             LDA CMDNTB,Y    ; IF NEXT TABLE CHAR NOT ZERO
+                    040             BNE SC0         ; THENSCANTHE NEXT TABLE ENTRY  ; /sarcasm whoneedsspacesanyways,amiright?
+                    041 CNF         EQU *           ; COMMAND NOT FOUND
+                    042             LDA LBUFF       ; LINE IS A CNOTROL-D           ; *spelling* Control-D
+                    043             CMP CCHAR       ; THEN THIS IS A
+                    044             BEQ CNF1        ; POSSIBLE SYNTAX ERROR, ELSE 
+                    045             JMP PRRTN       ; ITS A BASIC INPUT LINE
+                    046 CNF1        EQU *
+                    047             LDA LBUFF+1     ; GET NEXT CHAR
+                    048             CMP #$8D        ; IS IT A CR
+                    049             BNE CSERR       ; BR IF CR
+                    050             JSR CLRSTS      ; CLEAR THE STATES
+                    051             JMP CMDRTN      ; CNTL-D ONLY
+                    052 ;
+                    053 CSERR       JMP ESYNTX
+                    054             PAGE
+                    055 ;
+                    056 ; SYNTAX - FIGURE OUT WHAT WE GOT HERE 
+                    057 ;
+                    058 SYNTAX EQU *
+                    059             ASL CMDNO
+                    060             LDY CMDNO
+                    061             JSR TSTRUN
+                    062             BCC SYN1
+                    063             LDA #RNONLY
+                    064             AND CMDSTB,Y
+                    065             BEQ SYN1
+                    066             LDA #$F
+                    067             JMP ERROR
+                    068 SYN1        CPY #6
+                    069             BNE SYN1A
+                    070             STY PROMPT      ; CHANGE PROMPT TO INSURE APPLESOFT RUN DETECT.
+                    071 SYN1A       LDA #FN1
+                    072             AND CMDSTB,Y
+                    073             BEQ SN10
+                    074             JSR CLRFNS
+                    075             PHP             ; SAVE EQ STATUS
+                    076 ;
+                    077 SN2 EQU *
+                    078             JSR GNBC        ; GET NON BLANK CHAR
+                    079             BEQ SN6         ; BR IF CR OR COMMA
+                    080             ASL A           ; TEST FOR ALPHA
+                    081             BCC SN2A        ; BR IF ALPHA
+                    082             BMI SN2A        ; BR IF APLHA
+                    083             JMP CNF         ; LURCH IF NOT ALPHA
+                    084 SN2A        ROR A           ; RESTORE BITS
+                    085             JMP SN4         ; AWAY WE GO
+                    086 SN3         JSR GNXTC       ; GO GET NEXT CHAR              ; GetNextChar
+                    087             BEQ SN6         ; BR IF COMMA OR CR
+                    088 SN4         STA FNAME1,Y    ; PUT INTO FILENAME
+                    089             INY             ; INC FN INDEX                  ; Total filenames length &gt; 60 ?
+                    090             CPY #60         ; ATFN CHAR LIMIT               ; At Filename Character Limit <span class='todo'>TODO</span> What triggers this?
+                    091             BCC SN3         ; BR IF NOT
+                    092 SN5         JSR GNXTC       ; LOOP UNTIL CR OR COMMA
+                    093             BNE SN5
+                    094 ;
+                    095 SN6         PLP             ; WAS THIS FN2 L OO             ; <span class='todo'>TODO</span> Was this filename 2 _length_ _ok_???
+                    096             BNE SN7         ; BR IF IT WAS
+                    097 ;
+                    098             LDY CMDNO
+                    099             LDA #FN2
+                    100             AND CMDSTB,Y    ; IF FN2 NOT REQD THEN
+                    101             BEQ SN8         ; BRANCH
+                    102 ;
+                    103             LDY #30         ; SET FN2 INDEX
+                    104             PHP             ; INDICATE FN2 SEEK
+                    105             BNE SN2         ; GO LOOK FOR FN2
+                    106 ;
+                    107 SN7         LDA FNAME2      ; IF 1ST CHAR OF
+                    108             CMP #$A0        ; FN2 IS BLANK THEN
+                    109             BEQ SERR1       ; SYNTAX ERROR
+                    110 ;
+                    111 SN8         LDA FNAME1      ; IF 1ST CHAR OF
+                    112             CMP #$A0        ; FN1 IS NOT BLANK
+                    113             BNE SOPTS       ; THEN GO LOOK FOR OPTIONS
+                    114 ;
+                    115             LDY CMDNO
+<hr>                    116             LDA #NPB+NPE    ; IF CMD MUST HAVE FILENAME
+                    117             AND CMDSTB,Y    ; THEN
+                    118             BEQ SERR1       ; THIS IS ERROR, ELSE
+                    119 ;
+                    120             BPL SOPTS       ; ITS EXCUTABLE WITHOUT         ; *spellling* Executable
+                    121 ;
+                    122 SERR1       JMP CNF
+                    123 ;
+                    124 CLRFNS      EQU *
+                    125             LDY #60                                         ; <a class='magic' name='_'>magic number</a> MAX_FILENAME_LEN * 2
+                    126 CLRFNA      EQU *
+                    127             LDA #$A0
+                    128 SN1         STA <a class='v' href='#FNAME1'>FNAME1</a>-<span class='n'>1</span>,Y  ; CLEAR FN1, FN2                ; *sigh* instead of -1 offset, LDY #MAX_FILENAME_LEN-1
+                    129             DEY
+                    130             BNE SN1
+                    131             RTS
+                    132             PAGE
+                    133 SN10        EQU *
                     134 
                     135 
                     136 
