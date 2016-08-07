@@ -346,10 +346,11 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
     </tr>
     <tr>
         <td>LABEL</td>
-        <td>Function name, or branch target name
+        <td>All function names, variable names, branch target names, and references to Code and Data are color-coded:
 <br><a class="f" >Function Definition</a>
 <br><a class="d" >Data Definition</a>
 <br><a class='do'>Macro Definition</a>
+<br><a class='e' >Const Definition</a>
 </td>
     </tr>
     <tr>
@@ -371,11 +372,13 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <br>
 <br>
 <table class='rows'>
-<tr class="rows"><td><a class='dumb' >dumb        </a></td><td> How NOT to Design A File System</tr>
-<tr class="rows"><td><a class='mem'  >wastes      </a></td><td># bytes due to inefficient code </tr>
-<tr class="rows"><td><a class='disk' >disk        </a></td><td> unitialized data, wasted sector</tr>
-<tr class="rows"><td><a class='magic'>magic number</a></td><td> Hard-Coded constant that the reader is assumed to know what it means</tr>
-<tr class="rows"><td><a class='todo' >TODO        </a></td><td> Unanswered questions           </tr>
+<tr class="rows"><td><a    class='dumb' >dumb        </a>   </td><td> How NOT to Design a File System or How NOT to Design an Operating System</td></tr>
+<tr class="rows"><td><a    class='mem'  >wastes      </a>   </td><td># bytes due to inefficient code </td></tr>
+<tr class="rows"><td><a    class='disk' >disk        </a>   </td><td> unitialized data, wasted sector</td></tr>
+<tr class="rows"><td><a    class='magic'>magic number</a>   </td><td> Hard-Coded constant that the reader is assumed to know what it means</td></tr>
+<tr class="rows"><td><span class='todo' >TODO        </span></td><td> Unanswered questions           </td></tr>
+<tr class='rows'><td><span class='code' >CODE        </span></td><td> Code snippet                   </td></tr>
+<tr class='rows'><td><span class='macro'>MACRO       </span></td><td> Conditional code               </td></tr>
 </table>
 
 </td>
