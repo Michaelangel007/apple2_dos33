@@ -1235,7 +1235,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     112 ;
                     113 ;COS3 - KEY IN ECHO PRINT
                     114 ;
-                    115 COS3        EQU *
+<hr>                    115 COS3        EQU *
                     116             LDX #<span class='n'>0</span>                                          ; <a class='magic' name='_1Fxx'>magic number</a> COS_STATE_0
                     117             STX OSTATE      ; RESET OUT STATE
                     118             CMP #$<span class='n'>8D</span>        ; IS IT CR
@@ -1243,71 +1243,71 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     120 COS3B       LDA ESTATE      ; ELSE: IF NOT EXECUTE
                     121             BEQ PRRTN       ; THEN PRINT CHAR
                     122             BNE DRTNI       ; ELSE: PRINT IF MON INPUT      ; Data Return In
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
-                    165 
-                    166 
-                    167 
-                    168 
-                    169 
-                    170 
-                    171 
-                    172 
-                    173 
-                    174 
-                    175 
-                    176 
-                    177 
-                    178 
+                    123 COS3A       PHA
+                    124             SEC
+                    125             LDA ESTATE
+                    126             BNE COS3C
+                    127             JSR TSTRUN
+                    128 COS3C       PLA
+                    129             BCC COS3B
+                    130             LDX SVX
+                    131             JMP COS1A
+                    132 ;
+                    133 ;COS4 - DISK OUTPUT MODE
+                    134 ;
+                    135 COS4        EQU *
+                    136             CMP #$8D
+                    137             BNE COS4A
+                    138             LDA #5
+                    139             STA OSTATE
+                    140 COS4A       JSR OCTD
+                    141             JMP DRTNO
+                    142 ;
+                    143 ;COS5 - DISK OUTPUT MODE - 1ST CHAR
+                    144 ;
+                    145 COS5        EQU *
+                    146             CMP CCHAR
+                    147             BEQ COS0
+                    148             CMP #$8A
+                    149             BEQ COS4A
+                    150             LDX #4
+                    151             STX OSTATE
+                    152             BNE COS4
+                    153 ;
+                    154 ;COS6 - DISK INPUT ECHO
+                    155 ;
+                    156 COS6        LDA #0
+                    157             STA OSTATE
+                    158             BEQ DRTNI
+                    159 ;
+                    160 ; COS7 - SPECIAL FOR RECOVER FROM AS ROM/RAM RELOC.
+                    161 ;
+                    162 COS7        LDA #0
+                    163             STA RSTATE
+                    164             JSR MVCSW
+                    165             JMP ERUN1
+                    166             PAGE
+                    167 ;
+                    168 ;PRRTN - PRINT CHAR RETURN
+                    169 ;
+                    170 ;
+                    171 ; CMDRTN - PRINT CHAR IF MONITOR CMBS MODE
+                    172 ; DRTNO - PRINT CHAR IF MONITOR DATA OUT
+                    173 ; DRTNI - PRINT CHAR IF MONITOR DATA IN
+                    174 ;
+                    175 CERTN       EQU *
+                    176             LDA LBUFF
+                    177             CMP CCHAR
+                    178             BEQ CMDRTN
 <hr>                    179             LDA #$<span class='n'>8D</span>        ; CARRAGE RETURN                ; === Page #<a class='page' name='page47'>47</a>=== <a class='magic'>magic number</a> CR_HI
                     180             STA <a class='v' href='#LBUFF'>LBUFF</a>       ; TO OUT BUFFER
                     181             LDX #<span class='n'>0</span>          ; RESET TO SOL                  ; StartOfLine
                     182             STX <a class='v' href='#SVX'>SVX</a>
                     <a class='line' name='DOSHOOK.183'>183</a> <a class='f' name='CMDRTN'   >CMDRTN      </a>LDA #<a class='e' href='#MC'>MC</a>
                     184             BNE <a class='x' href='#MODECK'>MODECK</a>                                      ; &darr; (always)
-                    <a class='line' name='DOSHOOK.185'>185</a> <a class='f' name='DRTNO'    >DRTNO       </a>LDA #<a class='e' href='#MO'>MO</a>                                         ; DoRoutineOut
+                    <a class='line' name='DOSHOOK.185'>185</a> <a class='f' name='DRTNO'    >DRTNO       </a>LDA #<a class='e' href='#MO'>MO</a>                                         ; Data Routine Out
                     186             BNE <a class='x' href='#MODECK'>MODECK</a>                                      ; &darr; (always)
-                    <a class='line' name='DOSHOOK.187'>187</a> <a class='f' name='DRTNI'    >DRTNI       </a>LDA #<a class='e' href='#MI'>MI</a>                                         ; DoRoutineIn
+                    <a class='line' name='DOSHOOK.187'>187</a> <a class='f' name='DRTNI'    >DRTNI       </a>LDA #<a class='e' href='#MI'>MI</a>                                         ; Data Routine In
                     188 ;
                     189 <a class='f' name='MODECK'   >MODECK      </a>EQU *                                           ; ModeCheck common entry
                     190             AND <a class='v' href='#MONMOD'>MONMOD</a>      ; AND WITH MODE
