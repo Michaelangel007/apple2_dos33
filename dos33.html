@@ -91,6 +91,15 @@ a.e { /* const equ */
     text-decoration: none; /* remove underlink from data link */
     font-weight: normal;   /* remove bold */
 }
+.fixed { /* ACTIVE sticky header; See: .fixed, .sticky */
+    /* Mandatory styles to make the active sticky work */
+    background:  #FFF; /* if we don't have a background, this fixed header will be see through and overlap with holes */
+    position  : fixed; /* force to be at top of page */
+
+    /* Optional -- remaining styles should match the .sticky  header */
+    text-align:   center;
+    width     :     99%;
+}
 .indent2 { /* Indent 2.5% */
      padding-left:2.5%;
 }
@@ -134,6 +143,17 @@ a.page { /* Page Definition -- link comes here */
 a.section {
     color: #000;
     text-decoration: none; /* we are linking FROM something -- destination -- remove underlink from data link */
+}
+.sticky { /* POTENTIAL sticky header; See: .fixed, .sticky */
+    /* Designate header as being a "sticky" header -- if it scrolls off the top of the page, it will "stick" to the top of the page until the next sticky header reaches it.
+       NOTE:  This is not the ACTIVE sticky header -- see .fixed for that */
+    /* Mandatory */
+    background:     #FFF;
+    position  : relative; /* when active will change parent div to be fixed */
+
+    /* Optional -- remaining styles should also match the .active header */
+    text-align:   center;
+    width     :      99%;
 }
 .toc { /* Table of Contents */
     list-style: none;
@@ -252,9 +272,140 @@ span.patch {
 
     </style>
 </head>
-<body>
-<h1>Apple DOS 3.3C Source Code (Unified HTML and Annotated Version)</h1>
+<script>
+    // ========== Utility ==========
+        // http://stackoverflow.com/questions/18953144/how-do-i-get-the-offset-top-value-of-an-element-without-using-jquery
+        function offset( elem )
+        {
+            var de   = document.documentElement;
+            var box  = elem.getBoundingClientRect();
+            var top  = box.top  + window.pageYOffset - de.clientTop ;
+            var left = box.left + window.pageXOffset - de.clientLeft;
+            return { top: top, left: left };
+        }
 
+        // http://stackoverflow.com/questions/11193453/find-the-vertical-position-of-scrollbar-without-jquery
+        function scrollTop () { return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop  }
+
+        // *note* This SO is incorrect:
+        //     http://stackoverflow.com/questions/31472754/wrap-a-around-div-without-jquery
+        // type: 'div', 'a', etc.,
+        function wrap( child, type  )
+        {
+            /*
+                Before:                     After:
+                    biological_parent           biological_parent
+                        child                       foster_parent
+                                                        child
+            */
+            var biological = child.parentNode;
+            var foster = document.createElement( type );
+            biological.insertBefore( foster, child );
+
+            // http://stackoverflow.com/questions/7555442/move-an-element-to-another-parent-after-changing-its-id
+            foster.appendChild( child ); // move, not copy
+
+            return child;
+        }
+
+    // ---------- Implementation ----------
+    /*
+        Requries 2 css styles
+
+        .fixed    { position: fixed   ; background: #FFF; } // active sticky header
+        .sticky   { position: relative; background: #FFF; } // designate this header as sticky
+
+        <div class='sticky'> Header 1 </div>
+        <div class='sticky'> Header 2 </div>
+        <div class='sticky'> Header 3 </div>
+    */
+    // Inspired from: https://codepen.io/joeaugie/pen/RWbPzo
+    var StickyHeaders = (function() {
+        var _window = window;
+        /*
+            var Sticky =
+            {
+                height : 0,        // original height
+                top    : 0,        // original position
+                elem   : undefined // original div element
+            };
+        */
+        var _aHeaders = []; // array of Sticky objects
+
+        var doLoad = function( classSticky )
+        {
+            // iterate over each element of class 'classSticky' ("sticky")
+            // http://stackoverflow.com/questions/5897122/accessing-elements-by-type-on-javascript
+            var aHeaders = document.getElementsByClassName( classSticky );
+            var nHeaders = aHeaders.length;
+            var iHeader  = 0;
+            var tHeader  ;
+
+            for( ; iHeader < nHeaders; ++iHeader )
+            {
+                tHeader = aHeaders[ iHeader ];
+
+                var obj = wrap( tHeader, 'div' );
+                var div = tHeader.parentNode;
+                div.setAttribute( 'class', '_sticky_header_' ); // dummy class so we know is auto-inserted
+
+                var y   = offset( div ).top;
+                var h   = obj.clientHeight;
+
+                div.style.height = '' + h + 'px';
+
+                var sticky = {
+                    height : h,  // original height
+                    top    : y,  // original position
+                    element: div // injected parent that we will adjust styles on
+                };
+                _aHeaders.push( sticky ); // stash in array so when we scroll we can adjust ALL the sticky header's y position
+            }
+
+            // Add callback when scrolling starts/stops
+            window.onscroll = function()
+            {
+                doScroll();
+            }
+        };
+
+        var doScroll = function() {
+            var winTop   = scrollTop();
+            var nHeader  = _aHeaders.length;
+            var iLastVis = -1; // default to no headers have scrolled off the top of the page
+
+            for( var iHeader = 0; iHeader < nHeader; ++iHeader )
+            {
+                var sticky = _aHeaders[ iHeader ];
+                var h      = sticky.height;
+                var y      = sticky.top - h; // we need (y-h) otherwise will scroll off top by the height
+                /*        */ sticky.element.classList.remove( 'fixed' ); // reset all sticky headers so they no longer "float"
+
+                if( y <= winTop )
+                    iLastVis = iHeader;
+            }
+
+            if( iLastVis >= 0 )
+            {
+                var div = _aHeaders[ iLastVis ].element;
+                div.classList.add( 'fixed' );
+                div.style.top = '0px';
+            }
+        };
+
+        return {
+            load: doLoad
+        };
+    })();
+    function onLoad()
+    {
+console.log( "Loading..." );
+        StickyHeaders.load( 'sticky' );
+console.log( "done!" );
+    }
+</script>
+<body onload='onLoad()'>
+<h1>Apple DOS 3.3C Source Code (Unified HTML and Annotated Version)</h1>
 <h1>0.0 Table of Contents</h1>
     <ul class="toc">
         <li>1.0 <a class='link' href='#Introduction'       >Introduction</a>                   </li>
@@ -393,7 +544,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 
 <h1><a class='section' name='Listing'>2.0 Assembly Source Code Listing</a></h1>
 <pre>
-<hr><hr class='join'>=== <a class='file' name='DOS33C'>DOS33C</a> - Master Source File, Page <a class="page" name="page39">39</a> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class='file' name='DOS33C'>DOS33C</a> - Master Source File, Page <a class="page" name="page39">39</a> ===<hr class='join'><hr></div>
                     001             SBTL "DOS3.3C w/APPEND fix, U/L case"
                     002             LST  ON,VSYM
                     003             MSB  OFF
@@ -432,7 +583,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     036             INCLUDE <a class="_c44 file" href="#DOSPTCH">DOSPTCH</a>,,1                              ; $3FC8 .. $3FFF, T0S9
 
 
-<hr><hr class='join'>=== <a class="file" name="RELOCTR">RELOCTR</a> - Relocate DOS to high (48K) memory, Page <a class="page" name="page110">110</a>, <a class='ts' href='#T0SA'>T0SA</a>, $<span class='n'>1B00</span> .. $<span class='n'>1CFF</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="RELOCTR">RELOCTR</a> - Relocate DOS to high (48K) memory, Page <a class="page" name="page110">110</a>, <a class='ts' href='#T0SA'>T0SA</a>, $<span class='n'>1B00</span> .. $<span class='n'>1CFF</span> ===<hr class='join'><hr></div>
                     001             PAGE                                            ; === Page <a class='page' name='page110'>110</a> ===
                     002 *****************************************************
                     003 *                                                   *
@@ -817,7 +968,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     337             PAGE
 
 
-<hr><hr class='join'>=== <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <a class='ts' href='#T0SB'>T0SB</a> - <a class='ts' href='#T0SD'>T0SD</a>, $<span class='n'>9C81</span> .. $<span class='n'>9E80</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <a class='ts' href='#T0SB'>T0SB</a> - <a class='ts' href='#T0SD'>T0SD</a>, $<span class='n'>9C81</span> .. $<span class='n'>9E80</span> ===<hr class='join'><hr></div>
                     001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*                              ; === Page <a class='page' name='page48'>48</a> ===
                     002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>
 1C81:00 00 00       <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; <a class='disk' name='_1C81'>disk</a> wastes 127 bytes padding to end of sector
@@ -1100,7 +1251,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     226 <a class='d' name='IFBL'     >IFBL        </a>EQU *-<a class='v' href='#IFB'>IFB</a>-<span class='n'>1</span>                                     ; IFB_Length
 
 
-<hr><hr class='join'>=== <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Page <a class="page" name="page44">44</a>, <a class='ts' href='#T0SD'>T0SD</a> - <a class='ts' href='#T0SE'>T0SE</a>, $<span class='n'>9E81</span> .. $<span class='n'>9FCC</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Page <a class="page" name="page44">44</a>, <a class='ts' href='#T0SD'>T0SD</a> - <a class='ts' href='#T0SE'>T0SE</a>, $<span class='n'>9E81</span> .. $<span class='n'>9FCC</span> ===<hr class='join'><hr></div>
                     001             PAGE
                     002 ;
                     003 ;CHRIN - CHAR RCVD VIA IN SWITCH
@@ -1320,7 +1471,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1FCA:4C C5 1F       215             JMP ORTN1                                       ; <a class='mem' href='_1FCA'>wastes</a> 1 byte; BNE ORTN1
 
 
-<hr><hr class='join'>=== <a class="file" name="CMDSCAN">CMDSCAN</a> - Scan for commands, Page <a class="page" page="page16">16</a>, <a class='ts' href='#T0SE'>T0SE</a> - <a class='ts' href='#T1S0'>T1S0</a>, $<span class='n'>9FCD</span> .. $<span class='n'>A192</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="CMDSCAN">CMDSCAN</a> - Scan for commands, Page <a class="page" page="page16">16</a>, <a class='ts' href='#T0SE'>T0SE</a> - <a class='ts' href='#T1S0'>T1S0</a>, $<span class='n'>9FCD</span> .. $<span class='n'>A192</span> ===<hr class='join'><hr></div>
                     001             PAGE
                     002 ;
                     003 ; SCNCMD - SCAN A COMMAND
@@ -1593,7 +1744,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2192:60             270             RTS                 ; AND GOTO COMMAND
 
 
-<hr><hr class='join'>=== <a class="file" name="XOPNCLS">XOPNCLS</a> - Execute Open / Close, Page <a class="page" name="page150">150</a>, <a class='ts' href='#T1S0'>T1S0</a> - <a class='ts' href='#T1S2'>T1S2</a>, $<span class='n'>A193</span> .. $<span class='n'>A330</span>  ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="XOPNCLS">XOPNCLS</a> - Execute Open / Close, Page <a class="page" name="page150">150</a>, <a class='ts' href='#T1S0'>T1S0</a> - <a class='ts' href='#T1S2'>T1S2</a>, $<span class='n'>A193</span> .. $<span class='n'>A330</span>  ===<hr class='join'><hr></div>
                     001             PAGE
                     002 ;
                     003 ; GNXTC - GET NEXT CHAR
@@ -1886,7 +2037,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2330:60             290 CL2         RTS             ; DONE
 
 
-<hr><hr class='join'>=== <a class="file" name="XLODSAV">XLODSAV</a> - Execute Load / Save, Page <a class="page" name="page140">140</a>, <a class='ts' href='#T1S2'>T1S2</a> - <a class='ts' href='#T1S4'>T1S4</a>, $<span class='n'>A331</span> .. $<span class='n'>A50F</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="XLODSAV">XLODSAV</a> - Execute Load / Save, Page <a class="page" name="page140">140</a>, <a class='ts' href='#T1S2'>T1S2</a> - <a class='ts' href='#T1S4'>T1S4</a>, $<span class='n'>A331</span> .. $<span class='n'>A50F</span> ===<hr class='join'><hr></div>
                     001             PAGE
                     002 ;
                     003 ; EBSV - EXECUTE BINARY SAVE
@@ -2158,7 +2309,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 250D:4C D4 0F       269             JMP $<span class='n'>FD4</span>                                        ; <a class='magic' name='_250D'>magic number</a>
 
 
-<hr><hr class='join'>=== <a class="file" name="XMISCMD">XMISCMD</a> - Execute misc. commands, Page <a class="page" name="page145">145</a>, <a class='ts' href='#T1S4'>T1S4</a> - <a class='ts' href='#T1S5'>T1S5</a>, $<span class='n'>A510</span> .. $<span class='n'>A6A7</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="XMISCMD">XMISCMD</a> - Execute misc. commands, Page <a class="page" name="page145">145</a>, <a class='ts' href='#T1S4'>T1S4</a> - <a class='ts' href='#T1S5'>T1S5</a>, $<span class='n'>A510</span> .. $<span class='n'>A6A7</span> ===<hr class='join'><hr></div>
                     001             PAGE
                     002 ;
                     003 ; EWRITE - WRITE CMD EXECUTE
@@ -2416,7 +2567,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 26A7:60             254             RTS
 
 
-<hr><hr class='join'>=== <a class="file" name="DOSGOER">DOSGOER</a> - Print Error message, Page <a class="page" name="page40">40</a>, <a class='ts' href='#T1S5'>T1S5</a> - <a class='ts' href='#T1S6'>T1S6</a>, $<span class='n'>A6A8</span> .. $<span class='n'>A7D3</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="DOSGOER">DOSGOER</a> - Print Error message, Page <a class="page" name="page40">40</a>, <a class='ts' href='#T1S5'>T1S5</a> - <a class='ts' href='#T1S6'>T1S6</a>, $<span class='n'>A6A8</span> .. $<span class='n'>A7D3</span> ===<hr class='join'><hr></div>
                     001             PAGE
                     002 ;
                     003 ; DOSGO - GOTO DOS
@@ -2634,7 +2785,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     215 
 
 
-<hr><hr class='join'>=== <a class="file" name="BLDFTAB">BLDFTAB</a> - Build File Tables, Page <a class="page" name="page4">4</a>, <a class='ts' href='#T1S6'>T1S6</a> @ $D4 - <a class='ts' href='#T1S7'>T1S7</a> @ $83, $<span class='n'>A7D4</span> .. $<span class='n'>A883</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="BLDFTAB">BLDFTAB</a> - Build File Tables, Page <a class="page" name="page4">4</a>, <a class='ts' href='#T1S6'>T1S6</a> @ $D4 - <a class='ts' href='#T1S7'>T1S7</a> @ $83, $<span class='n'>A7D4</span> .. $<span class='n'>A883</span> ===<hr class='join'><hr></div>
                     001             PAGE
                     002 ;
                     003 ; BLDFTB - BUILD FILE TABLES
@@ -2781,7 +2932,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2883:60             144             RTS
 
 
-<hr><hr class='join'>=== <a class="file" name="CMDTBLS">CMDTBLS</a> - Commands, Page <a class="page" name="page21">21</a>, <a class='ts' href='#T1S7'>T1S7</a> - <a class='ts' href='#T1S9'>T1S9</a>, $<span class='n'>A884</span> .. $<span class='n'>AA4E</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="CMDTBLS">CMDTBLS</a> - Commands, Page <a class="page" name="page21">21</a>, <a class='ts' href='#T1S7'>T1S7</a> - <a class='ts' href='#T1S9'>T1S9</a>, $<span class='n'>A884</span> .. $<span class='n'>AA4E</span> ===<hr class='join'><hr></div>
                     001                 PAGE
                     002 ;
                     003 ; COMMAND NAME TABLE
@@ -3037,7 +3188,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2A4E:BB             164             DFB <a   class='v' href='#EM15'>EM15</a>
 
 
-<hr><hr class='join'>=== <a class="file" name="FDOSENT">FDOSENT</a> - External Entry Point, Page <a class="page" name="page60">60</a>, <a class='ts' href='#T1S9'>T1S9</a> @ $4F - <a class='ts' href='#T1SA'>T1SA</a> @ $21, $<span class='n'>2A4F</span> .. $<span class='n'>2B21</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="FDOSENT">FDOSENT</a> - External Entry Point, Page <a class="page" name="page60">60</a>, <a class='ts' href='#T1S9'>T1S9</a> @ $4F - <a class='ts' href='#T1SA'>T1SA</a> @ $21, $<span class='n'>2A4F</span> .. $<span class='n'>2B21</span> ===<hr class='join'><hr></div>
                     001                 PAGE
                     002 ;
                     003 ; MISC BUT REQD CELLS
@@ -3184,7 +3335,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2B1F:4C 63 33       122 <a class='f' name='ERR2'  >ERR2        </a>JMP <a class='x' href='#ERROR2'>ERROR2</a>
 
 
-<hr><hr class='join'>=== <a class="file" name="FOPCLRW">FOPCLRW</a> - Open; Close; Rename; Read, Page <a class="page" name="page77">77</a>, <a class='ts' href='#T1SA'>T1SA</a> - <a class='ts' href='#T1SB'>T1SB</a>, $<span class='n'>2B22</span> ($AB22) ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="FOPCLRW">FOPCLRW</a> - Open; Close; Rename; Read, Page <a class="page" name="page77">77</a>, <a class='ts' href='#T1SA'>T1SA</a> - <a class='ts' href='#T1SB'>T1SB</a>, $<span class='n'>2B22</span> ($AB22) ===<hr class='join'><hr></div>
                     001             PAGE
                     002 ;
                     003 ; FOPEN - OPEN A FILE
@@ -3473,7 +3624,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     286 
 
 
-<hr><hr class='join'>=== <a class="file" name="FDELCAT">FDELCAT</a> - Delete, Catalog, Page <a class="page" name="page55">55</a>, <a class='ts' href='#1T1SB'>T1SB</a> @ $EF - <a class='ts' href='#T1SD'>T1SD</a>, $<span class='n'>2CEF</span> .. $<span class='n'>2E8D</span> ($<span class='n'>ACEF</span> .. $<span class='n'>AE8D</span>) ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="FDELCAT">FDELCAT</a> - Delete, Catalog, Page <a class="page" name="page55">55</a>, <a class='ts' href='#1T1SB'>T1SB</a> @ $EF - <a class='ts' href='#T1SD'>T1SD</a>, $<span class='n'>2CEF</span> .. $<span class='n'>2E8D</span> ($<span class='n'>ACEF</span> .. $<span class='n'>AE8D</span>) ===<hr class='join'><hr></div>
                     001             PAGE
                     002 ;
                     003 * FLOCK - LOCK A FILE
@@ -3725,7 +3876,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2E8D:60             249             RTS
 
 
-<hr><hr class='join'>=== <a class="file" name="FMTRWIO">FMTRWIO</a> - Execute Format Request, Page <a class="page" name="page73">73</a>, <a class='ts' href='#T1SD'>T1SD</a> - <a class='ts'>T1SE</a>, $<span class='n'>AE8E</span> .. $<span class='n'>AFF6</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="FMTRWIO">FMTRWIO</a> - Execute Format Request, Page <a class="page" name="page73">73</a>, <a class='ts' href='#T1SD'>T1SD</a> - <a class='ts'>T1SE</a>, $<span class='n'>AE8E</span> .. $<span class='n'>AFF6</span> ===<hr class='join'><hr></div>
                     001             PAGE
                     002 ;
                     003 * FFMT - Execute Format Request
@@ -3961,7 +4112,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2FF6:60             233             RTS             ; RTN
 
 
-<hr><hr class='join'>=== <a class="file" name="FLOCNXB">FLOCNXB</a> - Locate Next Byte, Page <a class="page" name="page63">63</a>, <a class='ts' href='#T1SE'>T1SE</a> - <a class='ts' href='#T2S0'>T2S0</a>, $<span class='n'>AFF7</span> .. $<span class='n'>B1C8</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="FLOCNXB">FLOCNXB</a> - Locate Next Byte, Page <a class="page" name="page63">63</a>, <a class='ts' href='#T1SE'>T1SE</a> - <a class='ts' href='#T2S0'>T2S0</a>, $<span class='n'>AFF7</span> .. $<span class='n'>B1C8</span> ===<hr class='join'><hr></div>
                     001             PAGE
                     002 ;
                     003 ;RDVTOC - READ VTOC
@@ -4244,7 +4395,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     280 
 
 
-<hr><hr class='join'>=== <a class="file" name="FLOCSEC">FLOCSEC</a> - Locate Sector, Page <a class="page" name="page68">68</a>, <a class='ts' href='#T2S0'>T2S0</a> - <a class='ts' href='#T2S2'>T2S2</a>, $<span class='n'>B1C9</span> .. $<span class='n'>B396</span>  ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="FLOCSEC">FLOCSEC</a> - Locate Sector, Page <a class="page" name="page68">68</a>, <a class='ts' href='#T2S0'>T2S0</a> - <a class='ts' href='#T2S2'>T2S2</a>, $<span class='n'>B1C9</span> .. $<span class='n'>B396</span>  ===<hr class='join'><hr></div>
                     001             PAGE
                     002 ;
                     003 ;FNDFIL - FIND FILE NAME IN VOLUUME DIR                     ; *spelling* VOLUME
@@ -4531,7 +4682,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     284 
 
 
-<hr><hr class='join'>=== <a class="file" name="FVCBUFS">FVCBUFS</a> - File Volume Catalog Buffers, Page <a class="page" name="page86">86</a>, <a class='ts' href='#T2S2'>T2S2</a> @ $97 - <a class='ts' href='#T2S4'>T2S4</a> @ $FD, $<span class='n'>B397</span> .. $<span class='n'>B5FD</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="FVCBUFS">FVCBUFS</a> - File Volume Catalog Buffers, Page <a class="page" name="page86">86</a>, <a class='ts' href='#T2S2'>T2S2</a> @ $97 - <a class='ts' href='#T2S4'>T2S4</a> @ $FD, $<span class='n'>B397</span> .. $<span class='n'>B5FD</span> ===<hr class='join'><hr></div>
 "<i>Show me your code and I'll have to guess at your data (structures),
  Show me your data and I won't have to see your code, I'll already know it.</i>"
  -- Michael, paraphrasing Fred Brooks
@@ -4857,7 +5008,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     187 ;
 
 
-<hr><hr class='join'>=== <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <a class="page" name="page8">8</a>, <a class='ts' href='#T0S0'>T0S0</a> - <a class='ts' href='#T0S1'>T0S1</a>, $<span class='n'>B5FE</span> .. $<span class='n'>B7FF</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <a class="page" name="page8">8</a>, <a class='ts' href='#T0S0'>T0S0</a> - <a class='ts' href='#T0S1'>T0S1</a>, $<span class='n'>B5FE</span> .. $<span class='n'>B7FF</span> ===<hr class='join'><hr></div>
                     001             SBTL '16-SECTOR DOS BOOT'
                     002 <a class="d" name="HERE3L"     id="HERE3L"     >HERE3L      </a>EQU &gt;*                                          ; End of FVCBUFS = $35FD, * = $35FE
                     003 <a class="d" name="REMDR3"     id="REMDR3"     >REMDR3      </a>EQU 256-HERE3L                                  ; Remainder 2
@@ -5296,7 +5447,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     436 
 
 
-<hr><hr class='join'>=== <a class="file" name="COREQUS">COREQUS</a> - Core Equates, Page <a class="page" name="page24">24</a>, <a class='ts'>n/a</a>, $<span class='n'>n/a</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="COREQUS">COREQUS</a> - Core Equates, Page <a class="page" name="page24">24</a>, <a class='ts'>n/a</a>, $<span class='n'>n/a</span> ===<hr class='join'><hr></div>
                     001 
                     002 
                     003 
@@ -5473,7 +5624,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     174 <a class="d" name="Q7H"        >Q7H         </a>EQU $C08F       Q7H,Q6H=WRITE STORE             ; DRIVE_MODE_W
 
 
-<hr><hr class='join'>=== <a class="file" name="PRENIBL">PRENIBL</a> - Prenibblize sector data for writing, Page <a class="page" name="page104">104</a>, <a class='ts' href='#T0S2'>T0S2</a>, $<span class='n'>B800</span> .. $<span class='n'>B829</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="PRENIBL">PRENIBL</a> - Prenibblize sector data for writing, Page <a class="page" name="page104">104</a>, <a class='ts' href='#T0S2'>T0S2</a>, $<span class='n'>B800</span> .. $<span class='n'>B829</span> ===<hr class='join'><hr></div>
                     001             SBTL '16-SECTOR PRENIBLIZE'
                     002 ****************************
                     003 *                          *
@@ -5530,7 +5681,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3828:60             054             RTS             ;RETURN.                        ; o7 Captain Obvious
 
 
-<hr><hr class='join'>=== <a class="file" name="WRITRTN">WRITRTN</a> - Write Routine, Page <a class="page" name="page137">137</a>, <a class='ts' href='#T0S2'>T0S2</a>, $<span class='n'>B82A</span> .. $<span class='n'>B8C1</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="WRITRTN">WRITRTN</a> - Write Routine, Page <a class="page" name="page137">137</a>, <a class='ts' href='#T0S2'>T0S2</a>, $<span class='n'>B82A</span> .. $<span class='n'>B8C1</span> ===<hr class='join'><hr></div>
                     001                 SBTL '16-SECTOR WRITE'
                     002 ************************
                     003 *                      *
@@ -5661,7 +5812,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 38C1:60             128             RTS
 
 
-<hr><hr class='join'>=== <a class="file" name="POSTNRD">POSTNRD</a> - Post Nibbilize Read, Page <a class="page" name="page101">101</a>, <a class='ts' href='#T0S2'>T0S2</a> @ $C2 - <a class='ts' href='#T0S3'>T0S3</a> @ $43, $<span class='n'>B8C2</span> .. $<span class='n'>B943</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="POSTNRD">POSTNRD</a> - Post Nibbilize Read, Page <a class="page" name="page101">101</a>, <a class='ts' href='#T0S2'>T0S2</a> @ $C2 - <a class='ts' href='#T0S3'>T0S3</a> @ $43, $<span class='n'>B8C2</span> .. $<span class='n'>B943</span> ===<hr class='join'><hr></div>
                     001             SBTL '16-SECTOR POSTNIBLIZE'
                     002 ***************************
                     003 *                         *
@@ -5828,7 +5979,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3943:60             165             RTS             FROM READ16 OR RDADR16.
 
 
-<hr><hr class='join'>=== <a class="file" name="RDADSEK">RDADSEK</a> - Read Disk Address; Seek, Page <a class="page" name="page106">106</a>, <a class='ts' href='#T0S3'>T0S3</a> @ $44, $<span class='n'>B944</span> .. $<span class='n'>B9FC</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="RDADSEK">RDADSEK</a> - Read Disk Address; Seek, Page <a class="page" name="page106">106</a>, <a class='ts' href='#T0S3'>T0S3</a> @ $44, $<span class='n'>B944</span> .. $<span class='n'>B9FC</span> ===<hr class='join'><hr></div>
                     001             SBTL '16-SECTOR READ ADDRESS'
                     002 
                     003 
@@ -6034,7 +6185,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 39FC:60             203 <a class="f" name="SEEKRTS"    >SEEKRTS     </a>RTS             ;AND RETURN                     ; /sarcasm I don't know what we would do without you Captain Obvious!
 
 
-<hr><hr class='join'>=== <a class="file" name="MSWAITR">MSWAITR</a> - Microsecond wait routine, Page <a class="page" name="page97">97</a>, <a class='ts' href='#T0S3'>T0S3</a> @ $FD - <a class='ts' href='#T0S6'>T0S6</a> @ $55, $<span class='n'>B9FD</span> .. $<span class='n'>BC55</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="MSWAITR">MSWAITR</a> - Microsecond wait routine, Page <a class="page" name="page97">97</a>, <a class='ts' href='#T0S3'>T0S3</a> @ $FD - <a class='ts' href='#T0S6'>T0S6</a> @ $55, $<span class='n'>B9FD</span> .. $<span class='n'>BC55</span> ===<hr class='join'><hr></div>
                     001                 SBTL '16-SECTOR MSWAIT'
                     002 **************************
                     003 *   MSWAIT SUBROUTINE    *
@@ -6279,7 +6430,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3C50:00 00 00 00 00 00
 
 
-<hr><hr class='join'>=== <a class="file" name="WRITADR">WRITADR</a> - Write Address, Page <a class="page" name="page134">134</a>, <a class='ts' href='#T0S6'>T0S6</a> @ $56, $<b class='n'>BC56</b> .. $<b class='n'>BCFF</b> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="WRITADR">WRITADR</a> - Write Address, Page <a class="page" name="page134">134</a>, <a class='ts' href='#T0S6'>T0S6</a> @ $56, $<b class='n'>BC56</b> .. $<b class='n'>BCFF</b> ===<hr class='join'><hr></div>
                     001             SBTL '16-SECTOR WRITE ADDRESS'
                     002 
                     003 
@@ -6406,7 +6557,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     123 
 
 
-<hr><hr class='join'>=== <a class="file" name="RWTSONE">RWTSONE</a> - Read Write Track Sector - Part 1, Page <a class="page" name="page116">116</a>, <a class='ts' href='#T0S7'>T0S7</a>, $<b class='n'>BD00</b> .. $<b class='n'>BDAA</b> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="RWTSONE">RWTSONE</a> - Read Write Track Sector - Part 1, Page <a class="page" name="page116">116</a>, <a class='ts' href='#T0S7'>T0S7</a>, $<b class='n'>BD00</b> .. $<b class='n'>BDAA</b> ===<hr class='join'><hr></div>
                     001             STBL '16-SECTOR RWTS'
                     002 
                     003 
@@ -6732,7 +6883,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     323 
 
 
-<hr><hr class='join'>=== <a class="file" name="RWTSTWO">RWTSTWO</a> - Read Write Track Sector - Part 2, Page <a class="page" name="page122">122</a>, <a class='ts'>T0S7</a> - <a class='ts' href='#T0S8'>T0S8</a>, $<b class='n'>BDAB</b> .. $<b class='n'>BEAE</b> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="RWTSTWO">RWTSTWO</a> - Read Write Track Sector - Part 2, Page <a class="page" name="page122">122</a>, <a class='ts'>T0S7</a> - <a class='ts' href='#T0S8'>T0S8</a>, $<b class='n'>BDAB</b> .. $<b class='n'>BEAE</b> ===<hr class='join'><hr></div>
                     001 *
                     002 * DISK IS NOW UP TO SPEED: READ IT!
                     003 * NOW CHECK: IF IT IS NOT THE FORMAT DISK COMMAND,
@@ -7038,7 +7189,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3EAE:60             302 <a class="f" name="SETRTS"     id="SETRTS"    >SETRTS      </a>RTS
 
 
-<hr><hr class='join'>=== <a class="file" name="FORMATR">FORMATR</a> - Format Disk, Page <a class="page" name="page82">82</a>, <a class='ts' href='#T0S8'>T0S8</a> @ $AF..  <a class='ts' href='#T0S9'>T0S9</a> @ $C7, $<span class='n'>BEAF</span> .. $<span class='n'>BFC7</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="FORMATR">FORMATR</a> - Format Disk, Page <a class="page" name="page82">82</a>, <a class='ts' href='#T0S8'>T0S8</a> @ $AF..  <a class='ts' href='#T0S9'>T0S9</a> @ $C7, $<span class='n'>BEAF</span> .. $<span class='n'>BFC7</span> ===<hr class='join'><hr></div>
                     001                SBTL '16-SECTOR FORMATTER'
                     002 ****************************
                     003 *                          *
@@ -7256,7 +7407,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3FC4:06 04 02 0F    215             DFB $06,$04,$02,$0F                             ; need to waste memory with this table at all !
 
 
-<hr><hr class='join'>=== <a class="file" name="DOSPTCH">DOSPTCH</a> - Revision B Patches, Page <a class="page" name="page52">52</a>, <a class='ts' href='#T0S9'>T0S9</a> @ $C8, $<span class='n'>BFC8</span> .. $<span class='n'>BFFF</span> ===<hr class='join'><hr>
+<div class='sticky'><hr><hr class='join'>=== <a class="file" name="DOSPTCH">DOSPTCH</a> - Revision B Patches, Page <a class="page" name="page52">52</a>, <a class='ts' href='#T0S9'>T0S9</a> @ $C8, $<span class='n'>BFC8</span> .. $<span class='n'>BFFF</span> ===<hr class='join'><hr></div>
                     001             SBTL "DOS PATCHES"
                     002 ********************************
                     003 *
@@ -7317,7 +7468,10 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 </pre>
 
 <h1><a class='section' name='Symbols'     >3.0 Symbols</a></h1>
+
+<div class='sticky'>
 <h2><a class='section' name='Alphabetical'>3.1 Symbols (Alphabetical)</a></h2>
+</div>
 <pre>
 <h3>A</h3>
     ASHM1       =   $73
@@ -9067,7 +9221,6 @@ A special Thank-You to:
 
 <p>
 Apple ][ Forever!
-
 </body>
 </html>
 
