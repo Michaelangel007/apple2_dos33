@@ -332,74 +332,74 @@ var StickyHeaders = (function() {
 
     var _aHeaders = [];
 
-        var Init = function( stickyClassName )
+    var Init = function( stickyClassName )
+    {
+        // iterate over each element of class 'stickyClassName' ("sticky")
+        // http://stackoverflow.com/questions/5897122/accessing-elements-by-type-on-javascript
+        var aHeaders = document.getElementsByClassName( stickyClassName );
+        var nHeaders = aHeaders.length;
+        var iHeader  = 0;
+        var tHeader  ;
+
+        for( ; iHeader < nHeaders; ++iHeader )
         {
-            // iterate over each element of class 'stickyClassName' ("sticky")
-            // http://stackoverflow.com/questions/5897122/accessing-elements-by-type-on-javascript
-            var aHeaders = document.getElementsByClassName( stickyClassName );
-            var nHeaders = aHeaders.length;
-            var iHeader  = 0;
-            var tHeader  ;
+            tHeader = aHeaders[ iHeader ];
 
-            for( ; iHeader < nHeaders; ++iHeader )
-            {
-                tHeader = aHeaders[ iHeader ];
+            var obj = js_wrap( tHeader, 'div' );
+            var div = tHeader.parentNode;
+            div.setAttribute( 'class', '_sticky_header_' ); // dummy class so we know is auto-inserted
 
-                var obj = js_wrap( tHeader, 'div' );
-                var div = tHeader.parentNode;
-                div.setAttribute( 'class', '_sticky_header_' ); // dummy class so we know is auto-inserted
+            var y   = js_offset( div ).top;
+            var h   = obj.clientHeight;
 
-                var y   = js_offset( div ).top;
-                var h   = obj.clientHeight;
+            div.style.height = '' + h + 'px';
 
-                div.style.height = '' + h + 'px';
+            var sticky = {
+                height : h,  // original height
+                top    : y,  // original position
+                element: div // injected parent that we will adjust styles on
+            };
+            _aHeaders.push( sticky ); // stash in array so when we scroll we can adjust ALL the sticky header's y position as needed
+        }
 
-                var sticky = {
-                    height : h,  // original height
-                    top    : y,  // original position
-                    element: div // injected parent that we will adjust styles on
-                };
-                _aHeaders.push( sticky ); // stash in array so when we scroll we can adjust ALL the sticky header's y position as needed
-            }
+        console.log( "Sticky ClassName: ", stickyClassName );
+        console.log( "Stickies found: ", _aHeaders.length );
 
-            console.log( "Sticky ClassName: ", stickyClassName );
-            console.log( "Stickies found: ", _aHeaders.length );
+        // Add callback when scrolling starts/stops
+        window.onscroll = function()
+        {
+            Scroll();
+        }
+    };
 
-            // Add callback when scrolling starts/stops
-            window.onscroll = function()
-            {
-                Scroll();
-            }
-        };
+    var Scroll = function() {
+        var winTop   = js_scrollTop();
+        var nHeader  = _aHeaders.length;
+        var iLastVis = -1; // default to no headers have scrolled off the top of the page
 
-        var Scroll = function() {
-            var winTop   = js_scrollTop();
-            var nHeader  = _aHeaders.length;
-            var iLastVis = -1; // default to no headers have scrolled off the top of the page
+        for( var iHeader = 0; iHeader < nHeader; ++iHeader )
+        {
+            var sticky = _aHeaders[ iHeader ];
+            var h      = sticky.height;
+            var y      = sticky.top - h; // we need (y-h) otherwise will scroll off top by the height
+            /*        */ sticky.element.classList.remove( 'fixed' ); // reset all sticky headers so they no longer "float"
 
-            for( var iHeader = 0; iHeader < nHeader; ++iHeader )
-            {
-                var sticky = _aHeaders[ iHeader ];
-                var h      = sticky.height;
-                var y      = sticky.top - h; // we need (y-h) otherwise will scroll off top by the height
-                /*        */ sticky.element.classList.remove( 'fixed' ); // reset all sticky headers so they no longer "float"
+            if( y <= winTop )
+                iLastVis = iHeader;
+        }
 
-                if( y <= winTop )
-                    iLastVis = iHeader;
-            }
+        if( iLastVis >= 0 )
+        {
+            var div = _aHeaders[ iLastVis ].element;
+            div.classList.add( 'fixed' );
+            div.style.top = '0px';
+        }
+    };
 
-            if( iLastVis >= 0 )
-            {
-                var div = _aHeaders[ iLastVis ].element;
-                div.classList.add( 'fixed' );
-                div.style.top = '0px';
-            }
-        };
-
-        return {
-            Init: Init
-        };
-    })();
+    return {
+        Init: Init
+    };
+})();
 
     function onLoad()
     {
