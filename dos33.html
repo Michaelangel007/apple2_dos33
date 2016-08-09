@@ -342,63 +342,71 @@ var StickyHeaders = (function() {
 
         // iterate over each element of class 'stickyClassName' ("sticky")
         // http://stackoverflow.com/questions/5897122/accessing-elements-by-type-on-javascript
-        var aHeaders = document.getElementsByClassName( stickyClassName );
-        var nHeaders = aHeaders.length;
-        var iHeader  = 0;
-        var tHeader  ;
+        var Stickies  = document.getElementsByClassName( stickyClassName ),
+            nStickies = Stickies.length;
 
-        for( ; iHeader < nHeaders; ++iHeader )
+        for( var iSticky = 0; iSticky < nStickies; ++iSticky )
         {
-            tHeader = aHeaders[ iHeader ];
+            var div    = document.createElement( 'div' ),
+                sticky = js_wrap( Stickies[ iSticky ], 'div' ),
+                y      = js_offset( sticky ).top,
+                h      = js_outerHeight( sticky ),
+                data   = {
+                    e: sticky, // injected parent that we will adjust styles on
+                    h: h,      // original height
+                    y: y       // original position
+                };
+                _aHeaders.push( data ); // stash in array so when we scroll we can adjust ALL the sticky header's y position as needed
 
-            var obj = js_wrap( tHeader, 'div' );
-            var div = tHeader.parentNode;
-            div.setAttribute( 'class', '_sticky_header_' ); // dummy class so we know is auto-inserted
-
-            var y   = js_offset( div ).top;
-            var h   = obj.clientHeight;
-
-            div.style.height = '' + h + 'px';
-
-            var sticky = {
-                height : h,  // original height
-                top    : y,  // original position
-                element: div // injected parent that we will adjust styles on
-            };
-            _aHeaders.push( sticky ); // stash in array so when we scroll we can adjust ALL the sticky header's y position as needed
+                sticky.parentNode.style.height = h + 'px';
         }
 
         console.log( "Sticky ClassName: ", stickyClassName );
         console.log( "Stickies found: ", _aHeaders.length );
 
         // Add callback when scrolling starts/stops
-        window.onscroll = function()
-        {
-            Scroll();
-        }
+        window.onscroll = function() {
+            Scroll( _aHeaders );
+        };
     };
 
-    var Scroll = function() {
-        var winTop   = js_scrollTop();
-        var nHeader  = _aHeaders.length;
-        var iLastVis = -1; // default to no headers have scrolled off the top of the page
+    var Scroll = function( headers )
+    {
+        var top = js_scrollTop();
 
-        for( var iHeader = 0; iHeader < nHeader; ++iHeader )
-        {
-            var sticky = _aHeaders[ iHeader ];
-            var h      = sticky.height;
-            var y      = sticky.top - h; // we need (y-h) otherwise will scroll off top by the height
-            /*        */ sticky.element.classList.remove( 'fixed' ); // reset all sticky headers so they no longer "float"
+        var nHeaders = headers.length;
+        for( var i = 0; i < nHeaders; ++i ) {
+            var sticky = headers[ i ].e,
+                h      = headers[ i ].h,
+                y      = headers[ i ].y;
 
-            if( y <= winTop )
-                iLastVis = iHeader;
-        }
+            if (y <= top) {
+                sticky.classList.add( "fixed" );
 
-        if( iLastVis >= 0 )
-        {
-            var div = _aHeaders[ iLastVis ].element;
-            div.classList.add( 'fixed' );
-            div.style.top = '0px';
+                // Handle case when 2 sticky headers are overlapping
+                if( (i+1) < nHeaders )
+                {
+                    var next  = headers[ i+1 ].e,
+                        below = headers[ i+1 ].y - h;
+                    if (js_offset( next ).top >= below)
+                    {
+                        sticky.classList.add( "absolute" );
+                        sticky.style.top = below + 'px';
+                    }
+                }
+            } else {
+                sticky.classList.remove( "fixed" );
+
+                if (i > 0)
+                {
+                    var prev = headers[ i - 1 ].e;
+                    if (top <= (y - h))
+                    {
+                        prev.classList.remove( "absolute" );
+                        prev.removeAttribute( "style" );
+                    }
+                }
+            }
         }
     };
 
