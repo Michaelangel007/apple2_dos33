@@ -155,6 +155,14 @@ a.section {
     text-align:   center;
     width     :      99%;
 }
+.sticky.fixed { /* ACTIVE sticky */
+    position: fixed;
+    top     : 0;
+    z-index : 1;
+}
+.sticky.fixed.absolute { /* For when two stickies are overlapping, this is the one above */
+    position: absolute;
+}
 .toc { /* Table of Contents */
     list-style: none;
     margin-bottom: 0px;
@@ -396,6 +404,7 @@ span.patch {
             load: doLoad
         };
     })();
+
     function onLoad()
     {
 console.log( "Loading..." );
