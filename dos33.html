@@ -653,7 +653,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     048 <a class="d" name="OUTSW"  >OUTSW       </a>EQU $36         ; OUTPUT VECTOR SWITCH
                     049 <a class="d" name="INSW"   >INSW        </a>EQU $38         ; INPUT VECTOR SWITCH
                     050 <a class="d" name="ZPGWRK" >ZPGWRK      </a>EQU $40         ; ZERO PAGE WORK CELL
-                    051 <a class="d" name="CNUM"   >CNUM        </a>EQU $44         ; CONVERTED NUMERIC
+                    051 <a class="d" name="CNUM"   >CNUM        </a>EQU $44         ; CONVERTED NUMERIC             ; 16-bit input number
                     052 <a class="d" name="LBUFF"  >LBUFF       </a>EQU $200        ; LINE BUFFER                   ; Keyboard buffer of 255 chars
                     053 <a class="f" name="MULT"   >MULT        </a>EQU $FB63       ; MULT ROUTINE
 <hr>                    054 <a class="f" name="INPRT">INPRT       </a>EQU $FE8B       ; SET IN PORT                   ; === Page <a class="page" name="page111">111</a> ===
@@ -1763,77 +1763,77 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 218D:48             267             PHA             ; ONTO STACK
 218E:BD 1E 1D       268             LDA <a class="v" href="#CMDETAB">CMDETB</a>,X
 2191:48             269             PHA
-2192:60             270             RTS             ; AND GOTO COMMAND
+2192:60             270             RTS             ; AND GOTO COMMAND              ; classic technique of jump table, use RTS to "call" the function pointer
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="XOPNCLS">XOPNCLS</a> - Execute Open / Close, Page <a class="page" name="page150">150</a>, <a class='ts' href='#T1S0'>T1S0</a> - <a class='ts' href='#T1S2'>T1S2</a>, $<span class='n'>A193</span> .. $<span class='n'>A330</span>  ===<hr class='join'><hr></div>
 <pre>
                     001             PAGE
-                    002 ;
-                    003 ; GNXTC - GET NEXT CHAR
-                    004 ;
-                    005 GNXTC       EQU *
+                    002 ;                                                           ; Setup: LineLength (current char offset in Line Buffer to process)
+                    003 ; GNXTC - GET NEXT CHAR                                     ; In   : n/a
+                    004 ;                                                           ; Out  : A=char in LineBuffer, (X=LineLength if CR else X=LineLength+1)
+                    005 <a class='f' name='GNXTC'    >GNXTC       </a>EQU *                                           ;        Z=1 if CR or COMMA, else Z=0
 2193:AE 5D 2A       006             LDX <a class="v" href="#LBUFD">LBUFD</a>
-2196:BD 00 02       007             LDA LFUFF,X     ; GET NEXT CHAR AND IF
-2199:C9 8D          008             CMP #$8D        ; IS IT A CR
-219B:F0 06          009             BEQ GNXTCR      ; THEN RETURN WITHOUT
-219D:E8             010             INX             ; INCR TO NEXT CHAR
-219E:8E 5D 2A       011             STX LBUFD
-21A1:C9 AC          012             CMP #','+$80    ; TEST FOR COMMA
-21A3:60             013 GNXTCR      RTS
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
-                    055 
-                    056 
-                    057 
-                    058 
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
+2196:BD 00 02       007             LDA LFUFF,X     ; GET NEXT CHAR AND IF          ; char c = LineBuffer[ LineLength ];
+2199:C9 8D          008             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; gEqual = (c == '\r');
+219B:F0 06          009             BEQ GNXTCR      ; THEN RETURN WITHOUT           ; if( gEqual )
+219D:E8             010             INX             ; INCR TO NEXT CHAR             ;     return c;
+219E:8E 5D 2A       011             STX LBUFD                                       ; LineLength++;
+21A1:C9 AC          012             CMP #','+$<span class='n'>80</span>    ; TEST FOR COMMA                ; gEqual = (c == ',');
+21A3:60             013 <a class='f' name='GNXTCR'   >GNXTCR      </a>RTS                                             ; return c;
+                    014 ;
+                    015 ; GNBC - GET NON BLANK CHAR
+                    016 ;
+                    017 <a class='f' name='GNBC'     >GNBC        </a>EQU *                                           ; char c;
+21A4:20 93 21       018             JSR GNXTC       ; GO GET NEXT CHAR              ; do {
+21A7:F0 FA          019             BEQ GNXTCR      ; BR IF COMMA OR CR             ;     c = GetNextChar();
+21A9:C9 A0          020             CMP #$<span class='n'>A0</span>        ; IS IT BLANK                   ;     if (gEqual) break;
+21AB:F0 F7          021             BEQ GNBC        ; BR IF BLANK                   ; } while (c == ' ');
+21AD:60             022             RTS             ; DONE                          ; o7 Captain Obvious
+                    023 ;
+                    024 ; CLRCCB - CLEAR CCB
+                    025 ;
+                    026 <a class='f' name='CLRCCB'   >CLRCCB      </a>EQU *
+21AE:A9 00          027             LDA #<span class='n'>0</span>
+21B0:A0 16          028             LDY #CCBLEN     ; CCBLENGTH
+21B2:99 BA 35       029 <a class='f' name='CLC1'     >CLC1        </a>STA CCB-<span class='n'>1</span>,Y     ; CLEAR BYTE
+21B5:88             030             DEY
+21B6:D0 FA          031             BNE CLC1
+21B8:60             032             RTS
+                    033             PAGE
+                    034 ;
+                    035 ; GETNUM - CONVERT ASCII INPUT TO NUMERIC
+                    036 ;
+                    037 <a class='f' name='GETNUM'   >GETNUM      </a> EQU *
+21B9:A9 00          038             LDA #<span class='n'>0</span>          ; CLEAR WORK AREA
+21BB:85 44          039             STA CNUM
+21BD:85 45          040             STA CNUM+<span class='n'>1</span>
+21BF:20 A4 21       041             JSR GNBC                                        ; GetNonBlankChar()
+21C2:08             042             PHP                                             ; need to save flags since testing for hex num nukes them
+21C3:C9 A4          043             CMP #$<span class='n'>A4</span>                                        ; <a class='magic' name='_21C4'>magic number</a> #'$'+$80 (improvement), CHAR_DOLLAR (better), or OPT_NUM_HEX (best)
+21C5:F0 3C          044             BEQ HEXNUM                                      ; &darr; $2203
+21C7:28             045             PLP
+21C8:4C CE 21       046             JMP GN2A                                        ; <a class='mem' name='_'>wastes</a> 1 byte, <span class='code'>BMI GN2A</span>
+                    047 ;
+21CB:20 A4 21       048 GN2         JSR GNBC        ; GET NEXT NON BLANK
+                    049 GN2A        EQU *
+21CE:D0 06          050             BNE GN3         ; BR NOT COMMA OR CR
+21D0:A6 44          051             LDX CNUM        ; X=RESULT LOW
+21D2:A5 45          052             LDA CNUM+<span class='n'>1</span>      ; Y=RESULT HI                   ; *sigh* *spelling* A=Result Hi as Y isn't even used!
+                    053             CLC
+<hr>                    054             RTS             ; DONE                          ; === Page <a class='page' name='page151'>151</a> === o7 Captain Obvious
+                    055 ;
+21D6:38             056 <a class='f' name='GN3'      >GN3         </a>SEC                                             ; GetDigit
+                    057             SBC #$B0        ; SUBTRACT ASCII 0              ; <i>You keep using this word <b>ASCII</b>, it doesn't mean what you think it means.</i>, #'0'+$80
+                    058             BMI GN4         ; BR IF NOT SUM
+                    059             CMP #10
+                    060             BCS GN4         ; BR IF NOT NUM
+                    061             JSR GN5         ; OLD*2                         ; <b>Test Time</b>: 1. Describe what GN5 does without looking at the code. 2. Describe what MUL2xCNUM does.
+                    062             TAX                                             ; n*10 = n*8 + n*2
+                    063             LDA #0
+                    064             ADC CNUM+1
+                    065             TAY
+                    066             JSR GN5
                     067 
                     068 
                     069 
