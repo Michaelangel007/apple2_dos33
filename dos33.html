@@ -281,44 +281,44 @@ span.patch {
     </style>
 </head>
 <script>
-    // ========== Utility ==========
-        // http://stackoverflow.com/questions/18953144/how-do-i-get-the-offset-top-value-of-an-element-without-using-jquery
-        function js_offset( elem )
-        {
-            var de   = document.documentElement;
-            var box  = elem.getBoundingClientRect();
-            var top  = box.top  + window.pageYOffset - de.clientTop ;
-            var left = box.left + window.pageXOffset - de.clientLeft;
-            return { top: top, left: left };
-        }
+// ========== Utility ==========
+    // http://stackoverflow.com/questions/18953144/how-do-i-get-the-offset-top-value-of-an-element-without-using-jquery
+    function js_offset( elem )
+    {
+        var de   = document.documentElement;
+        var box  = elem.getBoundingClientRect();
+        var top  = box.top  + window.pageYOffset - de.clientTop ;
+        var left = box.left + window.pageXOffset - de.clientLeft;
+        return { top: top, left: left };
+    }
 
-        function js_outerHeight( elem )
-        {
-            return elem.clientHeight;
-        }
-        // http://stackoverflow.com/questions/11193453/find-the-vertical-position-of-scrollbar-without-jquery
-        function js_scrollTop() { return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop  }
+    function js_outerHeight( elem )
+    {
+        return elem.clientHeight;
+    }
+    // http://stackoverflow.com/questions/11193453/find-the-vertical-position-of-scrollbar-without-jquery
+    function js_scrollTop() { return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop  }
 
-        // *note* This SO is incorrect:
-        //     http://stackoverflow.com/questions/31472754/wrap-a-around-div-without-jquery
-        // type: 'div', 'a', etc.,
-        function js_wrap( child, type  )
-        {
-            /*
-                Before:                     After:
-                    biological_parent           biological_parent
-                        child                       foster_parent
-                                                        child
-            */
-            var biological = child.parentNode;
-            var foster = document.createElement( type );
-            biological.insertBefore( foster, child );
+    // *note* This SO is incorrect:
+    //     http://stackoverflow.com/questions/31472754/wrap-a-around-div-without-jquery
+    // type: 'div', 'a', etc.,
+    function js_wrap( child, type  )
+    {
+        /*
+            Before:                     After:
+                biological_parent           biological_parent
+                    child                       foster_parent
+                                                    child
+        */
+        var biological = child.parentNode;
+        var foster = document.createElement( type );
+        biological.insertBefore( foster, child );
 
-            // http://stackoverflow.com/questions/7555442/move-an-element-to-another-parent-after-changing-its-id
-            foster.appendChild( child ); // move, not copy
+        // http://stackoverflow.com/questions/7555442/move-an-element-to-another-parent-after-changing-its-id
+        foster.appendChild( child ); // move, not copy
 
-            return child;
-        }
+        return child;
+    }
 
     // ---------- Implementation ----------
     /*
