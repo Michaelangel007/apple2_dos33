@@ -1662,7 +1662,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     166 ;
                     167 ; SOPTS - LOOK FOR SYNTAX OPTIONS
                     168 ;
-                    169 SOPTS EQU *
+                    169 SOPTS       EQU *
                     170             LDA #<span class='n'>0</span>
                     171             STA <a class='v' href='#INOPTS'>INOPTS</a>      ; CLEAR INPUT OPTIONS
                     172             STA <a class='v' href='#IMBITS'>IMBITS</a>
@@ -1672,98 +1672,99 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     <a class='line' name='CMDSCAN.176'>176</a>             JSR <a class='x' href='#CLRBYTE'>CLRBYTE</a>     ;PATCH FOR BYTE PARAMETER (WAS STA TEMP1A)
                     177             LDA <a class='v' href='#LBUFD'>LBUFD</a>       ; SET PASS 1
 <hr>                    178 ;                                                           ; === Page <a class='page' name='page19'>19</a> ===
-                    179 
-                    180 
-                    181 
-                    182 
-                    183 
-                    184 
-                    185 
-                    186 
-                    187 
-                    188 
-                    189 
-                    190 
-                    191 
-                    192 
-                    193 
-                    194 
-                    195 
-                    196 
-                    197 
-                    198 
-                    199 
-                    200 
-                    201 
-                    202 
-                    203 
-                    204 
-                    205 
-                    206 
-                    207 
-                    208 
-                    209 
-                    210 
-                    211 
-                    212 
-                    213 
-                    214 
-                    215 
-                    216 
-                    217 
-                    218 
-                    219 
-                    220 
-                    221 
-                    222 
-                    223 
-                    224 
-                    225 
-                    226 
-                    227 
-                    228 
-                    229 
-                    230 
-                    231 
-                    232 
-                    233 
-                    234 
-                    235 
-                    236 
-                    237 
-                    238 
-                    239 
-                    240 
-                    241 
-                    242 
-                    243 
-                    244 
-                    245 
-                    246 
-                    247 
-                    248 
-                    249 
-                    250 
-                    251 
-                    252 
-                    253 
-                    254 
-                    255 
-                    256 
-217A:20 80 21       257 <a class="f" name="CMDGO"  >CMDGO       </a>JSR <a class="x" href="#CMDGO1">CMDGO1</a>          ; CMDGO - EXECUTE COMMAND
+                    179 SP1         JSR GNBC        ; GO GET NON-BLANK CHAR
+                    180             BNE SP2         ; BR IF NOT COMMA OR CR
+                    181             CMP #$8D        ; IF CHAR IS COMMA
+                    182             BNE SP1         ; THEN GO GET CHAR
+                    183 ;
+                    184             LDX CMDNO       ; OPTIONS INPUT = I
+                    185             LDA INOPTS      ; ALLOW OPTS = A
+                    186             ORA CMDSTB+1,X  ; IF (A OR I)
+                    187             EOR CMDSTB+1,X  XOR A NOT =0 THEN
+                    188             BNE SERR1       ; WE HAVE UNALLOWED OPTIONS
+                    189 ;
+                    190             LDX TEMP1A      ; IF THIS IS PASS2
+                    191             BEQ CMDGO       ; THEN DONE,
+                    192             STA TEMP1A      ; ELSE SET PASS
+                    193             STX LBUFD       ; RESTORE LBUFD AND
+                    194             BNE SP1         ; GO DO PASS 2
+                    195 ;
+                    196 SP2         LDX #OPT1L      ; COMPARE CHAR HAVE WITH
+                    197 SP3         CMP OPTAB1-1,X  ; CHARS IN OPT TABLE
+                    198             BEQ SP4         ; IF FOUND CONTINUE,
+                    199             DEX             
+                    200             BNE SP3         ; IF NOT FOUND
+                    201 SERR2A      BEQ SERR2       ; THEN SYNTAX ERROR
+                    202 ;
+                    203 SP4         LDA OPTAB2-1,X  ; IF CORRESPONDING OP TAB 2 IS
+                    204             BMI SP8         ; MINUS THEN IT MONITOR BITS
+                    205             ORA INOPTS      
+                    206             STA INOPTS      
+                    207             DEX             
+                    208 ;
+                    209             STX  TEMP2A     ; ELSE A NUMERIC MUST FOLLOW
+                    210             JSR  GETNUM     ; FOLLOW
+                    211             BCS  SERR2      
+                    212 ;
+                    213             LDA TEMP2A      ; GET IOTION NUMBER
+                    214             ASL A           ; MULT BY 4
+                    215             ASL A           
+                    216             TAY             
+                    217 ;
+                    218             LDA CNUM+1      ; IF RESULT NUM HI IS
+                    219             BNE SP5         ; GT 0, THEN GT LOW RANGE
+                    220             LDA CNUM        ; TEST RESULT LOW
+                    221             CMP OPTAB3,Y    ; WITH LOW RANGE (LOW)
+                    222             BCC SERR3       ; BR IF RESULT &lt; LR
+                    223             LDA CNUM+1      
+                    224 SP5         CMP OPTAB3+3,Y  
+                    225             BCC SP6         ; BR IF LESS
+                    226 SERR3A      BNE SERR3       ; BR IF GREATER
+                    227             LDA CNUM        
+                    228             CMP OPTAB3+2,Y  
+                    229             BCC SP6         ; BR IF LESS
+                    230             BNE SERR3A      ; BR IF GREATER
+                    231 ;
+                    232 SP6         LDA TEMP1A      ; IF PASS 1, THEN
+                    233             BNE SP1         ; DONT STORE RESULT
+                    234             TYA             
+                    235             LSR A           
+                    236             TAY             
+                    237 ;
+                    238             LDA CNUM+1      ; STORE THE RESULT
+                    239             STA CUROPT+1,Y
+                    240             LDA CNUM
+<hr>                    241             STA CUROPT,Y                                    ; === Page <a class='page' name='page20'>20</a> ===
+                    242 SP7         JMP SP1         ; GO FOR NEXT OPT
+                    243 ;
+                    244 SP8         EQU *           ; MONITOR REQ
+                    245             PHA             ; SAVE TYPE REQ
+                    246             LDA #CIO        ; SET OPTION OF CIO
+                    247             ORA INOPTS
+                    248             STA INOPTS
+                    249             PLA             ; RESTOERE REQ
+                    250             AND #$7F        ; CLEAR CIO
+                    251             ORA IMBITS      ; OR WITH PREV IMBITS
+                    252             STA IMBITS
+                    253             BNE SP7         ; GO FOR NEXT
+                    254 ;
+                    255             BEQ SERR2A      ;BRANCH ALWAYS
+                    256 ;
+####:## ## ##       ### LABEL       NMEMONIC        COMMENT                         ; Annotation
+217A:20 80 21       257 <a class="f" name="CMDGO"  >CMDGO       </a>JSR <a class="x" href="#CMDGO1">CMDGO1</a>      ; CMDGO - EXECUTE COMMAND
 217D:4C 83 1F       258             JMP <a class="x" href="#CERTN">CERTN</a>
                     259 ;
                     260 <a class="f" name="CMDGO1">CMDGO1      </a>EQU *
 2180:20 5B 27       261             JSR <a class="x" href="#CLRSTS">CLRSTS</a>                                      ; Clear States
-2183:20 AE 21       262             JSR <a class="x" href="#CLRCCB">CLRCCB</a>          ; GO CLEAR CCB              ; /sarcasm I never would have guessed
+2183:20 AE 21       262             JSR <a class="x" href="#CLRCCB">CLRCCB</a>      ; GO CLEAR CCB                  ; /sarcasm I never would have guessed
                     263 <a class="f" name="ECMD"   >ECMD        </a>EQU *
-2186:AD 5F 2A       264             LDA <a class="v" href="#CMDNO">CMDNO</a>           ; COMMAND NO
-2189:AA             265             TAX                 ; IS CMD EXEC TAB INDEX     ; <a class='mem' name='_2189'>wastes</a> 1 byte /sarcasm If only we had LDX CMDNO
-218A:BD 1F 1D       266             LDA <a class="v" href="#CMDETAB">CMDETAB</a>+1,X     ; GET CMD ADR
-218D:48             267             PHA                 ; ONTO STACK
+2186:AD 5F 2A       <a class='line' name='CMDSCAN.264'>264</a>             LDA <a class="v" href="#CMDNO">CMDNO</a>       ; COMMAND NO
+2189:AA             265             TAX             ; IS CMD EXEC TAB INDEX         ; <a class='mem' name='_2189'>wastes</a> 1 byte /sarcasm If only we had <span class='code'>LDX CMDNO</span> on Line #<a class='line' href='#CMDSCAN.264'>264</a>
+218A:BD 1F 1D       266             LDA <a class="v" href="#CMDETAB">CMDETAB</a>+1,X ; GET CMD ADR
+218D:48             267             PHA             ; ONTO STACK
 218E:BD 1E 1D       268             LDA <a class="v" href="#CMDETAB">CMDETB</a>,X
 2191:48             269             PHA
-2192:60             270             RTS                 ; AND GOTO COMMAND
+2192:60             270             RTS             ; AND GOTO COMMAND
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="XOPNCLS">XOPNCLS</a> - Execute Open / Close, Page <a class="page" name="page150">150</a>, <a class='ts' href='#T1S0'>T1S0</a> - <a class='ts' href='#T1S2'>T1S2</a>, $<span class='n'>A193</span> .. $<span class='n'>A330</span>  ===<hr class='join'><hr></div>
