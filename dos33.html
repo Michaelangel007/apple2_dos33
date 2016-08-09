@@ -339,7 +339,7 @@ span.patch {
         */
         var _aHeaders = []; // array of Sticky objects
 
-        var doLoad = function( stickyClassName )
+        var Init = function( stickyClassName )
         {
             // iterate over each element of class 'stickyClassName' ("sticky")
             // http://stackoverflow.com/questions/5897122/accessing-elements-by-type-on-javascript
@@ -372,11 +372,11 @@ span.patch {
             // Add callback when scrolling starts/stops
             window.onscroll = function()
             {
-                doScroll();
+                Scroll();
             }
         };
 
-        var doScroll = function() {
+        var Scroll = function() {
             var winTop   = js_scrollTop();
             var nHeader  = _aHeaders.length;
             var iLastVis = -1; // default to no headers have scrolled off the top of the page
@@ -401,14 +401,14 @@ span.patch {
         };
 
         return {
-            load: doLoad
+            Init: Init
         };
     })();
 
     function onLoad()
     {
 console.log( "Loading..." );
-        StickyHeaders.load( 'sticky' );
+        StickyHeaders.Init( 'sticky' );
 console.log( "done!" );
     }
 </script>
