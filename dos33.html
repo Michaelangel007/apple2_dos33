@@ -1547,7 +1547,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     051             JMP CMDRTN      ; CNTL-D ONLY
                     052 ;
                     053 CSERR       JMP ESYNTX
-                    054             PAGE
+<hr>                    054             PAGE                                            ; === Page <a class='page' name='page17'>17</a> ===
                     055 ;
                     056 ; SYNTAX - FIGURE OUT WHAT WE GOT HERE 
                     057 ;
@@ -1609,7 +1609,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     113             BNE SOPTS       ; THEN GO LOOK FOR OPTIONS
                     114 ;
                     115             LDY CMDNO
-<hr>                    116             LDA #NPB+NPE    ; IF CMD MUST HAVE FILENAME
+<hr>                    116             LDA #NPB+NPE    ; IF CMD MUST HAVE FILENAME     ; === Page <a class='page' name='page18'>18</a> ===
                     117             AND CMDSTB,Y    ; THEN
                     118             BEQ SERR1       ; THIS IS ERROR, ELSE
                     119 ;
@@ -1750,7 +1750,6 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     254 ;
                     255             BEQ SERR2A      ;BRANCH ALWAYS
                     256 ;
-####:## ## ##       ### LABEL       NMEMONIC        COMMENT                         ; Annotation
 217A:20 80 21       257 <a class="f" name="CMDGO"  >CMDGO       </a>JSR <a class="x" href="#CMDGO1">CMDGO1</a>      ; CMDGO - EXECUTE COMMAND
 217D:4C 83 1F       258             JMP <a class="x" href="#CERTN">CERTN</a>
                     259 ;
