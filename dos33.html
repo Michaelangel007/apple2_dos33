@@ -340,11 +340,11 @@ span.patch {
         */
         var _aHeaders = []; // array of Sticky objects
 
-        var doLoad = function( classSticky )
+        var doLoad = function( stickyClassName )
         {
-            // iterate over each element of class 'classSticky' ("sticky")
+            // iterate over each element of class 'stickyClassName' ("sticky")
             // http://stackoverflow.com/questions/5897122/accessing-elements-by-type-on-javascript
-            var aHeaders = document.getElementsByClassName( classSticky );
+            var aHeaders = document.getElementsByClassName( stickyClassName );
             var nHeaders = aHeaders.length;
             var iHeader  = 0;
             var tHeader  ;
