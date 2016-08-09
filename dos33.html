@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!--
 <span class="todo">TODO</span> add fixed header on scroll for filenames
@@ -283,7 +284,7 @@ span.patch {
 <script>
     // ========== Utility ==========
         // http://stackoverflow.com/questions/18953144/how-do-i-get-the-offset-top-value-of-an-element-without-using-jquery
-        function offset( elem )
+        function js_offset( elem )
         {
             var de   = document.documentElement;
             var box  = elem.getBoundingClientRect();
@@ -293,12 +294,12 @@ span.patch {
         }
 
         // http://stackoverflow.com/questions/11193453/find-the-vertical-position-of-scrollbar-without-jquery
-        function scrollTop () { return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop  }
+        function js_scrollTop() { return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop  }
 
         // *note* This SO is incorrect:
         //     http://stackoverflow.com/questions/31472754/wrap-a-around-div-without-jquery
         // type: 'div', 'a', etc.,
-        function wrap( child, type  )
+        function js_wrap( child, type  )
         {
             /*
                 Before:                     After:
@@ -352,11 +353,11 @@ span.patch {
             {
                 tHeader = aHeaders[ iHeader ];
 
-                var obj = wrap( tHeader, 'div' );
+                var obj = js_wrap( tHeader, 'div' );
                 var div = tHeader.parentNode;
                 div.setAttribute( 'class', '_sticky_header_' ); // dummy class so we know is auto-inserted
 
-                var y   = offset( div ).top;
+                var y   = js_offset( div ).top;
                 var h   = obj.clientHeight;
 
                 div.style.height = '' + h + 'px';
@@ -377,7 +378,7 @@ span.patch {
         };
 
         var doScroll = function() {
-            var winTop   = scrollTop();
+            var winTop   = js_scrollTop();
             var nHeader  = _aHeaders.length;
             var iLastVis = -1; // default to no headers have scrolled off the top of the page
 
