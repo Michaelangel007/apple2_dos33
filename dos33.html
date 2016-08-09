@@ -292,6 +292,10 @@ span.patch {
             return { top: top, left: left };
         }
 
+        function js_outerHeight( elem )
+        {
+            return elem.clientHeight;
+        }
         // http://stackoverflow.com/questions/11193453/find-the-vertical-position-of-scrollbar-without-jquery
         function js_scrollTop() { return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop  }
 
