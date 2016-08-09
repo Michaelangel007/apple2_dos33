@@ -1519,56 +1519,56 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1FE5:8E 5D 2A       023 SC0A        STX LBUFD
                     024 ;
                     025 SC1X        EQU *
-                    026             JSR GNBC        ; GET NON BLANK INPUT CHAR
-                    027             AND #$<span class='n'>7F</span>        ; MSB OF CHAR OFF
-                    028             EOR CMDNTB,Y    ; EOR WITH INPUT
-                    029             INY             ; INCREMENT TABLE INDEX
-                    030             ASL A           ; IF MSB OF EOR RESULT ON
-                    031             BEQ SC1A        ; IF RESULT NOT NOW ZERO
-                    032             PLA             ; THEN INPUT DOES NOT
-                    033             PHP             ; EQUAL ENTRY
-                    034 SC1A        BCC SC1X        ; LOOP FOR END OF ENTRY
+1FE8:20 A4 21       026             JSR GNBC        ; GET NON BLANK INPUT CHAR
+1FEB:29 7F          027             AND #$<span class='n'>7F</span>        ; MSB OF CHAR OFF
+1FED:59 84 28       028             EOR CMDNTB,Y    ; EOR WITH INPUT
+1FF0:C8             029             INY             ; INCREMENT TABLE INDEX
+1FF1:0A             030             ASL A           ; IF MSB OF EOR RESULT ON
+1FF2:F0 02          031             BEQ SC1A        ; IF RESULT NOT NOW ZERO
+1FF4:68             032             PLA             ; THEN INPUT DOES NOT
+1FF5:08             033             PHP             ; EQUAL ENTRY
+1FF6:90 F0          034 SC1A        BCC SC1X        ; LOOP FOR END OF ENTRY
                     035 ;
-                    036             PLP             ; IF INPUT EQUALS END           ;
-                    037             BEQ SYNTAX      ; THEN GO SYNTAX
+1FF8:28             036             PLP             ; IF INPUT EQUALS END           ;
+1FF9:F0 20          037             BEQ SYNTAX      ; THEN GO SYNTAX
                     038 ;
-                    039             LDA CMDNTB,Y    ; IF NEXT TABLE CHAR NOT ZERO
-                    040             BNE SC0         ; THENSCANTHE NEXT TABLE ENTRY  ; /sarcasm whoneedsspacesanyways
+1FFB:B9 84 A8       039             LDA CMDNTB,Y    ; IF NEXT TABLE CHAR NOT ZERO
+1FFE:D0 D6          040             BNE SC0         ; THENSCANTHE NEXT TABLE ENTRY  ; /sarcasm whoneedsspacesanyways
                     041 CNF         EQU *           ; COMMAND NOT FOUND
-                    042             LDA LBUFF       ; LINE IS A CNOTROL-D           ; *spelling* Control-D
-                    043             CMP CCHAR       ; THEN THIS IS A
-                    044             BEQ CNF1        ; POSSIBLE SYNTAX ERROR, ELSE 
-                    045             JMP PRRTN       ; ITS A BASIC INPUT LINE
+2000:AD 00 02       042             LDA LBUFF       ; LINE IS A CNOTROL-D           ; *spelling* Control-D
+2003:CD B2 2A       043             CMP CCHAR       ; THEN THIS IS A
+2006:F0 03          044             BEQ CNF1        ; POSSIBLE SYNTAX ERROR, ELSE 
+2008:4C A4 1F       045             JMP PRRTN       ; ITS A BASIC INPUT LINE
                     046 CNF1        EQU *
-                    047             LDA LBUFF+<span class='n'>1</span>     ; GET NEXT CHAR
-                    048             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; <a class='magic' name='_'>magic number</a> CR_HI
-                    049             BNE CSERR       ; BR IF CR
-                    050             JSR CLRSTS      ; CLEAR THE STATES
-                    051             JMP CMDRTN      ; CNTL-D ONLY
+200B:AD 01 02       047             LDA LBUFF+<span class='n'>1</span>     ; GET NEXT CHAR
+200E:C9 8D          048             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; <a class='magic' name='_'>magic number</a> CR_HI
+2010:D0 06          049             BNE CSERR       ; BR IF CR
+2012:20 5B 27       050             JSR CLRSTS      ; CLEAR THE STATES
+2015:4C 95 1F       051             JMP CMDRTN      ; CNTL-D ONLY
                     052 ;
-                    053 CSERR       JMP ESYNTX
+2018:4C C4 26       053 CSERR       JMP ESYNTX
 <hr>                    054             PAGE                                            ; === Page <a class='page' name='page17'>17</a> ===
                     055 ;
                     056 ; SYNTAX - FIGURE OUT WHAT WE GOT HERE 
                     057 ;
                     058 SYNTAX EQU *
-                    059             ASL CMDNO
-                    060             LDY CMDNO
-                    061             JSR TSTRUN
-                    062             BCC SYN1
-                    063             LDA #RNONLY
-                    064             AND CMDSTB,Y
-                    065             BEQ SYN1
-                    066             LDA #$<span class='n'>F</span>                                         ; <a class='magic' name='_'>magic number</a> ERR_NOT_DIRECT
-                    067             JMP ERROR
-                    068 SYN1        CPY #<span class='n'>6</span>                                          ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span> CMD_RUN
-                    069             BNE SYN1A
-                    070             STY PROMPT      ; CHANGE PROMPT TO INSURE APPLESOFT RUN DETECT.
-                    071 SYN1A       LDA #FN1
-                    072             AND CMDSTB,Y
-                    073             BEQ SN10
-                    074             JSR CLRFNS
-                    075             PHP             ; SAVE EQ STATUS
+201B:0E 5F 2A       059             ASL CMDNO
+201E:AC 5F 2A       060             LDY CMDNO
+2021:20 5E 26       061             JSR TSTRUN
+2024:90 0C          062             BCC SYN1
+2026:A9 02          063             LDA #RNONLY
+2028:39 09 29       064             AND CMDSTB,Y
+202B:F0 05          065             BEQ SYN1
+202D:A9 0F          066             LDA #$<span class='n'>F</span>                                         ; <a class='magic' name='_'>magic number</a> ERR_NOT_DIRECT
+202F:4C D2 26       067             JMP ERROR
+2032:C0 06          068 SYN1        CPY #<span class='n'>6</span>                                          ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span> CMD_RUN
+2034:D0 02          069             BNE SYN1A
+2036:84 33          070             STY PROMPT      ; CHANGE PROMPT TO INSURE APPLESOFT RUN DETECT.
+2038:A9 20          071 SYN1A       LDA #FN1
+203A:39 09 29       072             AND CMDSTB,Y
+203D:F0 61          073             BEQ SN10
+203F:20 95 20       074             JSR CLRFNS
+2042:08             075             PHP             ; SAVE EQ STATUS
                     076 ;
                     077 SN2 EQU *
                     078             JSR GNBC        ; GET NON BLANK CHAR
@@ -1710,20 +1710,20 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     214             ASL A           ; MULT BY 4
                     215             ASL A           
                     216             TAY             
-                    217 ;
-                    218             LDA CNUM+<span class='n'>1</span>      ; IF RESULT NUM HI IS
-                    219             BNE SP5         ; GT 0, THEN GT LOW RANGE
-                    220             LDA CNUM        ; TEST RESULT LOW
-                    221             CMP OPTAB3,Y    ; WITH LOW RANGE (LOW)
-                    222             BCC SERR3       ; BR IF RESULT &lt; LR
-                    223             LDA CNUM+<span class='n'>1</span>      
-                    224 SP5         CMP OPTAB3+<span class='n'>3</span>,Y  
-                    225             BCC SP6         ; BR IF LESS
-                    226 SERR3A      BNE SERR3       ; BR IF GREATER
-                    227             LDA CNUM        
-                    228             CMP OPTAB3+<span class='n'>2</span>,Y  
-                    229             BCC SP6         ; BR IF LESS
-                    230             BNE SERR3A      ; BR IF GREATER
+                    217 ;                                                           ; Compare 16-bit cnum &gt;= low, cnum &lt; max
+                    218             LDA <a class='v' href='#CNUM'  >CNUM</a>+<span class='n'>1</span>      ; IF RESULT NUM HI IS           ; +1 = cnum.hi; is cnum &lt; 256 ? i.e. only 8-bit
+                    219             BNE <a class='x' href='#SP5'   >SP5</a>         ; GT 0, THEN GT LOW RANGE
+                    220             LDA <a class='v' href='#CNUM'  >CNUM</a>        ; TEST RESULT LOW               ; +0 = cnum.low &lt;
+                    221             CMP <a class='v' href='#OPTAB3'>OPTAB3</a>,Y    ; WITH LOW RANGE (LOW)          ; +0 = OptValMin[x].Lo ?
+                    222             BCC <a class='x' href='#SERR3' >SERR3</a>       ; BR IF RESULT &lt; LR
+                    223             LDA <a class='v' href='#CNUM'  >CNUM</a>+<span class='n'>1</span>                                      ; +1 = cnum.hi &lt;
+                    224 <a class='f' name='SP5'     >SP5         </a>CMP <a class='v' href='#OPTAB3'>OPTAB3</a>+<span class='n'>3</span>,Y                                  ; +3 = OptValMax[x].Hi ?
+                    225             BCC <a class='x' href='#SP6'   >SP6</a>         ; BR IF LESS
+                    226 <a class='f' name='SERR3A'  >SERR3A      </a>BNE <a class='x' href='#SERR3'>SERR3</a>       ; BR IF GREATER
+                    227             LDA <a class='v' href='#CNUM'  >CNUM</a>        
+                    228             CMP <a class='v' href='#OPTAB3'>OPTAB3</a>+<span class='n'>2</span>,Y                                  ; +2 = OptValMax[x].Lo
+                    229             BCC <a class='x' href='#SP6'   >SP6</a>         ; BR IF LESS
+                    230             BNE <a class='x' href='#SERR3A'>SERR3A</a>      ; BR IF GREATER
                     231 ;
                     232 SP6         LDA TEMP1A      ; IF PASS 1, THEN
                     233             BNE SP1         ; DONT STORE RESULT
@@ -1733,7 +1733,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     237 ;
                     238             LDA <a class='v' href='#CNUM'>CNUM</a>+<span class='n'>1</span>      ; STORE THE RESULT
                     <a class='line' name='CMDSCAN.239'>239</a>             STA <a class='v' href='#CUROPT'>CUROPT</a>+<span class='n'>1</span>,Y
-                    240             LDA CNUM
+                    240             LDA <a class='v' href='#CNUM'>CNUM</a>
 <hr>                    241             STA <a class='v' href='#CUROPT'>CUROPT</a>,Y                                    ; === Page <a class='page' name='page20'>20</a> ===
                     242 SP7         JMP <a class='x' href='#SP1'>SP1</a>         ; GO FOR NEXT OPT
                     243 ;
@@ -3123,15 +3123,16 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 294B:40 20 10 08    104             DFB V,D,S,L                                     ;    DFB 'C'+$80, CIO+MC    ; MC was defined in <a class='file' href='#FDOSENT'>FDOSENT</a>, <a class='e' href='#MC'>MC</a>
 294F:04 02 01 C0    105             DFB R,B,ADR,CIO+MC                              ;    DFB 'I'+$80, CIO+MI    ; CIO = FLAG_CIO = $80 = minus, See <a class='e' href='#CIO'>CIO</a>, <a class='file' href='#CMDSCAN'>CMDSCAN</a>, Line #<a class='line' href='#CMDSCAN.204'>204</a>, and <a class='v' href='#OPTAB2'>OPTAB2</a>
 2953:A0 90          106             DFB CIO+MI,CIO+MO                               ;    DFB 'O'+$80, CIO+MO
-                    107 <a class='d' name='OPTAB3'   >OPTAB3 </a>EQU *                                                ; /sarcasm Yay for more crappy table formatting
-                                                                                    ;     [Min, Max]
-                                                                                    ;     DW 0, 254    ; Volume
-                                                                                    ;     DW 1, 2      ; Drive
-                                                                                    ;     DW 1, 7      ; Slot
-                                                                                    ;     DW 1, 32767  ; Length
-                                                                                    ;     DW 0, 32767  ; Record Number
-                                                                                    ;     DW 0, 32767  ; Record byte number
-                                                                                    ;     DW 0, $FFFF  ; Address
+                    107 <a class='d' name='OPTAB3'   >OPTAB3      </a>EQU *                                           ; /sarcasm Yay for more crappy table formatting and naming
+                                                                                    ;              [Min, Max]
+                                                                                    ; OptValMin  DW    0         ; Volume
+                                                                                    ; OptValMax  DW       254
+                                                                                    ;            DW    1, 2      ; Drive
+                                                                                    ;            DW    1, 7      ; Slot
+                                                                                    ;            DW    1, 32767  ; Length
+                                                                                    ;            DW    0, 32767  ; Record Number
+                                                                                    ;            DW    0, 32767  ; Record byte number
+                                                                                    ;            DW    0, $FFFF  ; Address
 2955:00 00          108             DW <span class='n'>0</span>                                            ; [0]
 2957:FE 00          109             DW <span class='n'>254</span>          ; VOL RANGE
 2959:01 00          110             DW <span class='n'>1</span>                                            ; [1]
