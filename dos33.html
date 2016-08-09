@@ -328,16 +328,9 @@ span.patch {
         <div class='sticky'> Header 3 </div>
     */
     // Inspired from: https://codepen.io/joeaugie/pen/RWbPzo
-    var StickyHeaders = (function() {
-        /*
-            var Sticky =
-            {
-                height : 0,  // original height
-                top    : 0,  // original position
-                element: div // our new div parent of the original div sticky header
-            };
-        */
-        var _aHeaders = []; // array of Sticky objects
+var StickyHeaders = (function() {
+
+    var _aHeaders = [];
 
         var Init = function( stickyClassName )
         {
@@ -366,8 +359,11 @@ span.patch {
                     top    : y,  // original position
                     element: div // injected parent that we will adjust styles on
                 };
-                _aHeaders.push( sticky ); // stash in array so when we scroll we can adjust ALL the sticky header's y position
+                _aHeaders.push( sticky ); // stash in array so when we scroll we can adjust ALL the sticky header's y position as needed
             }
+
+            console.log( "Sticky ClassName: ", stickyClassName );
+            console.log( "Stickies found: ", _aHeaders.length );
 
             // Add callback when scrolling starts/stops
             window.onscroll = function()
