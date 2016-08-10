@@ -1829,109 +1829,109 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     059             CMP #10
                     060             BCS GN4         ; BR IF NOT NUM
                     061             JSR GN5         ; OLD*2                         ; <b>Test Time</b>: 1. Describe what GN5 does without looking at the code. 2. Describe what MUL2xCNUM does.
-                    062             TAX                                             ; n*10 = n*8 + n*2
-                    063             LDA #0
-                    064             ADC CNUM+1
-                    065             TAY
-                    066             JSR GN5
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
+                    062             ADC CNUM        ; PLUS NEW
+                    063             TAX                                             ; n*10 = n*8 + n*2
+                    064             LDA #<span class='n'>0</span>
+                    065             ADC CNUM+<span class='n'>1</span>
+                    066             TAY
+                    067             JSR GN5         ; OLD*4
+                    068             JSR GN5         ; OLD*8
+                    069             TXA             ; OLD*8 + OLD*2 + NEW
+                    070             ADC CNUM
+                    071             STA CNUM        ; OLD*10 + NEW
+                    072             TYA
+                    073             ADC CNUM+1
+                    074             STA CNUM+1
+                    075             BCC GN2
+                    076 ;
+                    077 GN4         EQU *
+                    078             SEC
+                    079             RTS             ; DONE
+                    080 GN5         EQU *
+                    081             ASL CNUM        ; CNUM*2
+                    082             ROL CNUM+1
+                    083             RTS
+                    084             PAGE
+                    085 ;
+                    086 HEXNUM      EQU *
+                    087             PLP
+                    088 HN0         EQU *
+                    089             JSR GNBC        ;
+                    090 ;
+                    091 SEC
+                    092             SBC #$B0        ; CHAR - ASCII0                 ; ASCII is 7-bit, not 8-bit, SBC #'0'+$80
+                    093             BMI GN4         ; BR IF LT 0                    ; signed c = GetNextLineBufferChar()
+                    094             CMP #10         ; IS IT LT 10                   ; if ((c - '0') &lt; 0) return;
+                    095             BCC HN1         ; BR IF LT                      ; if (c &gt;= 10) c -= ('A' -'9');
+                    096             SBC #$7         ; SUB 7 FOR ASCII A             ; <a class='magic' name='_'>magic number</a> 7 = ('A' -'9')
+                    097             BMI GN4         ; BR IF LT A 
+                    098             CMP #16         ; TEST GT 15 
+                    099             BCS GN4         ; BR GT 15                      ; A = digit = 0..F
+                    100 HN1         LDX #4                                          ; CNUM &lt;&lt;= 4; // shift left one nibble
+                    101 HN2         JSR GN5         ; OLD*16
+                    102             DEX             ;LOOP 4 TIMES ONLY
+                    103             BNE HN2
+                    104             ORA CNUM        ; OR IN NEW                     ; CNUM += digit
+                    105             STA CNUM        ; SAVE NEW
+                    106             JMP HN0         ; GO FOR NEXT CHAR
+                    107             PAGE
+                    108 ;
+                    109 ;  EPR - EXECUTE PR#
+                    110 ;
+                    111 EPR         EQU *
+                    112             LDA CNUM        ; GET PORT                      ; Get *slot* #, not port
+                    113             JMP OUTPRT      ; GO DO IT
+                    114 ;
+                    115 ; EIN - EXECUTE IN#
+<hr>                    116 ;                                                           ; === <a class='page' name='page152'>152</a> ===
+                    117 EIN         EQU *
+                    118             LDA CNUM        ; GET PORT
+                    119             JMP INPRT       ; GO DO IT
+                    120 ;
+                    121 ; EMON - EXECUTE MONITOR CMD
+                    122 ;
+                    123 EMON        EQU *
+                    124             LDA MONMOD      ; GET CURRENT BITS
+                    125             ORA IMBITS      ; OR IN NEW BITS
+                    126             STA MONMOD      ; SET NEW MODE
+                    127             RTS
+                    128 ;
+                    129 ; ENOMON - EXECUTE NO MONITOR CMD
+                    130 ;
+                    131 ENOMON      EQU *
+                    132             BIT IMBITS
+                    133             BVC ENM1
+                    134             JSR PRCRIF
+                    135 ENM1        EQU *
+                    136             LDA #$<span class='n'>70</span>                                        ; <a class='magic' name='_'>magic number</a>
+                    137             EOR IMBITS          ; INVERT INPUT BITS
+                    138             AND MONMOD          ; AND WITH CURRENT
+                    139             STA MONMOD          ; SET NEW MODE
+                    140             RTS
+                    141             PAGE
+                    142 ;
+                    143 ; EMAXF - EXECUTE MAX FILES
+                    144 ;
+                    145 EMAXF       EQU *
+                    146             LDA #0              ; RESET EXECUTE
+                    147             STA ESTATE
+                    148             LDA CNUM            ; SAVE NEW NO FILES
+                    149             PHA
+                    150             JSR CLALL           ; GO CLOSE ALL FILES
+                    151             PLA
+                    152             STA CNFTBS          ; SET NEW NO FILE TBLS
+                    153             JMP BLDFTB          ; GO BUILD NEW ONES
+                    154 ;
+                    155 ; EDEL - DELETE A FILE
+                    156 ;
+                    157 EDEL        EQU *
+                    158             LDA #CRQDEL
+                    159             JSR OPEN
+                    160             JSR FILSRC
+                    161             LDY #0                                          ; <a class='dumb' name='_'>Common Code</a> WHY isn't this a common subroutine <span class='code'>ZEROFILE</span> ??
+                    162             TYA                                             ; <a class='x' href='#BFT1'>BFT1</a>, <a class='x' href='#CLS'>CLS</a>, and the Append bug patch <a class='x' href='#CLOSFILE'>CLOSFILE</a> <i>all</i> do the same thing!
+                    163             STA (ZPGWRK),Y      ; RESET FN                  ; Sadly, <a class='x' href='#INITD'>INITD</a> can't be re-factored.
+                    164             RTS                                             ;
                     165 
                     166 
                     167 
