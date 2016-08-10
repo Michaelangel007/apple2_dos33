@@ -1757,13 +1757,13 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 2180:20 5B 27       261             JSR <a class="x" href="#CLRSTS">CLRSTS</a>                                      ; Clear States
 2183:20 AE 21       262             JSR <a class="x" href="#CLRCCB">CLRCCB</a>      ; GO CLEAR CCB                  ; /sarcasm I never would have guessed
                     263 <a class="f" name="ECMD"   >ECMD        </a>EQU *
-2186:AD 5F 2A       <a class='line' name='CMDSCAN.264'>264</a>             LDA <a class="v" href="#CMDNO">CMDNO</a>       ; COMMAND NO
+2186:AD 5F 2A       <a class='line' name='CMDSCAN.264'>264</a>             LDA <a class="v" href="#CMDNO">CMDNO</a>       ; COMMAND NO                    ; <i>Think, McFly!</i>
 2189:AA             265             TAX             ; IS CMD EXEC TAB INDEX         ; <a class='mem' name='_2189'>wastes</a> 1 byte /sarcasm If only we had <span class='code'>LDX CMDNO</span> on Line #<a class='line' href='#CMDSCAN.264'>264</a>
 218A:BD 1F 1D       266             LDA <a class="v" href="#CMDETAB">CMDETAB</a>+1,X ; GET CMD ADR
 218D:48             267             PHA             ; ONTO STACK
 218E:BD 1E 1D       268             LDA <a class="v" href="#CMDETAB">CMDETB</a>,X
 2191:48             269             PHA
-2192:60             270             RTS             ; AND GOTO COMMAND              ; classic technique of jump table, use RTS to "call" the function pointer
+2192:60             270             RTS             ; AND GOTO COMMAND              ; classic technique of 6502 jump table, use RTS to "call" the function pointer
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="XOPNCLS">XOPNCLS</a> - Execute Open / Close, Page <a class="page" name="page150">150</a>, <a class='ts' href='#T1S0'>T1S0</a> - <a class='ts' href='#T1S2'>T1S2</a>, $<span class='n'>A193</span> .. $<span class='n'>A330</span>  ===<hr class='join'><hr></div>
@@ -1804,7 +1804,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     034 ;
                     035 ; GETNUM - CONVERT ASCII INPUT TO NUMERIC
                     036 ;
-                    037 <a class='f' name='GETNUM'   >GETNUM      </a> EQU *
+                    037 <a class='f' name='GETNUM'   >GETNUM      </a>EQU *                                           ; cnum = atoi();
 21B9:A9 00          038             LDA #<span class='n'>0</span>          ; CLEAR WORK AREA
 21BB:85 44          039             STA CNUM
 21BD:85 45          040             STA CNUM+<span class='n'>1</span>
@@ -1838,7 +1838,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     068             JSR GN5         ; OLD*8
                     069             TXA             ; OLD*8 + OLD*2 + NEW
                     070             ADC CNUM
-                    071             STA CNUM        ; OLD*10 + NEW
+                    071             STA CNUM        ; =OLD*10 + NEW
                     072             TYA
                     073             ADC CNUM+1
                     074             STA CNUM+1
@@ -1848,7 +1848,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     078             SEC
                     079             RTS             ; DONE
                     080 GN5         EQU *
-                    081             ASL CNUM        ; CNUM*2
+                    081             ASL CNUM        ; CNUM * 2
                     082             ROL CNUM+1
                     083             RTS
                     084             PAGE
@@ -1856,205 +1856,205 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     086 HEXNUM      EQU *
                     087             PLP
                     088 HN0         EQU *
-                    089             JSR GNBC        ;
-                    090 ;
-                    091 SEC
-                    092             SBC #$B0        ; CHAR - ASCII0                 ; ASCII is 7-bit, not 8-bit, SBC #'0'+$80
-                    093             BMI GN4         ; BR IF LT 0                    ; signed c = GetNextLineBufferChar()
-                    094             CMP #10         ; IS IT LT 10                   ; if ((c - '0') &lt; 0) return;
-                    095             BCC HN1         ; BR IF LT                      ; if (c &gt;= 10) c -= ('A' -'9');
-                    096             SBC #$7         ; SUB 7 FOR ASCII A             ; <a class='magic' name='_'>magic number</a> 7 = ('A' -'9')
-                    097             BMI GN4         ; BR IF LT A 
-                    098             CMP #16         ; TEST GT 15 
-                    099             BCS GN4         ; BR GT 15                      ; A = digit = 0..F
-                    100 HN1         LDX #4                                          ; CNUM &lt;&lt;= 4; // shift left one nibble
-                    101 HN2         JSR GN5         ; OLD*16
-                    102             DEX             ;LOOP 4 TIMES ONLY
-                    103             BNE HN2
-                    104             ORA CNUM        ; OR IN NEW                     ; CNUM += digit
-                    105             STA CNUM        ; SAVE NEW
-                    106             JMP HN0         ; GO FOR NEXT CHAR
-                    107             PAGE
-                    108 ;
-                    109 ;  EPR - EXECUTE PR#
-                    110 ;
-                    111 EPR         EQU *
-                    112             LDA CNUM        ; GET PORT                      ; Get *slot* #, not port
-                    113             JMP OUTPRT      ; GO DO IT
-                    114 ;
-                    115 ; EIN - EXECUTE IN#
-<hr>                    116 ;                                                           ; === <a class='page' name='page152'>152</a> ===
-                    117 EIN         EQU *
-                    118             LDA CNUM        ; GET PORT
-                    119             JMP INPRT       ; GO DO IT
-                    120 ;
-                    121 ; EMON - EXECUTE MONITOR CMD
-                    122 ;
-                    123 EMON        EQU *
-                    124             LDA MONMOD      ; GET CURRENT BITS
-                    125             ORA IMBITS      ; OR IN NEW BITS
-                    126             STA MONMOD      ; SET NEW MODE
-                    127             RTS
-                    128 ;
-                    129 ; ENOMON - EXECUTE NO MONITOR CMD
-                    130 ;
-                    131 ENOMON      EQU *
-                    132             BIT IMBITS
-                    133             BVC ENM1
-                    134             JSR PRCRIF
-                    135 ENM1        EQU *
-                    136             LDA #$<span class='n'>70</span>                                        ; <a class='magic' name='_'>magic number</a>
-                    137             EOR IMBITS          ; INVERT INPUT BITS
-                    138             AND MONMOD          ; AND WITH CURRENT
-                    139             STA MONMOD          ; SET NEW MODE
-                    140             RTS
-                    141             PAGE
-                    142 ;
-                    143 ; EMAXF - EXECUTE MAX FILES
-                    144 ;
-                    145 EMAXF       EQU *
-                    146             LDA #0              ; RESET EXECUTE
-                    147             STA ESTATE
-                    148             LDA CNUM            ; SAVE NEW NO FILES
-                    149             PHA
-                    150             JSR CLALL           ; GO CLOSE ALL FILES
-                    151             PLA
-                    152             STA CNFTBS          ; SET NEW NO FILE TBLS
-                    153             JMP BLDFTB          ; GO BUILD NEW ONES
-                    154 ;
-                    155 ; EDEL - DELETE A FILE
-                    156 ;
-                    157 EDEL        EQU *
-                    158             LDA #CRQDEL
-                    159             JSR OPEN
-                    160             JSR FILSRC
-                    161             LDY #0                                          ; <a class='dumb' name='_'>Common Code</a> WHY isn't this a common subroutine <a class='link code' name='ZEROFILE'>ZEROFILE</a> ??
-                    162             TYA                                             ; <a class='x' href='#BFT1'>BFT1</a>, <a class='x' href='#CLS'>CLS</a>, and the Append bug patch <a class='x' href='#CLOSFILE'>CLOSFILE</a> <i>all</i> do the same thing!
-                    163             STA (ZPGWRK),Y      ; RESET FN                  ; Sadly, <a class='x' href='#INITD'>INITD</a> can't be re-factored.
-                    164             RTS                                             ;
-                    165 
-                    166 
-                    167 
-                    168 
-                    169 
-                    170 
-                    171 
-                    172 
-                    173 
-                    174 
-                    175 
-                    176 
-                    177 
-                    178 
-                    179 
-                    180 
-                    181 
-                    182 
-                    183 
-                    184 
-                    185 
-                    186 
-                    187 
-                    188 
-                    189 
-                    190 
-                    191 
-                    192 
-                    193 
-                    194 
-                    195 
-                    196 
-                    197 
-                    198 
-                    199 
-                    200 
-                    201 
-                    202 
-                    203 
-                    204 
-                    205 
-                    206 
-                    207 
-                    208 
-                    209 
-                    210 
-                    211 
-                    212 
-                    213 
-                    214 
-                    215 
-                    216 
-                    217 
-                    218 
-                    219 
-                    220 
-                    221 
-                    222 
-                    223 
-                    224 
-                    225 
-                    226 
-                    227 
-                    228 
-                    229 
-                    230 
-                    231 
-                    232 
-                    233 
-                    234 
-                    235 
-                    236 
-                    237 
-                    238 
-                    239 
-                    240 
-                    241 
-                    242 
-                    243 
-                    244 
-                    245 
-                    246 
-                    247 
-                    248 
-                    249 
-                    250 
-                    251 
-                    252 
-                    253 
-                    254 
-                    255 
-                    256 
-                    257 
-                    258 
-                    259 
-                    260 
-                    261 
-                    262 
-                    263 
-                    264 
-                    265 
-                    266 
-                    267 
-                    268 
-                    269 
-                    270 
-                    271 
-                    272 
-                    273 
-                    274 
-                    275 
-                    276 
-                    277 
-                    278 
-                    279 
-                    280 
-                    281 
-                    282 
-                    283 
-                    284 
-                    285 
-                    286 
-                    287 
+                    089             JSR GNBC        ; GO GET CHAR
+                    090             BEQ GN2A        ; BR IF CR OR COMMA
+                    091 ;
+                    092 SEC
+                    093             SBC #$B0        ; CHAR - ASCII0                 ; ASCII is 7-bit, not 8-bit, SBC #'0'+$80
+                    094             BMI GN4         ; BR IF LT0                     ; signed c = GetNextLineBufferChar()
+                    095             CMP #<span class='n'>10</span>         ; IS IT LT10                    ; if ((c - '0') &lt; 0) return;
+                    096             BCC HN1         ; BR IF LT                      ; if (c &gt;= 10) c -= ('A' -'9');
+                    097             SBC #$<span class='n'>7</span>         ; SUB 7 FOR ASCII A             ; <a class='magic' name='_'>magic number</a> 7 = ('A' -'9')
+                    098             BMI GN4         ; BR IF LT A 
+                    099             CMP #<span class='n'>16</span>         ; TEST GT 15 
+                    100             BCS GN4         ; BR GT 15                      ; A = digit = 0..F
+                    101 HN1         LDX #<span class='n'>4</span>                                          ; CNUM &lt;&lt;= 4; // shift left one nibble
+                    102 HN2         JSR GN5         ; OLD*16
+                    103             DEX             ;LOOP 4 TIMES ONLY
+                    104             BNE HN2
+                    105             ORA CNUM        ; OR IN NEW                     ; CNUM += digit
+                    106             STA CNUM        ; SAVE NEW
+                    107             JMP HN0         ; GO FOR NEXT CHAR
+                    108             PAGE
+                    109 ;
+                    110 ;  EPR - EXECUTE PR#
+                    111 ;
+                    112 EPR         EQU *
+                    113             LDA CNUM        ; GET PORT                      ; Get *slot* #, not port
+                    114             JMP OUTPRT      ; GO DO IT
+                    115 ;
+                    116 ; EIN - EXECUTE IN#
+<hr>                    117 ;                                                           ; === <a class='page' name='page152'>152</a> ===
+                    118 EIN         EQU *
+                    119             LDA CNUM        ; GET PORT
+                    120             JMP INPRT       ; GO DO IT
+                    121 ;
+                    122 ; EMON - EXECUTE MONITOR CMD
+                    123 ;
+                    124 EMON        EQU *
+                    125             LDA MONMOD      ; GET CURRENT BITS
+                    126             ORA IMBITS      ; OR IN NEW BITS
+                    127             STA MONMOD      ; SET NEW MODE
+                    128             RTS
+                    129 ;
+                    130 ; ENOMON - EXECUTE NO MONITOR CMD
+                    131 ;
+                    132 ENOMON      EQU *
+                    133             BIT IMBITS
+                    134             BVC ENM1
+                    135             JSR PRCRIF
+                    136 ENM1        EQU *
+                    137             LDA #$<span class='n'>70</span>                                        ; <a class='magic' name='_'>magic number</a>
+                    138             EOR IMBITS          ; INVERT INPUT BITS
+                    139             AND MONMOD          ; AND WITH CURRENT
+                    140             STA MONMOD          ; SET NEW MODE
+                    141             RTS
+                    142             PAGE
+                    143 ;
+                    144 ; EMAXF - EXECUTE MAX FILES
+                    145 ;
+                    146 EMAXF       EQU *
+                    147             LDA #<span class='n'>0</span>              ; RESET EXECUTE
+                    148             STA ESTATE
+                    149             LDA CNUM            ; SAVE NEW NO FILES
+                    150             PHA
+                    151             JSR CLALL           ; GO CLOSE ALL FILES
+                    152             PLA
+                    153             STA CNFTBS          ; SET NEW NO FILE TBLS
+                    154             JMP BLDFTB          ; GO BUILD NEW ONES
+                    155 ;
+                    156 ; EDEL - DELETE A FILE
+                    157 ;
+                    158 EDEL        EQU *
+                    159             LDA #CRQDEL
+                    160             JSR OPEN
+                    161             JSR FILSRC
+                    162             LDY #<span class='n'>0</span>                                          ; <a class='dumb' name='_'>Common Code</a> WHY isn't this a common subroutine <a class='link code' name='ZEROFILE'>ZEROFILE</a> ??
+                    163             TYA                                             ; <a class='x' href='#BFT1'>BFT1</a>, <a class='x' href='#CLS'>CLS</a>, and the Append bug patch <a class='x' href='#CLOSFILE'>CLOSFILE</a> <i>all</i> do the same thing!
+                    164             STA (ZPGWRK),Y      ; RESET FN                  ; Sadly, <a class='x' href='#INITD'>INITD</a> can't be re-factored.
+                    165             RTS                                             ;
+                    166 ;
+                    167 ;  ELOCK - LOCK A FILE
+                    168 ;
+                    169 ELOCK       EQU *
+                    170             LDA #CRQLCK         ; SET LOCK
+                    171             BNE ELGO                                        ; <a class='mem' name='_'>wastes</a> 1 byte, use <span class='code'>DFB $2C ; BIT $abs</span> to skip next instruction
+                    172 ;
+                    173 ; EUNLK - UNLOCK A FILE
+                    174 ;
+                    175 EUNLK       EQU *
+                    176             LDA #CRQUNL         ; SET UNLOCK
+                    177 ELGO        EQU *                                           ; Holy shit! Common Code for ELOCK, EUnlock, EVerify but not to rain on our parade ...
+                    178             JSR OPEN            ; OPEN FILE &amp; UNLOCK        ; ... <a class='dumb' name='CommonCodeELGO'>Common Code</a> Why is <a class='x' href='#ELGO'>ELGO</a> and <a class='x' href='#LCKGO'>LCKGO</a> different???
+                    179             JMP ECLOSE          ; CLOSE IT
+<hr>                    180 ;                                                           ; === Page <a class='page' name='pagename153'>153</a>
+                    181 ; EVAR - VERIFY A FILE
+                    182 ;
+                    183 EVAR        EQU *
+                    184             LDA #CRQVAR         ; SET VARIFY
+                    185             BNE ELGO
+                    186             PAGE
+                    187 ;
+                    188 ; EREN - RENAME
+                    189 ;
+                    190 EREN        EQU *
+                    191             LDA FN2ADR          ; MOVE FILE NAME2
+                    192             STA CCBFN2          
+                    193             LDA <a class='v' href='#FN2ADR'>FN2ADR</a>+<span class='n'>1</span>        
+                    194             STA <a class='v' href='#CCBFN2'>CCBFN2</a>+<span class='n'>1</span>        
+                    195             LDA #CRQRNM         
+                    196             STA TEMP1A          ; SET RENAME
+                    197             JSR EO3             ; GO OPEN AND RENAME
+                    198             JMP ECLOSE          ; GO CLOSE
+                    199 ;
+                    200 ; EAPND - OPEN FILE FOR APPEND
+                    201 ;
+                    202 EAPND       EQU *
+                    203             JSR EOPEN           ; GO OPEN
+                    204 AP1         EQU *
+                    205             JSR RBYTE           ; READ A BYTE
+                    206             BNE AP1             ; BR IF NOT ZERO
+                    207 ;                                                               ; <b>Test Time!</b> Without looking at the code, give a summary of why 
+                    208             JMP BUMPER          ; GO TO PATCH FOR APPEND FIX    ; a) <span class='code'>BUMPER</span> exists, and
+                    209             PAGE                                                ; b) <span class='code'>APPEND_FIX</span>.
+                    210 ;
+                    211 ; EOPEN - OPEN A FILE
+                    212 ;
+                    213 EOPEN       LDA #<span class='n'>0</span>   FIX TYPE MISMATCH DETECTION
+                    214             JMP SV1             ;(CALLS EOPN1)                  ; Why not JSR ???
+                    215 EOPN1       LDA #CRQOPN
+                    216 OPEN        EQU *
+                    217             STA TEMP1A
+                    218             LDA CL
+                    219             BNE EO1
+                    220             LDA CL+<span class='n'>1</span>
+                    221             BNE EO1
+                    222             LDA #<span class='n'>1</span>
+                    223             STA CL
+                    224 EO1         EQU *
+                    225             LDA CL
+                    226             STA CCBRLN
+                    227             LDA CL+<span class='n'>1</span>
+                    228             STA CCBRLN+<span class='n'>1</span>
+                    229 EO3         EQU *
+                    230             JSR ECLOSE
+                    231 EO4         EQU *
+                    232             LDA CNUM+<span class='n'>1</span>
+                    233             BNE EO5
+                    234             JMP ENFA
+                    235 EO5         EQU *
+                    236             STA ZPGWRK+<span class='n'>1</span>
+                    237             LDA CNUM
+                    238             STA ZPGWRK
+                    239 EO6         EQU *
+                    240             JSR MVFN1
+                    241             JSR MVBUFP
+                    242             JSR OPNSUP
+<hr>                    243             LDA TEMP1A      ; SET OPEN REQ                  ; === <a class='page' name='page154'>154</a> ===
+                    244             STA CCBREQ
+                    245             JMP DOSGO       ; GO OPEN
+                    246             PAGE
+                    247 ;
+                    248 ; ECLOSE - EXECUTE CLOSE FILE COMMAND
+                    249 ;
+                    250 ECLOSE      EQU *
+                    251             LDA FNAME1
+                    252             CMP #$<span class='n'>A0</span>                                        ; #' '+$80 aka SPC_HI
+                    253             BEQ CLALL
+                    254             JSR FILSRC      ; GO FIND FILE
+                    255             BCS CL2         ; BR IF NOT FOUND
+                    256             JSR CLOSE       ; GO CLOSE
+                    257             JMP ECLOSE      ; GO SEE IF ANY MORE OPEN
+                    258 ;
+                    259 ; CLOSE - CLOSE A FILE
+                    260 ;
+                    261 CLOSE       EQU *
+                    262             JSR TSTEXC
+                    263             BNE CLX
+                    264             LDA #<span class='n'>0</span>
+                    265             STA ESTATE
+                    266 CLX         EQU *
+                    267             LDY #<span class='n'>0</span>          ; CLEAR 1ST FN                  ; [.. <a class='mem' name='_'>wastes</a> 2 bytes, see <a class='link' href='#ZEROFILE'>ZEROFILE</a> note
+                    268             TYA             ; CHAR TO ZERO                  ;  ..
+                    269             STA (ZPGWRK),Y                                  ;  ..]
+                    270             JSR MVBUFP      ; MOVE BUFFER PTRS
+                    271             LDA #CRQCLS     ; SET CLOSE
+                    272             STA CCBREQ
+                    273             JMP DOSGO
+                    274 ;
+                    275 ; CLALL - CLOSE ALL FILES
+                    276 ;
+                    277 CLALL       EQU *
+                    278             JSR TSINIT      ; GO INIT FILE SEARCH
+                    279             BNE CL1 
+                    280 CL0         EQU *
+                    281             JSR TXNXT       ; NEXT ENTRY
+                    282             BEQ CL2         ; BR IF NO MORE
+                    283  CL1        EQU *
+                    284             JSR TXTEXC
+                    285             BEQ CL0
+                    286             JSR TSTOPEN
+                    287             BEQ CL0
 232A:20 FC A2       288             JSR CLOSE       ; GO CLOSE
 232D:4C 16 23       289             JMP CLALL       ; START OVER
 2330:60             290 CL2         RTS             ; DONE
