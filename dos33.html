@@ -1621,7 +1621,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     125             LDY #<span class='n'>60</span>                                         ; <a class='magic' name='_'>magic number</a> MAX_FILENAME_LEN * 2
                     126 CLRFNA      EQU *
                     127             LDA #$<span class='n'>A0</span>
-                    128 SN1         STA <a class='v' href='#FNAME1'>FNAME1</a>-<span class='n'>1</span>,Y  ; CLEAR FN1, FN2                ; *sigh* instead of -1 offset, LDY #MAX_FILENAME_LEN-1
+                    128 SN1         STA <a class='v' href='#FNAME1'>FNAME1</a>-<span class='n'>1</span>,Y  ; CLEAR FN1, FN2                ; *sigh* instead of -1 offset, <span class='code'>LDY #2*MAX_FILENAME_LEN-1</span>
                     129             DEY
                     130             BNE SN1
                     131             RTS
@@ -1928,7 +1928,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     158             LDA #CRQDEL
                     159             JSR OPEN
                     160             JSR FILSRC
-                    161             LDY #0                                          ; <a class='dumb' name='_'>Common Code</a> WHY isn't this a common subroutine <span class='code'>ZEROFILE</span> ??
+                    161             LDY #0                                          ; <a class='dumb' name='_'>Common Code</a> WHY isn't this a common subroutine <a class='link code' name='ZEROFILE'>ZEROFILE</a> ??
                     162             TYA                                             ; <a class='x' href='#BFT1'>BFT1</a>, <a class='x' href='#CLS'>CLS</a>, and the Append bug patch <a class='x' href='#CLOSFILE'>CLOSFILE</a> <i>all</i> do the same thing!
                     163             STA (ZPGWRK),Y      ; RESET FN                  ; Sadly, <a class='x' href='#INITD'>INITD</a> can't be re-factored.
                     164             RTS                                             ;
@@ -2846,10 +2846,10 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 27DF:AD 57 2A       031             LDA <a class="v" href="#CNFTBS">CNFTBS</a>      ; MOVE NO FTABS                 ; <a class="v" href="#DFNFTS">DFNFTS</a> default 3 buffers, <a class="x" href="#INITD">INITD</a>
 27E2:8D 63 2A       032             STA <a class="v" href="#TEMP1A">TEMP1A</a>      ; TO TEMP                       ; fdosent, 60
                     033 ;
-27E5:A0 00          034 <a class="f" name="BFT1"       >BFT1        </a>LDY #<span class='n'>0</span>
-27E7:98             035             TYA
-27E8:91 40          <a class='line' name='BLDFTAB.036'>036</a>             STA (ZPGWRK),Y  ; 1ST CHAR FN=0                 ; Init [00] $9CD3: 00
-27EA:A0 1E          037             LDY #<span class='n'>30</span>         ; INC Y TO FCB PTR              ; [[FTAB] + offset $1E] = $1CF1
+27E5:A0 00          034 <a class="f" name="BFT1"       >BFT1        </a>LDY #<span class='n'>0</span>                                          ; [.. <a class='mem' name='_27E5'>wastes</a> 2 bytes, should <span class='code'>JSR <a class='link code' href='#ZEROFILE'>ZEROFILE</a></span>
+27E7:98             035             TYA                                             ; ...
+27E8:91 40          <a class='line' name='BLDFTAB.036'>036</a>             STA (ZPGWRK),Y  ; 1ST CHAR FN=0                 ; ..] Init [00] $9CD3: 00
+27EA:A0 1E          037             LDY #<span class='n'>30</span>         ; INC Y TO FCB PTR              ; [[FTAB] + offset $1E] = $1CF1 <a class='magic' name='_27EA'>magic number</a> MAX_FILENAME_LEN
 27EC:38             038             SEC
 27ED:A5 40          039             LDA ZPGWRK      ; END OF PTR HEADER
 27EF:E9 2D          040             SBC #FCBLEN     ; MINUS FTAB LENGTH
