@@ -54,7 +54,7 @@ Pages left:
      36 - - - -
      37 - - - -
      38 - - - -
-     39 - - - -
+     39 x - / x Done (no, still need to markup address and track/sector)
      40 - - - -
      41 - - - -
      42 - - - -
@@ -125,8 +125,8 @@ Pages left:
     107 - - - -
     108 - - - -
     109 - - - -
-    110 - - - -
-    111 - - - -
+    110 x x x x Done, 1=Text, 2=Links, 3=Addr/Opcode, 4=Commentary
+    111 x x x x Done
     112 - - - -
     113 - - - -
     114 - - - -
@@ -822,8 +822,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     066 <a class="d" name="ASEOP2" >ASEOP2      </a>EQU $69         ; AS END-OF PGM 2               ; Applesoft Basic
                     067 <a class="d" name="ASHM1"  >ASHM1       </a>EQU $73         ; AS HIGH MEM 1                 ; Applesoft Basic
                     068 <a class="d" name="ASHM2"  >ASHM2       </a>EQU $6F         ; AS HIGH MEM 2                 ; Applesoft Basic
-                    069 <a class="d" name="ASRNX"  >ASRNX       </a>EQU $D6         ; AS RUN-ONLY FLAG              ; Applesoft Basic
-                    070 <a class="d" name="ASONERR">ASONERR     </a>EQU $D8         ; AS ON-ERR GOTO FLAG           ; Applesoft Basic
+                    069 <a class="d" name="ASRNX"  >ASRNX       </a>EQU $D6         ;AS RUN-ONLY FLAG               ; Applesoft Basic
+                    070 <a class="d" name="ASONERR">ASONERR     </a>EQU $D8         ;AS ON-ERR GOTO FLAG            ; Applesoft Basic
                     071 <a class="d" name="ASLMEM" >ASLMEM      </a>EQU ASSOP       ; AS LOW MEM                    ; Applesoft Basic
                     072 <a class="f" name="ASBRK1" >ASBRK1      </a>EQU $D865       ; AS ROM BREAK                  ; Applesoft Basic
                     073 <a class="f" name="ASBRK2" >ASBRK2      </a>EQU $1067       ; AS RAM BREAK                  ; Applesoft Basic
@@ -836,16 +836,16 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     080 <a class="d" name="ITSTV"  >ITSTV       </a>EQU $20         ; IB TEST VALUE                 ; Integer Basic
                     081 <a class="d" name="BOOTSL" >BOOTSL      </a>EQU $2E         ; BOOT FROM SLOT                ; Slot from Boot
                     082 <a class="d" name="ZPGFCB" >ZPGFCB      </a>EQU $42         ; ZERO PAGE WORK CELL           ; File Control Block
-                    083 <a class="f" name="MONRST" >MONRST      </a>EQU $FF65       ; MONITOR RESET ENTRY
-                    084 <a class="f" name="MONBRK" >MONBRK      </a>EQU $FA59       ; MONITOR BREAK ENTRY
-                    085 <a class="f" name="IORTS"  >IORTS       </a>EQU $FF58       ; KNOWN RTS IN MONITOR ROM
-                    086 <a class="f" name="HOME"   >HOME        </a>EQU $FC58                                       ; Clear the text screen
-                    087 <a class="f" name="PRINT"  >PRINT       </a>EQU $FDED                                       ; putchar()
-                    088 <a class="f" name="GETKEY" >GETKEY      </a>EQU $FD0C
+                    083 <a class="f" name="MONRST" >MONRST      </a>EQU $FF65       ;MONITOR RESET ENTRY
+                    084 <a class="f" name="MONBRK" >MONBRK      </a>EQU $FA59       ;MONITOR BREAK ENTRY
+                    085 <a class="f" name="IORTS"  >IORTS       </a>EQU $FF58       ;KNOWN RTS IN MONITOR ROM
+                    086 <a class="f" name="HOME"   >HOME        </a>EQU $FC58                                       ; cls(); Clear the text screen
+                    087 <a class="f" name="PRINT"  >PRINT       </a>EQU $FDED                                       ; putchar();
+                    088 <a class="f" name="GETKEY" >GETKEY      </a>EQU $FD0C                                       ; getchar();
                     089 <a class="f" name="INSDS2" >INSDS2      </a>EQU $F88E                                       ; Instruction Disassembly Opcode Length
                     090 <a class="d" name="LENGTH" >LENGTH      </a>EQU $2F
-                    091 <a class="d" name="ZRSET"  >ZRSET       </a>EQU $3F2        ; NEW MONITOR ROM RESET VECTOR
-                    092 <a class="d" name="PWCNST" >PWCNST      </a>EQU $3F4        ; NEW MONITOR ROM POWER UP CONSTANT
+                    091 <a class="d" name="ZRSET"  >ZRSET       </a>EQU $3F2        ;NEW MONITOR ROM RESET VECTOR
+                    092 <a class="d" name="PWCNST" >PWCNST      </a>EQU $3F4        ;NEW MONITOR ROM POWER UP CONSTANT
                     093                 REP 40
                     094 *
                     095 *
@@ -861,7 +861,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     105 ; GET RELOCATION PARMS
                     106 ;
                     107 <a class="f" name="DR0"     >DR0         </a>EQU *
-                    108 <a class="d" name="LOC1"    >LOC1        </a>EQU $26                                         ; Monitor ROM GBASL = $26
+                    108 <a class="d" name="LOC1"    >LOC1        </a>EQU $26                                         ; Monitor ROM GBASL = $26, Pointer to last HGR Byte plotted
 1B03:A9 BF          109             LDA #$<span class='n'>BF</span>        ; START AT BF00                 ; Top of 48K
 1B05:85 41          110             STA <a class='v' href='#ZPGWRK'>ZPGWRK</a>+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
 1B07:A2 00          111             LDX #<span class='n'>0</span>          ; HIGH RAM
@@ -2030,19 +2030,19 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     109 ;
                     110 ;  EPR - EXECUTE PR#
                     111 ;
-                    112 EPR         EQU *
+                    112 <a class='f' name='EPR'      >EPR         </a>EQU *
                     113             LDA CNUM        ; GET PORT                      ; Get *slot* #, not port
                     114             JMP OUTPRT      ; GO DO IT
                     115 ;
                     116 ; EIN - EXECUTE IN#
 <hr>                    117 ;                                                           ; === <a class='page' name='page152'>152</a> ===
-                    118 EIN         EQU *
+                    118 <a class='f' name='EIN'      >EIN         </a>EQU *
                     119             LDA CNUM        ; GET PORT
                     120             JMP INPRT       ; GO DO IT
                     121 ;
                     122 ; EMON - EXECUTE MONITOR CMD
                     123 ;
-                    124 EMON        EQU *
+                    124 <a class='f' name='EMON'     >EMON        </a>EQU *
                     125             LDA MONMOD      ; GET CURRENT BITS
                     126             ORA IMBITS      ; OR IN NEW BITS
                     127             STA MONMOD      ; SET NEW MODE
@@ -2050,7 +2050,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     129 ;
                     130 ; ENOMON - EXECUTE NO MONITOR CMD
                     131 ;
-                    132 ENOMON      EQU *
+                    132 <a class='f' name='ENOMON'   >ENOMON      </a>EQU *
                     133             BIT IMBITS
                     134             BVC ENM1
                     135             JSR PRCRIF
@@ -2064,7 +2064,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     143 ;
                     144 ; EMAXF - EXECUTE MAX FILES
                     145 ;
-                    146 EMAXF       EQU *
+                    146 <a class='f' name='EMAXF'    >EMAXF       </a>EQU *
                     147             LDA #<span class='n'>0</span>              ; RESET EXECUTE
                     148             STA ESTATE
                     149             LDA CNUM            ; SAVE NEW NO FILES
@@ -2076,7 +2076,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     155 ;
                     156 ; EDEL - DELETE A FILE
                     157 ;
-                    158 EDEL        EQU *
+                    158 <a class='f' name='EDEL'     >EDEL        </a>EQU *
                     159             LDA #CRQDEL
                     160             JSR OPEN
                     161             JSR FILSRC
@@ -2087,13 +2087,13 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     166 ;
                     167 ;  ELOCK - LOCK A FILE
                     168 ;
-                    169 ELOCK       EQU *
+                    169 <a class='f' name='ELOCK'    >ELOCK       </a>EQU *
                     170             LDA #CRQLCK         ; SET LOCK
                     171             BNE ELGO                                        ; <a class='mem' name='_'>wastes</a> 1 byte, use <span class='code'>DFB $2C ; BIT $abs</span> to skip next instruction
                     172 ;
                     173 ; EUNLK - UNLOCK A FILE
                     174 ;
-                    175 EUNLK       EQU *
+                    175 <a class='f' name='EUNLK'    >EUNLK       </a>EQU *
                     176             LDA #CRQUNL         ; SET UNLOCK
                     177 ELGO        EQU *                                           ; Holy shit! Common Code for ELOCK, EUnlock, EVerify but not to rain on our parade ...
                     178             JSR OPEN            ; OPEN FILE &amp; UNLOCK        ; ... <a class='dumb' name='CommonCodeELGO'>Common Code</a> Why is <a class='x' href='#ELGO'>ELGO</a> and <a class='x' href='#LCKGO'>LCKGO</a> different???
@@ -2101,14 +2101,14 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 <hr>                    180 ;                                                           ; === Page <a class='page' name='pagename153'>153</a>
                     181 ; EVAR - VERIFY A FILE
                     182 ;
-                    183 EVAR        EQU *
-                    184             LDA #CRQVAR         ; SET VARIFY
+                    183 <a class='f' name='EVAR'     >EVAR        </a>EQU *
+                    184             LDA #CRQVAR         ; SET VARIFY                ; *spelling* <i>Damnit, Jim, I wish you VARIFY your spelling</i>
                     185             BNE ELGO
                     186             PAGE
                     187 ;
                     188 ; EREN - RENAME
                     189 ;
-                    190 EREN        EQU *
+                    190 <a class='f' name='EREN'     >EREN        </a>EQU *
                     191             LDA FN2ADR          ; MOVE FILE NAME2
                     192             STA CCBFN2          
                     193             LDA <a class='v' href='#FN2ADR'>FN2ADR</a>+<span class='n'>1</span>        
@@ -2120,7 +2120,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     199 ;
                     200 ; EAPND - OPEN FILE FOR APPEND
                     201 ;
-                    202 EAPND       EQU *
+                    202 <a class='f' name='EAPND'    >EAPND       </a>EQU *
                     203             JSR EOPEN           ; GO OPEN
                     204 AP1         EQU *
                     205             JSR RBYTE           ; READ A BYTE
@@ -2131,7 +2131,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     210 ;
                     211 ; EOPEN - OPEN A FILE
                     212 ;
-                    213 EOPEN       LDA #<span class='n'>0</span>   FIX TYPE MISMATCH DETECTION
+                    213 <a class='f' name='EOPEN'    >EOPEN       </a>LDA #<span class='n'>0</span>   FIX TYPE MISMATCH DETECTION
                     214             JMP SV1             ;(CALLS EOPN1)                  ; Why not JSR ???
                     215 EOPN1       LDA #CRQOPN
                     216 OPEN        EQU *
@@ -2168,7 +2168,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     247 ;
                     248 ; ECLOSE - EXECUTE CLOSE FILE COMMAND
                     249 ;
-                    250 ECLOSE      EQU *
+                    250 <a class='f' name='ECLOSE'   >ECLOSE      </a>EQU *
                     251             LDA FNAME1
                     252             CMP #$<span class='n'>A0</span>                                        ; #' '+$80 aka SPC_HI
                     253             BEQ CLALL
@@ -2179,7 +2179,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     258 ;
                     259 ; CLOSE - CLOSE A FILE
                     260 ;
-                    261 CLOSE       EQU *
+                    261 <a class='f' name='CLOSE'    >CLOSE       </a>EQU *
                     262             JSR TSTEXC
                     263             BNE CLX
                     264             LDA #<span class='n'>0</span>
@@ -2195,7 +2195,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     274 ;
                     275 ; CLALL - CLOSE ALL FILES
                     276 ;
-                    277 CLALL       EQU *
+                    277 <a class='f' name='CLALL'    >CLALL       </a>EQU *
                     278             JSR TSINIT      ; GO INIT FILE SEARCH
                     279             BNE CL1 
                     280 CL0         EQU *
@@ -2217,7 +2217,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     002 ;
                     003 ; EBSV - EXECUTE BINARY SAVE
                     004 ;
-                    005 EBSV        EQU *
+                    005 <a class='f' name='EBSV'     >EBSV        </a>EQU *
 2331:A9 09          006             LDA #ADR+L      ; IF A&amp;L
 2333:2D 65 2A       007             AND INOPS       ; NOT GIVEN
 2336:C9 09          008             CMP #ADR+L
