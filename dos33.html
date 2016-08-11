@@ -2143,24 +2143,24 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     222             LDA #<span class='n'>1</span>
                     223             STA CL
                     224 EO1         EQU *
-                    225             LDA CL
+                    225             LDA CL          ; MOVE REC LENGTH
                     226             STA CCBRLN
                     227             LDA CL+<span class='n'>1</span>
                     228             STA CCBRLN+<span class='n'>1</span>
                     229 EO3         EQU *
-                    230             JSR ECLOSE
+                    230             JSR ECLOSE      ; GO CLOSE IF OPEN
                     231 EO4         EQU *
-                    232             LDA CNUM+<span class='n'>1</span>
-                    233             BNE EO5
-                    234             JMP ENFA
+                    232             LDA CNUM+<span class='n'>1</span>      ; GET AVALL ENTRY
+                    233             BNE EO5         ; BR IF ONE AVAIL
+                    234             JMP ENFA        ; DONE - NO FILES AVAIL
                     235 EO5         EQU *
-                    236             STA ZPGWRK+<span class='n'>1</span>
+                    236             STA ZPGWRK+<span class='n'>1</span>    ; MOVE AVAIL SLOT TO ZPG
                     237             LDA CNUM
                     238             STA ZPGWRK
                     239 EO6         EQU *
-                    240             JSR MVFN1
-                    241             JSR MVBUFP
-                    242             JSR OPNSUP
+                    240             JSR MVFN1       ; GO MOVE FILE NAME
+                    241             JSR MVBUFP      ; GO MOVE BUF PTRS
+                    242             JSR OPNSUP      ; GO SET Up OPEN
 <hr>                    243             LDA TEMP1A      ; SET OPEN REQ                  ; === <a class='page' name='page154'>154</a> ===
                     244             STA CCBREQ
                     245             JMP DOSGO       ; GO OPEN
@@ -2204,8 +2204,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     283  CL1        EQU *
                     284             JSR TXTEXC
                     285             BEQ CL0
-                    286             JSR TSTOPEN
-                    287             BEQ CL0
+                    286             JSR TSTOPEN     ; GO TEST OPEN
+                    287             BEQ CL0         ; BR NOT OPEN
 232A:20 FC A2       288             JSR CLOSE       ; GO CLOSE
 232D:4C 16 23       289             JMP CLALL       ; START OVER
 2330:60             290 CL2         RTS             ; DONE
