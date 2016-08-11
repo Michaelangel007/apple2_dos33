@@ -1971,82 +1971,82 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 21CE:D0 06          050             BNE GN3         ; BR NOT COMMA OR CR
 21D0:A6 44          051             LDX CNUM        ; X=RESULT LOW
 21D2:A5 45          052             LDA CNUM+<span class='n'>1</span>      ; Y=RESULT HI                   ; *sigh* *spelling* A=Result Hi as Y isn't even used!
-                    053             CLC
-<hr>                    054             RTS             ; DONE                          ; === Page <a class='page' name='page151'>151</a> === o7 Captain Obvious
+21D4:18             053             CLC
+<hr>21D5:60             054             RTS             ; DONE                          ; === Page <a class='page' name='page151'>151</a> === o7 Captain Obvious
                     055 ;
 21D6:38             056 <a class='f' name='GN3'      >GN3         </a>SEC                                             ; GetDigit
-                    057             SBC #$B0        ; SUBTRACT ASCII 0              ; <i>You keep using this word <b>ASCII</b>, it doesn't mean what you think it means.</i>, #'0'+$80
-                    058             BMI GN4         ; BR IF NOT SUM
-                    059             CMP #10
-                    060             BCS GN4         ; BR IF NOT NUM
-                    061             JSR GN5         ; OLD*2                         ; <b>Test Time</b>: 1. Describe what GN5 does without looking at the code. 2. Describe what MUL2xCNUM does.
-                    062             ADC CNUM        ; PLUS NEW
-                    063             TAX                                             ; n*10 = n*8 + n*2
-                    064             LDA #<span class='n'>0</span>
-                    065             ADC CNUM+<span class='n'>1</span>
-                    066             TAY
-                    067             JSR GN5         ; OLD*4
-                    068             JSR GN5         ; OLD*8
-                    069             TXA             ; OLD*8 + OLD*2 + NEW
-                    070             ADC CNUM
-                    071             STA CNUM        ; =OLD*10 + NEW
-                    072             TYA
-                    073             ADC CNUM+1
-                    074             STA CNUM+1
-                    075             BCC GN2
+21D7:E9 B0          057             SBC #$B0        ; SUBTRACT ASCII 0              ; <i>You keep using this word <b>ASCII</b>, it doesn't mean what you think it means.</i>, #'0'+$80
+21D9:30 21          058             BMI GN4         ; BR IF NOT SUM
+21DB:C9 0A          059             CMP #<span class='n'>10</span>
+21DD:B0 1D          060             BCS GN4         ; BR IF NOT NUM
+21DF:20 FE 21       061             JSR GN5         ; OLD*2                         ; <b>Test Time</b>: 1. Describe what GN5 does without looking at the code. 2. Describe what MUL2xCNUM does.
+21E2:65 44          062             ADC CNUM        ; PLUS NEW
+21E4:AA             063             TAX                                             ; n*10 = n*8 + n*2
+21E5:A9 00          064             LDA #<span class='n'>0</span>
+21E7:65 45          065             ADC CNUM+<span class='n'>1</span>
+21E9:A8             066             TAY
+21EA:20 FE 21       067             JSR GN5         ; OLD*4
+21ED:20 FE 21       068             JSR GN5         ; OLD*8
+21F0:8A             069             TXA             ; OLD*8 + OLD*2 + NEW
+21F1:65 44          070             ADC CNUM
+21F3:85 44          071             STA CNUM        ; =OLD*10 + NEW
+21F5:98             072             TYA
+21F6:65 45          073             ADC CNUM+<span class='n'>1</span>
+21F8:85 45          074             STA CNUM+<span class='n'>1</span>
+21FA:90 CF          075             BCC GN2
                     076 ;
                     077 GN4         EQU *
-                    078             SEC
-                    079             RTS             ; DONE
+21FC:38             078             SEC
+21FD:60             079             RTS             ; DONE
                     080 GN5         EQU *
-                    081             ASL CNUM        ; CNUM * 2
-                    082             ROL CNUM+1
-                    083             RTS
+21FE:06 44          081             ASL CNUM        ; CNUM * 2
+2200:26 45          082             ROL CNUM+<span class='n'>1</span>                                      ; === <a class='ts' name='T1S1'>T1S1</a> ===
+2202:60             083             RTS
                     084             PAGE
                     085 ;
                     086 HEXNUM      EQU *
-                    087             PLP
+2203:28             087             PLP
                     088 HN0         EQU *
-                    089             JSR GNBC        ; GO GET CHAR
-                    090             BEQ GN2A        ; BR IF CR OR COMMA
+2204:20 A4 21       089             JSR GNBC        ; GO GET CHAR
+2207:F0 C5          090             BEQ GN2A        ; BR IF CR OR COMMA
                     091 ;
-                    092 SEC
-                    093             SBC #$B0        ; CHAR - ASCII0                 ; ASCII is 7-bit, not 8-bit, SBC #'0'+$80
-                    094             BMI GN4         ; BR IF LT0                     ; signed c = GetNextLineBufferChar()
-                    095             CMP #<span class='n'>10</span>         ; IS IT LT10                    ; if ((c - '0') &lt; 0) return;
-                    096             BCC HN1         ; BR IF LT                      ; if (c &gt;= 10) c -= ('A' -'9');
-                    097             SBC #$<span class='n'>7</span>         ; SUB 7 FOR ASCII A             ; <a class='magic' name='_'>magic number</a> 7 = ('A' -'9')
-                    098             BMI GN4         ; BR IF LT A 
-                    099             CMP #<span class='n'>16</span>         ; TEST GT 15 
-                    100             BCS GN4         ; BR GT 15                      ; A = digit = 0..F
-                    101 HN1         LDX #<span class='n'>4</span>                                          ; CNUM &lt;&lt;= 4; // shift left one nibble
-                    102 HN2         JSR GN5         ; OLD*16
-                    103             DEX             ;LOOP 4 TIMES ONLY
-                    104             BNE HN2
-                    105             ORA CNUM        ; OR IN NEW                     ; CNUM += digit
-                    106             STA CNUM        ; SAVE NEW
-                    107             JMP HN0         ; GO FOR NEXT CHAR
+2209:38             092             SEC
+220A:E9 B0          093             SBC #$B0        ; CHAR - ASCII0                 ; ASCII is 7-bit, not 8-bit, SBC #'0'+$80
+220C:30 EE          094             BMI GN4         ; BR IF LT0                     ; signed c = GetNextLineBufferChar()
+220E:C9 0A          095             CMP #<span class='n'>10</span>         ; IS IT LT10                    ; if ((c - '0') &lt; 0) return;
+2210:90 08          096             BCC HN1         ; BR IF LT                      ; if (c &gt;= 10) c -= ('A' -'9');
+2212:E9 07          097             SBC #$<span class='n'>7</span>         ; SUB 7 FOR ASCII A             ; <a class='magic' name='_'>magic number</a> 7 = ('A' -'9')
+2214:30 E6          098             BMI GN4         ; BR IF LT A 
+2216:C9 10          099             CMP #<span class='n'>16</span>         ; TEST GT 15 
+2218:B0 E2          100             BCS GN4         ; BR GT 15                      ; A = digit = 0..F
+221A:A2 04          101 HN1         LDX #<span class='n'>4</span>                                          ; CNUM &lt;&lt;= 4; // shift left one nibble
+221C:20 FE 21       102 HN2         JSR GN5         ; OLD*16
+221F:CA             103             DEX             ;LOOP 4 TIMES ONLY
+2220:D0 FA          104             BNE HN2
+2222:05 44          105             ORA CNUM        ; OR IN NEW                     ; CNUM += digit
+2224:85 44          106             STA CNUM        ; SAVE NEW
+2226:4C 04 22       107             JMP HN0         ; GO FOR NEXT CHAR
                     108             PAGE
                     109 ;
                     110 ;  EPR - EXECUTE PR#
                     111 ;
                     112 <a class='f' name='EPR'      >EPR         </a>EQU *
-                    113             LDA CNUM        ; GET PORT                      ; Get *slot* #, not port
-                    114             JMP OUTPRT      ; GO DO IT
+2229:A5 44          113             LDA CNUM        ; GET PORT                      ; Get *slot* #, not port
+222B:4C 95 FE       114             JMP OUTPRT      ; GO DO IT
                     115 ;
                     116 ; EIN - EXECUTE IN#
 <hr>                    117 ;                                                           ; === <a class='page' name='page152'>152</a> ===
                     118 <a class='f' name='EIN'      >EIN         </a>EQU *
-                    119             LDA CNUM        ; GET PORT
-                    120             JMP INPRT       ; GO DO IT
+222E:A5 44          119             LDA CNUM        ; GET PORT
+2230:4C 8B FE       120             JMP INPRT       ; GO DO IT
                     121 ;
                     122 ; EMON - EXECUTE MONITOR CMD
                     123 ;
                     124 <a class='f' name='EMON'     >EMON        </a>EQU *
-                    125             LDA MONMOD      ; GET CURRENT BITS
-                    126             ORA IMBITS      ; OR IN NEW BITS
-                    127             STA MONMOD      ; SET NEW MODE
-                    128             RTS
+2233:AD 5E 2A       125             LDA MONMOD      ; GET CURRENT BITS
+2236:0D 74 2A       126             ORA IMBITS      ; OR IN NEW BITS
+2239:8D 5E 2A       127             STA MONMOD      ; SET NEW MODE
+223C:60             128             RTS
                     129 ;
                     130 ; ENOMON - EXECUTE NO MONITOR CMD
                     131 ;
