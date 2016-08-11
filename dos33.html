@@ -2056,9 +2056,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     135             JSR PRCRIF
                     136 ENM1        EQU *
                     137             LDA #$<span class='n'>70</span>                                        ; <a class='magic' name='_'>magic number</a>
-                    138             EOR IMBITS          ; INVERT INPUT BITS
-                    139             AND MONMOD          ; AND WITH CURRENT
-                    140             STA MONMOD          ; SET NEW MODE
+                    138             EOR IMBITS      ; INVERT INPUT BITS
+                    139             AND MONMOD      ; AND WITH CURRENT
+                    140             STA MONMOD      ; SET NEW MODE
                     141             RTS
                     142             PAGE
                     143 ;
@@ -2067,12 +2067,12 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     146 <a class='f' name='EMAXF'    >EMAXF       </a>EQU *
                     147             LDA #<span class='n'>0</span>              ; RESET EXECUTE
                     148             STA ESTATE
-                    149             LDA CNUM            ; SAVE NEW NO FILES
+                    149             LDA CNUM        ; SAVE NEW NO FILES
                     150             PHA
-                    151             JSR CLALL           ; GO CLOSE ALL FILES
+                    151             JSR CLALL       ; GO CLOSE ALL FILES
                     152             PLA
-                    153             STA CNFTBS          ; SET NEW NO FILE TBLS
-                    154             JMP BLDFTB          ; GO BUILD NEW ONES
+                    153             STA CNFTBS      ; SET NEW NO FILE TBLS
+                    154             JMP BLDFTB      ; GO BUILD NEW ONES
                     155 ;
                     156 ; EDEL - DELETE A FILE
                     157 ;
@@ -2082,62 +2082,62 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     161             JSR FILSRC
                     162             LDY #<span class='n'>0</span>                                          ; <a class='dumb' name='_'>Common Code</a> WHY isn't this a common subroutine <a class='link code' name='ZEROFILE'>ZEROFILE</a> ??
                     163             TYA                                             ; <a class='x' href='#BFT1'>BFT1</a>, <a class='x' href='#CLS'>CLS</a>, and the Append bug patch <a class='x' href='#CLOSFILE'>CLOSFILE</a> <i>all</i> do the same thing!
-                    164             STA (ZPGWRK),Y      ; RESET FN                  ; Sadly, <a class='x' href='#INITD'>INITD</a> can't be re-factored.
+                    164             STA (ZPGWRK),Y  ; RESET FN                      ; Sadly, <a class='x' href='#INITD'>INITD</a> can't be re-factored.
                     165             RTS                                             ;
                     166 ;
                     167 ;  ELOCK - LOCK A FILE
                     168 ;
                     169 <a class='f' name='ELOCK'    >ELOCK       </a>EQU *
-                    170             LDA #CRQLCK         ; SET LOCK
+                    170             LDA #CRQLCK     ; SET LOCK
                     171             BNE ELGO                                        ; <a class='mem' name='_'>wastes</a> 1 byte, use <span class='code'>DFB $2C ; BIT $abs</span> to skip next instruction
                     172 ;
                     173 ; EUNLK - UNLOCK A FILE
                     174 ;
                     175 <a class='f' name='EUNLK'    >EUNLK       </a>EQU *
-                    176             LDA #CRQUNL         ; SET UNLOCK
+                    176             LDA #CRQUNL     ; SET UNLOCK
                     177 ELGO        EQU *                                           ; Holy shit! Common Code for ELOCK, EUnlock, EVerify but not to rain on our parade ...
-                    178             JSR OPEN            ; OPEN FILE &amp; UNLOCK        ; ... <a class='dumb' name='CommonCodeELGO'>Common Code</a> Why is <a class='x' href='#ELGO'>ELGO</a> and <a class='x' href='#LCKGO'>LCKGO</a> different???
-                    179             JMP ECLOSE          ; CLOSE IT
+                    178             JSR OPEN        ; OPEN FILE &amp; UNLOCK            ; ... <a class='dumb' name='CommonCodeELGO'>Common Code</a> Why is <a class='x' href='#ELGO'>ELGO</a> and <a class='x' href='#LCKGO'>LCKGO</a> different???
+                    179             JMP ECLOSE      ; CLOSE IT
 <hr>                    180 ;                                                           ; === Page <a class='page' name='pagename153'>153</a>
                     181 ; EVAR - VERIFY A FILE
                     182 ;
                     183 <a class='f' name='EVAR'     >EVAR        </a>EQU *
-                    184             LDA #CRQVAR         ; SET VARIFY                ; *spelling* <i>Damnit, Jim, I wish you would VARIFY your spelling.</i>
+                    184             LDA #CRQVAR     ; SET VARIFY                    ; *spelling* <i>Damnit, Jim, I wish you would VARIFY your spelling.</i>
                     185             BNE ELGO
                     186             PAGE
                     187 ;
                     188 ; EREN - RENAME
                     189 ;
                     190 <a class='f' name='EREN'     >EREN        </a>EQU *
-                    191             LDA FN2ADR          ; MOVE FILE NAME2
+                    191             LDA FN2ADR      ; MOVE FILE NAME2
                     192             STA CCBFN2          
                     193             LDA <a class='v' href='#FN2ADR'>FN2ADR</a>+<span class='n'>1</span>        
                     194             STA <a class='v' href='#CCBFN2'>CCBFN2</a>+<span class='n'>1</span>        
                     195             LDA #CRQRNM         
-                    196             STA TEMP1A          ; SET RENAME
-                    197             JSR EO3             ; GO OPEN AND RENAME
-                    198             JMP ECLOSE          ; GO CLOSE
+                    196             STA TEMP1A      ; SET RENAME
+                    197             JSR EO3         ; GO OPEN AND RENAME
+                    198             JMP ECLOSE      ; GO CLOSE
                     199 ;
                     200 ; EAPND - OPEN FILE FOR APPEND
                     201 ;
                     202 <a class='f' name='EAPND'    >EAPND       </a>EQU *
-                    203             JSR EOPEN           ; GO OPEN
+                    203             JSR EOPEN       ; GO OPEN
                     204 AP1         EQU *
-                    205             JSR RBYTE           ; READ A BYTE
-                    206             BNE AP1             ; BR IF NOT ZERO
-                    207 ;                                                               ; <b>Test Time!</b> Without looking at the code, give a summary of why 
-                    208             JMP BUMPER          ; GO TO PATCH FOR APPEND FIX    ; a) <span class='code'>BUMPER</span> exists, and
-                    209             PAGE                                                ; b) <span class='code'>APPEND_FIX</span>.
+                    205             JSR RBYTE       ; READ A BYTE
+                    206             BNE AP1         ; BR IF NOT ZERO
+                    207 ;                                                           ; <b>Test Time!</b> Without looking at the code, give a summary of why 
+                    208             JMP BUMPER      ; GO TO PATCH FOR APPEND FIX    ; a) <span class='code'>BUMPER</span> exists, and
+                    209             PAGE                                            ; b) <span class='code'>APPEND_FIX</span>.
                     210 ;
                     211 ; EOPEN - OPEN A FILE
                     212 ;
-                    213 <a class='f' name='EOPEN'    >EOPEN       </a>LDA #<span class='n'>0</span>   FIX TYPE MISMATCH DETECTION
-                    214             JMP SV1             ;(CALLS EOPN1)                  ; Why not JSR ???
+                    213 <a class='f' name='EOPEN'    >EOPEN       </a>LDA #<span class='n'>0</span>          ;FIX TYPE MISMATCH DETECTION
+                    214             JMP SV1         ;(CALLS EOPN1)                  ; Why not <span class='code'>JSR SV1</span>??? <a class='x' href='#EASAV'>EASAV</a> does <span class='code'>JSR SV1</span>
                     215 EOPN1       LDA #CRQOPN
                     216 OPEN        EQU *
                     217             STA TEMP1A
-                    218             LDA CL
-                    219             BNE EO1
+                    218             LDA CL          ; IF NO LENGTH ENTERED
+                    219             BNE EO1         ; THEN SET DEFAULT OF 1
                     220             LDA CL+<span class='n'>1</span>
                     221             BNE EO1
                     222             LDA #<span class='n'>1</span>
