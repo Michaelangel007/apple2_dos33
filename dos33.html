@@ -1198,34 +1198,34 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1D1C:70 1F          025             DW <a class='x' href='#COS6'>COS6</a>-1
                     026 ;COMMAND EXECUTION TABLE
                     027 <a class='d' name='CMDETB'>CMDETB      </a>EQU *                                           ; /sarcasm Yay for shitty 5 &amp; 6 letter var names!
-1D1E:4E 25          028             DW <a class='x' href='#EINIT'>EINIT</a>-1                                      ; *dumb* 6502 design for RTS instruction forces <span class="macro">-1</span>
-1D20:12 24          029             DW <a class='x' href='#ELOAD'>ELOAD</a>-1
-1D22:96 23          030             DW <a class='x' href='#ESAVE'>ESAVE</a>-1
-1D24:D0 24          031             DW <a class='x' href='#ERUN'>ERUN</a>-1
-1D26:EF 24          032             DW <a class='x' href='#ECHAIN'>ECHAIN</a>-1
-1D28:62 22          033             DW <a class='x' href='#EDEL'>EDEL</a>-1
-1D2A:70 22          034             DW <a class='x' href='#ELOCK'>ELOCK</a>-1
-1D2C:74 22          035             DW <a class='x' href='#EUNLK'>EUNLK</a>-1                                      ; /sarcasm Oh, noes! That 'OC' is too much work!
-1D2E:E9 22          036             DW <a class='x' href='#ECLOSE'>ECLOSE</a>-1
-1D30:1A 25          037             DW <a class='x' href='#EREAD'>EREAD</a>-1
-1D32:C5 25          038             DW <a class='x' href='#EEXEC'>EEXEC</a>-1
-1D34:0F 25          039             DW <a class='x' href='#EWRITE'>EWRITE</a>-1
-1D36:DC 25          040             DW <a class='x' href='#EPOS'>EPOS</a>-1
-1D38:A2 22          041             DW <a class='x' href='#EOPEN'>EOPEN</a>-1
-1D3A:97 22          042             DW <a class='x' href='#EAPND'>EAPND</a>-1
-1D3C:80 22          043             DW <a class='x' href='#EREN'>EREN</a>-1
-1D3E:6D 25          044             DW <a class='x' href='#ECAT'>ECAT</a>-1
-1D40:32 22          045             DW <a class='x' href='#EMON'>EMON</a>-1
-1D42:3C 22          046             DW <a class='x' href='#ENOMON'>ENOMON</a>-1
-1D44:28 22          047             DW <a class='x' href='#EPR'>EPR</a>-1
-1D46:2D 22          048             DW <a class='x' href='#EIN'>EIN</a>-1
-1D48:50 22          049             DW <a class='x' href='#EMAXF'>EMAXF</a>-1
-1D4A:79 25          050             DW <a class='x' href='#EAS'>EAS</a>-1
-1D4C:9D 25          051             DW <a class='x' href='#EINT'>EINT</a>-1
-1D4E:30 23          052             DW <a class='x' href='#EBSV'>EBSV</a>-1                                       ; *sigh* EBSAVE - I'm sorry, we blew our key budget for A,E
-1D50:5C 23          053             DW <a class='x' href='#EBLD'>EBLD</a>-1                                       ; *sigh* EBLOAD - and for O,A
-<hr>1D52:8D 23          054             DW <a class='x' href='#EBRUN'>EBRUN</a>-1                                      ; [0] === Page <a class="page" name="page49">49</a> ===
-1D54:7C 22          055             DW <a class='x' href='#EVAR'>EVAR</a>-1                                       ; [0] last byte relocated in Entry [<a class='line' href='#RELOCTR.292'>0</a>] <a class='v' href='#ADRTAB'>ADRTAB</a>
+1D1E:4E 25          028             DW <a class='x' href='#EINIT' >EINIT</a>-1                                      ; [0] Stupid 6502 design for RTS instruction forces <span class="macro">-1</span> for func jump table
+1D20:12 24          029             DW <a class='x' href='#ELOAD' >ELOAD</a>-1                                      ; [1]
+1D22:96 23          030             DW <a class='x' href='#ESAVE '>ESAVE</a>-1                                      ; [2]
+1D24:D0 24          031             DW <a class='x' href='#ERUN'  >ERUN</a>-1                                       ; [3]
+1D26:EF 24          032             DW <a class='x' href='#ECHAIN'>ECHAIN</a>-1                                     ; [4]
+1D28:62 22          033             DW <a class='x' href='#EDEL'  >EDEL</a>-1                                       ; [5]
+1D2A:70 22          034             DW <a class='x' href='#ELOCK' >ELOCK</a>-1                                      ; [6]
+1D2C:74 22          035             DW <a class='x' href='#EUNLK' >EUNLK</a>-1                                      ; [7] /sarcasm Oh, noes! That 'OC' is too much work!
+1D2E:E9 22          036             DW <a class='x' href='#ECLOSE'>ECLOSE</a>-1                                     ; [8]
+1D30:1A 25          037             DW <a class='x' href='#EREAD' >EREAD</a>-1                                      ; [9]
+1D32:C5 25          038             DW <a class='x' href='#EEXEC' >EEXEC</a>-1                                      ; [A]
+1D34:0F 25          039             DW <a class='x' href='#EWRITE'>EWRITE</a>-1                                     ; [B]
+1D36:DC 25          040             DW <a class='x' href='#EPOS'  >EPOS</a>-1                                       ; [C]
+1D38:A2 22          041             DW <a class='x' href='#EOPEN' >EOPEN</a>-1                                      ; [D]
+1D3A:97 22          042             DW <a class='x' href='#EAPND' >EAPND</a>-1                                      ; [E]
+1D3C:80 22          043             DW <a class='x' href='#EREN'  >EREN</a>-1                                       ; [F]
+1D3E:6D 25          044             DW <a class='x' href='#ECAT'  >ECAT</a>-1                                       ;[10]
+1D40:32 22          045             DW <a class='x' href='#EMON'  >EMON</a>-1                                       ;[11]
+1D42:3C 22          046             DW <a class='x' href='#ENOMON'>ENOMON</a>-1                                     ;[12]
+1D44:28 22          047             DW <a class='x' href='#EPR'   >EPR</a>-1                                        ;[13]
+1D46:2D 22          048             DW <a class='x' href='#EIN'   >EIN</a>-1                                        ;[14]
+1D48:50 22          049             DW <a class='x' href='#EMAXF' >EMAXF</a>-1                                      ;[15]
+1D4A:79 25          050             DW <a class='x' href='#EAS'   >EAS</a>-1                                        ;[16]
+1D4C:9D 25          051             DW <a class='x' href='#EINT'  >EINT</a>-1                                       ;[17]
+1D4E:30 23          052             DW <a class='x' href='#EBSV'  >EBSV</a>-1                                       ;[18] *sigh* EBSAVE - I'm sorry, we blew our key budget for A
+1D50:5C 23          053             DW <a class='x' href='#EBLD'  >EBLD</a>-1                                       ;[19] *sigh* EBLOAD - and also O
+<hr>1D52:8D 23          054             DW <a class='x' href='#EBRUN'>EBRUN</a>-1                                      ;[1A] === Page <a class="page" name="page49">49</a> ===
+1D54:7C 22          055             DW <a class='x' href='#EVAR'  >EVAR</a>-1                                       ;[1B] last byte relocated in Entry [<a class='line' href='#RELOCTR.292'>0</a>] <a class='v' href='#ADRTAB'>ADRTAB</a>
                     056 <a class='d' name='EAT1'>EAT1        </a>EQU *                                           ; End Address Table 1
                     057             PAGE
                     058 ;                                                           ; *note* Annotating [-] to mean <i>addresss is not relocated</i> in <a class='v' href='#ADRTAB'>ADRTAB</a>
@@ -1910,9 +1910,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     263 <a class="f" name="ECMD"   >ECMD        </a>EQU *
 2186:AD 5F 2A       <a class='line' name='CMDSCAN.264'>264</a>             LDA <a class="v" href="#CMDNO">CMDNO</a>       ; COMMAND NO                    ; <i>Think, McFly!</i>
 2189:AA             265             TAX             ; IS CMD EXEC TAB INDEX         ; <a class='mem' name='_2189'>wastes</a> 1 byte /sarcasm If only we had <span class='code'>LDX CMDNO</span> on Line #<a class='line' href='#CMDSCAN.264'>264</a>
-218A:BD 1F 1D       266             LDA <a class="v" href="#CMDETAB">CMDETAB</a>+1,X ; GET CMD ADR
+218A:BD 1F 1D       266             LDA <a class="v" href='#CMDETB'>CMDETB</a>+1,X  ; GET CMD ADR
 218D:48             267             PHA             ; ONTO STACK
-218E:BD 1E 1D       268             LDA <a class="v" href="#CMDETAB">CMDETB</a>,X
+218E:BD 1E 1D       268             LDA <a class="v" href='#CMDETB'>CMDETB</a>,X
 2191:48             269             PHA
 2192:60             270             RTS             ; AND GOTO COMMAND              ; classic technique of 6502 jump table, use RTS to "call" the function pointer
 </pre>
@@ -2030,19 +2030,21 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     109 ;
                     110 ;  EPR - EXECUTE PR#
                     111 ;
-                    112 <a class='f' name='EPR'      >EPR         </a>EQU *
+                    112 <a class='f' name='EPR'      >EPR         </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [13]
 2229:A5 44          113             LDA CNUM        ; GET PORT                      ; Get *slot* #, not port
 222B:4C 95 FE       114             JMP OUTPRT      ; GO DO IT
                     115 ;
                     116 ; EIN - EXECUTE IN#
 <hr>                    117 ;                                                           ; === <a class='page' name='page152'>152</a> ===
-                    118 <a class='f' name='EIN'      >EIN         </a>EQU *
+                    118 <a class='f' name='EIN'      >EIN         </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [14]
+
 222E:A5 44          119             LDA CNUM        ; GET PORT
 2230:4C 8B FE       120             JMP INPRT       ; GO DO IT
                     121 ;
                     122 ; EMON - EXECUTE MONITOR CMD
                     123 ;
-                    124 <a class='f' name='EMON'     >EMON        </a>EQU *
+                    124 <a class='f' name='EMON'     >EMON        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [11]
+
 2233:AD 5E 2A       125             LDA MONMOD      ; GET CURRENT BITS
 2236:0D 74 2A       126             ORA IMBITS      ; OR IN NEW BITS
 2239:8D 5E 2A       127             STA MONMOD      ; SET NEW MODE
@@ -2050,8 +2052,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     129 ;
                     130 ; ENOMON - EXECUTE NO MONITOR CMD
                     131 ;
-                    132 <a class='f' name='ENOMON'   >ENOMON      </a>EQU *
-                    133             BIT IMBITS
+                    132 <a class='f' name='ENOMON'   >ENOMON      </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [12]
+
+223D:               133             BIT IMBITS
                     134             BVC ENM1
                     135             JSR PRCRIF
                     136 ENM1        EQU *
@@ -2064,8 +2067,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     143 ;
                     144 ; EMAXF - EXECUTE MAX FILES
                     145 ;
-                    146 <a class='f' name='EMAXF'    >EMAXF       </a>EQU *
-                    147             LDA #<span class='n'>0</span>              ; RESET EXECUTE
+                    146 <a class='f' name='EMAXF'    >EMAXF       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [15]
+2251:               147             LDA #<span class='n'>0</span>              ; RESET EXECUTE
                     148             STA ESTATE
                     149             LDA CNUM        ; SAVE NEW NO FILES
                     150             PHA
@@ -2076,8 +2079,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     155 ;
                     156 ; EDEL - DELETE A FILE
                     157 ;
-                    158 <a class='f' name='EDEL'     >EDEL        </a>EQU *
-                    159             LDA #CRQDEL
+                    158 <a class='f' name='EDEL'     >EDEL        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [5]
+2263:               159             LDA #CRQDEL
                     160             JSR OPEN
                     161             JSR FILSRC
                     162             LDY #<span class='n'>0</span>                                          ; <a class='dumb' name='_'>Common Code</a> WHY isn't this a common subroutine <a class='link code' name='ZEROFILE'>ZEROFILE</a> ??
@@ -2087,29 +2090,29 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     166 ;
                     167 ;  ELOCK - LOCK A FILE
                     168 ;
-                    169 <a class='f' name='ELOCK'    >ELOCK       </a>EQU *
-                    170             LDA #CRQLCK     ; SET LOCK
+                    169 <a class='f' name='ELOCK'    >ELOCK       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [6]
+2271:               170             LDA #CRQLCK     ; SET LOCK
                     171             BNE ELGO                                        ; <a class='mem' name='_'>wastes</a> 1 byte, use <span class='code'>DFB $2C ; BIT $abs</span> to skip next instruction
                     172 ;
                     173 ; EUNLK - UNLOCK A FILE
                     174 ;
-                    175 <a class='f' name='EUNLK'    >EUNLK       </a>EQU *
-                    176             LDA #CRQUNL     ; SET UNLOCK
+                    175 <a class='f' name='EUNLK'    >EUNLK       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [7]
+2275:               176             LDA #CRQUNL     ; SET UNLOCK
                     177 ELGO        EQU *                                           ; Holy shit! Common Code for ELOCK, EUnlock, EVerify but not to rain on our parade ...
                     178             JSR OPEN        ; OPEN FILE &amp; UNLOCK            ; ... <a class='dumb' name='CommonCodeELGO'>Common Code</a> Why is <a class='x' href='#ELGO'>ELGO</a> and <a class='x' href='#LCKGO'>LCKGO</a> different???
                     179             JMP ECLOSE      ; CLOSE IT
 <hr>                    180 ;                                                           ; === Page <a class='page' name='pagename153'>153</a>
                     181 ; EVAR - VERIFY A FILE
                     182 ;
-                    183 <a class='f' name='EVAR'     >EVAR        </a>EQU *
-                    184             LDA #CRQVAR     ; SET VARIFY                    ; *spelling* <i>Damnit, Jim, I wish you would VARIFY your spelling.</i>
+                    183 <a class='f' name='EVAR'     >EVAR        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [1B]
+227D:               184             LDA #CRQVAR     ; SET VARIFY                    ; *spelling* <i>Damnit, Jim, I wish you would VARIFY your spelling.</i>
                     185             BNE ELGO
                     186             PAGE
                     187 ;
                     188 ; EREN - RENAME
                     189 ;
                     190 <a class='f' name='EREN'     >EREN        </a>EQU *
-                    191             LDA FN2ADR      ; MOVE FILE NAME2
+2281:               191             LDA FN2ADR      ; MOVE FILE NAME2
                     192             STA CCBFN2          
                     193             LDA <a class='v' href='#FN2ADR'>FN2ADR</a>+<span class='n'>1</span>        
                     194             STA <a class='v' href='#CCBFN2'>CCBFN2</a>+<span class='n'>1</span>        
@@ -2120,8 +2123,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     199 ;
                     200 ; EAPND - OPEN FILE FOR APPEND
                     201 ;
-                    202 <a class='f' name='EAPND'    >EAPND       </a>EQU *
-                    203             JSR EOPEN       ; GO OPEN
+                    202 <a class='f' name='EAPND'    >EAPND       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [E]
+2298:               203             JSR EOPEN       ; GO OPEN
                     204 AP1         EQU *
                     205             JSR RBYTE       ; READ A BYTE
                     206             BNE AP1         ; BR IF NOT ZERO
@@ -2131,8 +2134,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     210 ;
                     211 ; EOPEN - OPEN A FILE
                     212 ;
-                    213 <a class='f' name='EOPEN'    >EOPEN       </a>LDA #<span class='n'>0</span>          ;FIX TYPE MISMATCH DETECTION
-                    214             JMP SV1         ;(CALLS EOPN1)                  ; Why not <span class='code'>JSR SV1</span>??? <a class='x' href='#EASAV'>EASAV</a> does <span class='code'>JSR SV1</span>
+22A3:               213 <a class='f' name='EOPEN'    >EOPEN       </a>LDA #<span class='n'>0</span>          ;FIX TYPE MISMATCH DETECTION    ; <a class='v' href='#CMDETB'>CMDETB</a> [D]
+                    214             JMP SV1         ;(CALLS EOPN1)                  ; Why not <span class='code'>JSR SV1</span>??? <a class='x' href='#EASAV'>EASAV</a>, <a class='x' href='#EBSV'>EBSV</a>, and <a class='x' href='#EBLD'>EBLD</a> all do <span class='code'>JSR SV1</span>
                     215 EOPN1       LDA #CRQOPN
                     216 OPEN        EQU *
                     217             STA TEMP1A
@@ -2168,24 +2171,24 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     247 ;
                     248 ; ECLOSE - EXECUTE CLOSE FILE COMMAND
                     249 ;
-                    250 <a class='f' name='ECLOSE'   >ECLOSE      </a>EQU *
-                    251             LDA FNAME1
-                    252             CMP #$<span class='n'>A0</span>                                        ; #' '+$80 aka SPC_HI
-                    253             BEQ CLALL
-                    254             JSR FILSRC      ; GO FIND FILE
-                    255             BCS CL2         ; BR IF NOT FOUND
-                    256             JSR CLOSE       ; GO CLOSE
-                    257             JMP ECLOSE      ; GO SEE IF ANY MORE OPEN
+                    250 <a class='f' name='ECLOSE'   >ECLOSE      </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [8]
+22EA:AD 75 2A       251             LDA FNAME1
+22ED:C9 A0          252             CMP #$<span class='n'>A0</span>                                        ; #' '+$80 aka SPC_HI
+22EF:F0 25          253             BEQ CLALL
+22F1:20 64 27       254             JSR FILSRC      ; GO FIND FILE
+22F4:B0 3A          255             BCS CL2         ; BR IF NOT FOUND
+22F6:20 FC 22       256             JSR CLOSE       ; GO CLOSE
+22F9:4C EA 22       257             JMP ECLOSE      ; GO SEE IF ANY MORE OPEN
                     258 ;
                     259 ; CLOSE - CLOSE A FILE
                     260 ;
                     261 <a class='f' name='CLOSE'    >CLOSE       </a>EQU *
-                    262             JSR TSTEXC
-                    263             BNE CLX
-                    264             LDA #<span class='n'>0</span>
-                    265             STA ESTATE
+22FC:20 AD 27       262             JSR TSTEXC
+22FF:D0 05          263             BNE CLX                                         ; === <a class='ts' name='T1S2'>T1S2</a> ===
+2301:A9 00          264             LDA #<span class='n'>0</span>
+2303:8D B3 2A       265             STA ESTATE
                     266 CLX         EQU *
-                    267             LDY #<span class='n'>0</span>          ; CLEAR 1ST FN                  ; [.. <a class='mem' name='_'>wastes</a> 2 bytes, see <a class='link' href='#ZEROFILE'>ZEROFILE</a> note
+2306:A0 00          267             LDY #<span class='n'>0</span>          ; CLEAR 1ST FN                  ; [.. <a class='mem' name='_2306'>wastes</a> 2 bytes, see <a class='link' href='#ZEROFILE'>ZEROFILE</a> note
                     268             TYA             ; CHAR TO ZERO                  ;  ..
                     269             STA (ZPGWRK),Y                                  ;  ..]
                     270             JSR MVBUFP      ; MOVE BUFFER PTRS
@@ -2217,56 +2220,62 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     002 ;
                     003 ; EBSV - EXECUTE BINARY SAVE
                     004 ;
-                    005 <a class='f' name='EBSV'     >EBSV        </a>EQU *
+                    005 <a class='f' name='EBSV'     >EBSV        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [18]
 2331:A9 09          006             LDA #ADR+L      ; IF A&amp;L
 2333:2D 65 2A       007             AND INOPS       ; NOT GIVEN
 2336:C9 09          008             CMP #ADR+L
 2338:F0 03          009             BEQ EBSV1
 233A:4C 00 20       010             JMP CNF         ; THEN ERROR
                     011 EBSV1       EQU *
-233D:A9 04          012             LDA #4
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
+233D:A9 04          012             LDA #<span class='n'>4</span>          ; SET BINARY FILE               ; <a class='magic' name='_233E'>magic number</a> FILE_TYPE_BINARY
+                    013             JSR SV1         ; GO OPEN &amp; TEST
+                    014             LDA CA+1        ; OUTPUT ADR OF BLOCK
+                    015             LDY CA           
+                    016             JSR SV2         
+                    017             LDA CL+1        ; GO OPEN AND TEST
+                    018             LDY CL
+                    019             JSR SV2         ; OUTPUT LENGTH
+                    020             LDA CA+1        ; GET ADR GIVEN
+                    021             LDY CA
+                    022             JMP SV3         ; OUTPUT BLOCK
+                    023 ;
+                    024 ; EBLD - EXECUTE BINARY LOAD
+                    025 ;
+                    026 <a class='f' name='EBLD'     >EBLD        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [19]
+235D:               027             JSR EOPN1       ;(CHANGED 11/1/78 FOR TYPE MISMATCH)
+                    028 EBLD2       EQU *                                           ; *sigh* If only the local labels were in alphabetical order ...
+                    029             LDA #$<span class='n'>7F</span>                                        ; <a class='magic' name='_'>magic number</a> ~FILE_LOCK
+                    030             AND CCBFUC
+                    031             CMP #<span class='n'>4</span>                                          ; <a class='magic' name='_'>magic number</a> FILE_TYPE_BINARY
+                    032             BEQ EBLD3
+                    033             JMP ETYP        ;TYPE MISMATCH ERROR MESSAGE
+                    034 EBLD3       EQU *
+                    035             LDA #4          ; SET BINARY FILE               ; <a class='magic' name='_'>magic number</a> /sarcasm if only we had <span class='code'>FILE_TYPE_BINARY EQU 4</span>
+                    036             JSR SV1         ; GO OPEN &amp; TEST
+                    037             JSR LD2         ; GO GET ADR
+                    038             TAX
+                    039             LDA INOPTS
+                    040             AND #ADR        ; IF ADR NOT GIVEN
+                    041             BNE EBLD1
+                    042             STX CA          ; THEN USE ADR FROM FILE
+                    043             STY CA+1
+                    044 EBLD1       EQU *
+                    045             JSR LD2         ; GET LENGTH
+                    046             LDX CA          ; GET GIVEN ADR
+                    047             LDY CA+1
+                    048             JMP LD3         ; GO GET BLOCK                  ; Why is this +128 bytes away??
+                    049 ;
+                    050 ; EBRUN - EXECUTE BINARY RUN
+                    051 ;
+                    052 <a class='f' name='EBRUN'    >EBRUN       </a>JSR EBLD                                        ; <a class='v' href='#CMDETB'>CMDETB</a> [1A]
+238E:               053             JSR MVCSW       ; GO RESTORE CHAR I/O SW
+<hr>                    054             JMP (CA)        ; GO EXEC THE STUFF             ; <a class='dumb'>How Not To Design an OS</a> <b>Problem</b>: This <span class='code'>JMP</span> is why Binary programs can't use <span class='code'>RTS</span> to return to DOS
+                                                                                    ; <b>Solution</b>:    LDA CA    ; Short-Sighted 6502 design lacks indirect mode: <span class='code'>JSR ($addr)</span>
+                                                                                    ;              STA GOBRUN+1
+                                                                                    ;              LDA CA+1
+                                                                                    ;              STA GOBRUN+2
+                                                                                    ; GOBRUN       JSR $0000       ; NOTE: Self-Modifying code
+                                                                                    ;              RTS
                     055 
                     056 
                     057 
