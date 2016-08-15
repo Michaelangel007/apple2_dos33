@@ -1398,7 +1398,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     202             RTS
                     203 ;
                     204 <a class='d' name='IFB'      >IFB         </a>EQU *                                           ; --- Copied to $3D0 ---
-1E51:4C BF 1D       205 <a class='f' name='DBVECT'>DBVECT      </a>JMP <a class='x' href='#DBRST'>DBRST</a>                                       ; $3D0: DOS Warm RESET JMP $9BF
+1E51:4C BF 1D       205 <a class='f' name='DBVECT'>DBVECT      </a>JMP <a class='x' href='#DBRST'>DBRST</a>                                       ; $3D0: DOS Warm RESET JMP $9DBF
 1E54:4C 84 1D       206             JMP <a class='x' href='#DBINIT' >DBINIT</a>                                      : $3D3: DOS Cold RESET JMP $9D84
 1E57:4C FD 2A       207             JMP <a class='x' href='#USERENT'>USERENT</a> ;USER EXTERNAL ENTRY TO FILE MANAGER; $3D6: File Manager   JMP $AAFD
 1E5A:4C B5 37       208             JMP <a class='x' href='#DISKIO '>DISKIO</a>                                      ; $3D9
