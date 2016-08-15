@@ -1287,13 +1287,13 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                                                                                     ;        -5 = Don't count opcodes at Lines #117,118
                                                                                     ;       -18 = Replacement code at Line <a class='link' href='#DOSINIT.118.Solution'>118 Solution</a>
 1D9E:A2 0A          <a class='line' name='DOSINIT.109'>109</a>             LDX #<a class='v' href='#IBVTL'>IBVTL</a>      ; GET IB VT LENGTH              ; <a class='mem' name='_1D9E'>wastes</a> =7 bytes
-1DA0:BD 61 1D       110 IIB1        LDA <a class='v' href='#IBVT'>IBVT</a>-<span class='n'>1</span>,X    ; MOVE IB ADDR                  ; <b>Problem</b>: *sigh* due to IBVTL=$A != AS1VTL=$C
+1DA0:BD 61 1D       110 <a class='f' name='IIB1'     >IIB1        </a>LDA <a class='v' href='#IBVT'>IBVT</a>-<span class='n'>1</span>,X    ; MOVE IB ADDR                  ; <b>Problem</b>: *sigh* due to IBVTL=$A != AS1VTL=$C
 1DA3:9D 55 1D       111             STA <a class='v' href='#IBASVT'>IBASVT</a>-<span class='n'>1</span>,X                                  ;           we end up with <i>duplicate code</i> (**9 times**, er, 3 times!) to
 1DA6:CA             112             DEX                                             ;           copy the BASIC Vector Table! (An array of function pointers)
 1DA7:D0 F7          113             BNE <a class='x' href='#IIB1'>IIB1</a>                                        ;
 1DA9:4C BC 1D       114             JMP <a class='x' href='#INITAA'>INITAA</a>                                      ; normally <a class='mem' name='#_1DA9'>wastes</a> 1 byte, BEQ INITAA; but see bigger optimization on Line #<a class='line' href='#DOSINIT.109'>109</a>
                     115 ;
-                    116 IAS1        EQU *                                           ; IAS1 = Init Applesoft ROM; /cynical "<i>There will be a test</i>"
+                    116 <a class='f' name='IAS1'     >IAS1        </a>EQU *                                           ; IAS1 = Init Applesoft ROM; /cynical "<i>There will be a test</i>"
 <hr>1DAC:A9 40          117             LDA #$<span class='n'>40</span>        ; INDICATE ROM APPLESOFT        ; === Page <a class='page' name='page50'>50</a> === <a class='magic' name='#_'>magic number</a> BASIC_TYPE_APPLESOFT_ROM = $40
 1DAE:8D B6 2A       118             STA <a class='v' href='#ASIBSW'>ASIBSW</a>                                      ; <b><a class='section' name='DOSINIT.118.Solution'>Solution</a></b>: a) Lines 117-118 should be moved <i>after</i> Line #<a class='line' href='#DOSINIT.103'>103</a> to <b>anticipate the common case</b>
                                                                                     ;           b) This is one of those <b>rare times</b> where we
@@ -1310,57 +1310,57 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                                                                                     ;
                                                                                     ; A2 0C    IAS1    LDX #AS1VT-IBVTL     ;     SourceOffset $C = AS1VT 
 1DB1:A2 0C          119             LDX #<a class='v' href='#AS1VTL'>AS1VTL</a>                                     ; A0 00            LDY #0               ; Y = DestOffset = BytesCopied
-1DB3:BD 6B 1D       120 IAS1A       LDA <a class='v' href='#AS1VT'>AS1VT</a>-<span class='n'>1</span>,X   ; MOVE ROM AS ADRS              ; BD 62 1D 1AS1A   LDA IBVT,X           ; X = $0, $C, or $18 to start 
+1DB3:BD 6B 1D       120 <a class='f' name='IAS1A'    >IAS1A       </a>LDA <a class='v' href='#AS1VT'>AS1VT</a>-<span class='n'>1</span>,X   ; MOVE ROM AS ADRS              ; BD 62 1D 1AS1A   LDA IBVT,X           ; X = $0, $C, or $18 to start 
 1DB6:9D 55 1D       121             STA <a class='v' href='#IBASVT'>IBASVT</a>-<span class='n'>1</span>,X                                  ; 99 56 1D         STA IBASVT,Y                                       
 1DB9:CA             122             DEX                                             ; E8               INX                                                
 1DBA:D0 F7          123             BNE <a class='x' href='#IAS1A'>IAS1A</a>                                       ; C8               INY                                                
                                                                                     ; C0 0C            CPY #C                                             
                                                                                     ; D0 F4            BNE copy                                           
                     124 ;
-                    125 INITAA      EQU                                             ; /sarcasm Hey, we need a new label inbetween INITA, and INITB
+                    125 <a class='f' name='INITAA'   >INITAA      </a>EQU                                             ; /sarcasm Hey, we need a new label inbetween INITA, and INITB
 1DBC:38             126             SEC             ; INDICATE INIT                 ;          I know, let's call it crappy "INITAA" instead of DoneCopyBasicVectors
 1DBD:B0 12          127             BCS <a class='x' href='#INITA'>INITA</a>                                       ; &darr; (always) (*note* Intentional next empty line spacer for readability)
                                                                                     ;
-1DBF:AD 62 2A       128 <a class='f' name='DBRST'>DBRST       </a>LDA ASIBSW      ;GET APPLESOFT/INITGER BASIC FLAG   ; *spelling* INTEGER; DBRST = DosBasicReset
+1DBF:AD 62 2A       128 <a class='f' name='DBRST'>DBRST       </a>LDA <a class='v' href='#ASIBSW'>ASIBSW</a>      ;GET APPLESOFT/INITGER BASIC FLAG   ; *spelling* INTEGER; DBRST = DosBasicReset
 1DC2:D0 04          129             BNE <a class='x' href='#INITA1'>INITA1</a>      ;BRANCH IF NOT INITGER BASIC        ; *spelling* INTEGER
-1DC4:A9 20          130             LDA #ITSTV      ;GET INTIGER TEST VALUE AND GO SET  ; *spelling* INTEGER
+1DC4:A9 20          130             LDA #<a class='v' href='#ITSTV'>ITSTV</a>      ;GET INTIGER TEST VALUE AND GO SET  ; *spelling* INTEGER
 1DC6:D0 05          131             BNE <a class='x' href='#INITA2'>INITA2</a>      ; ROM SWITCH TO 'IB'. (BRANCH ALWAYS)
-1DC8:0A             132 INITA1      ASL A           ;TEST FOR ROM APPLESOFT         ; $40 = Applesoft RAM
+1DC8:0A             132 <a class='f' name='INITA1'   >INITA1      </a>ASL A           ;TEST FOR ROM APPLESOFT         ; $40 = Applesoft RAM
 1DC9:10 05          133             BPL <a class='x' href='#INITA3'>INITA3</a>      ;BRANCH IF RAM VERSION          ; /cynical <b>Test time!</b> INITA3 referes to InitApplesoftRAM or InitApplesoftROM ?
-1DCB:A9 4C          134             LDA #ATSTV      ;GET APPLESOFT TEST VALUE AND GO SET
-1DCD:20 B2 25       135 INITA2      JSR <a class='x' href='#SWTST'>SWTST</a>       ;GO SELECT PROPER ROM BASIC.    ; more crappy naming: _which_ Switch Test
-1DD0:18             136 INITA3      CLC
+1DCB:A9 4C          134             LDA #<a class='v' href='#ATSTV'    >ATSTV</a>      ;GET APPLESOFT TEST VALUE AND GO SET
+1DCD:20 B2 25       135 <a class='f' name='INITA2'   >INITA2      </a>JSR <a class='x' href='#SWTST'>SWTST</a>       ;GO SELECT PROPER ROM BASIC.    ; more crappy naming: _which_ Switch Test
+1DD0:18             136 <a class='f' name='INITA3'   >INITA3      </a>CLC
                     137 ;
-                    138 INITA       EQU *
+                    138 <a class='f' name='INITA'    >INITA       </a>EQU *
 1DD1:08             139             PHP             ;SAVE INIT/RESET
 1DD2:20 51 28       140             JSR <a class='x' href='#MVCSW'>MVCSW</a>       ; GO MOVE CHAR SWITCH
 1DD5:A9 00          141             LDA #<span class='n'>0</span>          ; CLR MONITOR MODES             ; MON C,I,O
-1DD7:8D 5E 2A       142             STA MONMOD
+1DD7:8D 5E 2A       142             STA <a class='v' href='#MONMOD'   >MONMOD</a>
                     143 ;
-1DDA:8D 52 2A       144             STA OSTATE      ; CLEAR OUTSTATE AND EXECUTE STATE  ; what happened to STA ESTATE ??
+1DDA:8D 52 2A       144             STA <a class='v' href='#OSTATE'   >OSTATE</a>      ; CLEAR OUTSTATE AND EXECUTE STATE  ; what happened to STA ESTATE ??
 1DDD:28             145             PLP             ; GET INIT/RESET
 1DDE:6A             146             ROR A           ; SHIFT CARRY TO MSB            ; /sarcasm Gee, if only we could understand 6502 instructions, $00 = Reset, $80 = Init
-1DDF:8D 51 2A       147             STA ISTATE      ; SAVE INSTATE                  ; Frak-You Captain Obvious with a STA IN_STATE
-1DE2:30 03          148             BMI <a class='x' href='#INITB'>INITB</a>       ; BR IF INIT
-1DE4:6C 5E 1D       149             JMP (<a class='v' href='#CONT'>CONT</a>)      ; GO TO CONTINUE ENTRY          ; No Shit, Sherlock; _what_ is the difference between CONT and GO ???
-1DE7:6C 5C 1D       150 INITB       JMP (<a class='v' href='#GO'>GO</a>)        ; GO TO GO ENTRY                ;
+1DDF:8D 51 2A       147             STA <a class='v' href='#ISTATE'>ISTATE</a>      ; SAVE INSTATE                  ; Frak-You Captain Obvious with a STA IN_STATE
+1DE2:30 03          148             BMI <a class='x' href='#INITB' >INITB</a>       ; BR IF INIT
+1DE4:6C 5E 1D       149             JMP (<a class='v' href='#CONT' >CONT</a>)      ; GO TO CONTINUE ENTRY          ; No Shit, Sherlock; _what_ is the difference between CONT and GO ???
+1DE7:6C 5C 1D       150 <a class='f' name='INITB'    >INITB       </a>JMP (<a class='v' href='#GO'>GO</a>)        ; GO TO GO ENTRY                ;
                     151             PAGE
-                    152 INITC       EQU *                                           ; Called by <a class='x' href='#CHIN0'>CHIN0</a>
+                    152 <a class='f' name='INITC'    >INITC       </a>EQU *                                           ; Called by <a class='x' href='#CHIN0'>CHIN0</a>
 1DEA:0A             153             ASL A           ; OF ISTATE NOT ON
-1DEB:10 19          154             BPL <a class='x' href='#INITD'>INITD</a>       ; THEN NOT RAM AS               ; 
-1DED:8D 62 2A       155             STA ASIBSW      ; SET RAM AS
-1DF0:A2 0C          156             LDX #AS2VTL                                     ; more duplicate code, we should <span class='macro'>LDA #AS2VT-IBVT</span> and JSR <a class='link' href='#DOSINIT.118.Solution'>118 Solution</a> (make a subroutine)
-1DF2:BD 77 1D       157 IAS2A       LDA AS2VT-1,X   ; MOVE RAM AS ADRS              ; <a class='mem' name='_'>wastes</a> 6 bytes, (9 - 3 for JSR SOLUTION.118)</a>
-1DF5:9D 55 1D       158             STA IBASVT-1,X                                  ;        When you see the <b>same block of code</b> your <i>spidey sense</i> should be tingling:
+1DEB:10 19          154             BPL <a class='x' href='#INITD' >INITD</a>       ; THEN NOT RAM AS               ; 
+1DED:8D 62 2A       155             STA <a class='v' href='#ASIBSW'>ASIBSW</a>      ; SET RAM AS
+1DF0:A2 0C          156             LDX #<a class='v' href='#AS2VTL'>AS2VTL</a>                                     ; more duplicate code, we should <span class='macro'>LDA #AS2VT-IBVT</span> and JSR <a class='link' href='#DOSINIT.118.Solution'>118 Solution</a> (make a subroutine)
+1DF2:BD 77 1D       157 <a class='f' name='IAS2A'    >IAS2A       </a>LDA <a class='v' href='#AS2VT'>AS2VT</a>-<span class='n'>1</span>,X   ; MOVE RAM AS ADRS              ; <a class='mem' name='_'>wastes</a> 6 bytes, (9 - 3 for JSR SOLUTION.118)</a>
+1DF5:9D 55 1D       158             STA <a class='v' href='#IBASVT'>IBASVT</a>-<span class='n'>1</span>,X                                  ;        When you see the <b>same block of code</b> your <i>spidey sense</i> should be tingling:
 1DF8:CA             159             DEX                                             ;        Is there a way to refactor this common code?
 1DF9:D0 F7          160             BNE <a class='x' href='#IAS2A'>IAS2A</a>
 1DFB:A2 1D          161             LDX #<span class='n'>29</span>                                         ; <a class='magic' name='_'>magic number</a> <i>better</i>: 30-1, <b>best</b>: FILENAME_MAX-1
-1DFD:BD 93 2A       162 IAS2B       LDA FNAME2,X
-                    163             STA FNAME1,X
+1DFD:BD 93 2A       162 <a class='f' name='IAS2B'    >IAS2B       </a>LDA <a class='v' href='#FNAME2'>FNAME2</a>,X
+                    163             STA <a class='v' href='#FNAME1'>FNAME1</a>,X
                     164             DEX
                     165             BPL <a class='x' href='#IAS2B'>IAS2B</a>
                     166 ;
-                    167 INITD       EQU *
+                    167 <a class='f' name='INITD'    >INITD       </a>EQU *
                     168             LDA DFNFTS      ; GO BUILD FILE TABS
                     169             STA CNFTBS      ; AND SET MEM BOUNDS
                     170             JSR BLDFTB
@@ -1371,12 +1371,12 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     175             PLA
                     176             LDA #<span class='n'>0</span>
                     177             STA (ZPGWRK),Y                                  ; Oh, we're still around?
-                    178 INITZ       EQU *
+                    178 <a class='f' name='INITZ'    >INITZ       </a>EQU *
 <hr>                    179             JSR CLRSTS      ; SET IN AND OUT STATES TO ZERO ; === Page <a class='page' name='page51'>51</a> === ClearStates
                     180             LDA CMDNO       ; IF NOT BOOT (DUPLICATED FROM LINES 4540, 4550)
                     181             BNE INITF       ; THEN DONE
                     182             LDX #<a class='v' href='#IFBL'>IFBL</a>
-                    183 INITE       LDA <a class='x' href='#DBVECT'>DBVECT</a>,X    ; MOVE RESTART VECTORS
+                    183 <a class='f' name='INITE'    >INITE       </a>LDA <a class='x' href='#DBVECT'>DBVECT</a>,X    ; MOVE RESTART VECTORS
                     184             STA $<span class='n'>3D0</span>,X                                      ; <a class='magic' name='_'>magic number</a>
                     185             DEX
                     186             BPL INITE
@@ -1389,36 +1389,36 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     193             LDA #<span class='n'>6</span>          ;INIDICATE RUN                  ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span> 
                     194             BNE INITF1      ;LOAD AND RUN THE 'HELLO' PROGRAM   ; &darr; (always) 
                     195 ;
-                    196 INITF       EQU *
+                    196 <a class='f' name='INITF'    >INITF       </a>EQU *
                     197             LDA SVCMD
                     198             BEQ INITG
-                    199 INITF1      STA CMDNO
+                    199 <a class='f' name='INITF1'   >INITF1      </a>STA CMDNO
                     200             JMP CMDGO1
-                    201 INITG       EQU *
+                    201 <a class='f' name='INITG'    >INITG       </a>EQU *
                     202             RTS
                     203 ;
                     204 <a class='d' name='IFB'      >IFB         </a>EQU *                                           ; --- Copied to $3D0 ---
-1E51:4C BF 1D       205 <a class='f' name='DBVECT'>DBVECT      </a>JMP DBRST                                       ; $3D0: DOS Warm RESET JMP $9BF
-1E54:4C 84 1D       206             JMP DBINIT                                      : $3D3: DOS Cold RESET JMP $9D84
+1E51:4C BF 1D       205 <a class='f' name='DBVECT'>DBVECT      </a>JMP <a class='x' href='#DBRST'>DBRST</a>                                       ; $3D0: DOS Warm RESET JMP $9BF
+1E54:4C 84 1D       206             JMP <a class='x' href='#DBINIT' >DBINIT</a>                                      : $3D3: DOS Cold RESET JMP $9D84
 1E57:4C FD 2A       207             JMP <a class='x' href='#USERENT'>USERENT</a> ;USER EXTERNAL ENTRY TO FILE MANAGER; $3D6: File Manager   JMP $AAFD
-1E5A:4C B5 37       208             JMP DISKIO                                      ; $3D9
+1E5A:4C B5 37       208             JMP <a class='x' href='#DISKIO '>DISKIO</a>                                      ; $3D9
                     209 <a class='f' name='CCBLDR'   >CCBLDR      </a>EQU *                                           ; $3DC GetCCB
-1E5D:AD 0F 1D       210             LDA CCBADR+1
-1E60:AC 0E 1D       211             LDY CCBADR
+1E5D:AD 0F 1D       210             LDA <a class='v' href='#CCBADR'>CCBADR</a>+<span class='n'>1</span>
+1E60:AC 0E 1D       211             LDY <a class='v' href='#CCBADR'>CCBADR</a>
 1E63:60             212             RTS
                     213 <a class='f' name='IOBLDR'   >IOBLDR      </a>EQU *                                           ; $3E3
-1E64:AD C2 2A       214             LDA AIOB+1
-1E67:AC C1 2A       215             LDY AIOB
+1E64:AD C2 2A       214             LDA <a class='v' href='#AIOB'  >AIOB</a>+<span class='n'>1</span>
+1E67:AC C1 2A       215             LDY <a class='v' href='#AIOB'  >AIOB</a>
 1E6A:60             216             RTS
-1E6B:4C 51 28       217             JMP MVCSW                                       ; $3EA <span class='todo'>TODO</span> Who calls us??
+1E6B:4C 51 28       217             JMP <a class='x' href='#MVCSW' >MVCSW</a>                                       ; $3EA <span class='todo'>TODO</span> Who calls us??
 1E6E:EA             218             NOP
 1E6F:EA             219             NOP
-1E70:4C 59 FA       220             JMP MONBRK                                      ; $3EF
-1E73:4C 65 FF       221             JMP MONRST                                      ; $3F2 Control-Reset JMP $9DBF
-1E76:4C 58 FF       222             JMP IORTS                                       ; $3F5: JMP $FF58
-1E79:4C 65 FF       223             JMP MONRST                                      ; $3F8: JMP $FF65
-1E7C:4C 65 FF       224             JMP MONRST                                      ; $3FB: JMP $FF65
-1E7F:65 FF          225             DW MONRST                                       ; $3FE: dw  $FF65
+1E70:4C 59 FA       220             JMP <a class='e' href='#MONBRK'>MONBRK</a>                                      ; $3EF
+1E73:4C 65 FF       221             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3F2 Control-Reset JMP $9DBF
+1E76:4C 58 FF       222             JMP <a class='e' href='#IORTS' >IORTS</a>                                       ; $3F5: JMP $FF58
+1E79:4C 65 FF       223             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3F8: JMP $FF65
+1E7C:4C 65 FF       224             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3FB: JMP $FF65
+1E7F:65 FF          225             DW <a  class='e' href='#MONRST'>MONRST</a>                                       ; $3FE: dw  $FF65
                     226 <a class='d' name='IFBL'     >IFBL        </a>EQU *-<a class='v' href='#IFB'>IFB</a>-<span class='n'>1</span>                                     ; IFB_Length
 </pre>
 
