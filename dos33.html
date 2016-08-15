@@ -1268,8 +1268,8 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     091 ;
                     092 ; DOS BASIC INTERPRETER - INITIAL ENTRY
                     093 ;
-                    094 <a class='x' name='SC1'      >SC1         </a>EQU *                                           ; Start Relocate Code 1
-                    095 <a class='x' name='DBINIT'   >DBINIT      </a>EQU *                     ; DB = Dos Basic
+                    094 <a class='f' name='SC1'      >SC1         </a>EQU *                                           ; Start Relocate Code 1
+                    095 <a class='f' name='DBINIT'   >DBINIT      </a>EQU *                     ; DB = Dos Basic
 1D84:AD E9 37       096             LDA <a class='v' href='#IBSLOT'>IBSLOT</a>      ; GET BOOT SLOT
 1D87:4A             097             LSR A                                           ; /sarcasm Gee, maybe we wouldn't even <i>need</i> the next comment
 1D88:4A             098             LSR A                                           ;          if we <b>used good variable names</b> such as CUR_SLOTx16
