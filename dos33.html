@@ -1361,39 +1361,39 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1E04:10 F7          165             BPL <a class='x' href='#IAS2B'>IAS2B</a>
                     166 ;
                     167 <a class='f' name='INITD'    >INITD       </a>EQU *
-1E06:AD B1 2A       168             LDA DFNFTS      ; GO BUILD FILE TABS
-1E09:8D 57 2A       169             STA CNFTBS      ; AND SET MEM BOUNDS
-1E0C:20 D4 27       170             JSR BLDFTB
-1E0F:AD B3 2A       171             LDA ESTATE      ; GET EXEC STATE
-1E12:F0 09          172             BEQ INITZ       ; BR IF NOT EXECUTE
+1E06:AD B1 2A       168             LDA <a class='v' href='#DFNFTS'>DFNFTS</a>      ; GO BUILD FILE TABS
+1E09:8D 57 2A       169             STA <a class='v' href='#CNFTBS'>CNFTBS</a>      ; AND SET MEM BOUNDS
+1E0C:20 D4 27       170             JSR <a class='x' href='#BLDFTB'>BLDFTB</a>
+1E0F:AD B3 2A       171             LDA <a class='v' href='#ESTATE'>ESTATE</a>      ; GET EXEC STATE
+1E12:F0 09          172             BEQ <a class='x' href='#INITZ' >INITZ</a>       ; BR IF NOT EXECUTE
 1E14:48             173             PHA             ; SVE CHAR                      ; *spelling* SAVE
-1E15:20 9D 26       174             JSR MVEFTA      ; GO MOVE EX FILE TAB ADR TO ZP
+1E15:20 9D 26       174             JSR <a class='x' href='#MVEFTA'>MVEFTA</a>      ; GO MOVE EX FILE TAB ADR TO ZP
 1E18:68             175             PLA
 1E19:A0 00          176             LDA #<span class='n'>0</span>
-1E1B:91 40          177             STA (ZPGWRK),Y                                  ; Oh, we're still around?
+1E1B:91 40          177             STA (<a class='v' href='#ZPGWRK'>ZPGWRK</a>),Y                                  ; Oh, we're still around?
                     178 <a class='f' name='INITZ'    >INITZ       </a>EQU *
-<hr>1E1D:20 5B 27       179             JSR CLRSTS      ; SET IN AND OUT STATES TO ZERO ; === Page <a class='page' name='page51'>51</a> === ClearStates
-1E20:AD 5F 2A       180             LDA CMDNO       ; IF NOT BOOT (DUPLICATED FROM LINES 4540, 4550)
-1E23:D0 20          181             BNE INITF       ; THEN DONE
+<hr>1E1D:20 5B 27       179             JSR <a class='x' href='#CLRSTS'>CLRSTS</a>      ; SET IN AND OUT STATES TO ZERO ; === Page <a class='page' name='page51'>51</a> === ClearStates
+1E20:AD 5F 2A       180             LDA <a class='v' href='#CMDNO'>CMDNO</a>       ; IF NOT BOOT (DUPLICATED FROM LINES 4540, 4550)
+1E23:D0 20          181             BNE <a class='x' href='#INITF'>INITF</a>       ; THEN DONE
 1E25:A2 2F          182             LDX #<a class='v' href='#IFBL'>IFBL</a>
 1E27:BD 51 1E       183 <a class='f' name='INITE'    >INITE       </a>LDA <a class='x' href='#DBVECT'>DBVECT</a>,X    ; MOVE RESTART VECTORS
 1E2A:9D D0 03       184             STA $<span class='n'>3D0</span>,X                                      ; <a class='magic' name='_'>magic number</a>
 1E2D:CA             185             DEX
-1E2E:10 F7          186             BPL INITE
-1E30:AD 53 1E       <a class='line' name='DOSINIT.187'>187</a>             LDA DBVECT+<span class='n'>2</span>    ;SET RESET VECTORS FOR NEW MONITOR.                 ;[.. <a class='mem' name='_1E30'>wastes</a> 17 bytes! WTF is the point of using a table
-1E33:8D F3 03       188             STA ZRSET+<span class='n'>1</span>     ;NOTE: THESE ARE NOT NORMALLY USED AND              ; .. if you're just going to ignore part of it???
+1E2E:10 F7          186             BPL <a class='x' href='#INITE'>INITE</a>
+1E30:AD 53 1E       <a class='line' name='DOSINIT.187'>187</a>             LDA <a class='x' href='#DBVECT'>DBVECT</a>+<span class='n'>2</span>    ;SET RESET VECTORS FOR NEW MONITOR.                 ;[.. <a class='mem' name='_1E30'>wastes</a> 17 bytes! WTF is the point of using a table
+1E33:8D F3 03       188             STA <a class='v' href='#ZRSET'>ZRSET</a>+<span class='n'>1</span>     ;NOTE: THESE ARE NOT NORMALLY USED AND              ; .. if you're just going to ignore part of it???
 1E36:49 A5          189             EOR #$<span class='n'>A5</span>        ; ARE ONLY SET ONCE ON BOOT                         ; .. <a class='magic' name='_'>magic number</a> F800.S 'Monitor' ROM Ctrl-Reset Powered Up Checksum
-1E38:8D F4 03       190             STA PWCNST      ;POWER UP CONSTANT=COMPLIMENT OF HI RESET VECTOR.   ; .. This entire clusterfrak is caused by Line #<a class='line' href='DOSINIT.221'>221</a>
-1E3B:AD 52 1E       191             LDA DBVECT+<span class='n'>1</span>    ;SET LOW VECTOR ADDRESS.                            ; ..
-1E3E:8D F2 03       192             STA ZRSET       ;NOW APPLE RESET WILL KEEP DOS IN I/O LOOP          ; ..]
+1E38:8D F4 03       190             STA <a class='v' href='#PWCNST'>PWCNST</a>      ;POWER UP CONSTANT=COMPLIMENT OF HI RESET VECTOR.   ; .. This entire clusterfrak is caused by Line #<a class='line' href='DOSINIT.221'>221</a>
+1E3B:AD 52 1E       191             LDA <a class='x' href='#DBVECT'>DBVECT</a>+<span class='n'>1</span>    ;SET LOW VECTOR ADDRESS.                            ; ..
+1E3E:8D F2 03       192             STA <a class='v' href='#ZRSET'>ZRSET</a>       ;NOW APPLE RESET WILL KEEP DOS IN I/O LOOP          ; ..]
 1E41:A9 06          193             LDA #<span class='n'>6</span>          ;INIDICATE RUN                                      ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span> 
-1E43:D0 05          194             BNE INITF1      ;LOAD AND RUN THE 'HELLO' PROGRAM                   ; &darr; (always) 
+1E43:D0 05          194             BNE <a class='x' href='#INITF1'>INITF1</a>      ;LOAD AND RUN THE 'HELLO' PROGRAM                   ; &darr; (always) 
                     195 ;
                     196 <a class='f' name='INITF'    >INITF       </a>EQU *
-1E45:AD 62 2A       197             LDA SVCMD
-1E48:F0 06          198             BEQ INITG
+1E45:AD 62 2A       197             LDA <a class='v' href='#SVCMD'>SVCMD</a>
+1E48:F0 06          198             BEQ <a class='x' href='#INITG'>INITG</a>
 1E4A:8d 5F 2A       199 <a class='f' name='INITF1'   >INITF1      </a>STA CMDNO
-1E4D:4C 80 21       200             JMP CMDGO1
+1E4D:4C 80 21       200             JMP <a class='x' href='#CMDGO1'>CMDGO1</a>
                     201 <a class='f' name='INITG'    >INITG       </a>EQU *
 1E50:60             202             RTS
                     203 ;
