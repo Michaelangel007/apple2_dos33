@@ -1382,7 +1382,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1E2E:10 F7          186             BPL INITE
 1E30:AD 53 1E       <a class='line' name='DOSINIT.187'>187</a>             LDA DBVECT+<span class='n'>2</span>    ;SET RESET VECTORS FOR NEW MONITOR.                 ;[.. <a class='mem' name='_1E30'>wastes</a> 17 bytes! WTF is the point of using a table
 1E33:8D F3 03       188             STA ZRSET+<span class='n'>1</span>     ;NOTE: THESE ARE NOT NORMALLY USED AND              ; .. if you're just going to ignore part of it???
-1E36:49 A5          189             EOR #$<span class='n'>A5</span>        ; ARE ONLY SET ONCE ON BOOT                         ; .. <a class='magic' name='_'>magic number</a> F800.S "Monitor" ROM Ctrl-Reset Powered Up Checksum
+1E36:49 A5          189             EOR #$<span class='n'>A5</span>        ; ARE ONLY SET ONCE ON BOOT                         ; .. <a class='magic' name='_'>magic number</a> F800.S Monitor ROM Ctrl-Reset Powered Up Checksum
 1E38:8D F4 03       190             STA PWCNST      ;POWER UP CONSTANT=COMPLIMENT OF HI RESET VECTOR.   ; .. This entire clusterfrak is caused by Line #<a class='line' href='DOSINIT.221'>221</a>
 1E3B:AD 52 1E       191             LDA DBVECT+<span class='n'>1</span>    ;SET LOW VECTOR ADDRESS.                            ; ..
 1E3E:8D F2 03       192             STA ZRSET       ;NOW APPLE RESET WILL KEEP DOS IN I/O LOOP          ; ..]
