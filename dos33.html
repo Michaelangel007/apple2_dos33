@@ -2544,20 +2544,20 @@ With that "legalese" out of the way ... enjoy the read!
                     002 ;
                     003 ; EWRITE - WRITE CMD EXECUTE
                     004 ;
-                    005 EWRITE      EQU *
-2510:20 26 25       006             JSR RWPOSN      ; GO POSITION FILE IF REQD
+                    005 <a class='f' name='EWRITE'   >EWRITE      </a>EQU *
+2510:20 26 25       006             JSR <a class='x' href='#RWPOSN'>RWPOSN</a>      ; GO POSITION FILE IF REQD
 2513:A9 05          007             LDA #<span class='n'>5</span>                                          ; WTF is state 5 ?? OK, <a class='x' href='#COS5'>COS5</a> And the state table transition is where again?
-2515:8D 52 2A       008             STA OSTATE      ; SET OSTATE=5                  ; /sarcasm <i>No Shit, Sherlock</i>
+2515:8D 52 2A       008             STA <a class='v' href='#OSTATE'>OSTATE</a>      ; SET OSTATE=5                  ; /sarcasm <i>No Shit, Sherlock</i>
 <img src="char_output_state.png">
-2518:4C 83 1F       009             JMP CERTN
-                    010 
-                    011 
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
+2518:4C 83 1F       009             JMP <a class='x' href='#CERTN'>CERTN</a>
+                    010 ; 
+                    011 ;
+                    012 ;
+                    013 <a class='f' name='EREAD'    >EREAD       </a>EQU *
+251B:20 26 25       014             JSR <a class='x' href='#RWPOSN'>RWPOSN</a>      ; GO POSITION FILE IF REQD
+251E:A9 01          015             LDA #<span class='n'>1</span>    
+2520:8D 51 2A       016             STA <a class='v' href='#ISTATE'>ISTATE</a>      ; SET I STATE = DISK INPUT      ; /voice="Nick Burns" <i>See, that wasn't so hard!</i>
+2523:4C 83 1F       017             JMP <a class='x' href='#CERTN'>CERTN</a>                                       ; <a class='mem' name='_2523'>wastes</a> 1 bytes, <span class='code'>BNE EREAD-3</span>
                     018 
                     019 
                     020 
