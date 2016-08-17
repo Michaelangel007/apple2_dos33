@@ -1438,16 +1438,16 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1E8F:68             012             PLA             ;GET ISTATE AGAIN
 1E90:30 03          013             BMI CHIN0       ;BRANCH IF NOT 'READ' FROM DISK
 1E92:4C 26 26       014             JMP ICFD        ; AND GET CHAR FROM DISK
-1E95:20 EA 1D       015 CHIN0       JSR INITC
+1E95:20 EA 1D       015 <a class='f' name='CHIN0'    >CHIN0       </a>JSR INITC
 1E98:A4 24          016             LDY $<span class='n'>24</span>         ;GET CURSOR HORIZ               ; <a class='magic' name='_1E98'>magic number</a> /sarcasm If only F800.S ROM defined CH EQU $24
 1E9A:A9 60          017             LDA #$<span class='n'>60</span>        ;RESTORE A FLASHING CURSOR      ; #' ' + FLASH ; INVERSE = $00..$3F, FLASH = $40..$7F, NORMAL = $80..FF
 1E9C:91 28          018             STA ($<span class='n'>28</span>),Y     ; TO PROMPT USER                ; <a class='magic' name='_1E9C'>magic number</a>
-                    019 CHIN1       EQU *
+                    019 <a class='f' name='CHIN1'    >CHIN1       </a>EQU *
 1E9E:AD B3 2A       020             LDA ESTATE
 1EA1:F0 03          021             BEQ CHIN2
 1EA3:20 82 26       022             JSR NXTEXC      ;RETURNS TO HERE ONLY WHEN 'EXEC' IS EXHAUSTED
 
-                    023 CHIN2       EQU *
+                    023 <a class='f' name='CHIN2'    >CHIN2       </a>EQU *
 1EA6:A9 03          024             LDA #<span class='n'>3</span>          ; SET OUT CHAR                   ; <a class='magic' name='_1EA6'>magic number</a> COS_INPUT_ECHO = 3
 1EA8:8D 52 2A       025             STA OSTATE      ; STATE TO INPUT ECHO
                     026             JSR LDREGS
@@ -1477,7 +1477,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     050 ;
                     051 <a class='f' name='SVREGS'   >SVREGS      </a>EQU *
 1ED1:8D 5C 2A       052             STA SVA         ; SAVE ACU                      ; Captain Obvious to the rescue!
-                    053 SVRGSA      EQU *                                           ; SaveRegsA, uh, NO, SaveRegsXY, we _already_ saved A
+                    053 <a class='f' name='SVRGSA'   >SVRGSA      </a>EQU *                                           ; SaveRegsA, uh, NO, SaveRegsXY, we _already_ saved A
 1ED4:8D 5A 2A       054             STX SVX         ; SAVE X                        ; Good variable naming, SAVEX, SAVEY
 1ED7:8C 5B 2A       055             STY SVY         ; SAVE Y                        ; negates the need for these useless comments
 1EDA:BA             056             TSX             ;SAVE STACK POINTER
@@ -1485,7 +1485,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 1EDC:E8             058             INX             ;ADJUST IT TO ORIGINAL
 1EDD:8E 59 2A       059             STX SVSTK
 1EE0:A2 03          060             LDX #<span class='n'>3</span>          ; SET FOR FOUR BYTE MOVE        ; /sarcasm If only we could read assembly ...
-1EE2:BD 53 2A       061 SVRB        LDA SVOUTS,X    ; MOVE SAVED OUT AND IN SW      ; Save RB??? <span class='todo'>TOOD</span>
+1EE2:BD 53 2A       061 <a class='f' name='SVRB'     >SVRB        </a>LDA SVOUTS,X    ; MOVE SAVED OUT AND IN SW      ; Save RB??? <span class='todo'>TOOD</span>
 1EE5:95 36,X        062             STA OUTSW,X     ; TO APPLE OUT/IN SW
 1EE7:CA             063             DEX
 1EE8:10 F8          064             BPL SVRB
@@ -1497,16 +1497,16 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     070 ;                                                           ; We're <b>both</b> inconsistently dropping <i>a consonant</i>: CoNTRoL
                     071 <a class='f' name='COS0'     >COS0        </a>EQU *
 1EEB:AE B7 2A       072             LDX RSTATE      ;FIRST CHECK FOR 'AFTER APSFT RELOC'
-1EEE:F0 03          073             BEQ COS00       ;BRANCH IF NOT                  ; <b>Really?!</b> You couldn't use COS0A and COS0B like you do for the <i>other</i> states??
+1EEE:F0 03          073             BEQ <a class='x' href='#COS00'>COS00</a>       ;BRANCH IF NOT                  ; <b>Really?!</b> You couldn't use COS0A and COS0B like you do for the <i>other</i> states??
                                                                                     ; COS0 &amp; COS00 are <b>crap function names</b>; they are WAY too easy to mis-read/type
 1EF0:4C 78 1F       074             JMP COS7                                        ; <a class='mem' name='_'>wastes</a> 3 bytes, but since $1F78-$1EF0 &gt; $80 move <a class='x' href='#COS5'>COS5</a>..<a class='x' href='#COS7'>COS7</a> <b>before</b> <a class='x' href='#COS0'>COS0</a>; change Line #<a class='line' href='#DOSHOOK.074'>74</a> to BNE COS7
-1EF3:AE 51 2A       075 COS00       LDX ISTATE      ;IS IN STATE NOT ZERO           ; I'm serious, someone <i>please</i> shoot Captain Obvious
+1EF3:AE 51 2A       075 <a class='f' name='COS00'    >COS00       </a>LDX ISTATE      ;IS IN STATE NOT ZERO           ; I'm serious, someone <i>please</i> shoot Captain Obvious
 1EF6:F0 08          076             BEQ COS01                                       ; 
 1EF8:C9 BF          077             CMP #'?'+$<span class='n'>80</span>    ; THEN IS THIS ?
 1EFA:F0 75          078             BEQ COS6        ; THEN PRINT ONLY IF MONITOR
 1EFC:C5 33          079             CMP PROMPT
 1EFE:F0 27          080             BEQ COS2A
-                    081 COS01       EQU *                                           ; === <a class='ts' href='#T0SE'>T0SE</a> ===
+                    081 <a class='f' name='COS01'    >COS01       </a>EQU *                                           ; === <a class='ts' href='#T0SE'>T0SE</a> ===
 1F00:A2 02          082             LDX #<span class='n'>2</span>                                          ; <a class='magic' name=''>magic number</a>
 1F02:8E 52 2A       083             STX OSTATE
 1F05:CD B2 2A       084             CMP CCHAR       ; IF NOT CNTL-D
