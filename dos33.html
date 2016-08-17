@@ -1518,9 +1518,9 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     090 ;
                     091 ;COS1 - ACCUMULATE CMD FROM PRINTED OUTPUT
                     092 ;
-                    093 COS1        EQU *
+                    093 <a class='f' name='COS1'     >COS1        </a>EQU *
 1F12:AE 5D 2A       094             LDX LBUFD       ; GET LINE BUFF DISPL
-1F15:9D 00 02       095 COS1A       STA LBUFF,X     ; PUT CHAR IN BUFF
+1F15:9D 00 02       095 <a class='f' name='COS1A'    >COS1A       </a>STA LBUFF,X     ; PUT CHAR IN BUFF
 1F18:E8             096             INX             ; INCR PTR
 1F19:8E FD 2A       097             STX LBUFD       ; SAVE PTR
 1F1C:C9 8D          098             CMP #$<span class='n'>8D</span>        ; WAS THIS A CR                 ; <a class='magic'>magic number</a>
@@ -1530,64 +1530,64 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     102 ;
                     103 ;COS2 - PRINTED OUTPUT, NOT FIRST CHAR
                     104 ;
-                    105 COS2        EQU *
+                    105 <a class='f' name='COS2'     >COS2        </a>EQU *
 1F23:C9 8D          106             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; <a class='magic'>magic number</a>
 1F25:D0 7D          107             BNE PRRTN       ; BR IF NOT
-1F27:A2 00          108 COS2A       LDX #<span class='n'>0</span>          ; SET FOR POSSIBLE C-D NEXT     ; C-D = Control-D <a class='magic'>magic number</a> COS_STATE_FIRST_CONTROL_D = 0
+1F27:A2 00          108 <a class='f' name='COS2A'    >COS2A       </a>LDX #<span class='n'>0</span>          ; SET FOR POSSIBLE C-D NEXT     ; C-D = Control-D <a class='magic'>magic number</a> COS_STATE_FIRST_CONTROL_D = 0
 1F29:8E 52 2A       109             STX OSTATE      ; NEXT STATE
                     110             JMP PRRTN       ; GO PRINT CHAR
                     111             PAGE
                     112 ;
                     113 ;COS3 - KEY IN ECHO PRINT
                     114 ;
-<hr>                    115 COS3        EQU *
+<hr>                    115 <a class='f' name='COS3'     >COS3        </a>EQU *
                     116             LDX #<span class='n'>0</span>                                          ; <a class='magic' name='_1Fxx'>magic number</a> COS_STATE_0
                     117             STX OSTATE      ; RESET OUT STATE
                     118             CMP #$<span class='n'>8D</span>        ; IS IT CR
                     119             BEQ COS3A       ; IF CR THEN CMD CHECK
-                    120 COS3B       LDA ESTATE      ; ELSE: IF NOT EXECUTE
+                    120 <a class='f' name='COS3B'    >COS3B       </a>LDA ESTATE      ; ELSE: IF NOT EXECUTE
                     121             BEQ PRRTN       ; THEN PRINT CHAR
                     122             BNE DRTNI       ; ELSE: PRINT IF MON INPUT      ; Data Return In
-                    123 COS3A       PHA             ;SAVE CARRAGE RETURN
+                    123 <a class='f' name='COS3A'    >COS3A       </a>PHA             ;SAVE CARRAGE RETURN
                     124             SEC             ;ANTICIPATE EXEC FILE INPUT.
                     125             LDA ESTATE      ;CHECK EXEC FLAG
                     126             BNE COS3C       ;BR IF WAS INPUT FROM EXEC.
                     127             JSR TSTRUN      ;GO TEST FOR RUN MODE.
-                    128 COS3C       PLA
+                    128 <a class='f' name='COS01'    >COS3C       </a>PLA
                     129             BCC COS3B       ;IGNORE INPUT IF RUNNING.
                     130             LDX SVX         ; GET LINE INDEX
                     131             JMP COS1A
                     132 ;
                     133 ;COS4 - DISK OUTPUT MODE
                     134 ;
-                    135 COS4        EQU *
-                    136             CMP #$8D        ; IS IT CR
+                    135 <a class='f' name='COS4'     >COS4        </a>EQU *
+                    136             CMP #$<span class='n'>8D</span>        ; IS IT CR
                     137             BNE COS4A       ; BR IF NOT CR
                     138             LDA #5          ; SET STATE FOR CNTL-D
                     139             STA OSTATE      ; EXAMINE
-                    140 COS4A       JSR OCTD        ; GO OUTPUT CJHAR TO DISK       ; *spelling* Char
+                    140 <a class='f' name='COS4A'    >COS4A       </a>JSR OCTD        ; GO OUTPUT CJHAR TO DISK       ; *spelling* Char
                     141             JMP DRTNO       ; GO TO DATA RETURN (OUT)
                     142 ;
                     143 ;COS5 - DISK OUTPUT MODE - 1ST CHAR
                     144 ;
-                    145 COS5        EQU *
+                    145 <a class='f' name='COS5'     >COS5        </a>EQU *
                     146             CMP CCHAR       ; IS IT CNTL D
                     147             BEQ COS0        ; BR IF CNTL- D
-                    148             CMP #$8A        ; LINE FEED?
+                    148             CMP #$<span class='n'>8A</span>        ; LINE FEED?
                     149             BEQ COS4A
-                    150             LDX #4
+                    150             LDX #<span class='n'>4</span>
                     151             STX OSTATE      ; SET NEW OUT STATE             ; No Shit Sherlock, *what* is State 4 ??
-                    152             BNE COS4        ; BR IF NOT CNTL D
+                    152             BNE COS4        ; BR IF NOT CNTL D              ; &uarr; (always) <a class='mem' name='_'>wastes</a> 2 bytes, move COS5 before COS4 and remove this branch
                     153 ;
                     154 ;COS6 - DISK INPUT ECHO
                     155 ;
-                    156 COS6        LDA #0
+                    156 <a class='f' name='COS6'     >COS6        </a>LDA #<span class='n'>0</span>
                     157             STA OSTATE      ; RESET OUT STATE = 0
                     158             BEQ DRTNI       ; GO TO DATA IN RETURN
                     159 ;
                     160 ; COS7 - SPECIAL FOR RECOVER FROM AS ROM/RAM RELOC.
                     161 ;
-                    162 COS7        LDA #0          ; RESET RELOC STATE
+                    162 <a class='f' name='COS7'     >COS7        </a>LDA #<span class='n'>0</span>          ; RESET RELOC STATE
                     163             STA RSTATE
                     164             JSR MVCSW       ;FOR COMPATABILITY ON REENTRY
                     165             JMP ERUN1
@@ -1651,7 +1651,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
                     004 ;
                     005 <a class="f" name="SCNCMD"      >SCNCMD      </a>EQU *
                     006     DO <a class='do' href='#ULC'>ULC</a><span class='macro'>
-                    007             LDX #0          ;Init X for lower case check    
+                    007             LDX #<span class='n'>0</span>          ;Init X for lower case check    
                     008             JSR UPRCASE     ;Go check                       </span>
                     009     ELSE
 1FCD:A0 FF          010             LDY #$<span class='n'>FF</span>        ;Set CMDNO to -1                
