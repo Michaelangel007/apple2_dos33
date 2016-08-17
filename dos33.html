@@ -428,6 +428,19 @@ span.patch {
 .rows td {
     border: 0px;
 }
+.syntax {
+    z-index         :    2;
+    position        :fixed;
+    top             :  0px;
+    right           :  0px;
+    color           : #000;
+    background-color: #FFF;
+
+    margin       : 1px 1px 1px 1px;
+    border       : 1px solid;
+    border-radius: 8px;
+    padding      : 1px;
+}
 
     </style>
 </head>
@@ -572,8 +585,34 @@ console.log( "Loading..." );
         StickyHeaders.Init( 'sticky' );
 console.log( "done!" );
     }
+
+    function onSyntaxChangeColor()
+    {
+console.log( "TODO: CSS Color" );
+        setSyntaxButtons( false, true );
+    }
+
+    function onSyntaxChangeMono()
+    {
+console.log( "TODO: CSS Monochrome" );
+        setSyntaxButtons( true, false );
+    }
+
+    function setSyntaxButtons( enableColor, enableMono )
+    {
+        var colo = document.getElementById( 'syntax_mono'  );
+        var mono = document.getElementById( 'syntax_color' );
+        colo.disabled = enableColor;
+        mono.disabled = enableMono;
+    }
 </script>
+
 <body onload='onLoad()'>
+<div class='syntax' id='syntax'>
+<i>Syntax Highlighting</i><br>
+<button type='button' id='syntax_color' disabled onclick='onSyntaxChangeColor();'>Color     </button>
+<button type='button' id='syntax_mono'           onclick='onSyntaxChangeMono ();'>Monochrome</button>
+</div>
 <h1>Apple DOS 3.3C Source Code (Unified HTML and Annotated Version)</h1>
 <h1>0.0 Table of Contents</h1>
     <ul class="toc">
