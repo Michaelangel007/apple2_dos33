@@ -604,46 +604,32 @@ console.log( "done!" );
 <br>Transcribed and Annotated by Michael Pohoreski.
 <br>Latest version on GitHub: <a class='link' href="http://htmlpreview.github.com/?https://github.com/Michaelangel007/apple2_dos33/blob/master/dos33.html">dos33.html</a>
 <p>
-The <span class="i">intent</span> of providing this copyrighted source code is
- as a convenience for the curious as a <span class="b">means to learn</span>.
-<p>
-<b class='warn'>WARNING:</b> DOS 3.3 was written by an amateur.
- <i>Reading this source code will probably make you angry</i> at all the <a class='link' href='#VTOC'>dumb shit</a> it does.
- Look for all my <b>*sigh*</b> comments and
- <b><a class="dumb" href="#HNTDAFS1">HNTDAFS</a></b> (How NOT to Design a File System) links.
- While knowing "<b>What To Do</b>" is important, knowing "<b>What NOT To Do</b>" is even <i>more</i> important.
- As they say, <span class="i">"Hindsight is 20/20."</span>
-<p>
-<span class="b">DISCLAIMER:</span> <b>YOU MAY NOT USE APPLE'S SOURCE CODE EXCEPT FOR LEARNING</b>
- else you face risking the wrath of Apple's lawyers.
- Since Apple <span class="i">has already previously released this source code</span>
- I'm assuming it is OK to provide a mirror of the information since I'm not presenting anything new
- (well, OK, my commentary, but you get the point) that isn't already publically available.
-<p>
-With that crap out of the way ...
-<p>
-Numerous improvements have been made over the original source code listings!
+Numerous improvements have been made over the original DOS 3.3C assembly source code listing!
 <p>
 <ul>
-  <li>Hyperlinks to all function labels (blue),                       </li>
-  <li>Hyperlinks to all variable labels (green),                      </li>
+  <li>Syntax Highlighting</li>
+  <ul>
+      <li>Hyperlinking all functions (blue),                          </li>
+      <li>Hyperlinking all variables (green),                         </li>
+      <li>All numbers (orange),                                       </li>
+      <li>Inactive macro sections (gray)                              </li>
+      <li>Options for color or monochrome syntax highlighting         </li>
+  </ul>
+  <li>Line numbers,                                                   </li>
   <li>Memory address and instruction opcodes,                         </li>
-  <li>Added line numbers,                                             </li>
   <li>Cleaned up sloppy vertical alignment (such as (#) clock cycles),</li>
-  <li>Added annotation commentary column,                             </li>
-  <li>Unindented and color-coded macro sections so they stand out, and</li>
-  <li>Entire listing is now a single continuous page.                 </li>
+  <li>Unindented macro sections,                                      </li>
+  <li>Annotation commentary column,                                   </li>
+  <li>Entire source code is a single continuous page.                 </li>
+
 </ul>
 <p>
-
 Header Format is:
-
 <pre>
 <hr><hr class='join'>=== <b class="file">FILENAME</b> - Description, Page <a class="page" name="page0">#</a>, <a class='ts'>Track/Sector</a> @ $offset, $<b class='n'>####</b> (Relocated address in high memory) ===<hr class='join'><hr>
 </pre>
 
 Line format is:
-
 <pre>
 Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                         Annotation
 </pre>
@@ -710,6 +696,26 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
 </table>
 </div>
 
+<p>
+<b class='warn'>WARNING:</b> DOS 3.3 was written by an amateur.
+ <i>Reading this source code will probably make you angry</i> at all the <a class='link' href='#VTOC'>dumb shit</a> it does.
+ Look for all my <b>*sigh*</b> comments and
+ <b><a class="dumb" href="#HNTDAFS1">HNTDAFS</a></b> (How NOT to Design a File System) links.
+ While knowing "<b>What To Do</b>" is important, knowing "<b>What NOT To Do</b>" is even <i>more</i> important.
+ As they say, <span class="i">"Hindsight is 20/20."</span>
+
+<p>
+<hr>LEGAL CRAP<hr>
+The <span class="i">intent</span> of providing this copyrighted source code is
+ as a convenience for the curious as a <span class="b">means to learn</span>.
+<p>
+<span class="b">DISCLAIMER:</span> <b>YOU MAY NOT USE APPLE'S SOURCE CODE EXCEPT FOR LEARNING</b>
+ else you face risking the wrath of Apple's lawyers.
+ Since Apple <span class="i">has already previously released this source code</span>
+ I'm assuming it is OK to provide a mirror of the information since I'm not presenting anything new
+ (well, OK, my commentary, but you get the point) that isn't already publically available.
+<p>
+With that "legalese" out of the way ... enjoy the read!
 
 <h1><a class='section' name='Listing'>2.0 Assembly Source Code Listing</a></h1>
 <div class='sticky'><hr><hr class='join'>=== <a class='file' name='DOS33C'>DOS33C</a> - Master Source File, Page <a class="page" name="page39">39</a> ===<hr class='join'><hr></div>
