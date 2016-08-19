@@ -2315,7 +2315,8 @@ With that "legalese" out of the way ... enjoy the read!
                     051 ;
                     052 <a class='f' name='EBRUN'    >EBRUN       </a>JSR EBLD                                        ; <a class='v' href='#CMDETB'>CMDETB</a> [1A]
 238E:               053             JSR MVCSW       ; GO RESTORE CHAR I/O SW
-<hr>                    054             JMP (CA)        ; GO EXEC THE STUFF             ; <a class='dumb'>How Not To Design an OS</a> <b>Problem</b>: This <span class='code'>JMP</span> is why Binary programs can't use <span class='code'>RTS</span> to return to DOS
+<hr>                    054             JMP (CA)        ; GO EXEC THE STUFF             ; <a class='dumb'>How Not To Design an OS</a>
+                                                                                    ; <b>Problem</b>: This <span class='code'>JMP</span> is why Binary programs can't use <span class='code'>RTS</span> to return to DOS
                                                                                     ; <b>Solution</b>:    LDA CA    ; Short-Sighted 6502 design lacks indirect mode: <span class='code'>JSR ($addr)</span>
                                                                                     ;              STA GOBRUN+1
                                                                                     ;              LDA CA+1
