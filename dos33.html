@@ -1544,7 +1544,8 @@ With that "legalese" out of the way ... enjoy the read!
 1EEB:AE B7 2A       072             LDX RSTATE      ;FIRST CHECK FOR 'AFTER APSFT RELOC'
 1EEE:F0 03          073             BEQ <a class='x' href='#COS00'>COS00</a>       ;BRANCH IF NOT                  ; <b>Really?!</b> You couldn't use COS0A and COS0B like you do for the <i>other</i> states??
                                                                                     ; COS0 &amp; COS00 are <b>crap function names</b>; they are WAY too easy to mis-read/type
-1EF0:4C 78 1F       074             JMP COS7                                        ; <a class='mem' name='_'>wastes</a> 3 bytes, but since $1F78-$1EF0 &gt; $80 move <a class='x' href='#COS5'>COS5</a>..<a class='x' href='#COS7'>COS7</a> <b>before</b> <a class='x' href='#COS0'>COS0</a>; change Line #<a class='line' href='#DOSHOOK.074'>74</a> to BNE COS7
+1EF0:4C 78 1F       074             JMP COS7                                        ; <a class='mem' name='_'>wastes</a> 3 bytes, but since $1F78-$1EF0 &gt; $80 
+                                                                                    ; <span clas='todo'>TODO</span> We need to move <a class='x' href='#COS5'>COS5</a>..<a class='x' href='#COS7'>COS7</a> <b>before</b> <a class='x' href='#COS0'>COS0</a>; change Line #<a class='line' href='#DOSHOOK.074'>74</a> to BNE COS7
 1EF3:AE 51 2A       075 <a class='f' name='COS00'    >COS00       </a>LDX ISTATE      ;IS IN STATE NOT ZERO           ; I'm serious, someone <i>please</i> shoot Captain Obvious
 1EF6:F0 08          076             BEQ COS01                                       ; 
 1EF8:C9 BF          077             CMP #'?'+$<span class='n'>80</span>    ; THEN IS THIS ?
