@@ -1704,7 +1704,7 @@ With that "legalese" out of the way ... enjoy the read!
                     012     FIN
 1FD2:C8             013             INY             ; INCR TABLE INDEX
 1FD3:8C 62 2A       014             STY SVCMD
-                    015 SC0         EQU *
+                    015 <a class="f" name='SC0'         >SC0         </a>EQU *
 1FD6:EE 5F 2A       016             INC CMDNO       ; INCR CMD NO                   ; Thanks Captain Obvious
 1FD9:A2 00          017             LDX #<span class='n'>0</span>          ; RESET LINE INDEX TO 0
 1FDB:08             018             PHP             ; SAVE EQ STATUS
@@ -1712,9 +1712,9 @@ With that "legalese" out of the way ... enjoy the read!
 1FDF:CD B2 2A       020             CMP CCHAR       ; IS IT CONTROL D
 1FE2:D0 01          021             BNE SC0A        ; BR /IF NOT
 1FE4:E8             022             INX             ; INCR OVER CNTLD
-1FE5:8E 5D 2A       023 SC0A        STX LBUFD
+1FE5:8E 5D 2A       023 <a class='f' name='SC0A'        >SC0A        </a>STX LBUFD
                     024 ;
-                    025 SC1X        EQU *
+                    025 <a class='f' name='SC1X'        >SC1X        </a>EQU *
 1FE8:20 A4 21       026             JSR GNBC        ; GET NON BLANK INPUT CHAR
 1FEB:29 7F          027             AND #$<span class='n'>7F</span>        ; MSB OF CHAR OFF
 1FED:59 84 28       028             EOR CMDNTB,Y    ; EOR WITH INPUT
@@ -1723,31 +1723,31 @@ With that "legalese" out of the way ... enjoy the read!
 1FF2:F0 02          031             BEQ SC1A        ; IF RESULT NOT NOW ZERO
 1FF4:68             032             PLA             ; THEN INPUT DOES NOT
 1FF5:08             033             PHP             ; EQUAL ENTRY
-1FF6:90 F0          034 SC1A        BCC SC1X        ; LOOP FOR END OF ENTRY
+1FF6:90 F0          034 <a class='f' name='SC1A'        >SC1A        </a>BCC SC1X        ; LOOP FOR END OF ENTRY
                     035 ;
 1FF8:28             036             PLP             ; IF INPUT EQUALS END           ;
 1FF9:F0 20          037             BEQ SYNTAX      ; THEN GO SYNTAX
                     038 ;
 1FFB:B9 84 A8       039             LDA CMDNTB,Y    ; IF NEXT TABLE CHAR NOT ZERO
 1FFE:D0 D6          040             BNE SC0         ; THENSCANTHE NEXT TABLE ENTRY  ; /sarcasm whoneedsspacesanyways
-                    041 CNF         EQU *           ; COMMAND NOT FOUND
+                    041 <a class='f' name='CNF'         >CNF         </a>EQU *           ; COMMAND NOT FOUND
 2000:AD 00 02       042             LDA LBUFF       ; LINE IS A CNOTROL-D           ; *spelling* Control-D
 2003:CD B2 2A       043             CMP CCHAR       ; THEN THIS IS A
 2006:F0 03          044             BEQ CNF1        ; POSSIBLE SYNTAX ERROR, ELSE 
 2008:4C A4 1F       045             JMP PRRTN       ; ITS A BASIC INPUT LINE
-                    046 CNF1        EQU *
+                    046 <a class='f' name='CNF1'        >CNF1        </a>EQU *
 200B:AD 01 02       047             LDA LBUFF+<span class='n'>1</span>     ; GET NEXT CHAR
 200E:C9 8D          048             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; <a class='magic' name='_'>magic number</a> CR_HI
 2010:D0 06          049             BNE CSERR       ; BR IF CR
 2012:20 5B 27       050             JSR CLRSTS      ; CLEAR THE STATES
 2015:4C 95 1F       051             JMP CMDRTN      ; CNTL-D ONLY
                     052 ;
-2018:4C C4 26       053 CSERR       JMP ESYNTX
+2018:4C C4 26       053 <a class='f' name='CSERR'       >CSERR       </a>JMP ESYNTX
 <hr>                    054             PAGE                                            ; === Page <a class='page' name='page17'>17</a> ===
                     055 ;
                     056 ; SYNTAX - FIGURE OUT WHAT WE GOT HERE 
                     057 ;
-                    058 SYNTAX EQU *
+                    058 <a class='f' name='SYNTAX'      >SYNTAX      </a>EQU *
 201B:0E 5F 2A       059             ASL CMDNO
 201E:AC 5F 2A       060             LDY CMDNO
 2021:20 5E 26       061             JSR TSTRUN
@@ -1757,70 +1757,70 @@ With that "legalese" out of the way ... enjoy the read!
 202B:F0 05          065             BEQ SYN1
 202D:A9 0F          066             LDA #$<span class='n'>F</span>                                         ; <a class='magic' name='_'>magic number</a> ERR_NOT_DIRECT
 202F:4C D2 26       067             JMP ERROR
-2032:C0 06          068 SYN1        CPY #<span class='n'>6</span>                                          ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span> CMD_RUN
+2032:C0 06          068 <a class='f' name='SYN1'        >SYN1        </a>CPY #<span class='n'>6</span>                                          ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span> CMD_RUN
 2034:D0 02          069             BNE SYN1A
 2036:84 33          070             STY PROMPT      ; CHANGE PROMPT TO INSURE APPLESOFT RUN DETECT.
-2038:A9 20          071 SYN1A       LDA #FN1
+2038:A9 20          071 <a class='f' name='SYN1A'       >SYN1A       </a>LDA #FN1
 203A:39 09 29       072             AND CMDSTB,Y
 203D:F0 61          073             BEQ SN10
 203F:20 95 20       074             JSR CLRFNS
 2042:08             075             PHP             ; SAVE EQ STATUS
                     076 ;
-                    077 SN2 EQU *
-                    078             JSR GNBC        ; GET NON BLANK CHAR
-                    079             BEQ SN6         ; BR IF CR OR COMMA
-                    080             ASL A           ; TEST FOR ALPHA
-                    081             BCC SN2A        ; BR IF ALPHA
-                    082             BMI SN2A        ; BR IF APLHA
-                    083             JMP CNF         ; LURCH IF NOT ALPHA
-                    084 SN2A        ROR A           ; RESTORE BITS
-                    085             JMP SN4         ; AWAY WE GO
-                    086 SN3         JSR GNXTC       ; GO GET NEXT CHAR              ; GetNextChar
-                    087             BEQ SN6         ; BR IF COMMA OR CR
-                    088 SN4         STA FNAME1,Y    ; PUT INTO FILENAME
-                    089             INY             ; INC FN INDEX                  ; Total filenames length &lt; 60 ?
-                    090             CPY #<span class='n'>60</span>         ; ATFN CHAR LIMIT               ; At Filename Character Limit <span class='todo'>TODO</span> What triggers this?
-                    091             BCC SN3         ; BR IF NOT
-                    092 SN5         JSR GNXTC       ; LOOP UNTIL CR OR COMMA
-                    093             BNE SN5
+                    077 <a class='f' name='SN2'         >SN2         </a>EQU *
+2043:20 A4 21       078             JSR GNBC        ; GET NON BLANK CHAR
+2046:F0 1E          079             BEQ SN6         ; BR IF CR OR COMMA
+2048:0A             080             ASL A           ; TEST FOR ALPHA
+2049:90 05          081             BCC SN2A        ; BR IF ALPHA
+204B:30 03          082             BMI SN2A        ; BR IF APLHA
+204D:4C 00 20       083             JMP CNF         ; LURCH IF NOT ALPHA
+2050:6A             084 SN2A        ROR A           ; RESTORE BITS
+2051:4C 59 20       085             JMP SN4         ; AWAY WE GO
+2054:20 93 21       086 SN3         JSR GNXTC       ; GO GET NEXT CHAR              ; GetNextChar
+2057:F0 0D          087             BEQ SN6         ; BR IF COMMA OR CR
+2059:99 75 2A       088 SN4         STA FNAME1,Y    ; PUT INTO FILENAME
+205C:C8             089             INY             ; INC FN INDEX                  ; Total filenames length &lt; 60 ?
+205D:C0 3C          090             CPY #<span class='n'>60</span>         ; ATFN CHAR LIMIT               ; At Filename Character Limit <span class='todo'>TODO</span> What triggers this?
+205F:90 F3          091             BCC SN3         ; BR IF NOT
+2061:20 93 21       092 SN5         JSR GNXTC       ; LOOP UNTIL CR OR COMMA
+2064:D0 FB          093             BNE SN5
                     094 ;
-                    095 SN6         PLP             ; WAS THIS FN2 L OO             ; <span class='todo'>TODO</span> Was this filename 2 _length_ _ok_???
-                    096             BNE SN7         ; BR IF IT WAS
+2066:28             095 SN6         PLP             ; WAS THIS FN2 L OO             ; <span class='todo'>TODO</span> Was this filename 2 _length_ _ok_???
+2067:D0 0F          096             BNE SN7         ; BR IF IT WAS
                     097 ;
-                    098             LDY CMDNO
-                    099             LDA #FN2
-                    100             AND CMDSTB,Y    ; IF FN2 NOT REQD THEN
-                    101             BEQ SN8         ; BRANCH
+2069:AC 5F 2A       098             LDY CMDNO
+206C:A9 10          099             LDA #FN2
+206E:39 09 29       100             AND CMDSTB,Y    ; IF FN2 NOT REQD THEN
+2071:F0 0C          101             BEQ SN8         ; BRANCH
                     102 ;
-                    103             LDY #<span class='n'>30</span>         ; SET FN2 INDEX                 ; @filename2[0] <a class='magic' name='_'>magic number</a> MAX_FILENAME_LEN
-                    104             PHP             ; INDICATE FN2 SEEK
-                    105             BNE SN2         ; GO LOOK FOR FN2
+2073:A0 1E          103             LDY #<span class='n'>30</span>         ; SET FN2 INDEX                 ; @filename2[0] <a class='magic' name='_'>magic number</a> MAX_FILENAME_LEN
+2075:08             104             PHP             ; INDICATE FN2 SEEK
+2076:D0 CB          105             BNE SN2         ; GO LOOK FOR FN2
                     106 ;
-                    107 SN7         LDA FNAME2      ; IF 1ST CHAR OF
-                    108             CMP #$<span class='n'>A0</span>        ; FN2 IS BLANK THEN
-                    109             BEQ SERR1       ; SYNTAX ERROR
+2078:AD 93 2A       107 SN7         LDA FNAME2      ; IF 1ST CHAR OF
+207B:C9 A0          108             CMP #$<span class='n'>A0</span>        ; FN2 IS BLANK THEN
+207D:F0 13          109             BEQ SERR1       ; SYNTAX ERROR
                     110 ;
-                    111 SN8         LDA FNAME1      ; IF 1ST CHAR OF
-                    112             CMP #$<span class='n'>A0</span>        ; FN1 IS NOT BLANK
-                    113             BNE SOPTS       ; THEN GO LOOK FOR OPTIONS
+207F:AD 75 2A       111 SN8         LDA FNAME1      ; IF 1ST CHAR OF
+2082:C9 A0          112             CMP #$<span class='n'>A0</span>        ; FN1 IS NOT BLANK
+2084:D0 4B          113             BNE SOPTS       ; THEN GO LOOK FOR OPTIONS
                     114 ;
-                    115             LDY CMDNO
-<hr>                    116             LDA #NPB+NPE    ; IF CMD MUST HAVE FILENAME     ; === Page <a class='page' name='page18'>18</a> ===
-                    117             AND CMDSTB,Y    ; THEN
-                    118             BEQ SERR1       ; THIS IS ERROR, ELSE
+2086:AC 5F 2A       115             LDY CMDNO
+<hr>2089:A9 C0          116             LDA #NPB+NPE    ; IF CMD MUST HAVE FILENAME     ; === Page <a class='page' name='page18'>18</a> ===
+208B:39 09 29       117             AND CMDSTB,Y    ; THEN
+208E:F0 02          118             BEQ SERR1       ; THIS IS ERROR, ELSE
                     119 ;
-                    120             BPL SOPTS       ; ITS EXCUTABLE WITHOUT         ; *spellling* Executable
+2090:10 3F          120             BPL SOPTS       ; ITS EXCUTABLE WITHOUT         ; *spellling* Executable
                     121 ;
-                    122 SERR1       JMP CNF
+2092:4C 00 20       122 SERR1       JMP CNF
                     123 ;
                     124 CLRFNS      EQU *
-                    125             LDY #<span class='n'>60</span>                                         ; <a class='magic' name='_'>magic number</a> MAX_FILENAME_LEN * 2
+2095:A0 3C          125             LDY #<span class='n'>60</span>                                         ; <a class='magic' name='_'>magic number</a> MAX_FILENAME_LEN * 2
                     126 CLRFNA      EQU *
-                    127             LDA #$<span class='n'>A0</span>
-                    128 SN1         STA <a class='v' href='#FNAME1'>FNAME1</a>-<span class='n'>1</span>,Y  ; CLEAR FN1, FN2                ; *sigh* instead of -1 offset, <span class='code'>LDY #2*MAX_FILENAME_LEN-1</span>
-                    129             DEY
-                    130             BNE SN1
-                    131             RTS
+2097:A9 A0          127             LDA #$<span class='n'>A0</span>
+2099:99 74 2A       128 SN1         STA <a class='v' href='#FNAME1'>FNAME1</a>-<span class='n'>1</span>,Y  ; CLEAR FN1, FN2                ; *sigh* instead of -1 offset, <span class='code'>LDY #2*MAX_FILENAME_LEN-1</span>
+209C:88             129             DEY
+209D:D0 FA          130             BNE SN1
+209F:60             131             RTS
                     132             PAGE
                     133 SN10        EQU *           ; FILE NAMES NOT REQD
                     134             STA FNAME1
