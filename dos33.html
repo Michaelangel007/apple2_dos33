@@ -5042,34 +5042,34 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 33FF:FF FF FF FF                                                                    ; [44]=T03 === <a class='ts' href='#T2S3'>T2S3</a> === <a class='disk' name='_3400'>disk</a> wastes <i>an <b>entire</b> sector for a <b>single</b> byte!?</i>
 3403:FF FF FF FF                                                                    ; [48]=T04 The real kicker? <a class="d" href="#VDTCDE">VDTCDE</a> <i>isn't even <b>bloody</b> used!</i> *<a class="dumb" href="http://i.imgur.com/iWKad22.jpg">facepalm</a>*
 3407:FF FF FF FF                                                                    ; [4C]=T05
-340B:FF FF FF FF                                                                    ; [50]=T06 Since we're wasting disk space anyways, let's pretend it was.
-340F:FF FF FF FF                                                                    ; [54]=T07 We then waste $C8 bytes (256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>)
-3413:FF FF FF FF                                                                    ; [58]=T08 to <b>force us to span 2 sectors</b> with this dumb shit
-3417:FF FF FF FF                                                                    ; [5C]=T09 instead of copying the VTOC header ($38 byte)
-341B:FF FF FF FF                                                                    ; [60]=T0A into a new temporary page on init!
-341F:FF FF FF FF                                                                    ; [64]=T0B 
-3423:FF FF FF FF                                                                    ; [68]=T0C === <a class="dumb" name="HNTDAFS4">HNTDAFS #4</a> ===
-3427:FF FF FF FF                                                                    ; [6C]=T0D DOS reserves the <b>entire</b> Track 2
-342B:FF FF FF FF                                                                    ; [70]=T0E even though it only uses <b>T2S0 - T2S4</b> !?
-342F:FF FF FF FF                                                                    ; [74]=T0F Instead of wasting <i>yet another track</i> <a class='ts'>T11</a> for meta data
-3433:FF FF FF FF                                                                    ; [78]=T10
-3437:00 00 FF FF                                                                    ; [7C]=T11    S0=VTOC, S1..15=CATALOG
-343B:FF FF FF FF                                                                    ; [80]=T12
-343F:FF FF FF FF                                                                    ; [84]=T13 if we <i>weren't dumb</i> then both the
-3443:FF FF FF FF                                                                    ; [88]=T14 VTOC &amp; CATLOG would reside on <a class='ts'>T2S5</a> - <a class='ts'>T2SF</a>
-3447:FF FF FF FF                                                                    ; [8C]=T15
-344B:FF FF FF FF                                                                    ; [90]=T16 === <a class="dumb" name="HNTDAFS3">HNTDAFS #3</a> ===
-344F:FF FF FF FF                                                                    ; [94]=T17 DOS is <b>unable</b> to use Track 0 to store user files.
-3453:FF FF FF FF                                                                    ; [98]=T18 This means a non-bootable <i>data disk</i> is robbed of
-3457:FF FF FF FF                                                                    ; [9C]=T19 an <i>additional</i> 15 sectors! (Boot sector would display text)
-345B:FF FF FF FF                                                                    ; [A0]=T1A See File <a class="file" href="#FLOCSEC">FLOCSEC</a>, Func <a class="x" href="#GETSEC">GETSEC</a>, Line <span class="todo">TODO</span>
-345F:FF FF FF FF                                                                    ; [A4]=T1B The <b>smart</b> thing to have done would be to
-3463:FF FF FF FF                                                                    ; [A8]=T1C put the VTOC and CATALOG on <a class='ts'>T0SF</a> - <a class='ts'>T0S1</a>
-3467:FF FF FF FF                                                                    ; [AC]=T1D That way <b>both</b> a bootable and data disk would
-346B:FF FF FF FF                                                                    ; [B0]=T1E get an extra 16 sectors of free disk space.
-346F:FF FF FF FF                                                                    ; [B4]=T1F 
-3473:FF FF FF FF                                                                    ; [B8]=T20 The <a class="file" href="#BOOTLDR">BOOTLDR</a> would just need to move the
-3477:FF FF FF FF                                                                    ; [BC]=T21 disk head to track <a class='ts'>T1</a> and continue loading as normal.
+340B:FF FF FF FF                                                                    ; [50]=T06 We then waste $C8 bytes (256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>)
+340F:FF FF FF FF                                                                    ; [54]=T07 to <b>force us to span 2 sectors</b> with this dumb shit
+3413:FF FF FF FF                                                                    ; [58]=T08 instead of copying the VTOC header ($38 byte)
+3417:FF FF FF FF                                                                    ; [5C]=T09 into a new temporary page on init!
+341B:FF FF FF FF                                                                    ; [60]=T0A 
+341F:FF FF FF FF                                                                    ; [64]=T0B === <a class="dumb" name="HNTDAFS4">HNTDAFS #4</a> ===
+3423:FF FF FF FF                                                                    ; [68]=T0C DOS reserves the <b>entire</b> Track 2
+3427:FF FF FF FF                                                                    ; [6C]=T0D even though it only uses <b>T2S0 - T2S4</b> !?
+342B:FF FF FF FF                                                                    ; [70]=T0E Instead of wasting <i>yet another track</i> <a class='ts'>T11</a> for meta data
+342F:FF FF FF FF                                                                    ; [74]=T0F 
+3433:FF FF FF FF                                                                    ; [78]=T10    S0=VTOC, S1..15=CATALOG
+3437:00 00 FF FF                                                                    ; [7C]=T11 
+343B:FF FF FF FF                                                                    ; [80]=T12 if we <i>weren't dumb</i> then both the
+343F:FF FF FF FF                                                                    ; [84]=T13 VTOC &amp; CATLOG would reside on <a class='ts'>T2S5</a> - <a class='ts'>T2SF</a>
+3443:FF FF FF FF                                                                    ; [88]=T14 
+3447:FF FF FF FF                                                                    ; [8C]=T15 === <a class="dumb" name="HNTDAFS3">HNTDAFS #3</a> ===
+344B:FF FF FF FF                                                                    ; [90]=T16 DOS is <b>unable</b> to use Track 0 to store user files.
+344F:FF FF FF FF                                                                    ; [94]=T17 This means a non-bootable <i>data disk</i> is robbed of
+3453:FF FF FF FF                                                                    ; [98]=T18 an <i>additional</i> 15 sectors! (Boot sector would display text)
+3457:FF FF FF FF                                                                    ; [9C]=T19 See File <a class="file" href="#FLOCSEC">FLOCSEC</a>, Func <a class="x" href="#GETSEC">GETSEC</a>, Line <span class="todo">TODO</span>
+345B:FF FF FF FF                                                                    ; [A0]=T1A The <b>smart</b> thing to have done would be to
+345F:FF FF FF FF                                                                    ; [A4]=T1B put the VTOC and CATALOG on <a class='ts'>T0SF</a> - <a class='ts'>T0S1</a>
+3463:FF FF FF FF                                                                    ; [A8]=T1C That way <b>both</b> a bootable and data disk would
+3467:FF FF FF FF                                                                    ; [AC]=T1D get an extra 16 sectors of free disk space.
+346B:FF FF FF FF                                                                    ; [B0]=T1E 
+346F:FF FF FF FF                                                                    ; [B4]=T1F The <a class="file" href="#BOOTLDR">BOOTLDR</a> would just need to move the
+3473:FF FF FF FF                                                                    ; [B8]=T20 disk head to track <a class='ts'>T1</a> and continue loading as normal.
+3477:FF FF FF FF                                                                    ; [BC]=T21 
 347B:FF FF FF FF                                                                    ; [C0]=T22 (Normal last 35th accessible track)
 347F:FF FF FF FF                                                                    ; [C4]=T23 (Extra 36th track)
 3483:FF FF FF FF                                                                    ; [C8]=T24 (Extra 37th track)
