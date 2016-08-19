@@ -1823,128 +1823,128 @@ With that "legalese" out of the way ... enjoy the read!
 209F:60             131             RTS
                     132             PAGE
                     133 SN10        EQU *           ; FILE NAMES NOT REQD
-                    134             STA FNAME1
-                    135             LDA #NUM1+NUM2  ; IF NEITHER NUM1
-                    136             AND CMDSTB,Y    ; OR NUM2 IS REQD
-                    137             BEQ SOPTS       ; THEN GO LOOK AT OPTIONS
+20A0:8D 75 2A       134             STA FNAME1
+20A3:A9 0C          135             LDA #NUM1+NUM2  ; IF NEITHER NUM1
+20A5:39 09 29       136             AND CMDSTB,Y    ; OR NUM2 IS REQD
+20A8:F0 27          137             BEQ SOPTS       ; THEN GO LOOK AT OPTIONS
                     138 ;
-                    139             JSR GETNUM      ; GO GET NUMERICS
-                    140             BCS SERR2
+20AA:20 B9 21       139             JSR GETNUM      ; GO GET NUMERICS
+20AD:B0 1F          140             BCS SERR2
                     141 ;
-                    142             TAY             ; IF HIGH DIGIT NOT
-                    143             BNE SERR3       ; ZERO THEN BAD
+20AF:A8             142             TAY             ; IF HIGH DIGIT NOT
+20B0:D0 17          143             BNE SERR3       ; ZERO THEN BAD
                     144 ;
-                    145             CPX #<span class='n'>17</span>         ; IF LOW DIGIT GT 16
-                    146             BCS SERR3       ; THEN BAD
+20B2:E0 11          145             CPX #<span class='n'>17</span>         ; IF LOW DIGIT GT 16
+20B4:B0 13          146             BCS SERR3       ; THEN BAD
                     147 ;
-                    148             LDY CMDNO
-                    149             LDA #NUM1
-                    150             AND CMDSTB,Y    ; IF WE WANT NUM2
-                    151             BEQ SN11
+20B6:AC 5F 2A       148             LDY CMDNO
+20B9:A9 08          149             LDA #NUM1
+20BB:39 09 29       150             AND CMDSTB,Y    ; IF WE WANT NUM2
+20BE:F0 06          151             BEQ SN11
                     152 ;
-                    153             CPX #<span class='n'>8 </span>         ; IF NUM2&gt;1
-                    154             BCS SERR1       ; THEN ERROR, ELSE
-                    155             BCC SOPTS       ; GO SCAN OPTIONS
+20C0:E0 08          153             CPX #<span class='n'>8 </span>         ; IF NUM2&gt;1
+20C2:B0 CE          154             BCS SERR1       ; THEN ERROR, ELSE
+20C4:90 0B          155             BCC SOPTS       ; GO SCAN OPTIONS
                     156 ;
                     157 SN11        EQU *
-                    158             TXA             ; IF NUM1=0
-                    159             BNE SOPTS       ; THEN ERROR, ELSE GET OPTIONS
+20C6:8A             158             TXA             ; IF NUM1=0
+20C7:D0 08          159             BNE SOPTS       ; THEN ERROR, ELSE GET OPTIONS
                     160 ;
-                    161 SERR3       LDA #<span class='n'>2</span>          ;RANGE ERROR!                   ; <a class='magic' name='_'>magic number</a>
-                    162             JMP ERROR
-                    163 SERR2       JMP ESYNTX      ;DISK CMD SYNTAX ERROR
+20C9:A9 02          161 SERR3       LDA #<span class='n'>2</span>          ;RANGE ERROR!                   ; <a class='magic' name='_'>magic number</a>
+20CB:4C D2 26       162             JMP ERROR
+20CE:4C C4 26       163 SERR2       JMP ESYNTX      ;DISK CMD SYNTAX ERROR
                     164 ;
                     165 PAGE
                     166 ;
                     167 ; SOPTS - LOOK FOR SYNTAX OPTIONS
                     168 ;
                     169 SOPTS       EQU *
-                    170             LDA #<span class='n'>0</span>
-                    171             STA <a class='v' href='#INOPTS'>INOPTS</a>      ; CLEAR INPUT OPTIONS
-                    172             STA <a class='v' href='#IMBITS'>IMBITS</a>
-                    173             STA <a class='v' href='#CV'>CV</a>          ;DEFAULT VOLUME=0
-                    174             STA <a class='v' href='#CL'>CL</a>
-                    175             STA <a class='v' href='#CL'>CL</a>+<span class='n'>1</span>
-                    <a class='line' name='CMDSCAN.176'>176</a>             JSR <a class='x' href='#CLRBYTE'>CLRBYTE</a>     ;PATCH FOR BYTE PARAMETER (WAS STA TEMP1A)
-                    177             LDA <a class='v' href='#LBUFD'>LBUFD</a>       ; SET PASS 1
+20D1:A9 00          170             LDA #<span class='n'>0</span>
+20D3:8D 65 2A       171             STA <a class='v' href='#INOPTS'>INOPTS</a>      ; CLEAR INPUT OPTIONS
+20D6:8D 74 2A       172             STA <a class='v' href='#IMBITS'>IMBITS</a>
+20D9:8D 66 2A       173             STA <a class='v' href='#CV'>CV</a>          ;DEFAULT VOLUME=0
+20DC:8D 6C 1A       174             STA <a class='v' href='#CL'>CL</a>
+20DF:8D 6D 2A       175             STA <a class='v' href='#CL'>CL</a>+<span class='n'>1</span>
+20E2:20 DC 3F       <a class='line' name='CMDSCAN.176'>176</a>             JSR <a class='x' href='#CLRBYTE'>CLRBYTE</a>     ;PATCH FOR BYTE PARAMETER (WAS STA TEMP1A)
+20E5:AD 5D 2A       177             LDA <a class='v' href='#LBUFD'>LBUFD</a>       ; SET PASS 1
 <hr>                    178 ;                                                           ; === Page <a class='page' name='page19'>19</a> ===
-                    179 SP1         JSR GNBC        ; GO GET NON-BLANK CHAR
-                    180             BNE SP2         ; BR IF NOT COMMA OR CR
-                    181             CMP #$<span class='n'>8D</span>        ; IF CHAR IS COMMA              ; <a class='magic' name='_'>magic number</a> CR_HI
-                    182             BNE SP1         ; THEN GO GET CHAR
+20E8:20 A4 21       179 <a class='f' name='SP1'    >SP1         </a>JSR GNBC        ; GO GET NON-BLANK CHAR
+20EB:D0 1F          180             BNE SP2         ; BR IF NOT COMMA OR CR
+20ED:C9 8D          181             CMP #$<span class='n'>8D</span>        ; IF CHAR IS COMMA              ; <a class='magic' name='_'>magic number</a> CR_HI
+20EF:D0 F7          182             BNE SP1         ; THEN GO GET CHAR
                     183 ;
-                    184             LDX CMDNO       ; OPTIONS INPUT = I
-                    185             LDA INOPTS      ; ALLOW OPTS = A
-                    186             ORA CMDSTB+<span class='n'>1</span>,X  ; IF (A OR I)
-                    187             EOR CMDSTB+<span class='n'>1</span>,X  XOR A NOT =0 THEN
-                    188             BNE SERR1       ; WE HAVE UNALLOWED OPTIONS
+20F1:AE 5F 2A       184             LDX CMDNO       ; OPTIONS INPUT = I
+20F4:AD 65 2A       185             LDA INOPTS      ; ALLOW OPTS = A
+20F7:1D 0A 29       186             ORA CMDSTB+<span class='n'>1</span>,X  ; IF (A OR I)
+20FA:5D 0A 29       187             EOR CMDSTB+<span class='n'>1</span>,X  XOR A NOT =0 THEN
+20FD:D0 93          188             BNE SERR1       ; WE HAVE UNALLOWED OPTIONS
                     189 ;
-                    190             LDX TEMP1A      ; IF THIS IS PASS2
-                    191             BEQ CMDGO       ; THEN DONE,
-                    192             STA TEMP1A      ; ELSE SET PASS
-                    193             STX LBUFD       ; RESTORE LBUFD AND
-                    194             BNE SP1         ; GO DO PASS 2
+20FE:AE 62 2A       190             LDX TEMP1A      ; IF THIS IS PASS2              ; === <a class='ts' name='T1S0'>T1S0</a> ===
+2102:F0 76          191             BEQ CMDGO       ; THEN DONE,
+2104:8D 63 2A       192             STA TEMP1A      ; ELSE SET PASS
+2107:8E 5D 2A       193             STX LBUFD       ; RESTORE LBUFD AND
+210A:D0 DC          194             BNE SP1         ; GO DO PASS 2
                     195 ;
-                    196 SP2         LDX #OPT1L      ; COMPARE CHAR HAVE WITH
-                    197 SP3         CMP OPTAB1-<span class='n'>1</span>,X  ; CHARS IN OPT TABLE
-                    198             BEQ SP4         ; IF FOUND CONTINUE,
-                    199             DEX             
-                    200             BNE SP3         ; IF NOT FOUND
-                    201 SERR2A      BEQ SERR2       ; THEN SYNTAX ERROR
+210C:A2 0A          196 <a class='f' name='SP2'    >SP2         </a>LDX #OPT1L      ; COMPARE CHAR HAVE WITH
+210E:DD 40 29       197 <a class='f' name='SP3'    >SP3         </a>CMP OPTAB1-<span class='n'>1</span>,X  ; CHARS IN OPT TABLE
+2111:F0 F5          198             BEQ <a class='x' href='#SP4'>SP4</a>         ; IF FOUND CONTINUE,
+2113:CA             199             DEX             
+2114:D0 F8          200             BNE <a class='x' href='#SP3'>SP3</a>         ; IF NOT FOUND
+2116:F0 B6          201 <a class='f' name='SERR2A' >SERR2A      </a>BEQ <a class='x' href='#SERR2'>SERR2</a>       ; THEN SYNTAX ERROR
                     202 ;
-                    203 SP4         LDA <a class='v' href='#OPTAB2'>OPTAB2</a>-<span class='n'>1</span>,X  ; IF CORRESPONDING OP TAB 2 IS
-                    <a class='line' name='CMDSCAN.204'>204</a>             BMI SP8         ; MINUS THEN IT MONITOR BITS    ; C,I,O were all flagged with +$80, see <a class='v' href='#OPTAB2'>OPTAB2</a>
-                    205             ORA INOPTS      
-                    206             STA INOPTS      
-                    207             DEX             
+2118:BD 4A 29       203 <a class='f' name='SP4'    >SP4         </a>LDA <a class='v' href='#OPTAB2'>OPTAB2</a>-<span class='n'>1</span>,X  ; IF CORRESPONDING OP TAB 2 IS
+211B:30 47          <a class='line' name='CMDSCAN.204'>204</a>             BMI SP8         ; MINUS THEN IT MONITOR BITS    ; C,I,O were all flagged with +$80, see <a class='v' href='#OPTAB2'>OPTAB2</a>
+211D:0D 65 2A       205             ORA INOPTS      
+2120:8D 65 2A       206             STA INOPTS      
+2123:CA             207             DEX             
                     208 ;
-                    209             STX  TEMP2A     ; ELSE A NUMERIC MUST FOLLOW
-                    210             JSR  GETNUM     ; FOLLOW
-                    211             BCS  SERR2      
+2124:8E 64 2A       209             STX  TEMP2A     ; ELSE A NUMERIC MUST FOLLOW
+2127:20 B9 21       210             JSR  GETNUM     ; FOLLOW
+212A:B0 A2          211             BCS  SERR2      
                     212 ;
-                    213             LDA TEMP2A      ; GET IOTION NUMBER
-                    214             ASL A           ; MULT BY 4
-                    215             ASL A           
-                    216             TAY             
+212C:AD 64 2A       213             LDA TEMP2A      ; GET IOTION NUMBER
+212F:0A             214             ASL A           ; MULT BY 4
+2130:0A             215             ASL A           
+2131:A8             216             TAY             
                     217 ;                                                           ; Compare 16-bit cnum &gt;= low, cnum &lt; max
-                    218             LDA <a class='v' href='#CNUM'  >CNUM</a>+<span class='n'>1</span>      ; IF RESULT NUM HI IS           ; +1 = cnum.hi; is cnum &lt; 256 ? i.e. only 8-bit
-                    219             BNE <a class='x' href='#SP5'   >SP5</a>         ; GT 0, THEN GT LOW RANGE
-                    220             LDA <a class='v' href='#CNUM'  >CNUM</a>        ; TEST RESULT LOW               ; +0 = cnum.low &lt;
-                    221             CMP <a class='v' href='#OPTAB3'>OPTAB3</a>,Y    ; WITH LOW RANGE (LOW)          ; +0 = OptValMin[x].Lo ?
-                    222             BCC <a class='x' href='#SERR3' >SERR3</a>       ; BR IF RESULT &lt; LR
-                    223             LDA <a class='v' href='#CNUM'  >CNUM</a>+<span class='n'>1</span>                                      ; +1 = cnum.hi &lt;
-                    224 <a class='f' name='SP5'     >SP5         </a>CMP <a class='v' href='#OPTAB3'>OPTAB3</a>+<span class='n'>3</span>,Y                                  ; +3 = OptValMax[x].Hi ?
-                    225             BCC <a class='x' href='#SP6'   >SP6</a>         ; BR IF LESS
-                    226 <a class='f' name='SERR3A'  >SERR3A      </a>BNE <a class='x' href='#SERR3'>SERR3</a>       ; BR IF GREATER
-                    227             LDA <a class='v' href='#CNUM'  >CNUM</a>        
-                    228             CMP <a class='v' href='#OPTAB3'>OPTAB3</a>+<span class='n'>2</span>,Y                                  ; +2 = OptValMax[x].Lo
-                    229             BCC <a class='x' href='#SP6'   >SP6</a>         ; BR IF LESS
-                    230             BNE <a class='x' href='#SERR3A'>SERR3A</a>      ; BR IF GREATER
+2132:A5 45          218             LDA <a class='v' href='#CNUM'  >CNUM</a>+<span class='n'>1</span>      ; IF RESULT NUM HI IS           ; +1 = cnum.hi; is cnum &lt; 256 ? i.e. only 8-bit
+2134:D0 09          219             BNE <a class='x' href='#SP5'   >SP5</a>         ; GT 0, THEN GT LOW RANGE
+2136:A5 44          220             LDA <a class='v' href='#CNUM'  >CNUM</a>        ; TEST RESULT LOW               ; +0 = cnum.low &lt;
+2138:D9 55 29       221             CMP <a class='v' href='#OPTAB3'>OPTAB3</a>,Y    ; WITH LOW RANGE (LOW)          ; +0 = OptValMin[x].Lo ?
+213B:90 8C          222             BCC <a class='x' href='#SERR3' >SERR3</a>       ; BR IF RESULT &lt; LR
+213D:A5 45          223             LDA <a class='v' href='#CNUM'  >CNUM</a>+<span class='n'>1</span>                                      ; +1 = cnum.hi &lt;
+213F:D9 58 29       224 <a class='f' name='SP5'     >SP5         </a>CMP <a class='v' href='#OPTAB3'>OPTAB3</a>+<span class='n'>3</span>,Y                                  ; +3 = OptValMax[x].Hi ?
+2142:90 0B          225             BCC <a class='x' href='#SP6'   >SP6</a>         ; BR IF LESS
+2144:D0 83          226 <a class='f' name='SERR3A'  >SERR3A      </a>BNE <a class='x' href='#SERR3'>SERR3</a>       ; BR IF GREATER
+2146:A5 44          227             LDA <a class='v' href='#CNUM'  >CNUM</a>        
+2148:D9 57 29       228             CMP <a class='v' href='#OPTAB3'>OPTAB3</a>+<span class='n'>2</span>,Y                                  ; +2 = OptValMax[x].Lo
+214B:90 02          229             BCC <a class='x' href='#SP6'   >SP6</a>         ; BR IF LESS
+214D:D0 F5          230             BNE <a class='x' href='#SERR3A'>SERR3A</a>      ; BR IF GREATER
                     231 ;
-                    232 SP6         LDA TEMP1A      ; IF PASS 1, THEN
-                    233             BNE SP1         ; DONT STORE RESULT
-                    234             TYA             
-                    235             LSR A           
-                    236             TAY             
+214F:AD 63 2A       232 <a class='f' name='SP6'    >SP6         </a>LDA <a class='v' href='#TEMP1A'>TEMP1A</a>      ; IF PASS 1, THEN
+2152:D0 94          233             BNE <a class='x' href='#SP1'   >SP1</a>         ; DONT STORE RESULT
+2154:98             234             TYA             
+2155:4A             235             LSR A           
+2156:A8             236             TAY             
                     237 ;
-                    238             LDA <a class='v' href='#CNUM'>CNUM</a>+<span class='n'>1</span>      ; STORE THE RESULT
-                    <a class='line' name='CMDSCAN.239'>239</a>             STA <a class='v' href='#CUROPT'>CUROPT</a>+<span class='n'>1</span>,Y
-                    240             LDA <a class='v' href='#CNUM'>CNUM</a>
-<hr>                    241             STA <a class='v' href='#CUROPT'>CUROPT</a>,Y                                    ; === Page <a class='page' name='page20'>20</a> ===
-                    242 SP7         JMP <a class='x' href='#SP1'>SP1</a>         ; GO FOR NEXT OPT
+2157:A5 45          238             LDA <a class='v' href='#CNUM'>CNUM</a>+<span class='n'>1</span>      ; STORE THE RESULT
+2159:99 67 2A       <a class='line' name='CMDSCAN.239'>239</a>             STA <a class='v' href='#CUROPT'>CUROPT</a>+<span class='n'>1</span>,Y
+215C:A5 44          240             LDA <a class='v' href='#CNUM'>CNUM</a>
+<hr>215E:99 66 2A       241             STA <a class='v' href='#CUROPT'>CUROPT</a>,Y                                    ; === Page <a class='page' name='page20'>20</a> ===
+2161:4C E8 20       242 <a class='f' name='SP7'    >SP7         </a>JMP <a class='x' href='#SP1'>SP1</a>         ; GO FOR NEXT OPT
                     243 ;
-                    244 SP8         EQU *           ; MONITOR REQ                   ; Have 'C', 'I', or 'O'
-                    245             PHA             ; SAVE TYPE REQ
-                    246             LDA #<a class='e' href='#CIO'>CIO</a>        ; SET OPTION OF CIO
-                    247             ORA <a class='v' href='#INOPTS'>INOPTS</a>
-                    248             STA <a class='v' href='#INOPTS'>INOPTS</a>
-                    249             PLA             ; RESTOERE REQ
-                    250             AND #$<span class='n'>7F</span>        ; CLEAR CIO                     ; <a class='magic' name='_'>magic number</a> Why not ~<a class='e' href='#CIO'>CIO</a> ? Crappy tool (assembler)??
-                    251             ORA <a class='v' href='#IMBITS'>IMBITS</a>      ; OR WITH PREV IMBITS
-                    252             STA <a class='v' href='#IMBITS'>IMBITS</a>
-                    253             BNE <a class='x' href='#SP7'>SP7</a>         ; GO FOR NEXT
+                    244 <a class='f' name='SP8'    >SP8         </a>EQU *           ; MONITOR REQ                   ; Have 'C', 'I', or 'O'
+2164:48             245             PHA             ; SAVE TYPE REQ
+2165:A9 80          246             LDA #<a class='e' href='#CIO'>CIO</a>        ; SET OPTION OF CIO
+2167:0D 65 2A       247             ORA <a class='v' href='#INOPTS'>INOPTS</a>
+216A:8D 65 2A       248             STA <a class='v' href='#INOPTS'>INOPTS</a>
+216D:68             249             PLA             ; RESTOERE REQ
+216E:29 7F          250             AND #$<span class='n'>7F</span>        ; CLEAR CIO                     ; <a class='magic' name='_'>magic number</a> Why not ~<a class='e' href='#CIO'>CIO</a> ? Crappy tool (assembler)??
+2170:0D 74 2A       251             ORA <a class='v' href='#IMBITS'>IMBITS</a>      ; OR WITH PREV IMBITS
+2173:8D 74 2A       252             STA <a class='v' href='#IMBITS'>IMBITS</a>
+2176:D0 E9          253             BNE <a class='x' href='#SP7'>SP7</a>         ; GO FOR NEXT
                     254 ;
-                    255             BEQ <a class='x' href='#SERR2A'>SERR2A</a>      ;BRANCH ALWAYS
+2178:F0 9C          255             BEQ <a class='x' href='#SERR2A'>SERR2A</a>      ;BRANCH ALWAYS
                     256 ;
 217A:20 80 21       257 <a class="f" name="CMDGO"  >CMDGO       </a>JSR <a class="x" href="#CMDGO1">CMDGO1</a>      ; CMDGO - EXECUTE COMMAND
 217D:4C 83 1F       258             JMP <a class="x" href="#CERTN">CERTN</a>
