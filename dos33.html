@@ -4950,7 +4950,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                                                                                     ; The thinking was probably:
                                                                                     ;     DOS 3.2 = 13 sector
                                                                                     ;     DOS 3.3 = 16 sector
-                                                                                    ;     DOS 3.4 =&gt;16 sector -- See <a class="v" href="#VNOSEC">VNOSEC</a>
+                                                                                    ;     DOS 3.4 &gt; 16 sector -- See <a class="v" href="#VNOSEC">VNOSEC</a>
                                                                                     ; === <a class="dumb" name="HNTDAFS1">HNTDAFS #1</a> ===
                                                                                     ; Anytime you see the word <b>reserved</b> or <b>unused</b> in a (file) format
                                                                                     ; your spidey sense should be tingling.
@@ -4978,8 +4978,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                                                                                     ;    D = Directory (child)
                                                                                     ; Yeah, yeah 20/20
 33AF:A0 C5 CD D5    017 <a class="d" name="VOLMES">VOLMES      </a>ASC " EMULOV DISK" ; "DISK VOLUME " BACWARDS    ; *sigh* Micro-optimization; Not that these are bad but
-33B3:CC CF D6 A0                                                                    ;    /sarcasm <i>Lets focus on a <b>single</b> tree,</i>
-33B7:CB D3 C9 C4                                                                    ;             and <b>completely</b> miss the <i>entire <a class='link' href="https://en.wikipedia.org/wiki/Frak_(expletive)">fraking</a> forest!</i>
+33B3:CC CF D6 A0                                                                    ;        /sarcasm <i>Lets focus on a <b>single</b> tree,</i>
+33B7:CB D3 C9 C4                                                                    ;                 and <b>completely</b> miss the <i>entire <a class='link' href="https://en.wikipedia.org/wiki/Frak_(expletive)">fraking</a> forest!</i>
                     018             MSB OFF                                         ; Switch back to 7-bit ASCII
                     019 <a class="d" name="VML"   >VML         </a>EQU *-<a class="v" href="#VOLMES">VOLMES</a>-1                                  ; Used by File <a class="file" href="#FDELCAT">FDELCAT</a>, Func <a class="x" href="#RDIR">RDIR</a>, Line <span class="todo">TODO</span>
                     020             PAGE                                            ;
