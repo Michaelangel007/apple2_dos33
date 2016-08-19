@@ -4958,7 +4958,18 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                                                                                     ;              <i>because I didn't actually <b>measure</b> what is <b>needed</b>!"</i>
 33A4:01 0A 64       013 <a class="d" name="CVTAB" >CVTAB       </a>DFB 1,10,100    ; CONVERSION TABLE              ; Powers of 10; sadly Applesoft's DECTBL @ $<span class='n'>EE6C</span> is useless :-/
                     014             MSC ON                                          ; Switch ASCII to Apple Text (high bit set)
-33A7:D4 C9 C1 C2    015 <a class="d" name="FTTAB" >FTTAB       </a>ASC "TIAB"      ; FILE COVERSTION TABLE"        ;
+33A7:D4 C9 C1 C2    015 <a class="d" name="FTTAB" >FTTAB       </a>ASC "TIAB"      ; FILE TYPE CONVERSTION TABLE"  ; <a class='dumb'>File Types</a> You couldn't use file types that make <i>visual</i> hex editing easier??
+                                                                                    ;     Type             Code  Dumb       Smart 
+                                                                                    ;     Applesoft Basic  A     03 Ctrl-C  01 Ctrl-A
+                                                                                    ;     Binary           B     04 Ctrl-D  02 Ctrl-B
+                                                                                    ;                      c                03
+                                                                                    ;                      d                04
+                                                                                    ;                      e                05
+                                                                                    ;                      f                06
+                                                                                    ;                      g                07
+                                                                                    ;                      h                08
+                                                                                    ;     Integer Basic    I     01 Ctrl-A  09 Ctrl-I
+                                                                                    ; You have 3 guesses to tell which DOS uses and the first 2 don't count.
 33AB:D3 D2 C1 C2    016             ASC "SRAB"                                      ; *sigh* <b>Really</b>, you just <i>had</i> to re-use AB ??
                                                                                     ; === <a class="dumb" name="HNTDAFS2">HNTDAFS #2</a> ===
                                                                                     ; <i>Gee, how about using, oh I don't know:</i> <b>CD</b>
