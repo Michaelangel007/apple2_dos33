@@ -1340,10 +1340,11 @@ With that "legalese" out of the way ... enjoy the read!
                     115 ;
                     116 <a class='f' name='IAS1'     >IAS1        </a>EQU *                                           ; IAS1 = Init Applesoft ROM; /cynical "<i>There will be a test</i>"
 <hr>1DAC:A9 40          117             LDA #$<span class='n'>40</span>        ; INDICATE ROM APPLESOFT        ; === Page <a class='page' name='page50'>50</a> === <a class='magic' name='#_'>magic number</a> BASIC_TYPE_APPLESOFT_ROM = $40
-1DAE:8D B6 2A       118             STA <a class='v' href='#ASIBSW'>ASIBSW</a>                                      ; <b><a class='section' name='DOSINIT.118.Solution'>Solution</a></b>: a) Lines 117-118 should be moved <i>after</i> Line #<a class='line' href='#DOSINIT.103'>103</a> to <b>anticipate the common case</b>
-                                                                                    ;           b) This is one of those <b>rare times</b> where we
-                                                                                    ;              <b>padd IBVT</b> (with 2 bytes data on the end)
-                                                                                    ;              to make IBVT, AS1VT, and AS2VT all the <b>same length</b>
+1DAE:8D B6 2A       118             STA <a class='v' href='#ASIBSW'>ASIBSW</a>                                      ; <b><a class='section' name='DOSINIT.118.Solution'>Solution</a></b>:
+                                                                                    ;   a) Lines 117-118 should be moved <i>after</i> Line #<a class='line' href='#DOSINIT.103'>103</a> to <b>anticipate the common case</b>,
+                                                                                    ;   b) This is one of those <b>rare times</b> where we <b>padd IBVT</b>
+                                                                                    ;      (with 2 bytes data on the end)
+                                                                                    ;      to make IBVT, AS1VT, and AS2VT all the <b>same length</b>
                                                                                     ;
                                                                                     ;                  Table  SourceOffset  Instructios
                                                                                     ;                  IBVT   $00           #IBVT -IBVT
