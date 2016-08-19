@@ -5048,8 +5048,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3417:FF FF FF FF                                                                    ; [5C]=T09 into a new temporary page on init!
 341B:FF FF FF FF                                                                    ; [60]=T0A 
 341F:FF FF FF FF                                                                    ; [64]=T0B === <a class="dumb" name="HNTDAFS4">HNTDAFS #4</a> ===
-3423:FF FF FF FF                                                                    ; [68]=T0C DOS reserves the <b>entire</b> Track 2
-3427:FF FF FF FF                                                                    ; [6C]=T0D even though it only uses <b>T2S0 - T2S4</b> !?
+3423:FF FF FF FF                                                                    ; [68]=T0C DOS reserves the <b>entire</b> Track 2 even though it only uses <b>T2S0 - T2S4</b> !?
+3427:FF FF FF FF                                                                    ; [6C]=T0D 
 342B:FF FF FF FF                                                                    ; [70]=T0E Instead of wasting <i>yet another track</i> <a class='ts'>T11</a> for meta data
 342F:FF FF FF FF                                                                    ; [74]=T0F 
 3433:FF FF FF FF                                                                    ; [78]=T10    <a class='ts'>S0</a> = VTOC, <a class='ts'>S1</a>-<a class='ts'>SF</a> = CATALOG
@@ -5059,8 +5059,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3443:FF FF FF FF                                                                    ; [88]=T14 
 3447:FF FF FF FF                                                                    ; [8C]=T15 === <a class="dumb" name="HNTDAFS3">HNTDAFS #3</a> ===
 344B:FF FF FF FF                                                                    ; [90]=T16 DOS is <b>unable</b> to use Track 0 to store user files.
-344F:FF FF FF FF                                                                    ; [94]=T17 This means a non-bootable <i>data disk</i> is robbed of
-3453:FF FF FF FF                                                                    ; [98]=T18 an <i>additional</i> 15 sectors! (Boot sector would display non-bootable message)
+344F:FF FF FF FF                                                                    ; [94]=T17 This means a non-bootable <i>data disk</i> is robbed of an <i>additional</i> 15 sectors!
+3453:FF FF FF FF                                                                    ; [98]=T18 (Boot sector would display non-bootable message)
 3457:FF FF FF FF                                                                    ; [9C]=T19 See File <a class="file" href="#FLOCSEC">FLOCSEC</a>, Func <a class="x" href="#GETSEC">GETSEC</a>, Line <span class="todo">TODO</span>
 345B:FF FF FF FF                                                                    ; [A0]=T1A The <b>smart</b> thing to have done would be to
 345F:FF FF FF FF                                                                    ; [A4]=T1B put the VTOC and CATALOG on <a class='ts'>T0SF</a> - <a class='ts'>T0S1</a>
