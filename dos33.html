@@ -2025,8 +2025,8 @@ With that "legalese" out of the way ... enjoy the read!
 21D9:30 21          058             BMI GN4         ; BR IF NOT SUM
 21DB:C9 0A          059             CMP #<span class='n'>10</span>
 21DD:B0 1D          060             BCS GN4         ; BR IF NOT NUM
-21DF:20 FE 21       061             JSR GN5         ; OLD*2                         ; <b>Test Time</b>: 1. Describe what GN5 does without looking at the code. 2. Describe what MUL2xCNUM does.
-21E2:65 44          062             ADC CNUM        ; PLUS NEW
+21DF:20 FE 21       061             JSR GN5         ; OLD*2                         ; <b>Test Time</b>: 1. Describe what GN5 does without looking at the code.
+21E2:65 44          062             ADC CNUM        ; PLUS NEW                      ;            2. Describe what MUL2CNUM does.
 21E4:AA             063             TAX                                             ; n*10 = n*8 + n*2
 21E5:A9 00          064             LDA #<span class='n'>0</span>
 21E7:65 45          065             ADC CNUM+<span class='n'>1</span>
