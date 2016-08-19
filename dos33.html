@@ -2562,19 +2562,19 @@ With that "legalese" out of the way ... enjoy the read!
                     019 ; RWPOSN - POSTION FOR READ/ WRITE
                     020 ;
                     021 <a class='f' name='RWPOSN'   >RWPOSN      </a>EQU *
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
+2526:20 64 27       022 <!--                           -->            JSR <a class='x' href='#FILSRC'>FILSRC</a>      ; FIND THE FILE
+2529:90 06          023 <!--                           -->            BCC <a class='x' href='#RWP1'  >RWP1</a>        ; BR IF FILE FOUND
+252B:20 A3 22       024 <!--                           -->            JSR <a class='x' href='#EOPEN' >EOPEN</a>       ; GO OPEN FOR KLUTZ             ; ??? if file doesn't exist, open it ???
+252E:4C 34 25       025 <!--                           -->            JMP <a class='x' href='#RWP2'  >RWP2</a>        ; THEN SKIP NEXT LINE           ; <a class='mem' name='_252E'>wastes</a> 1 byte
+                    026 <a class='f' name='RWP1'     >RWP1        </a>EQU *
+2531:20 4E 27       027 <!--                           -->            JSR <a class='x' href='#MVBUFP'>MVBUFP</a>      ; MOVE BUFF POINTERS
+                    028 <a class='f' name='RWP2'     >RWP2        </a>EQU *
+2534:AD 65 2A       029 <!--                           -->            LDA <a class='v' href='#INOPTS'>INOPTS</a>      ; GET IN OPTIONS
+2537:29 06          030 <!--                           -->            AND #R+B        ; WAS IT B OR R
+2539:F0 13          031 <!--                           -->            BEQ <a class='x' href='#RWPR'  >RWPR</a>        ; BR IF NOT
+253B:A2 03          032 <!--                           -->            LDX #<span class='n'>3</span>
+253D:BD 6E 2A       033 <a class='f' name='RWP2A'    >RWP2A       </a>LDA CR,X        ; MOVE REL REC
+2540:9D BD 35       034 <!--                           -->            STA <a class='v' href='#CCBRRN'>CCBRRN</a>,X    ; AND REL BYTE
                     035 
                     036 
                     037 
