@@ -5151,7 +5151,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     074 ;
                     075 ;COMMAND CONTROL BLOCK (CCB)
                     076 ;
-                    077 <a class='d' name='CCBBSA'     >CCB         </a>EQU *                                           ;$B5BB CCB Buffer; FM = File Manager
+                    077 <a class='d' name='CCB'        >CCB         </a>EQU *                                           ;$B5BB CCB Buffer; FM = File Manager
 35BB:FD             078 <a class='d' name='CCBREQ'     >CCBREQ      </a>DS 1        ; USER REQUEST BYTE                 ; [0] FM_Command = 0, See GetCCBAdr aka <a class='x' href='#CCBLDR'>CCBLDR</a>
                     079 <a class='e' name='CRQNUL'     >CRQNUL      </a>EQU 0
                     080 <a class='e' name='CRQOPN'     >CRQOPN      </a>EQU 1
