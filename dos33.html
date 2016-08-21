@@ -1426,12 +1426,12 @@ With that "legalese" out of the way ... enjoy the read!
 1E2A:9D D0 03       184             STA $<span class='n'>3D0</span>,X                                      ; <a class='magic' name='_'>magic number</a>
 1E2D:CA             185             DEX
 1E2E:10 F7          186             BPL <a class='x' href='#INITE'>INITE</a>
-1E30:AD 53 1E       <a class='line' name='DOSINIT.187'>187</a>             LDA <a class='x' href='#DBVECT'>DBVECT</a>+<span class='n'>2</span>    ;SET RESET VECTORS FOR NEW MONITOR.                 ;[.. <a class='mem' name='_1E30'>wastes</a> 17 bytes! WTF is the point of using a table
-1E33:8D F3 03       188             STA <a class='v' href='#ZRSET'>ZRSET</a>+<span class='n'>1</span>     ;NOTE: THESE ARE NOT NORMALLY USED AND              ; .. if you're just going to ignore part of it???
-1E36:49 A5          189             EOR #$<span class='n'>A5</span>        ; ARE ONLY SET ONCE ON BOOT                         ; .. <a class='magic' name='_'>magic number</a> F800.S 'Monitor' ROM Ctrl-Reset Powered Up Checksum
-1E38:8D F4 03       190             STA <a class='v' href='#PWCNST'>PWCNST</a>      ;POWER UP CONSTANT=COMPLIMENT OF HI RESET VECTOR.   ; .. This entire clusterfrak is caused by Line #<a class='line' href='DOSINIT.221'>221</a>
-1E3B:AD 52 1E       191             LDA <a class='x' href='#DBVECT'>DBVECT</a>+<span class='n'>1</span>    ;SET LOW VECTOR ADDRESS.                            ; ..
-1E3E:8D F2 03       192             STA <a class='v' href='#ZRSET'>ZRSET</a>       ;NOW APPLE RESET WILL KEEP DOS IN I/O LOOP          ; ..]
+1E30:AD 53 1E       187             LDA <a class='x' href='#DBVECT'>DBVECT</a>+<span class='n'>2</span>    ;SET RESET VECTORS FOR NEW MONITOR.                 ;    WTF is the point of even using a table
+1E33:8D F3 03       188             STA <a class='v' href='#ZRSET'>ZRSET</a>+<span class='n'>1</span>     ;NOTE: THESE ARE NOT NORMALLY USED AND              ;    if you're just going to ignore part of it???
+1E36:49 A5          189             EOR #$<span class='n'>A5</span>        ; ARE ONLY SET ONCE ON BOOT                         ;    <a class='magic' name='_'>magic number</a> F800.S Ctrl-Reset Powered Up
+1E38:8D F4 03       190             STA <a class='v' href='#PWCNST'>PWCNST</a>      ;POWER UP CONSTANT=COMPLIMENT OF HI RESET VECTOR.   ;                        <b>Checksum</b> <i>not</i> constant
+1E3B:AD 52 1E       <a class='line' name='DOSINIT.191'>191</a>             LDA <a class='x' href='#DBVECT'>DBVECT</a>+<span class='n'>1</span>    ;SET LOW VECTOR ADDRESS.                            ;[.. <a class='mem' name='_1E3B'>wastes</a> 6 bytes due to Line #<a class='line' href='DOSINIT.221'>221</a> Clusterfrak
+1E3E:8D F2 03       192             STA <a class='v' href='#ZRSET'>ZRSET</a>       ;NOW APPLE RESET WILL KEEP DOS IN I/O LOOP          ; ..]            
 1E41:A9 06          193             LDA #<span class='n'>6</span>          ;INIDICATE RUN                                      ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span> 
 1E43:D0 05          194             BNE <a class='x' href='#INITF1'>INITF1</a>      ;LOAD AND RUN THE 'HELLO' PROGRAM                   ; &darr; (always) 
                     195 ;
@@ -1460,7 +1460,7 @@ With that "legalese" out of the way ... enjoy the read!
 1E6E:EA             218             NOP
 1E6F:EA             219             NOP
 1E70:4C 59 FA       220             JMP <a class='e' href='#MONBRK'>MONBRK</a>                                      ; $3EF
-1E73:4C 65 FF       <a class='line' name='DOSINIT.221'>221</a>             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3F2 Control-Reset $BF,$9D,$38; Why not <span class='code'>DW DBRST</span>, <span class='code'>DB $#&gt;DBRST ^ $A5</span> ??? Line #<a class='line' href='#DOSINIT.187'>187</a>
+1E73:4C 65 FF       <a class='line' name='DOSINIT.221'>221</a>             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3F2 Control-Reset $BF,$9D,$38; Why not <span class='code'>DW DBRST</span>, <span class='code'>DB $#&gt;DBRST ^ $A5</span> ??? Line #<a class='line' href='#DOSINIT.191'>191</a>
 1E76:4C 58 FF       222             JMP <a class='e' href='#IORTS' >IORTS</a>                                       ; $3F5: JMP $FF58
 1E79:4C 65 FF       223             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3F8: JMP $FF65
 1E7C:4C 65 FF       224             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3FB: JMP $FF65
