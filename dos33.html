@@ -1460,7 +1460,7 @@ With that "legalese" out of the way ... enjoy the read!
 1E6E:EA             218             NOP
 1E6F:EA             219             NOP
 1E70:4C 59 FA       220             JMP <a class='e' href='#MONBRK'>MONBRK</a>                                      ; $3EF
-1E73:4C 65 FF       <a class='line' name='DOSINIT.221'>221</a>             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3F2 Control-Reset $BF,$9D,$38; Why isn't this <span class='code'>DW DBRST</span>, <span class='code'>DB $#&gt;DBRST ^ $A5</span> ??? See Line <a class='line' href='#DOSINIT.187'>187</a> wastage
+1E73:4C 65 FF       <a class='line' name='DOSINIT.221'>221</a>             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3F2 Control-Reset $BF,$9D,$38; Why not <span class='code'>DW DBRST</span>, <span class='code'>DB $#&gt;DBRST ^ $A5</span> ??? Line #<a class='line' href='#DOSINIT.187'>187</a>
 1E76:4C 58 FF       222             JMP <a class='e' href='#IORTS' >IORTS</a>                                       ; $3F5: JMP $FF58
 1E79:4C 65 FF       223             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3F8: JMP $FF65
 1E7C:4C 65 FF       224             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3FB: JMP $FF65
