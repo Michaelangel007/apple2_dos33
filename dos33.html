@@ -316,7 +316,7 @@ a.section {
 }
 a.struct { /* *wastes* X bytes of struct */
     color           : #FFF;
-    background-color: #F08; /* dark pink */
+    background-color: #F4C; /* dark pink */
     text-decoration: none; /* remove underlink from data link */
 }
 .toc { /* Table of Contents */
@@ -4982,8 +4982,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                                                                                     ; === <a class="dumb" name="HNTDAFS2">HNTDAFS #2</a> ===
                                                                                     ; <i>Gee, how about using, oh I don't know:</i> <b>CD</b>
                                                                                     ; At the very least D = "user Defined" or *<i>shock</i>* <b>directory</b>:
-                                                                                    ;    C = Child Directory; pointer to parent T/S
-                                                                                    ;    D = Directory (child)
+                                                                                    ;    C = Child (directory) Parent Track/Sector, e.g. T$11S$F
+                                                                                    ;    D = Directory (child),                     e.g. T$12S$F
                                                                                     ; Yeah, yeah 20/20
 33AF:A0 C5 CD D5    017 <a class="d" name="VOLMES">VOLMES      </a>ASC " EMULOV DISK" ; "DISK VOLUME " BACWARDS    ; *sigh* Micro-optimization; Not that these are bad but
 33B3:CC CF D6 A0                                                                    ;        /sarcasm <i>Lets focus on a <b>single</b> tree,</i>
@@ -4993,15 +4993,15 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     020             PAGE                                            ;
                     021 ;VTOC RECORD AREA                                           ; === VTOC ===
                     022 <a class="d" name="VTOC"  >VTOC        </a>EQU *                                           ; <a class='ts'>T11S0</a> [offset], Right side = normal snarky commentary
-33BB:04             <a class="line" name="FVCBUFS.023">023</a> <a class="d" name="VDOST" >VDOST       </a>DFB 4           ; DOS TYPE                      ; [00] <a class='mem' name='_33BB'>wastes</a> 1 byte -- never referenced !
-                                                                                    ;      <a class='magic' name='#_33BC'>magic number</a> /sarcasm If only FILESYSTEM_TYPE_VTOC = $4
+33BB:04             <a class="line" name="FVCBUFS.023">023</a> <a class="d" name="VDOST" >VDOST       </a>DFB 4           ; DOS TYPE                      ; [00] <a class='struct' name='_33BB'>wastes</a> 1 byte -- never referenced !
+                                                                                    ;      <a class='magic' name='#_33BC'>magic number</a> /sarcasm If only <span class='code'>FILESYSTEM_TYPE_VTOC EQU $4</span>
 33BC:11             024 <a class="d" name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <i>TRACK</i> not sector
                                                                                     ;      *note* This is only a copy.  To change DOS while running
-                                                                                    ;             $<span class='n'>AC01</span>:11 ($2C01) CATALOG Track <span class="todo">TODO</span> FILE/LINE/FUNC
+                                                                                    ;             $<span class='n'>AC01</span>:11 ($2C01) &rarr; <a class='v' href='#DCBVTN'>DCBVTN</a> @ $B5FA ($35FA) CATALOG Track <span class="todo">TODO</span> FILE/LINE/FUNC
 33BD:0F             025 <a class="d" name="VDIRSC">VDIRSC      </a>DFB 15          ; VOLUME DIRECTORY SECTOR       ; [02] Used by File <a class="file" href="#FLOCNXB">FLOCNXB</a>, Func <a class="x" href="#RVDC">RVDC</a>, Line <span class="todo">??</span>
 33BE:04             026 <a class="d" name="VDOSRN">VDOSRN      </a>DFB 4           ; DOS RELEASE NUMBER            ; [03] *sarcasm* I guess <b>VERSION</b> made too much sense.
-33BF:00             027             DFB 0           ; SPARE                         ; [04] <a class='mem' name='_33BF'>wastes</a> 1 byte /sarcasm "<i>Because <b>someday</b> these</i>
-33C0:00             028             DFB 0           ; SPARE                         ; [05] <a class='mem' name='_33C0'>wastes</a> 1 byte &#x0CA0;_&#x0CA0;      <i><b>might</b> be used ... ?</i>" Uh-huh.
+33BF:00             027             DFB 0           ; SPARE                         ; [04] <a class='struct' name='_33BF'>wastes</a> 1 byte /sarcasm "<i>Because <b>someday</b> these</i>
+33C0:00             028             DFB 0           ; SPARE                         ; [05] <a class='struct' name='_33C0'>wastes</a> 1 byte &#x0CA0;_&#x0CA0;      <i><b>might</b> be used ... ?</i>" Uh-huh.
 33C1:FE             029 <a class="d" name="VVOLNO">VVOLNO      </a>DFB $FE         ; VOLUME NUMBER                 ; [06]          Design for <i>today</i>, not *someday*
 33C2:00 00 00 00    030             DS 32           ; SPARE                         ; [07] <a class='struct' name='_33C2'>wastes</a> 32 bytes, <b>WTF !</b>
 33C6:00 00 00 00                                                                    ;      Gee, here's an idea:
@@ -5011,15 +5011,15 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 33D6:00 00 00 00                                                                    ;        2) Put VTOC data as first XX bytes in the <a class='ts'>T11SF</a> CATALOG
 33DA:00 00 00 00                                                                    ;      
 33DE:00 00 00 00                                                                    ;      
-33E2:7A             031 <a class="d" name="VTDMS" >VTDMS       </a>DFB 122         ; MAX SECTORS IN A FILE DIR     ; [27] *sigh* not 128 so we can BMI (Branch on Minus) ???
-33E3:00 00 00 00    032 <a class="d" name="VSPARE">VSPARE      </a>DS 8            ; SPARES                        ; [28] <a class='mem' name='_33E3'>wastes</a> 8 bytes, <i>Oh FFS already ...</i>
+33E2:7A             031 <a class="d" name="VTDMS" >VTDMS       </a>DFB 122         ; MAX SECTORS IN A FILE DIR     ; [27] *sigh* not 128 so we can BMI (Branch on Minus) ??? (Copied to <a class='v' href='#DCBDMS'>DCBDMS</a>)
+33E3:00 00 00 00    032 <a class="d" name="VSPARE">VSPARE      </a>DS 8            ; SPARES                        ; [28] <a class='struct' name='_33E3'>wastes</a> 8 bytes, <i>Oh FFS already ...</i>
 33E7:00 00 00 00    033 ;                                                           ;      Who 1) <i>designed</i>, and 2) <b>implemented</b> this crap?!?!
 33EB:11             034 <a class="d" name="VALCA1">VALCA1      </a>DFB 17          ; ALOCATION ALGORITHM BYTE 1    ; [30] Last allocated track <span class="todo">TODO</span> Cross-Ref
 33EC:01             035 <a class="d" name="VALCA2">VALCA2      </a>DFB 1           ; AA BYTE2                      ; [31] Direction of last tack allocation --  Used by <a class="x" href="#GS4">GS4</a>
                                                                                     ;           +$01 inwards  to <a class='ts'>T22</a>,
                                                                                     ;           -$FF outwards to <a class='t'>T00</a>.
-33ED:00             036 <a class="d" name="VALCA3">VALCA3      </a>DFB 0           ; AA BYTE3                      ; [32] <a class='mem' name='_33ED'>wastes</a> 1 byte *sarcasm* <i>I <b>really</b> don't know what we</i>
-33EE:00             037 <a class="d" name="VALCA4">VALCA4      </a>DFB 0           ; AA BYTE4                      ; [33] <a class='mem' href='_33EE'>wastes</a> 1 byte   <i>would do without you Captain Obvious!</i>
+33ED:00             036 <a class="d" name="VALCA3">VALCA3      </a>DFB 0           ; AA BYTE3                      ; [32] <a class='struct' name='_33ED'>wastes</a> 1 byte /sarcasm <i>I <b>really</b> don't know what we</i>
+33EE:00             037 <a class="d" name="VALCA4">VALCA4      </a>DFB 0           ; AA BYTE4                      ; [33] <a class='struct' name='_33EE'>wastes</a> 1 byte          <i>would do without you Captain Obvious!</i>
 33EF:23             038 <a class="d" name="VNOTRK">VNOTRK      </a>DFB 35          ; NO TRACKS ON VOL              ; [34] *note* "No" = Number; To format more then 35 tracks:
                                                                                     ;      $<span class='n'>AEFE</span>:## ($3EFE), See: <a class="file" href="#FORMATR">FORMATR</a>, Line #<a class='line' href='#FORMATR.054'>054</a>
 33F0:10             039 <a class="d" name="VNOSEC">VNOSEC      </a>DFB 16          ; NO SECTORS PER TRACK          ; [35]          Evidence that one day DOS 3.4+ might support:
@@ -5098,12 +5098,12 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     052 ;VOLUME DIRECTORY AREA                                      ; 
                     053 ;                                                           ; [--] <a class='ts'>T11SF</a> offsets === <a class='section' name='CATALOG'>CATALOG</a> ===
 <hr>                    054 <a class="d" name="VOLDIR"   >VOLDIR      </a>EQU *           ;                               ; === Page <a class="page" name="page87">87</a> ===
-34BB:02             055 <a class="d" name="VDTCDE"   >VDTCDE      </a>DFB 2           ; VOLUME DIRECTORY TYPE CODE    ; [00] <a class='mem' name='_34BB'>wastes</a> 1 byte -- and not even used !?!?!
-                                                                                    ; <a class='magic' name='_34BC'>magic number</a> /sarcasm If only FILESYSTEM_SECTOR_TYPE_CATALOG = $2
-34BC:FD             056 <a class="d" name="VDLTRK"   >VDLTRK      </a>DS 1            ; VD LINK TRACK                 ; [01]
-34BD:FC             057 <a class="d" name="VDLSEC"   >VDLSEC      </a>DS 1            ; VD LINK SECTOR                ; [02]
-34BE:FC             058 <a class="d" name="VDNF"     >VDNF        </a>DS 1            ; VD NUMBER FILES THIS SECTOR   ; [03]
-34BF:FC FD FC FD    059 <a class="d" name="VDSPAR"   >VDSPAR      </a>DS 7            ; SPARES                        ; [04] <a class='mem' name='#_34BF'>wastes</a> 7 bytes;
+34BB:02             055 <a class="d" name="VDTCDE"   >VDTCDE      </a>DFB 2           ; VOLUME DIRECTORY TYPE CODE    ; [00] <a class='struct' name='_34BB'>wastes</a> 1 byte -- and not even used !?!?!
+                                                                                    ; <a class='magic' name='_34BC'>magic number</a> /sarcasm If only <span class='code'>FILESYSTEM_TYPE_CATALOG EQU $02</span>
+34BC:FD             056 <a class="d" name="VDLTRK"   >VDLTRK      </a>DS 1            ; VD LINK TRACK                 ; [01] ($11)
+34BD:FC             057 <a class="d" name="VDLSEC"   >VDLSEC      </a>DS 1            ; VD LINK SECTOR                ; [02] ($0E)
+34BE:FC             058 <a class="d" name="VDNF"     >VDNF        </a>DS 1            ; VD NUMBER FILES THIS SECTOR   ; [03] <a class='struct' name='#_34BE'>wastes</a> 1 byte -- never referenced
+34BF:FC FD FC FD    059 <a class="d" name="VDSPAR"   >VDSPAR      </a>DS 7            ; SPARES                        ; [04] <a class='struct' name='#_34BF'>wastes</a> 7 bytes -- never referenced
 34C3:FD FC FC       060 ;                                                           ;      /sarcasm Glad to see this was put to <i>good</i> use ... NOT!
                     061 <a class="d" name="VDFILE"   >VDFILE      </a>EQU *           ; FILE ALLOCATION AREA (7 FILES); [0B] NO, this is the _not_ the allocation; this is the *meta* data
                     062 ;EACH FILE:                                                 ; *note* indented "struct FileEntry" for readability
