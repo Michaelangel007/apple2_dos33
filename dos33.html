@@ -273,7 +273,7 @@ a.link { /* we link TO somthing -- source */
 }
 a.mem { /* *wastes* X bytes of memory */
     color           : #000;
-    background-color: #FDE; /* pink */
+    background-color: #FDE; /* light pink */
     text-decoration: none; /* remove underlink from data link */
 }
 .n { /* Dec, Hex, Number, Memory Address */
@@ -313,6 +313,11 @@ a.section {
 }
 .sticky.fixed.absolute { /* For when two stickies are overlapping, this is the one above */
     position: absolute;
+}
+a.struct { /* *wastes* X bytes of struct */
+    color           : #FFF;
+    background-color: #F08; /* dark pink */
+    text-decoration: none; /* remove underlink from data link */
 }
 .toc { /* Table of Contents */
     list-style: none;
@@ -4998,7 +5003,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 33BF:00             027             DFB 0           ; SPARE                         ; [04] <a class='mem' name='_33BF'>wastes</a> 1 byte /sarcasm "<i>Because <b>someday</b> these</i>
 33C0:00             028             DFB 0           ; SPARE                         ; [05] <a class='mem' name='_33C0'>wastes</a> 1 byte &#x0CA0;_&#x0CA0;      <i><b>might</b> be used ... ?</i>" Uh-huh.
 33C1:FE             029 <a class="d" name="VVOLNO">VVOLNO      </a>DFB $FE         ; VOLUME NUMBER                 ; [06]          Design for <i>today</i>, not *someday*
-33C2:00 00 00 00    030             DS 32           ; SPARE                         ; [07] <a class='mem' name='_33C2'>wastes</a> 32 bytes, <b>WTF !</b>
+33C2:00 00 00 00    030             DS 32           ; SPARE                         ; [07] <a class='struct' name='_33C2'>wastes</a> 32 bytes, <b>WTF !</b>
 33C6:00 00 00 00                                                                    ;      Gee, here's an idea:
 33CA:00 00 00 00                                                                    ;      Instead of wasting space in the VTOC
 33CE:00 00 00 00                                                                    ;        1) Pack our data by removing all the <i>unused crap:</i>
@@ -5656,7 +5661,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     388 ;BETWEEN DOS AND THE DISK I/O ROUTINES
                     389 ;
                     390 <a class='e' name='IOB'      >IOB         </a>EQU *
-37E8:01             391 <a class='d' name='IBTYPE'   >IBTYPE      </a>DFB 1           ; IOB TYPE CODE                 ; <a href='mem' class='_'>wastes</a> 1 bytes -- hard-coded to 1
+37E8:01             391 <a class='d' name='IBTYPE'   >IBTYPE      </a>DFB 1           ; IOB TYPE CODE                 ; <a class='struct' name='_37e8'>wastes</a> 1 bytes -- hard-coded to 1 !
 37E9:60             392 <a class='d' name='IBSLOT'   >IBSLOT      </a>DFB 6*16        ; CONTROLELR SLOT NO.
 37EA:01             393 <a class='d' name='IBDRVN'   >IBDRVN      </a>DFB 1           ; DRIVE NUMBER
 37EB:00             394 <a class='d' name='IBVOL'    >IBVOL       </a>DFB $00         ; VOLUME NUMBER
@@ -5672,27 +5677,27 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     404 IBFMT       EQU 4           ; 4-FORMAT DISK
                     405 IBBOOT      EQU 8           ; 8-WRITE BOOT
 37F5:00             406 IBSTAT      DFB 0           ; STATUS
-                    407 IBRERR      EQU $80         ; READ ERR                      ; Why are these error code here???
+                    407 IBRERR      EQU $80         ; READ ERR                      ; Interleaving a structure and const types makes for poor readability
                     408 IBDERR      EQU $40         ; DRIVE ERR
                     409 IBVMME      EQU $20         ; VOLUME MISMATCH
                     410 IBWPER      EQU $10         ; WRITE PROTECT ERROR
 37F6:00             411 IBSMOD      DFB 0           ; STATUS MODIFIER BYTE
 37F7:60             412 IBPSLT      DFB 6*16        ; PREVIOUS SLOT                 ; Why isn't this set at boot ???
 37F8:01             413 IBPDRV      DFB 1           ; PREVIOUS DRIVE
-37F9:00 00          414 IBSPAR      DS 2,0          ; IOB SPARES                    ; <a class='mem'   name='_37F9'>wastes 2 bytes</a>
-37FB:00 01 EF D8    415 DCT         DFB 0,1,$EF,$D8 ;                               ; <a class='magic' name='_37FB'>magic number</a>
-37FF:00             416             DS 1,0          ; FILL IN 3700 PAGE             ; <a class='mem'   name='_37FF'>wastes 1 byte</a>
+37F9:00 00          414 IBSPAR      DS 2,0          ; IOB SPARES                    ; <a class='struct' name='_37F9'>wastes</a> 2 bytes
+37FB:00 01 EF D8    415 DCT         DFB 0,1,$EF,$D8 ;                               ; <a class='magic'  name='_37FB'>magic number</a>
+37FF:00             416             DS 1,0          ; FILL IN 3700 PAGE             ; <a class='mem'    name='_37FF'>wastes</a> 1 byte
                     417             PAGE
                     418 ;
                     419 ; FILE DIRECTORY DEFINITION
                     420 ;
                     421             DSECT
                     422 FILDIR      EQU *                                               ;T11S0 <a class='dumb' name='HNTDAFS6'>HNTDAFS #6</a>
-                    423 FDUCDE      DS 1            ; FILE USE CODE                     ; [00] <a class='mem' name='_3800'>wastes</a> 1 byte -- never used!
+                    423 FDUCDE      DS 1            ; FILE USE CODE                     ; [00] <a class='struct' name='_3800'>wastes</a> 1 byte -- never used!
                     424 FDLTRK      DS 1            ; LINK TO NEXT DIR TRACK            ; [01] $11
                     425 FDLSEC      DS 1            ; LINK TO NEXT DIR SECTOR           ; [02] $0E
-                    426 FDNSA       DS 1            ; NO SECTORS ALLOCATED              ; [03] <a class='mem' name='_3803'>wastes</a> 1 byte -- never used!
-                    427 FDLSDL      DS 1            ; LAST SECTOR DATA LENGTH           ; [04] <a class='mem' name='_3804'>wastes</a> 1 byte -- never used!
+                    426 FDNSA       DS 1            ; NO SECTORS ALLOCATED              ; [03] <a class='struct' name='_3803'>wastes</a> 1 byte -- never used!
+                    427 FDLSDL      DS 1            ; LAST SECTOR DATA LENGTH           ; [04] <a class='struct' name='_3804'>wastes</a> 1 byte -- never used!
                     428 FDFRS       DS 2            ; 1ST RELATIVE SECTOR IN THIS DIR   ; [05] read by <a class='x' href='#RFDNL1'>RFDNL1</a> and <a class='x' href='#RDFDC'>RDFDC</a> in FMTRWIO
 <hr>                    429 FDSPAR      DS  5           ; SPARES                            ; [07] How did this ever work??? Should be 4!
                     430 ;
