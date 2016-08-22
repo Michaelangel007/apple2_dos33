@@ -5689,19 +5689,19 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 37FF:00             416             DS 1,0          ; FILL IN 3700 PAGE             ; <a class='mem'    name='_37FF'>wastes</a> 1 byte
                     417             PAGE
                     418 ;
-                    419 ; FILE DIRECTORY DEFINITION
+                    419 ; FILE DIRECTORY DEFINITION                                 ; i-node; meta-data: array of sectors belonging to file
                     420 ;
                     421             DSECT
-                    422 FILDIR      EQU *                                               ;T11S0 <a class='dumb' name='HNTDAFS6'>HNTDAFS #6</a>
-                    423 FDUCDE      DS 1            ; FILE USE CODE                     ; [00] <a class='struct' name='_3800'>wastes</a> 1 byte -- never used!
-                    424 FDLTRK      DS 1            ; LINK TO NEXT DIR TRACK            ; [01] $11
-                    425 FDLSEC      DS 1            ; LINK TO NEXT DIR SECTOR           ; [02] $0E
-                    426 FDNSA       DS 1            ; NO SECTORS ALLOCATED              ; [03] <a class='struct' name='_3803'>wastes</a> 1 byte -- never used!
-                    427 FDLSDL      DS 1            ; LAST SECTOR DATA LENGTH           ; [04] <a class='struct' name='_3804'>wastes</a> 1 byte -- never used!
+                    422 <a class='e' name='FILDIR'   >FILDIR      </a>EQU *                                               ;T12SF <a class='dumb' name='HNTDAFS6'>HNTDAFS #6</a>
+                    423 FDUCDE      DS 1            ; FILE USE CODE                     ; [00] <a class='struct' name='_3800'>wastes</a> 1 byte -- never referenced! I presume <span class='code'>FILESYSTEM_TYPE_FILE EQU $1</span>
+                    424 FDLTRK      DS 1            ; LINK TO NEXT DIR TRACK            ; [01] e.g. $12 ($00 = none)
+                    425 FDLSEC      DS 1            ; LINK TO NEXT DIR SECTOR           ; [02] e.g. $0E ($00 = none)
+                    426 FDNSA       DS 1            ; NO SECTORS ALLOCATED              ; [03] <a class='struct' name='_3803'>wastes</a> 1 byte -- never referenced!
+                    427 FDLSDL      DS 1            ; LAST SECTOR DATA LENGTH           ; [04] <a class='struct' name='_3804'>wastes</a> 1 byte -- never referenced!
                     428 FDFRS       DS 2            ; 1ST RELATIVE SECTOR IN THIS DIR   ; [05] read by <a class='x' href='#RFDNL1'>RFDNL1</a> and <a class='x' href='#RDFDC'>RDFDC</a> in FMTRWIO
-<hr>                    429 FDSPAR      DS  5           ; SPARES                            ; [07] How did this ever work??? Should be 4!
+<hr>                    429 FDSPAR      DS  5           ; SPARES                            ; [07]
                     430 ;
-                    431 FDENT       DS  1           ; START OF FILE ENTRIES (122)       ; [0C] Should be @ offset $B !!!
+                    431 FDENT       DS  1           ; START OF FILE ENTRIES (122)       ; [0C]
                     432 FDTRK       EQU 0           ; TRACK
                     433 FDSEC       EQU 1           ; SECTOR
                     434 ;
