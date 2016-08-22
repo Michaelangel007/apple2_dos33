@@ -2373,7 +2373,7 @@ With that "legalese" out of the way ... enjoy the read!
                     101             JMP TSTFUC      ; GO CHECK
                     102 ;
                     103 <a class='f' name='SV2'      >SV2         </a>EQU *
-                    104             STY CCBBLN      ; SET BLOCK LENGTH              ; === <a class='dumb' name='HNTDAFS'>HNTDAFS #5</a> ===
+                    104             STY CCBBLN      ; SET BLOCK LENGTH              ; === <a class='dumb' name='HNTDAFS5'>HNTDAFS #5</a> ===
                     105             STY CCBDAT      ; AND DATA BYTE                 ; You <b>never</b> store file meta-data
                     106             STA CCBBLN+<span class='n'>1</span>                                    ;    File Length
                     107             LDA #CRQWR      ; INDICATE WRITE                ; <i>in</i> the file itself!
@@ -5647,61 +5647,61 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     379 
                     380 
                     381 
-                    382 
-                    383 
-                    384 
-                    385 
-                    386 
-                    387 
-                    388 
-                    389 
-                    390 
-                    391 
-                    392 
-                    393 
-                    394 
-                    395 
-                    396 
-                    397 
-                    398 
-                    399 
-                    400
-                    401 
-                    402 
-                    403 
-                    404 
-                    405 
-                    406 
-                    407 
-                    408 
-                    409 
-                    410 
-                    411 
-                    412 
-                    413 
-                    414 
-                    415 
-                    416 
-                    417 
-                    418 
-                    419 
-                    420 
-                    421 
-                    422 
-                    423 
-                    424 
-                    425 
-                    426 
-                    427 
-                    428 
-                    429 
-                    430 
-                    431 
-                    432 
-                    433 
-                    434 
-                    435 
-                    436 
+37E4:E8 37          382 BAIOB       DW IOB
+37E6:00 36          383 ADOSLD      DW TRK0LDR
+                    384             PAGE
+                    385 ;
+                    386 IOB - INPUT / OUTPUT CONTROL BLOCK
+                    387 ;THE IOB IS USED FOR THE INTERFACE
+                    388 ;BETWEEN DOS AND THE DISK I/O ROUTINES
+                    389 ;
+                    390 <a class='e' name='IOB'      >IOB         </a>EQU *
+37E8:01             391 <a class='d' name='IBTYPE'   >IBTYPE      </a>DFB 1           ; IOB TYPE CODE                 ; <a href='mem' class='_'>wastes</a> 1 bytes -- hard-coded to 1
+37E9:60             392 <a class='d' name='IBSLOT'   >IBSLOT      </a>DFB 6*16        ; CONTROLELR SLOT NO.
+37EA:01             393 <a class='d' name='IBDRVN'   >IBDRVN      </a>DFB 1           ; DRIVE NUMBER
+37EB:00             394 <a class='d' name='IBVOL'    >IBVOL       </a>DFB $00         ; VOLUME NUMBER
+37EC:00             395 <a class='d' name='IBTRK'    >IBTRK       </a>DFB 0           ; TRACK NUMBER
+37ED:00             396 <a class='d' name='IBSECT'   >IBSECT      </a>DFB 0           ; SECTOR NUMBER
+37EE:FB 37          397 IBDCTP      DW DCT
+37F0:00 00          398 IBBUFP      DW 0            ; POINTER TO BUFFER
+37F2:00 01          399 IBDLEN      DW 256          ; DATA LENGTH
+37F4:00             400 IBCMD       DFB 0           ; COMMAND
+                    401 IBCNUL      EQU 0           ; 0-NULL COMMAND                ; Stop with the shitty API already
+                    402 IBCRTS      EQU 1           ; 1-READ TRACK, SECTOR
+                    403 IBCWTS      EQU 2           ; 2-WRITE TRACK,SECTOR
+                    404 IBFMT       EQU 4           ; 4-FORMAT DISK
+                    405 IBBOOT      EQU 8           ; 8-WRITE BOOT
+37F5:00             406 IBSTAT      DFB 0           ; STATUS
+                    407 IBRERR      EQU $80         ; READ ERR                      ; Why are these error code here???
+                    408 IBDERR      EQU $40         ; DRIVE ERR
+                    409 IBVMME      EQU $20         ; VOLUME MISMATCH
+                    410 IBWPER      EQU $10         ; WRITE PROTECT ERROR
+37F6:00             411 IBSMOD      DFB 0           ; STATUS MODIFIER BYTE
+37F7:60             412 IBPSLT      DFB 6*16        ; PREVIOUS SLOT                 ; Why isn't this set at boot ???
+37F8:01             413 IBPDRV      DFB 1           ; PREVIOUS DRIVE
+37F9:00 00          414 IBSPAR      DS 2,0          ; IOB SPARES                    ; <a class='mem'   name='_37F9'>wastes 2 bytes</a>
+37FB:00 01 EF D8    415 DCT         DFB 0,1,$EF,$D8 ;                               ; <a class='magic' name='_37FB'>magic number</a>
+37FF:00             416             DS 1,0          ; FILL IN 3700 PAGE             ; <a class='mem'   name='_37FF'>wastes 1 byte</a>
+                    417             PAGE
+                    418 ;
+                    419 ; FILE DIRECTORY DEFINITION
+                    420 ;
+                    421             DSECT
+                    422 FILDIR      EQU *                                               ;T11S0 <a class='dumb' name='HNTDAFS6'>HNTDAFS #6</a>
+                    423 FDUCDE      DS 1            ; FILE USE CODE                     ; [00] <a class='mem' name='_'>wastes</a> 1 byte -- never used!
+                    424 FDLTRK      DS 1            ; LINK TO NEXT DIR TRACK            ; [01] $11
+                    425 FDLSEC      DS 1            ; LINK TO NEXT DIR SECTOR           ; [02] $0E
+                    426 FDNSA       DS 1            ; NO SECTORS ALLOCATED              ; [03] <a class='mem' name='_'>wastes</a> 1 byte -- never used!
+                    427 FDLSDL      DS 1            ; LAST SECTOR DATA LENGTH           ; [04] <a class='mem' name='_'>wastes</a> 1 byte -- never used!
+                    428 FDFRS       DS 2            ; 1ST RELATIVE SECTOR IN THIS DIR   ; [05] read by and RFDNL1 and RDFDC in FMTRWIO
+<hr>                    429 FDSPAR      DS  5           ; SPARES                            ; [07] How did this ever work??? Should be 4!
+                    430 ;
+                    431 FDENT       DS  1           ; START OF FILE ENTRIES (122)       ; [0C] Should be @ offset $B !!!
+                    432 FDTRK       EQU 0           ; TRACK
+                    433 FDSEC       EQU 1           ; SECTOR
+                    434 ;
+                    435 FDLAST      EQU FILDIR+256                                  ; $3900 ($B900)
+                    436             DEND
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="COREQUS">COREQUS</a> - Core Equates, Page <a class="page" name="page24">24</a>, <a class='ts'>n/a</a>, $<span class='n'>n/a</span> ===<hr class='join'><hr></div>
