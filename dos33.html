@@ -5366,11 +5366,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                                                                                     ;
                                                                                     ; This is one time where you <b>don't</b> want to compact lines
                                                                                     ; <b>Problem</b>: Compare &amp; contrast this clusterfrak
-                    092             DFB $00,13,11   ;00-&gt;00,01-&gt;13,02-&gt;11           ;    <i>WHY</i> is this grouped in triplets???    *sigh* inconsistent <span class='code'>$00</span> code
-                    093             DFB 09,07,05    ;03-&gt;09,04-&gt;07;05-&gt;05           ;    We have a sector interleave of <b>two</b>!   *sigh* inconsistent: <span class='code'>;</span> comment
-                    094             DFB 03,01,14    ;06-&gt;03,07-&gt;01,08-&gt;14           ;    The last line having an even number
-                    095             DFB 12,10,08    ;09-&gt;12,10-&gt;10,11-&gt;08           ;    of terms wasn't your first clue!?!
-                    096             DFB 06,04,02,15 ;12-&gt;6,13-&gt;04,14-&gt;02,15-&gt;15     ;                                          *sigh* inconsistent <span class='code'>06</span> comment
+                    092             DFB $<span class='n'>00</span>,<span class='n'>13</span>,<span class='n'>11</span>   ;00-&gt;00,01-&gt;13,02-&gt;11           ;    <i>WHY</i> is this grouped in triplets???    *sigh* inconsistent <span class='code'>$00</span> code
+                    093             DFB <span class='n'>09</span>,<span class='n'>07</span>,<span class='n'>05</span>    ;03-&gt;09,04-&gt;07;05-&gt;05           ;    We have a sector interleave of <b>two</b>!   *sigh* inconsistent: <span class='code'>;</span> comment
+                    094             DFB <span class='n'>03</span>,<span class='n'>01</span>,<span class='n'>14</span>    ;06-&gt;03,07-&gt;01,08-&gt;14           ;    The last line having an even number
+                    095             DFB <span class='n'>12</span>,<span class='n'>10</span>,<span class='n'>08</span>    ;09-&gt;12,10-&gt;10,11-&gt;08           ;    of terms wasn't your first clue!?!
+                    096             DFB <span class='n'>06</span>,<span class='n'>04</span>,<span class='n'>02</span>,<span class='n'>15</span> ;12-&gt;6,13-&gt;04,14-&gt;02,15-&gt;15     ;                                          *sigh* inconsistent <span class='code'>6</span> comment
                                                                                     ; <b>Solution</b>:
                                                                                     ;     LOG_TO_PHYS EQU *
                                                                                     ;                 DFB $0  ; [0]  0
