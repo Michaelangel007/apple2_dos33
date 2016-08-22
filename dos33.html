@@ -8,6 +8,7 @@
 <a class='f' name='_8'       >12_         </a>
                         25          37              53                              85  89  93
 ####:## ## ##       ### LABEL       NMEMONIC        COMMENT                         ; Annotation
+####:## ## ##       ##### ### LABEL       NMEMONIC        COMMENT                         ; Annotation
 
 Pages left:
 
@@ -5325,67 +5326,88 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     052 * PARAMS FOR BOOT PROM SO
 <hr>                    053 * THAT WE'LL READ IN TRACK 0,                               ; === Page <a class="page" name="page9">9</a> ===
                     054 * BSECTRS 00-09.
-                    055 
-                    056 
-                    057 
-                    058 
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
+                    055             LDA BSLOT       ;GET BOOT SLOT
+                    056             LSR A           ;CONVERT TO CX00
+                    057             LSR A
+                    058             LSR A
+                    059             LSR A
+                    060             ORA #$C0
+                    061             STA BTEMP+1
+                    062             LDA #BRETRY     ; PROM ROUTINE OFFSET
+                    063             STA BTEMP
+                    064             CLC             ;BUMP LOAD ADDRESS UP TO
+                    065             LDA LOADADDR+1  ; LAST PAGE SO WE
+                    066             ADC BGRPGC      ;  CAN LOAD 'EM BACKWARDS
+                    067             STA LOADADDR+1
+                    068 * READ IN ANOTHER BSECTR FROM
+                    069 *  TRACK ZERO...
+                    070 <a class='f' name='READNEXT' >READNEXT    </a>LDX BGRPGC
+                    071             BMI GOLOADER    ;=&gt;ALL DONE...EXECUTE IT!
+                    072             LDA TABLE,X     ;GET PHYSICAL BSECTR NUMBER     ; /sarcasm Real original name there guys
+                    073             STA BSECTR      ; AND SET FOR BOOT PROM READ    ;          You couldn't call it LOGSECTR for LogicalSector?
+                    074             DEC BGRPGC      ;ONE LESS BELL TO ANSWER...
+                    075             LDA LOADADDR+1  ;GET LOAD ADDRESS
+                    076             STA POINTA+1    ; FOR BSECTR READ
+                    077             DEC LOADADDR+1  ;MOVE LOAD ADDRESS DOWN A PAGE
+                    078             LDX BSLO        ;RESTORE BSLOT NUMBER
+                    079             JMP (BTEMP)     ;READ MORE OF TRACK 0
+                    080 <a class='f' name='GOLOADER' >GOLOADER    </a>INC LOADADDR+1  ;ENTRY AT SECOND PAGE
+                    081             INC LOADADDR+1
+                    082             JSR SETKBD      ;CLEAR IN#X
+                    083             JSR SETVID      ; AND PR#X
+                    084             JSR MONINIT     ;MONINT THE SCREEN PARAMS
+                    085             LDX BSLOT       ;PASS BSLOT NBR TO LOADER
+                    086             JMP (LOADADDR)  ;OFF TO LOOADER!                ; *spelling Loader
+                    087 * TABLE OF PHYSICAL BSECTR NUMBERS
+                    088 *  WHICH CORRESPOND TO THE LOGICAL
+                    089 *  BSECTRS 0-F ON TRACK ZERO...
+                    090 <a class='d' name='BHERE2'   >BHERE2      </a>EQU &gt;*                                          ; low byte (modern assemblers reverse this)
+                    091 <a class='d' name='TABLE'    >TABLE       </a>EQU $800+BHERE2                                 ; Our native address is $3600 but also loaded at $0800
+                                                                                    ;
+                                                                                    ; This is one time where you <b>don't</b> want to compact lines
+                                                                                    ; <b>Problem</b>: Compare &amp; contrast this clusterfrak
+                    092             DFB $00,13,11   ;00-&gt;00,01-&gt;13,02-&gt;11           ;    <i>WHY</i> is this grouped in triplets???    *sigh* inconsistent <span class='code'>$00</span> code
+                    093             DFB 09,07,05    ;03-&gt;09,04-&gt;07;05-&gt;05           ;    We have a sector interleave of <b>two</b>!   *sigh* inconsistent: <span class='code'>;</span> comment
+                    094             DFB 03,01,14    ;06-&gt;03,07-&gt;01,08-&gt;14           ;    The last line having an even number
+                    095             DFB 12,10,08    ;09-&gt;12,10-&gt;10,11-&gt;08           ;    of terms wasn't your first clue!?!
+                    096             DFB 06,04,02,15 ;12-&gt;6,13-&gt;04,14-&gt;02,15-&gt;15     ;                                          *sigh* inconsistent <span class='code'>06</span> comment
+                                                                                    ; <b>Solution</b>:
+                                                                                    ;     LOG_TO_PHYS EQU *
+                                                                                    ;                 DFB $0  ; [0]  0
+                                                                                    ;                 DFB $D  ; [1] 13
+                                                                                    ;                 DFB $B  ; [2] 11
+                                                                                    ;                 DFB $9  ; [3]  9
+                                                                                    ;                 DFB $7  ; [4]  7
+                                                                                    ;                 DFB $5  ; [5]  5
+                                                                                    ;                 DFB $3  ; [6]  3
+                                                                                    ;                 DFB $1  ; [7]  1
+                                                                                    ;                 DFB $E  ; [8] 14
+                                                                                    ;                 DFB $C  ; [9] 12
+                                                                                    ;                 DFB $A  ; [A] 10
+                                                                                    ;                 DFB $8  ; [B]  8
+                                                                                    ;                 DFB $6  ; [C]  6
+                                                                                    ;                 DFB $4  ; [D]  4
+                                                                                    ;                 DFB $2  ; [E]  2
+                                                                                    ;                 DFB $F  ; [F] 15
+                    097             PAGE
+                    098             REP 40                                          ; alias ****************************************
+                    099 * APPEND BUG PATCHES
+                    100 ****************************
+                    101 <a class='d' name='SC3'      >SC3         </a>EQU *
+                    102 <a class='d' name='EOFFLAG'  >EOFFLAG     </a>DFB 0
+                    103 <a class='f' name='CLOSFILE' >CLOSFILE    </a>EQU *
+                    104             JSR FILSRC      ;FILE BUFFER FOUND?
+                    105             BCS NOTFOUND    ;=&gt; NO, SO SKIP IT.
+                    106             LDA #0          ;YES, CLOSE IT
+                    107             TAY
+                    108             STA EOFFLAG
+                    109             STA (ZPGWRK),Y  ;RIGHT NOW
+                    110 <a class='f' name='NOTFOUND' >NOTFOUND    </a>LDA CCBSTA      ;ORIGINAL INSTRUCTION
+                    111             JMP ERROR       ;BACK TO ERROR HANDLER
+                    112 ****************************
+                    113 <a class='f' name='BUMPER'   >BUMPER      </a>EQU *
+                    114             LDA EOFFLAG     ;SHOULD WE?
+                    115             BEQ GOBACK      ;=&gt; NO
 <hr>                    116             INC <a class="v" href="#CCBRRN">CCBRRN</a>      ;BUMP CCB RECORD NUMBER         ; === Page <a class="page" name="page10">10</a>
                     117 
                     118 
