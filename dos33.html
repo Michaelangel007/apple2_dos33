@@ -5512,51 +5512,51 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     217             LDA LBUFF,X     ;Get it
                     218             CMP #'"+$80     ;Closing quote?
                     219             BEQ NEXTCHR     ;=&gt; if so
-                    220 
-                    221 
-                    222 
-                    223 
-                    224 
-                    225 
-                    226 
-                    227 
-                    228 
-                    229 
-                    230 
-                    231 
-                    232 
-                    233 
-                    234 
-                    235 
-                    236 
-                    237 
-                    238 
-                    239 
-                    240 
+                    220             CMP #$8D        ;End of Line?
+                    221             BNE LUP2        ;=&gt; if not
+                    222 ULFINI      LDY #$FF        ;Do what DOS wants
+                    223             STY CMDNO
+                    224             RTS             ;   &amp; exit
+                    225 CHK4UC      EQU *
+                    226             CMP #$E0        ;Upper case?
+                    227             BCC CHK4CR      ;=&gt; if not
+                    228             AND #$DF        ;Make upper case
+                    229             STA LBUFF,X     ;   &amp; restore
+                    230 CHK4CR      CMP #$8DF,X     ;End of input?
+                    231             BEQ ULFINI      ;=&gt; if so
+                    232 NEXTCHR     INX             ;Bump to next char
+                    233             BNE LUP1        ;=&gt; always                      ; &uarr; No, not always, 256 times
+                    234             FIN
+                    235             SKP 1
+                    236 BHER1       EQU &gt;*
+                    237             DS $FD-BHERE1,0
+                    238 * LOAD ADDRESS FOR CODE (PG BDY)
+                    239 * ENTRY AFTER BOOT IS AT LOADADDR+256 (SECOND PAGE LOADED)
+                    240 *
                     241 BHERE4      EQU &gt;*
-<hr>                    242 LOADADDR    EQU $800+BHERE4                                 ; === Page <a class="page" name="page12">12</a> ===
-                    243 
-                    244 
-                    245 
-                    246 
-                    247 
-                    248 
-                    249 
-                    250 
-                    251 
-                    252 
-                    253 
-                    254 
-                    255 
-                    256 
-                    257 
-                    258 
-                    259 
-                    260 
-                    261 
-                    262 
-                    263 
-                    264 
+<hr>                    242 LOADADDR    EQU $<span class='n'>800</span>+BHERE4                                 ; === Page <a class="page" name="page12">12</a> ===
+                    243             DFB 0
+                    244 GRSPG       &lt;TRK0LDR        ;CONTAINS PAGE#-1 OF TRK 0, SEC 1 LOAD ADDRESS
+                    245 * LAST LOGICAL BSECTOR TO READ STARTING AT $00
+                    246 BHERE5      EQU &gt;*
+                    247 BGRPGC      EQU $<span class='n'>800</span>+BHERE5
+                    248 GRPGC       DFB &lt;<a class='v' href='#ENDOFDOS'>ENDOFDOS</a>-TRK0LDR-$<span class='n'>100</span>
+                    249 ********************
+                    250             PAGE
+                    251 DOSLODR     EQU *
+                    252             DO &gt;<a class='do' href='#DOSLODR'>DOSLODR</a><span class='macro'>
+                    253             ???             ;ERROR IF NOT ON PAGE BOUNDARY  </span>
+                    254             FIN
+                    255             REP 40
+                    256 * FAST BOOT AT 2:1 INTERLEAVE                               ; "<i>You keep using this word fast,</i>
+                    257 * FOR 16-SECTOR DISKETTES                                   ;  <i>it doesn't mean what you think it means.</i>"
+                    258             REP 40                                          ; Copy ][+ has a FAST boot via 4&amp;4 encoding, not 6&amp2;2 encoding.
+                    259             STX IBSLOT      ; SET BOOT SLOT
+                    260             STX IBPSLT      ; SET PREVIOUS SLOT
+                    261             LDA #1          ; SET PREV DRIVE                ; <i>Assumes</i> boot was from drive 1; Sadly there is no hardware support to tell.
+                    262             STA IBPDRV                                      ; More crappy names differing by a single letter
+                    263             STA IBDRVN                                      ;     IBPDRV    IB_PRV_DRV
+                    264 ;                                                           ;     IBDRVN    IB_CUR_DRV
                     265 
                     266 
                     267 
