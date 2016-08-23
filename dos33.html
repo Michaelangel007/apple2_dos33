@@ -5409,109 +5409,109 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     114             LDA EOFFLAG     ;SHOULD WE?
                     115             BEQ GOBACK      ;=&gt; NO
 <hr>                    116             INC <a class="v" href="#CCBRRN">CCBRRN</a>      ;BUMP CCB RECORD NUMBER         ; === Page <a class="page" name="page10">10</a>
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
-                    165 
-                    166 
-                    167 
-                    168 
-                    169 
-                    170 
-                    171 
-                    172 
-                    173 
-                    174 
-                    175 
-                    176 
-                    177 
-                    178 
+                    117             BNE GOBACK
+                    118             INC CCBRRN+1    ;TO GET TO NEXT SECTOR
+                    119 GOBACK      LDA #0
+                    120             STA EOFFLAG     ;TURN FLAG OFF
+                    121             JMP FIXIT2      ;Go to FIXIT2 as exit
+                    122             REP 40
+                    123 VPATCH      EQU *
+                    124             STA CCBRQM      ;ORIGINAL INSTRUCTION
+                    125             JSR DOSGO       ;GO SAVE
+                    126             JSR ECLOSE      ;CLOSE THE FILE
+                    127             JMP EVAR        ;GO VERIFY IT AFTER SAVE
+                    128 ****************************
+                    129 EOFFIX      EQU *
+                    130             LDY #$13        ;PEEK INTO THE FCB: IF          ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_SEC</span>
+                    131 CHKFILE     LDA (ZPGFCB),Y  ;DCBCRS,DCBCSB ARE ZEROS,
+                    132             BNE FIXIT       ; THEN WE hAVE EMPTY FILE
+                    133             INY
+                    134             CPY #$17                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_REC_LEN</span>
+                    135             BNE CHKFILE
+                    136             LDY #$19                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
+                    137 MOVE        LDA (ZPGFB),Y   ; DCBCRR,DCBCRB
+                    138             STA CCBRRN-$19,Y;INTO CCBRRN,CCBBYT             ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
+                    139             INY
+                    140             CPY #$1D                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_NUM_SEC_ALLOC</span>
+                    141             BNE MOVE
+                    142 BACK        JMP DOSGO2A     ;NOW LET APPEND CONTINUE
+                    143 FIXIT       EQU *
+                    144             LDX #$FF        ;SET FLAG SO APPEND WILL        ; <a class='magic' name='_'>magic number</a> <span class='code'>FLAG_EOF_SEC_BOUNDARY EQU $0</span>
+                    145             STX EOFFLAG     ;KNOW TO CROSS SECTOR BOUNDARY
+                    146             BNE BACK        ;ALWAYS TAKEN                   ; &uarr;
+                    147             PAGE
+                    148             REP 40
+                    149 * END OF BOOT PAGE DATA SETUP
+                    150             REP 40
+                    151 *
+                    152 * FIXIT2 was developed to fix the wrap around
+                    153 * problem APPEND has when trying to APPEND to
+                    154 * a sequential file which is &gt; 255 sectors in length.
+                    155 *
+                    156 *                  Fix by
+                    157 *
+                    158 *              Fern Bachman
+                    159 *               Guil Banks
+                    160 *           September 28, 1982
+                    161 *
+                    162 * Fix to fix added to correctly APPEND to a SECTOR
+                    163 * 255 bytes in length
+                    164 *           
+                    165 *                    by
+                    166 *                Guil Banks
+                    167 *               July 11, 1983
+                    168 *
+                    169             REP 30
+                    170             SKP 1
+                    171 FIXIT2      EQU *
+                    172             LDA CCBRLN      ;Current record length lo
+                    173             STA DCBCSB      ;Current sector byte
+                    174             STA DCBCRR      ;Current relative record
+                    175             LDA CCBRLN+1    ;Do hi as well
+                    176             STA DCBCSB+1
+                    177             STA DCBCRR+1
+                    178             STA DCBCRS      ;Set current relative sector
 <hr>                    179             TSX                                             ; === Page <a class="page" name="page11">11</a> ===
-                    180 
-                    181 
-                    182 
-                    183 
-                    184 
-                    185 
-                    186 
-                    187 
-                    188 
-                    189 
-                    190 
-                    191 
-                    192 
-                    193 
-                    194 
-                    195 
-                    196 
-                    197 
-                    198 
-                    199 
-                    200 
-                    201 
-                    202 
-                    203 
-                    204 
-                    205 
-                    206 
-                    207 
-                    208 
-                    209 
-                    210 
-                    211 
-                    212 
-                    213 
-                    214 
-                    215 
-                    216 
-                    217 
-                    218 
-                    219 
+                    180             STX ENTSTK
+                    181             JMP GOODIO
+                    182             SKP 2
+                    183             REP 30
+                    184 *
+                    185 *   Upper/Lower case patch
+                    186 *   for DOS 3.3C and BASIC
+                    187 *
+                    188 *            by
+                    189 *        Guil Banks
+                    190 *        Mark Houde
+                    191 *
+                    192             REP 10
+                    193 *
+                    194 * This routine converts all characters
+                    195 * that are not between quotes to
+                    196 * upepr case and returns them to the
+                    197 * input buffer ($200). This works with
+                    198 * DOS, Integer &amp; Applesoft.
+                    199 *
+                    200 * Upon entry -
+                    201 *
+                    202 *              X Reg = 0
+                    203 *
+                    204 * Upon exit -
+                    205 *
+                    206 *              Y Reg = $FF
+                    207 *              ACCUM = $8D
+                    208 *              X Reg = unknown
+                    209 *
+                    210             REP 30
+                    211             DO <a class='do' href='#ULC'>ULC</a>
+                    212 UPRCASE     EQU *
+                    213 LUP1        LDA LBUFF,X     ;Get a char
+                    214             CMP #'"+$80     ;Is it a quote?
+                    215             BNE CHK4UC      ;=&gt; if not
+                    216 LUP2        INX             ;Bump to next char
+                    217             LDA LBUFF,X     ;Get it
+                    218             CMP #'"+$80     ;Closing quote?
+                    219             BEQ NEXTCHR     ;=&gt; if so
                     220 
                     221 
                     222 
