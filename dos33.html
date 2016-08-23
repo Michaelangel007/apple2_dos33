@@ -5225,48 +5225,48 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     142 ;FILE CONTROL BLOCK (FCB) DEFINITION
                     143 ;DCB - FILE DATA CONTROL BLOCK
                     144 ;
-                    145 FCB EQU *
+                    145 <a class='f' name='FCB'      >FCB         </a>EQU *
                     146 ;
                     147 ;DATA CONTROL BLOCK
                     148 ;
                     149 FCBDCB      EQU *
-35D1:FC             150 <a class='d' name='DCBFDT'     >DCBFDT      </a>DS 1            ; 1ST FILE DIRECTORY TRACK
-35D2:FC             151 <a class='d' name='DCBFDS'     >DCBFDS      </a>DS 1            ; 1ST FILE DIRECTORY SECTOR
-35D3:FF             152 <a class='d' name='DCBCDT'     >DCBCDT      </a>DS 1            ; CURRENT FILE DIRECTORY TRACK
-35D4:FC             153 <a class='d' name='DCBCDS'     >DCBCDS      </a>DS 1            ; CURRENT FILE DIRECTORY SECTOR
-35D5:FC             154 <a class='d' name='DCBWRF'     >DCBWRF      </a>DS 1            ; WRITE REQD FLAG
+35D1:FC             150 <a class='d' name='DCBFDT'     >DCBFDT      </a>DS 1            ; 1ST FILE DIRECTORY TRACK      ; [00]
+35D2:FC             151 <a class='d' name='DCBFDS'     >DCBFDS      </a>DS 1            ; 1ST FILE DIRECTORY SECTOR     ; [01]
+35D3:FF             152 <a class='d' name='DCBCDT'     >DCBCDT      </a>DS 1            ; CURRENT FILE DIRECTORY TRACK  ; [02]
+35D4:FC             153 <a class='d' name='DCBCDS'     >DCBCDS      </a>DS 1            ; CURRENT FILE DIRECTORY SECTOR ; [03]
+35D5:FC             154 <a class='d' name='DCBWRF'     >DCBWRF      </a>DS 1            ; WRITE REQD FLAG               ; [04]
                     155 ;$80=WRITE FILE DIR
                     156 ;$40=WRITE SECTOR DIR
-35D6:FF             157 <a class='d' name='DCBTRK'     >DCBTRK      </a>DS 1            ; SECTOR TRACK ADR
-35D7:FF             158 <a class='d' name='DCBSEC'     >DCBSEC      </a>DS 1            ; SECTOR ADR
-35D8:FE             159 <a class='d' name='DCBVDR'     >DCBVDR      </a>DS 1            ; VOL DIR REC
-35D9:FC             160 <a class='d' name='DCBVDI'     >DCBVDI      </a>DS 1            ; VOL DIR INDEX
-35DA:FC FE          161 <a class='d' name='DCBDMS'     >DCBDMS      </a>DS 2            ; MAX NO DIRECTORY SECTORS
-35DC:FC FC          162 <a class='d' name='DCBDFS'     >DCBDFS      </a>DS 2            ; CURRENT DIR 1ST REL SECTOR
-35DE:FF FC          163 <a class='d' name='DCBDNF'     >DCBDNF      </a>DS 2            ; REL SECTOR OF NXT DIR
-35E0:FE FC          164 <a class='d' name='DCBCMS'     >DCBCMS      </a>DS 2            ; SECTOR CURRENTLY IN MEMORY
-35E2:FE FC          165 <a class='d' name='DCBSDL'     >DCBSDL      </a>DS 2            ; SECTOR DATA LENGTH
-35E4:FC FC          166 <a class="d" name="DCBCRS"     >DCBCRS      </a>DS 2            ; CURRENT RELATIVE SECTOR       ; See <a class="x" href="#FVAR">FVAR</a>
-35E6:FC FD          167 <a class="d" name="DCBCSB"     >DCBCSB      </a>DS 2            ; CURRENT SECTOR BYTE
-35E8:FC FF          168 <a class="d" name="DCBRCL"     >DCBRCL      </a>DS 2            ; RECORD LENGTH
-35EA:FC FC          169 <a class="d" name="DCBCRR"     >DCBCRR      </a>DS 2            ; CURRENT RELATIVE REC
-35EC:FC FF          170 <a class="d" name="DCBCRB"     >DCBCRB      </a>DS 2            ; CURRENT RELATIVE BYTE
-35EE:FC FC          171 <a class="d" name="DCBNSA"     >DCBNSA      </a>DS 2            ; NO SECTORS ALLOCATED
+35D6:FF             157 <a class='d' name='DCBTRK'     >DCBTRK      </a>DS 1            ; SECTOR TRACK ADR              ; [05]
+35D7:FF             158 <a class='d' name='DCBSEC'     >DCBSEC      </a>DS 1            ; SECTOR ADR                    ; [06]
+35D8:FE             159 <a class='d' name='DCBVDR'     >DCBVDR      </a>DS 1            ; VOL DIR REC                   ; [07]
+35D9:FC             160 <a class='d' name='DCBVDI'     >DCBVDI      </a>DS 1            ; VOL DIR INDEX                 ; [08]
+35DA:FC FE          161 <a class='d' name='DCBDMS'     >DCBDMS      </a>DS 2            ; MAX NO DIRECTORY SECTORS      ; [09]
+35DC:FC FC          162 <a class='d' name='DCBDFS'     >DCBDFS      </a>DS 2            ; CURRENT DIR 1ST REL SECTOR    ; [0B]
+35DE:FF FC          163 <a class='d' name='DCBDNF'     >DCBDNF      </a>DS 2            ; REL SECTOR OF NXT DIR         ; [0D]
+35E0:FE FC          164 <a class='d' name='DCBCMS'     >DCBCMS      </a>DS 2            ; SECTOR CURRENTLY IN MEMORY    ; [0F]
+35E2:FE FC          165 <a class='d' name='DCBSDL'     >DCBSDL      </a>DS 2            ; SECTOR DATA LENGTH            ; [11] 
+35E4:FC FC          166 <a class="d" name="DCBCRS"     >DCBCRS      </a>DS 2            ; CURRENT RELATIVE SECTOR       ; [13] See <a class="x" href="#FVAR">FVAR</a>
+35E6:FC FD          167 <a class="d" name="DCBCSB"     >DCBCSB      </a>DS 2            ; CURRENT SECTOR BYTE           ; [15] 
+35E8:FC FF          168 <a class="d" name="DCBRCL"     >DCBRCL      </a>DS 2            ; RECORD LENGTH                 ; [17]
+35EA:FC FC          169 <a class="d" name="DCBCRR"     >DCBCRR      </a>DS 2            ; CURRENT RELATIVE REC          ; [19]
+35EC:FC FF          170 <a class="d" name="DCBCRB"     >DCBCRB      </a>DS 2            ; CURRENT RELATIVE BYTE         ; [1B]
+35EE:FC FC          171 <a class="d" name="DCBNSA"     >DCBNSA      </a>DS 2            ; NO SECTORS ALLOCATED          ; [1D]
                     172 ;
-35F0:FD             173 <a class="d" name="DCBALS"     >DCBALS      </a>DS 1            ; ALLOCATION SECTOR BYTE
-35F1:FC             174 <a class="d" name="DCBATK"     >DCBFUC      </a>DS 1            ; ALLOCATION TRACK
-35F2:FE FE FF FC    175 <a class="d" name="DCBABM"     >DCBABM      </a>DS 4            ; ALLOCATION TRACK SECTOR BIT MAP   ; <a class='mem' name='_35F2'>wastes</a> 2 bytes, See <a class="x" href="#FS3">FS3</a> and Line #<a class='line' href='#FLOCSEC.184'>184</a>
+35F0:FD             173 <a class="d" name="DCBALS"     >DCBALS      </a>DS 1            ; ALLOCATION SECTOR BYTE        ; [1F]
+35F1:FC             174 <a class="d" name="DCBATK"     >DCBFUC      </a>DS 1            ; ALLOCATION TRACK              ; [20]
+35F2:FE FE FF FC    175 <a class="d" name="DCBABM"     >DCBABM      </a>DS 4            ; ALLOCATION TRACK SECTOR BIT MAP;[21] <a class='struct' name='_35F2'>wastes</a> 2 bytes, See <a class="x" href="#FS3">FS3</a> and Line #<a class='line' href='#FLOCSEC.184'>184</a>
                     176 ;
-35F6:FD             177 <a class="d" name="DCBFUC"     >DCBFUC      </a>DS 1            ; FILE USE CODE
-35F7:FF             178 <a class="d" name="DCBSLT"     >DCBSLT      </a>DS 1            ; SLOT NUMBER
-<hr>35F8:FC             179 <a class="d" name="DCBDRV"     >DCBDRV      </a>DS 1            ; DRIVE NUMBER                  ; === Page <a class="page" name="page89">89</a> ===
-35F9:FE             180 <a class="d" name="DCBVOL"     >DCBVOL      </a>DS 1            ; VOLUME DRIVER
-35FA:FD             181 <a class="d" name="DCBVTN"     >DCBVTN      </a>DS 1            ; VTOC TRACK NUMBER
+35F6:FD             177 <a class="d" name="DCBFUC"     >DCBFUC      </a>DS 1            ; FILE USE CODE                 ; [25]
+35F7:FF             178 <a class="d" name="DCBSLT"     >DCBSLT      </a>DS 1            ; SLOT NUMBER                   ; [26]
+<hr>35F8:FC             179 <a class="d" name="DCBDRV"     >DCBDRV      </a>DS 1            ; DRIVE NUMBER                  ; [27] === Page <a class="page" name="page89">89</a> ===
+35F9:FE             180 <a class="d" name="DCBVOL"     >DCBVOL      </a>DS 1            ; VOLUME DRIVER                 ; [28]
+35FA:FD             181 <a class="d" name="DCBVTN"     >DCBVTN      </a>DS 1            ; VTOC TRACK NUMBER             ; [29]
                     182 ;
-35FB:FC FD FC       183 <a class="d" name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; *<a class="mem" name="_35fb">wastes</a>* 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *unused*
+35FB:FC FD FC       183 <a class="d" name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; [2A] <a class="mem" name="_35fb">wastes</a> 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *unused*
                     184 ;
-                    185 <a class="d" name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH
-                    <a class='line' name='FVCBUFS.186'>186</a> <a class="d" name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH
+                    185 <a class="d" name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH                    ;=$2D
+                    <a class='line' name='FVCBUFS.186'>186</a> <a class="d" name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH                    ; = $35FE - $35D1 = $2D
                     187 ;
 </pre>
 
