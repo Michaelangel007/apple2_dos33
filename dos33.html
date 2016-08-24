@@ -5344,7 +5344,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     070 <a class='f' name='READNEXT' >READNEXT    </a>LDX BGRPGC                                      ; ..
                     071             BMI GOLOADER    ;=&gt;ALL DONE...EXECUTE IT!       ; ..
                     072             LDA TABLE,X     ;GET PHYSICAL BSECTR NUMBER     ; .. /sarcasm Real original name there guys
-                    073             STA BSECTR      ; AND SET FOR BOOT PROM READ    ; ..          You couldn't call it LOGSECTR for LogicalSector?
+                    073             STA BSECTR      ; AND SET FOR BOOT PROM READ    ; ..          You couldn't call it <span class='code'>LOGSECTR</span> for Logical Sector??
                     074             DEC BGRPGC      ;ONE LESS BELL TO ANSWER...     ; ..
                     075             LDA LOADADDR+1  ;GET LOAD ADDRESS               ; ..
                     076             STA POINTA+1    ; FOR BSECTR READ               ; ..
