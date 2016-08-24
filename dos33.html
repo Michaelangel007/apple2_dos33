@@ -5317,47 +5317,47 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     043 <a class="f" name="MONINIT"  >MONINIT     </a>EQU $FB2F       ;MONINIT SCREEN
                     044 <a class="d" name="BHERE3"   >BHERE3      </a>EQU &gt;*
                     045 <a class="d" name="BOOTCNT"  >BOOTCNT     </a>EQU $800+BHERE3
-3600:01             046             DFB 01                                          ; Number sectors for P6 PROM to read
-                    047             PAGE
-                    048             LDA <a class="d" href="#POINTA">POINTA</a>+1    ;WHERE DID BSECTR GET LOADED?   ; Get memory page of last load
-                    049             CMP #<span class='n'>09</span>         ; (AT 0800)?
-                    050             BNE <a class="x" href="#READNEXT">READNEXT</a>    ;=&gt;NO. WE'RE LOADING SOMETHING
-                    051 * WE'VE BEEN BOOTED. SET UP
-                    052 * PARAMS FOR BOOT PROM SO
-<hr>                    053 * THAT WE'LL READ IN TRACK 0,                               ; === Page <a class="page" name="page9">9</a> ===
-                    054 * BSECTRS 00-09.
-                    055             LDA BSLOT       ;GET BOOT SLOT
-                    056             LSR A           ;CONVERT TO CX00
-                    057             LSR A
-                    058             LSR A
-                    059             LSR A
-                    060             ORA #$C0
-                    061             STA BTEMP+1
-                    062             LDA #BRETRY     ; PROM ROUTINE OFFSET
-                    063             STA BTEMP
-                    064             CLC             ;BUMP LOAD ADDRESS UP TO
-                    065             LDA LOADADDR+1  ; LAST PAGE SO WE
-                    066             ADC BGRPGC      ;  CAN LOAD 'EM BACKWARDS
-                    067             STA LOADADDR+1
-                    068 * READ IN ANOTHER BSECTR FROM
-                    069 *  TRACK ZERO...
-                    070 <a class='f' name='READNEXT' >READNEXT    </a>LDX BGRPGC
-                    071             BMI GOLOADER    ;=&gt;ALL DONE...EXECUTE IT!
-                    072             LDA TABLE,X     ;GET PHYSICAL BSECTR NUMBER     ; /sarcasm Real original name there guys
-                    073             STA BSECTR      ; AND SET FOR BOOT PROM READ    ;          You couldn't call it LOGSECTR for LogicalSector?
-                    074             DEC BGRPGC      ;ONE LESS BELL TO ANSWER...
-                    075             LDA LOADADDR+1  ;GET LOAD ADDRESS
-                    076             STA POINTA+1    ; FOR BSECTR READ
-                    077             DEC LOADADDR+1  ;MOVE LOAD ADDRESS DOWN A PAGE
-                    078             LDX BSLO        ;RESTORE BSLOT NUMBER
-                    079             JMP (BTEMP)     ;READ MORE OF TRACK 0
+3600:01             046             DFB 01                                          ; Would <i>could</i> read $F sectors via P6 PROM but nah, 
+                    047             PAGE                                            ; let's waste $839-$801 = $38 (56) bytes instead!
+                    048             LDA <a class="d" href="#POINTA">POINTA</a>+1    ;WHERE DID BSECTR GET LOADED?   ;[.. <a class='mem' name='_3601'>wastes</a> 56 bytes; Get memory page of last load
+                    049             CMP #<span class='n'>09</span>         ; (AT 0800)?                    ; ..
+                    050             BNE <a class="x" href="#READNEXT">READNEXT</a>    ;=&gt;NO. WE'RE LOADING SOMETHING  ; ..
+                    051 * WE'VE BEEN BOOTED. SET UP                                 ; ..
+                    052 * PARAMS FOR BOOT PROM SO                                   ; ..
+<hr>                    053 * THAT WE'LL READ IN TRACK 0,                               ; .. === Page <a class="page" name="page9">9</a> ===
+                    054 * BSECTRS 00-09.                                            ; ..
+                    055             LDA BSLOT       ;GET BOOT SLOT                  ; ..
+                    056             LSR A           ;CONVERT TO CX00                ; ..
+                    057             LSR A                                           ; ..
+                    058             LSR A                                           ; ..
+                    059             LSR A                                           ; ..
+                    060             ORA #$C0                                        ; ..
+                    061             STA BTEMP+1                                     ; ..
+                    062             LDA #BRETRY     ; PROM ROUTINE OFFSET           ; ..
+                    063             STA BTEMP                                       ; ..
+                    064             CLC             ;BUMP LOAD ADDRESS UP TO        ; ..
+                    065             LDA LOADADDR+1  ; LAST PAGE SO WE               ; ..
+                    066             ADC BGRPGC      ;  CAN LOAD 'EM BACKWARDS       ; ..
+                    067             STA LOADADDR+1                                  ; ..
+                    068 * READ IN ANOTHER BSECTR FROM                               ; ..
+                    069 *  TRACK ZERO...                                            ; ..
+                    070 <a class='f' name='READNEXT' >READNEXT    </a>LDX BGRPGC                                      ; ..
+                    071             BMI GOLOADER    ;=&gt;ALL DONE...EXECUTE IT!       ; ..
+                    072             LDA TABLE,X     ;GET PHYSICAL BSECTR NUMBER     ; .. /sarcasm Real original name there guys
+                    073             STA BSECTR      ; AND SET FOR BOOT PROM READ    ; ..          You couldn't call it LOGSECTR for LogicalSector?
+                    074             DEC BGRPGC      ;ONE LESS BELL TO ANSWER...     ; ..
+                    075             LDA LOADADDR+1  ;GET LOAD ADDRESS               ; ..
+                    076             STA POINTA+1    ; FOR BSECTR READ               ; ..
+                    077             DEC LOADADDR+1  ;MOVE LOAD ADDRESS DOWN A PAGE  ; ..
+                    078             LDX BSLO        ;RESTORE BSLOT NUMBER           ; ..
+                    079             JMP (BTEMP)     ;READ MORE OF TRACK 0           ; ..]
                     080 <a class='f' name='GOLOADER' >GOLOADER    </a>INC LOADADDR+1  ;ENTRY AT SECOND PAGE
                     081             INC LOADADDR+1
                     082             JSR SETKBD      ;CLEAR IN#X
                     083             JSR SETVID      ; AND PR#X
                     084             JSR MONINIT     ;MONINT THE SCREEN PARAMS
                     085             LDX BSLOT       ;PASS BSLOT NBR TO LOADER
-                    086             JMP (LOADADDR)  ;OFF TO LOOADER!                ; *spelling Loader
+                    086             JMP (LOADADDR)  ;OFF TO LOOADER!                ; *spelling* Loader
                     087 * TABLE OF PHYSICAL BSECTR NUMBERS
                     088 *  WHICH CORRESPOND TO THE LOGICAL
                     089 *  BSECTRS 0-F ON TRACK ZERO...
