@@ -5275,7 +5275,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     001             SBTL '16-SECTOR DOS BOOT'
                     002 <a class="d" name="HERE3L"     id="HERE3L"     >HERE3L      </a>EQU &gt;*                                          ; End of FVCBUFS = $35FD, * = $35FE
                     003 <a class="d" name="REMDR3"     id="REMDR3"     >REMDR3      </a>EQU 256-HERE3L                                  ; Remainder 2
-35FE:FD FE          004             ORG *+<a class="v" href="#REMDR3">REMDR3</a>                                    ; *<a class="dumb" name="waste_35fe">wastes</a>* 2 bytes to page align BOOTLDR
+35FE:FD FE          004             ORG *+<a class="v" href="#REMDR3">REMDR3</a>                                    ; <a class='mem' name='_35fe'>wastes</a> 2 bytes to page align BOOTLDR
                     005 <a class="d" name="TRK0LDR"    id="TRK0LDR"    >TRK0LDR     </a>EQU *
                     006     DO &gt;<a class="do" href="#TRK0LDR">TRK0LDR</a><span class="macro">
                     007         ???                 ;DELIBERATE ERROR IF NOT AT PAGE BOUNDARY</span>
