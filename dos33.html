@@ -3520,16 +3520,17 @@ With that "legalese" out of the way ... enjoy the read!
 2ADC:11 2D          070             DW <a class='x' href='#FPOSTN'>FPOSTN</a>-<span class='n'>1</span>     ; 10-POSITION A FILE            ; [A]
 2ADE:8D 2E          071             DW <a class='x' href='#FFMT'  >FFMT</a>-<span class='n'>1</span>       ; FORMAT                        ; [B]
 2AE1:17 2D          072             DW <a class='x' href='#FVAR'  >FVAR</a>-<span class='n'>1</span>       ; VARIFY                        ; [C] *spelling* VERIFY
-2AE3:7E 33          073             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>     ; 11-SPARE                      ; [D] <a class='mem' name='_2AE3'>wastes</a> 2 bytes due to fencepost error; Uh, calling 13 "eleven" doesn't make it so. 
+2AE3:7E 33          073             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>     ; 11-SPARE                      ; [D] <a class='mem' name='_2AE3'>wastes</a> 2 bytes due to fencepost error
+                                                                                    ;     Uh, calling 13 "eleven" doesn't make it so. 
                     074 ;                                                           ;     See <a class='x' href='#DOSENT'>DOSENT</a>: CCBREQ (FileManager.command) &gt;= <a class='v' href='#CRQMAX'>CRQMAX</a>
-                                                                                    ;         AAE3:00 00 (was 7E B3)
-                                                                                    ;         20 DC 03  JSR CCBLDR  ; $9E5D GetCCBAdr   ; $9D0E: dw $B5BB = <a class='v' href='#CCB'>CCB</a>
-                                                                                    ;         84 FD     STY $FD
-                                                                                    ;         85 FE     STA $FE
-                                                                                    ;         A9 0D     LDA #$D     ; Command = CRQMAX
-                                                                                    ;         A0 00     LDY #0      ; FileManager.Command = Command
-                                                                                    ;         91 FD     STA ($FD),Y
-                                                                                    ;         4C D6 03  JMP USERENT ; $AAFD FileManager$
+                                                                                    ;         AAE3:00 00                 ; (was 7E B3) to prove this is never called
+                                                                                    ;         0300:20 DC 03  JSR CCBLDR  ; $9E5D GetCCBAdr   ; $9D0E: dw $B5BB = <a class='v' href='#CCB'>CCB</a>
+                                                                                    ;         0303:84 FD     STY $FD
+                                                                                    ;         0305:85 FE     STA $FE
+                                                                                    ;         0307:A9 0D     LDA #$D     ; Command = CRQMAX
+                                                                                    ;         0309:A0 00     LDY #0      ; FileManager.Command = Command
+                                                                                    ;         030B:91 FD     STA ($FD),Y
+                                                                                    ;         030D:4C D6 03  JMP USERENT ; $AAFD FileManager$
                     075 <a class='f' name='RVT'      >RVT         </a>EQU *                                           ; <a class='x' href='#USERNT'>USERENT</a> calls <a class='x' href='#FREAD'>FREAD</a>
 2AE5:7E 33          076             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>                                     ; [0] <a class='mem' name='_2AE5'>wastes</a> 2 bytes; See <a class='v' href='#CRMNUL'>CRMNUL</a>
 2AE7:89 2C          077             DW <a class='x' href='#RNXBYT'>RNXBYT</a>-<span class='n'>1</span>    ; 1-RD NEXT BYTE                 ; [1]
