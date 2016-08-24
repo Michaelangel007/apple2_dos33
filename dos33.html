@@ -5366,11 +5366,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                                                                                     ;
                                                                                     ; This is one time where you <b>don't</b> want to compact lines
                                                                                     ; <b>Problem</b>: Compare &amp; contrast this clusterfrak
-                    092             DFB $<span class='n'>00</span>,<span class='n'>13</span>,<span class='n'>11</span>   ;00-&gt;00,01-&gt;13,02-&gt;11           ;    <i>WHY</i> is this grouped in triplets???    *sigh* inconsistent <span class='code'>$00</span> code
-                    093             DFB <span class='n'>09</span>,<span class='n'>07</span>,<span class='n'>05</span>    ;03-&gt;09,04-&gt;07;05-&gt;05           ;    We have a sector interleave of <b>two</b>!   *sigh* inconsistent: <span class='code'>;</span> comment
-                    094             DFB <span class='n'>03</span>,<span class='n'>01</span>,<span class='n'>14</span>    ;06-&gt;03,07-&gt;01,08-&gt;14           ;    The last line having an even number
-                    095             DFB <span class='n'>12</span>,<span class='n'>10</span>,<span class='n'>08</span>    ;09-&gt;12,10-&gt;10,11-&gt;08           ;    of terms wasn't your first clue!?!
-                    096             DFB <span class='n'>06</span>,<span class='n'>04</span>,<span class='n'>02</span>,<span class='n'>15</span> ;12-&gt;6,13-&gt;04,14-&gt;02,15-&gt;15     ;                                          *sigh* inconsistent <span class='code'>6</span> comment
+364D:00 0D 0B       092             DFB $<span class='n'>00</span>,<span class='n'>13</span>,<span class='n'>11</span>   ;00-&gt;00,01-&gt;13,02-&gt;11           ;    <i>WHY</i> is this grouped in triplets???    *sigh* inconsistent <span class='code'>$00</span> code
+3650:09 07 05       093             DFB <span class='n'>09</span>,<span class='n'>07</span>,<span class='n'>05</span>    ;03-&gt;09,04-&gt;07;05-&gt;05           ;    We have a sector interleave of <b>two</b>!   *sigh* inconsistent: <span class='code'>;</span> comment
+3653:03 01 0E       094             DFB <span class='n'>03</span>,<span class='n'>01</span>,<span class='n'>14</span>    ;06-&gt;03,07-&gt;01,08-&gt;14           ;    The last line having an even number
+3656:0C 0A 08       095             DFB <span class='n'>12</span>,<span class='n'>10</span>,<span class='n'>08</span>    ;09-&gt;12,10-&gt;10,11-&gt;08           ;    of terms wasn't your first clue!?!
+3659:06 04 02 0F    096             DFB <span class='n'>06</span>,<span class='n'>04</span>,<span class='n'>02</span>,<span class='n'>15</span> ;12-&gt;6,13-&gt;04,14-&gt;02,15-&gt;15     ;                                          *sigh* inconsistent <span class='code'>6</span> comment
                                                                                     ; <b>Solution</b>:
                                                                                     ;     LOG_TO_PHYS EQU *
                                                                                     ;                 DFB $0  ; [0]  0
@@ -5394,50 +5394,50 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     099 * APPEND BUG PATCHES
                     100 ****************************
                     101 <a class='d' name='SC3'      >SC3         </a>EQU *
-                    102 <a class='d' name='EOFFLAG'  >EOFFLAG     </a>DFB 0
+365D:00             102 <a class='d' name='EOFFLAG'  >EOFFLAG     </a>DFB 0
                     103 <a class='f' name='CLOSFILE' >CLOSFILE    </a>EQU *
-                    104             JSR FILSRC      ;FILE BUFFER FOUND?
-                    105             BCS NOTFOUND    ;=&gt; NO, SO SKIP IT.
-                    106             LDA #0          ;YES, CLOSE IT
-                    107             TAY
-                    108             STA EOFFLAG
-                    109             STA (ZPGWRK),Y  ;RIGHT NOW
-                    110 <a class='f' name='NOTFOUND' >NOTFOUND    </a>LDA CCBSTA      ;ORIGINAL INSTRUCTION
-                    111             JMP ERROR       ;BACK TO ERROR HANDLER
+365E:20 64 27       104             JSR FILSRC      ;FILE BUFFER FOUND?
+3661:B0 08          105             BCS NOTFOUND    ;=&gt; NO, SO SKIP IT.
+3663:A9 00          106             LDA #0          ;YES, CLOSE IT
+3665:A8             107             TAY
+3666:8D 5D 36       108             STA EOFFLAG
+3669:91 40          109             STA (ZPGWRK),Y  ;RIGHT NOW
+366B:AD C5 35       110 <a class='f' name='NOTFOUND' >NOTFOUND    </a>LDA CCBSTA      ;ORIGINAL INSTRUCTION
+366E:4C D2 26       111             JMP ERROR       ;BACK TO ERROR HANDLER
                     112 ****************************
                     113 <a class='f' name='BUMPER'   >BUMPER      </a>EQU *
-                    114             LDA EOFFLAG     ;SHOULD WE?
-                    115             BEQ GOBACK      ;=&gt; NO
-<hr>                    116             INC <a class="v" href="#CCBRRN">CCBRRN</a>      ;BUMP CCB RECORD NUMBER         ; === Page <a class="page" name="page10">10</a>
-                    117             BNE GOBACK
-                    118             INC CCBRRN+1    ;TO GET TO NEXT SECTOR
-                    119 GOBACK      LDA #0
-                    120             STA EOFFLAG     ;TURN FLAG OFF
-                    121             JMP FIXIT2      ;Go to FIXIT2 as exit
+3671:Ad 5D 36       114             LDA EOFFLAG     ;SHOULD WE?
+3674:F0 08          115             BEQ GOBACK      ;=&gt; NO
+<hr>3676:EE BD 35       116             INC <a class="v" href="#CCBRRN">CCBRRN</a>      ;BUMP CCB RECORD NUMBER         ; === Page <a class="page" name="page10">10</a>
+3679:D0 03          117             BNE GOBACK
+367B:EE BE 35       118             INC CCBRRN+1    ;TO GET TO NEXT SECTOR
+367E:A9 00          119 GOBACK      LDA #0
+3680:8D 5D 36       120             STA EOFFLAG     ;TURN FLAG OFF
+3683:4C 46 25       121             JMP FIXIT2      ;Go to FIXIT2 as exit           ; Oh look, we have lowercase CapsLock on //e!
                     122             REP 40
                     123 VPATCH      EQU *
-                    124             STA CCBRQM      ;ORIGINAL INSTRUCTION
-                    125             JSR DOSGO       ;GO SAVE
-                    126             JSR ECLOSE      ;CLOSE THE FILE
-                    127             JMP EVAR        ;GO VERIFY IT AFTER SAVE
+3686:8D BC 35       124             STA CCBRQM      ;ORIGINAL INSTRUCTION
+3689:20 A8 26       125             JSR DOSGO       ;GO SAVE
+368C:20 EA 22       126             JSR ECLOSE      ;CLOSE THE FILE
+368F:4C 7D 22       127             JMP EVAR        ;GO VERIFY IT AFTER SAVE
                     128 ****************************
                     129 EOFFIX      EQU *
-                    130             LDY #$13        ;PEEK INTO THE FCB: IF          ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_SEC</span>
-                    131 CHKFILE     LDA (ZPGFCB),Y  ;DCBCRS,DCBCSB ARE ZEROS,
-                    132             BNE FIXIT       ; THEN WE hAVE EMPTY FILE
-                    133             INY
-                    134             CPY #$17                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_REC_LEN</span>
-                    135             BNE CHKFILE
-                    136             LDY #$19                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
-                    137 MOVE        LDA (ZPGFB),Y   ; DCBCRR,DCBCRB
-                    138             STA CCBRRN-$19,Y;INTO CCBRRN,CCBBYT             ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
-                    139             INY
-                    140             CPY #$1D                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_NUM_SEC_ALLOC</span>
-                    141             BNE MOVE
-                    142 BACK        JMP DOSGO2A     ;NOW LET APPEND CONTINUE
-                    143 FIXIT       EQU *
-                    144             LDX #$FF        ;SET FLAG SO APPEND WILL        ; <a class='magic' name='_'>magic number</a> <span class='code'>FLAG_EOF_SEC_BOUNDARY EQU $0</span>
-                    145             STX EOFFLAG     ;KNOW TO CROSS SECTOR BOUNDARY
+3692:A0 13          130             LDY #$13        ;PEEK INTO THE FCB: IF          ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_SEC</span>
+3694:B1 42          131 CHKFILE     LDA (ZPGFCB),Y  ;DCBCRS,DCBCSB ARE ZEROS,
+3696:D0 14          132             BNE FIXIT       ; THEN WE HAVE EMPTY FILE
+3698:C8             133             INY
+3699:C0 17          134             CPY #$17                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_REC_LEN</span>
+369B:D0 F7          135             BNE CHKFILE
+369D:A0 19          136             LDY #$19                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
+369F:B1 42          137 MOVE        LDA (ZPGFB),Y   ; DCBCRR,DCBCRB
+36A1:99 A4 35       138             STA CCBRRN-$19,Y;INTO CCBRRN,CCBBYT             ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
+36A4:C8             139             INY
+36A5:C0 1D          140             CPY #$1D                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_NUM_SEC_ALLOC</span>
+36A7:D0 F6          141             BNE MOVE
+36A9:4C BC 26       142 BACK        JMP DOSGO2A     ;NOW LET APPEND CONTINUE
+36AC:A2 FF          143 FIXIT       EQU *
+36AE:8E 5D 36       144             LDX #$FF        ;SET FLAG SO APPEND WILL        ; <a class='magic' name='_'>magic number</a> <span class='code'>FLAG_EOF_SEC_BOUNDARY EQU $0</span>
+36B1:D0 F6          145             STX EOFFLAG     ;KNOW TO CROSS SECTOR BOUNDARY
                     146             BNE BACK        ;ALWAYS TAKEN                   ; &uarr;
                     147             PAGE
                     148             REP 40
@@ -5456,7 +5456,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     161 *
                     162 * Fix to fix added to correctly APPEND to a SECTOR
                     163 * 255 bytes in length
-                    164 *           
+                    164 *
                     165 *                    by
                     166 *                Guil Banks
                     167 *               July 11, 1983
@@ -5503,43 +5503,63 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     208 *              X Reg = unknown
                     209 *
                     210             REP 30
-                    211             DO <a class='do' href='#ULC'>ULC</a>
-                    212 UPRCASE     EQU *
-                    213 LUP1        LDA LBUFF,X     ;Get a char
-                    214             CMP #'"+$80     ;Is it a quote?
-                    215             BNE CHK4UC      ;=&gt; if not
-                    216 LUP2        INX             ;Bump to next char
-                    217             LDA LBUFF,X     ;Get it
-                    218             CMP #'"+$80     ;Closing quote?
-                    219             BEQ NEXTCHR     ;=&gt; if so
-                    220             CMP #$8D        ;End of Line?
-                    221             BNE LUP2        ;=&gt; if not
-                    222 ULFINI      LDY #$FF        ;Do what DOS wants
-                    223             STY CMDNO
-                    224             RTS             ;   &amp; exit
-                    225 CHK4UC      EQU *
-                    226             CMP #$E0        ;Upper case?
-                    227             BCC CHK4CR      ;=&gt; if not
-                    228             AND #$DF        ;Make upper case
-                    229             STA LBUFF,X     ;   &amp; restore
-                    230 CHK4CR      CMP #$8DF,X     ;End of input?
-                    231             BEQ ULFINI      ;=&gt; if so
-                    232 NEXTCHR     INX             ;Bump to next char
-                    233             BNE LUP1        ;=&gt; always                      ; &uarr; No, not always, 256 times
-                    234             FIN
+                    211             DO <a class='do' href='#ULC'>ULC</a><span class='macro'>
+                    212 UPRCASE     EQU *                                           
+                    213 LUP1        LDA LBUFF,X     ;Get a char                     
+                    214             CMP #'"+$80     ;Is it a quote?                 
+                    215             BNE CHK4UC      ;=&gt; if not                      
+                    216 LUP2        INX             ;Bump to next char              
+                    217             LDA LBUFF,X     ;Get it                         
+                    218             CMP #'"+$80     ;Closing quote?                 
+                    219             BEQ NEXTCHR     ;=&gt; if so                       
+                    220             CMP #$8D        ;End of Line?                   
+                    221             BNE LUP2        ;=&gt; if not                      
+                    222 ULFINI      LDY #$FF        ;Do what DOS wants              
+                    223             STY CMDNO                                       
+                    224             RTS             ;   &amp; exit                      
+                    225 CHK4UC      EQU *                                           
+                    226             CMP #$E0        ;Upper case?                    
+                    227             BCC CHK4CR      ;=&gt; if not                      
+                    228             AND #$DF        ;Make upper case                
+                    229             STA LBUFF,X     ;   &amp; restore                   
+                    230 CHK4CR      CMP #$8DF,X     ;End of input?                  
+                    231             BEQ ULFINI      ;=&gt; if so                       
+                    232 NEXTCHR     INX             ;Bump to next char              
+                    233             BNE LUP1        ;=&gt; always                      </span>; &uarr; No, not always, 256 times
+                    234             FIN                                             ; Patch incomplete! Where is the <span class='code'>RTS</span>??? Called from <a class='x' href='#SCNCMD'>SCNCMD</a>
                     235             SKP 1
-                    236 BHER1       EQU &gt;*
-                    237             DS $FD-BHERE1,0
+                    236 BHERE1      EQU &gt;*
+36B3:00             237             DS $FD-BHERE1,0                                 ;[.. <a class='mem' name='_36B3'>wastes</a> 74 bytes ($36FD-$36B3=$4A)
+36B4:00 00 00 00                                                                    ; ..
+36B8:00 00 00 00                                                                    ; ..
+36BC:00 00 00 00                                                                    ; ..
+36C0:00 00 00 00                                                                    ; ..
+36C4:00 00 00 00                                                                    ; ..
+36C8:00 00 00 00                                                                    ; ..
+36CC:00 00 00 00                                                                    ; ..
+36D0:00 00 00 00                                                                    ; .. DOS 3.3A (Jan. 1980) has a secret message @ 36D0 ($B6D0): "B01-00"
+36D4:00 00 00 00                                                                    ; ..   JSR HOME        ; $FC58
+36D8:00 00 00 00                                                                    ; ..   LDA #'B'+$80    ;   $C2
+36DC:00 00 00 00                                                                    ; ..   JSR COUT        ; $FDED
+36E0:00 00 00 00                                                                    ; ..   LDA #$01        ;
+36E4:00 00 00 00                                                                    ; ..   JSR PRBYTE      ; $FDDA
+36E8:00 00 00 00                                                                    ; ..   LDA #'-'+$80    ;   $AD
+36EC:00 00 00 00                                                                    ; ..   JSR COUT        ; $$FDED
+36F0:00 00 00 00                                                                    ; ..   LDA #$00
+36F4:00 00 00 00                                                                    ; ..   JMP PRBYTE      ; $FDDA
+36F8:00 00 00 00                                                                    ; ..
+36FC:00                                                                             ; ..]
+
                     238 * LOAD ADDRESS FOR CODE (PG BDY)
                     239 * ENTRY AFTER BOOT IS AT LOADADDR+256 (SECOND PAGE LOADED)
                     240 *
                     241 BHERE4      EQU &gt;*
 <hr>                    242 LOADADDR    EQU $<span class='n'>800</span>+BHERE4                                 ; === Page <a class="page" name="page12">12</a> ===
-                    243             DFB 0
-                    244 GRSPG       &lt;TRK0LDR        ;CONTAINS PAGE#-1 OF TRK 0, SEC 1 LOAD ADDRESS
+36FD:00             243             DFB 0
+36FE:36             244 GRSPG       DFB &lt;TRK0LDR        ;CONTAINS PAGE#-1 OF TRK 0, SEC 1 LOAD ADDRESS
                     245 * LAST LOGICAL BSECTOR TO READ STARTING AT $00
                     246 BHERE5      EQU &gt;*
-                    247 BGRPGC      EQU $<span class='n'>800</span>+BHERE5
+36FF:09             247 BGRPGC      EQU $<span class='n'>800</span>+BHERE5
                     248 GRPGC       DFB &lt;<a class='v' href='#ENDOFDOS'>ENDOFDOS</a>-TRK0LDR-$<span class='n'>100</span>
                     249 ********************
                     250             PAGE
@@ -5551,39 +5571,39 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     256 * FAST BOOT AT 2:1 INTERLEAVE                               ; "<i>You keep using this word fast,</i>
                     257 * FOR 16-SECTOR DISKETTES                                   ;  <i>it doesn't mean what you think it means.</i>"
                     258             REP 40                                          ; Copy ][+ has a FAST boot via 4&amp;4 encoding, not 6&amp2;2 encoding.
-                    259             STX IBSLOT      ; SET BOOT SLOT
-                    260             STX IBPSLT      ; SET PREVIOUS SLOT
-                    261             LDA #1          ; SET PREV DRIVE                ; <i>Assumes</i> boot was from drive 1; Sadly there is no hardware support to tell.
-                    262             STA IBPDRV                                      ; More crappy names differing by a single letter
-                    263             STA IBDRVN                                      ;     IBPDRV    IB_PRV_DRV
+3700:8E E9 37       259             STX IBSLOT      ; SET BOOT SLOT                 ; === <a class='ts' href='#T0S1'>T0S1</a> ===
+3703:8E F7 37       260             STX IBPSLT      ; SET PREVIOUS SLOT
+3706:A9 01          261             LDA #1          ; SET PREV DRIVE                ; <i>Assumes</i> boot was from drive 1; Sadly there is no hardware support to tell.
+3708:8D F8 37       262             STA IBPDRV                                      ; More crappy names differing by a single letter
+370B:8D EA 37       263             STA IBDRVN                                      ;     IBPDRV    IB_PRV_DRV
                     264 ;                                                           ;     IBDRVN    IB_CUR_DRV
-                    265 
-                    266 
-                    267 
-                    268 
-                    269 
-                    270 
-                    271 
-                    272 
-                    273 
-                    274 
-                    275 
-                    276 
-                    277 
-                    278 
-                    279 
-                    280 
-                    281 
-                    282 
-                    283 
-                    284 
-                    285 
-                    286 
-                    287 
+370E:AD E0 37       265             LDA NDPGS       ; COPY NO PAGES TO GET
+3711:8D E1 37       266             STA BRWCNT
+3714:A9 02          267             LDA #2
+                    268             STA IBTRK       ; SET TRACK 0                   ; Uhm, T2S4, not T0S4
+                    269             LDA #4          ;ENDING SECTOR OF DOS IMAGE
+                    270             STA IBSECT      ;TO IOB
+                    271             LDY ADOSLD+1    ;END PAGE OF DOS IMAGE
+                    272             DEY             ;IS ONE LESS THAN
+                    273             STY IBBUFP+1    ;START OF DOSLDR+BOOT
+                    274 ;
+                    275             LDA #IBCRTS     ; SET READ
+                    276             STA IBCMD
+                    277 ;
+                    278             TXA             ; SET PREV TRACK = 0
+                    279             LSR A
+                    280             LSR A
+                    281             LSR A
+                    282             LSR A
+                    283             TAX
+                    284             LDA #0
+                    285             STA $4F8,X                                      ; <a class='magic' name='_'>magic number</a> The 40x24 text screen has "memory holes"
+                    286             STA $478,X                                      ; <a class='magic' name='_'>magic number</a> reserved for each Slot 1..7 as "scratchpad" or temp vars
+                    287             JSR BOOTIO      ; GO READ DOS
                     288 ;
                     <a class='line' name='BOOTLDR.289'>289</a> ;DOSINT - INITIALIZE DOS                                    ; /sarcasm Couldn't afford extra 'i' in "dosinIt"
                     290 ;
-                    291 <a class="f" name="DOSINT"   >DOSINT      </a>EQU *                                                ; Ironically in Boot Loader, not Dos Init
+                    291 <a class="f" name="DOSINT"   >DOSINT      </a>EQU *                                            ; Ironically in Boot Loader, not Dos Init
                     292 
                     293 
                     294 
