@@ -2484,43 +2484,43 @@ With that "legalese" out of the way ... enjoy the read!
                     206             RTS
                     207 ;
                     208 <a class='f' name='MFULL1'   >MFULL1      </a>EQU *
-                    209 
-                    210 
-                    211 
-                    212 
-                    213 
-                    214 
-                    215 
-                    216 
-                    217 
-                    218 
-                    219 
-                    220 
-                    221 
-                    222 
-                    223 
-                    224 
-                    225 
-                    226 
-                    227 
-                    228 
-                    229 
-                    230 
-                    231 
-                    232 
-                    233 
-                    234 
-                    235 
-                    236 
-                    237 
-                    238 
-                    239 
-                    240 
-                    241 
-                    242 
-                    243 
-                    244 
-                    245 
+                    209             JSR ECLOSE      ; GO CLOSE FILE
+                    210             JMP MFERR       ; AND GIVE ERR MSG
+                    211 LD1         EQU *
+                    212             CMP CCBFUC      ; TEST TYPE
+                    213             BEQ LD1C        ; BR IF MATCH
+                    214             LDX CMDNO
+                    215             STX SVCMD
+                    216             LSR A
+                    217             BEQ LD1A        ; BR IF PGM IS AS
+                    218             JMP EINT        ; GO FOR INTG BASIC
+                    219 ;
+                    220 LD1A        EQU *
+                    221             LDX #<span class='n'>29</span>         ; SAVE FILENAME                 ; <a class='magic' name='_'>magic number</a> <span class='code'>FILENAME_MAX-1</span>
+                    222 LD1B        LDA FNAME1,X    ; INCASE IS RAM APPLESOFT
+                    223             STA FNAME2,X
+                    224             DEX
+                    225             BPL LD1B
+                    226             JMP EAS         ; GO FOR AS
+                    227 ;
+                    228 LD1C        RTS
+                    229             PAGE
+                    230 ;
+                    231 ; ERUN - EXECUTE RUN REQUEST
+                    232 ;
+                    233 ERUN        EQU *
+                    234             LDA ASIBSW      ; IF APPLESOFT THEN RELOC FLAG SET
+                    235             BEQ ERUN0
+                    236             STA RSTATE      ; INDICATE APSFT RUN
+<hr>                    237 ERUN0       JSR ELOAD       ; LOAD PGM                      ; === <a class='page' name='page144'>144</a> ===
+                    238 ERUN1       JSR PRCRIF      ;REENTRY POINT FOR ASFT RELOC
+                    239             JSR MVCSW       ; GO RESTORE CHAR I/O SW        ; What keeps futzing with CIN / COUT ??
+                    240             JMP (RUN)
+                    241 ;
+                    242 ; IBRUN - INT BASIC RUN
+                    243 ;
+                    244 IBRUN       EQU *
+                    245             LDA IBLMEM      ; RESET START OF VARS
                     246 
                     247 
                     248 
