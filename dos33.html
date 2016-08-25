@@ -5711,7 +5711,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 37EB:00             394 <a class='d' name='IBVOL'    >IBVOL       </a>DFB $<span class='n'>00</span>         ; VOLUME NUMBER
 37EC:00             395 <a class='d' name='IBTRK'    >IBTRK       </a>DFB <span class='n'>0</span>           ; TRACK NUMBER
 37ED:00             396 <a class='d' name='IBSECT'   >IBSECT      </a>DFB <span class='n'>0</span>           ; SECTOR NUMBER
-37EE:FB 37          397 <a class='d' name='IBDCTP'   >IBDCTP      </a>DW DCT
+37EE:FB 37          397 <a class='d' name='IBDCTP'   >IBDCTP      </a>DW DCT                                          ; Why is the Device Table even exposed to the caller????
 37F0:00 00          398 <a class='d' name='IBBUFP'   >IBBUFP      </a>DW <span class='n'>0</span>            ; POINTER TO BUFFER
 37F2:00 01          399 <a class='d' name='IBDLEN'   >IBDLEN      </a>DW <span class='n'>256</span>          ; DATA LENGTH
 37F4:00             400 <a class='d' name='IBCMD'    >IBCMD       </a>DFB <span class='n'>0</span>           ; COMMAND
@@ -5729,7 +5729,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 37F7:60             412 <a class='d' name='IBPSLT'   >IBPSLT      </a>DFB <span class='n'>6</span>*<span class='n'>16</span>        ; PREVIOUS SLOT                 ; Why isn't this set at boot ???
 37F8:01             413 <a class='d' name='IBPDRV'   >IBPDRV      </a>DFB <span class='n'>1</span>           ; PREVIOUS DRIVE
 37F9:00 00          414 <a class='d' name='IBSPAR'   >IBSPAR      </a>DS <span class='n'>2</span>,<span class='n'>0</span>          ; IOB SPARES                    ; <a class='struct' name='_37F9'>wastes</a> 2 bytes
-37FB:00 01 EF D8    415 <a class='d' name='DCT'      >DCT         </a>DFB <span class='n'>0</span>,<span class='n'>1</span>,$<span class='n'>EF</span>,$<span class='n'>D8</span> ;                               ; <a class='magic'  name='_37FB'>magic number</a>
+37FB:00 01 EF D8    415 <a class='d' name='DCT'      >DCT         </a>DFB <span class='n'>0</span>,<span class='n'>1</span>,$<span class='n'>EF</span>,$<span class='n'>D8</span> ;                               ; <a class='magic'  name='_37FB'>magic number</a> More crappy formatting, defined in <a class='file' href='#RWTSONE'>RWTSONE</a>
+                                                                                    ; Put these on values on one per line for <b>readability</b> like this:
+                                                                                    ;     DFB 0    ; Device Type, $0 = Disk II
+                                                                                    ;     DFB 1    ; Phases per Track
+                                                                                    ;     DW $D8EF ; Motor on time in 100 microseconds
 37FF:00             416             DS <span class='n'>1</span>,<span class='n'>0</span>          ; FILL IN 3700 PAGE             ; <a class='mem'    name='_37FF'>wastes</a> 1 byte
                     417             PAGE
                     418 ;
