@@ -1963,7 +1963,7 @@ With that "legalese" out of the way ... enjoy the read!
                     263 <a class="f" name="ECMD"   >ECMD        </a>EQU *
 2186:AD 5F 2A       <a class='line' name='CMDSCAN.264'>264</a>             LDA <a class="v" href="#CMDNO">CMDNO</a>       ; COMMAND NO                    ; <i>Think, McFly!</i>
 2189:AA             265             TAX             ; IS CMD EXEC TAB INDEX         ; <a class='mem' name='_2189'>wastes</a> 1 byte /sarcasm If only we had <span class='code'>LDX CMDNO</span> on Line #<a class='line' href='#CMDSCAN.264'>264</a>
-218A:BD 1F 1D       266             LDA <a class="v" href='#CMDETB'>CMDETB</a>+1,X  ; GET CMD ADR
+218A:BD 1F 1D       266             LDA <a class="v" href='#CMDETB'>CMDETB</a>+<span class='n'>1</span>,X  ; GET CMD ADR
 218D:48             267             PHA             ; ONTO STACK
 218E:BD 1E 1D       268             LDA <a class="v" href='#CMDETB'>CMDETB</a>,X
 2191:48             269             PHA
@@ -2346,8 +2346,8 @@ With that "legalese" out of the way ... enjoy the read!
                     068             LDA ASEOP       ; =EOP-SOP
                     069             SBC ASSOP
                     070             TAY
-                    071             LDA ASEOP+1                                     ; single letter difference asEop
-                    072             SBC ASSOP+1                                     ; is never a good idea:    asSop
+                    071             LDA ASEOP+<span class='n'>1</span>                                     ; single letter difference asEop
+                    072             SBC ASSOP+<span class='n'>1</span>                                     ; is never a good idea:    asSop
                     073             JSR SV2         ; GO OUTPUT LENGTH
                     074 ;
                     075             LDA ASSOP+1     ; BLOCK ADR
@@ -2427,12 +2427,12 @@ With that "legalese" out of the way ... enjoy the read!
                     149             BCS MFULL       ; THEN WON'T FIT                ; Memory Full
                     150 ;
                     151 <a class='f' name='EASL1'    >EASL1       </a>EQU *
-                    152             STA ASEOP+1     ; SET NEW EOP ADR
-                    153             STA ASEOP2+1
+                    152             STA ASEOP+<span class='n'>1</span>     ; SET NEW EOP ADR
+                    153             STA ASEOP2+<span class='n'>1</span>
                     154             STX ASEOP
                     155             STX ASEOP2
                     156             LDX ASSOP       ; GET ADR WHERE TO LOAD
-                    157             LDY ASSOP+1
+                    157             LDY ASSOP+<span class='n'>1</span>
                     158             JSR LD3         ; GO LOAD
                     159             JSR MVCSW       ;RESTORE I/O                    ; Why??? Did something change CIN/COUT ???
                     160             JMP (ASEQ)      ;RELOC FOR THIS VERSION OF APPLSOFT
@@ -2447,19 +2447,19 @@ With that "legalese" out of the way ... enjoy the read!
                     169             LDA IBHMEM      ; IS NEW SOP
                     170             SBC SVBL
                     171             TAX
-                    172             LDA IBHMEM+1
-                    173             SBC SVBL+1
+                    172             LDA IBHMEM+<span class='n'>1</span>
+                    173             SBC SVBL+<span class='n'>1</span>
 <hr>                    174             BCC MFULL
                     175             TAY
                     176 ;
-                    177             CPY IBLMEM+1    ; IF NEW SOP &lt;= LMEM
+                    177             CPY IBLMEM+<span class='n'>1</span>    ; IF NEW SOP &lt;= LMEM
                     178             BCC MFULL
                     179             BEQ MFULL
-                    180             STY IBSOP+1     ; SET NEW SOP
+                    180             STY IBSOP+<span class='n'>1</span>     ; SET NEW SOP
                     181             STX IBSOP
                     182 <a class='f' name='LD3'      >LD3         </a>EQU *
                     183             STX CCBBBA      ; SET BLOCK ADDR                ; Googoo, Gaga? A single underscore '_' would go a LONG way towards readability
-                    184             STY CCBBBA+1                                    ; CCB_BBA
+                    184             STY CCBBBA+<span class='n'>1</span>                                    ; CCB_BBA
                     185             JMP GODOS
                     186 ;
                     187 <a class='f' name='LD2'      >LD2         </a>EQU *                                           ; By putting this before LD1 this forces 6 byes to be wasted, see Line #143
