@@ -5715,21 +5715,21 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 37F0:00 00          398 <a class='d' name='IBBUFP'   >IBBUFP      </a>DW <span class='n'>0</span>            ; POINTER TO BUFFER
 37F2:00 01          399 <a class='d' name='IBDLEN'   >IBDLEN      </a>DW <span class='n'>256</span>          ; DATA LENGTH
 37F4:00             400 <a class='d' name='IBCMD'    >IBCMD       </a>DFB <span class='n'>0</span>           ; COMMAND
-                    401 IBCNUL      EQU 0           ; 0-NULL COMMAND                ; Stop with the shitty API already
-                    402 IBCRTS      EQU 1           ; 1-READ TRACK, SECTOR
-                    403 IBCWTS      EQU 2           ; 2-WRITE TRACK,SECTOR
-                    404 IBFMT       EQU 4           ; 4-FORMAT DISK
-                    405 IBBOOT      EQU 8           ; 8-WRITE BOOT
-37F5:00             406 IBSTAT      DFB <span class='n'>0</span>           ; STATUS
-                    407 IBRERR      EQU $80         ; READ ERR                      ; Interleaving a structure and const types makes for poor readability
-                    408 IBDERR      EQU $40         ; DRIVE ERR
-                    409 IBVMME      EQU $20         ; VOLUME MISMATCH
-                    410 IBWPER      EQU $10         ; WRITE PROTECT ERROR
-37F6:00             411 IBSMOD      DFB <span class='n'>0</span>           ; STATUS MODIFIER BYTE
-37F7:60             412 IBPSLT      DFB <span class='n'>6</span>*<span class='n'>16</span>        ; PREVIOUS SLOT                 ; Why isn't this set at boot ???
-37F8:01             413 IBPDRV      DFB <span class='n'>1</span>           ; PREVIOUS DRIVE
-37F9:00 00          414 IBSPAR      DS <span class='n'>2</span>,<span class='n'>0</span>          ; IOB SPARES                    ; <a class='struct' name='_37F9'>wastes</a> 2 bytes
-37FB:00 01 EF D8    415 DCT         DFB <span class='n'>0</span>,<span class='n'>1</span>,$<span class='n'>EF</span>,$<span class='n'>D8</span> ;                               ; <a class='magic'  name='_37FB'>magic number</a>
+                    401 <a class='e' name='IBCNUL'   >IBCNUL      </a>EQU 0           ; 0-NULL COMMAND                ; Stop with the shitty API already
+                    402 <a class='e' name='IBCRTS'   >IBCRTS      </a>EQU 1           ; 1-READ TRACK, SECTOR
+                    403 <a class='e' name='IBCWTS'   >IBCWTS      </a>EQU 2           ; 2-WRITE TRACK,SECTOR
+                    404 <a class='e' name='IBFMT'    >IBFMT       </a>EQU 4           ; 4-FORMAT DISK
+                    405 <a class='e' name='IBBOOT'   >IBBOOT      </a>EQU 8           ; 8-WRITE BOOT
+37F5:00             406 <a class='d' name='IBSTAT'   >IBSTAT      </a>DFB <span class='n'>0</span>           ; STATUS
+                    407 <a class='e' name='IBRERR'   >IBRERR      </a>EQU $80         ; READ ERR                      ; Interleaving a structure and const types makes for poor readability
+                    408 <a class='e' name='IBDERR'   >IBDERR      </a>EQU $40         ; DRIVE ERR
+                    409 <a class='e' name='IBVMME'   >IBVMME      </a>EQU $20         ; VOLUME MISMATCH
+                    410 <a class='e' name='IBWPER'   >IBWPER      </a>EQU $10         ; WRITE PROTECT ERROR
+37F6:00             411 <a class='d' name='IBSMOD'   >IBSMOD      </a>DFB <span class='n'>0</span>           ; STATUS MODIFIER BYTE
+37F7:60             412 <a class='d' name='IBPSLT'   >IBPSLT      </a>DFB <span class='n'>6</span>*<span class='n'>16</span>        ; PREVIOUS SLOT                 ; Why isn't this set at boot ???
+37F8:01             413 <a class='d' name='IBPDRV'   >IBPDRV      </a>DFB <span class='n'>1</span>           ; PREVIOUS DRIVE
+37F9:00 00          414 <a class='d' name='IBSPAR'   >IBSPAR      </a>DS <span class='n'>2</span>,<span class='n'>0</span>          ; IOB SPARES                    ; <a class='struct' name='_37F9'>wastes</a> 2 bytes
+37FB:00 01 EF D8    415 <a class='d' name='DCT'      >DCT         </a>DFB <span class='n'>0</span>,<span class='n'>1</span>,$<span class='n'>EF</span>,$<span class='n'>D8</span> ;                               ; <a class='magic'  name='_37FB'>magic number</a>
 37FF:00             416             DS <span class='n'>1</span>,<span class='n'>0</span>          ; FILL IN 3700 PAGE             ; <a class='mem'    name='_37FF'>wastes</a> 1 byte
                     417             PAGE
                     418 ;
