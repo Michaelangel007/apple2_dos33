@@ -2464,26 +2464,26 @@ With that "legalese" out of the way ... enjoy the read!
                     186 ;
                     187 <a class='f' name='LD2'      >LD2         </a>EQU *                                           ; By putting this before LD1 this forces 6 byes to be wasted, see Line #143
                     188             LDA SVBLA       ; MOVE ADR OF WHERE
-                    189             STA CCBBA       ;
-                    190 
-                    191 
-                    192 
-                    193 
-                    194 
-                    195 
-                    196 
-                    197 
-                    198 
-                    199 
-                    200 
-                    201 
-                    202 
-                    203 
-                    204 
-                    205 
-                    206 
-                    207 
-                    208 
+                    189             STA CCBBA       ; TO PUT DATA TO
+                    190             LDA SVBLA+1     ; CCBN
+                    191             STA CCBBBA+1
+                    192             LDA #0
+                    193             STA CCBBLN+1    ; READ INTO
+                    194             LDA #2
+                    195             STA CCBBLN
+                    196             LDA #CRQRD      ; READ
+                    197             STA CCBREQ
+                    198             LDA #CRMNBL     ; BLOCK
+                    199             STA CCBRQM
+                    200             JSR DOSGO
+                    201             LDA SVBL+1
+                    202             STA CCBBLN+1
+                    203             TAY
+                    204             LDA SVBL
+                    205             STA CCBBLN
+                    206             RTS
+                    207 ;
+                    208 <a class='f' name='MFULL1'   >MFULL1      </a>EQU *
                     209 
                     210 
                     211 
