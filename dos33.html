@@ -5759,126 +5759,126 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="COREQUS">COREQUS</a> - Core Equates, Page <a class="page" name="page24">24</a>, <a class='ts'>n/a</a>, $<span class='n'>n/a</span> ===<hr class='join'><hr></div>
 <pre>
-                    001 
-                    002 
-                    003 
-                    004 
-                    005 
-                    006 
-                    007 
-                    008 
-                    009 
-                    010 
-                    011 
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
-                    055 
-                    056 
-                    057 
-                    058 
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
+                    001             SBTL '16-SECTOR CORE ROUTINES'
+                    002 ***************************
+                    003 *                         *
+                    004 *          DISC-II        *
+                    005 *      16-SECTOR FORMAT   *
+                    006 *       READ AND WRITE    *
+                    007 *        SUBROUTINES      *
+                    008 *                         *
+                    009 ***************************
+                    010 *                         *
+                    011 *                         *
+                    012 *     COPYRIGHT 1979      *
+                    013 *   APPLE COMPUTER INC.   *
+                    014 *                         *
+                    015 *   ALL RIGHTS RESERVED   *
+                    016 *                         *
+                    017 ***************************
+                    018 *                         *
+                    019 *      MAR 18, 1979       *
+                    020 *          WOZ            *
+                    021 *                         *
+                    022 ***************************
+                    023 ASC1        EQU *           ;TELL RELOCATOR WHERE CORE STARTS
+                    024             PAGE
+                    025 ***************************
+                    026 *                         *
+                    027 *     CRITICAL TIMING     *
+                    028 *   REQUIRES PAGE BOUND   *
+                    029 *   CONSIDERATIONS FOR    *
+                    030 *      CODE AND DATA      *
+                    031 *                         *
+                    032 *     -----CODE-----      *
+                    033 *                         *
+                    034 *   VIRTUALLY THE ENTIRE  *
+                    035 *    'WRITE16' ROUTINE    *
+                    036 *      MUST NOT CROSS     *
+                    037 *     PAGE BOUNDARIES.    *
+                    038 *                         *
+                    039 *  THE WRITE16, READ16    *
+                    040 *  AND RDADR16 SUBRS      *
+                    041 *  WHICH MUST NOT CROSS   *
+                    042 *  PAGE BOUNDARIES ARE    *
+                    043 *  NOTED IN COMMENTS.     *
+                    044 *                         *
+                    045 *     -----DATA-----      *
+                    046 *                         *
+                    047 *  NBUF1 AND NBUF2 ARE    *
+                    048 *  256-BYTE AND 86-BYTE   *
+                    049 *  NIBL BUFFERS IN RAM.   *
+                    050 *  BOTH MUST BEGIN ON     *
+                    051 *  PAGE BOUNDARIES.       *
+                    052 *                         *
+                    053 *  NIBLIZING TABLE 'NIBL' *
+<hr>                    054 * (64 BYTES) MAPS 6-BIT   *                                 ; === Page <a class='page'. name='page25'>25</a> ===
+                    055 * NIBLS INTO VALID 7-BIT  *
+                    056 * NIBLS.  THIS TABLE      *
+                    057 * MUST NOT CROSS A PAGE   *
+                    058 * BOUNDARY.               *
+                    059 *                         *
+                    060 * DENIBLIZING TABLE       *
+                    061 * 'DNIBL' MAPS 7-BIT      *
+                    062 * NIBLS INTO 6-BIT        *
+                    063 * NIBLS.  IT MUST BEGIN   *
+                    064 * ON A PAGE BOUNDARY,     *
+                    065 * BUT ONLY DNIBL,$96 TO   *
+                    066 * DNIBL,$FF ARE USED.     *
+                    067 *                         *
+                    068 ***************************
+                    069             PAGE
+                    070 ***************************
+                    071 *                         *
+                    072 *         EQUATES         *
+                    073 *                         *
+                    074 ***************************
+                    075 *                         *
+                    076 *     ----PRENIBL16----   *
+                    077 *       AND POSTNB16      *
+                    078 *    (16-SECTOR FORMAT)   *
+                    079 *                         *
+                    080 ***************************
+                    081 BUF         EQU $3E         TWO BYTE POINTER.
+                    082 *
+                    083 * POINTS TO 256-BYTE
+                    084 * USER BUFFER ANYWHERE
+                    085 * IN MEMORY. PRENIBL16
+                    086 * CONVERTS USER DATA
+                    087 * (IN BUF) INTO 6-BIT
+                    088 * NIBLS 00ABCDEF IN
+                    089 * NBUF1 AND NBUF2 PRIOR
+                    090 * TO 'WRITE'. POSTNBL16
+                    091 * CONVERTS 6-BIT NIBLS
+                    092 * 00ABCDEF BACK TO USER
+                    093 * DATA IN BUF AFTER 'READ'.
+                    094 *
+                    095 T0          EQU $26         TEMP FOR POSTNBL16
+                    096 ************************
+                    097 *                      *
+                    098 *    ----RDADR16----   *
+                    099 *                      *
+                    100 ************************
+                    101 COUNT       EQU $26         'MUST FIND' COUNT.
+                    102 LAST        EQU $26         'ODD BIT' NIBLS.
+                    103 CSUM        EQU $27         CHECKSUM BYTE.
+                    104 CSSTV       EQU $2C         FOUR BYTES,
+                    105 *       CHECKSUM, SECTOR, TRACK, AND VOLUME.
+                    106 *
+                    107 ************************
+                    108 *                      *
+                    109 *    ---WRITE16---     *
+                    110 *                      *
+                    111 *  USES NBUF1, NBUF2,  *
+                    112 *  AND 64-BYTE TABLE   *
+                    113 *       'NIBL'.        *
+                    114 *                      *
+                    115 ************************
+                    116 WTEMP       EQU $26         TEMP FOR DATA AT NBUF2,0.
+                    117 SLOTZ       EQU $27         SLOTNUM IN Z-PAG LOC.
+                    118 SLOTABS     EQU $678        SLOTNUM IN NON-ZPAG LOC.
+                    119 *
+                    120 ************************
                     121 
                     122 
                     123 
