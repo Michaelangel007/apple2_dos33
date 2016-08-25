@@ -5781,7 +5781,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     020 *          WOZ            *
                     021 *                         *
                     022 ***************************
-                    023 ASC1        EQU *           ;TELL RELOCATOR WHERE CORE STARTS
+                    023 <a class='d' name='ASC1'     >ASC1        </a>EQU *           ;TELL RELOCATOR WHERE CORE STARTS
                     024             PAGE
                     025 ***************************
                     026 *                         *
@@ -5839,7 +5839,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     078 *    (16-SECTOR FORMAT)   *
                     079 *                         *
                     080 ***************************
-                    081 BUF         EQU $3E         TWO BYTE POINTER.
+                    081 <a class='d' name='BUF'      >BUF         </a>EQU $3E         TWO BYTE POINTER.
                     082 *
                     083 * POINTS TO 256-BYTE
                     084 * USER BUFFER ANYWHERE
@@ -5853,16 +5853,16 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     092 * 00ABCDEF BACK TO USER
                     093 * DATA IN BUF AFTER 'READ'.
                     094 *
-                    095 T0          EQU $26         TEMP FOR POSTNBL16
+                    095 <a class='d' name='T0'       >T0          </a>EQU $26         TEMP FOR POSTNBL16
                     096 ************************
                     097 *                      *
                     098 *    ----RDADR16----   *
                     099 *                      *
                     100 ************************
-                    101 COUNT       EQU $26         'MUST FIND' COUNT.
-                    102 LAST        EQU $26         'ODD BIT' NIBLS.
-                    103 CSUM        EQU $27         CHECKSUM BYTE.
-                    104 CSSTV       EQU $2C         FOUR BYTES,
+                    101 <a class='d' name='COUNT'    >COUNT       </a>EQU $26         'MUST FIND' COUNT.
+                    102 <a class='d' name='LAST'     >LAST        </a>EQU $26         'ODD BIT' NIBLS.
+                    103 <a class='d' name='CSUM'     >CSUM        </a>EQU $27         CHECKSUM BYTE.
+                    104 <a class='d' name='CSSTV'    >CSSTV       </a>EQU $2C         FOUR BYTES,
                     105 *       CHECKSUM, SECTOR, TRACK, AND VOLUME.
                     106 *
                     107 ************************
@@ -5874,52 +5874,52 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     113 *       'NIBL'.        *
                     114 *                      *
                     115 ************************
-                    116 WTEMP       EQU $26         TEMP FOR DATA AT NBUF2,0.
-                    117 SLOTZ       EQU $27         SLOTNUM IN Z-PAG LOC.
-                    118 SLOTABS     EQU $678        SLOTNUM IN NON-ZPAG LOC.
+                    116 <a class='d' name='WTEMP'    >WRTEMP      </a>EQU $26         TEMP FOR DATA AT NBUF2,0.
+                    117 <a class='d' name='SLOTZ'    >SLOTZ       </a>EQU $27         SLOTNUM IN Z-PAG LOC.
+                    118 <a class='d' name='SLOTABS'  >SLOTABS     </a>EQU $678        SLOTNUM IN NON-ZPAG LOC.
                     119 *
                     120 ************************
-                    121 
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
+                    121 *                      *
+                    122 *     ----READ16-----  *
+                    123 *  (16-SECTOR FORMAT)  *
+                    124 *                      *
+                    125 *   USES NBUF1,NBUF2.  *
+                    126 * USES LAST 106 BYTES  *
+                    127 * OF A DATA PAGE FOR   *
+                    128 * SIGNIFICANT BYTES    *
+                    129 * OF DNIBL16 TABLE.    *
+                    130 *                      *
+                    131 ************************
+                    132 <a class='d' name='IDX'      >IDX         </a>EQU $26         INDEX INTO (BUF).
+                    133 *
+                    134 ************************
+                    135 *                      *
+                    136 *    ---- SEEK ----    *
+                    137 *                      *
+                    138 ************************
+                    139 <a class='d' name='TRKCNT'   >TRKCNT      </a>EQU $26         HALFTRKS MOVED COUNT.
+                    140 <a class='d' name='PRIOR'    >PRIOR       </a>EQU $27         PRIOR HALFTRACK.
+                    141 <a class='d' name='TRKN'     >TRKN        </a>EQU $2A         DESIRED TRACK.
+                    142 <a class='d' name='SLOTTEMP' >SLOTTEMP    </a>EQU $2B         SLOT NUM TIMES $10.
+                    143 <a class='d' name='CURTRK'   >CRKTRK      </a>EQU $478        CURRENT TRACK ON ENTRY.
+                    144 *
+                    145 ************************
+                    146 *                      *
+                    147 *   ---- MSWAIT ----   *
+                    148 *                      *
+                    149 ************************
+                    150 <a class='d' name='MONTIMEL' >MONTIMEL    </a>EQU $46         MOTON-ON TIME
+                    151 <a class='d' name='MONTIMEH' >MONTIMEH    </a>EQU $47         COUNTERS.
+                    152 *
                     153 ************************
                     154 *                      *
                     155 *   ---- WRADR16 ----  *
                     156 *                      *
                     157 ************************
                     158 <a class="d" name="AA"         >AA          </a>EQU $3E         ;TIMING CONSTANT                ; *sigh* Really people you couldn't pick <i>any other</i> variable name?!
-                    159 <a class="d" name="NSECT"      >NSECT       </a>EQU $3F
-                    160 <a class="d" name="NVOL"       >NVOL        </a>EQU $41
-                    161 <a class="d" name="TRK"        >TRK         </a>EQU $44*
+                    159 <a class="d" name="NSECT"      >NSECT       </a>EQU $3F         ;SECTOR NUMBER
+                    160 <a class="d" name="NVOL"       >NVOL        </a>EQU $41         ;VOLUME NUMBER
+                    161 <a class="d" name="TRK"        >TRK         </a>EQU $44*        ;TRACK NUMBER
                     162 *
                     163 ************************
                     164 *                      *
