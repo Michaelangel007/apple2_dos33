@@ -2330,217 +2330,217 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                     ;              STA GOBRUN+2
                                                                                     ; GOBRUN       JSR $0000       ; NOTE: Self-Modifying code
                                                                                     ;              RTS
-                    055 ;
-                    056 ; ESAVE - EXECUTE SAVE REQUEST
-                    057 ;
-                    058 <a class='f' name='ESAVE'    >ESAVE       </a>EQU *
-                    059             LDA ASIBSW      ; IF IB THEN
-                    060             BEQ EIBSV       ; GO TO IB SAVE
-                    061             LDA ASRNX       ; CAN NOT DO AS SAVE WHEN RUN-ONLY PROG.
-                    062             BPL EASAV       ; BRANCH IF OK TO SAVE, OTHERWISE
-                    063             JMP MFERR       ; PRINT "PROGRAM TOO LARGE", THAT OUGHT TO GET 'EM.
-                    064 <a class='f' name='EASAV'    >EASAV       </a>LDA #<span class='n'>2</span>          ; GET APPLESOFT PGM             ; <a class='magic' name='_'>magic number</a> <span class='code'>FILE_TYPE_APPLESOFT EQU 2</span>
-                    065             JSR SV1         ; GO OPEN AND TEST
-                    066 ;
-                    067             SEC             ; BLOCK LENGTH
-                    068             LDA ASEOP       ; =EOP-SOP
-                    069             SBC ASSOP
-                    070             TAY
-                    071             LDA ASEOP+<span class='n'>1</span>                                     ; single letter difference asEop
-                    072             SBC ASSOP+<span class='n'>1</span>                                     ; is never a good idea:    asSop
-                    073             JSR SV2         ; GO OUTPUT LENGTH
-                    074 ;
-                    075             LDA ASSOP+1     ; BLOCK ADR
-                    076             LDY ASSOP       ; =SOP
-                    077             JMP SV3         ; GO OUTPUT BLOCK
-                    078 ;
-                    079 <a class='f' name='EIBSV'    >EIBSV       </a>EQU *
-                    080             LDA #<span class='n'>1</span>          ; SET IB PGM                    ; PGM = Program, <a class='magic' name='_'>magic number</a> <span class='code'>FILE_TYPE_INTEGER_BASIC EQU 1</span>
-                    081             JSR SV1         ; GO OPEN AND TEST
-                    082 ;
-                    083             SEC             ; BLOCK LENGTH
-                    084             LDA IBHMEM      ; =HIMEM-SOP
-                    085             SBC IBSOP
-                    086             TAY
-                    087             LDA IBHMEM+<span class='n'>1</span>
-                    088             SBC IBSOP+<span class='n'>1</span>
-                    089             JSR SV2         ; GO OUTPUT LENGTH
-                    090 ;
-                    091             LDA IBSOP+<span class='n'>1</span>     ; BLOCK ADR
-                    092             LDY IBSOP       ; =SOP
-                    093             JMP SV3         ; GO OUTPUT BLOCK
-                    094 ;
-                    095 <a class='f' name='SV1'      >SV1         </a>EQU *
-                    096 <a class='f' name='SV1A'     >SV1A        </a>EQU *
-                    097             STA CCBFUC      ; SET PGM TYPE
-                    098             PHA             ; SAVE PGM TYPE
-                    099             JSR EOPN1       ; GO OPEN FILE  (CHGED 11/1/78)
-                    100             PLA             ; GET SAVE TYPE
-                    101             JMP TSTFUC      ; GO CHECK
-                    102 ;
-                    103 <a class='f' name='SV2'      >SV2         </a>EQU *
-                    104             STY CCBBLN      ; SET BLOCK LENGTH              ; === <a class='dumb' name='HNTDAFS5'>HNTDAFS #5</a> ===
-                    105             STY CCBDAT      ; AND DATA BYTE                 ; You <b>never</b> store file meta-data
-                    106             STA CCBBLN+<span class='n'>1</span>                                    ;    File Length
-                    107             LDA #CRQWR      ; INDICATE WRITE                ; <i>in</i> the file itself!
-                    108             STA CCBREQ
-                    109             LDA #CRNBT      ; NEXT BYTE
-                    110             STA CCBRQM
-                    111             JSR DOSGO       ; GO WRITE
-                    112             LDA CCBBLN+<span class='n'>1</span>    ; OTHER BYTE TOO
-                    113             STA CCBDAT
-<hr>                    114             JMP DOSGO
-                    115 ;
-                    116 <a class='f' name='SV3'      >SV3         </a>STY CCBBBA      ; SET BLOCK ADR
-                    117             STA CCBBBA+<span class='n'>1</span>
-                    118             LDA #CRMNBL     ; INDICATE BLOCK I/O
-                    119             JMP VPATCH      ;VERIFY AFTER SAVE
-                    120 <a class='f' name='GODOS'    >GODOS       </a>JSR DOSGO       ; GO DO IT
-                    121             JMP ECLOSE      ; CLOSE FILE
-                    122             PAGE
-                    123 <a class='f' name='NBPER'    >NBPER       </a>NBPER       JMP ERNU1                           ; Not Basic Program Error called from ELD1
-                    124 ;
-                    125 ; ELOAD - EXECUTE LOAD REQUEST
-                    126 ;
-                    127 <a class='f' name='ELOAD'    >ELOAD       </a>EQU *
-                    128             JSR CLALL
-                    129 <a class='f' name='ELOAD0'   >ELOAD0      </a>JSR EOPN1
-                    130 ;
-                    131 <a class='f' name='ELD1'     >ELD1        </a>EQU *                                           ; *sigh* Pick a bloody <i>consistent</i> naming schema: ELOAD# or ELD#
-                    132             LDA #$<span class='n'>23</span>        ; STRIP UNRELATED STUFF         ; <a class='magic' name='_'>magic number</a>
-                    133             AND CCBFUC      ; OUT OF FUC
-                    134             BEQ NBPER       ; BR IF ERROR
-                    135 ; ISOLATE IB &amp; AS
-                    136 <a class='f' name='ELD2'     >ELD2        </a>EQU *
-                    137             STA CCBFUC      ; SAVE IB/AS ONLY
-                    138             LDA ASISBSW     ; IF IB THEN
-                    139             BEQ EIBL        ; GO TO IB LOAD
-                    140             LDA #2                                          ; <a class='magic' name='_'>magic number</a> <span class='code'>FILE_TYPE_APPLESOFT EQU 2</span>
-                    141             JSR LD1         ; GO OPEN AND TEST
-                    142 ;
-                    143             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_'>wastes</a> 3 bytes, LD1 should fall into LD2
-                    144 ;                                                           ; While EBLD2 (ExecBload2) calls LD2 by itself, LD1 is always followed by LD2
-                    145             CLC
-                    146             ADC ASSOP       ; ADD BLOCK LENGTH TO SOP
-                    147 ;
-                    148             CMP ASHM1+1     ; IF BL+SOP &gt;= HMEM             ; If Block.Length + StartOfProgram &gt;= High Memory
-                    149             BCS MFULL       ; THEN WON'T FIT                ; Memory Full
-                    150 ;
-                    151 <a class='f' name='EASL1'    >EASL1       </a>EQU *
-                    152             STA ASEOP+<span class='n'>1</span>     ; SET NEW EOP ADR
-                    153             STA ASEOP2+<span class='n'>1</span>
-                    154             STX ASEOP
-                    155             STX ASEOP2
-                    156             LDX ASSOP       ; GET ADR WHERE TO LOAD
-                    157             LDY ASSOP+<span class='n'>1</span>
-                    158             JSR LD3         ; GO LOAD
-                    159             JSR MVCSW       ;RESTORE I/O                    ; Why??? Did something change CIN/COUT ???
-                    160             JMP (ASEQ)      ;RELOC FOR THIS VERSION OF APPLSOFT
-                    161 ;
-                    162 <a class='f' name='EIBL'     >EIBL        </a>EQU *
-                    163             LDA #1          ; SET IB PGM                    ; Yup, almost 99% the same as ELD2
-                    164             JSR LD1         ; GO OPEN AND TEST
+                    055             PAGE
+                    056 ;
+                    057 ; ESAVE - EXECUTE SAVE REQUEST
+                    058 ;
+                    059 <a class='f' name='ESAVE'    >ESAVE       </a>EQU *
+                    060             LDA ASIBSW      ; IF IB THEN
+                    061             BEQ EIBSV       ; GO TO IB SAVE
+                    062             LDA ASRNX       ; CAN NOT DO AS SAVE WHEN RUN-ONLY PROG.
+                    063             BPL EASAV       ; BRANCH IF OK TO SAVE, OTHERWISE
+                    064             JMP MFERR       ; PRINT "PROGRAM TOO LARGE", THAT OUGHT TO GET 'EM.
+                    065 <a class='f' name='EASAV'    >EASAV       </a>LDA #<span class='n'>2</span>          ; GET APPLESOFT PGM             ; <a class='magic' name='_'>magic number</a> <span class='code'>FILE_TYPE_APPLESOFT EQU 2</span>
+                    066             JSR SV1         ; GO OPEN AND TEST
+                    067 ;
+                    068             SEC             ; BLOCK LENGTH
+                    069             LDA ASEOP       ; =EOP-SOP
+                    070             SBC ASSOP
+                    071             TAY
+                    072             LDA ASEOP+<span class='n'>1</span>                                     ; single letter difference asEop
+                    073             SBC ASSOP+<span class='n'>1</span>                                     ; is never a good idea:    asSop
+                    074             JSR SV2         ; GO OUTPUT LENGTH
+                    075 ;
+                    076             LDA ASSOP+1     ; BLOCK ADR
+                    077             LDY ASSOP       ; =SOP
+                    078             JMP SV3         ; GO OUTPUT BLOCK
+                    079 ;
+                    080 <a class='f' name='EIBSV'    >EIBSV       </a>EQU *
+                    081             LDA #<span class='n'>1</span>          ; SET IB PGM                    ; PGM = Program, <a class='magic' name='_'>magic number</a> <span class='code'>FILE_TYPE_INTEGER_BASIC EQU 1</span>
+                    082             JSR SV1         ; GO OPEN AND TEST
+                    083 ;
+                    084             SEC             ; BLOCK LENGTH
+                    085             LDA IBHMEM      ; =HIMEM-SOP
+                    086             SBC IBSOP
+                    087             TAY
+                    088             LDA IBHMEM+<span class='n'>1</span>
+                    089             SBC IBSOP+<span class='n'>1</span>
+                    090             JSR SV2         ; GO OUTPUT LENGTH
+                    091 ;
+                    092             LDA IBSOP+<span class='n'>1</span>     ; BLOCK ADR
+                    093             LDY IBSOP       ; =SOP
+                    094             JMP SV3         ; GO OUTPUT BLOCK
+                    095 ;
+                    096 <a class='f' name='SV1'      >SV1         </a>EQU *
+                    097 <a class='f' name='SV1A'     >SV1A        </a>EQU *
+                    098             STA CCBFUC      ; SET PGM TYPE
+                    099             PHA             ; SAVE PGM TYPE
+                    100             JSR EOPN1       ; GO OPEN FILE  (CHGED 11/1/78)
+                    101             PLA             ; GET SAVE TYPE
+                    102             JMP TSTFUC      ; GO CHECK
+                    103 ;
+                    104 <a class='f' name='SV2'      >SV2         </a>EQU *
+                    105             STY CCBBLN      ; SET BLOCK LENGTH              ; === <a class='dumb' name='HNTDAFS5'>HNTDAFS #5</a> ===
+                    106             STY CCBDAT      ; AND DATA BYTE                 ; You <b>never</b> store file meta-data
+                    107             STA CCBBLN+<span class='n'>1</span>                                    ;    File Length
+                    108             LDA #CRQWR      ; INDICATE WRITE                ; <i>in</i> the file itself!
+                    109             STA CCBREQ
+                    110             LDA #CRNBT      ; NEXT BYTE
+                    111             STA CCBRQM
+                    112             JSR DOSGO       ; GO WRITE
+                    113             LDA CCBBLN+<span class='n'>1</span>    ; OTHER BYTE TOO
+                    114             STA CCBDAT
+<hr>                    115             JMP DOSGO                                       ; === Page <a class='page' name='page142'>142</a> ===
+                    116 ;
+                    117 <a class='f' name='SV3'      >SV3         </a>STY CCBBBA      ; SET BLOCK ADR
+                    118             STA CCBBBA+<span class='n'>1</span>
+                    119             LDA #CRMNBL     ; INDICATE BLOCK I/O
+                    120             JMP VPATCH      ;VERIFY AFTER SAVE
+                    121 <a class='f' name='GODOS'    >GODOS       </a>JSR DOSGO       ; GO DO IT
+                    122             JMP ECLOSE      ; CLOSE FILE
+                    123             PAGE
+                    124 <a class='f' name='NBPER'    >NBPER       </a>NBPER       JMP ERNU1                           ; Not Basic Program Error called from ELD1
+                    125 ;
+                    126 ; ELOAD - EXECUTE LOAD REQUEST
+                    127 ;
+                    128 <a class='f' name='ELOAD'    >ELOAD       </a>EQU *
+                    129             JSR CLALL
+                    130 <a class='f' name='ELOAD0'   >ELOAD0      </a>JSR EOPN1
+                    131 ;
+                    132 <a class='f' name='ELD1'     >ELD1        </a>EQU *                                           ; *sigh* Pick a bloody <i>consistent</i> naming schema: ELOAD# or ELD#
+                    133             LDA #$<span class='n'>23</span>        ; STRIP UNRELATED STUFF         ; <a class='magic' name='_'>magic number</a>
+                    134             AND CCBFUC      ; OUT OF FUC
+                    135             BEQ NBPER       ; BR IF ERROR
+                    136 ; ISOLATE IB &amp; AS
+                    137 <a class='f' name='ELD2'     >ELD2        </a>EQU *
+                    138             STA CCBFUC      ; SAVE IB/AS ONLY
+                    139             LDA ASISBSW     ; IF IB THEN
+                    140             BEQ EIBL        ; GO TO IB LOAD
+                    141             LDA #2                                          ; <a class='magic' name='_'>magic number</a> <span class='code'>FILE_TYPE_APPLESOFT EQU 2</span>
+                    142             JSR LD1         ; GO OPEN AND TEST
+                    143 ;
+                    144             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_'>wastes</a> 3 bytes, LD1 should fall into LD2
+                    145 ;                                                           ; While EBLD2 (ExecBload2) calls LD2 by itself, LD1 is always followed by LD2
+                    146             CLC
+                    147             ADC ASSOP       ; ADD BLOCK LENGTH TO SOP
+                    148             TAX
+                    149             TYA
+                    150             ADC ASSOP+1
+                    151 ;
+                    152             CMP ASHM1+1     ; IF BL+SOP &gt;= HMEM             ; If Block.Length + StartOfProgram &gt;= High Memory
+                    153             BCS MFULL       ; THEN WON'T FIT                ; Memory Full
+                    154 ;
+                    155 <a class='f' name='EASL1'    >EASL1       </a>EQU *
+                    156             STA ASEOP+<span class='n'>1</span>     ; SET NEW EOP ADR
+                    157             STA ASEOP2+<span class='n'>1</span>
+                    158             STX ASEOP
+                    159             STX ASEOP2
+                    160             LDX ASSOP       ; GET ADR WHERE TO LOAD
+                    161             LDY ASSOP+<span class='n'>1</span>
+                    162             JSR LD3         ; GO LOAD
+                    163             JSR MVCSW       ;RESTORE I/O                    ; Why??? Did something change CIN/COUT ???
+                    164             JMP (ASEQ)      ;RELOC FOR THIS VERSION OF APPLSOFT
                     165 ;
-                    166             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_'>wastes</a> 3  bytes, see Line #141
-                    167 ;
-                    168             SEC             ; HMEM - BLOCK LENGTH
-                    169             LDA IBHMEM      ; IS NEW SOP
-                    170             SBC SVBL
-                    171             TAX
-                    172             LDA IBHMEM+<span class='n'>1</span>
-                    173             SBC SVBL+<span class='n'>1</span>
-<hr>                    174             BCC MFULL
-                    175             TAY
-                    176 ;
-                    177             CPY IBLMEM+<span class='n'>1</span>    ; IF NEW SOP &lt;= LMEM
-                    178             BCC MFULL
-                    179             BEQ MFULL
-                    180             STY IBSOP+<span class='n'>1</span>     ; SET NEW SOP
-                    181             STX IBSOP
-                    182 <a class='f' name='LD3'      >LD3         </a>EQU *
-                    183             STX CCBBBA      ; SET BLOCK ADDR                ; Googoo, Gaga? A single underscore '_' would go a LONG way towards readability
-                    184             STY CCBBBA+<span class='n'>1</span>                                    ; CCB_BBA
-                    185             JMP GODOS
-                    186 ;
-                    187 <a class='f' name='LD2'      >LD2         </a>EQU *                                           ; By putting this before LD1 this forces 6 byes to be wasted, see Line #143
-                    188             LDA SVBLA       ; MOVE ADR OF WHERE
-                    189             STA CCBBA       ; TO PUT DATA TO
-                    190             LDA SVBLA+1     ; CCBN
-                    191             STA CCBBBA+1
-                    192             LDA #0
-                    193             STA CCBBLN+1    ; READ INTO
-                    194             LDA #2
-                    195             STA CCBBLN
-                    196             LDA #CRQRD      ; READ
-                    197             STA CCBREQ
-                    198             LDA #CRMNBL     ; BLOCK
-                    199             STA CCBRQM
-                    200             JSR DOSGO
-                    201             LDA SVBL+1
-                    202             STA CCBBLN+1
-                    203             TAY
-                    204             LDA SVBL
-                    205             STA CCBBLN
-                    206             RTS
-                    207 ;
-                    208 <a class='f' name='MFULL1'   >MFULL1      </a>EQU *
-                    209             JSR ECLOSE      ; GO CLOSE FILE
-                    210             JMP MFERR       ; AND GIVE ERR MSG
-                    211 LD1         EQU *
-                    212             CMP CCBFUC      ; TEST TYPE
-                    213             BEQ LD1C        ; BR IF MATCH
-                    214             LDX CMDNO
-                    215             STX SVCMD
-                    216             LSR A
-                    217             BEQ LD1A        ; BR IF PGM IS AS
-                    218             JMP EINT        ; GO FOR INTG BASIC
-                    219 ;
-                    220 LD1A        EQU *
-                    221             LDX #<span class='n'>29</span>         ; SAVE FILENAME                 ; <a class='magic' name='_'>magic number</a> <span class='code'>FILENAME_MAX-1</span>
-                    222 LD1B        LDA FNAME1,X    ; INCASE IS RAM APPLESOFT
-                    223             STA FNAME2,X
-                    224             DEX
-                    225             BPL LD1B
-                    226             JMP EAS         ; GO FOR AS
-                    227 ;
-                    228 LD1C        RTS
-                    229             PAGE
-                    230 ;
-                    231 ; ERUN - EXECUTE RUN REQUEST
-                    232 ;
-                    233 ERUN        EQU *
-                    234             LDA ASIBSW      ; IF APPLESOFT THEN RELOC FLAG SET
-                    235             BEQ ERUN0
-                    236             STA RSTATE      ; INDICATE APSFT RUN
-<hr>                    237 ERUN0       JSR ELOAD       ; LOAD PGM                      ; === <a class='page' name='page144'>144</a> ===
-                    238 ERUN1       JSR PRCRIF      ;REENTRY POINT FOR ASFT RELOC
-                    239             JSR MVCSW       ; GO RESTORE CHAR I/O SW        ; <span class='todo'>TODO</span> What keeps futzing with CIN / COUT ??
-                    240             JMP (RUN)
-                    241 ;
-                    242 ; IBRUN - INT BASIC RUN
-                    243 ;
-                    244 IBRUN       EQU *
-                    245             LDA IBLMEM      ; RESET START OF VARS
-                    246 
-                    247 
-                    248 
-                    249 
-                    250 
-                    251 
-                    252 
-                    253 
-                    254 
-                    255 
-                    256 
-                    257 
-                    258 
-                    259 
-                    260 
-                    261 
-                    262 
-                    263 
-                    264 
-                    265 
+                    166 <a class='f' name='EIBL'     >EIBL        </a>EQU *
+                    167             LDA #1          ; SET IB PGM                    ; Yup, almost 99% the same as ELD2
+                    168             JSR LD1         ; GO OPEN AND TEST
+                    169 ;
+                    170             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_'>wastes</a> 3  bytes, see Line #141
+                    171 ;
+                    172             SEC             ; HMEM - BLOCK LENGTH
+                    173             LDA IBHMEM      ; IS NEW SOP
+                    174             SBC SVBL
+                    175             TAX
+                    176             LDA IBHMEM+<span class='n'>1</span>
+                    177             SBC SVBL+<span class='n'>1</span>
+<hr>                    178             BCC MFULL                                       ; === Page <a class='page' name='page143'>143</a> ===
+                    179             TAY
+                    180 ;
+                    181             CPY IBLMEM+<span class='n'>1</span>    ; IF NEW SOP &lt;= LMEM
+                    182             BCC MFULL
+                    183             BEQ MFULL
+                    184             STY IBSOP+<span class='n'>1</span>     ; SET NEW SOP
+                    185             STX IBSOP
+                    186 <a class='f' name='LD3'      >LD3         </a>EQU *
+                    187             STX CCBBBA      ; SET BLOCK ADDR                ; Googoo, Gaga? A single underscore '_' would go a LONG way towards readability
+                    188             STY CCBBBA+<span class='n'>1</span>                                    ; CCB_BBA
+                    189             JMP GODOS
+                    190 ;
+                    191 <a class='f' name='LD2'      >LD2         </a>EQU *                                           ; By putting this before LD1 this forces 6 byes to be wasted, see Line #143
+                    192             LDA SVBLA       ; MOVE ADR OF WHERE
+                    193             STA CCBBA       ; TO PUT DATA TO
+                    194             LDA SVBLA+1     ; CCBN
+                    195             STA CCBBBA+1
+                    196             LDA #0
+                    197             STA CCBBLN+1    ; READ INTO
+                    198             LDA #2
+                    199             STA CCBBLN
+                    200             LDA #CRQRD      ; READ
+                    201             STA CCBREQ
+                    202             LDA #CRMNBL     ; BLOCK
+                    203             STA CCBRQM
+                    204             JSR DOSGO
+                    205             LDA SVBL+1
+                    206             STA CCBBLN+1
+                    207             TAY
+                    208             LDA SVBL
+                    209             STA CCBBLN
+                    210             RTS
+                    211 ;
+                    212 <a class='f' name='MFULL1'   >MFULL1      </a>EQU *
+                    213             JSR ECLOSE      ; GO CLOSE FILE
+                    214             JMP MFERR       ; AND GIVE ERR MSG
+                    215 LD1         EQU *
+                    216             CMP CCBFUC      ; TEST TYPE
+                    217             BEQ LD1C        ; BR IF MATCH
+                    218             LDX CMDNO
+                    219             STX SVCMD
+                    220             LSR A
+                    221             BEQ LD1A        ; BR IF PGM IS AS
+                    222             JMP EINT        ; GO FOR INTG BASIC
+                    223 ;
+                    224 LD1A        EQU *
+                    225             LDX #<span class='n'>29</span>         ; SAVE FILENAME                 ; <a class='magic' name='_'>magic number</a> <span class='code'>FILENAME_MAX-1</span>
+                    226 LD1B        LDA FNAME1,X    ; INCASE IS RAM APPLESOFT
+                    227             STA FNAME2,X
+                    228             DEX
+                    229             BPL LD1B
+                    230             JMP EAS         ; GO FOR AS
+                    231 ;
+                    232 LD1C        RTS
+                    233             PAGE
+                    234 ;
+                    235 ; ERUN - EXECUTE RUN REQUEST
+                    236 ;
+                    237 ERUN        EQU *
+                    238             LDA ASIBSW      ; IF APPLESOFT THEN RELOC FLAG SET
+                    239             BEQ ERUN0
+                    240             STA RSTATE      ; INDICATE APSFT RUN
+                    241 ERUN0       JSR ELOAD       ; LOAD PGM                      ; === <a class='page' name='page144'>144</a> ===
+                    242 ERUN1       JSR PRCRIF      ;REENTRY POINT FOR ASFT RELOC
+                    243             JSR MVCSW       ; GO RESTORE CHAR I/O SW        ; <span class='todo'>TODO</span> What keeps futzing with CIN / COUT ??
+                    244             JMP (RUN)
+                    245 ;
+                    246 ; IBRUN - INT BASIC RUN
+                    247 ;
+                    248 IBRUN       EQU *
+                    249             LDA IBLMEM      ; RESET START OF VARS
+                    250             STA IBSOV
+                    251             LDA IBLMEM+1
+                    252             STA IBSOV+1
+                    253             JMP (CHAIN)
+                    254 ;
+                    255 ; EHCAIN - EXECUTE CHAIN REQUEST                            ; *spelling* ECHAIN
+                    256 ;
+                    257 ECHAIN      EQU *
+                    258             JSR ELOAD0      ; LOAD PGM WITHOUT CLOSING READ FILES
+                    259             JSR PRCRIF
+                    260             JSR MVCSW       ; GO RESTORE CHAR I/O SW
+                    261             JMP (CHAIN)
+                    262 ASRUN1      JSR $<span class='n'>D665</span>       ; ROM                           ; <a class='magic' name='_'>magic number</a>
+                    263             STA PROMPT      ;INSURES APPLESOFT RUN DETECT (A=0)
+                    264             STA ASONERR     ;RESET APPLESOFT ONERR FLAG
+2503:4C D2 D7       265             JMP $<span class='n'>D7D2</span>                                       ; <a class='magic' name='_2503'>magic number</a>
 2506:20 65 0E       266 <a class="f" name="ASRUN2"  >ASRUN2      </a>JSR $<span class='n'>E65</span>        ; RAM                           ; <a class='magic' name='_2506'>magic number</a> <a class="d" href="#AS2VT">AS2VT</a> has pointer to us
 2509:85 33          267             STA <a class="d" href="#PROMPT">PROMPT</a>      ;INSURES APPLESOFT RUN DETECT (A=0) ; (dead code) <a class='mem' name='_2506'>wastes</a> 10 bytes on Apple ][+ or later
 250B:85 D8          268             STA <a class="d" href="#ASONER">ASONER</a>      ;RESET APPLESOFT ONERR FLAG     ;
