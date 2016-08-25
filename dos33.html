@@ -3501,7 +3501,8 @@ With that "legalese" out of the way ... enjoy the read!
                     051 ;
                     052 ; DOS ADR TABLES (RELOCATED)
 <hr>                    053 ;                                                           ; === Page <a class='page' name='page61'>61</a>
-                    054 <a class="d" name="SAT2"  >SAT2        </a>EQU *                                           ; Start Address Table; Gee, we couldn't have put this at $1D00 to save 4 bytes in ADRTAB?!
+                    054 <a class="d" name="SAT2"  >SAT2        </a>EQU *                                           ; Start Address Table
+                                                                                    ; Gee, we couldn't have put this at $1D00 to save 4 bytes in <a class='v' href='#ADRTAB'>ADRTAB</a> ?!
 2AC1:E8 37          055 <a class="d" name="AIOB"  >AIOB        </a>DW <a class="v" href="#IOB"     >IOB</a>          ; 5-ADR IOB                     ; Also see <a class='v' href='#BAIOB'>BAIOB</a>; What happened to 1 .. 4 ??? At RVT, WVT ?
 2AC3:BB 33          056 <a class="d" name="AVTOC" >AVTOC       </a>DW <a class="v" href="#VTOC"    >VTOC</a>         ; 6-ADR VTOC
 2AC5:BB 34          057 <a class="d" name="AVOLDR">AVOLDR      </a>DW <a class="v" href="#VOLDIR"  >VOLDIR</a>       ; 7-ADR VOLDIR
@@ -5318,7 +5319,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     043 <a class="f" name="MONINIT"  >MONINIT     </a>EQU $FB2F       ;MONINIT SCREEN
                     044 <a class="d" name="BHERE3"   >BHERE3      </a>EQU &gt;*
                     045 <a class="d" name="BOOTCNT"  >BOOTCNT     </a>EQU $800+BHERE3
-3600:01             046             DFB 01                                          ; Would <i>could</i> read $F sectors via P6 PROM but nah, 
+3600:01             046             DFB <span class='n'>01</span>                                          ; Would <i>could</i> read $F sectors via P6 PROM but nah, 
                     047             PAGE                                            ; let's waste $839-$801 = $38 (56) bytes instead!
                     048             LDA <a class="d" href="#POINTA">POINTA</a>+1    ;WHERE DID BSECTR GET LOADED?   ;[.. <a class='mem' name='_3601'>wastes</a> 56 bytes; Get memory page of last load
                     049             CMP #<span class='n'>09</span>         ; (AT 0800)?                    ; ..
@@ -5332,14 +5333,14 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     057             LSR A                                           ; ..
                     058             LSR A                                           ; ..
                     059             LSR A                                           ; ..
-                    060             ORA #$C0                                        ; ..
-                    061             STA BTEMP+1                                     ; ..
+                    060             ORA #$<span class='n'>C0</span>                                        ; ..
+                    061             STA BTEMP+<span class='n'>1</span>                                     ; ..
                     062             LDA #BRETRY     ; PROM ROUTINE OFFSET           ; ..
                     063             STA BTEMP                                       ; ..
                     064             CLC             ;BUMP LOAD ADDRESS UP TO        ; ..
-                    065             LDA LOADADDR+1  ; LAST PAGE SO WE               ; ..
+                    065             LDA LOADADDR+<span class='n'>1</span>  ; LAST PAGE SO WE               ; ..
                     066             ADC BGRPGC      ;  CAN LOAD 'EM BACKWARDS       ; ..
-                    067             STA LOADADDR+1                                  ; ..
+                    067             STA LOADADDR+<span class='n'>1</span>                                  ; ..
                     068 * READ IN ANOTHER BSECTR FROM                               ; ..
                     069 *  TRACK ZERO...                                            ; ..
                     070 <a class='f' name='READNEXT' >READNEXT    </a>LDX BGRPGC                                      ; ..
@@ -5347,13 +5348,13 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     072             LDA TABLE,X     ;GET PHYSICAL BSECTR NUMBER     ; .. /sarcasm Real original name there guys
                     073             STA BSECTR      ; AND SET FOR BOOT PROM READ    ; ..          You couldn't call it <span class='code'>LOGSECTR</span> for Logical Sector??
                     074             DEC BGRPGC      ;ONE LESS BELL TO ANSWER...     ; ..
-                    075             LDA LOADADDR+1  ;GET LOAD ADDRESS               ; ..
-                    076             STA POINTA+1    ; FOR BSECTR READ               ; ..
-                    077             DEC LOADADDR+1  ;MOVE LOAD ADDRESS DOWN A PAGE  ; ..
+                    075             LDA LOADADDR+<span class='n'>1</span>  ;GET LOAD ADDRESS               ; ..
+                    076             STA POINTA+<span class='n'>1</span>    ; FOR BSECTR READ               ; ..
+                    077             DEC LOADADDR+<span class='n'>1</span>  ;MOVE LOAD ADDRESS DOWN A PAGE  ; ..
                     078             LDX BSLO        ;RESTORE BSLOT NUMBER           ; ..
                     079             JMP (BTEMP)     ;READ MORE OF TRACK 0           ; ..]
-                    080 <a class='f' name='GOLOADER' >GOLOADER    </a>INC LOADADDR+1  ;ENTRY AT SECOND PAGE
-                    081             INC LOADADDR+1
+                    080 <a class='f' name='GOLOADER' >GOLOADER    </a>INC LOADADDR+<span class='n'>1</span>  ;ENTRY AT SECOND PAGE
+                    081             INC LOADADDR+<span class='n'>1</span>
                     082             JSR SETKBD      ;CLEAR IN#X
                     083             JSR SETVID      ; AND PR#X
                     084             JSR MONINIT     ;MONINIT THE SCREEN PARAMS
@@ -5395,11 +5396,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     099 * APPEND BUG PATCHES
                     100 ****************************
                     101 <a class='d' name='SC3'      >SC3         </a>EQU *
-365D:00             102 <a class='d' name='EOFFLAG'  >EOFFLAG     </a>DFB 0
+365D:00             102 <a class='d' name='EOFFLAG'  >EOFFLAG     </a>DFB <span class='n'>0</span>
                     103 <a class='f' name='CLOSFILE' >CLOSFILE    </a>EQU *
 365E:20 64 27       104             JSR FILSRC      ;FILE BUFFER FOUND?
 3661:B0 08          105             BCS NOTFOUND    ;=&gt; NO, SO SKIP IT.
-3663:A9 00          106             LDA #0          ;YES, CLOSE IT
+3663:A9 00          106             LDA #<span class='n'>0</span>          ;YES, CLOSE IT
 3665:A8             107             TAY
 3666:8D 5D 36       108             STA EOFFLAG
 3669:91 40          109             STA (ZPGWRK),Y  ;RIGHT NOW
@@ -5411,8 +5412,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3674:F0 08          115             BEQ GOBACK      ;=&gt; NO
 <hr>3676:EE BD 35       116             INC <a class="v" href="#CCBRRN">CCBRRN</a>      ;BUMP CCB RECORD NUMBER         ; === Page <a class="page" name="page10">10</a>
 3679:D0 03          117             BNE GOBACK
-367B:EE BE 35       118             INC CCBRRN+1    ;TO GET TO NEXT SECTOR
-367E:A9 00          119 GOBACK      LDA #0
+367B:EE BE 35       118             INC CCBRRN+<span class='n'>1</span>    ;TO GET TO NEXT SECTOR
+367E:A9 00          119 GOBACK      LDA #<span class='n'>0</span>
 3680:8D 5D 36       120             STA EOFFLAG     ;TURN FLAG OFF
 3683:4C 46 25       121             JMP FIXIT2      ;Go to FIXIT2 as exit           ; Oh look, we have lowercase CapsLock on //e!
                     122             REP 40
@@ -5423,21 +5424,21 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 368F:4C 7D 22       127             JMP EVAR        ;GO VERIFY IT AFTER SAVE
                     128 ****************************
                     129 EOFFIX      EQU *
-3692:A0 13          130             LDY #$13        ;PEEK INTO THE FCB: IF          ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_SEC</span>
+3692:A0 13          130             LDY #$<span class='n'>13</span>        ;PEEK INTO THE FCB: IF          ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_SEC</span>
 3694:B1 42          131 CHKFILE     LDA (ZPGFCB),Y  ;DCBCRS,DCBCSB ARE ZEROS,
 3696:D0 14          132             BNE FIXIT       ; THEN WE HAVE EMPTY FILE
 3698:C8             133             INY
-3699:C0 17          134             CPY #$17                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_REC_LEN</span>
+3699:C0 17          134             CPY #$<span class='n'>17</span>                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_REC_LEN</span>
 369B:D0 F7          135             BNE CHKFILE
-369D:A0 19          136             LDY #$19                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
+369D:A0 19          136             LDY #$<span class='n'>19</span>                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
 369F:B1 42          137 MOVE        LDA (ZPGFB),Y   ; DCBCRR,DCBCRB
-36A1:99 A4 35       138             STA CCBRRN-$19,Y;INTO CCBRRN,CCBBYT             ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
+36A1:99 A4 35       138             STA CCBRRN-$<span class='n'>19</span>,Y;INTO CCBRRN,CCBBYT             ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
 36A4:C8             139             INY
-36A5:C0 1D          140             CPY #$1D                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_NUM_SEC_ALLOC</span>
+36A5:C0 1D          140             CPY #$<span class='n'>1D</span>                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_NUM_SEC_ALLOC</span>
 36A7:D0 F6          141             BNE MOVE
 36A9:4C BC 26       142 BACK        JMP DOSGO2A     ;NOW LET APPEND CONTINUE
 36AC:A2 FF          143 FIXIT       EQU *
-36AE:8E 5D 36       144             LDX #$FF        ;SET FLAG SO APPEND WILL        ; <a class='magic' name='_'>magic number</a> <span class='code'>FLAG_EOF_SEC_BOUNDARY EQU $0</span>
+36AE:8E 5D 36       144             LDX #$<span class='n'>FF</span>        ;SET FLAG SO APPEND WILL        ; <a class='magic' name='_'>magic number</a> <span class='code'>FLAG_EOF_SEC_BOUNDARY EQU $0</span>
 36B1:D0 F6          145             STX EOFFLAG     ;KNOW TO CROSS SECTOR BOUNDARY
                     146             BNE BACK        ;ALWAYS TAKEN                   ; &uarr;
                     147             PAGE
@@ -5556,12 +5557,12 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     240 *
                     241 BHERE4      EQU &gt;*
 <hr>                    242 LOADADDR    EQU $<span class='n'>800</span>+BHERE4                                 ; === Page <a class="page" name="page12">12</a> ===
-36FD:00             243             DFB 0
-36FE:36             244 GRSPG       DFB &lt;TRK0LDR        ;CONTAINS PAGE#-1 OF TRK 0, SEC 1 LOAD ADDRESS
+36FD:00             243             DFB <span class='n'>0</span>
+36FE:36             244 GRSPG       DFB &lt;<a class='v' href='#TRK0LDR'>TRK0LDR</a>        ;CONTAINS PAGE#-1 OF TRK 0, SEC 1 LOAD ADDRESS
                     245 * LAST LOGICAL BSECTOR TO READ STARTING AT $00
                     246 BHERE5      EQU &gt;*
 36FF:09             247 BGRPGC      EQU $<span class='n'>800</span>+BHERE5
-                    248 GRPGC       DFB &lt;<a class='v' href='#ENDOFDOS'>ENDOFDOS</a>-TRK0LDR-$<span class='n'>100</span>
+                    248 GRPGC       DFB &lt;<a class='v' href='#ENDOFDOS'>ENDOFDOS</a>-<a class='v' href='#TRK0LDR'>TRK0LDR</a>-$<span class='n'>100</span>
                     249 ********************
                     250             PAGE
                     251 DOSLODR     EQU *
@@ -5574,19 +5575,19 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     258             REP 40                                          ; Copy ][+ has a FAST boot via 4&amp;4 encoding, not 6&amp2;2 encoding.
 3700:8E E9 37       259             STX IBSLOT      ; SET BOOT SLOT                 ; === <a class='ts' href='#T0S1'>T0S1</a> ===
 3703:8E F7 37       260             STX IBPSLT      ; SET PREVIOUS SLOT
-3706:A9 01          261             LDA #1          ; SET PREV DRIVE                ; <i>Assumes</i> boot was from drive 1; Sadly there is no hardware support to tell.
+3706:A9 01          261             LDA #<span class='n'>1</span>          ; SET PREV DRIVE                ; <i>Assumes</i> boot was from drive 1; Sadly there is no hardware support to tell.
 3708:8D F8 37       262             STA IBPDRV                                      ; More crappy names differing by a single letter
 370B:8D EA 37       263             STA IBDRVN                                      ;     IBPDRV    IB_PRV_DRV
                     264 ;                                                           ;     IBDRVN    IB_CUR_DRV
 370E:AD E0 37       265             LDA NDPGS       ; COPY NO PAGES TO GET
 3711:8D E1 37       266             STA BRWCNT
-3714:A9 02          267             LDA #2
+3714:A9 02          267             LDA #<span class='n'>2</span>
                     268             STA IBTRK       ; SET TRACK 0                   ; Uhm, T2S4, not T0S4
-                    269             LDA #4          ;ENDING SECTOR OF DOS IMAGE
+                    269             LDA #<span class='n'>4</span>          ;ENDING SECTOR OF DOS IMAGE
                     270             STA IBSECT      ;TO IOB
-                    271             LDY ADOSLD+1    ;END PAGE OF DOS IMAGE
+                    271             LDY ADOSLD+<span class='n'>1</span>    ;END PAGE OF DOS IMAGE
                     272             DEY             ;IS ONE LESS THAN
-                    273             STY IBBUFP+1    ;START OF DOSLDR+BOOT
+                    273             STY IBBUFP+<span class='n'>1</span>    ;START OF DOSLDR+BOOT
                     274 ;
                     275             LDA #IBCRTS     ; SET READ
                     276             STA IBCMD
@@ -5597,15 +5598,15 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     281             LSR A
                     282             LSR A
                     283             TAX
-                    284             LDA #0
-3732:9D F8 04       285             STA $4F8,X                                      ; <a class='magic' name='_'>magic number</a> The 40x24 text screen has "memory holes"
-3735:9D 78 04       286             STA $478,X                                      ; <a class='magic' name='_'>magic number</a> reserved for each Slot 1..7 as "scratchpad" or temp vars
+                    284             LDA #<span class='n'>0</span>
+3732:9D F8 04       285             STA $<span class='n'>4F8</span>,X                                      ; <a class='magic' name='_'>magic number</a> The 40x24 text screen has "memory holes"
+3735:9D 78 04       286             STA $<span class='n'>478</span>,X                                      ; <a class='magic' name='_'>magic number</a> reserved for each Slot 1..7 as "scratchpad" or temp vars
                     287             JSR BOOTIO      ; GO READ DOS
                     288 ;
                     <a class='line' name='BOOTLDR.289'>289</a> ;DOSINT - INITIALIZE DOS                                    ; /sarcasm Couldn't afford extra 'i' in "dosinIt"
                     290 ;
                     291 <a class="f" name="DOSINT"   >DOSINT      </a>EQU *                                            ; Ironically in Boot Loader, not Dos Init
-                    292             LDX #$FF
+                    292             LDX #$<span class='n'>FF</span>
                     293             TXS
                     294             STX IBVOL
                     <a class='line' name='BOOTLDR.295'>295</a>             JMP <a class="x" href="#RCPATCH">RCPATCH</a>
@@ -5614,89 +5615,89 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     <a class='line' name='BOOTLDR.298'>298</a> <a class="f" name="DI3"      >DI3         </a>JMP <a class="x" href="#DOSREL">DOSREL</a>      ; GO TO POST INIT ROUTINE       ; Relocate DOS to high mem
                     299             PAGE
                     300 <a class='f' name='WBOOT'    >WBOOT       </a>EQU *                                           ; Write Boot; part of the INIT process
-                    301             LDA ADOSLD+1
+                    301             LDA ADOSLD+<span class='n'>1</span>
                     302             SEC
-                    303             SBC IBBUFP+1
-<hr>                    304             STA BRWCNT  ;COMPUT PAGE COUNT              ; === Page <a class='page' name='page13'>13</a> ===
-                    305             LDA ADOSLD+1
-                    306             STA IBBUFP+1    ;BUFFER=LAST PAGE OF RWTS
-                    307             DEC IBBUFP+1
-                    308             LDA #2
-                    309             STA IBTRK
-                    310             LDA #4
-                    311             STA IBSECT
-3767:A9 02          312             LDA #2                                          ; <a class='magic' name='_'>magic number</a> Why not <span class='code'>IBCWTS</span> ???
+                    303             SBC IBBUFP+<span class='n'>1</span>
+<hr>                    304             STA BRWCNT      ;COMPUT PAGE COUNT              ; === Page <a class='page' name='page13'>13</a> === *spelling* Compute
+                    305             LDA ADOSLD+<span class='n'>1</span>
+                    306             STA IBBUFP+<span class='n'>1</span>    ;BUFFER=LAST PAGE OF RWTS
+                    307             DEC IBBUFP+<span class='n'>1</span>
+                    308             LDA #<span class='n'>2</span>
+                    309             STA IBTRK       ;ENDING TRACK
+                    310             LDA #<span class='n'>4</span>
+                    311             STA IBSECT      ;ENDING SECTOR
+3767:A9 02          312             LDA #<span class='n'>2</span>                                          ; <a class='magic' name='_'>magic number</a> Why not <span class='code'>IBCWTS</span> ???
 3769:8D F4 37       313             STA IBCMD       ;COMMAND = WRITE
 376C:20 93 37       314             JSR BOOTIO      ;WRITE DOS IMAGE TRK 2, SEC 4
                     315 *                           ;BACKWARDS TO TRK 0,SEC C
-                    316             LDA ADOSLD+1
+                    316             LDA ADOSLD+<span class='n'>1</span>
                     317             STA GRSPG       ;BOOTSTRAP LOAD ADDRESS
                     318             CLC
-                    319             ADC #9
-                    320             STA IBBUFP+1    ;BUFFER ADDRESS OF END OF BOOT
-                    321             LDA #10
+                    319             ADC #<span class='n'>9</span>
+                    320             STA IBBUFP+<span class='n'>1</span>    ;BUFFER ADDRESS OF END OF BOOT
+                    321             LDA #<span class='n'>10</span>
                     322             STA BRWCNT      ;SECTOR COUNT TO WRITE          ; /sarcasm If only <span class='code'>NUM_SEC_WRITE</span>
                     323             SEC
-                    324             SBC #1
+                    324             SBC #<span class='n'>1</span>
                     325             STA GRPGC       ;BOOT LAST SECTOR #
                     326             STA IBSECT      ;START AT END OF RWTS&amp;BOOT
                     327             JSR BOOTIO      ;AND WRITE DOWN TO ZERO
 378C:60             328             RTS
-378D:00 00 00 00    329             DS 6,0                                          ; <a class='mem' name='_378D'>wastes</a> 6 bytes
+378D:00 00 00 00    329             DS <span class='n'>6</span>,<span class='n'>0</span>          ;FILL WITH BRKS                 ; <a class='mem' name='_378D'>wastes</a> 6 bytes -- WHY ???
 3791:00 00          330             PAGE
                     331 <a class='f' name='BOOTIO'   >BOOTIO      </a>EQU *
-3793:AD E5 37       332             LDA BAIOB+1                                     ; <span class='code'>JSR <a class='x' href='#IOBLDR'>IOBLDR</a></span> loads AIOB &rarr; <a class='v' href='#IOB'>IOB</a>
-                    333             LDY BAIOB
-                    334             JSR DISKIO
-                    335 
-                    336 
-                    337 
-                    338 
-                    339 
-                    340 
-                    341 
-                    342 
-                    343 
-                    344 
-                    345 
-                    346 
-                    347 
-                    348 
-                    349 
-                    350 
-                    351 
-                    352 
-                    353 
-                    354 
-                    355 
-                    356 
-                    357 
-                    358 
-                    359 
-                    360 
-                    361 
-                    362 
-                    363 
-                    364 
-                    365 
-                    366 
-                    367 
-                    368 
-                    369 
-                    370 
-                    371 
-                    372 
-                    373 
-                    374 
-                    375 
-                    376 
-                    377 
-                    378 
-                    379 
-                    380 
-                    381 
+3793:AD E5 37       332             LDA BAIOB+<span class='n'>1</span>                                     ; <a class='mem' name='_3793'>wastes</a> 3 bytes; <a class='v' href='#BAIOB'>BAIOB</a> &rarr; <a class='v' href='#IOB'>IOB</a>, <span class='code'>JSR <a class='x' href='#IOBLDR'>IOBLDR</a></span> loads <a class='v' href='#AIOB'>AIOB</a> &rarr; <a class='v' href='#IOB'>IOB</a>
+3796:AC E5 37       333             LDY BAIOB
+3799:20 B5 37       334             JSR DISKIO
+                    335 ;
+                    336             LDY IBSECT      ; GET SECTOR
+                    337             DEY             ; DECREMENT TO NEXT             ; Stupid Commenting - stop treating the reader as a moron
+                    338             BPL BIO1        ;AT END OF TRACK?               ; See now this is a useful comment in contradistinction to the one above
+                    339             LDY #<span class='n'>15</span>         :SET TO SECTOR 15               ; as it tells us WHY we are branching
+37A4:EA             340             NOP                                             ; [.. <a class='mem' name='_37A4'>wastes</a> 2 bytes
+37A5:EA             341             NOP                                             ;  ..]
+                    342             DEC IBTRK
+                    343 BI01        STY IBSECT      ; SET NEXT SECTOR
+                    344 ;
+                    345             DEC IBBUFP+<span class='n'>1</span>    ; DECREMENT BUFFER POINTER
+                    346             DEC BRWCNT      ; DECREMENT PAGE COUNTER
+                    347             BNE BOOTIO      ; BR IF NOT DONE
+                    348             RTS
+                    349 ;
+                    350             PAGE
+                    351 DISKIO      PHP             ;SAVE INTERUPT STATUS           ; *spellling* Interrupt
+                    352             SEI             ;INHIBIT INTERUPT WHILE         ; *spellingg* Interrupt
+                    353             JSR RWTS        ; ACCESSING DISK
+                    354             BCS DSKERR      ;MUST PASS BACK CARRY FLAG &amp; INTERUPT      ; *spellingg* Interrupt
+                    355             PLP
+                    356             CLC
+                    357             RTS
+37BF:28             358 DISKERR     PLP             ;CARRY SET MEANS ERROR
+37C0:38             359             SEC
+37C1:60             360             RTS
+37C2:AD BC 35       361 DLDSUP      LDA CCBBSA      ;SET UP FOR DOS LOADER
+                    362             STA IBBUFP+<span class='n'>1</span>    ;START ADDRESS
+                    363             LDA #<span class='n'>0</span>
+                    364             STA IBBUFP
+                    365             LDA DCBVOL      ;INVERT VOLUME NUMBER
+<hr>                    366             EOR #$<span class='n'>FF</span>                                        ; === Page <a class='page' name='page14'>14</a> ===
+                    367             STA IBVOL
+                    368             RTS
+                    369 ;
+37D6:A9 00          370 CLRSEC      LDA #<span class='n'>0</span>          ;CLEAR SECTOR
+37D8:A8             371             TAY
+37D9:91 41          372 CS1         STA (ZPGFCB),Y
+37DB:C8             373             INY
+37DC:D0 FB          374             BNE CS1
+37DE:60             375             RTS
+37DF:00             376             BRK                                             ; <a class='mem' name='_37DF'>wastes</a> 1 byte -- Why???
+                    377 EC3         EQU *
+37E0:1B             378 NDPGS       DFB &lt;<a class='v' href='#TRK0LDR'>TRK0LDR</a>-<a class='x' href='#BEGIN'>BEGIN</a> ;CALC #PAGES IN DOS WITHOUT RWTS
+37E1:00             379 BRWCNT      DFB <span class='n'>0</span>           ;WRK CTR FOR BOOTIO
+37E2:0A             380             DFB $<span class='n'>0A</span>                                         ;[.. <a class='mem' name='_37E2'>wastes</a> 2 bytes -- never used!
+37E3:1B             381             DFB $<span class='n'>1B</span>                                         ; ..] 
 37E4:E8 37          382 <a class='d' name='BAIOB'    >BAIOB       </a>DW <a class='v' href='#IOB'>IOB</a>                                          ; <a class='v' href='#BAIOB'>BAIOB</a> and <a class='v' href='#AIOB'>AIOB</a> both point to <a class='v' href='#IOB'>IOB</a>
-37E6:00 36          383 ADOSLD      DW TRK0LDR
+37E6:00 36          383 ADOSLD      DW <a class='v' href='#TRK0LDR'>TRK0LDR</a>
                     384             PAGE
                     385 ;
                     386 IOB - INPUT / OUTPUT CONTROL BLOCK
@@ -5704,32 +5705,32 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     388 ;BETWEEN DOS AND THE DISK I/O ROUTINES
                     389 ;
                     390 <a class='e' name='IOB'      >IOB         </a>EQU *
-37E8:01             391 <a class='d' name='IBTYPE'   >IBTYPE      </a>DFB 1           ; IOB TYPE CODE                 ; <a class='struct' name='_37e8'>wastes</a> 1 bytes -- hard-coded to 1 !
-37E9:60             392 <a class='d' name='IBSLOT'   >IBSLOT      </a>DFB 6*16        ; CONTROLELR SLOT NO.
-37EA:01             393 <a class='d' name='IBDRVN'   >IBDRVN      </a>DFB 1           ; DRIVE NUMBER
-37EB:00             394 <a class='d' name='IBVOL'    >IBVOL       </a>DFB $00         ; VOLUME NUMBER
-37EC:00             395 <a class='d' name='IBTRK'    >IBTRK       </a>DFB 0           ; TRACK NUMBER
-37ED:00             396 <a class='d' name='IBSECT'   >IBSECT      </a>DFB 0           ; SECTOR NUMBER
-37EE:FB 37          397 IBDCTP      DW DCT
-37F0:00 00          398 IBBUFP      DW 0            ; POINTER TO BUFFER
-37F2:00 01          399 IBDLEN      DW 256          ; DATA LENGTH
-37F4:00             400 IBCMD       DFB 0           ; COMMAND
+37E8:01             391 <a class='d' name='IBTYPE'   >IBTYPE      </a>DFB <span class='n'>1</span>           ; IOB TYPE CODE                 ; <a class='struct' name='_37e8'>wastes</a> 1 bytes -- hard-coded to 1 !
+37E9:60             392 <a class='d' name='IBSLOT'   >IBSLOT      </a>DFB <span class='n'>6</span>*<span class='n'>16</span>        ; CONTROLELR SLOT NO.
+37EA:01             393 <a class='d' name='IBDRVN'   >IBDRVN      </a>DFB <span class='n'>1</span>           ; DRIVE NUMBER
+37EB:00             394 <a class='d' name='IBVOL'    >IBVOL       </a>DFB $<span class='n'>00</span>         ; VOLUME NUMBER
+37EC:00             395 <a class='d' name='IBTRK'    >IBTRK       </a>DFB <span class='n'>0</span>           ; TRACK NUMBER
+37ED:00             396 <a class='d' name='IBSECT'   >IBSECT      </a>DFB <span class='n'>0</span>           ; SECTOR NUMBER
+37EE:FB 37          397 <a class='d' name='IBDCTP'   >IBDCTP      </a>DW DCT
+37F0:00 00          398 <a class='d' name='IBBUFP'   >IBBUFP      </a>DW <span class='n'>0</span>            ; POINTER TO BUFFER
+37F2:00 01          399 <a class='d' name='IBDLEN'   >IBDLEN      </a>DW <span class='n'>256</span>          ; DATA LENGTH
+37F4:00             400 <a class='d' name='IBCMD'    >IBCMD       </a>DFB <span class='n'>0</span>           ; COMMAND
                     401 IBCNUL      EQU 0           ; 0-NULL COMMAND                ; Stop with the shitty API already
                     402 IBCRTS      EQU 1           ; 1-READ TRACK, SECTOR
                     403 IBCWTS      EQU 2           ; 2-WRITE TRACK,SECTOR
                     404 IBFMT       EQU 4           ; 4-FORMAT DISK
                     405 IBBOOT      EQU 8           ; 8-WRITE BOOT
-37F5:00             406 IBSTAT      DFB 0           ; STATUS
+37F5:00             406 IBSTAT      DFB <span class='n'>0</span>           ; STATUS
                     407 IBRERR      EQU $80         ; READ ERR                      ; Interleaving a structure and const types makes for poor readability
                     408 IBDERR      EQU $40         ; DRIVE ERR
                     409 IBVMME      EQU $20         ; VOLUME MISMATCH
                     410 IBWPER      EQU $10         ; WRITE PROTECT ERROR
-37F6:00             411 IBSMOD      DFB 0           ; STATUS MODIFIER BYTE
-37F7:60             412 IBPSLT      DFB 6*16        ; PREVIOUS SLOT                 ; Why isn't this set at boot ???
-37F8:01             413 IBPDRV      DFB 1           ; PREVIOUS DRIVE
-37F9:00 00          414 IBSPAR      DS 2,0          ; IOB SPARES                    ; <a class='struct' name='_37F9'>wastes</a> 2 bytes
-37FB:00 01 EF D8    415 DCT         DFB 0,1,$EF,$D8 ;                               ; <a class='magic'  name='_37FB'>magic number</a>
-37FF:00             416             DS 1,0          ; FILL IN 3700 PAGE             ; <a class='mem'    name='_37FF'>wastes</a> 1 byte
+37F6:00             411 IBSMOD      DFB <span class='n'>0</span>           ; STATUS MODIFIER BYTE
+37F7:60             412 IBPSLT      DFB <span class='n'>6</span>*<span class='n'>16</span>        ; PREVIOUS SLOT                 ; Why isn't this set at boot ???
+37F8:01             413 IBPDRV      DFB <span class='n'>1</span>           ; PREVIOUS DRIVE
+37F9:00 00          414 IBSPAR      DS <span class='n'>2</span>,<span class='n'>0</span>          ; IOB SPARES                    ; <a class='struct' name='_37F9'>wastes</a> 2 bytes
+37FB:00 01 EF D8    415 DCT         DFB <span class='n'>0</span>,<span class='n'>1</span>,$<span class='n'>EF</span>,$<span class='n'>D8</span> ;                               ; <a class='magic'  name='_37FB'>magic number</a>
+37FF:00             416             DS <span class='n'>1</span>,<span class='n'>0</span>          ; FILL IN 3700 PAGE             ; <a class='mem'    name='_37FF'>wastes</a> 1 byte
                     417             PAGE
                     418 ;
                     419 ; FILE DIRECTORY DEFINITION                                 ; i-node; meta-data: array of sectors belonging to file
