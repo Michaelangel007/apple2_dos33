@@ -5704,33 +5704,33 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     387 ;THE IOB IS USED FOR THE INTERFACE
                     388 ;BETWEEN DOS AND THE DISK I/O ROUTINES
                     389 ;
-                    390 <a class='e' name='IOB'      >IOB         </a>EQU *
-37E8:01             391 <a class='d' name='IBTYPE'   >IBTYPE      </a>DFB <span class='n'>1</span>           ; IOB TYPE CODE                 ; <a class='struct' name='_37e8'>wastes</a> 1 bytes -- hard-coded to 1 !
-37E9:60             392 <a class='d' name='IBSLOT'   >IBSLOT      </a>DFB <span class='n'>6</span>*<span class='n'>16</span>        ; CONTROLELR SLOT NO.
-37EA:01             393 <a class='d' name='IBDRVN'   >IBDRVN      </a>DFB <span class='n'>1</span>           ; DRIVE NUMBER
-37EB:00             394 <a class='d' name='IBVOL'    >IBVOL       </a>DFB $<span class='n'>00</span>         ; VOLUME NUMBER
-37EC:00             395 <a class='d' name='IBTRK'    >IBTRK       </a>DFB <span class='n'>0</span>           ; TRACK NUMBER
-37ED:00             396 <a class='d' name='IBSECT'   >IBSECT      </a>DFB <span class='n'>0</span>           ; SECTOR NUMBER
-37EE:FB 37          397 <a class='d' name='IBDCTP'   >IBDCTP      </a>DW DCT                                          ; Why is the Device Table even exposed to the caller????
-37F0:00 00          398 <a class='d' name='IBBUFP'   >IBBUFP      </a>DW <span class='n'>0</span>            ; POINTER TO BUFFER
-37F2:00 01          399 <a class='d' name='IBDLEN'   >IBDLEN      </a>DW <span class='n'>256</span>          ; DATA LENGTH
-37F4:00             400 <a class='d' name='IBCMD'    >IBCMD       </a>DFB <span class='n'>0</span>           ; COMMAND
-                    401 <a class='e' name='IBCNUL'   >IBCNUL      </a>EQU 0           ; 0-NULL COMMAND                ; Stop with the shitty API already
-                    402 <a class='e' name='IBCRTS'   >IBCRTS      </a>EQU 1           ; 1-READ TRACK, SECTOR
-                    403 <a class='e' name='IBCWTS'   >IBCWTS      </a>EQU 2           ; 2-WRITE TRACK,SECTOR
-                    404 <a class='e' name='IBFMT'    >IBFMT       </a>EQU 4           ; 4-FORMAT DISK
-                    405 <a class='e' name='IBBOOT'   >IBBOOT      </a>EQU 8           ; 8-WRITE BOOT
-37F5:00             406 <a class='d' name='IBSTAT'   >IBSTAT      </a>DFB <span class='n'>0</span>           ; STATUS
-                    407 <a class='e' name='IBRERR'   >IBRERR      </a>EQU $80         ; READ ERR                      ; Interleaving a structure and const types makes for poor readability
-                    408 <a class='e' name='IBDERR'   >IBDERR      </a>EQU $40         ; DRIVE ERR
-                    409 <a class='e' name='IBVMME'   >IBVMME      </a>EQU $20         ; VOLUME MISMATCH
-                    410 <a class='e' name='IBWPER'   >IBWPER      </a>EQU $10         ; WRITE PROTECT ERROR
-37F6:00             411 <a class='d' name='IBSMOD'   >IBSMOD      </a>DFB <span class='n'>0</span>           ; STATUS MODIFIER BYTE
-37F7:60             412 <a class='d' name='IBPSLT'   >IBPSLT      </a>DFB <span class='n'>6</span>*<span class='n'>16</span>        ; PREVIOUS SLOT                 ; Why isn't this set at boot ???
-37F8:01             413 <a class='d' name='IBPDRV'   >IBPDRV      </a>DFB <span class='n'>1</span>           ; PREVIOUS DRIVE
-37F9:00 00          414 <a class='d' name='IBSPAR'   >IBSPAR      </a>DS <span class='n'>2</span>,<span class='n'>0</span>          ; IOB SPARES                    ; <a class='struct' name='_37F9'>wastes</a> 2 bytes
-37FB:00 01 EF D8    415 <a class='d' name='DCT'      >DCT         </a>DFB <span class='n'>0</span>,<span class='n'>1</span>,$<span class='n'>EF</span>,$<span class='n'>D8</span> ;                               ; <a class='magic'  name='_37FB'>magic number</a> More crappy formatting, defined in <a class='file' href='#RWTSONE'>RWTSONE</a>
-                                                                                    ; Put these on values on one per line for <b>readability</b> like this:
+                    390 <a class='e' name='IOB'      >IOB         </a>EQU *                                           ;    Descriptive Names
+37E8:01             391 <a class='d' name='IBTYPE'   >IBTYPE      </a>DFB <span class='n'>1</span>           ; IOB TYPE CODE                 ; [0] IOB_OFFSET_TYPE <a class='struct' name='_37e8'>wastes</a> 1 bytes -- hard-coded to 1 !
+37E9:60             392 <a class='d' name='IBSLOT'   >IBSLOT      </a>DFB <span class='n'>6</span>*<span class='n'>16</span>        ; CONTROLELR SLOT NO.           ; [1] IOB_OFFSET_SLOT
+37EA:01             393 <a class='d' name='IBDRVN'   >IBDRVN      </a>DFB <span class='n'>1</span>           ; DRIVE NUMBER                  ; [2] IOB_OFFSET_DRV_NUM
+37EB:00             394 <a class='d' name='IBVOL'    >IBVOL       </a>DFB $<span class='n'>00</span>         ; VOLUME NUMBER                 ; [3] IOB_OFFSET_VOL
+37EC:00             395 <a class='d' name='IBTRK'    >IBTRK       </a>DFB <span class='n'>0</span>           ; TRACK NUMBER                  ; [4] IOB_OFFSET_TRK
+37ED:00             396 <a class='d' name='IBSECT'   >IBSECT      </a>DFB <span class='n'>0</span>           ; SECTOR NUMBER                 ; [5] IOB_OFFSET_SEC
+37EE:FB 37          397 <a class='d' name='IBDCTP'   >IBDCTP      </a>DW <span class='v' href='#DCT'>DCT</a>                                          ; [6] IOB_OFFSET_DCT   Why is the Device Characteristics Table
+37F0:00 00          398 <a class='d' name='IBBUFP'   >IBBUFP      </a>DW <span class='n'>0</span>            ; POINTER TO BUFFER             ; [8] IOB_OFFSET_BUF   even exposed to the caller???
+37F2:00 01          399 <a class='d' name='IBDLEN'   >IBDLEN      </a>DW <span class='n'>256</span>          ; DATA LENGTH                   ; [A] IOB_OFFSET_LEN   These values never change!
+37F4:00             400 <a class='d' name='IBCMD'    >IBCMD       </a>DFB <span class='n'>0</span>           ; COMMAND                       ; [C] IOB_OFFSET_CMD
+                    401 <a class='e' name='IBCNUL'   >IBCNUL      </a>EQU 0           ; 0-NULL COMMAND                ;                      Stop with the shitty API already!
+                    402 <a class='e' name='IBCRTS'   >IBCRTS      </a>EQU 1           ; 1-READ TRACK, SECTOR          ;     IB_CMD_R
+                    403 <a class='e' name='IBCWTS'   >IBCWTS      </a>EQU 2           ; 2-WRITE TRACK,SECTOR          ;     IB_CMD_W
+                    404 <a class='e' name='IBFMT'    >IBFMT       </a>EQU 4           ; 4-FORMAT DISK                 ;     IB_CMD_FORMAT
+                    405 <a class='e' name='IBBOOT'   >IBBOOT      </a>EQU 8           ; 8-WRITE BOOT                  ;     IB_CMD_X_BOOT
+37F5:00             406 <a class='d' name='IBSTAT'   >IBSTAT      </a>DFB <span class='n'>0</span>           ; STATUS                        ; [D] IOB_OFFSET_STATUS
+                    407 <a class='e' name='IBRERR'   >IBRERR      </a>EQU $80         ; READ ERR                      ;     IB_ERR_R         Interleaving const and struct types
+                    408 <a class='e' name='IBDERR'   >IBDERR      </a>EQU $40         ; DRIVE ERR                     ;     IB_ERR_DRV       makes for extremely poor readability
+                    409 <a class='e' name='IBVMME'   >IBVMME      </a>EQU $20         ; VOLUME MISMATCH               ;     IB_ERR_VOL
+                    410 <a class='e' name='IBWPER'   >IBWPER      </a>EQU $10         ; WRITE PROTECT ERROR           ;     IB_ERR_W
+37F6:00             411 <a class='d' name='IBSMOD'   >IBSMOD      </a>DFB <span class='n'>0</span>           ; STATUS MODIFIER BYTE          ; [E] IOB_OFFSET_MOD
+37F7:60             412 <a class='d' name='IBPSLT'   >IBPSLT      </a>DFB <span class='n'>6</span>*<span class='n'>16</span>        ; PREVIOUS SLOT                 ; [F] IOB_OFFSET_PREV_SLOT   Why isn't this set at boot ???
+37F8:01             413 <a class='d' name='IBPDRV'   >IBPDRV      </a>DFB <span class='n'>1</span>           ; PREVIOUS DRIVE                ;[10] IOB_OFFSET_PREV_DRV
+37F9:00 00          414 <a class='d' name='IBSPAR'   >IBSPAR      </a>DS <span class='n'>2</span>,<span class='n'>0</span>          ; IOB SPARES                    ;[11] <a class='struct' name='_37F9'>wastes</a> 2 bytes
+37FB:00 01 EF D8    415 <a class='d' name='DCT'      >DCT         </a>DFB <span class='n'>0</span>,<span class='n'>1</span>,$<span class='n'>EF</span>,$<span class='n'>D8</span> ;                               ; <a class='magic'  name='_37FB'>magic number</a> More crappy formatting, values defined in <a class='file' href='#RWTSONE'>RWTSONE</a>
+                                                                                    ; Put these values on one per line for <b>readability</b> like this:
                                                                                     ;     DFB 0    ; Device Type, $0 = Disk II
                                                                                     ;     DFB 1    ; Phases per Track
                                                                                     ;     DW $D8EF ; Motor on time in 100 microseconds
