@@ -1158,7 +1158,7 @@ With that "legalese" out of the way ... enjoy the read!
 1C4D:00 00 00 00    00342 <a class='line' name='RELOCTR.306'>306</a>             DFB <span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>                                     ; <a class='mem' name="_1C4D">wastes</a> 12 bytes -- never referenced !
 1C51:00 00 00 00    00343 307             DFB <span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>
 1C55:00 00 00 00    00344 308             DFB <span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>
-                    00345 309 <a class="d"    name="CDETAB"     id="CDETAB"     >CDETAB      </a>EQU *
+                    00345 309 <a class="d"    name="CDETAB"     id="CDETAB"     >CDETAB      </a>EQU *                                           ; 1C59:1C = v1980, 20 = v1983
 1C59:20             00346 310             DFB <span class='n'>8</span>*<span class='n'>4</span>                                         ; <a class='magic' name='#_1C28'>magic number</a> <i>Really?!</i> We can't do <span class='macro'>CDETAB_LEN DFB CDETAB_END - CDETAB_START</span> ???
 1C5A:84 1D          00347 311             DW  <a class="x" href="#SC1"   >SC1   </a>                                      ; [0]
 1C5C:84 28          00348 312             DW  <a class="x" href="#EC1"   >EC1   </a>
