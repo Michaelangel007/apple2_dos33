@@ -3565,14 +3565,14 @@ With that "legalese" out of the way ... enjoy the read!
 2AFD:E0 00          104 <a class='f' name='USERENT'>USERENT     </a>CPX #<span class='n'>0</span>          ;IF X=0 THEN FILE CREATED IF NOT
 2AFF:F0 02          105             BEQ <a class='x' href='#USRCR'>USRCR</a>       ; FOUND. NOTE: FILE NOT FOUND ERROR STILL IS RETURNED ; === <a class='ts' href='#T1SA'>T1SA</a> ===
 2B01:A2 02          106             LDX #<span class='n'>2</span>          ;INDICATE NO CREATE ALLOWED
-2B03:8E 5F 2A       107 <a class='f' name='USRCR'  >USRCR       </a>STX <a class='v' href='#CMDNO'>CMDNO</a>       ;SET UP FOR CREATE CAPIBILITY   ; *spelling* CAPABILITY /sarcasm Is that like our potential to be cap'd or knock'd off??
-                    108 <a class='f' name='DOSENT' >DOSENT      </a>EQU *
+2B03:8E 5F 2A       107 <a class='f' name='USRCR'  >USRCR       </a>STX <a class='v' href='#CMDNO'>CMDNO</a>       ;SET UP FOR CREATE CAPIBILITY   ; *spelling* CAPABILITY 
+                    108 <a class='f' name='DOSENT' >DOSENT      </a>EQU *                                           ; /sarcasm Is that like our potential to be cap'd or knock'd off :-)
 2B06:BA             109             TSX
 2B07:8E 9B 33       110             STX <a class='v' href='#ENTSTK'>ENTSTK</a>
 2B0A:20 6A 2E       111             JSR <a class='x' href='#CLCFCB'>CLCFCB</a>      ; GO CALCULATE FCB
 2B0D:AD BB 35       112             LDA <a class='v' href='#CCBREQ'>CCBREQ</a>      ; GET REQUEST
-2B10:C9 0D          113             CMP #CRQMAX     ; TTEST REQ RANGE               ; /sarcasm South Park: Jimmy: A-a-n-d you still have an off-by-one bug allocation in array <a class='v' href='#CMDVT'>CMDVT</a>!
-2B12:B0 0B          114             BCS <a class='x' href='#ERR2'>ERR2</a>
+2B10:C9 0D          113             CMP #CRQMAX     ; TTEST REQ RANGE               ; /sarcasm South Park: Jimmy
+2B12:B0 0B          114             BCS <a class='x' href='#ERR2'>ERR2</a>                                        ; <i>A-a-n-d you still have an of-of-of-off-by-one bug allocation in array <a class='v' href='#CMDVT'>CMDVT</a>!</i>
 2B14:0A             115             ASL A
 2B15:AA             116             TAX
 2B16:BD CA 2A       117             LDA <a class='v' href='#CMDVT'>CMDVT</a>+<span class='n'>1</span>,X
