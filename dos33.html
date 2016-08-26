@@ -1193,38 +1193,38 @@ With that "legalese" out of the way ... enjoy the read!
 <pre>
                     001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*                              ; === Page <a class='page' name='page48'>48</a> ===
                     002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>
-1C81:00 00 00       <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; <a class='disk' name='_1C81'>disk</a> wastes 127 bytes padding to end of sector
-1C84:00 00 00 00                                                                    ; Technically only 82 bytes ($1CD3-$1C81 = $52) are wasted
-1C88:00 00 00 00                                                                    ; but <span class="macro">FTAB DW *-45</span> is sloppy code
-1C8C:00 00 00 00                                                                    ; Why isn't this "allocated" at run-time?
-1C90:00 00 00 00                                                                    ; Meaning this should be placed <b>after</b> ALL the code.
-1C94:00 00 00 00                                                                    ; See: <a class='dumb' href="#WastedDisk">Wasted Disk Space</a>
-1C98:00 00 00 00
-1C9C:00 00 00 00
-1CA0:00 00 00 00
-1CA4:00 00 00 00
-1CA8:00 00 00 00
-1CAC:00 00 00 00
-1CB0:00 00 00 00
-1CB4:00 00 00 00
-1CB8:00 00 00 00
-1CBC:00 00 00 00
-1CC0:00 00 00 00
-1CC4:00 00 00 00
-1CC8:00 00 00 00                                                                    ; ECLOSE, EDEL, EPOS, RWPOSN, CLOSFILE call 
-1CCC:00 00 00 00                                                                    ;   <a class="x" href="#FILSRC">FILSRC</a> (File Search)
-1CD0:00 00 00 00                                                                    ; [00] $1CD3 ($9CD3) Used by <a class="x" href="#TSINIT">TSINIT</a>, init @ Line #<a class='line' href='#BLDFTAB.036'>036</a>
-1CD4:00 00 00 00
-1CD8:00 00 00 00
-1CDC:00 00 00 00
-1CE0:00 00 00 00
-1CE4:00 00 00 00
-1CE8:00 00 00 00                                                                    ; See init @ <a class="x" href="#BFT1">BFT1</a>, Line #<a class='line' href='#BLDFTAB.041'>041</a>
-1CEC:00 00 00 00                                                                    ; [1E] $1CF1 ($9CF1): $9CA6 (buf1 ptr)
-1CF0:00 00 00 00                                                                    ; [20] $1CF3 ($9CF3): $9BA6 (buf2 ptr)
-1CF4:00 00 00 00                                                                    : [22] $1CF5 ($9CF5): $9AA6 (buf3 ptr)
-1CF8:00 00 00 00                                                                    ; $1CF8 Use by <a class="x" href="#TSNXT">TSNXT</a>
-1CFC:00 00 00 00
+1C81:FC FD FD       <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; <a class='disk' name='_1C81'>disk</a> wastes 127 bytes padding to end of sector
+1C84:FD FC FD FC                                                                    ; Technically only 82 bytes ($1CD3-$1C81 = $52) are wasted
+1C88:FC FC FE FE                                                                    ; but <span class="macro">FTAB DW *-45</span> is sloppy code
+1C8C:FC FE FC FC                                                                    ; Why isn't this "allocated" at run-time?
+1C90:FD FE FC FF                                                                    ; Meaning this should be placed <b>after</b> ALL the code.
+1C94:FC FD FC FC                                                                    ; See: <a class='dumb' href="#WastedDisk">Wasted Disk Space</a>
+1C98:FC FF FC FF
+1C9C:FC FE FF FF
+1CA0:FF FF FD FE
+1CA4:FC FD FC FC
+1CA8:FC FC FD FC
+1CAC:FE FE FE FC
+1CB0:FD FF FC FC
+1CB4:FC FE FC FD
+1CB8:FC FC FC FE
+1CBC:FC FD FC FC
+1CC0:FC FD FC FD
+1CC4:FD FC FC FC
+1CC8:FD FD FC FE                                                                    ; ECLOSE, EDEL, EPOS, RWPOSN, CLOSFILE call 
+1CCC:FC FC FE FC                                                                    ;   <a class="x" href="#FILSRC">FILSRC</a> (File Search)
+1CD0:FC FD FD FC                                                                    ; [00] $1CD3 ($9CD3) Used by <a class="x" href="#TSINIT">TSINIT</a>, init @ Line #<a class='line' href='#BLDFTAB.036'>036</a>
+1CD4:FF FE FC FC
+1CD8:FC FC FD FC
+1CDC:FD FE FC FC
+1CE0:FD FC FF FC
+1CE4:FE FF FF FF
+1CE8:FD FC FE FE                                                                    ; See init @ <a class="x" href="#BFT1">BFT1</a>, Line #<a class='line' href='#BLDFTAB.041'>041</a>
+1CEC:FC FC FE FC                                                                    ; [1E] $1CF1 ($9CF1): $9CA6 (buf1 ptr)
+1CF0:FC FE FC FE                                                                    ; [20] $1CF3 ($9CF3): $9BA6 (buf2 ptr)
+1CF4:FC FE FE FC                                                                    : [22] $1CF5 ($9CF5): $9AA6 (buf3 ptr)
+1CF8:FE FE FC FC                                                                    ; $1CF8 Use by <a class="x" href="#TSNXT">TSNXT</a>
+1CFC:FE FC FD FD
                     004 ;
                     005 ;RELOCATION TABLES
                     006 ;
