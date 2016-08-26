@@ -2281,7 +2281,7 @@ With that "legalese" out of the way ... enjoy the read!
 2338:F0 03          009             BEQ EBSV1
 233A:4C 00 20       010             JMP CNF         ; THEN ERROR
                     011 <a class='f' name='EBSV1'    >EBSV1       </a>EQU *
-233D:A9 04          012             LDA #<span class='n'>4</span>          ; SET BINARY FILE               ; <a class='magic' name='_233E'>magic number</a> FILE_TYPE_BINARY
+233D:A9 04          012             LDA #<span class='n'>4</span>          ; SET BINARY FILE               ; <a class='magic' name='_233E'>magic number</a> <span class='code'>FILE_TYPE_BINARY EQU 4</span>
                     013             JSR SV1         ; GO OPEN &amp; TEST
                     014             LDA CA+1        ; OUTPUT ADR OF BLOCK
                     015             LDY CA           
@@ -2439,7 +2439,7 @@ With that "legalese" out of the way ... enjoy the read!
                     160             LDX ASSOP       ; GET ADR WHERE TO LOAD
                     161             LDY ASSOP+<span class='n'>1</span>
                     162             JSR LD3         ; GO LOAD
-                    163             JSR MVCSW       ;RESTORE I/O                    ; Why??? Did something change CIN/COUT ???
+                    163             JSR MVCSW       ;RESTORE I/O                    ; <span class='todo'>TODO</span> Why??? Did something change CIN/COUT ???
                     164             JMP (ASEQ)      ;RELOC FOR THIS VERSION OF APPLSOFT
                     165 ;
                     166 <a class='f' name='EIBL'     >EIBL        </a>EQU *
@@ -2703,7 +2703,7 @@ With that "legalese" out of the way ... enjoy the read!
                     150 EX1A        DEC CR
                     151 EX1         JSR RBYTE       ; AND READ A RECORD
                     152             BEQ ICFD4
-                    153             CMP #$8D        ; UNTIL CR                      ; <a class='magic' name='_'>magic number</a> KEY_CR_HI
+                    153             CMP #$8D        ; UNTIL CR                      ; <a class='magic' name='_'>magic number</a> CR_HI
                     154             BNE EX1
                     155             BEQ EX0         ; THEN TEST CR AGAIN
                     156 ;
