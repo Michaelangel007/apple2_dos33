@@ -2580,97 +2580,97 @@ With that "legalese" out of the way ... enjoy the read!
                     028 <a class='f' name='RWP2'     >RWP2        </a>EQU *
 2534:AD 65 2A       029 <!--                           -->            LDA <a class='v' href='#INOPTS'>INOPTS</a>      ; GET IN OPTIONS
 2537:29 06          030 <!--                           -->            AND #R+B        ; WAS IT B OR R
-2539:F0 13          031 <!--                           -->            BEQ <a class='x' href='#RWPR'  >RWPR</a>        ; BR IF NOT
+2539:F0 13          031 <!--                           -->            BEQ <a class='x' href='#RWPR'  >RWPR</a>        ; BR IF NOT                     ; wastes one byte, <span class='code'>BEQ LD1C</span>
 253B:A2 03          032 <!--                           -->            LDX #<span class='n'>3</span>
 253D:BD 6E 2A       033 <a class='f' name='RWP2A'    >RWP2A       </a>LDA CR,X        ; MOVE REL REC
 2540:9D BD 35       034 <!--                           -->            STA <a class='v' href='#CCBRRN'>CCBRRN</a>,X    ; AND REL BYTE
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
-                    055 
-                    056 
-                    057 
-                    058 
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
+                    035             DEX
+                    036             BPL RWP2A
+                    037 RWP3        EQU *
+                    038             LDA #CRQPOS     ; INDICATE POISTION REQUEST     ; *spelling* Position
+                    039             STA CCBREQ
+                    040             JSR DOSGO                                       ; wastes 1 byte next instruction RTS, should be <span class='code'>JMP</span>
+                    041 RWPR        RTS
+                    042             PAGE
+                    043 ;
+                    044 ;
+                    045 ; EINIT - EXECUTE INIT COMMAND
+                    046 ;
+                    047 EINIT       EQU *
+                    048             LDA #V          ; MUST HAVE
+                    049             AND INOPTS      ; VOL OPTION
+                    050             BEQ DFVOL       ;GO SET DEFAULT VOLUME=254
+                    051             LDA CV          ;CAN'T SPECIFY VOL=0
+                    052             BNE EINITA
+                    053 DFVOL       LDA #$FE        ;SET DEFAULT VOLUME NUMBER      ; <a class='magic' name='_'>magic number</a> <span class='code'>DEFAULT_VOLUME</span>
+<hr>                    054             STA CV                                          ; === Page <a class='page' name='page146'>146</a> ===
+                    055 EINITA      LDA ASTART+1
+                    056             STA CCBBSA
+                    057             LDA #CRQFMT
+                    058             JSR OPEN
+                    059             JMP ESAVE
+                    060 ;
+                    061 ;
+                    062 ; ECAT - PRINT CATALOG
+                    063 ;
+                    064 <a class='f' name='ECAT'     >ECAT        </a>EQU *
+256E:A9 06          065             LDA #<a class='e' href='#CRQDIR'>CRQDIR</a>
+2570:20 AA 22       066             JSR <a class='x' href='#OPEN'>OPEN</a>        ; GO PRETEND OPEN
+2573:AD BF 35       067             LDA <a class='v' href='#CCBVOL'>CCBVOL</a>
+2576:8D 66 2A       068             STA <a class='v' href='#CV'>CV</a>
+2579:60             069             RTS
+                    070             PAGE
+                    071 ;
+                    072 ; EAS - EXECUTE APPLESOFT REQUEST
+                    073 ;
+                    074 EAS         EQU *
+                    075             LDA #ATSTV      ; GET APPLESOFT TEST VALUE
+                    076             JSR SWTST       ; GO SWITCH AND TEST
+                    077             BEQ GOINIT      ; BR IF APPLESOFT
+                    078             LDA #<span class='n'>0</span>                                          ; <a class='magic' name='_'>magic number</a> LANGUAGE_APPLESOFT
+                    079             STA ASIBSW
+                    080 ;
+                    081 EAS0        EQU *
+                    082             LDY #<span class='n'>30</span>                                         ; <a class='magic' name='_'>magic number</a> MAX_FILENAME_LEN-1
+                    083             JSR CLRFNA                                      ; ClearFileName1
+                    084             LDX #FASBL
+                    085 EAS1        LDA FASB-1,X    ; MOVE SYSTEM FILENAME          ; No, <i>copy</i>
+                    086             STA FNAME1-1,X
+                    087             DEX
+                    088             BNE EAS1
+                    089 ;
+                    090 EAS2        EQU *
+                    091             LDA #$C0                                        ; <a class='magic' name='_'>magic number</a> $80 + $40
+                    092             STA ISTATE      ; FOR RAM APPLESOFT
+                    093             JMP ERUN
+                    094 ;
+                    095 ; EINT - EXECUTE INTEGER REQUEST
+                    096 ;
+                    097 EINT        EQU *
+                    098             LDA #ITSTV      ; GET IB TEST VALUE
+                    099             JSR SWTST       ; GO SWITCH AND TEST
+                    100             BEQ GOINT       ;BR IF INTIGER BASIC                ; *spelling* Integer
+                    101             LDA #<span class='n'>1</span>          ;LANGUAGE NOT AVIALABLE, TOO BAD... ; *spelling* Available <a class='magic' name='_'>magic number</a>
+                    102             JMP ERROR
+                    103 GOINT       LDA #0          ;RESET RSTATE
+                    104             STA RSTATE      ; FOR NON APPLESOFT PROG.
+                    105 GOINIT      EQU *
+                    106             JMP DBINIT      ; GO INIT DOS
+                    107 <a class='f' name='SWTST'    >SWTST       </a>EQU *
+                    108             CMP AITSTL      ; TEST CURRENT VALUE
+                    109             BEQ SWTR
+                    110             STA $<span class='n'>C080</span>       ; TRY SWITCH 1                  ; <a class='magic' name='_'>magic number</a>
+                    111             CMP AITSTL      ; TEST AGAIN
+                    112             BEQ SWTR        ; BR IF NOW SAME
+                    113             STA $<span class='n'>C081</span>       ; TRY SWITCH 2                  ; <a class='magic' name='_'>magic number</a>
+                    114             CMP AITSTL      ; TEST AND
+                    115 SWTR        RTS             ; RETURN
+                    116 ;
+<hr>                    117             PAGE                                            ; === Page <a class='page' name='page147'>147</a> ===
+                    118 ;
+                    119 ; EEXEC - EXECUTE EXEC CMD
+                    120 ;
+                    121 EEXEC       EQU *
                     122 
                     123 
                     124 
