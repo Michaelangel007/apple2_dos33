@@ -2799,8 +2799,8 @@ With that "legalese" out of the way ... enjoy the read!
                     247             LDA CCBDAT      ; GET THE DATA BYTE
                     248             RTS
                     249 MVEFTA      EQU *
-269D:AD B5 2A       250             LDA EFTABA+1        ; MOVE TABLE ADR
-26A0:85 41          251             STA ZPGWRK+1        ; NO ZPG
+269D:AD B5 2A       250             LDA EFTABA+1    ; MOVE TABLE ADR
+26A0:85 41          251             STA ZPGWRK+1    ; NO ZPG
 26A2:AD B4 2A       252             LDA EFTABA
 26A5:85 40          253             STA ZPGWRK
 26A7:60             254             RTS
