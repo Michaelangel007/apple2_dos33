@@ -1658,7 +1658,7 @@ With that "legalese" out of the way ... enjoy the read!
 1F83:AD 00 02       176             LDA LBUFF       ; CHECK FOR PRINTED COMMAND
 1F86:CD B2 2A       177             CMP CCHAR
                     178             BEQ CMDRTN      ; IF PC THEN NO RESET X REG
-<hr>                    179             LDA #$<span class='n'>8D</span>        ; CARRAGE RETURN                ; === Page #<a class='page' name='page47'>47</a>=== <a class='magic'>magic number</a> CR_HI
+<hr>                    179             LDA #$<span class='n'>8D</span>        ; CARRAGE RETURN                ; === Page #<a class='page' name='page47'>47</a>=== <a class='magic'>magic number</a> KEY_CR
                     180             STA <a class='v' href='#LBUFF'>LBUFF</a>       ; TO OUT BUFFER
                     181             LDX #<span class='n'>0</span>          ; RESET TO SOL                  ; StartOfLine
                     182             STX <a class='v' href='#SVX'>SVX</a>
@@ -1693,7 +1693,7 @@ With that "legalese" out of the way ... enjoy the read!
                     211 ; PRRIF - PRINT CR IF MON CMDS
                     212 ;
                     213 <a class='f' name='PRCRIF'   >PRCRIF      </a>EQU *
-                    214             LDA #$<span class='n'>8D</span>        ; ELSE PRINT CR                 ; <a class='magic'>magic number</a> CR_HI
+                    214             LDA #$<span class='n'>8D</span>        ; ELSE PRINT CR                 ; <a class='magic'>magic number</a> KEY_CR
 1FCA:4C C5 1F       215             JMP ORTN1                                       ; <a class='mem' href='_1FCA'>wastes</a> 1 byte; BNE ORTN1
 </pre>
 
@@ -1746,7 +1746,7 @@ With that "legalese" out of the way ... enjoy the read!
 2008:4C A4 1F       045             JMP PRRTN       ; ITS A BASIC INPUT LINE
                     046 <a class='f' name='CNF1'        >CNF1        </a>EQU *
 200B:AD 01 02       047             LDA LBUFF+<span class='n'>1</span>     ; GET NEXT CHAR
-200E:C9 8D          048             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; <a class='magic' name='_'>magic number</a> CR_HI
+200E:C9 8D          048             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; <a class='magic' name='_'>magic number</a> KEY_CR
 2010:D0 06          049             BNE CSERR       ; BR IF CR
 2012:20 5B 27       050             JSR CLRSTS      ; CLEAR THE STATES
 2015:4C 95 1F       051             JMP CMDRTN      ; CNTL-D ONLY
@@ -1879,7 +1879,7 @@ With that "legalese" out of the way ... enjoy the read!
 <hr>                    178 ;                                                           ; === Page <a class='page' name='page19'>19</a> ===
 20E8:20 A4 21       179 <a class='f' name='SP1'    >SP1         </a>JSR GNBC        ; GO GET NON-BLANK CHAR
 20EB:D0 1F          180             BNE SP2         ; BR IF NOT COMMA OR CR
-20ED:C9 8D          181             CMP #$<span class='n'>8D</span>        ; IF CHAR IS COMMA              ; <a class='magic' name='_'>magic number</a> CR_HI
+20ED:C9 8D          181             CMP #$<span class='n'>8D</span>        ; IF CHAR IS COMMA              ; <a class='magic' name='_'>magic number</a> KEY_CR
 20EF:D0 F7          182             BNE SP1         ; THEN GO GET CHAR
                     183 ;
 20F1:AE 5F 2A       184             LDX CMDNO       ; OPTIONS INPUT = I
@@ -2703,7 +2703,7 @@ With that "legalese" out of the way ... enjoy the read!
                     150 EX1A        DEC CR
                     151 EX1         JSR RBYTE       ; AND READ A RECORD
                     152             BEQ ICFD4
-                    153             CMP #$8D        ; UNTIL CR                      ; <a class='magic' name='_'>magic number</a> CR_HI
+                    153             CMP #$<span class='n'>8D</span>        ; UNTIL CR                      ; <a class='magic' name='_'>magic number</a> KEY_CR
                     154             BNE EX1
                     155             BEQ EX0         ; THEN TEST CR AGAIN
                     156 ;
@@ -3423,7 +3423,7 @@ With that "legalese" out of the way ... enjoy the read!
 2A34:43 54 20 43
 2A38:4F 4D 4D 41
 2A3C:4E C4
-2A3E:8D             158             DFB $8D
+2A3E:8D             158             DFB $8D                                         ; KEY_CR
                     159 <a class='d' name='EMDTB'    >EMDTB       </a>EQU *                                           ; Array of (byte) Pointers to start of each error message
 2A3F:00 03 19 19    160             DFB 0,<a class='v' href='#EM1' >EM1</a >,<a class='v' href='#EM2' >EM2</a >,<a class='v' href='#EM3' >EM3</a >                               ; <a class='mem' name='_2A42'>wastes</a> 1 byte for redundant error message EM3
 2A43:24 33 3E 4C    161             DFB <a   class='v' href='#EM4' >EM4</a >,<a class='v' href='#EM5' >EM5</a >,<a class='v' href='#EM6' >EM6</a >,<a class='v' href='#EM7'>EM7</a>
@@ -5515,7 +5515,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     217             LDA LBUFF,X     ;Get it                         
                     218             CMP #'"+$80     ;Closing quote?                 
                     219             BEQ NEXTCHR     ;=&gt; if so                       
-                    220             CMP #$8D        ;End of Line?                   
+                    220             CMP #$<span class='n'>8D</span>        ;End of Line?                   ; <a class='magic' name='_'>magic number</a> KEY_CR
                     221             BNE LUP2        ;=&gt; if not                      
                     222 ULFINI      LDY #$FF        ;Do what DOS wants              
                     223             STY CMDNO                                       
@@ -5525,7 +5525,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     227             BCC CHK4CR      ;=&gt; if not                      
                     228             AND #$DF        ;Make upper case                
                     229             STA LBUFF,X     ;   &amp; restore                   
-                    230 CHK4CR      CMP #$8DF,X     ;End of input?                  
+                    230 CHK4CR      CMP #$<span class='n'>8D</span>,X      ;End of input?                  ; <a class='magic' name='_'>magic number</a> KEY_CR
                     231             BEQ ULFINI      ;=&gt; if so                       
                     232 NEXTCHR     INX             ;Bump to next char              
                     233             BNE LUP1        ;=&gt; always                      </span>; &uarr; No, not always, 256 times
