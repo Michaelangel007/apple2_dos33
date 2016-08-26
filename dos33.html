@@ -2526,23 +2526,23 @@ With that "legalese" out of the way ... enjoy the read!
                     248 IBRUN       EQU *
                     249             LDA IBLMEM      ; RESET START OF VARS
                     250             STA IBSOV
-                    251             LDA IBLMEM+1
-                    252             STA IBSOV+1
-                    253             JMP (CHAIN)
+                    251             LDA IBLMEM+<span class='n'>1</span>
+                    252             STA IBSOV+<span class='n'>1</span>
+24ED:6D 56 1D       253             JMP (CHAIN)
                     254 ;
                     255 ; EHCAIN - EXECUTE CHAIN REQUEST                            ; *spelling* ECHAIN
                     256 ;
                     257 ECHAIN      EQU *
-                    258             JSR ELOAD0      ; LOAD PGM WITHOUT CLOSING READ FILES
-                    259             JSR PRCRIF
-                    260             JSR MVCSW       ; GO RESTORE CHAR I/O SW
-                    261             JMP (CHAIN)
-                    262 ASRUN1      JSR $<span class='n'>D665</span>       ; ROM                           ; <a class='magic' name='_'>magic number</a>
-                    263             STA PROMPT      ;INSURES APPLESOFT RUN DETECT (A=0)
-                    264             STA ASONERR     ;RESET APPLESOFT ONERR FLAG
+24F0:20 16 24       258             JSR ELOAD0      ; LOAD PGM WITHOUT CLOSING READ FILES
+24F3:20 C8 1F       259             JSR PRCRIF
+24F6:20 51 28       260             JSR MVCSW       ; GO RESTORE CHAR I/O SW
+24D9:6C 56 1D       261             JMP (CHAIN)
+24FC:20 65 D6       262 ASRUN1      JSR $<span class='n'>D665</span>       ; ROM                           ; <a class='magic' name='_'>magic number</a>
+24FF:85 33          263             STA PROMPT      ;INSURES APPLESOFT RUN DETECT (A=0)     ; === <a class='ts' name=T1S4'>T1S4</a> ===
+2501:85 D8          264             STA ASONERR     ;RESET APPLESOFT ONERR FLAG
 2503:4C D2 D7       265             JMP $<span class='n'>D7D2</span>                                       ; <a class='magic' name='_2503'>magic number</a>
 2506:20 65 0E       266 <a class="f" name="ASRUN2"  >ASRUN2      </a>JSR $<span class='n'>E65</span>        ; RAM                           ; <a class='magic' name='_2506'>magic number</a> <a class="d" href="#AS2VT">AS2VT</a> has pointer to us
-2509:85 33          267             STA <a class="d" href="#PROMPT">PROMPT</a>      ;INSURES APPLESOFT RUN DETECT (A=0) ; (dead code) <a class='mem' name='_2506'>wastes</a> 10 bytes on Apple ][+ or later
+2509:85 33          267             STA <a class="d" href="#PROMPT">PROMPT</a>      ;INSURES APPLESOFT RUN DETECT (A=0)     ; (dead code) <a class='mem' name='_2506'>wastes</a> 10 bytes on Apple ][+ or later
 250B:85 D8          268             STA <a class="d" href="#ASONER">ASONER</a>      ;RESET APPLESOFT ONERR FLAG     ;
 250D:4C D4 0F       269             JMP $<span class='n'>FD4</span>                                        ; <a class='magic' name='_250D'>magic number</a>
 </pre>
