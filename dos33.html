@@ -2816,214 +2816,214 @@ With that "legalese" out of the way ... enjoy the read!
                     005 <a class="f" name="DOSGO"       >DOSGO       </a>EQU *
 26A8:20 06 2B       006             JSR DOSENT      ; GO TO DOS
 26AB:90 16          007             BCC DG3         ; BR IF NOT ERROR
-                    008 
-                    009 
-                    010 
-                    011 
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
-                    055 
-                    056 
-                    057 
-                    058 
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
-                    165 
-                    166 
-                    167 
-                    168 
-                    169 
-                    170 
-                    171 
-                    172 
-                    173 
-                    174 
-                    175 
-                    176 
-                    177 
-                    178 
-                    179 
-                    180 
-                    181 
-                    182 
-                    183 
-                    184 
-                    185 
-                    186 
-                    187 
-                    188 
-                    189 
-                    190 
-                    191 
-                    192 
-                    193 
-                    194 
-                    195 
-                    196 
-                    197 
-                    198 
-                    199 
-                    200 
-                    201 
-                    202 
-                    203 
-                    204 
-                    205 
-                    206 
-                    207 
-                    208 
-                    209 
-                    210 
-                    211 
-                    212 
-                    213 
-                    214 
-                    215 
+                    008 ;
+26AD:AD C5 35       009             LDA CCBSTA      ;GET RETURN CODE
+26B0:C9 05          010             CMP #5                                          ; <a class='magic' name='_26B1'>magic number</a>
+26B2:F0 03          011             BEQ YESEOF
+26B4:4C 5E 36       012             JMP CLOSFILE    ;NO. CLOSE &amp; COMPLAIN
+26B7:4C 92 36       013 YESEOF      JMP EOFFIX      ;MAYBE FIX IT UP?
+26BA:EA             014             NOP                                             ; <a class='mem' name='_26BA'>wastes</a> 1 byte
+                    015 ***************************
+                    016 *
+                    017 * DOS 3.3  (REV B) PATCH
+                    018 *
+                    019 ***************************
+                    020             DO <a class='e' href='#DOS33B'>DOS33B</a>
+26BB:20 69 3A       021 DOSGO2A     JSR MOVEOF      ; MOVE END OF FILE PATCH        ; Called from <a class='x' href='#BACK'>BACK</a>
+                    022             ELSE<span class='macro'>
+                    023             NOP                                             
+                    024 DOSGO2A     NOP                                             </span>Why isn't this label on the previous line???<span class='macro'>
+                    025             NOP                                             </span>
+                    026             FIN
+26BE:A2 00          027             LDX #0          ; SET OTHER EIF
+26C0:8E C3 35       028             STX CCBDATA
+26C3:60             029 DG3         RTS
+                    030 ;
+                    031             PAGE
+                    032 ;
+                    033 ; ERROR ROUTINE
+                    034 ;
+26C4:A9 0B          035 <a class='f' name='ESYNTX'   >ESYNTX      </a>LDA #CREFLK+<span class='n'>1</span>                                   ; <i>I'd like to buy a vowel, 'A'.</i> 
+26C6:D0 0A          036             BNE ERROR                                       ; Sorry, we're fresh out.
+26C8:A9 0C          037 ENFA        LDA #CREFLK+2
+26CA:D0 06          038             BNE ERROR                                       ; &darr; (always)
+26CC:A9 0E          039 MFERR       LDA #CREFLK+4
+26CE:D0 02          040             BNE ERROR                                       ; &darr; (always) <a class='mem' name='_26CE'>wastes</a> 1 byte, $2C bit $abs to skip next instruction
+                    041 ETYP        EQU *
+26D0:A9 0D          042 ERNU1       LDA #CREFLK+3
+                    043 ;                                                           ; Intentional fall into ERROR
+                    044 ERROR       EQU *
+26D2:8D 5C 2A       045             STA SVA         ; SAVE MSG NUMBER
+26D5:20 E6 3F       046             JSR CLRSTS1     ;PATCH TO CLR RSTATE TOO (WAS JSR CLRSTS)
+26D8:AD B6 2A       047             LDA ASIBSW      ; GET AS/IN BASIC SWITCH
+26DB:F0 04          048             BEQ ERNAS       ; BR IF NOT APPLESOFT
+26DD:A5 D8          049             LDA ASONERR     ;GET AS ERR FLAG
+26DF:30 0E          050             BMI ERRTN       ; BRT IF ON ERR IS GO
+                    051 ERNAS       EQU *
+26E1:A2 00          052             LDX #0
+<hr>26E3:20 00 27       053             JSR EMPR        ; GO OUTPUT                     ; === Page <a class='page' name='page41'>41</a> ===
+                    054             LDX SVA         ; GET SAVE MSG
+                    055             JSR EMPR        ; GO OUTPUT MSG
+                    056             JSR PRCRIF      ;OUTPUT A CARRIAGE RETURN AFTER MESSAGE
+                    057 ERRNT       JSR MVCSW       ; GO MOVE CHAR I/ SW
+                    058             JSR TSTRUN
+                    059             LDX SVA
+                    060             LDA #03                                         ; <a class='magic' name='_'>magic number</a>
+                    061             BCS ERRTN1      ;DON'T GOTO BREAK HANDLER IF NOT RUNNING
+26FC:6C 5A 1D       062             JMP (BREAK)
+26FF:6C 5E 1D       063 ERRTN1      JMP (CONT)      ;REENTER CONT IF NOT RUN        ; === <a class='ts' href='#T1S6'>T1S6</a> ===
+                    064 ;
+                    065 EMPR        EQU *
+2702:BD 3F 2A       066             LDA EMDTB,X     ; GET ITS DISPL
+                    067             TAX             ; INTO X
+                    068 EMPR1       EQU *
+                    069             STX TEMP1A      ; SAVE DISPL
+                    070             LDA EMSG,X      ; GET MSG CHAR
+                    071             PHA             ; SAVE CHAR
+                    072             ORA #$80        ; SET MSB ON
+                    073             JSR ORTN1       ; OUTPUT CHAR
+                    074             LDX TEMP1A      ; GET INDEX
+                    075             INX             ; INCREMENT IT
+                    076             PLA             ; RE-LOAD CHAR
+                    077             BPL EMPR1       ; BR IF MORE CHARS
+                    078             RTS             ; DONE
+                    079             PAGE
+                    080 ;
+                    081 ; OPNSUP - OPEN SET UP
+                    082 ;
+                    083 OPNSUP      EQU *                                           ; If only these were contiguous
+271A:AD 66 2A       084             LDA CV          ; VOLUME
+271D:8D BF 35       085             STA CCBVOL      ;
+                    086             LDA CD          ; DRIVE
+                    087             STA CCBDRV
+                    088             LDA CS          ; SLOT
+                    089             STA CCBSLT
+                    090             LDA FN1ADR      ; FILENAME 1 ADR
+                    091             STA CCBFN1
+                    092             LDA FN1ADR+1
+                    093             STA CCBFN1+1
+                    094             LDA ZPGWRK
+                    095             STA CFTABA
+                    096             LDA ZPGWRK+1
+                    097             STA CFTABA+1
+                    098             RTS
+                    099 ;
+                    100 ; MVFN1 - MOVE FILE NAME 1 TO FILE PTR
+                    101 ;
+                    102 MVFN1       EQU *
+2743:A0 1D          103             LDY #<span class='n'>29</span>                                         ; <a class='magic' name='_'>magic number</a> <span class='code'>MAX_FILENAME-1</span>
+                    104 MVFN1A      LDA FNAME1,Y
+                    105             STA (ZPGWRK),Y
+                    106             DEY
+                    107             BPL MVFN1A
+                    108             RTS
+                    109 ;
+                    110 ; MVBUFP - MOVE BUFFER PTR TO CCB
+                    111 ;
+                    112 MVBUFP      EQU *
+274E:A0 1E          113             LDY #<span class='n'>30</span>                                         ; <a class='magic' name='_274F'>magic number</a> <span class='code'>MAX_FILENAME</span>
+2750:B1 40          114 MVBP1       LDA (ZPGWRK),Y
+2752:99 A9 35       115             STA CCBFCB-<span class='n'>30</span>,Y                                 ; <a class='magic' name='_2752'>magic number</a> <span class='code'>MAX_FILENAME</span>
+2755:C8             116             INY
+2756:C0 26          117             CPY #<span class='n'>38</span>                                         ; <a class='magic' name='_2756'>magic number</a> <span class='code'>MAX_FILENAME + HEADER.SIZE</span> (See <a class='file' href='#BLDFTAB'>BLDFTAB</a>)
+2758:D0 F6          118             BNE MVBP1
+275A:60             119             RTS
+                    120 ;
+                    121 ; CLRSTS - CLEAR STATES                                     ; <b>Which</b> states??  Input and Ouput
+                    122 ;
+                    123 <a class='f' name='CLRSTS'   >CLRSTS      </a>EQU *
+275B:A0 00          124             LDY #<span class='n'>0</span>
+                    125             STY ISTATE
+                    126             STY OSTATE
+                    <a class='line' name='DOSGOER.127'>127</a>             RTS                                             ; Should be <span class='code'>FLS4 SEC, RTS</span> for <a class='x' href='#FILSRC'>FILSRC</a> not found exit optimization
+                    128             PAGE                                            ; Callers: <a class='x' href='#CMDGO1'>CMDGO1</a>, <a class='x' href='#CNF1'>CNF1</a>, <a class='x' href='#ERROR'>ERROR</a>, <a class='x' href='#INITZ'>INITZ</a>, don't use carry.
+                    129 ;
+                    130 ; FILSRC - SEARCH FOR FILE NAME1
+                    131 ;
+                    132 <a class='f' name='FILSRC'   >FILSRC      </a>EQU *
+2764:A9 00          133             LDA #<span class='n'>0</span>          ; CLEAR SV AVAIL
+2765:85 45          134             STA CNUM+1
+                    135 ;
+2768:20 92 27       136             JSR TSINIT      ; GO INIT SEARCH
+276B:4C 73 27       137             JMP FLS1A                                       ; <a class='mem' name='_276B'>wastes</a> 1 bytes, <a class='x' href='#CLALL'>CLALL</a> has <span class='code'>JSR TSINIT, BNE SKIPNEXT</span> so why JMP ???
+276E:20 9A 27       138 <a class='f' name='FLS1'     >FLS1        </a>JSR TSNXT       ; LOOK AT NEXT
+2771:F0 1D          139             BEQ FLS4        ; BR IF NO NET
+                    140 ;
+2773:20 AA 27       141 <a class='f' name='FLS1A'    >FLS1A       </a>JSR TSTOPN      ; GO TEST OPEN
+2776:D0 0A          142             BNE FLS2        ; BR IF OPEN
+                    143 ;
+                    144             LDA ZPGWRK      ; SAVE AVAIL ENTRY ADR
+                    145             STA CNUM
+                    146             LDA ZPGWRK+<span class='n'>1</span>
+                    147             STA CNUM+<span class='n'>1</span>
+                    148             BNE FLS1        ; GO LOOK SOME MORE
+                    149 ;
+2782:A0 1D          150 FLS2        LDY #<span class='n'>29</span>         ; FILE HAD 30 CHARS             ; <a class='magic' name='_2782'>magic number</a> <span class='code'>MAX_FILENAME-1</span>
+                    151 FLS3        LDA (ZPGWRK),Y  ; GET CHAR
+                    152             CMP FNAME1,Y    TEST CHAR                       ; Missing <span class='code'>;</span> for comment
+                    153             BNE FLS1        ; BR NOT
+                    154             DEY
+                    155             BPL FLS3        ; LOOK AT 30 CHARS
+                    156             CLC             ; FOUND
+                    157             RTS
+                    158 ;
+2790:38             159 FLS4        SEC             ; NOT FOUND                     ;[.. <a class='mem' name='_2790'>wastes</a> 1 byte, these 2 bytes should be moved to Line #<a class='line' href='#DOSGOER.127'>127</a>
+2791:60             160             RTS             ; DONE                          ; ..]
+                    161             PAGE
+                    162 ;
+                    163 ; TSINIT - INITIALIZE FOR FTAB SEARCH
+                    164 ; TSNXT - GET NEXT FTAB ENTRY
+                    165 ;
+                    166 <a class='f' name='TSINIT'   >TSINIT      </a>EQU *
+2792:AD 00 1D       167             LDA FTAB        ; GET 1ST PTR ADR
+2795:AD 01 1D       168             LDX FTAB+1
+2798:D0 0A          169             BNE TSST
+                    170 <a class='f' name='TSNXT'    >TSNXT       </a>EQU *
+279A:A0 25          171             LDY #37         ; GET LINK                      ; <a class='magic' name='_279B'>magic number</a> HEADER.LINK+1 (See <a class='file' href='#BLDFTB'>BLDFTB</a>)
+                    172             LDA (ZPGWRK),Y
+                    173             BEQ TSR         ; BR IF NO LINK
+                    174 ;
+                    175             TAX
+                    176             DEY                                             ; HEADER.LINK+0
+<hr>                    177             LDA (ZPGWRK),Y                                  ; === Page <a class='page' name='page43'>43</a> ===
+                    178 TSST        EQU *
+                    179             STX ZPGWRK+1
+                    180             STA ZPGWRK
+                    181             TXA             ; SET NE CC
+                    182 TSR         RTS             ; RTN
+                    183 ;
+                    184 ; TSTOPN - TST FOR OPEN FILE                                ; TST? Really?? You have to abbreviate the <i>description</i> too ?!
+                    185 ;
+                    186 <a class='f' name='TSTOPN'   >TSTOPN      </a>EQU *
+27AA:A0 00          187             LDY #0          ; GET 1ST CHAR OF FN
+27AC:B1 40          188             LDA (ZPGWRK),Y
+27AE:60             189             RTS
+                    190 ;
+                    191 ; TSTEXC - TEST CURRENT FILE FOR EXECUTE
+                    192 ;
+                    193 <a class='f' name='TSTEXC'   >TSTEXC      </a>EQU *
+27AF:AD B3 2A       194             LDA ESTATE      ; IF ESTATE = 0
+27B2:F0 0E          195             BEQ TXC1        ; THEN NO EXECUTE FILE
+27B4:AD B4 2A       196             LDA EFTABA      ; TEST CURRENT
+27B7:C5 40          197             CMP ZPGWRK
+27B9:D0 08          198             BNE TXC2        ; IS NOT
+27BB:AD B5 2A       199             LDA EFTABA+1
+27BE:C5 41          200             CMP ZPGWRK+1
+27C0:F0 01          201             BEQ TXC2        ; IS
+27C2:CA             202 TXC1        DEX             ; IS NOT
+27C3:60             203 TXC2        RTS             ; DONE                          ; /sarcasm Thanks, Caption Obvious
+                    204             PAGE
+                    205 ;
+                    206 ; TSTFUC - TEST FILE USE CODE FOR PGM
+                    207 ;
+                    208 <a class='f' name='TSTFUC'   >TSTFUC      </a>EQU *
+27C4:4D C2 35       209             EOR CCBFUC
+27C7:F0 0A          <a class='line' name='DOSGOER.210'>210</a>             BEQ TFUCR                                       ; Forces TFUCR to waste 1 byte, should be <span class='code'>BEQ TXC2</span>
+27C9:29 7F          211             AND #$<span class='n'>7F</span>                                        ; <a class='magic' name='_'>magic number</a>
+27CB:F0 06          <a class='line' name='DOSGOER.212'>212</a>             BEQ TFUCR                                       ; Forces TFUCR to waste 1 byte, should be <span class='code'>BEQ TXC2</span>
+27CD:20 EA 22       213             JSR ECLOSE      ; GO CLOSE THE SOB
+27D0:4C D0 26       214             JMP ERNU1
+27D3:60             215 TFUCR       RTS                                             ; <a class='mem' name='_27D3'>wastes</a> 1 byte due to Lines #<a class='line' href='#DOSGOER.210'>210</a> and #<a class='line' href='#DOSGOER.212'>212</a>
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="BLDFTAB">BLDFTAB</a> - Build File Tables, Page <a class="page" name="page4">4</a>, <a class='ts' href='#T1S6'>T1S6</a> @ $D4 - <a class='ts' href='#T1S7'>T1S7</a> @ $83, $<span class='n'>A7D4</span> .. $<span class='n'>A883</span> ===<hr class='join'><hr></div>
@@ -3052,7 +3052,7 @@ With that "legalese" out of the way ... enjoy the read!
                     022 ;   SBUF PTR (2)
                     023 ;   LINK     (2)
                     024 ;
-27D4:               025 <a class="f" name="BLDFTB"     >BLDFTB      </a>EQU *
+                    025 <a class="f" name="BLDFTB"     >BLDFTB      </a>EQU *
 27D4:38             026             SEC
 27D5:AD 00 1D       027             LDA <a class="v" href="#FTAB"  >FTAB</a>        ; START OF FTAB AREA            ;
 27D8:85 40          028             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>      ; IS 1ST FTB PTR                ; $1D00: ptr $1CD3
