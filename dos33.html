@@ -3690,21 +3690,21 @@ With that "legalese" out of the way ... enjoy the read!
 2BE3:E0 2D          100             CPX #<a class='e' href='#DCBLEN'>DCBLEN</a>                                     ; Over-writes unused memory <a class='v' href='#DCBSPR'>DCBSPR</a>
                     101             BNE F01
                     102 ;
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
+                    103             LDA CCBVOL      ; MOVE VOL
+                    104             EOR #$FF        ; INVERT VOL BITS               ; Why??
+                    105             STA DCBVOL
+                    106             LDA CCBDRV      ; MOVE DRIVE
+                    107             STA DCBDRV
+                    108             LDA CCBSLT      ; GET USER SPEC SLOT
+                    109             ASL A           ; SLOT*16
+                    110             ASL A
+                    111             ASL A
+                    112             ASL A
+2BFC:AA             113             TAX
+                    114 <a class='f' name='F01A'     >F01A        </a>EQU *
+2BFD:8E F7 FF       115             STX DCBSLT
+<hr>2C00:A9             116             LDA #<span class='n'>17</span>                                         ;[.. <a class='mem' name='_2C00'>wastes</a> 5 bytes; === <a class='ts' name='T1SB'>T1SB</a> === <a class='magic' name='_2C01'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK</span> 
+2C02:8D FA 35       117             STA <a class='v' href='#DCBVTN'>DCBVTN</a>                                      ; ..]                                          Because this can change???
                     118 
                     119 
                     120 
@@ -4384,8 +4384,8 @@ With that "legalese" out of the way ... enjoy the read!
 3003:AC C4 2A       014             LDY AVTOC+1
 3006:8C F1 37       015             STY IBBUFP+1
                     016 ;
-3009:AE FA 35       017             LDX DCBVTN      ; GET TRACK
-300C:A0 00          018             LDY #<span class='n'>0</span>
+3009:AE FA 35       017             LDX DCBVTN      ; GET TRACK                     ; T11
+300C:A0 00          018             LDY #<span class='n'>0</span>                                               ; S0 <a class='magic' name='_300D'>magic number</a> <span class='code'>FILESYSTEM_VTOC_SECTOR EQU 0</span>
 300E:4C 52 30       019             JMP <a class="x" href="#DCBIO">DCBIO</a>       ; GO DO I/O
                     020             PAGE
                     021 ;
@@ -5002,9 +5002,12 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     022 <a class="d" name="VTOC"  >VTOC        </a>EQU *                                           ; <a class='ts'>T11S0</a> [offset], Right side = normal snarky commentary
 33BB:04             <a class="line" name="FVCBUFS.023">023</a> <a class="d" name="VDOST" >VDOST       </a>DFB 4           ; DOS TYPE                      ; [00] <a class='struct' name='_33BB'>wastes</a> 1 byte -- never referenced !
                                                                                     ;      <a class='magic' name='#_33BC'>magic number</a> /sarcasm If only <span class='code'>FILESYSTEM_TYPE_VTOC EQU $4</span>
-33BC:11             024 <a class="d" name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <i>TRACK</i> not sector
+33BC:11             024 <a class="d" name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <b>TRACK</b> not <i>sector</i> -- <b>read</b> the bloody variable name!
+                                                                                    ;      Used by <a class='x' href='#VTIO'>VTIO</a>
                                                                                     ;      *note* This is only a copy.  To change DOS while running
-                                                                                    ;             $<span class='n'>AC01</span>:11 ($2C01) &rarr; <a class='v' href='#DCBVTN'>DCBVTN</a> @ $B5FA ($35FA) CATALOG Track <span class="todo">TODO</span> FILE/LINE/FUNC
+                                                                                    ;             <a class='x' href='#F01A'>F01A</a>+4:11 &rarr; <a class='v' href='#DCBVTN'>DCBVTN</a> 
+                                                                                    ;              $<span class='n'>2C01</span>:<span class='n'>11</span> &rarr; $35FA
+                                                                                    ;              $<span class='n'>AC01</span>:<span class='n'>11</span> &rarr; $B5FA
 33BD:0F             025 <a class="d" name="VDIRSC">VDIRSC      </a>DFB 15          ; VOLUME DIRECTORY SECTOR       ; [02] Used by File <a class="file" href="#FLOCNXB">FLOCNXB</a>, Func <a class="x" href="#RVDC">RVDC</a>, Line <span class="todo">??</span>
 33BE:04             026 <a class="d" name="VDOSRN">VDOSRN      </a>DFB 4           ; DOS RELEASE NUMBER            ; [03] *sarcasm* I guess <b>VERSION</b> made too much sense.
 33BF:00             027             DFB 0           ; SPARE                         ; [04] <a class='struct' name='_33BF'>wastes</a> 1 byte /sarcasm "<i>Because <b>someday</b> these</i>
@@ -5012,7 +5015,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 33C1:FE             029 <a class="d" name="VVOLNO">VVOLNO      </a>DFB $FE         ; VOLUME NUMBER                 ; [06]          Design for <i>today</i>, not *someday*
 33C2:00 00 00 00    030             DS 32           ; SPARE                         ; [07] <a class='struct' name='_33C2'>wastes</a> 32 bytes, <b>WTF !</b>
 33C6:00 00 00 00                                                                    ;      Gee, here's an idea:
-33CA:00 00 00 00                                                                    ;      Instead of wasting space in the VTOC
+33CA:00 00 00 00                                                                    ;      Instead of <i>wasting space</i> in the VTOC
 33CE:00 00 00 00                                                                    ;        1) Pack our data by removing all the <i>unused crap:</i>
 33D2:00 00 00 00                                                                    ;           Total 1+1+32+8 = <b>42 bytes!</b>
 33D6:00 00 00 00                                                                    ;        2) Put VTOC data as first XX bytes in the <a class='ts'>T11SF</a> CATALOG
@@ -5022,7 +5025,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 33E3:00 00 00 00    032 <a class="d" name="VSPARE">VSPARE      </a>DS 8            ; SPARES                        ; [28] <a class='struct' name='_33E3'>wastes</a> 8 bytes, <i>Oh FFS already ...</i>
 33E7:00 00 00 00    033 ;                                                           ;      Who 1) <i>designed</i>, and 2) <b>implemented</b> this crap?!?!
 33EB:11             034 <a class="d" name="VALCA1">VALCA1      </a>DFB 17          ; ALOCATION ALGORITHM BYTE 1    ; [30] Last allocated track <span class="todo">TODO</span> Cross-Ref
-33EC:01             035 <a class="d" name="VALCA2">VALCA2      </a>DFB 1           ; AA BYTE2                      ; [31] Direction of last tack allocation --  Used by <a class="x" href="#GS4">GS4</a>
+33EC:01             035 <a class="d" name="VALCA2">VALCA2      </a>DFB 1           ; AA BYTE2                      ; [31] Direction of last track allocation --  Used by <a class="x" href="#GS4">GS4</a>
                                                                                     ;           +$01 inwards  to <a class='ts'>T22</a>,
                                                                                     ;           -$FF outwards to <a class='t'>T00</a>.
 33ED:00             036 <a class="d" name="VALCA3">VALCA3      </a>DFB 0           ; AA BYTE3                      ; [32] <a class='struct' name='_33ED'>wastes</a> 1 byte /sarcasm <i>I <b>really</b> don't know what we</i>
@@ -5267,7 +5270,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 35F7:FF             178 <a class="d" name="DCBSLT"     >DCBSLT      </a>DS 1            ; SLOT NUMBER                   ; [26]
 <hr>35F8:FC             179 <a class="d" name="DCBDRV"     >DCBDRV      </a>DS 1            ; DRIVE NUMBER                  ; [27] === Page <a class="page" name="page89">89</a> ===
 35F9:FE             180 <a class="d" name="DCBVOL"     >DCBVOL      </a>DS 1            ; VOLUME DRIVER                 ; [28]
-35FA:FD             181 <a class="d" name="DCBVTN"     >DCBVTN      </a>DS 1            ; VTOC TRACK NUMBER             ; [29]
+35FA:FD             181 <a class="d" name="DCBVTN"     >DCBVTN      </a>DS 1            ; VTOC TRACK NUMBER             ; [29] Why isn't this <span class='code'>DFB 17</span>?? See <a class='x' href='#F01A'>F01A</a>
                     182 ;
 35FB:FC FD FC       183 <a class="d" name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; [2A] <a class="mem" name="_35fb">wastes</a> 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *unused*
                     184 ;
