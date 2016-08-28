@@ -2944,7 +2944,7 @@ With that "legalese" out of the way ... enjoy the read!
 2764:A9 00          133             LDA #<span class='n'>0</span>          ; CLEAR SV AVAIL
 2765:85 45          134             STA CNUM+1
                     135 ;
-2768:20 92 27       136             JSR TSINIT      ; GO INIT SEARCH
+2768:20 92 27       136             JSR <a class='x' href='#TSINIT'>TSINIT</a>      ; GO INIT SEARCH                ; &darr;
 276B:4C 73 27       137             JMP FLS1A                                       ; <a class='mem' name='_276B'>wastes</a> 1 bytes, <a class='x' href='#CLALL'>CLALL</a> has <span class='code'>JSR TSINIT, BNE SKIPNEXT</span> so why JMP ???
 276E:20 9A 27       138 <a class='f' name='FLS1'     >FLS1        </a>JSR TSNXT       ; LOOK AT NEXT
 2771:F0 1D          139             BEQ FLS4        ; BR IF NO NET
@@ -3593,103 +3593,103 @@ With that "legalese" out of the way ... enjoy the read!
                     003 ; FOPEN - OPEN A FILE
                     004 ;
                     005 <a class="f" name="FOPEN"      id="FOPEN"      >FOPEN       </a>EQU *
-2B22:20 28 2B       006             JSR DOPEN
+2B22:20 28 2B       006             JSR <a class='x' href='#DOPEN'>DOPEN</a>                    ; &darr;
 2B24:4C 7F 33       007             JMP GOODIO
                     008 ;
-                    009 
-                    010 
-                    011 
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
-                    055 
-                    056 
-                    057 
-                    058 
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
+                    009 DOPEN       EQU *
+                    010 ;
+                    011             JSR DCBSUP
+                    012 ;
+                    013 ;
+                    014             LDA #1
+                    015             STA DCBSDL+1
+                    016             LDX CCBRLN+1    ; MOVE RECORD LENGTH
+                    017             LDA CCBRLN
+                    018             BNE F01
+                    019             CPX 0
+                    020             BNE F02
+                    021             INX             ; SET RL=256
+                    022 F02         STA DCBRCL
+                    023             STX DFBRCL+1
+                    024 ;
+                    025             JSR FNDFIL      ; GO FIND FILE
+                    026             BCC F03         ; BR IF FOUND
+                    027 ;
+                    028 * CREATE FILE IF COMMAND IS SAVE, OPEN, BSAVE
+                    029 ;
+                    <a class='line' name='FOPCLRW.30'>030</a>             STX TEMP1       ; SAVE DIR. INDEX
+                    031             LDX CMDNO       ;TEST COMMAND FOR CREATE FLAG
+                    032             LDA CMDSTB,X    ; (BIT 0 MUST=1)
+                    033             LDX TEMP1       ;RESTORE DIR INDEX
+                    034             LSR A           ;SHIFT CREFLAG BIT TO CARRY
+                    035             BCS F02B        ;BRANCH ON VALID INSTR.
+                    036             LDA ISTATE      ;FIND OUT IF TRYING TO LOAD APPLESOFT
+2B5A:C9 C0          037             CMP #$C0                                        ; <a class='magic' name='_2B5A'>magic number</a>
+2B5C:D0 03          038             BNE F02A        ; NO GO
+2B5E:4C 5F 33       039             JMP ERROR1                                      ; Which error message?? "LANGUAGE NOT AVAILABLE"
+2B61:4C 73 33       040 F02A        JMP ERROR6      ; PRINT "FILE NOT FOUND" MESSAGE.
+2B64:A9 00          041 F02B        LDA #0                                          ; 0001 Little Endian
+2B66:9D E8 34       042             STA VDFILE+34,X                                 ; <a class='magic' name='_2B67'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+0</span> (See <a class='v' href='#VDFILE'>VDFILE</a>)
+2B69:A9 01          043             LDA #1
+2B6B:9D E7 34       044             STA VDFILE+33,X                                 ; <a class='magic' name='_2B6C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+1</span>
+2B6E:8E 9C 33       045             STX TEMP1       ; SAVE VDIR INDEX               ; Why?? <a class='mem' name='_2B6E'>wastes</a> 2 bytes, Line #<a class='line' href='#FOPCLRW.30'>30</a> already saved
+2B71:20 44 32       046             JSR GETSEC      ; GO ALLOCATE SECTOR
+2B74:AE 9C 33       047             LDX TEMP1
+2B77:9D C7 34       048             STA VDFILE+1,X  ; PUT SECTOR INTO VDIR          ; <a class='magic' name='_2B78'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
+2B7A:8D D2 35       049             STA DCBFDS      ; PUT SECTOR AS 1ST FILE DIR
+2B7D:8D D4 35       050             STA DCBCDS      ; PUT SECTOR AS CURRENT FILE DIR
+2B80:AD F1 35       051 ;
+2B83:9D C6 34       052             LDA DCBATK      ; GET ALLOCATED TRACK
+<hr>2B86:8D D1 35       053             STA VDFILE,X    ; PUT INTO VDIR                 ; === Page <a class='page' name='page78'>78</page> === <a class='magic' name='_2B87'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
+                    054             STA DCBFDT      ; AND AS 1ST FILE DIR           ; More crappy variable names    : dcbFdt
+                    055             STA DCBCDT      ; AND AS CURRENT FILE DIR       ; that differ by a single letter: dcbCdt
+                    056;
+                    057             LDA CCBFUC      ; SET USE CODE
+2B8F:9D C8 34       058             STA VDFILE+2,X  ; INTO DIRECTORY                ; <a class='magic' name='_2B90'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
+                    059 ;
+                    060             JSR WRVDIR      ; GO WRITE VOL DIRECTORY
+                    061 ;
+                    062             JSR MVFCBD      ; MOVE FILE DIR ADR TO ZP
+                    063             JSR CLRSEC      ; GO CLEAR IT
+                    064             JSR WRFDGO      ; GO WRITE FILE DIRECTORY
+                    065 ; DONE CREATION
+                    066             LDX TEMP1       ; RE-GET INDEX                  ; <b>Which</b> index?? VDFILE offset
+                    067             LDA #CREFNF
+                    068             STA CREFNF
+                    069 ;
+                    070 F03         EQU *
+2BA6:BD C6 34       071             LDA VDFILE,X    ; MOVE FILE DIR TRACK           ; <a class='magic' name='_2BA7'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
+2BA9:               072             STA DCBFDT
+2BAC:BD C7 34       073             LDA VDFILE+1,X  ; MOVE FILE DIR SECTOR          ; <a class='magic' name='_2BAD'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
+2BAF:               074             STA DCBFDS
+2BB2:BD C8 34       075             LDA VDFILE+2,X  ; 7OVE FILE USE CODE            ; *spelling* Move; <a class='magic' name='_2BB3'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
+2BB5:               076             STA CCBFUC
+2BB8:               077             STA DCBFUC
+2BBB:BD E7 34       078             LDA VDFILE+33,X                                 ; <a class='magic' name='_2BBC'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC</span>
+2BBE:               079             STA DCBNSA
+2BC1:BD E8 34       080             LDA VDFILE+34,X                                 ; <a class='magic' name='_2BC2'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+1</span>
+                    081             STA DCBNSA+1
+                    082             STX DCBVDI      ;SAVE DIRECTORY INDEX
+                    083 ;
+                    084             LDA #255        ; INDICATE NO SECTOR
+                    085             STA DCBCMS      ; IN MEMORY                     ; More crappy variable names    : dcbCms
+                    086             STA DCBCMS+1
+                    087             LDA VTDMS       ; MOVE MAX FD SECTS
+                    088             STA DCBDMS      ; TODCB                         ; that differ by a single letter: dcbDms
+                    089             CLC
+                    090             JMP RDFDIR      ; READ 1ST DIRECTORY RECORD     ; Read inode
+                    091 ;
+                    092 ;
+                    093 ;
+                    094 ;
+                    095 <a class='f' name='DCBSUP'   >DCBSUP      </a>EQU *
+2BDC:A9 00          096             LDA #0
+2BDE:AA             097             TAX
+2BDF:9D D1 35       098 F01         STA FCBDCB,X    ; CLEAR DCB
+2BE2:E8             099             INX
+2BE3:E0 2D          100             CPX #<a class='e' href='#DCBLEN'>DCBLEN</a>                                     ; Over-writes unused memory <a class='v' href='#DCBSPR'>DCBSPR</a>
+                    101             BNE F01
+                    102 ;
                     103 
                     104 
                     105 
@@ -5113,12 +5113,12 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 34BF:FC FD FC FD    059 <a class="d" name="VDSPAR"   >VDSPAR      </a>DS 7            ; SPARES                        ; [04] <a class='struct' name='#_34BF'>wastes</a> 7 bytes -- never referenced
 34C3:FD FC FC       060 ;                                                           ;      /sarcasm Glad to see this was put to <i>good</i> use ... NOT!
                     061 <a class="d" name="VDFILE"   >VDFILE      </a>EQU *           ; FILE ALLOCATION AREA (7 FILES); [0B] NO, this is the _not_ the allocation; this is the *meta* data
-                    062 ;EACH FILE:                                                 ; *note* indented "struct FileEntry" for readability
-                    063 ;  FILE DIR TRK                                             ;     uint8_t  track
-                    064 ;  FILE DIR SECTOR                                          ;     uint8_t  sector
-                    065 ;  FILE USE CODE                                            ;     uint8_t  type
-                    066 ;  FILE NAME         (30)                                   ;     char     name[30]      <b>WTF</b> -- sizeof( FileEntry ) == 35 bytes; make it 27
-                    067 ;  FILE SECTOR COUNT (2)                                    ;     uint16_t num_sectors   so entire struct is 32 bytes
+                    062 ;EACH FILE:                                                 ; What can't do <span class='code'>DSECT VDFILE</span> *note* indented "struct FileEntry" for readability
+                    063 ;  FILE DIR TRK                                             ;     DFB CAT_FILE_TRACK    ;[00] (0) inode (FILDIR) track
+                    064 ;  FILE DIR SECTOR                                          ;     DFB CAT_FILE_SECTOR   ;[01] (1) inode (FILDIR) sector
+                    065 ;  FILE USE CODE                                            ;     DFB CAT_FILE_TYPE     ;[02] (2)
+                    066 ;  FILE NAME         (30)                                   ;     DS  CAT_FILE_NAME     ;[03] (3) <b>WTF</b> -- sizeof( FileEntry ) == 35 bytes; make it 27
+                    067 ;  FILE SECTOR COUNT (2)                                    ;     DW  CAT_FILE_NUM_SEC  ;[21] (33) so entire struct is 32 bytes
 34C6:FC FF          068             ORG VOLDIR+256                                  ; <a class='mem' name='_34BC'>wastes</a> 256 bytes of disk space <b>spanning two sectors</b> *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>* 
 34C8:FC FC FD FC
 34CC:FC FC FE FC
@@ -5156,7 +5156,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 35A0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 35B0:00 00 00 00
 35B4:00 00 00 00    069 <a class='d' name='VDEND'      >VDEND       </a>EQU *
-35B8:00 00 00       070 <a class='d' name='VDLEN'      >VDLEN       </a>EQU *-VOLDIR
+35B8:00 00 00       070 <a class='d' name='VDLEN'      >VDLEN       </a>EQU *-VOLDIR                                   ; = 256
                     071 <a class='d' name='VDFLEN'     >VDFLEN      </a>EQU *-VDFIL
                     072 ;
                     073             PAGE
@@ -5271,8 +5271,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     182 ;
 35FB:FC FD FC       183 <a class="d" name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; [2A] <a class="mem" name="_35fb">wastes</a> 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *unused*
                     184 ;
-                    185 <a class="d" name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH                    ;=$2D
-                    <a class='line' name='FVCBUFS.186'>186</a> <a class="d" name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH                    ; = $35FE - $35D1 = $2D
+                    185 <a class="e" name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH                    ;=$2D
+                    <a class='line' name='FVCBUFS.186'>186</a> <a class="e" name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH                    ; = $35FE - $35D1 = $2D
                     187 ;
 </pre>
 
