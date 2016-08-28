@@ -3704,7 +3704,7 @@ With that "legalese" out of the way ... enjoy the read!
                     114 <a class='f' name='F01A'     >F01A        </a>EQU *
 2BFD:8E F7 FF       115             STX DCBSLT
 <hr>2C00:A9             116             LDA #<span class='n'>17</span>                                         ;[.. <a class='mem' name='_2C00'>wastes</a> 5 bytes; === <a class='ts' name='T1SB'>T1SB</a> === <a class='magic' name='_2C01'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK</span> 
-2C02:8D FA 35       117             STA <a class='v' href='#DCBVTN'>DCBVTN</a>                                      ; ..]                                          Because this can change???
+2C02:8D FA 35       117             STA <a class='v' href='#DCBVTN'>DCBVTN</a>                                      ; ..] due to unitialized <a class='x' href='#DCBVTN'>DCBVTN</a> DS 1           Because this can change???
                     118 
                     119 
                     120 
