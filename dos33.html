@@ -3705,28 +3705,28 @@ With that "legalese" out of the way ... enjoy the read!
 2BFD:8E F7 FF       115             STX DCBSLT
 <hr>2C00:A9             116             LDA #<span class='n'>17</span>                                         ;[.. <a class='mem' name='_2C00'>wastes</a> 5 bytes; === <a class='ts' name='T1SB'>T1SB</a> === <a class='magic' name='_2C01'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK</span> 
 2C02:8D FA 35       117             STA <a class='v' href='#DCBVTN'>DCBVTN</a>                                      ; ..] due to unitialized <a class='x' href='#DCBVTN'>DCBVTN</a> DS 1           Because this can change???
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
+2C05:60             118             RTS
+                    119             PAGE
+                    120 ;
+                    121 ; FCLOSE - CLOSE A FILE
+                    122 ;
+                    123 <a class='f' name='FCLOSE'   >FCLOSE      </a>EQU *
+2C06:20 1D 2F       124             JSR WRSECT      ; WRITE OPEN SECTOR
+2C09:20 34 2F       125             JSR WRFDIR      ; GO WRITE FILE DIRECTORY       ; Asinine comments like this wouldn't even be needed with proper names
+2C0C:20 C3 32       126             JSR FRETRK      ; FREE UNUSED SECTORS           ;     JSR WR_FILE_DIR
+2C0F:A9 02          127             LDA #IBCWTS
+2C11:2D D5 35       128             AND DCBWRF
+2C14:F0 21          129             BEQ FC2
+                    130 ;
+2C16:20 F7 2F       131             JSR RDVTOC
+2C19:A9 00          132             LDA #0
+2C1B:18             133             CLC
+                    134 <a class='f' name='FC1'      >FC1         </a>EQU *
+2C1C:20 11 30       135             JSR <a class='x' href='#RDVDIR'>RDVDIR</a>      ; READ VDIR                     ; <span class='todo'>TODO</span> A = ???
+2C1F:38             136             SEC
+2C20:CE D8 35       137             DEC <a class='v' href='#DCBVDR'>DCBVDR</a>                                      ; 
+2C23:D0 F7          138             BNE FC1
+2C25:AE D9 35       139             LDX DCBVDI      ;
                     140 
                     141 
                     142 
@@ -5249,7 +5249,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 35D6:FF             157 <a class='d' name='DCBTRK'     >DCBTRK      </a>DS 1            ; SECTOR TRACK ADR              ; [05]
 35D7:FF             158 <a class='d' name='DCBSEC'     >DCBSEC      </a>DS 1            ; SECTOR ADR                    ; [06]
 35D8:FE             159 <a class='d' name='DCBVDR'     >DCBVDR      </a>DS 1            ; VOL DIR REC                   ; [07]
-35D9:FC             160 <a class='d' name='DCBVDI'     >DCBVDI      </a>DS 1            ; VOL DIR INDEX                 ; [08]
+35D9:FC             160 <a class='d' name='DCBVDI'     >DCBVDI      </a>DS 1            ; VOL DIR INDEX                 ; [08] ??? DEC by <a class='x' href='#FC1'>FC1</a>
 35DA:FC FE          161 <a class='d' name='DCBDMS'     >DCBDMS      </a>DS 2            ; MAX NO DIRECTORY SECTORS      ; [09]
 35DC:FC FC          162 <a class='d' name='DCBDFS'     >DCBDFS      </a>DS 2            ; CURRENT DIR 1ST REL SECTOR    ; [0B]
 35DE:FF FC          163 <a class='d' name='DCBDNF'     >DCBDNF      </a>DS 2            ; REL SECTOR OF NXT DIR         ; [0D]
