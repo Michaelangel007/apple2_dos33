@@ -1964,11 +1964,11 @@ With that "legalese" out of the way ... enjoy the read!
                     263 <a class="f" name="ECMD"   >ECMD        </a>EQU *
 2186:AD 5F 2A       <a class='line' name='CMDSCAN.264'>264</a>             LDA <a class="v" href="#CMDNO">CMDNO</a>       ; COMMAND NO                    ; <i>Think, McFly!</i>
 2189:AA             265             TAX             ; IS CMD EXEC TAB INDEX         ; <a class='mem' name='_2189'>wastes</a> 1 byte /sarcasm If only we had <span class='code'>LDX CMDNO</span> on Line #<a class='line' href='#CMDSCAN.264'>264</a>
-218A:BD 1F 1D       266             LDA <a class="v" href='#CMDETB'>CMDETB</a>+<span class='n'>1</span>,X  ; GET CMD ADR
-218D:48             267             PHA             ; ONTO STACK
-218E:BD 1E 1D       268             LDA <a class="v" href='#CMDETB'>CMDETB</a>,X
-2191:48             269             PHA
-2192:60             270             RTS             ; AND GOTO COMMAND              ; classic technique of 6502 jump table, use RTS to "call" the function pointer
+218A:BD 1F 1D       266             LDA <a class="v" href='#CMDETB'>CMDETB</a>+<span class='n'>1</span>,X  ; GET CMD ADR                        ;[..
+218D:48             267             PHA             ; ONTO STACK                    ; ..
+218E:BD 1E 1D       268             LDA <a class="v" href='#CMDETB'>CMDETB</a>,X                        ; ..
+2191:48             269             PHA                                             ; ..
+2192:60             270             RTS             ; AND GOTO COMMAND              ; ..] classic technique of 6502 jump table, use RTS to "call" the function pointer
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="XOPNCLS">XOPNCLS</a> - Execute Open / Close, Page <a class="page" name="page150">150</a>, <a class='ts' href='#T1S0'>T1S0</a> - <a class='ts' href='#T1S2'>T1S2</a>, $<span class='n'>A193</span> .. $<span class='n'>A330</span>  ===<hr class='join'><hr></div>
@@ -3596,7 +3596,7 @@ With that "legalese" out of the way ... enjoy the read!
 2B22:20 28 2B       006             JSR <a class='x' href='#DOPEN'>DOPEN</a>                    ; &darr;
 2B24:4C 7F 33       007             JMP GOODIO
                     008 ;
-                    009 DOPEN       EQU *
+                    009 <a class='f' name='DOPEN'    >DOPEN       </a>EQU *
                     010 ;
                     011             JSR DCBSUP
                     012 ;
@@ -3609,7 +3609,7 @@ With that "legalese" out of the way ... enjoy the read!
                     019             CPX 0
                     020             BNE F02
                     021             INX             ; SET RL=256
-                    022 F02         STA DCBRCL
+                    022 <a class='f' name='F02'      >F02         </a>STA DCBRCL
                     023             STX DFBRCL+1
                     024 ;
                     025             JSR FNDFIL      ; GO FIND FILE
@@ -3627,15 +3627,15 @@ With that "legalese" out of the way ... enjoy the read!
 2B5A:C9 C0          037             CMP #$C0                                        ; <a class='magic' name='_2B5A'>magic number</a>
 2B5C:D0 03          038             BNE F02A        ; NO GO
 2B5E:4C 5F 33       039             JMP ERROR1                                      ; Which error message?? "LANGUAGE NOT AVAILABLE"
-2B61:4C 73 33       040 F02A        JMP ERROR6      ; PRINT "FILE NOT FOUND" MESSAGE.
-2B64:A9 00          041 F02B        LDA #0                                          ; 0001 Little Endian
+2B61:4C 73 33       040 <a class='f' name='F02A'     >F02A        </a>JMP ERROR6      ; PRINT "FILE NOT FOUND" MESSAGE.
+2B64:A9 00          041 <a class='f' name='F02B'     >F02B        </a>LDA #<span class='n'>0</span>                                          ; 0001 Little Endian
 2B66:9D E8 34       042             STA VDFILE+34,X                                 ; <a class='magic' name='_2B67'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+0</span> (See <a class='v' href='#VDFILE'>VDFILE</a>)
-2B69:A9 01          043             LDA #1
-2B6B:9D E7 34       044             STA VDFILE+33,X                                 ; <a class='magic' name='_2B6C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+1</span>
+2B69:A9 01          043             LDA #<span class='n'>1</span>
+2B6B:9D E7 34       044             STA VDFILE+<span class='n'>33</span>,X                                 ; <a class='magic' name='_2B6C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+1</span>
 2B6E:8E 9C 33       045             STX TEMP1       ; SAVE VDIR INDEX               ; Why?? <a class='mem' name='_2B6E'>wastes</a> 2 bytes, Line #<a class='line' href='#FOPCLRW.30'>30</a> already saved
 2B71:20 44 32       046             JSR GETSEC      ; GO ALLOCATE SECTOR
 2B74:AE 9C 33       047             LDX TEMP1
-2B77:9D C7 34       048             STA VDFILE+1,X  ; PUT SECTOR INTO VDIR          ; <a class='magic' name='_2B78'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
+2B77:9D C7 34       048             STA VDFILE+<span class='n'>1</span>,X  ; PUT SECTOR INTO VDIR          ; <a class='magic' name='_2B78'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
 2B7A:8D D2 35       049             STA DCBFDS      ; PUT SECTOR AS 1ST FILE DIR
 2B7D:8D D4 35       050             STA DCBCDS      ; PUT SECTOR AS CURRENT FILE DIR
 2B80:AD F1 35       051 ;
@@ -3657,7 +3657,7 @@ With that "legalese" out of the way ... enjoy the read!
                     067             LDA #CREFNF
                     068             STA CREFNF
                     069 ;
-                    070 F03         EQU *
+                    070 <a class='f' name='F03'      >F03         </a>EQU *
 2BA6:BD C6 34       071             LDA VDFILE,X    ; MOVE FILE DIR TRACK           ; <a class='magic' name='_2BA7'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
 2BA9:               072             STA DCBFDT
 2BAC:BD C7 34       073             LDA VDFILE+1,X  ; MOVE FILE DIR SECTOR          ; <a class='magic' name='_2BAD'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
@@ -3685,7 +3685,7 @@ With that "legalese" out of the way ... enjoy the read!
                     095 <a class='f' name='DCBSUP'   >DCBSUP      </a>EQU *
 2BDC:A9 00          096             LDA #0
 2BDE:AA             097             TAX
-2BDF:9D D1 35       098 F01         STA FCBDCB,X    ; CLEAR DCB
+2BDF:9D D1 35       098 <a class='f' name='F01'      >F01         </a>STA FCBDCB,X    ; CLEAR DCB
 2BE2:E8             099             INX
 2BE3:E0 2D          100             CPX #<a class='e' href='#DCBLEN'>DCBLEN</a>                                     ; Over-writes unused memory <a class='v' href='#DCBSPR'>DCBSPR</a>
                     101             BNE F01
@@ -3724,156 +3724,189 @@ With that "legalese" out of the way ... enjoy the read!
                     134 <a class='f' name='FC1'      >FC1         </a>EQU *
 2C1C:20 11 30       135             JSR <a class='x' href='#RDVDIR'>RDVDIR</a>      ; READ VDIR                     ; <span class='todo'>TODO</span> A = ???
 2C1F:38             136             SEC
-2C20:CE D8 35       137             DEC <a class='v' href='#DCBVDR'>DCBVDR</a>                                      ; 
+2C20:CE D8 35       137             DEC <a class='v' href='#DCBVDR'>DCBVDR</a>                                      ; <span class='todo'>TODO</span> Why DEC ? -- Sector offset set in <a class='x' href='#FNDFIL'>FNDFIL</a>
 2C23:D0 F7          138             BNE FC1
-2C25:AE D9 35       139             LDX DCBVDI      ;
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
-                    165 
-                    166 
-                    167 
-                    168 
-                    169 
-                    170 
-                    171 
-                    172 
-                    173 
-                    174 
-                    175 
-                    176 
-                    177 
-                    178 
-                    179 
-                    180 
-                    181 
-                    182 
-                    183 
-                    184 
-                    185 
-                    186 
-                    187 
-                    188 
-                    189 
-                    190 
-                    191 
-                    192 
-                    193 
-                    194 
-                    195 
-                    196 
-                    197 
-                    198 
-                    199 
-                    200 
-                    201 
-                    202 
-                    203 
-                    204 
-                    205 
-                    206 
-                    207 
-                    208 
-                    209 
-                    210 
-                    211 
-                    212 
-                    213 
-                    214 
-                    215 
-                    216 
-                    217 
-                    218 
-                    219 
-                    220 
-                    221 
-                    222 
-                    223 
-                    224 
-                    225 
-                    226 
-                    227 
-                    228 
-                    229 
-                    230 
-                    231 
-                    232 
-                    233 
-                    234 
-                    235 
-                    236 
-                    237 
-                    238 
-                    239 
-                    240 
-                    241 
-                    242 
-                    243 
-                    244 
-                    245 
-                    246 
-                    247 
-                    248 
-                    249 
-                    250 
-                    251 
-                    252 
-                    253 
-                    254 
-                    255 
-                    256 
-                    257 
-                    258 
-                    259 
-                    260 
-                    261 
-                    262 
-                    263 
-                    264 
-                    265 
-                    266 
-                    267 
-                    268 
-                    269 
-                    270 
-                    271 
-                    272 
-                    273 
-                    274 
-                    275 
-                    276 
-                    277 
-                    278 
-                    279 
-                    280 
-                    281 
-                    282 
-                    283 
-                    284 
-                    285 
-                    286 
+2C25:AE D9 35       139             LDX <a class='v' href='#DCBVDI'>DCBVDI</a>                                      ; Volume Directory Index: X = file entry offset in CATALOG sector
+2C28:AD EE 35       140             LDA DCBNSA      ; MOVE NO SECTORS ALLOCATED     ; <i>You keep using this word <b>move</b>, it doesn't mean what you think it means.</i>
+2C2B:9D E7 34       141             STA VDFILE+33,X                                 ; <a class='magic' name='_2C2C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC</span>
+2C2E:AD EF 35       142             LDA DCBNSA+1
+2C31:9D E8 34       143             STA VDFILE+34,X                                 ; <a class='magic' name='_2C32'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC</span>
+2C34:20 37 30       144             JSR WRVDIR      ; WRITE VOL DIR REC
+                    145 ;
+                    146 ;
+                    147 <a class='f' name='FC2'      >FC2         </a>EQU *
+2C37:4C 7F 33       148             JMP GOODIO      ; DONE
+                    149             PAGE
+                    150 ;
+                    151 * FRNAME - RENAME A FILE
+                    152 ;
+                    153 <a class='f' name='FRNME'    >FRNME       </a>EQU *
+2C3A:20 28 2B       154             JSR DOPEN       ; GO OPEN FILE
+2C3D:AD F6 35       155             LDA DCBFUC      ; GET USE CODE
+2C40:30 2B          156             BMI ER10        ; BR IF LOCKED
+2C42:AD BD 35       157             LDA CCBFN2      ; MOVE NEW FN
+2C45:85 42          158             STA ZPGFCB      ; MOVE PTR TO ZPG
+2C47:AD BE 35       159             LDA CCBFN2+1
+2C4A:85 43          160             STA ZPGFCB+1
+2C4C:AE 9C 33       161             LDX TEMP1       ; GET VDIR INDEX                ; <span class='todo'>TODO</span> Does DOPEN set this?
+2C4F:20 1C 32       162             JSR MVFN        ; MOVE FILE NAME
+2C52:20 37 30       163             JSR WRVDIR      ; GO WRITE VDIR
+2C55:4C 7F 33       164             JMP GOODIO      ; DONE RENAME                   ; mastes 1 bytes
+                    165             PAGE
+                    166 ;
+                    167 * FREAD - READ A FILE
+                    168 ;
+                    169 <a class='f' name='FREAD'    >FREAD       </a>EQU *
+                    170 ;
+2C58:AD BC 35       171             LDA CCBRQM      ; GET REQ MOD
+2C5B:C9 05          172             CMP #<a class='e' href='#CRMMAX'>CRMMAX</a>     ; TEST LIMIT
+2C5D:B0 0B          173             BCS ERR3A       ; BR BAD
+                    174 ;
+                                                                                    ; Current code uses: 32 bytes
+                                                                                    ;   11 bytes  $2C5F..$2C69 <a class='x' href='#FREAD' >FREAD</a>
+                                                                                    ;   11 bytes  $2C7C..$2C86 <a class='x' href='#FWRITE'>FWRITE</a>
+                                                                                    ;   10 bytes  $2189..$2192 <a class='x' href='#ECMD'  >ECMD</a>
+                                                                                    ;
+                                                                                    ; New code uses: 34 bytes
+                                                                                    ;   4 bytes (<b>Setup code</b>)
+                                                                                    ;     2C5F:A2 E6      <span class='code'>         LDX #&lt;RVT+1   </span> ; lo byte of func table address
+                                                                                    ;     2C61:A0 2A      <span class='code'>         LDY #&gt;RVT     </span> ; hi byte of func table address
+                                                                                    ;                     ; ... intentional fall into CallFunc ...
+                                                                                    ;  16 bytes <a class='x' href='#FREAD' >FREAD</a> (<b>Common code</b>)
+                                                                                    ;     2C63:86 48      <span class='code'>CallFunc STX PushFunc+1</span> ; IOBPL (or 8E 6E 2C STX PushFunc+1)
+                                                                                    ;     2C66:84 49      <span class='code'>         STY PushFunc+2</span> ; IOBPH (or 8C 6F 2C STY PushFunc+1)
+                                                                                    ;     2C69:0A         <span class='code'>         ASL           </span>
+                                                                                    ;     2C6A:A8         <span class='code'>         TAY           </span>
+                                                                                    ;     2C6B:A2 02      <span class='code'>         LDX #2        </span>
+                                                                                    ;     2C6D:B1 48      <span class='code'>PushFunc LDA $FFFF,Y   </span> ; B9 FF FF LDA $FFFF,Y
+                                                                                    ;     2C70:48         <span class='code'>         PHA           </span>
+                                                                                    ;     2C71:88         <span class='code'>         DEY           </span>
+                                                                                    ;     2C71:CA         <span class='code'>         DEX           </span>
+                                                                                    ;     2C72:D0 F8      <span class='code'>         BNE PushFunc  </span>
+                                                                                    ;     2C74:60         <span class='code'>         RTS           </span>
+                                                                                    ;
+                                                                                    ;   6 bytes <a class='x' href='#FWRITE'>FWRITE</a>
+                                                                                    ;     2C7C:A2 F1      <span class='code'>        LDX #&lt;WVT+1    </span> ; lo byte of func table address
+                                                                                    ;     2C7E:A0 2A      <span class='code'>        LDY #&gt;WVT      </span> ; hi byte of func table address
+                                                                                    ;     2C80:90 DF      <span class='code'>        BCC CallFunc   </span>
+                                                                                    ;
+                                                                                    ;   8 bytes <a class='x' href='#ECMD'>ECMD</a>
+                                                                                    ;     2189:4A         <span class='code'>         LSR           </span>
+                                                                                    ;     218A:A2 1E      <span class='code'>         LDX #&lt;CMDETB+1</span>
+                                                                                    ;     218C:A0 1D      <span class='code'>         LDY #&gt;CMDETB  </span>
+                                                                                    ;     218E:4C 63 2C   <span class='code'>         JMP CallFunc  </span>
+2C5F:0A             175             ASL A           ; CODE*2                        ;[.. <b>Data</b>*2 = Array of 16-bit Function Pointers
+2C60:AA             176             TAX                                             ; ..
+2C61:BD E6 2A       177             LDA <a class='v' href='#RVT'>RVT</a>+<span class='n'>1</span>,X     ; GET READ ROUTINE              ; ..
+2C64:48             178             PHA                                             ; .. old code
+<hr>2C65:BD E5 2A       179             LDA <a class='v' href='#RVT'>RVT</a>,X                                       ; .. === Page <a class='page' name='page80'>80</a> ===
+2C68:48             180             PHA             ; AND                           ; ..
+2C69:60             181             RTS             ; GO TO IT                      ; ..]
+                    182 ;
+2C6A:4C 67 33       183 <a class='f' name='ERR3A'    >ERR3A       </a>JMP <a class='x' href='#ERROR3'>ERROR3</a>                                      ; <b>What</b> is   &rarr; CREMRE: <a class='v' href='#EM3'>EM3</a>  "RANGE ERROR"
+2C6D:4C 7B 33       184 <a class='f' name='ER10'     >ER10        </a>JMP <a class='x' href='#ERRR10'>ERRR10</a>                                      ; error#?   &rarr; CREFLK: <a class='v' href='#EM10'>EM10</a> "FILE LOCKED"
+                    185 ;                                                           ; /sarcasm Really?! Have to abbreviate 'o' in ERROR10 ???
+                    186 * FWRITE - WRITE A FILE
+                    187 ;
+                    188 <a class='f' name='FWRITE'   >FWRITE      </a>EQU *
+2C70:AD F6 35       189             LDA DCBFUC      ; IS FILE LOCKED
+2C73:30 F8          190             BMI ER10        ; BR IF LOCKED
+2C75:AD BC 35       191             LDA CCBRQM      ; GET REQ MOD
+2C78:C9 05          192             CMP #CRMMAX     ; IN RANGE                      ; Off by 1 bug
+2C7A:B0 EE          193             BCS ERR3A       ; BR IF NOT IN RANGE            ;
+                    194 ;                                                           ;
+2C7C:0A             195             ASL A                                           ;[.. <a class='mem' name='_2C7C'>wastes</a> 5 bytes, old code
+2C7D:AA             196             TAX                                             ; ..
+2C7E:BD F2 2A       197             LDA WVT+1,X     ; GET ROUTINE ADR               ; .. new code:
+2C81:48             198             PHA                                             ; ..     <span class='code'>LDX #&lt;WVT     </span> ; lo byte of func table address
+2C82:BD F1 2A       199             LDA WVT,X                                       ; ..     <span class='code'>LDY #&gt;WVT     </span> ; hi byte of func table address
+2C85:48             200             PHA                                             ; ..     <span class='code'>BCC CallFunc  </span> &uarr; (always)
+2C86:60             201             RTS                                             ; ..]
+                    202             PAGE
+                    203 ;
+                    204 * RSPBYT - READ A SPECIFIC BYTE
+                    205 ;
+                    206 <a class='f' name='RSPBYT'   >RSPBYT      </a>EQU *
+2C87:20 00 33       207             JSR LOCSEC      ; GO GET REQD REL SECTOR
+                    208 ;
+                    209 * RNXBYT - READ NEXT BYTE
+                    210 ;
+2C8A:20 A8 2C       211 <a class='f' name='RNXBYT'   >RNXBYT      </a>JSR GETBYT      ; GO GET BYTE
+2C8D:8D C3 35       212             STA CCBDAT      ; PUT IN CCB
+2C90:4C 7F 33       213             JMP GOODIO      ; DONE
+                    214 ;
+                    215 * RSPBLK - READ A SPECIFIC BLOCK
+                    216 ;
+2C93:20 00 33       217 <a class='f' name='RSPBLK'   >RSPBLCK     </a>JSR LOCSEC      ; GO LOCATE REL SECTOR
+                    218 ;
+                    219 * RNXBLK - READ NEXT BLOCK
+                    220 ;
+                    221 <a class='f' name='RNXBLK'   >RNXBLK      </a>EQU *
+2C96:20 B5 31       222             JSR DTBLN       ; GO DECR LEN (NOT RTN IF=0)
+2C99:20 A8 2C       223             JSR GETBYT      ; GO GET BYTE
+2C9C:48             224             PHA
+2C9D:20 A2 31       225             JSR MIBDA       ; GO MOVE BLOCK ADR AND INCR
+2CA0:A0 00          226             LDY #0
+2CA2:68             227             PLA
+2CA3:91 41          228             STA (ZPGFCB),Y  ; SET DATA BYTE
+2CA5:4C 96 2C       229             JMP RNXBLK      ; GO FOR NEXT BYTE
+                    230 ;
+                    231 * GETBYT - GET A DATA BYTE
+                    232 ;
+                    233 <a class='f' name='GETBYT'   >GETBYT      </a>EQU *
+2CA8:20 B6 30       234             JSR LOCNXB      ; LOCATE NEXT BYTE
+2CAB:B0 0B          235             BCS EOFIN       ; BR IF EOF
+2CAD:B1 42          236             LDA (ZPGFCB),Y  ; GET DAT BYTE
+2CAF:48             <a class='line' name='FOPCLRW.237'>237</a>             PHA             ; SAVE IT                       ; <span class='code'>INCBYT</span> Should be common code for <a class='x' href='#PB0'>PB0</a> as well
+2CB0:20 5B 31       238             JSR INCRRB      ; INCR REC BYTE                 ; <b>What</b> is the difference between these two???
+2CB3:20 94 31       239             JSR INCSCB      ; INCR SEC BYTE                 ;
+2CB6:68             240             PLA             ; GET SAVED BYTE                ; Stop treating the reader like an idiot with redundant comments
+2CB7:60             241             RTS             ; RETURN                        ; All this does is just add <b>visual noise</b>
+<hr>                    242 ;                                                           ; === Page <a class='page' name='page81'>81</a> ===
+2CB8:4C 6F 33       243 <a class='f' name='EOFIN'    >EOFIN       </a>JMP ERROR5      ; GOTO EOF RTN                  ; CREEOF &rarr; <a class='v' href='#EM5'>EM5</a>: "END OF DATA"
+                    244             PAGE
+                    245 ;
+                    246 * WSPBYT - WRITE SPECIFIC BYTE
+                    247 ;
+                    248 <a class='f' name='WSPBYT'   >WSPBYT      </a>EQU *
+2CBB:20 00 33       249             JSR LOCSEC      ; GO LOCATE SECTOR
+                    250 ;
+                    251 * WNXBYT - WRITE NEXT BYTE
+                    252 ;
+                    253 <a class='f' name='WNXBYT'   >WNXBYT      </a>EQU *
+2CBE:AD C3 35       254             LDA CCBDAT      ; GET THE BYTE
+2CC1:20 DA 2C       255             JSR PUTBYT      ; GO WRITE BYTE
+2CC4:4C 7F 33       256             JMP GOODIO      ; DONE
+                    257 ;
+                    258 * WSPBLK - WRITE A SPECIFIC BLOCK
+                    259 ;
+                    260  <a class='f' name='WSPBLK'   >WSPBLK     </a>EQU *
+2CC7:20 00 33       261             JSR LOCSEC      ; GO LOCATE SECTOR
+                    262 ;
+                    263 * WNXBLK - WRITE NEXT BLOCK
+                    264 ;
+                    265  <a class='f' name='WNXBLK'   >WNXBLK     </a>EQU *
+2CCA:20 A2 31       266             JSR MIBDA       ; GO MOVE ADR TO ZPG AND DEC
+2CCD:A0 00          267             LDY #0
+2CCF:B1 42          268             LDA (ZPGFCB),Y  ; GET DATA BYTE
+2CD1:20 DA 2C       269             JSR PUTBYT      ; GO PUT IT
+2CD4:20 B5 31       270             JSR DTBLN       ; GO DEC BLK LEN (NOT RTN IF = 0)
+2CD7:4C CA 2C       271             JMP WNXBLK
+                    272 ;
+                    273 * PUTBYT - PUT OUT ONE BYTE
+                    274 ;
+                    275 <a class='f' name='PUTBYT'   >PUTBYT      </a>EQU *
+2CDA:48             276             PHA             ; SAVE DATA BYTE
+2CDB:20 B6 30       277             JSR LOCNXB      ; GO LOCATE NEXT BYTE
+                    278 ;
+2CDE:68             279 <a class='f' name='PB0'      >PB0         </a>PLA           ; GET SAVED BYTE
+2CDF:91 42          280             STA (ZPGFCB),Y  ; PUT THE BYTE
+2CE1:A9 40          281             LDA #$<span class='n'>40</span>        ; SET WRITE SECTOR REQD         ; <a class='magic' name='_2CE2'>magic number</a>
+2CE3:0D D3 35       282             ORA DCBWRF
+2CE6:8D D5 35       283             STA DCBWRF
+                    284 ;
+2CE9:20 5B 31       285             JSR INCRRB      ; INCR REL REC BYTE             ;[.. <a class='mem' name='_2CE9'>wastes</a> 3 bytes
+2CEC:4C 94 31       286             JMP INCSCB      ; INCR SECTOR BYTE              ; ..] <span class='code'>JMP INCBYT</span> = (<a class='x' href='#GETBYT'>GETBYT</a>+7) = Line #<a class='line' href='#FOPCLRW.237'>237</a>
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="FDELCAT">FDELCAT</a> - Delete, Catalog, Page <a class="page" name="page55">55</a>, <a class='ts' href='#1T1SB'>T1SB</a> @ $EF - <a class='ts' href='#T1SD'>T1SD</a>, $<span class='n'>2CEF</span> .. $<span class='n'>2E8D</span> ($<span class='n'>ACEF</span> .. $<span class='n'>AE8D</span>) ===<hr class='join'><hr></div>
@@ -5248,8 +5281,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     156 ;$40=WRITE SECTOR DIR
 35D6:FF             157 <a class='d' name='DCBTRK'     >DCBTRK      </a>DS 1            ; SECTOR TRACK ADR              ; [05]
 35D7:FF             158 <a class='d' name='DCBSEC'     >DCBSEC      </a>DS 1            ; SECTOR ADR                    ; [06]
-35D8:FE             159 <a class='d' name='DCBVDR'     >DCBVDR      </a>DS 1            ; VOL DIR REC                   ; [07]
-35D9:FC             160 <a class='d' name='DCBVDI'     >DCBVDI      </a>DS 1            ; VOL DIR INDEX                 ; [08] ??? DEC by <a class='x' href='#FC1'>FC1</a>
+35D8:FE             159 <a class='d' name='DCBVDR'     >DCBVDR      </a>DS 1            ; VOL DIR REC                   ; [07] DEC by <a class='x' href='#FC1'>FC1</a>
+35D9:FC             160 <a class='d' name='DCBVDI'     >DCBVDI      </a>DS 1            ; VOL DIR INDEX                 ; [08] <a class='x' href='#FNDFIL'>FNDFIL</a>: X = File entry offset in CATALOG sector, <a class='x' href='#FOPEN'>FOPEN</a>, <a class='x' href='#FCLOSE'>FCLOSE</a>
 35DA:FC FE          161 <a class='d' name='DCBDMS'     >DCBDMS      </a>DS 2            ; MAX NO DIRECTORY SECTORS      ; [09]
 35DC:FC FC          162 <a class='d' name='DCBDFS'     >DCBDFS      </a>DS 2            ; CURRENT DIR 1ST REL SECTOR    ; [0B]
 35DE:FF FC          163 <a class='d' name='DCBDNF'     >DCBDNF      </a>DS 2            ; REL SECTOR OF NXT DIR         ; [0D]
@@ -5444,10 +5477,10 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 36A5:C0 1D          140             CPY #$<span class='n'>1D</span>                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_NUM_SEC_ALLOC</span>
 36A7:D0 F6          141             BNE MOVE
 36A9:4C BC 26       142 BACK        JMP DOSGO2A     ;NOW LET APPEND CONTINUE
-36AC:A2 FF          143 FIXIT       EQU *
-36AE:8E 5D 36       144             LDX #$<span class='n'>FF</span>        ;SET FLAG SO APPEND WILL        ; <a class='magic' name='_'>magic number</a> <span class='code'>FLAG_EOF_SEC_BOUNDARY EQU $0</span>
-36B1:D0 F6          145             STX EOFFLAG     ;KNOW TO CROSS SECTOR BOUNDARY
-                    146             BNE BACK        ;ALWAYS TAKEN                   ; &uarr;
+                    143 FIXIT       EQU *
+36AC:A2 FF          144             LDX #$<span class='n'>FF</span>        ;SET FLAG SO APPEND WILL        ; <a class='magic' name='_'>magic number</a> <span class='code'>FLAG_EOF_SEC_BOUNDARY EQU $0</span>
+36AE:8E 5D 36       145             STX EOFFLAG     ;KNOW TO CROSS SECTOR BOUNDARY
+36B1:D0 F6          146             BNE BACK        ;ALWAYS TAKEN                   ; &uarr;
                     147             PAGE
                     148             REP 40
                     149 * END OF BOOT PAGE DATA SETUP
