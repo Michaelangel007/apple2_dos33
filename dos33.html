@@ -3767,22 +3767,21 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                     ;   11 bytes  $2C7C..$2C86 <a class='x' href='#FWRITE'>FWRITE</a>
                                                                                     ;   10 bytes  $2189..$2192 <a class='x' href='#ECMD'  >ECMD</a>
                                                                                     ;
-                                                                                    ; New code uses: 34 bytes
+                                                                                    ; New code uses: 31 bytes + reloc table entries
                                                                                     ;   4 bytes (<b>Setup code</b>)
                                                                                     ;     2C5F:A2 E6      <span class='code'>         LDX #&lt;RVT+1   </span> ; lo byte of func table address
                                                                                     ;     2C61:A0 2A      <span class='code'>         LDY #&gt;RVT     </span> ; hi byte of func table address
                                                                                     ;                     ; ... intentional fall into CallFunc ...
-                                                                                    ;  16 bytes <a class='x' href='#FREAD' >FREAD</a> (<b>Common code</b>)
-                                                                                    ;     2C63:86 48      <span class='code'>CallFunc STX PushFunc+1</span> ; IOBPL (or 8E 6E 2C STX PushFunc+1)
-                                                                                    ;     2C66:84 49      <span class='code'>         STY PushFunc+2</span> ; IOBPH (or 8C 6F 2C STY PushFunc+1)
-                                                                                    ;     2C69:0A         <span class='code'>         ASL           </span>
-                                                                                    ;     2C6A:A8         <span class='code'>         TAY           </span>
-                                                                                    ;     2C6B:A2 02      <span class='code'>         LDX #2        </span>
-                                                                                    ;     2C6D:B1 48      <span class='code'>PushFunc LDA $FFFF,Y   </span> ; B9 FF FF LDA $FFFF,Y
-                                                                                    ;     2C70:48         <span class='code'>         PHA           </span>
-                                                                                    ;     2C71:88         <span class='code'>         DEY           </span>
-                                                                                    ;     2C71:CA         <span class='code'>         DEX           </span>
-                                                                                    ;     2C72:D0 F8      <span class='code'>         BNE PushFunc  </span>
+                                                                                    ;  14 bytes <a class='x' href='#FREAD' >FREAD</a> (<b>Common code</b>)
+                                                                                    ;     2C63:0A         <span class='code'>CallFunc ASL           </span> ; main entry point if A not SHL
+                                                                                    ;     2C64:86 48      <span class='code'>SaveFunc STX IOBPL     </span> ; 2nd  entry point if A is  SHL
+                                                                                    ;     2C66:84 49      <span class='code'>         STY IOBPH     </span> ;
+                                                                                    ;     2C68:A8         <span class='code'>         TAY           </span>
+                                                                                    ;     2C69:B1 48      <span class='code'>         LDA (IOBPL),Y </span> ; B9 FF FF LDA $FFFF,Y
+                                                                                    ;     2C6B:48         <span class='code'>         PHA           </span>
+                                                                                    ;     2C6C:88         <span class='code'>         DEY           </span>
+                                                                                    ;     2C6D:B1 48      <span class='code'>         LDA (IOBPL),Y </span>
+                                                                                    ;     2C6F:48         <span class='code'>         PHA           </span>
                                                                                     ;     2C74:60         <span class='code'>         RTS           </span>
                                                                                     ;
                                                                                     ;   6 bytes <a class='x' href='#FWRITE'>FWRITE</a>
@@ -3790,11 +3789,10 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                     ;     2C7E:A0 2A      <span class='code'>        LDY #&gt;WVT      </span> ; hi byte of func table address
                                                                                     ;     2C80:90 DF      <span class='code'>        BCC CallFunc   </span>
                                                                                     ;
-                                                                                    ;   8 bytes <a class='x' href='#ECMD'>ECMD</a>
-                                                                                    ;     2189:4A         <span class='code'>         LSR           </span>
-                                                                                    ;     218A:A2 1E      <span class='code'>         LDX #&lt;CMDETB+1</span>
-                                                                                    ;     218C:A0 1D      <span class='code'>         LDY #&gt;CMDETB  </span>
-                                                                                    ;     218E:4C 63 2C   <span class='code'>         JMP CallFunc  </span>
+                                                                                    ;   7 bytes <a class='x' href='#ECMD'>ECMD</a>
+                                                                                    ;     2189:A2 1E      <span class='code'>         LDX #&lt;CMDETB+1</span>
+                                                                                    ;     218B:A0 1D      <span class='code'>         LDY #&gt;CMDETB  </span>
+                                                                                    ;     218D:4C 63 2C   <span class='code'>         JMP SaveFunc  </span>
 2C5F:0A             175             ASL A           ; CODE*2                        ;[.. <b>Data</b>*2 = Array of 16-bit Function Pointers
 2C60:AA             176             TAX                                             ; ..
 2C61:BD E6 2A       177             LDA <a class='v' href='#RVT'>RVT</a>+<span class='n'>1</span>,X     ; GET READ ROUTINE              ; ..
@@ -3815,10 +3813,10 @@ With that "legalese" out of the way ... enjoy the read!
 2C78:C9 05          192             CMP #CRMMAX     ; IN RANGE                      ; Off by 1 bug
 2C7A:B0 EE          193             BCS ERR3A       ; BR IF NOT IN RANGE            ;
                     194 ;                                                           ;
-2C7C:0A             195             ASL A                                           ;[.. <a class='mem' name='_2C7C'>wastes</a> 5 bytes, old code
-2C7D:AA             196             TAX                                             ; ..
-2C7E:BD F2 2A       197             LDA WVT+1,X     ; GET ROUTINE ADR               ; .. new code:
-2C81:48             198             PHA                                             ; ..     <span class='code'>LDX #&lt;WVT     </span> ; lo byte of func table address
+2C7C:0A             195             ASL A                                           ;[.. Alternative:
+2C7D:AA             196             TAX                                             ; .. (See above)
+2C7E:BD F2 2A       197             LDA WVT+1,X     ; GET ROUTINE ADR               ; ..
+2C81:48             198             PHA                                             ; ..     <span class='code'>LDX #&lt;WVT+1   </span> ; lo byte of func table address
 2C82:BD F1 2A       199             LDA WVT,X                                       ; ..     <span class='code'>LDY #&gt;WVT     </span> ; hi byte of func table address
 2C85:48             200             PHA                                             ; ..     <span class='code'>BCC CallFunc  </span> &uarr; (always)
 2C86:60             201             RTS                                             ; ..]
