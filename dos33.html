@@ -3804,6 +3804,40 @@ With that "legalese" out of the way ... enjoy the read!
 2C6A:4C 67 33       183 <a class='f' name='ERR3A'    >ERR3A       </a>JMP <a class='x' href='#ERROR3'>ERROR3</a>                                      ; <b>What</b> is   &rarr; CREMRE: <a class='v' href='#EM3'>EM3</a>  "RANGE ERROR"
 2C6D:4C 7B 33       184 <a class='f' name='ER10'     >ER10        </a>JMP <a class='x' href='#ERRR10'>ERRR10</a>                                      ; error#?   &rarr; CREFLK: <a class='v' href='#EM10'>EM10</a> "FILE LOCKED"
                     185 ;                                                           ; /sarcasm Really?! Have to abbreviate 'o' in ERROR10 ???
+                                                                                    ;
+                                                                                    ; <b>Problem</b>:
+                                                                                    ;     <a class='x' href='#FD2'>FD2</a> has
+                                                                                    ;         $2D34 BPL FD3
+                                                                                    ;         $2D36 JMP ERROR10
+                                                                                    ;
+                                                                                    ;     To remove the 3 byte jump &amp; take advantage of existing
+                                                                                    ;     code <a class='x' href='#ER10'>ER10</a> @ $2C6D JMP ERR10,
+                                                                                    ;     we need to invert the branch to target ER10
+                                                                                    ;
+                                                                                    ;         $2D34 BMI ER10
+                                                                                    ;
+                                                                                    ;     But $2D36 - $2C6D = $C7 which is &gt; $80 bytes away for BMI
+                                                                                    ;     Can <a class='x' href='#ER10'>ER10</a> be safely moved closer to FD2?
+                                                                                    ;
+                                                                                    ; <b>Solution</b>:
+                                                                                    ;     The first reference to ER10 is in FRNME @ $2C40
+                                                                                    ;
+                                                                                    ;         $2C3D LDA DCBFUC
+                                                                                    ;         $2C40 BMI ER10
+                                                                                    ;
+                                                                                    ;     We need to keep ER10 within the 128 byte range of FRNME.
+                                                                                    ;
+                                                                                    ;     The max branch address for FRNME is $2C42 + $80 = $2CC2
+                                                                                    ;     The min branch address for FD2   is $2D36 - $80 = $2CB6
+                                                                                    ;
+                                                                                    ;     Since the two 128-byte ranges overlap we <i>can</i> move ER10 !
+                                                                                    ;     The perfect spot is @ $2CBB (just after EOFIN)
+                                                                                    ;
+                                                                                    ; This is a good example of where:
+                                                                                    ;
+                                                                                    ;    <b>maximing locality</b>
+                                                                                    ;
+                                                                                    ; can open up new opportunities for optimizing.
                     186 * FWRITE - WRITE A FILE
                     187 ;
                     188 <a class='f' name='FWRITE'   >FWRITE      </a>EQU *
@@ -3949,16 +3983,16 @@ With that "legalese" out of the way ... enjoy the read!
 2D25:EE E5 35       038             INC <a class="v" href="#DCBCRS">DCBCRS</a>+1                                    ; Therfore Current Relative Sector can never overflow to zero
 2D28:4C 1B 2D       039             JMP <a class="x" href="#VAR1"  >VAR1</a>        ; READ THIS ONE                 ; <a class='mem' name='_2D28'>wastes</a> 1 bytes BNE VAR1
                     040             PAGE
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
+                    041 ;
+                    042 * FDEL - DELETE A FILE
+                    043 ;
+                    044 FDEL        EQU
+2D2B:20 28 2B       045             JSR DOPEN       ; GO OPEN FILE
+                    046 ;
+2D2E:AE 9C 33       047 <a class='f' name='FD2'      >FD2         </a>LDX TEMP1       ; SAVED INDEX
+2D31:BD C8 34       048             LDA VDFILE+<span class='n'>2</span>,X  ; IS FILE LOCKED                ; <a class='magic' name='_2C2C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
+2D34:10 03          049             BPL FD3                                         ; Should be <span class='code'>BMI ER10</span> (once ER10 is moved)
+2D36:4C 7B 33       050             JMP ERROR10                                     ; <a class='mem' name='_2D36'>wastes</a> 3 bytes with <span class='code'>JMP</span>, See <a class='x' href='#ER10'>ER10</a> optimization above
                     051 
                     052 
                     053 
