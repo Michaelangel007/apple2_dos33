@@ -3251,7 +3251,7 @@ With that "legalese" out of the way ... enjoy the read!
                     054 <a class='e' name='L'      >L           </a>EQU $<span class='n'>08</span>         ; LENGTH ALLOWED
                     055 <a class='e' name='R'      >R           </a>EQU $<span class='n'>04</span>         ; RECORD NUMBER ALLOWED
                     056 <a class='e' name='B'      >B           </a>EQU $<span class='n'>02</span>         ; BYTE NUMBER ALLOWED
-                    057 <a class='e' name='ADR'    >ADR         </a>EQU $<span class='n'>01</span>         ; ADDRESS                       ; Can't use A due to crappy tools: assembler reserves <span class='code'>A</span> for implicit 6502 Accumulator such as <span class='code'>LSR A</span>
+                    057 <a class='e' name='ADR'    >ADR         </a>EQU $<span class='n'>01</span>         ; ADDRESS                       ; crappy asm tools reserve <span class='code'>A</span> for implicit 6502 Accumulator, e.g. <span class='code'>LSR A</span>
                     058 <a class='e' name='CIO'    >CIO         </a>EQU $<span class='n'>80</span>         ; C,I, OR O ALLOWED             ; CIO = FLAG_CIO = $80 = minus, See <a class='e' href='#CIO'>CIO</a>, <a class='file' href='#CMDSCAN'>CMDSCAN</a>, Line #<a class='line' href='#CMDSCAN.204'>204</a>, and <a class='v' href='#OPTAB2'>OPTAB2</a>
                     059 ;
                     060 ; COMMAND SYNTAX TABLE
