@@ -3980,8 +3980,8 @@ With that "legalese" out of the way ... enjoy the read!
 2D1E:B0 EF          035             BCS <a class="x" href="#GOGOOD">GOGOOD</a>      ; BR IF EOF
 2D20:EE E4 35       036             INC <a class="v" href="#DCBCRS">DCBCRS</a>      ; INCREMENT SECTOR
 2D23:D0 F6          037             BNE <a class="x" href="#VAR1"  >VAR1</a>                                        ; Can't save &gt; 32KB, See <a class='v' href='#OPTAB3'>OPTAB3</a> 32767
-2D25:EE E5 35       038             INC <a class="v" href="#DCBCRS">DCBCRS</a>+1                                    ; Therfore Current Relative Sector can never overflow to zero
-2D28:4C 1B 2D       039             JMP <a class="x" href="#VAR1"  >VAR1</a>        ; READ THIS ONE                 ; <a class='mem' name='_2D28'>wastes</a> 1 bytes BNE VAR1
+2D25:EE E5 35       038             INC <a class="v" href="#DCBCRS">DCBCRS</a>+<span class='n'>1</span>                                    ; Therfore Current Relative Sector can never overflow to zero
+2D28:4C 1B 2D       039             JMP <a class="x" href="#VAR1"  >VAR1</a>        ; READ THIS ONE                 ; <a class='mem' name='_2D28'>wastes</a> 1 bytes <span class='code'>BNE VAR1</span>
                     040             PAGE
                     041 ;
                     042 * FDEL - DELETE A FILE
@@ -3993,20 +3993,20 @@ With that "legalese" out of the way ... enjoy the read!
 2D31:BD C8 34       048             LDA VDFILE+<span class='n'>2</span>,X  ; IS FILE LOCKED                ; <a class='magic' name='_2C2C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
 2D34:10 03          049             BPL FD3                                         ; Should be <span class='code'>BMI ER10</span> (once ER10 is moved)
 2D36:4C 7B 33       050             JMP ERROR10                                     ; <a class='mem' name='_2D36'>wastes</a> 3 bytes with <span class='code'>JMP</span>, See <a class='x' href='#ER10'>ER10</a> optimization above
-                    051 
-                    052 
-                    053 
-                    054 
-                    055 
-                    056 
-                    057 
-                    058 
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
+                    051 ;
+                    052 FD3         EQU *
+2D39:               053             LDX TEMP        ; GET SAVED INDEX
+2D3C:               054             LDA VDFILE,X    ; GET DIR TRACK                 ; <a class='magic' name='_2D3C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
+2D3F:               055             STA DCBFDT      ; SET AS 1ST FD TRACK           ; LC = last character
+2D42:               056             STA VDFILE+<span class='n'>32</span>,X ; SAVE IN LC OF FN              ; <a class='magic' name='_2D42'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NAME + MAX_FILENAME_LEN - 1</span>
+2D45:A9 FF          057             LDA #$FF        ; DELETED FILE MARKER
+2D47:               058             STA VDFILE,X    ; CLEAR ENTRY                   ; <a class='magic' name='_2D47'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
+2D4A:               059             LDY VDFILE+<span class='n'>1</span>,X  ; GET DIR SECTOR                ; <a class='magic' name='_2D4A'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
+2D4D:               060             STY DCBFDS      ; SET AS 1ST FD SEC
+                    061             JSR WRVDIR      ; GO WRITE VOLUME DIR
+                    062             CLC
+                    063 FD4         JSR RDFDIR      ; GET 1ST FILE DIR SECTOR
+                    064             BCS FD7         ; BR IF NO MORE
                     065 
                     066 
                     067 
