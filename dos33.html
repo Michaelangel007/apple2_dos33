@@ -3986,7 +3986,7 @@ With that "legalese" out of the way ... enjoy the read!
                     041 ;
                     042 * FDEL - DELETE A FILE
                     043 ;
-                    044 FDEL        EQU
+                    044 <a class='f' name='FDEL'     >FDEL        </a>EQU *
 2D2B:20 28 2B       045             JSR DOPEN       ; GO OPEN FILE
                     046 ;
 2D2E:AE 9C 33       047 <a class='f' name='FD2'      >FD2         </a>LDX TEMP1       ; SAVED INDEX
@@ -4007,65 +4007,65 @@ With that "legalese" out of the way ... enjoy the read!
                     062             CLC
                     063 FD4         JSR RDFDIR      ; GET 1ST FILE DIR SECTOR
                     064             BCS FD7         ; BR IF NO MORE
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
+                    065             JSR MVFCBD      ; MOVE DIR TO ZPG
+                    066             LDY #FDENT      ; POINT Y TO 1ST SEC ENT
+                    067 FD5         STY TEMP1       ; SAVE Y                        ; School of Commenting on Useless Observations
+                    068             LDA (ZPGFCB),Y  ; GET REACK                     ; *spelling* Track
+                    069             BMI FD6         ; BR IF NONE
+                    070             BEQ FD6         ; BR IF END OF FILE
+                    071             PHA             ; SAVE TRK
+                    072             INY
+                    073             LDA (ZPGFCB),Y  ; GET SECTOR
+                    074             TAY             ; TO Y
+                    075             PLA             ; GET TRK
+                    076             JSR FDSUB       ; GO FREE SECTOR                ; /sarcasm What? FREESECS wasn't available??? (It is but <a class='x' href='#FRESEC'>FRESEC</a> is used)
+                    077 FD6         LDY TEMP1       ; GET DIR INDEX
+                    078             INY             ; INCR TO NEXT INDEX
+                    079             INY
+                    080             BNE FD5         ; BR NOT DONE THIS DIR
+                    081             LDA DCBCDT      ; GET THIS DIR TRK
+                    082             LDY DCBCDS      ; AND SECTOR
+                    083             JSR FDSUB       ; AND GO FREE IT
+                    084             SEC             ; GO
+                    085             BCS FD4         ; READ NEXT DIR                 ; &uarr; (always)
+                    086 FD7         EQU *
+                    087             JSR WRVTOC
+                    088             JMP GOODIO
+                    089 ;
+                    090 <a class='f' name='FDSUB'    >FDSUB       </a>EQU *
+                    091             SEC             ; SET FOR REUSE OF SEC
+                    092             JSR FRESEC      ; GO FREE SECTOR
+                    093             LDA #0          ; CLEAR DCB BIT MAP
+                    094             LDX #5          ; CLEAR ALL OF TRK BITMAP SO    ; <a class='mem' name='_'>wastes</a> 1 byte
+                    095 *                           ;gt;16 SECTORS/TRK WILL WORK
+                    096 <a class='f' name='FDS1'     >FDS1        </a>STA DCBALS,X                                    ;
+                    097             DEX                                             ; <span class='code'>INX         </span>
+                    098             BPL FDS1                                        ; <span class='code'>STA DCBALS,X</span>
+                    099             RTS
+                    100             PAGE
+                    101 ;
+                    102 * RDIR - PRINT DIRECTORY                                    ; "CATALOG"
+                    103 ;
+                    104 <a class='f' name='RDIR'     >RDIR        </a>EQU *
+                    105             JSR DCBSUP
+                    106             LDA #$FF
+                    107             STA DCBVOL
+                    108             JSR RDVTOC
+                    109             LDA #22         ; SET 21 LINES
+                    110             STA TEMP2
+                    111             JSR PRCR        ; GO PRINT                      ; Should be <span class='code'>JSR PRCR2</span>
+                    112             JSR PRCR        ; PRINT ANOTHER CHAR            ; <a class='mem' name='_'>wastes</a> 3 bytes
+                    <a class='line' name='FDELCAT.113'>113</a>             LDX #VML        ; VOLUME MSG LENGTH
+                    114 RD0         LDA VOLMES,X    ; GET MSG CHAR                  ; \
+                    115             JSR PRINT       ; PRINT IT                      ;  &gt; More stupid commenting stating the obvious
+                    116             DEX             ; DECREMENT COUNT               ; /
+<hr>                    117             BPL RD0         ; BR IF MORE                    ; === Page <a class='page' name='page57'>57</a> ===
+                    118 ;
+                    119             STX CNUM+1                                      ; X=0 &rarr; CNUM+1, clear high byte for printing
+                    120             LDA IBSMOD      ; MOVE VOL NO FOR
+                    121             STA CNUM        ; CONVERSION
+                    122             JSR PRNUM       ; GO PRINT VOL NO
+                    123 ;
                     124 
                     125 
                     126 
@@ -5061,7 +5061,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 33B3:CC CF D6 A0                                                                    ;        /sarcasm <i>Lets focus on a <b>single</b> tree,</i>
 33B7:CB D3 C9 C4                                                                    ;                 and <b>completely</b> miss the <i>entire <a class='link' href="https://en.wikipedia.org/wiki/Frak_(expletive)">fraking</a> forest!</i>
                     018             MSB OFF                                         ; Switch back to 7-bit ASCII
-                    019 <a class="d" name="VML"   >VML         </a>EQU *-<a class="v" href="#VOLMES">VOLMES</a>-1                                  ; Used by File <a class="file" href="#FDELCAT">FDELCAT</a>, Func <a class="x" href="#RDIR">RDIR</a>, Line <span class="todo">TODO</span>
+                    019 <a class="d" name="VML"   >VML         </a>EQU *-<a class="v" href="#VOLMES">VOLMES</a>-1                                  ; Used by File <a class="file" href="#FDELCAT">FDELCAT</a>, Func <a class="x" href="#RDIR">RDIR</a>, Line <a class='line' href='#FDELCAT.113'>113</a>
                     020             PAGE                                            ;
                     021 ;VTOC RECORD AREA                                           ; === VTOC ===
                     022 <a class="d" name="VTOC"  >VTOC        </a>EQU *                                           ; <a class='ts'>T11S0</a> [offset], Right side = normal snarky commentary
