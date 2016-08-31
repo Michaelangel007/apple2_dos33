@@ -4198,32 +4198,32 @@ With that "legalese" out of the way ... enjoy the read!
 <pre>
                     001             PAGE
                     002 ;
-                    003 * FFMT - Execute Format Request
+                    003 * FFMT - Execute Format Request                             ; "INIT"
                     004 ;
                     005 <a class="f" name="FFMT"       id="FFMT"       >FFMT        </a>EQU *
 2E8E:20 DC 2B       006             JSR DCBSUP      ; SET UP DCB
 2E91:A9 04          007             LDA #IBFMT
 2E93:20 58 30       008             JSR DCBIO2
 2E96:AD F9 35       009             LDA DCBVOL
-                    010 
-                    011 
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
+                    010             EOR #$FF                                        ; <span class='todo'>TODO</span> Is this the reason why not possible to format with Volume=0
+                    011             STA VVOLNO
+                    012             LDA #17                                         ; <a class='mem' name='_'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK</span>;
+                    013             STA VALCA1      ; ALOCATE BYTE 1                ; *spelling* Allocate, Crappy name: <span class='code'>ALLOC_TRK</span>
+                    014             LDA #1                                          ; +$01 inwards to T22
+                    015             STA VALCA2      ; ADD BYTE 2                    ; Crappy name. <span class='code'>ALLOC_DIR</span>
+                    016 ;
+                    017             LDX #VSECAL-VTOC                                ; Skip VTOC header
+                    018             LDA #0
+                    019 <a class='f' name='NT1'      >NT1         </a>STA VTOC,X      ; CLEAR SECTOR AREA
+                    020             INX
+                    021             BNE NT1
+                    022 ;
+                    023             LDX #3*4        ; START AT TRACK 3              ; Idiotic 4 bytes/track , <a class='magic' name='_'>magic number</a> <span class='code'>FIRST_EMPTY_TRACK</span>
+                    024 <a class='f' name='NT2'      >NT2         </a>CPX #35*4       ; END AT TRACK 35               ; instead of 2 bytes/trk, <a class='magic' name='_'>magic number</a> <span class='code'>LAST_EMPTY_TRACK</span>
+                    025             BEQ NT4
+                    026             LDY #3          ; 4 BYTES OF INFO
+                    027 <a class='f' name='NT3'      >NT3         </a>LDA <a class='v' href='#ALC10S'>ALC10S</a>,Y    ; 10 SECTORS ALLOCATE           ; 16 ($10) sectors used bitmask: 0=free, 1=used
+                    028             STA VSECAL,X
                     029 
                     030 
                     031 
@@ -5026,7 +5026,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 339D:00             009 <a class="d" name="TEMP2" >TEMP2       </a>DFB 0           ; TEMP BYTE 2                   ;   *note* All the cool kids use "o7" for salute these days
 339E:00             010 <a class="d" name="TEMP3" >TEMP3       </a>DFB 0           ; TEMP BYTE 3                   ; Used by <a class="x" href="#FLOCK">FLOCK</a>, <a class="x" href="#FUNLCK">FUNLCK</a> and <a class="x" href="#GSS1">GSS1</a>
 339F:00             011 <a class="d" name="ENTSLT">ENTSLT      </a>DFB 0           ; BOOT SLOT SAVE
-33A0:00 00 FF FF    012 <a class="d" name="ALC10S">ALC10S      </a>DFB 0,0,$FF,$FF ; ALLOCATION TRACK BIT MAP      ; <a class='mem' name='_33A0'>wastes</a> 4 bytes sector free bitmap mask, also see <a class='v' href='#DCBABM '>DCBABM </a>
+33A0:00 00 FF FF    012 <a class="d" name="ALC10S">ALC10S      </a>DFB 0,0,$FF,$FF ; ALLOCATION TRACK BIT MAP      ; <a class='mem' name='_33A0'>wastes</a> 4 bytes sector free bitmap mask, used in <a class='x' href='#NT3'>NT3</a>; also see <a class='v' href='#DCBABM '>DCBABM </a>
                                                                                     ; The thinking was probably:
                                                                                     ;     DOS 3.2 = 13 sector
                                                                                     ;     DOS 3.3 = 16 sector
@@ -5089,10 +5089,10 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 33E2:7A             031 <a class="d" name="VTDMS" >VTDMS       </a>DFB 122         ; MAX SECTORS IN A FILE DIR     ; [27] *sigh* not 128 so we can BMI (Branch on Minus) ??? (Copied to <a class='v' href='#DCBDMS'>DCBDMS</a>)
 33E3:00 00 00 00    032 <a class="d" name="VSPARE">VSPARE      </a>DS 8            ; SPARES                        ; [28] <a class='struct' name='_33E3'>wastes</a> 8 bytes, <i>Oh FFS already ...</i>
 33E7:00 00 00 00    033 ;                                                           ;      Who 1) <i>designed</i>, and 2) <b>implemented</b> this crap?!?!
-33EB:11             034 <a class="d" name="VALCA1">VALCA1      </a>DFB 17          ; ALOCATION ALGORITHM BYTE 1    ; [30] Last allocated track <span class="todo">TODO</span> Cross-Ref
-33EC:01             035 <a class="d" name="VALCA2">VALCA2      </a>DFB 1           ; AA BYTE2                      ; [31] Direction of last track allocation --  Used by <a class="x" href="#GS4">GS4</a>
-                                                                                    ;           +$01 inwards  to <a class='ts'>T22</a>,
-                                                                                    ;           -$FF outwards to <a class='t'>T00</a>.
+33EB:11             034 <a class="d" name="VALCA1">VALCA1      </a>DFB 17          ; ALOCATION ALGORITHM BYTE 1    ; [30] ALLOC_TRK Last allocated track <span class="todo">TODO</span> Cross-Ref
+33EC:01             035 <a class="d" name="VALCA2">VALCA2      </a>DFB 1           ; AA BYTE2                      ; [31] ALLOC_DIR Direction of last track allocation --  Used by <a class="x" href="#GS4">GS4</a>
+                                                                                    ;       +1 = $01 inwards  to <a class='ts'>T22</a>,
+                                                                                    ;       -1 = $FF outwards to <a class='ts'>T00</a>.
 33ED:00             036 <a class="d" name="VALCA3">VALCA3      </a>DFB 0           ; AA BYTE3                      ; [32] <a class='struct' name='_33ED'>wastes</a> 1 byte /sarcasm <i>I <b>really</b> don't know what we</i>
 33EE:00             037 <a class="d" name="VALCA4">VALCA4      </a>DFB 0           ; AA BYTE4                      ; [33] <a class='struct' name='_33EE'>wastes</a> 1 byte          <i>would do without you Captain Obvious!</i>
 33EF:23             038 <a class="d" name="VNOTRK">VNOTRK      </a>DFB 35          ; NO TRACKS ON VOL              ; [34] *note* "No" = Number; To format more then 35 tracks:
