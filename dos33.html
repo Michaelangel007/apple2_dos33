@@ -4135,13 +4135,13 @@ With that "legalese" out of the way ... enjoy the read!
                     190             STA TEMP2
                     191 PRCR1       RTS             ; DONE
                     192             PAGE
-                    193 <a class='f' name='PRNUM'    >PRNUM       </a>EQU *                         ; Print 3 digits A in decimal
+                    193 <a class='f' name='PRNUM'    >PRNUM       </a>EQU *                                           ; Print 3 digits A in decimal
                     194             LDY #2          ; 3 DIGITS
                     195 PRN1        LDA #0          ; INIT DIGIT TO ZERO
                     196             PHA             ; SAVE IT
                     197 ;
                     198 PRN2        LDA CNUM        ; GET NUMBER
-                    199             CMP CVTAB,Y     ; IF NUM &lt; CVTAB ENTRY       ; Crap comment: <b>What</b> is CVTAB??? Is digit &lt; power of 10
+                    199             CMP CVTAB,Y     ; IF NUM &lt; CVTAB ENTRY          ; Crap comment: <b>What</b> is CVTAB??? Is digit &lt; power of 10
                     200             BCC PRN3        ; THEN DONE THIS DIGIT
                     201 ;
                     202             SBC CVTAB,Y     ; SUBTRACT TABLE ENTRY
