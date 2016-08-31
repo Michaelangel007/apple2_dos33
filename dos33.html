@@ -4208,13 +4208,13 @@ With that "legalese" out of the way ... enjoy the read!
                     010             EOR #$FF                                        ; <span class='todo'>TODO</span> Is this the reason why not possible to format with Volume=0
                     011             STA VVOLNO
                     012             LDA #17                                         ; <a class='mem' name='_'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK</span>;
-                    013             STA VALCA1      ; ALOCATE BYTE 1                ; *spelling* Allocate, Crappy name: <span class='code'>ALLOC_TRK</span>
+                    013             STA VALCA1      ; ALOCATE BYTE 1                ; *spelling* Allocate; Crappy name, should be: <span class='code'>ALLOC_TRK</span>
                     014             LDA #1                                          ; +$01 inwards to T22
-                    015             STA VALCA2      ; ADD BYTE 2                    ; Crappy name. <span class='code'>ALLOC_DIR</span>
+                    015             STA VALCA2      ; ADD BYTE 2                    ; Crappy name, should be: <span class='code'>ALLOC_DIR</span>
                     016 ;
                     017             LDX #VSECAL-VTOC                                ; Skip VTOC header
                     018             LDA #0
-                    019 <a class='f' name='NT1'      >NT1         </a>STA VTOC,X      ; CLEAR SECTOR AREA
+                    019 <a class='f' name='NT1'      >NT1         </a>STA VTOC,X      ; CLEAR SECTOR AREA             ; We only care about 4 tracks set to used: T0,T1,T2,T17
                     020             INX
                     021             BNE NT1
                     022 ;
@@ -4224,16 +4224,16 @@ With that "legalese" out of the way ... enjoy the read!
                     026             LDY #3          ; 4 BYTES OF INFO
                     027 <a class='f' name='NT3'      >NT3         </a>LDA <a class='v' href='#ALC10S'>ALC10S</a>,Y    ; 10 SECTORS ALLOCATE           ; 16 ($10) sectors used bitmask: 0=free, 1=used
                     028             STA VSECAL,X
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
+                    029             INX
+                    030             DEY
+                    031             BPL NT3
+                    032             CPX #17*4       ; AT TRACK 17                   ; <a class='mem' name='_'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK * ALLOC_BYTE_PER_TRACK</span>;
+                    033             BNE NT2
+                    034             LDX #18*4       ; SKIP TO 18
+                    035             BNE NT2                                         ; &uarr; (always)
+                    036 ;
+                    037 NT4         JSR WRVTOC      ; WRITE NEW VTOC
+                    038 ;
                     039 
                     040 
                     041 
