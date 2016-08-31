@@ -4135,7 +4135,7 @@ With that "legalese" out of the way ... enjoy the read!
                     190             STA TEMP2
                     191 PRCR1       RTS             ; DONE
                     192             PAGE
-                    193 <a class='f' name='PRNUM'    >PRNUM       </a>EQU *                                           ; Print 3 digits A in decimal
+                    193 <a class='f' name='PRNUM'    >PRNUM       </a>EQU *                                           ; Print 16-bit CNUM as 3 decimal digits with leading zeroes
                     194             LDY #2          ; 3 DIGITS
                     195 PRN1        LDA #0          ; INIT DIGIT TO ZERO
                     196             PHA             ; SAVE IT
@@ -4152,7 +4152,7 @@ With that "legalese" out of the way ... enjoy the read!
                     207             PLA             ; INCREMENT DIGIT
                     208             ADC #0
                     209             PHA
-                    210             JMP PRN2        ; TRY AGAIN                     ; <a class='mem'>wastes</a> 1 byte, A &lt; $80
+                    210             JMP PRN2        ; TRY AGAIN                     ; <a class='mem'>wastes</a> 1 byte, A is &gt; 0, A &lt; $80, <span class='code'>BNE PRN2</span>
                     211 ;
                     212 PRN3        EQU *
                     213             PLA             ; GET DIGIT
@@ -4164,7 +4164,7 @@ With that "legalese" out of the way ... enjoy the read!
                     219             RTS             ; DONE
                     220             PAGE
                     221 ;
-                    222 * CLCFCB - GET FCB VIA INDEX AND MOVE IT
+                    222 * CLCFCB - GET FCB VIA INDEX AND MOVE IT                    ; <i>You keep using this word <b>move</b>, it doesn't mean what you think it means</i>
                     223 ;
                     224 <a class='f' name='CLCFCB'   >CLCFCB      </a>EQU *                                           ; /sarcasm Oh I see, CLC_FB is clearer then COPY_FCB
                     225 ;
