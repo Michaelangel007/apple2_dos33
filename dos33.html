@@ -4051,8 +4051,8 @@ With that "legalese" out of the way ... enjoy the read!
                     106             LDA #$FF
                     107             STA DCBVOL
                     108             JSR RDVTOC
-                    109             LDA #22         ; SET 21 LINES
-                    110             STA TEMP2
+                    109             LDA #22         ; SET 21 LINES                  ;[.. <a class='mem' name='_'>wastes</a> 1 bytes, <span class='code'>JSR NewPage</span> 
+                    110             STA TEMP2                                       ; ..]
                     111             JSR PRCR        ; GO PRINT                      ; Should be <span class='code'>JSR PRCR2</span>
                     112             JSR PRCR        ; PRINT ANOTHER CHAR            ; <a class='mem' name='_'>wastes</a> 3 bytes
                     <a class='line' name='FDELCAT.113'>113</a>             LDX #VML        ; VOLUME MSG LENGTH
@@ -4066,107 +4066,107 @@ With that "legalese" out of the way ... enjoy the read!
                     121             STA CNUM        ; CONVERSION
                     122             JSR PRNUM       ; GO PRINT VOL NO
                     123 ;
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
-                    165 
-                    166 
-                    167 
-                    168 
-                    169 
-                    170 
-                    171 
-                    172 
-                    173 
-                    174 
-                    175 
-                    176 
-                    177 
-                    178 
-                    179 
-                    180 
-                    181 
-                    182 
-                    183 
-                    184 
-                    185 
-                    186 
-                    187 
-                    188 
-                    189 
-                    190 
-                    191 
-                    192 
-                    193 
-                    194 
-                    195 
-                    196 
-                    197 
-                    198 
-                    199 
-                    200 
-                    201 
-                    202 
-                    203 
-                    204 
-                    205 
-                    206 
-                    207 
-                    208 
-                    209 
-                    210 
-                    211 
-                    212 
-                    213 
-                    214 
-                    215 
-                    216 
-                    217 
-                    218 
-                    219 
-                    220 
-                    221 
-                    222 
-                    223 
-                    224 CLCFCB      EQU *                                           ; /sarcasm Oh I see, CLC_FB is clearer then CALC_FCB / COPY_FCB
+                    124             JSR PRCR        ; PRINT CR                      ; Should be <span class='code'>JSR PRCR2</span>
+                    125             JSR PRCR        ; AND AGAIN                     ; <a class='mem' name='_'>wastes</a> 3 bytes
+                    126 ;
+                    127             CLC             ; FIRST RECORD
+                    128 ;
+                    129 RD1         JSR RDVDIR      ; GO READ REC
+                    130             BCS RD5
+                    131             LDX #<span class='n'>0</span>          ; SET INDEX=0
+                    132 RD2         STX TEMP1       ; SAVE INDEX
+                    133             LDA VDFILE,X    ; GET TRACK                     ; <a class='magic' name='_'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
+                    134             BEQ RD5         ; BR IF END OF DIR
+                    135             BMI RD4         ; BR IF DELETED
+                    136 ;
+                    137             LDY #$A0        ; BLANK                         ; KEY_SPACE
+                    138             LDA VDFILE+2,X  ; GET TYPE                      ; <a class='magic' name='_'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
+                    139             BPL RD2A        ; BR IF NOT LOCKED
+                    140             LDY #'*'+$80    ; AST                           ; Asterisk, KEY_ASTERISK
+                    141 RD2A        TYA             ; ACU = AST OR BLANK
+                    142             JSR PRINT       ; PRINT ACU
+                    143 ;
+                    144             LDA VDFILE+2,X  ; GET TYPE                      ; <a class='magic' name='_'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
+                    145             AND #$7F        ; MASK OUT MISC                 ; <a class='magic' name='_'>magic number</a> FILE_LOCKED_MASK
+                    146             LDY #7          ; SET INDEX = 7                 ; Using a bit mask instead of a enumeration is dumb
+                    147             ASL A           ;GET RID OF HI BIT              ; Instead of the simple
+                    148 RD2B        ASL A           ; SHIFT OUT MSB                 ;    LDX FILE_TYPE
+                    149             BCS RD2C        ; BR IF TYPE BIT OUT            ;    LDA CHAR_FILE_TYPE,X
+                    150             DEY             ; DEC INDEX                     ; We waste 9 bytes
+                    151             BNE RD2B        ; BR IF NOT ACC BITS
+                    152 RD2C        EQU *
+                    153             LDA FTTAB,Y     ; GET TYPE CODE
+                    154             JSR PRINT       ; PRINT IT
+                    155             LDA #$A0        ; BLANK
+                    156             JSR PRINT       ; PRINT
+                    157 ;                                                           ; NOT File length, this is Number of Sectors Allocated
+                    158             LDA VDFILE+33,X ; MOVE FILE LENGTH              ; <a class='magic' name='_'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+0</span>
+                    159             STA CNUM
+                    160             LDA VDFILE+34,X ; MOVE FILE LENGTH              ; <a class='magic' name='_'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+1</span>
+                    161             STA CNUM+1
+                    162             JSR PRNUM       ; GO PRINT NUMBER
+                    163             LDA #$A0        ; BLANK
+                    164             JSR PRINT       ; PRINT
+                    165 ;
+                    166             INX
+                    167             INX
+                    168             INX
+                    169             LDY #29                                         ; <a class='magic' name='_'>magic number</a> <span class='code'>MAX_FILENAME-1</span>
+                    170 RD3         LDA VDFILE,X    ; GET CHAR
+                    171             JSR PRINT       ; PRINT CHAR
+                    172             INX
+                    173             DEY
+                    174             BPL RD3
+                    175 RD3A        EQU *
+                    176             JSR PRCR        ; GO PRINT CR
+                    177 RD4         JSR VDINC       ; INCR INDEX
+                    178             BCC RD2         ; BR IF MORE IN DIR
+                    179             BCS RD1         ; GO READ NEXT DIR
+                    180 ;
+                    181 RD5         JMP GOODIO      ; DONE
+<hr>                    182 ;                                                           ; === Page <a class='page' name='page58'>58</a> ===
+                    183 <a class='f' name='PRCR'     >PRCR        </a>EQU *
+                    184             LDA #$8D        ; CR
+                    185             JSR PRINT       ; PRINTED
+                    186             DEC TEMP2       ; DEC LINE COUNT
+                    187             BNE PRCR1       ; BR IF NOT ZERO
+                    188             JSR GETKEY      ; WAIT FOR INPUT
+                    189             LDA #21         ; RESET LINE COUNTER            ; <span class='code'>NewPage</span>
+                    190             STA TEMP2
+                    191 PRCR1       RTS             ; DONE
+                    192             PAGE
+                    193 <a class='f' name='PRNUM'    >PRNUM       </a>EQU *                         ; Print 3 digits A in decimal
+                    194             LDY #2          ; 3 DIGITS
+                    195 PRN1        LDA #0          ; INIT DIGIT TO ZERO
+                    196             PHA             ; SAVE IT
+                    197 ;
+                    198 PRN2        LDA CNUM        ; GET NUMBER
+                    199             CMP CVTAB,Y     ; IF NUM &lt; CVTAB ENTRY       ; Crap comment: <b>What</b> is CVTAB??? Is digit &lt; power of 10
+                    200             BCC PRN3        ; THEN DONE THIS DIGIT
+                    201 ;
+                    202             SBC CVTAB,Y     ; SUBTRACT TABLE ENTRY
+                    203             STA CNUM
+                    204             LDA CNUM+1
+                    205             SBC #0
+                    206             STA CNUM+1
+                    207             PLA             ; INCREMENT DIGIT
+                    208             ADC #0
+                    209             PHA
+                    210             JMP PRN2        ; TRY AGAIN                     ; <a class='mem'>wastes</a> 1 byte, A &lt; $80
+                    211 ;
+                    212 PRN3        EQU *
+                    213             PLA             ; GET DIGIT
+                    214             ORA #$B0        ; ADD ASCII 0                   ; <a class='magic'>magic number</a> <span class='code'>#'0'+$80</span> or <span class='code'>KEY_0</span>
+                    215             JSR PRINT       ; PRINT IT                      ; Gee I wonder what PRINT does ...
+                    216             DEY             ; DECREMENT DIGIT COUNT
+                    217             BPL PRN1        ; BR IF MORE DIGIT
+                    218 ;
+                    219             RTS             ; DONE
+                    220             PAGE
+                    221 ;
+                    222 * CLCFCB - GET FCB VIA INDEX AND MOVE IT
+                    223 ;
+                    224 <a class='f' name='CLCFCB'   >CLCFCB      </a>EQU *                                           ; /sarcasm Oh I see, CLC_FB is clearer then CALC_FCB / COPY_FCB
                     225 ;
 2E6A:20 08 2F       226             JSR MVFCBP      ; MOVE FCB PTR TO ZP
 2E6D:A0 00          227             LDY #0
@@ -4182,7 +4182,7 @@ With that "legalese" out of the way ... enjoy the read!
                     237 ;
                     238 * RTNFCB - MOVE FCB FROM WORK AREA TO FCB
                     239 ;
-                    240 RTNFCB      EQU *
+                    240 <a class='f' name='RTNFCB'   >RTNFCB      </a>EQU *
 2E7E:20 08 2F       241             JSR MVFCBP      ; MOVE FCB ADR TO ZPG
                     242 ;
 <hr>2E81:A0 00          243             LDY #<span class='n'>0</span>                                          ; === Page <a class='page' name='page59'>59</a> ===
