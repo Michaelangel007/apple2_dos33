@@ -3995,42 +3995,42 @@ With that "legalese" out of the way ... enjoy the read!
 2D36:4C 7B 33       050             JMP ERROR10                                     ; <a class='mem' name='_2D36'>wastes</a> 3 bytes with <span class='code'>JMP</span>, See <a class='x' href='#ER10'>ER10</a> optimization above
                     051 ;
                     052 FD3         EQU *
-2D39:               053             LDX TEMP        ; GET SAVED INDEX
-2D3C:               054             LDA VDFILE,X    ; GET DIR TRACK                 ; <a class='magic' name='_2D3C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
-2D3F:               055             STA DCBFDT      ; SET AS 1ST FD TRACK           ; LC = last character
-2D42:               056             STA VDFILE+<span class='n'>32</span>,X ; SAVE IN LC OF FN              ; <a class='magic' name='_2D42'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NAME + MAX_FILENAME_LEN - 1</span>
+2D39:AE 9C 33       053             LDX TEMP        ; GET SAVED INDEX
+2D3C:BD C6 34       054             LDA VDFILE,X    ; GET DIR TRACK                 ; <a class='magic' name='_2D3C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
+2D3F:8D D1 35       055             STA DCBFDT      ; SET AS 1ST FD TRACK           ; LC = last character
+2D42:9D E6 34       056             STA VDFILE+<span class='n'>32</span>,X ; SAVE IN LC OF FN              ; <a class='magic' name='_2D42'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NAME + MAX_FILENAME_LEN - 1</span>
 2D45:A9 FF          057             LDA #$FF        ; DELETED FILE MARKER
-2D47:               058             STA VDFILE,X    ; CLEAR ENTRY                   ; <a class='magic' name='_2D47'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
-2D4A:               059             LDY VDFILE+<span class='n'>1</span>,X  ; GET DIR SECTOR                ; <a class='magic' name='_2D4A'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
-2D4D:               060             STY DCBFDS      ; SET AS 1ST FD SEC
-                    061             JSR WRVDIR      ; GO WRITE VOLUME DIR
-                    062             CLC
-                    063 FD4         JSR RDFDIR      ; GET 1ST FILE DIR SECTOR
-                    064             BCS FD7         ; BR IF NO MORE
-                    065             JSR MVFCBD      ; MOVE DIR TO ZPG
-                    066             LDY #FDENT      ; POINT Y TO 1ST SEC ENT
-                    067 FD5         STY TEMP1       ; SAVE Y                        ; School of Commenting on Useless Observations
-                    068             LDA (ZPGFCB),Y  ; GET REACK                     ; *spelling* Track
-                    069             BMI FD6         ; BR IF NONE
-                    070             BEQ FD6         ; BR IF END OF FILE
-                    071             PHA             ; SAVE TRK
-                    072             INY
-                    073             LDA (ZPGFCB),Y  ; GET SECTOR
-                    074             TAY             ; TO Y
-                    075             PLA             ; GET TRK
-                    076             JSR FDSUB       ; GO FREE SECTOR                ; /sarcasm What? FREESECS wasn't available??? (It is but <a class='x' href='#FRESEC'>FRESEC</a> is used)
-                    077 FD6         LDY TEMP1       ; GET DIR INDEX
-                    078             INY             ; INCR TO NEXT INDEX
-                    079             INY
-                    080             BNE FD5         ; BR NOT DONE THIS DIR
-                    081             LDA DCBCDT      ; GET THIS DIR TRK
-                    082             LDY DCBCDS      ; AND SECTOR
-                    083             JSR FDSUB       ; AND GO FREE IT
-                    084             SEC             ; GO
-                    085             BCS FD4         ; READ NEXT DIR                 ; &uarr; (always)
+2D47:9D C6 34       058             STA VDFILE,X    ; CLEAR ENTRY                   ; <a class='magic' name='_2D47'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
+2D4A:BC C7 34       059             LDY VDFILE+<span class='n'>1</span>,X  ; GET DIR SECTOR                ; <a class='magic' name='_2D4A'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
+2D4D:8C D2 35       060             STY DCBFDS      ; SET AS 1ST FD SEC
+2D50:20 37 30       061             JSR WRVDIR      ; GO WRITE VOLUME DIR
+2D53:18             062             CLC
+2D54:20 5E 2F       063 FD4         JSR RDFDIR      ; GET 1ST FILE DIR SECTOR
+2D57:B0 2A          064             BCS FD7         ; BR IF NO MORE
+2D59:20 0C 2F       065             JSR MVFCBD      ; MOVE DIR TO ZPG
+2D5C:A0 0C          066             LDY #FDENT      ; POINT Y TO 1ST SEC ENT
+2D5E:8C 9C 33       067 FD5         STY TEMP1       ; SAVE Y                        ; School of Commenting on Useless Observations
+2D61:B1 42          068             LDA (ZPGFCB),Y  ; GET REACK                     ; *spelling* Track
+2D63:30 0B          069             BMI FD6         ; BR IF NONE
+2D65:F0 09          070             BEQ FD6         ; BR IF END OF FILE
+2D67:48             071             PHA             ; SAVE TRK
+2D68:C8             072             INY
+2D69:B1 42          073             LDA (ZPGFCB),Y  ; GET SECTOR
+2D6B:A8             074             TAY             ; TO Y
+2D6C:68             075             PLA             ; GET TRK
+2D6D:20 89 2D       076             JSR FDSUB       ; GO FREE SECTOR                ; /sarcasm What? FREESECS wasn't available??? (It is but <a class='x' href='#FRESEC'>FRESEC</a> is used)
+2D70:AC 9C 33       077 FD6         LDY TEMP1       ; GET DIR INDEX
+2D73:C8             078             INY             ; INCR TO NEXT INDEX
+2D74:C8             079             INY
+2D75:D0 E7          080             BNE FD5         ; BR NOT DONE THIS DIR
+2D77:AD D3 35       081             LDA DCBCDT      ; GET THIS DIR TRK
+2D7A:AC D4 35       082             LDY DCBCDS      ; AND SECTOR
+2D7D:20 89 2D       083             JSR FDSUB       ; AND GO FREE IT
+2D80:38             084             SEC             ; GO
+2D81:B0 D1          085             BCS FD4         ; READ NEXT DIR                 ; &uarr; (always)
                     086 FD7         EQU *
-                    087             JSR WRVTOC
-                    088             JMP GOODIO
+2D83:20 FB 2F       087             JSR WRVTOC
+2D86:4C 7F 33       088             JMP GOODIO
                     089 ;
                     090 <a class='f' name='FDSUB'    >FDSUB       </a>EQU *
                     091             SEC             ; SET FOR REUSE OF SEC
@@ -4166,7 +4166,7 @@ With that "legalese" out of the way ... enjoy the read!
                     221 ;
                     222 * CLCFCB - GET FCB VIA INDEX AND MOVE IT
                     223 ;
-                    224 <a class='f' name='CLCFCB'   >CLCFCB      </a>EQU *                                           ; /sarcasm Oh I see, CLC_FB is clearer then CALC_FCB / COPY_FCB
+                    224 <a class='f' name='CLCFCB'   >CLCFCB      </a>EQU *                                           ; /sarcasm Oh I see, CLC_FB is clearer then COPY_FCB
                     225 ;
 2E6A:20 08 2F       226             JSR MVFCBP      ; MOVE FCB PTR TO ZP
 2E6D:A0 00          227             LDY #0
