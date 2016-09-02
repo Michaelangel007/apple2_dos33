@@ -3703,7 +3703,7 @@ With that "legalese" out of the way ... enjoy the read!
 2BFC:AA             113             TAX
                     114 <a class='f' name='F01A'     >F01A        </a>EQU *
 2BFD:8E F7 FF       115             STX DCBSLT
-<hr>2C00:A9             116             LDA #<span class='n'>17</span>                                         ;[.. <a class='mem' name='_2C00'>wastes</a> 5 bytes; === <a class='ts' name='T1SB'>T1SB</a> === <a class='magic' name='_2C01'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK</span> 
+<hr>2C00:A9             116             LDA #<span class='n'>17</span>                                         ;[.. <a class='mem' name='_2C00'>wastes</a> 5 bytes; === <a class='ts' name='T1SB'>T1SB</a> === <a class='magic' name='_2C01'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
 2C02:8D FA 35       117             STA <a class='v' href='#DCBVTN'>DCBVTN</a>                                      ; ..] due to unitialized <a class='x' href='#DCBVTN'>DCBVTN</a> DS 1           Because this can change???
 2C05:60             118             RTS
                     119             PAGE
@@ -4234,22 +4234,22 @@ With that "legalese" out of the way ... enjoy the read!
                     036 ;
                     037 NT4         JSR WRVTOC      ; WRITE NEW VTOC
                     038 ;
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
+                    039             LDX #0
+                    040             TXA
+                    041 NT5         STA VOLDIR,X    ; CLEAR VOLDIR
+                    042             INX
+                    043             BNE NT5
+                    044 ;
+                    045             JSR MVVDBA      ; MOVE BUF PTRS
+                    046 ;
+                    047             LDA #17         ; TRACK 17                      ; <a class='magic' name='_'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
+                    048             LDY VNOSEC                                      ; S16
+                    049             DEY                                             ; S15 CATALOG [0]
+                    050             DEY                                             ; S14 CATALOG [1]
+                    051             STA IBTRK       ; INTO IOB
+                    052 NT6         STA VDLTRK      ; INTO LINK
+                    053 NT7         STY VDLSEC      ;
+                    054             INY
                     055 
                     056 
                     057 
