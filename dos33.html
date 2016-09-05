@@ -4250,25 +4250,25 @@ With that "legalese" out of the way ... enjoy the read!
                     052 NT6         STA VDLTRK      ; INTO LINK
                     053 NT7         STY VDLSEC      ;
                     054             INY
-                    055 
-                    056 
-                    057 
-                    058 
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
+                    055             STY IBSECT
+                    056             LDA #IBCWTS
+                    057             JSR DCBIO2
+                    058             LDY VDLSEC
+                    059             DEY             ; DECREMENT SECTOR
+                    060             BMI NT8         ; BR LAST WRITTEN
+                    061             BNE NT7         ; BR NOT LAST
+                    062             TYA             ; lAST, SET LINK TRK=0
+                    063             BEQ NT6
+                    064 ;
+                    065 NT8         EQU *
+                    066             JSR DLDSUP      ; GO SET UP FOR DOSLDR
+                    067             JSR WBOOT       ; GO WRITE THE BOOT
+                    068             JMP GOODIO      ; DONE
+                    069             PAGE
+                    070 ;
+                    071 * MVFCBX - MOVE FCB ADRS TO ZPGFCB
+                    072 ;
+                    073 <a class='f' name='MVFCBP'   >MVFCBP      </a>MVFCBP      LDX #0          ; MOVE FCB ADR
                     074 
                     075 
                     076 
