@@ -4268,55 +4268,55 @@ With that "legalese" out of the way ... enjoy the read!
                     070 ;
                     071 * MVFCBX - MOVE FCB ADRS TO ZPGFCB
                     072 ;
-                    073 <a class='f' name='MVFCBP'   >MVFCBP      </a>MVFCBP      LDX #0          ; MOVE FCB ADR
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
+                    073 <a class='f' name='MVFCBP'   >MVFCBP      </a>LDX #<span class='n'>0</span>          ; MOVE FCB ADR                  ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span>
+                    074             BEQ MVF1
+                    075 <a class='f' name='MVFCBD'   >MVFCBD      </a>LDX #<span class='n'>2</span>          ; MOVE FCB DIR BUFF             ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span>
+                    076             BNE MVF1                                        ; <a class='mem' name='_'>wastes</a> 1 byte, $2C bit $abs
+                    077 <a class='f' name='MVFCBS'   >MVFCBS      </a>LDX #<span class='n'>4</span>          ; MOVE FCB SECTOR BUFF          ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span>
+                    078 ;
+                    079 <a class='f' name='MVF1'     >MVF1        </a>EQU *
+                    080             LDA CFCBAD,X    ; DO THE MOVE
+                    081             STA ZPGFCB
+                    082             LDA CFCBAD+1,X
+                    083             STA ZPGFCB+1
+                    084             RTS
+                    085 ;
+                    086             PAGE
+                    087 ;
+                    088 * WRSECT - WRITE CURRENT SECTOR IF REQD
+                    089 ;
+                    090 <a class='f' name='WRSECT'   >WRSECT      </a>EQU *
+                    091             BIT DCBWRF      ; GET WRITE REQD FLAG
+                    092             BVS WRSGO       ; BR IF WRITE SECTOR REQD       ; <a class='mem' name='_'>wastes</a> 1 byte with next instruction RTS, should be: <span class='code'>BVC WRFDIR-1</span>
+                    093             RTS             ; RTS                           ; o7 Captain Obvious
+                    094 ;
+                    095 <a class='f' name='WRGO'     >WRGO        </a>EQU *
+                    096             JSR MVSBA       ; GO MOVE SECT BUFF ADR         ; MoveSectorBufferAddress
+                    097 ;
+                    098             LDA #IBCWTS     ; GET COMMAND
+                    099             JSR DCBIO       ; GO FILL IN IOB AND DO IO
+                    100 ;
+                    101             LDA #$<span class='n'>BF</span>        ; SET WRITE SECTOR REQD BIT OFF ; <a class='magic' name='_'>magic number</a> $BF = 1011_1111 <span class='code'>FLAG_W_CUR_SECTOR EQU $40; LDA ~FLAG_W_CUR_SECTOR</span>
+                    102             AND DCBWRF
+                    103             STA DCBWRF
+                    104             RTS             ; DONE
+                    105             PAGE
+                    106 ;
+                    107 * WRFDIR - WRITE FILE DIRECTRY IF REQD                      ; *spelling* Directory
+                    108 ;
+                    109 <a class='f' name='WRFDIR'   >WRFDIR      </a>EQU *
+                    110             LDA DCBWRF      ; GET WRITE REQD FLAG
+                    111             BMI WRFDGO      ; BR IF NOT DIR REQD            ; <a class='mem' name='_'>wastes</a> 1 byte with next instruction RTS, should be: <span class='code'>BPL WRFDIR-1</span>
+                    112             RTS
+                    113 ;
+                    114 <a class='f' name='WRFDGO'   >WRFDGO      </a>EQU *
+                    115             JSR MVFDBA                                      ; MoveFileDirectoryBufferAddress
+                    116 ;
+<hr>                    117             LDA #IBCWTS     ; GET WRITE CMD                 ; === Page <a class='page' name='page75'>75</a> ===
+                    118             JSR DCBIO       ; GO FILL IN IOB AND DO I/O
+                    119 ;
+                    120             LDA #$<span class='n'>7F</span>        ; TURN WRITE DIR REQD BIT OFF   ; <a class='magic' name='_'>magic number</a> $7F = 0111_1111 <span class='code'>FLAG_W_FIL_SECTOR EQU $80; LDA ~FLAG_W_FIL_SECTOR</span>
+                    121             AND DCBWRF
                     122 
                     123 
                     124 
