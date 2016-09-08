@@ -4347,77 +4347,77 @@ With that "legalese" out of the way ... enjoy the read!
                     149             JMP RFDIO1      ; GO READ
                     150 ;
                     151 <a class='f' name='RFDNXT'   >RFDNXT      </a>EQU *
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
-                    165 
-                    166 
-                    167 
-                    168 
-                    169 
-                    170 
-                    171 
-                    172 
-                    173 
-                    174 
-                    175 
-                    176 
-                    177 
-                    178 
-                    179 
-                    180 
-                    181 
-                    182 
-                    183 
-                    184 
-                    185 
-                    186 
-                    187 
-                    188 
-                    189 
-                    190 
-                    191 
-                    192 
-                    193 
-                    194 
-                    195 
-                    196 
-                    197 
-                    198 
-                    199 
-                    200 
-                    201 
-                    202 
-                    203 
-                    204 
-                    205 
-                    206 
-                    207 
-                    208 
-                    209 
-                    210 
-                    211 
-                    212 
-                    213 
-                    214 
-                    215 
-                    216 
-                    217 
-                    218 
-                    219 
-                    220 
-                    221 
-                    222 
+                    152             LDY #FDLTRK     ; GET LINK TRACK
+                    153             LDA (ZPGFCB),Y
+                    154             BEQ RFDNL       ; NR NO LINK
+                    155             TAX             ; PUT TRACK INTO X              ; o7 Captain Obvious
+                    156             INY
+                    157             LDA (ZPGFCB),Y  ; GET LINK SECTOR
+                    158             TAY             ; PUT SECTOR INTO Y
+                    159             JMP RFDIO1      ; GO DO I/O
+                    160 ;
+                    161 <a class='f' name='RFDNL'    >RFDNL       </a>EQU *                                           ; Read File Dir Next Link
+                    162             LDA CCBREQ      ; THIS A WRITE
+                    163             CMP #CRQWR
+                    164             BEQ RFDNL1      ; BR IF WRITE                   ; &darr;
+                    165             SEC             ; SET EOF
+                    166             RTS             ; RETURN                        ; o7 Captain Obvious
+                    167 ;
+                    168 RFDNL1      EQU *
+                    169             JSR GETSEC
+                    170             LDY #FDLSEC                                     ; === Page <a class='page' name='page76'>76</a> ===
+                    171             STA (ZPGFCB),Y
+                    172             PHA
+                    173             DEY
+                    174             LDA DCBATK
+                    175             STA (ZPGFCB),Y
+                    176             PHA
+                    177             JSR WRFDGO
+                    178 ;
+                    179             JSR CLRSEC
+                    180             LDY #FDFRS
+                    181             LDA DCBDNF
+                    182             STA (ZPGFCB),Y
+                    183             INY
+                    184             LDA DCBDNF+1
+                    185             STA (ZPGFCB),Y
+                    186 ;
+                    187             PLA
+                    188             TAX
+                    189             PLA
+                    190             TAY
+                    191             LDA #IBCWTS     ; SET WRITE CMD
+                    192             BNE RFDIO2      ; GO DO I/O
+                    193 ;
+                    194 RFDIO1      LDA #IBCRTS     ; SET READ CMD
+                    195 RFDIO2      STX DCBCDT
+                    196             STY DCBCDS
+                    197             JSR DCBIO
+                    198 ;
+                    199 RDFDC       LDY #FDFRS
+                    200             LDA (ZPGFCB),Y
+                    201             STA DCBDFS
+                    202             CLC
+                    203             ADC DCBDMS
+                    204             STA DCBDNF
+                    205 ;
+                    206             INY
+                    207             LDA (ZPGFCB),Y
+                    208             STA DCBDFS+1
+                    209             ADC DCBDMS+1
+                    210             STA DCBDNF+1
+                    211 ;
+                    212             CLC
+                    213             RTS
+                    214             PAGE
+                    215 ;
+                    216 ;RDSECT - READ A SECTOR
+                    217 ;
+                    218 <a class='f' name='RDSECT'   >RDSECT      </a>EQU *
+                    219             JSR MVSBA
+                    220 ;
+                    221             LDA #IBCRTS
+                    222             JMP DCBIO
                     223 ;
                     224 ;MVSBA - MOVE SECTOR BUFFER ADR FOR I/O
                     225 ;
