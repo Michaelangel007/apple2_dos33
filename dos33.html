@@ -4214,7 +4214,7 @@ With that "legalese" out of the way ... enjoy the read!
                     016 ;
                     017             LDX #VSECAL-VTOC                                ; Skip VTOC header
                     018             LDA #0
-                    019 <a class='f' name='NT1'      >NT1         </a>STA VTOC,X      ; CLEAR SECTOR AREA             ; We only care about 4 tracks set to used: T0,T1,T2,T17
+2EAC:9D BB 33       019 <a class='f' name='NT1'      >NT1         </a>STA VTOC,X      ; CLEAR SECTOR AREA             ; We only care about 4 tracks set to used: T0,T1,T2,T17
                     020             INX
                     021             BNE NT1
                     022 ;
@@ -4223,7 +4223,7 @@ With that "legalese" out of the way ... enjoy the read!
                     025             BEQ NT4
                     026             LDY #3          ; 4 BYTES OF INFO
                     027 <a class='f' name='NT3'      >NT3         </a>LDA <a class='v' href='#ALC10S'>ALC10S</a>,Y    ; 10 SECTORS ALLOCATE           ; 16 ($10) sectors used bitmask: 0=free, 1=used
-                    028             STA VSECAL,X
+2EBD:9D F3 33       028             STA VSECAL,X
                     029             INX
                     030             DEY
                     031             BPL NT3
@@ -4232,7 +4232,7 @@ With that "legalese" out of the way ... enjoy the read!
                     034             LDX #18*4       ; SKIP TO 18
                     035             BNE NT2                                         ; &uarr; (always)
                     036 ;
-                    037 NT4         JSR WRVTOC      ; WRITE NEW VTOC
+2ECC:20 FB 2F       037 NT4         JSR WRVTOC      ; WRITE NEW VTOC
                     038 ;
                     039             LDX #0
                     040             TXA
@@ -4240,10 +4240,10 @@ With that "legalese" out of the way ... enjoy the read!
                     042             INX
                     043             BNE NT5
                     044 ;
-                    045             JSR MVVDBA      ; MOVE BUF PTRS
+2ED8:20 45 30       045             JSR MVVDBA      ; MOVE BUF PTRS
                     046 ;
                     047             LDA #17         ; TRACK 17                      ; <a class='magic' name='_'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
-                    048             LDY VNOSEC                                      ; S16
+2ED8:AC F0 33       048             LDY VNOSEC                                      ; S16
                     049             DEY                                             ; S15 CATALOG [0]
                     050             DEY                                             ; S14 CATALOG [1]
                     051             STA IBTRK       ; INTO IOB
@@ -4252,7 +4252,7 @@ With that "legalese" out of the way ... enjoy the read!
                     054             INY
                     055             STY IBSECT
                     056             LDA #IBCWTS
-                    057             JSR DCBIO2
+2EF1:20 58 30       057             JSR DCBIO2
                     058             LDY VDLSEC
                     059             DEY             ; DECREMENT SECTOR
                     060             BMI NT8         ; BR LAST WRITTEN
@@ -4261,9 +4261,9 @@ With that "legalese" out of the way ... enjoy the read!
                     063             BEQ NT6
                     064 ;
                     065 NT8         EQU *
-                    066             JSR DLDSUP      ; GO SET UP FOR DOSLDR
-                    067             JSR WBOOT       ; GO WRITE THE BOOT
-                    068             JMP GOODIO      ; DONE
+2EFF:20 C2 37       066             JSR DLDSUP      ; GO SET UP FOR DOSLDR          ; === <a class='ts' name='T1SE'>T1SE</a> ===
+2F02:20 4A 37       067             JSR WBOOT       ; GO WRITE THE BOOT
+2F05:4C 7F 33       068             JMP GOODIO      ; DONE
                     069             PAGE
                     070 ;
                     071 * MVFCBX - MOVE FCB ADRS TO ZPGFCB
@@ -4286,12 +4286,12 @@ With that "legalese" out of the way ... enjoy the read!
                     088 * WRSECT - WRITE CURRENT SECTOR IF REQD
                     089 ;
                     090 <a class='f' name='WRSECT'   >WRSECT      </a>EQU *
-                    091             BIT DCBWRF      ; GET WRITE REQD FLAG
+2F1D:2C D5 35       091             BIT DCBWRF      ; GET WRITE REQD FLAG
                     092             BVS WRSGO       ; BR IF WRITE SECTOR REQD       ; <a class='mem' name='_'>wastes</a> 1 byte with next instruction RTS, should be: <span class='code'>BVC WRFDIR-1</span>
                     093             RTS             ; RTS                           ; o7 Captain Obvious
                     094 ;
                     095 <a class='f' name='WRGO'     >WRGO        </a>EQU *
-                    096             JSR MVSBA       ; GO MOVE SECT BUFF ADR         ; MoveSectorBufferAddress
+2F23:20 E4 2F       096             JSR MVSBA       ; GO MOVE SECT BUFF ADR         ; MoveSectorBufferAddress
                     097 ;
                     098             LDA #IBCWTS     ; GET COMMAND
                     099             JSR DCBIO       ; GO FILL IN IOB AND DO IO
@@ -4305,48 +4305,48 @@ With that "legalese" out of the way ... enjoy the read!
                     107 * WRFDIR - WRITE FILE DIRECTRY IF REQD                      ; *spelling* Directory
                     108 ;
                     109 <a class='f' name='WRFDIR'   >WRFDIR      </a>EQU *
-                    110             LDA DCBWRF      ; GET WRITE REQD FLAG
-                    111             BMI WRFDGO      ; BR IF NOT DIR REQD            ; <a class='mem' name='_'>wastes</a> 1 byte with next instruction RTS, should be: <span class='code'>BPL WRFDIR-1</span>
-                    112             RTS
+2F34:AD D5 35       110             LDA DCBWRF      ; GET WRITE REQD FLAG
+2F37:30 01          111             BMI WRFDGO      ; BR IF NOT DIR REQD            ; <a class='mem' name='_'>wastes</a> 1 byte with next instruction RTS, should be: <span class='code'>BPL WRFDIR-1</span>
+2F39:60             112             RTS
                     113 ;
                     114 <a class='f' name='WRFDGO'   >WRFDGO      </a>EQU *
-                    115             JSR MVFDBA                                      ; MoveFileDirectoryBufferAddress
+2F3A:20 4B 2F       115             JSR MVFDBA                                      ; MoveFileDirectoryBufferAddress
                     116 ;
 <hr>                    117             LDA #IBCWTS     ; GET WRITE CMD                 ; === Page <a class='page' name='page75'>75</a> ===
                     118             JSR DCBIO       ; GO FILL IN IOB AND DO I/O
                     119 ;
                     120             LDA #$<span class='n'>7F</span>        ; TURN WRITE DIR REQD BIT OFF   ; <a class='magic' name='_'>magic number</a> $7F = 0111_1111 <span class='code'>FLAG_W_FIL_SECTOR EQU $80; LDA ~FLAG_W_FIL_SECTOR</span>
                     121             AND DCBWRF
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
+                    122             STA DCBWRF
+                    123             RTS
+                    124 ;
+                    125 * MVFDBA - MOVE FILE DIRECTORY BUFF ASDR TO IOD
+                    126 ;
+                    127 <a class='f' name='MVFDBA'   >MVFDBA      </a>EQU *
+                    128             LDA CFCBDR      ; MOVE ADR
+                    129             STA IBBUFP
+                    130             LDA CFCBDR+1
+                    131             STA IBBUFP+1
+2F57:AE D3 35       132             LDX DCBCDT      ; GET TRACK                     
+2F5A:AC D4 35       133             LDY DCBCDS      ; GET SECTOR
+2F5D:60             134             RTS
+                    135             PAGE
+                    136 ;
+                    137 * RDFDIR - READ FILE DIRECTORY
+                    138 ;
+                    139 <a class='f' name='RDFDIR'   >RDFDIR      </a>EQU *
+2F5E:08             140             PHP             ; SAVE STATUS
+                    141             JSR WRFDIR      ; GO WRITE CURRENT DIR IF REQD
+                    142             JSR MVFDBA      ; GO MOVE DBUFF ADR TO IOB
+                    143             JSR MVFCBD      ; MOVE DBUFF ADR TO ZPG
+                    144             PLP             ; GET SAVED STATUS
+                    145             BCS RFDNXT      ; BRIFRDNEXT
+                    146 ;
+2F6B:AE D1 35       147             LDX DCBFDT      ; GET TRACK                     ;DCBFDT != DCBCDT Line #132
+2F6E:AE D2 35       148             LDY DCBFDS      ; GET SECTOR                    ;DCBFDS != DCBCDS Line #133
+                    149             JMP RFDIO1      ; GO READ
+                    150 ;
+                    151 <a class='f' name='RFDNXT'   >RFDNXT      </a>EQU *
                     152 
                     153 
                     154 
