@@ -4339,31 +4339,31 @@ With that "legalese" out of the way ... enjoy the read!
                     141             JSR WRFDIR      ; GO WRITE CURRENT DIR IF REQD
                     142             JSR MVFDBA      ; GO MOVE DBUFF ADR TO IOB
                     143             JSR MVFCBD      ; MOVE DBUFF ADR TO ZPG
-                    144             PLP             ; GET SAVED STATUS
-                    145             BCS RFDNXT      ; BRIFRDNEXT
+2F68:28             144             PLP             ; GET SAVED STATUS
+2F69:B0 09          145             BCS RFDNXT      ; BR IF RD NEXT
                     146 ;
 2F6B:AE D1 35       147             LDX DCBFDT      ; GET TRACK                     ;DCBFDT != DCBCDT Line #132
 2F6E:AE D2 35       148             LDY DCBFDS      ; GET SECTOR                    ;DCBFDS != DCBCDS Line #133
-                    149             JMP RFDIO1      ; GO READ
+2F71:4C B5 2F       149             JMP RFDIO1      ; GO READ
                     150 ;
                     151 <a class='f' name='RFDNXT'   >RFDNXT      </a>EQU *
-                    152             LDY #FDLTRK     ; GET LINK TRACK
-                    153             LDA (ZPGFCB),Y
-                    154             BEQ RFDNL       ; NR NO LINK
-                    155             TAX             ; PUT TRACK INTO X              ; o7 Captain Obvious
-                    156             INY
-                    157             LDA (ZPGFCB),Y  ; GET LINK SECTOR
-                    158             TAY             ; PUT SECTOR INTO Y
-                    159             JMP RFDIO1      ; GO DO I/O
+2F74:A0 01          152             LDY #FDLTRK     ; GET LINK TRACK
+2F76:B1 42          153             LDA (ZPGFCB),Y
+2F78:F0 08          154             BEQ RFDNL       ; NR NO LINK                    ; BUG: Can't have file on T0 <span class='code'>BPL RFDNL</span>
+2F7A:AA             155             TAX             ; PUT TRACK INTO X              ; o7 Captain Obvious
+2F7B:C8             156             INY
+2F7C:B1 42          157             LDA (ZPGFCB),Y  ; GET LINK SECTOR
+2F7E:A8             158             TAY             ; PUT SECTOR INTO Y
+2F7F:4C B5 2F       159             JMP RFDIO1      ; GO DO I/O
                     160 ;
                     161 <a class='f' name='RFDNL'    >RFDNL       </a>EQU *                                           ; Read File Dir Next Link
-                    162             LDA CCBREQ      ; THIS A WRITE
-                    163             CMP #CRQWR
-                    164             BEQ RFDNL1      ; BR IF WRITE                   ; &darr;
+2F82:AD BB 35       162             LDA CCBREQ      ; THIS A WRITE
+2F85:C9 04          163             CMP #CRQWR
+2F87:F0 02          164             BEQ RFDNL1      ; BR IF WRITE                   ; &darr; <span class='todo'>TODO</span> Should be BNE ...
                     165             SEC             ; SET EOF
                     166             RTS             ; RETURN                        ; o7 Captain Obvious
                     167 ;
-                    168 RFDNL1      EQU *
+                    168 <a class='f' name='RFDNL1'   >RFDNL1      </a>EQU *
                     169             JSR GETSEC
                     170             LDY #FDLSEC                                     ; === Page <a class='page' name='page76'>76</a> ===
                     171             STA (ZPGFCB),Y
@@ -4389,17 +4389,17 @@ With that "legalese" out of the way ... enjoy the read!
                     191             LDA #IBCWTS     ; SET WRITE CMD
                     192             BNE RFDIO2      ; GO DO I/O
                     193 ;
-                    194 RFDIO1      LDA #IBCRTS     ; SET READ CMD
-                    195 RFDIO2      STX DCBCDT
+                    194 <a class='f' name='RFDIO1'   >RFDIO1      </a>LDA #IBCRTS     ; SET READ CMD
+                    195 <a class='f' name='RFDIO2'   >RFDIO2      </a>STX DCBCDT
                     196             STY DCBCDS
                     197             JSR DCBIO
                     198 ;
-                    199 RDFDC       LDY #FDFRS
+                    199 <a class='f' name='RDFDC'    >RDFDC       </a>LDY #FDFRS
                     200             LDA (ZPGFCB),Y
                     201             STA DCBDFS
-                    202             CLC
-                    203             ADC DCBDMS
-                    204             STA DCBDNF
+2FC7:18             202             CLC
+2FC8:6D DA 35       203             ADC DCBDMS
+2FCB:8D De 35       204             STA DCBDNF
                     205 ;
                     206             INY
                     207             LDA (ZPGFCB),Y
@@ -4407,17 +4407,17 @@ With that "legalese" out of the way ... enjoy the read!
                     209             ADC DCBDMS+1
                     210             STA DCBDNF+1
                     211 ;
-                    212             CLC
-                    213             RTS
+2FDA:18             212             CLC
+2FDB:60             213             RTS
                     214             PAGE
                     215 ;
                     216 ;RDSECT - READ A SECTOR
                     217 ;
-                    218 <a class='f' name='RDSECT'   >RDSECT      </a>EQU *
-                    219             JSR MVSBA
+                    218 <a class='f' name='RDSECT'   >RDSECT      </a>EQU *                                            ; X = Track, Y = Sector
+2FDC:20 E4 2F       219             JSR MVSBA
                     220 ;
-                    221             LDA #IBCRTS
-                    222             JMP DCBIO
+2FDF:A9 01          221             LDA #IBCRTS
+2FE1:3C 52 30       222             JMP DCBIO                                       ; <a class='mem' name='_2FE1'>wastes</a> 1 byte, <span class='code'>BNE DCBIO</span> ($2FE3 - $3052 = $6F &lt; $80)
                     223 ;
                     224 ;MVSBA - MOVE SECTOR BUFFER ADR FOR I/O
                     225 ;
@@ -4449,8 +4449,8 @@ With that "legalese" out of the way ... enjoy the read!
 3003:AC C4 2A       014             LDY AVTOC+1
 3006:8C F1 37       015             STY IBBUFP+1
                     016 ;
-3009:AE FA 35       017             LDX DCBVTN      ; GET TRACK                     ; T11
-300C:A0 00          018             LDY #<span class='n'>0</span>                                               ; S0 <a class='magic' name='_300D'>magic number</a> <span class='code'>FILESYSTEM_VTOC_SECTOR EQU 0</span>
+3009:AE FA 35       017             LDX DCBVTN      ; GET TRACK                     ; VTN = VTOC Track Number = $11
+300C:A0 00          018             LDY #<span class='n'>0</span>                                          ; S0 <a class='magic' name='_300D'>magic number</a> <span class='code'>FILESYSTEM_VTOC_SECTOR EQU 0</span>
 300E:4C 52 30       019             JMP <a class="x" href="#DCBIO">DCBIO</a>       ; GO DO I/O
                     020             PAGE
                     021 ;
@@ -4461,60 +4461,60 @@ With that "legalese" out of the way ... enjoy the read!
 3012:20 45 30       026             JSR MVVDBA
                     027 ;
 3015:28             028             PLP             ; GET STATUS
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
-                    055 
-                    056 
-                    057 
-                    058 
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
+                    029             BCS RVDA        ; BR IF R0 NEXT
+                    030 ;
+                    031 RVDC        LDY VDIRSC      ; READ 1ST SECTOR
+                    032             LDX VDIRTK      ; GET FIRST TRK
+                    033             BNE RVDGO       ; GO READ                       ; BUG: Catalog can't be on T0 <span class='code'>BPL RVDGO</span>
+                    034 ;
+                    035 RVDA        EQU *
+                    036             LDX VDLTRK      ; GET LINK TRACK
+                    037             BNE RDVC        ; BR IF A LINK                  ; BUG: Catalog can't be on T0 <span class='code'>BPL RDVC</span>
+3025:38             038             SEC             ; SET END OF DIR
+3026:60             039             RTS
+                    040 ;
+                    041 <a class='f' name='RDVC'     >RDVC        </a>LDY VDLSEC      ; GET SECTOR                    ; Volume Directory Link Sector
+                    042 RDVDGO      EQU *
+                    043             STX CVDTRK      ; SET CUR TRACK
+                    044             STY CVDSEC      ; SET CUR SECTOR
+                    045             LDA #IBCRTS     ; GET CMD                       ; <i>No shit Sherlock</i> <b>Which</b> command: ReadTrackSector
+                    046             JSR DCBIO       ; GO DO I/O
+3035:18             047             CLC
+3036:60             048             RTS
+                    049             PAGE
+                    050 ;
+                    051 ;WRVDIR - WRITE VOLUME DIRECTORY SECTOR
+                    052 ;
+                    053 <a class='f' name='WRVDIR'   >WRVDIR      </a>EQU *
+<hr>                    054             JSR MVVDBA                                      ; === <a class='page' name='page64'>64</a> ===
+                    055 ;
+                    056             LDX CVDTRK      ; CURRENT TRACK
+                    057             LDY CVDSEC      ; CURRENT SECTOR
+3040:A9 02          058             LDA #IBCWTS     ; WRITE COMMAND
+3042:4C 52 30       059             JMP DCBIO       ; GO DO I/O                     ; <a class='mem' name='_3042'>wastes</a> 1 byte, <span class='code'>BNE DCBIO</span> &darr; (always)</span>
+                    060 ;
+                    061 ; MVVDBA - MOVE VOL DIR BUF ADR TO IOB
+                    062 ;
+                    063 <a class='f' name='MVVDBA'   >MVVDBA      </a>EQU *
+                    064             LDA AVOLDR
+                    065             STA IBBUFP
+                    066             LDA AVOLDR+1
+                    067             STA IBBUFP+1
+3051:60             068             RTS
+                    069             PAGE
+                    070 ;
+                    071 ;DCBIO - DO I/O FOR A DCB                                   ; Prologe should be:
+                    072 ;                                                           ;     <span class='code'>LDA #IBCWTS</span>
+                    073 <a class='f' name='DCBIO'    >DCBIO       </a>EQU *
+3052:8E EC 37       074             STX IBTRK       ; TRACK                         ; As this is called from Page 74 and 75
+3055:8C ED 37       075             STY IBSECT      ; SECTOR
+                    076 <a class='f' name='DCBIO2'   >DCBIO2      </a>EQU *
+3058:8D F4 37       077             STA IBCMD       ; COMMAND
+                    078             CMP #IBCWTS
+                    079             BNE DCBIO1                                      ; Read
+                    080             ORA DCBWRF
+                    081             STA DCBWRF
+                    082 <a class='f' name='DBIO1'    >DBIO1       </a>EQU *
                     083 
                     084 
                     085 
