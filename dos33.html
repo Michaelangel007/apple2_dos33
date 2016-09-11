@@ -4510,24 +4510,45 @@ With that "legalese" out of the way ... enjoy the read!
 3055:8C ED 37       075             STY IBSECT      ; SECTOR
                     076 <a class='f' name='DCBIO2'   >DCBIO2      </a>EQU *
 3058:8D F4 37       077             STA IBCMD       ; COMMAND
-                    078             CMP #IBCWTS
-                    079             BNE DCBIO1                                      ; Read
-                    080             ORA DCBWRF
-                    081             STA DCBWRF
+305B:C9 02          078             CMP #IBCWTS
+305D:D0 06          079             BNE DCBIO1                                      ; Read
+305F:0D D5 35       080             ORA DCBWRF
+3062:8D D5 35       081             STA DCBWRF
                     082 <a class='f' name='DBIO1'    >DBIO1       </a>EQU *
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
+3065:AD F9 35       083             LDA DCBVOL      ; VOL                           ;[..<a class='mem' name='_3065'>wastes</a> 4 bytes
+3068:49 FF          084             EOR #$FF        ; UNINVERT VOL BITS             ; ..  0. Why was it inverted in the first place???
+306A:8D EB 37       085             STA IBVOL                                       ; ..  1. More crappy names; Since DCB and IB are used all the time,
+306D:AD F7 35       086             LDA DCBSLT      ; SLOT                          ; ..     a single letter prefix with an underscore '_' would
+3070:8D E9 37       087             STA IBSLOT                                      ; ..         a) improve readability significantly, and
+3073:AD F8 35       088             LDA DCBDRV      ; DRIVE                         ; ..         b) require less typing to boot
+3076:8D EA 37       089             STA IBDRVN                                      ; ..     Compare and constrast the two:
+3079:AD E2 35       090             LDA DCBSDL      ; LENGTH                        ; ..         D_SLOT         DCBSLT
+307C:8D F2 37       091             STA IBDLEN                                      ; ..         I_SLOT         IBSLOT
+307F:AD E3 37       092             LDA DCBSDL+1                                    ; ..  2. Note: Length is 16-bit
+3082:8D F3 37       093             STA IBDLEN+1                                    ; ..] 3. Over-engineered memcpy() to marshall DCB data to/from IOB data.
+                                                                                    ;        Due to the <b>contiguous</b> <i>layout</i> of
+                                                                                    ;            [26] DCBSLT &lt;-&gt; [1] IBSLOT
+                                                                                    ;            [27] DCBDRV &lt;-&gt; [2] IBDRVN
+                                                                                    ;            [28] DCBVOL &lt;-&gt; [3] IBVOL
+                                                                                    ;        This entire mem copy can be simplified: (16 bytes)
+                                                                                    ;            <span class='code'>        LDX #0           </span>
+                                                                                    ;            <span class='code'>DCB2IOB LDA DCBSLT,X     </span>
+                                                                                    ;            <span class='code'>        STA IBSLOT,X     </span>
+                                                                                    ;            <span class='code'>        INX              </span>
+                                                                                    ;            <span class='code'>        CPX #IBVOL-IBSLOT</span> 
+                                                                                    ;            <span class='code'>        EOR #$FF         </span> ; Invert Volume
+                                                                                    ;            <span class='code'>        STA IBSLOT,X     </span>
+                                                                                    ;
+                                                                                    ;        If we didn't have to deal with that stupid VOLUME EOR #$FF
+                                                                                    ;        It could be simplified even more
+                                                                                    ;            <span class='code'>        LDX #IBVOL-IBSLOT</span> ; copy 3 bytes
+                                                                                    ;            <span class='code'>DCB2IOB LDA DCBSLT,X     </span>
+                                                                                    ;            <span class='code'>        STA IBSLOT,X     </span>
+                                                                                    ;            <span class='code'>        DEX              </span>
+                                                                                    ;            <span class='code'>        BPL DCB2IOB      </span>
+
+3085:A9 01          094             LDA #1          ; IOB TYPE                      ;[..  <a class='mem' name='_'>wastes</a> 5 bytes, <a class='magic' name='_'>magic number</a>
+3087:8D E8 37       <a class='line' name='FLOCNXB.095'>095</a>             STA <a class='v' href='#IBTYPE'>IBTYPE</a>                                      ; ..] never referenced!
                     096 
                     097 
                     098 
@@ -5777,7 +5798,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     388 ;BETWEEN DOS AND THE DISK I/O ROUTINES
                     389 ;
                     390 <a class='e' name='IOB'      >IOB         </a>EQU *                                           ;    Descriptive Names
-37E8:01             391 <a class='d' name='IBTYPE'   >IBTYPE      </a>DFB <span class='n'>1</span>           ; IOB TYPE CODE                 ; [0] IOB_OFFSET_TYPE <a class='struct' name='_37e8'>wastes</a> 1 bytes -- hard-coded to 1 !
+37E8:01             391 <a class='d' name='IBTYPE'   >IBTYPE      </a>DFB <span class='n'>1</span>           ; IOB TYPE CODE                 ; [0] IOB_OFFSET_TYPE <a class='struct' name='_37e8'>wastes</a> 1 bytes, hard-coded to 1 in <a class='file' href='#FLOCNXB'>FLOCNXB</a>, Line #<a class='line' href='#FLOCNXB.095'>95</a> !
 37E9:60             392 <a class='d' name='IBSLOT'   >IBSLOT      </a>DFB <span class='n'>6</span>*<span class='n'>16</span>        ; CONTROLELR SLOT NO.           ; [1] IOB_OFFSET_SLOT
 37EA:01             393 <a class='d' name='IBDRVN'   >IBDRVN      </a>DFB <span class='n'>1</span>           ; DRIVE NUMBER                  ; [2] IOB_OFFSET_DRV_NUM
 37EB:00             394 <a class='d' name='IBVOL'    >IBVOL       </a>DFB $<span class='n'>00</span>         ; VOLUME NUMBER                 ; [3] IOB_OFFSET_VOL
