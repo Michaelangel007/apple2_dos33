@@ -4532,7 +4532,7 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                     ;            [27] DCBDRV &lt;-&gt; [2] IBDRVN
                                                                                     ;            [28] DCBVOL &lt;-&gt; [3] IBVOL
                                                                                     ;
-                                                                                    ;        This entire mem copy can be simplified: (16 bytes)
+                                                                                    ;        This entire mem copy can be simplified: (18 vs 20 org. bytes)
                                                                                     ;            <span class='code'>        LDX #0           </span>
                                                                                     ;            <span class='code'>DCB2IOB LDA DCBSLT,X     </span>
                                                                                     ;            <span class='code'>        STA IBSLOT,X     </span>
@@ -4543,7 +4543,7 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                     ;            <span class='code'>        STA IBSLOT,X     </span>
                                                                                     ;
                                                                                     ;        If we didn't have the bad design of DCBSDL
-                                                                                    ;        not being contiguous with the above 3 fields:
+                                                                                    ;        being not contiguous with the above 3 fields,
                                                                                     ;
                                                                                     ;            [11] DCBSDL != [A] IBDLEN
                                                                                     ;
@@ -4551,7 +4551,7 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                     ;
                                                                                     ;            [24] DCBSDL &lt;-&gt; [0] IBDLEN
                                                                                     ;
-                                                                                    ;        We could instead have:
+                                                                                    ;        Then we could instead have:
                                                                                     ;
                                                                                     ;            <span class='code'>        LDX #0           </span>
                                                                                     ;            <span class='code'>DCB2IOB LDA DCBSDL,X     </span>
