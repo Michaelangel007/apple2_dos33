@@ -4573,31 +4573,31 @@ With that "legalese" out of the way ... enjoy the read!
 3085:A9 01          094             LDA #1          ; IOB TYPE                      ;[..  <a class='mem' name='_3085'>wastes</a> 5 bytes, <a class='magic' name='_'>magic number</a>
 3087:8D E8 37       <a class='line' name='FLOCNXB.095'>095</a>             STA <a class='v' href='#IBTYPE'>IBTYPE</a>                                      ; ..] never referenced!
                     096 ;
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
+                    097             LDY AIOB
+                    098             LDA AIOB+1
+                    099             JSR DISKIO
+                    100 ;
+                    101             LDA IBSMOD                                      ; <b>Hack</b>
+                    102             STA CCBVOL
+                    103             LDA #$FF        ; RESET VOL
+                    104             STA IBVOL
+                    105             BCS BADIO       ; BR IF BAD
+                    106             RTS             ; RTN IF GOOD
+                    107 ;
+                    108 BADIO       LDA IBSTAT      ; GET STATUS
+                    109             LDY #CREVMM
+                    110             CMP #IBVMME     ; WAS IT VOLUME MISMATCH
+                    111             BEQ BD2         ; BR IF YES
+                    112             LDY #CREPRO
+                    113             CMP #IBWPER
+                    114             BEQ BD2
+                    115             LDY #CREIOE
+                    116 BD2         TYA
+                    117             JMP ERRROB
+                    118             PAGE
+                    119 ;
+                    120 ;LOCNXB - LOCATE NEXT BYTE
+                    121 ;
                     122 
                     123 
                     124 
