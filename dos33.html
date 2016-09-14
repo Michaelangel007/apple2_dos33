@@ -4598,29 +4598,29 @@ With that "legalese" out of the way ... enjoy the read!
                     119 ;
                     120 ;LOCNXB - LOCATE NEXT BYTE
                     121 ;
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
+                    122 <a class='f' name='LOCNXB'   >LOCNXB      </a>EQU *
+                    123             LDA DCBCRS      ; IS THE CURRENT RELATIVE SECTOR
+                    124             CMP DCBCMS      ; EQUAL TO THE CURRENT MEM SECTOR
+                    125             BNE LNB1        ; BR IF NOT EQ
+                    126             LDA DCBCRS+1
+                    127             CMP DCBCMS+1
+                    128             BEQ LNB8        ; BR IF REQD SECTOR IN MEM
+                    129 ;
+                    130 <a class='f' name='LNB1'     >LNB1        </a>EQU *           ; NEED A DIFFERENT SECTOR IN MEM
+                    131             JSR WRSECT      ; GO WRITE SECTOR (IF REQD)
+                    132 ;
+                    133 LNB2        LDA DCBCRS+1    ; IS CURRENT REL SECTORY
+                    134             CMP DCBDFS+1    ; IN CURRENT DIRECTORY (LOW LIMIT)
+                    135             BCC LNB4        ; BR IF IN A PREVIOUS DIR
+                    136             BNE LNB3        ; BR IF MAYBE IN THIS ONE
+                    137             LDA DCBCRS      ; TEST LOW BYTES
+                    138             CMP DCBDFS
+                    139             BCC LNB4        ; BR IF IN PREVIOUS DIR
+                    140 ;
+                    141 LNB3        LDA DCBCRS+1    ; CURRENT REL SECTOR
+                    142             CMP DCBDNF+1    ; IN CURRENT DIRECTOR (HI LIMIT)
+                    143             BCC LNB6        ; BR IF IN THIS ONE
+                    144             
                     145 
                     146 
                     147 
