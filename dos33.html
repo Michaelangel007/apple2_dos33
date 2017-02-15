@@ -2597,7 +2597,7 @@ With that "legalese" out of the way ... enjoy the read!
                     044 ;
                     045 ; EINIT - EXECUTE INIT COMMAND
                     046 ;
-                    047 EINIT       EQU *
+                    047 EINIT       EQU *                                           ; "INIT" -- also see FFMT
                     048             LDA #V          ; MUST HAVE
                     049             AND INOPTS      ; VOL OPTION
                     050             BEQ DFVOL       ;GO SET DEFAULT VOLUME=254
