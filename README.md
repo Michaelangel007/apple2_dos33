@@ -1,5 +1,14 @@
 # Apple ][ DOS 3.3C Source
 
+## Versions
+
+There are at least 3 version of DOS 3.3
+
+* v1980 August 1980
+* v1983 January 1983
+* v1984 Copy ][ v5.0
+
+
 ## Conditional Compilation Flags
 
 Page 39
