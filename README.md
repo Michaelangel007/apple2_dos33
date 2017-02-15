@@ -127,56 +127,6 @@ Misc. Files:
 
 * ASMIDSTAMP: "12-JUL-83 #B00090"
 
-## Disk -> Memory Map
-
-|T/S |File |Mem  | Sector Identification      | Source, Page #          |
-|:---|:----|:----|:---------------------------|:------------------------|
-|T0S0|$3600|$B600| 01 A5 27 C9 .. 00 00 36 09 | BOOTLDR -- also loaded at $0800, 75 wasted bytes $B3..$FD |
-|T0S1|$3700|$B700| 8E E9 37 8E .. 01 EF D8 00 | BOOTLDR (cont.) -- last byte wasted         |
-|T0S2|$3800|$B800| A2 00 A0 00 .. AD D0 E7 A9 | PRENIBL @ $00..$29, WRITRTN @ $2A, POSTNRD  |
-|T0S3|$3900|$B900| 00 88 84 26 .. 60 00 00 00 | wastes 3 bytes                              |
-|T0S4|$3A00|$BA00| A2 11 CA D0 .. 3C 3D 3E 3F | MSWAITR page 97                             |
-|T0S5|$3B00|$BB00| 00 00 00 00 .. 00 00 00 00 | MSWAITR line 201 - NBUF1 wastes entire sector|
-|T0S6|$3C00|$BC00| 00 00 00 00 .. 00 00 00 00 | MSWAITR line 202 - NBUF2                    |
-|T0S7|$3D00|$BD00| 84 48 85 49 .. 68 CE F8 04 |                                             |
-|T0S8|$3E00|$BE00| D0 E5 F0 CA .. 44 C9 23 90 | RWTSTWO page 125                            |
-|T0S9|$3F00|$BF00| D3 18 90 05 .. 09 4C 85 33 | FORMATR page 83 line 2                      |
-|T0SA|$1B00|     | 4C 84 1D A9 .. AA EC 59 1C | RELOCTR page 110                            |
-|T0SB|$1C00|     | 90 AF A9 3F .. FE FC FD FD | RELOCTR page 114 line 20, junk @ $81 .. $FF |
-|T0SC|$1D00|     |                            | DOSINIT |
-|T0SD|$1E00|     |                            | DOSINIT, DOSHOOK |
-|T0SE|$1F00|     | | |
-|T0SF|$2000|     | | |
-|T1S0|$2100|     | | |
-|T1S1|$2200|     | | |
-|T1S2|$2300|     | | |
-|T1S3|$2400|     | | |
-|T1S4|$2500|     | | |
-|T1S5|$2600|     | | |
-|T1S6|$2700|     | 5E 1D BD 3F .. CA 68 48 C8 | BLDFTBL @ $D4 page 4                          |
-|T1S7|$2800|     | 91 40 8A C8 .. 41 C4 42 52 | BLDFTBL (cont.) page 5, CMDTBLS @ $84 page 21 |
-|T1S8|$2900|     | 55 CE 56 45 .. 45 52 52 20 | CMDTBLS page 21                               |
-|T1S9|$2A00|     | 41 56 41 49 .. 33 E0 00 F0 | CMDTBLS (cont.) page 23                       |
-|T1SA|$2B00|     | | |
-|T1SB|$2C00|     | | |
-|T1SC|$2D00|     | | |
-|T1SD|$2E00|     | | |
-|T1SE|$2F00|     | | |
-|T1SF|$3000|     | | |
-|T2S0|$3100|     | | |
-|T2S1|$3200|     | | |
-|T2S2|$3300|     | | |
-|T2S3|$3400|     | | |
-|T2S4|$3500|     | | |
-
-Legend:
-
- * T/S: Logical Track/Sector on disk (i.e. Copy ]\[+ Sector Editor)
- * File = DOS33C.OBJ BLOAD address and BOOTLDR load address
- * Mem: Final relocated address in high memory
- * Id:  First and Last 4 bytes of page
- * Source: Original filename of assembly source
-
 
 ## Logical vs Physical Sector
 
