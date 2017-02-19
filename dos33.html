@@ -2274,7 +2274,7 @@ With that "legalese" out of the way ... enjoy the read!
                     002 ;
                     003 ; EBSV - EXECUTE BINARY SAVE
                     004 ;
-                    005 <a class='f' name='EBSV'     >EBSV        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [18]
+                    005 <a class='f' name='EBSV'     >EBSV        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [18] "BSAVE"
 2331:A9 09          006             LDA #ADR+L      ; IF A&amp;L
 2333:2D 65 2A       007             AND INOPS       ; NOT GIVEN
 2336:C9 09          008             CMP #ADR+L
@@ -2624,39 +2624,39 @@ With that "legalese" out of the way ... enjoy the read!
                     071 ;
                     072 ; EAS - EXECUTE APPLESOFT REQUEST
                     073 ;
-                    074 EAS         EQU *
-                    075             LDA #ATSTV      ; GET APPLESOFT TEST VALUE
-                    076             JSR SWTST       ; GO SWITCH AND TEST
-                    077             BEQ GOINIT      ; BR IF APPLESOFT
-                    078             LDA #<span class='n'>0</span>                                          ; <a class='magic' name='_'>magic number</a> LANGUAGE_APPLESOFT
-                    079             STA ASIBSW
+                    074 <a class='f' name='EAS'      >EAS</a>         EQU *
+257A:A9 4C          075             LDA #ATSTV      ; GET APPLESOFT TEST VALUE
+257C:20 B2 25       076             JSR <a class='x' href='SWTST'>SWTST</a>       ; GO SWITCH AND TEST
+257F:F0 2E          077             BEQ GOINIT      ; BR IF APPLESOFT
+2581:A9 00          078             LDA #<span class='n'>0</span>                                          ; <a class='magic' name='_'>magic number</a> LANGUAGE_APPLESOFT
+2583:8D B6 2A       079             STA ASIBSW
                     080 ;
-                    081 EAS0        EQU *
-                    082             LDY #<span class='n'>30</span>                                         ; <a class='magic' name='_'>magic number</a> MAX_FILENAME_LEN-1
-                    083             JSR CLRFNA                                      ; ClearFileName1
-                    084             LDX #FASBL
-                    085 EAS1        LDA FASB-1,X    ; MOVE SYSTEM FILENAME          ; No, <i>copy</i>
-                    086             STA FNAME1-1,X
-                    087             DEX
-                    088             BNE EAS1
+                    081 <a class='f' name='EAS0'     >EAS0</a>        EQU *
+2586:A0 1E          082             LDY #<span class='n'>30</span>                                         ; <a class='magic' name='_'>magic number</a> MAX_FILENAME_LEN-1
+2588:20 97 20       083             JSR <a class='x' href='CLRFNA'>CLRFNA</a>                                      ; ClearFileName1
+258B:A2 09          084             LDX #FASBL
+258D:BD B7 2A       085 <a class='f' name='EAS1'     >EAS1</a>        LDA FASB-<span class='n'>1</span>,X    ; MOVE SYSTEM FILENAME          ; No, <i>copy</i>
+2590:9D 74 2A       086             STA FNAME1-<span class='n'>1</span>,X
+2593:CA             087             DEX
+2594:D0 F7          088             BNE <a class='x' href='EAS1'>EAS1</a>
                     089 ;
-                    090 EAS2        EQU *
-                    091             LDA #$C0                                        ; <a class='magic' name='_'>magic number</a> $80 + $40
-                    092             STA ISTATE      ; FOR RAM APPLESOFT
-                    093             JMP ERUN
+                    090 <a class='f' name='EAS2'     >EAS2</a>        EQU *
+2596:A9 C0          091             LDA #$C0                                        ; <a class='magic' name='_'>magic number</a> $80 + $40
+2598:8D 51 2A       092             STA ISTATE      ; FOR RAM APPLESOFT
+259B:4C D1 24       093             JMP <a class='x' name='ERUN'>ERUN</a>
                     094 ;
                     095 ; EINT - EXECUTE INTEGER REQUEST
                     096 ;
-                    097 EINT        EQU *
+                    097 <a class='f' name='EINT'     >EINT</a>        EQU *
                     098             LDA #ITSTV      ; GET IB TEST VALUE
                     099             JSR SWTST       ; GO SWITCH AND TEST
-                    100             BEQ GOINT       ;BR IF INTIGER BASIC                ; *spelling* Integer
+                    100             BEQ <a class='x' name='GOINT'>GOINT</a>       ;BR IF INTIGER BASIC                ; *spelling* Integer
                     101             LDA #<span class='n'>1</span>          ;LANGUAGE NOT AVIALABLE, TOO BAD... ; *spelling* Available <a class='magic' name='_'>magic number</a>
-                    102             JMP ERROR
-                    103 GOINT       LDA #0          ;RESET RSTATE
+                    102             JMP <a class='x' name='ERROR'>ERROR</a>
+                    103 <a class='f' name='GOINT'    >GOINT</a>       LDA #<span class='n'>0</span>          ;RESET RSTATE
                     104             STA RSTATE      ; FOR NON APPLESOFT PROG.
                     105 GOINIT      EQU *
-                    106             JMP DBINIT      ; GO INIT DOS
+                    106             JMP <a class='f' name='DBINIT'>DBINIT</a>      ; GO INIT DOS
                     107 <a class='f' name='SWTST'    >SWTST       </a>EQU *
                     108             CMP AITSTL      ; TEST CURRENT VALUE
                     109             BEQ SWTR
