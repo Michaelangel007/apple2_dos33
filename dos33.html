@@ -2597,19 +2597,19 @@ With that "legalese" out of the way ... enjoy the read!
                     044 ;
                     045 ; EINIT - EXECUTE INIT COMMAND
                     046 ;
-                    047 EINIT       EQU *                                           ; "INIT" -- also see FFMT
-                    048             LDA #V          ; MUST HAVE
-                    049             AND INOPTS      ; VOL OPTION
-                    050             BEQ DFVOL       ;GO SET DEFAULT VOLUME=254
-                    051             LDA CV          ;CAN'T SPECIFY VOL=0
-                    052             BNE EINITA
-                    053 DFVOL       LDA #$FE        ;SET DEFAULT VOLUME NUMBER      ; <a class='magic' name='_'>magic number</a> <span class='code'>DEFAULT_VOLUME</span>
-<hr>                    054             STA CV                                          ; === Page <a class='page' name='page146'>146</a> ===
-                    055 EINITA      LDA ASTART+1
-                    056             STA CCBBSA
-                    057             LDA #CRQFMT
-                    058             JSR OPEN
-                    059             JMP ESAVE
+                    047 <a class='f' name='EINIT'    >EINIT</a>       EQU *                                           ; "INIT" -- also see FFMT
+                    048             LDA #<a class='v' href='#V'>V</a>          ; MUST HAVE
+                    049             AND <a class='v' href='#INOPTS'>INOPTS</a>      ; VOL OPTION
+                    050             BEQ <a class='x' href='#DFVOL'>DFVOL</a>       ;GO SET DEFAULT VOLUME=254
+                    051             LDA <a class='v' href='#CV'>CV</a>          ;CAN'T SPECIFY VOL=0
+                    052             BNE <a class='x' href='#EINITA'>EINITA</a>
+                    053 DFVOL       LDA #$<span class='n'>FE</span>        ;SET DEFAULT VOLUME NUMBER      ; <a class='magic' name='_'>magic number</a> <span class='code'>DEFAULT_VOLUME</span>
+<hr>                    054             STA <a class='v' href='#CV'>CV</a>                                          ; === Page <a class='page' name='page146'>146</a> ===
+                    055 <a class='f' name='EINITA'   >EINITA</a>      LDA <a class='v' href='#ASTART'>ASTART</a>+<span class='n'>1</span>
+                    056             STA <a class='v' href='#CCBBSA'>CCBBSA</a>
+                    057             LDA #<a class='v' href='#CRQFMT'>CRQFMT</a>
+                    058             JSR <a class='x' href="#OPEN">OPEN</a>
+                    059             JMP <a class='x' href="#ESAVE">ESAVE</a>
                     060 ;
                     061 ;
                     062 ; ECAT - PRINT CATALOG
