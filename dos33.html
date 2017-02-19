@@ -3198,15 +3198,15 @@ With that "legalese" out of the way ... enjoy the read!
 28B5:57 52 49 54 C5 018             DCI "WRITE"
 28BA:50 4F 53 49    019             DCI "POSITION"
 2854:54 49 4F CE
-28C2:45 50 45 CE    020             DCI "OPEN"
+28C2:45 50 45 CE    020             DCI "OPEN"                                      ; Calls EOPEN
 28C6:41 50 50 45    021             DCI "APPEND"
 28CA:4E C4
 28CC:52 45 4E 41    022             DCI "RENAME"
 28D0:4D C5
-28D2:43 41 54 41    023             DCI "CATALOG"$                                  ; <a class='dumb' name='HNTODAOS2'>HNTODAOS: #2</a> Let's slow users down forcing them type 7 characters
+28D2:43 41 54 41    023             DCI "CATALOG"                                   ; <a class='dumb' name='HNTODAOS2'>HNTODAOS: #2</a> Let's slow users down forcing them type 7 characters
 28D6:4C 4F C7                                                                       ; Which has a higher error rate of typos?
 28D9:4D 4F CE       024             DCI "MON"                                       ; easier to type 3 characters CAT or DIR or 7 character CATALOG ?
-28DC:4E 4F 4D 4F CE 025             DCI "NOMON"$                                    ; /sarcasm Oh I see, we abbreviate the <i>uncomon</i> MONITOR but not the <b>common</b> CATALOG
+28DC:4E 4F 4D 4F CE 025             DCI "NOMON"                                     ; /sarcasm Oh I see, we abbreviate the <i>uncomon</i> MONITOR but not the <b>common</b> CATALOG
 28E1:50 52 A3       026             DCI "PR#"
 28E4:49 4E A3       027             DCI "IN#"
 28E7:4D 41 58 46    028             DCI "MAXFILES"
@@ -3215,7 +3215,7 @@ With that "legalese" out of the way ... enjoy the read!
 28F1:49 4E D4       030             DCI "INT"
 28F4:42 53 41 56 C5 031             DCI "BSAVE"
 28F9:42 4C 4F 41 C4 032             DCI "BLOAD"
-28FE:42 52 55 CE    033             DCI "BRUN"$                                     ; === <a class='ts' name='T1S8'>T1S8</a> ===
+28FE:42 52 55 CE    033             DCI "BRUN"                                      ; === <a class='ts' name='T1S8'>T1S8</a> ===
 2902:56 45 52 49    034             DCI "VERIFY"
 2906:46 D9
 2908:00             035             DFB 0                                           ; end sentinel, see <span class='todo'>TODO</span>
