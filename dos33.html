@@ -2135,7 +2135,7 @@ With that "legalese" out of the way ... enjoy the read!
                     157 ;
                     158 <a class='f' name='EDEL'     >EDEL        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [5]
 2263:               159             LDA #CRQDEL
-                    160             JSR OPEN
+2265:20 AA 22       160             JSR OPEN
                     161             JSR FILSRC
                     162             LDY #<span class='n'>0</span>                                          ; <a class='dumb' name='_'>Common Code</a> WHY isn't this a common subroutine <a class='link code' name='ZEROFILE'>ZEROFILE</a> ??
                     163             TYA                                             ; <a class='x' href='#BFT1'>BFT1</a>, <a class='x' href='#CLS'>CLS</a>, and the Append bug patch <a class='x' href='#CLOSFILE'>CLOSFILE</a> <i>all</i> do the same thing!
@@ -2188,11 +2188,11 @@ With that "legalese" out of the way ... enjoy the read!
                     210 ;
                     211 ; EOPEN - OPEN A FILE
                     212 ;
-22A3:               213 <a class='f' name='EOPEN'    >EOPEN       </a>LDA #<span class='n'>0</span>          ;FIX TYPE MISMATCH DETECTION    ; <a class='v' href='#CMDETB'>CMDETB</a> [D]
-                    214             JMP SV1         ;(CALLS EOPN1)                  ; Why not <span class='code'>JSR SV1</span>??? <a class='x' href='#EASAV'>EASAV</a>, <a class='x' href='#EBSV'>EBSV</a>, and <a class='x' href='#EBLD'>EBLD</a> all do <span class='code'>JSR SV1</span>
-                    215 EOPN1       LDA #CRQOPN
-                    216 OPEN        EQU *
-                    217             STA TEMP1A
+22A3:A9 00          213 <a class='f' name='EOPEN'    >EOPEN       </a>LDA #<span class='n'>0</span>          ;FIX TYPE MISMATCH DETECTION    ; <a class='v' href='#CMDETB'>CMDETB</a> [D]
+22A5:4C             214             JMP SV1         ;(CALLS EOPN1)                  ; Why not <span class='code'>JSR SV1</span>??? <a class='x' href='#EASAV'>EASAV</a>, <a class='x' href='#EBSV'>EBSV</a>, and <a class='x' href='#EBLD'>EBLD</a> all do <span class='code'>JSR SV1</span>
+22A8:A9             215 EOPN1       LDA #CRQOPN
+                    216 <a class='f' name='OPEN'     >OPEN</a>        EQU *                     ; Common entry point for EDEL, EUNLK, EBSV, EINIT, ECAT, and indirectly EOPEN, EPOS,
+22AA:8D             217             STA TEMP1A
                     218             LDA CL          ; IF NO LENGTH ENTERED
                     219             BNE EO1         ; THEN SET DEFAULT OF 1
                     220             LDA CL+<span class='n'>1</span>
@@ -2585,31 +2585,31 @@ With that "legalese" out of the way ... enjoy the read!
 253B:A2 03          032 <!--                           -->            LDX #<span class='n'>3</span>
 253D:BD 6E 2A       033 <a class='f' name='RWP2A'    >RWP2A       </a>LDA CR,X        ; MOVE REL REC
 2540:9D BD 35       034 <!--                           -->            STA <a class='v' href='#CCBRRN'>CCBRRN</a>,X    ; AND REL BYTE
-                    035             DEX
-                    036             BPL RWP2A
+2543:CA             035             DEX
+2544:10 F7          036             BPL RWP2A
                     037 RWP3        EQU *
-                    038             LDA #CRQPOS     ; INDICATE POISTION REQUEST     ; *spelling* Position
-                    039             STA CCBREQ
-                    040             JSR DOSGO                                       ; wastes 1 byte next instruction RTS, should be <span class='code'>JMP</span>
-                    041 RWPR        RTS
+2546:A9 0A          038             LDA #CRQPOS     ; INDICATE POISTION REQUEST     ; *spelling* Position
+2548:8D BB 35       039             STA CCBREQ
+254B:20 A8 26       040             JSR DOSGO                                       ; wastes 1 byte next instruction RTS, should be <span class='code'>JMP</span>
+254E:60             041 RWPR        RTS
                     042             PAGE
                     043 ;
                     044 ;
                     045 ; EINIT - EXECUTE INIT COMMAND
                     046 ;
                     047 <a class='f' name='EINIT'    >EINIT</a>       EQU *                                           ; "INIT" -- also see FFMT
-                    048             LDA #<a class='v' href='#V'>V</a>          ; MUST HAVE
-                    049             AND <a class='v' href='#INOPTS'>INOPTS</a>      ; VOL OPTION
-                    050             BEQ <a class='x' href='#DFVOL'>DFVOL</a>       ;GO SET DEFAULT VOLUME=254
-                    051             LDA <a class='v' href='#CV'>CV</a>          ;CAN'T SPECIFY VOL=0
-                    052             BNE <a class='x' href='#EINITA'>EINITA</a>
-                    053 DFVOL       LDA #$<span class='n'>FE</span>        ;SET DEFAULT VOLUME NUMBER      ; <a class='magic' name='_'>magic number</a> <span class='code'>DEFAULT_VOLUME</span>
-<hr>                    054             STA <a class='v' href='#CV'>CV</a>                                          ; === Page <a class='page' name='page146'>146</a> ===
-                    055 <a class='f' name='EINITA'   >EINITA</a>      LDA <a class='v' href='#ASTART'>ASTART</a>+<span class='n'>1</span>
-                    056             STA <a class='v' href='#CCBBSA'>CCBBSA</a>
-                    057             LDA #<a class='v' href='#CRQFMT'>CRQFMT</a>
-                    058             JSR <a class='x' href="#OPEN">OPEN</a>
-                    059             JMP <a class='x' href="#ESAVE">ESAVE</a>
+254F:A9 40          048             LDA #<a class='v' href='#V'>V</a>          ; MUST HAVE
+2551:2D 65 2A       049             AND <a class='v' href='#INOPTS'>INOPTS</a>      ; VOL OPTION
+2554:F0 05          050             BEQ <a class='x' href='#DFVOL'>DFVOL</a>       ;GO SET DEFAULT VOLUME=254
+2556:AD 66 2A       051             LDA <a class='v' href='#CV'>CV</a>          ;CAN'T SPECIFY VOL=0
+2559:D0 05          052             BNE <a class='x' href='#EINITA'>EINITA</a>
+255B:A9 FE          053 <a class='f' name='DFVOL'    >DFVOL</a>       LDA #$<span class='n'>FE</span>        ;SET DEFAULT VOLUME NUMBER      ; <a class='magic' name='_'>magic number</a> <span class='code'>DEFAULT_VOLUME</span>
+<hr>255D:8D 66 2A       054             STA <a class='v' href='#CV'>CV</a>                                          ; === Page <a class='page' name='page146'>146</a> ===
+2560:AD 0D 1D       055 <a class='f' name='EINITA'   >EINITA</a>      LDA <a class='v' href='#ASTART'>ASTART</a>+<span class='n'>1</span>
+2563:8D B3 35       056             STA <a class='v' href='#CCBBSA'>CCBBSA</a>
+2566:A9 0B          057             LDA #<a class='v' href='#CRQFMT'>CRQFMT</a>
+2568:20 AA 22       058             JSR <a class='x' href="#OPEN">OPEN</a>
+256B:4C 97 23       059             JMP <a class='x' href="#ESAVE">ESAVE</a>
                     060 ;
                     061 ;
                     062 ; ECAT - PRINT CATALOG
