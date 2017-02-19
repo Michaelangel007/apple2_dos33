@@ -3177,11 +3177,11 @@ With that "legalese" out of the way ... enjoy the read!
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="CMDTBLS">CMDTBLS</a> - Commands, Page <a class="page" name="page21">21</a>, <a class='ts' href='#T1S7'>T1S7</a> - <a class='ts' href='#T1S9'>T1S9</a>, $<span class='n'>A884</span> .. $<span class='n'>AA4E</span> ===<hr class='join'><hr></div>
 <pre>
                     001                 PAGE
-                    002 ;
-                    003 ; COMMAND NAME TABLE
-                    004 ;
-                    005 <a class="d" name='EC1'      >EC1         </a>EQU *
-                    006 <a class="d" name='CMDNTB'   >CMDNTB      </a>EQU *
+                    002 ;                                                           ; <i>Smart</i> Operating System design separates
+                    003 ; COMMAND NAME TABLE                                        ; * Kernel
+                    004 ;                                                           ; * Shell (Command Interpretor)
+                    005 <a class="d" name='EC1'      >EC1         </a>EQU *                                           ; This gives each program the maximum amount of run-time memory
+                    006 <a class="d" name='CMDNTB'   >CMDNTB      </a>EQU *                                           ; Alas, DOS is not that smart
 2884:49 4E 49 D4    007             DCI "INIT"                                      ; <a class='dumb' name='HNTODAOS1'>HNTODAOS: #1</a> Why is INIT listed first??? CATALOG is used <i>far more</i> then INIT
 2888:4C 4F 41 C4    008             DCI "LOAD"                                      ; Either sort these by:
 288C:53 41 56 C5    009             DCI "SAVE"                                      ;   a) frequency of use, (best)
