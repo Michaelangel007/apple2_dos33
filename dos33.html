@@ -4442,18 +4442,18 @@ With that "legalese" out of the way ... enjoy the read!
                     005 ;
                     006 <a class="f" name="RDVTOC"   >RDVTOC      </a>EQU *
 2FF7:A9 01          007             LDA #<a class="v" href="#IBCRTS">IBCRTS</a>     ; READ
-2FF9:D0 02          008             BNE <a class="x" href="#VTIO">VTIO</a>                                        ; always could maybe save byte $2C bit $abs
+2FF9:D0 02          008             BNE <a class="x" href="#VTIO">VTIO</a>                                        ; <a class='mem' name='_2FF9'>wastes</a> 1 byte, FIX: <span class='code'>HEX 2C</span> bit $abs
                     009 <a class="f" name="WRVTOC"   >WRVTOC      </a>EQU *
 2FFB:A9 02          010             LDA #<a class="v" href="#IBCWTS">IBCWTS</a>     ; WRITE
                     011 ;
 2FFD:AC C3 2A       012 <a class="f" name="VTIO"     >VTIO        </a>LDY AVTOC       ; MOVE BUFF ADR
-3000:8C F0 37       013             STY IBBUFP                                      ; === <a class='ts' href='#T1SF'>T1SF</a> ===
+3000:8C F0 37       013             STY IBBUFP                                      ; === <a class='ts' href='#T1SF'>T1SF</a> === $<span class='n'>B000</span>
 3003:AC C4 2A       014             LDY AVTOC+1
 3006:8C F1 37       015             STY IBBUFP+1
                     016 ;
-3009:AE FA 35       017             LDX DCBVTN      ; GET TRACK                     ; VTN = VTOC Track Number = $11
-300C:A0 00          018             LDY #<span class='n'>0</span>                                          ; S0 <a class='magic' name='_300D'>magic number</a> <span class='code'>FILESYSTEM_VTOC_SECTOR EQU 0</span>
-300E:4C 52 30       019             JMP <a class="x" href="#DCBIO">DCBIO</a>       ; GO DO I/O
+3009:AE FA 35       017             LDX DCBVTN      ; GET TRACK                     ; $B5FA = VTN = VTOC Track Number = $11
+300C:A0 00          018             LDY #<span class='n'>0</span>                                          ; VTOC Sector Number = $0 <a class='magic' name='_300D'>magic number</a> <span class='code'>FILESYSTEM_VTOC_SECTOR EQU 0</span>
+300E:4C 52 30       019             JMP <a class="x" href="#DCBIO">DCBIO</a>       ; GO DO I/O                     ; <a class='mem' name='_300E'>wastes</a> 1 byte, FIX: <span class='code'>BPL DCBIO</span> &darr; (always)
                     020             PAGE
                     021 ;
                     022 ;RDVDIR - READ VOLUME DIRECTOR
@@ -4467,11 +4467,11 @@ With that "legalese" out of the way ... enjoy the read!
                     030 ;
                     031 RVDC        LDY VDIRSC      ; READ 1ST SECTOR
                     032             LDX VDIRTK      ; GET FIRST TRK
-                    033             BNE RVDGO       ; GO READ                       ; BUG: Catalog can't be on T0 <span class='code'>BPL RVDGO</span>
+                    033             BNE RVDGO       ; GO READ                       ; BUG: Catalog can't be on T0, FIX: <span class='code'>BPL RVDGO</span>
                     034 ;
                     035 RVDA        EQU *
                     036             LDX VDLTRK      ; GET LINK TRACK
-                    037             BNE RDVC        ; BR IF A LINK                  ; BUG: Catalog can't be on T0 <span class='code'>BPL RDVC</span>
+                    037             BNE RDVC        ; BR IF A LINK                  ; BUG: Catalog can't be on T0, FIX: <span class='code'>BPL RDVC</span>
 3025:38             038             SEC             ; SET END OF DIR
 3026:60             039             RTS
                     040 ;
@@ -4479,7 +4479,7 @@ With that "legalese" out of the way ... enjoy the read!
                     042 RDVDGO      EQU *
                     043             STX CVDTRK      ; SET CUR TRACK
                     044             STY CVDSEC      ; SET CUR SECTOR
-                    045             LDA #IBCRTS     ; GET CMD                       ; <i>No shit Sherlock</i> <b>Which</b> command: ReadTrackSector
+                    045             LDA #IBCRTS     ; GET CMD                       ; <i>No shit Sherlock</i> Q. <b>Which</b> command? A. ReadTrackSector
                     046             JSR DCBIO       ; GO DO I/O
 3035:18             047             CLC
 3036:60             048             RTS
@@ -4493,7 +4493,7 @@ With that "legalese" out of the way ... enjoy the read!
                     056             LDX CVDTRK      ; CURRENT TRACK
                     057             LDY CVDSEC      ; CURRENT SECTOR
 3040:A9 02          058             LDA #IBCWTS     ; WRITE COMMAND
-3042:4C 52 30       059             JMP DCBIO       ; GO DO I/O                     ; <a class='mem' name='_3042'>wastes</a> 1 byte, <span class='code'>BNE DCBIO</span> &darr; (always)</span>
+3042:4C 52 30       059             JMP DCBIO       ; GO DO I/O                     ; <a class='mem' name='_3042'>wastes</a> 1 byte, <span class='code'>BNE DCBIO</span> &darr; (always)
                     060 ;
                     061 ; MVVDBA - MOVE VOL DIR BUF ADR TO IOB
                     062 ;
