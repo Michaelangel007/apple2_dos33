@@ -2697,19 +2697,19 @@ With that "legalese" out of the way ... enjoy the read!
 25FE:29 04          142             AND #<a class='v' href='#R'>R</a>          ; TEST R
 25F0:F0 1B          143             BEQ <a class='x' href='#EX2'>EX2</a>         ; BR NOT R
                     144 ;
-                    145 EX0         LDA CR          ; IF CR NOT ZERO
-                    146             BNE EX1A        ; THEN DECREMENT
-                    147             LDX CR+1
-                    148             BEQ EX2
-                    149             DEC CR+1
-                    150 EX1A        DEC CR
-                    151 EX1         JSR RBYTE       ; AND READ A RECORD
-                    152             BEQ ICFD4
-                    153             CMP #$<span class='n'>8D</span>        ; UNTIL CR                      ; <a class='magic' name='_'>magic number</a> KEY_CR
-                    154             BNE EX1
-                    155             BEQ EX0         ; THEN TEST CR AGAIN
+25F2:AD 6E 2A       145 <a class='f' name='EX0'      >EX0         </a>LDA <a class='v' href='#CR'>CR</a>          ; IF CR NOT ZERO
+25F5:D0 08          146             BNE <a class='x' href='#EX1A'>EX1A</a>        ; THEN DECREMENT
+25F7:AE 6F 2A       147             LDX <a class='v' href='#CR'>CR</a>+<span class='n'>1</span>
+25FA:F0 11          148             BEQ <a class='x' href='#EX2'>EX2</a>
+25FC:CE 6F 2A       149             DEC <a class='v' href='#CR'>CR</a>+<span class='n'>1</span>
+25FF:CE 6E 2A       150 <a class='f' name='EX1A'     >EX1A        </a>DEC <a class='v' href='#CR'>CR</a>
+2602:20 8C 26       151 <a class='f' name='EX1'      >EX1         </a>JSR <a class='x' href='#RBYTE'>RBYTE</a>       ; AND READ A RECORD
+2605:F0 38          152             BEQ <a class='x' href='#ICFD4'>ICFD4</a>
+2607:C9 8D          153             CMP #$<span class='n'>8D</span>        ; UNTIL CR                      ; <a class='magic' name='_'>magic number</a> KEY_CR
+2609:D0 F7          154             BNE <a class='x' href='#EX1'>EX1</a>
+260B:F0 E5          155             BEQ <a class='x' href='#EX0'>EX0</a>         ; THEN TEST CR AGAIN
                     156 ;
-                    157 EX2         RTS
+260D:60             157 <a class='f' name='EX2'      >EX2         </a>RTS
                     158             PAGE
                     159 ;
                     160 ; OCTD - OUTPUT A CHAR TO DISK
