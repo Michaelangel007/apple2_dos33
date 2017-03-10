@@ -2777,10 +2777,10 @@ With that "legalese" out of the way ... enjoy the read!
 2677:38             222             SEC             ; WITH CARRY SET.
 2678:60             223             RTS
                     224 ;
-                    225 ICFDB       EQU *           ; NOT RUN MODE
-                    226             JSR CLOSE       ; GO CLOSE FILE
-                    227             JSR CLRSTS      ; GO CLEAR STATES
-                    228             JMP <a class='x' href='#ORTN'>ORTN</a>                                        ;
+                    225 <a class='f' name='ICFDB'    >ICFDB       </a>EQU *           ; NOT RUN MODE
+2679:20 FC 22       226             JSR CLOSE       ; GO CLOSE FILE
+267C:20 5B 27       227             JSR CLRSTS      ; GO CLEAR STATES
+267F:4C B3 1F       228             JMP <a class='x' href='#ORTN'>ORTN</a>                                        ;
                     229             PAGE
                     230 ;
                     231 ; NXTEXC - NEXT EXECUTE CHAR
