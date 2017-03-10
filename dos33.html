@@ -2643,8 +2643,8 @@ With that "legalese" out of the way ... enjoy the read!
 2594:D0 F7          088             BNE <a class='x' href='EAS1'>EAS1</a>
                     089 ;
                     090 <a class='f' name='EAS2'     >EAS2</a>        EQU *
-2596:A9 C0          091             LDA #$C0                                        ; <a class='magic' name='_'>magic number</a> $80 + $40
-2598:8D 51 2A       092             STA ISTATE      ; FOR RAM APPLESOFT
+2596:A9 C0          091             LDA #$<span class='n'>C0</span>                                        ; <a class='magic' name='_'>magic number</a> $80 + $40
+2598:8D 51 2A       092             STA <a class='v' href='#ISTATE'>ISTATE</a>      ; FOR RAM APPLESOFT
 259B:4C D1 24       093             JMP <a class='x' name='ERUN'>ERUN</a>
                     094 ;
                     095 ; EINT - EXECUTE INTEGER REQUEST
