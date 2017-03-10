@@ -2846,32 +2846,32 @@ With that "legalese" out of the way ... enjoy the read!
                     033 ; ERROR ROUTINE
                     034 ;
 26C4:A9 0B          035 <a class='f' name='ESYNTX'   >ESYNTX      </a>LDA #CREFLK+<span class='n'>1</span>                                   ; <i>I'd like to buy a vowel, 'A'.</i> 
-26C6:D0 0A          036             BNE ERROR                                       ; Sorry, we're fresh out.
-26C8:A9 0C          037 ENFA        LDA #CREFLK+2
-26CA:D0 06          038             BNE ERROR                                       ; &darr; (always)
-26CC:A9 0E          039 MFERR       LDA #CREFLK+4
-26CE:D0 02          040             BNE ERROR                                       ; &darr; (always) <a class='mem' name='_26CE'>wastes</a> 1 byte, $2C bit $abs to skip next instruction
-                    041 ETYP        EQU *
-26D0:A9 0D          042 ERNU1       LDA #CREFLK+3
+26C6:D0 0A          036 <!--                           -->            BNE ERROR                                       ; Sorry, we're fresh out.
+26C8:A9 0C          037 <a class='f' name='ENFA'     >ENFA        </a>LDA #CREFLK+<span class='n'>2</span>
+26CA:D0 06          038 <!--                           -->            BNE ERROR                                       ; &darr; (always)
+26CC:A9 0E          039 <a class='f' name='MFERR'    >MFERR       </a>LDA #CREFLK+<span class='n'>4</span>
+26CE:D0 02          040 <!--                           -->            BNE ERROR                                       ; &darr; (always) <a class='mem' name='_26CE'>wastes</a> 1 byte, $2C bit $abs to skip next instruction
+                    041 <a class='f' name='ETYP'     >ETYP        </a>EQU *
+26D0:A9 0D          042 <a class='f' name='ERNU1'    >ERNU1       </a>LDA #CREFLK+<span class='n'>3</span>
                     043 ;                                                           ; Intentional fall into ERROR
-                    044 ERROR       EQU *
+                    044 <a class='f' name='ERROR'    >ERROR       </a>EQU *
 26D2:8D 5C 2A       045             STA SVA         ; SAVE MSG NUMBER
 26D5:20 E6 3F       046             JSR CLRSTS1     ;PATCH TO CLR RSTATE TOO (WAS JSR CLRSTS)
 26D8:AD B6 2A       047             LDA ASIBSW      ; GET AS/IN BASIC SWITCH
 26DB:F0 04          048             BEQ ERNAS       ; BR IF NOT APPLESOFT
 26DD:A5 D8          049             LDA ASONERR     ;GET AS ERR FLAG
 26DF:30 0E          050             BMI ERRTN       ; BRT IF ON ERR IS GO
-                    051 ERNAS       EQU *
-26E1:A2 00          052             LDX #0
-<hr>26E3:20 00 27       053             JSR EMPR        ; GO OUTPUT                     ; === Page <a class='page' name='page41'>41</a> ===
-                    054             LDX SVA         ; GET SAVE MSG
-                    055             JSR EMPR        ; GO OUTPUT MSG
-                    056             JSR PRCRIF      ;OUTPUT A CARRIAGE RETURN AFTER MESSAGE
-                    057 ERRNT       JSR MVCSW       ; GO MOVE CHAR I/ SW
-                    058             JSR TSTRUN
-                    059             LDX SVA
-                    060             LDA #03                                         ; <a class='magic' name='_'>magic number</a>
-                    061             BCS ERRTN1      ;DON'T GOTO BREAK HANDLER IF NOT RUNNING
+                    051 <a class='f' name='ERNAS'    >ERNAS       </a>EQU *
+26E1:A2 00          052             LDX #<span class='n'>0</span>
+<hr>26E3:20 02 27       053             JSR EMPR        ; GO OUTPUT                     ; === Page <a class='page' name='page41'>41</a> ===
+26E6:AE 5C 2A       054             LDX SVA         ; GET SAVE MSG
+26E9:20 02 27       055             JSR EMPR        ; GO OUTPUT MSG
+26EC:20 C8 1F       056             JSR PRCRIF      ;OUTPUT A CARRIAGE RETURN AFTER MESSAGE
+26EF:20 51 28       057 ERRNT       JSR MVCSW       ; GO MOVE CHAR I/ SW
+26F2:20 5E 26       058             JSR TSTRUN
+26F5:AE 5C 2A       059             LDX SVA
+26F8:A9 03          060             LDA #<span class='n'>03</span>                                         ; <a class='magic' name='_'>magic number</a>
+26FA:B0 03          061             BCS ERRTN1      ;DON'T GOTO BREAK HANDLER IF NOT RUNNING
 26FC:6C 5A 1D       062             JMP (BREAK)
 26FF:6C 5E 1D       063 ERRTN1      JMP (CONT)      ;REENTER CONT IF NOT RUN        ; === <a class='ts' href='#T1S6'>T1S6</a> ===
                     064 ;
@@ -2882,7 +2882,7 @@ With that "legalese" out of the way ... enjoy the read!
                     069             STX TEMP1A      ; SAVE DISPL
                     070             LDA EMSG,X      ; GET MSG CHAR
                     071             PHA             ; SAVE CHAR
-                    072             ORA #$80        ; SET MSB ON
+                    072             ORA #$<span class='n'>80</span>        ; SET MSB ON
                     073             JSR ORTN1       ; OUTPUT CHAR
                     074             LDX TEMP1A      ; GET INDEX
                     075             INX             ; INCREMENT IT
