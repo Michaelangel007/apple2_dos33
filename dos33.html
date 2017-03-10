@@ -2686,16 +2686,16 @@ With that "legalese" out of the way ... enjoy the read!
                     131 ;
                     132 ; EPOS - EXECUTE POSITION
                     133 ;
-                    134 EPOS        EQU *
-                    135             JSR FILSRC
-                    136             BCC EXP1
-                    137             JSR EOPEN
-                    138             JMP EXP2
-                    139 EXP1        JSR MVBUFP
-                    140 EXP2        EQU *
-                    141             LDA INOPTS      ; GET OPTIONS
-                    142             AND #R          ; TEST R
-                    143             BEQ EX2         ; BR NOT R
+                    134 <a class='f' name='EPOS'     >EPOS        </a>EQU *                                           ; "POSITION"
+25DD:20 64 27       135             JSR <a class='x' href='#FILSRC'>FILSRC</a>
+25E0:90 06          136             BCC <a class='x' href='#EXP1'>EXP1</a>
+25E2:20 A3 22       137             JSR <a class='x' href='#EOPEN'>EOPEN</a>
+25E5:4C EB 25       138             JMP <a class='x' href='#EXP2'>EXP2</a>
+25E8:20 4E 27       139 <a class='f' name='EXP1'     >EXP1        </a>JSR <a class='x' href='#MVBUFP'>MVBUFP</a>
+                    140 <a class='f' name='EXP2'     >EXP2        </a>EQU *
+25EB:AD 65 2A       141             LDA <a class='v' href='#INOPTS'>INOPTS</a>      ; GET OPTIONS
+25FE:29 04          142             AND #<a class='v' href='#R'>R</a>          ; TEST R
+25F0:F0 1B          143             BEQ <a class='x' href='#EX2'>EX2</a>         ; BR NOT R
                     144 ;
                     145 EX0         LDA CR          ; IF CR NOT ZERO
                     146             BNE EX1A        ; THEN DECREMENT
