@@ -2758,24 +2758,24 @@ With that "legalese" out of the way ... enjoy the read!
                     203 <a class='f' name='ICFD0'    >ICFD0       </a>EQU *
 265B:4C B3 1F       204             JMP ORTN        ; GO RESTORE REGS AND RTS
                     205 ;
-                    206 <a class='f' name='TSTRUN'   >TSTRUN      </a>PHA
-                    207             LDA ASIBSW      ; GET AS/INT BASIC SWITCH
-                    208             BEQ TR1         ; BR IF INT
-                    209             LDX $<span class='n'>76</span>         ;CHECK APPLESOFT RUN FLAG       ; <a class='magic' name='_'>magic number</a>
-                    210             INX             ;(NOT RUN=0 AFTER INCREMENT)
-                    211             BEQ NOTRUN      ;IF SAYS RUNNING MAKE SURE WITH PROMPT.
-                    212             LDX PROMPT      ;TEST APPLESOFT RUNNING.
-                    213             CPX #']'+$<span class='n'>80</span>
-                    214             BEQ NOTRUN      ; BR IF NOT RUN
-                    215 TR0         PLA
-                    216             CLC             ;INDICATE PROGRAM RUNNING
-                    217             RTS
-                    218 TR1         EQU *
-                    219             LDA $<span class='n'>D9</span>         ; GET INT RUN FLAG              ; <a class='magic' name='_'>magic nubmer</a>
-                    220             BMI TR0         ; BR IF RUN
-                    221 NOTRUN      PLA             ;INDICATE PROGRAM NOT RUNNING
-                    222             SEC             ; WITH CARRY SET.
-                    223             RTS
+265E:48             206 <a class='f' name='TSTRUN'   >TSTRUN      </a>PHA
+265F:AD B6 2A       207             LDA ASIBSW      ; GET AS/INT BASIC SWITCH
+2662:F0 0E          208             BEQ TR1         ; BR IF INT
+2664:A6 76          209             LDX $<span class='n'>76</span>         ;CHECK APPLESOFT RUN FLAG       ; <a class='magic' name='_'>magic number</a>
+2666:E8             210             INX             ;(NOT RUN=0 AFTER INCREMENT)
+2667:F0 0D          211             BEQ NOTRUN      ;IF SAYS RUNNING MAKE SURE WITH PROMPT.
+2669:A6 33          212             LDX PROMPT      ;TEST APPLESOFT RUNNING.
+266B:E0 DD          213             CPX #']'+$<span class='n'>80</span>
+266D:F0 07          214             BEQ NOTRUN      ; BR IF NOT RUN
+266F:68             215 <a class='f' name='TR0'      >TR0         </a>PLA
+2670:18             216             CLC             ;INDICATE PROGRAM RUNNING
+2671:60             217             RTS
+                    218 <a class='f' name='TR1'      >TR1         </a>EQU *
+2672:A5 D9          219             LDA $<span class='n'>D9</span>         ; GET INT RUN FLAG              ; <a class='magic' name='_'>magic nubmer</a>
+2674:30 F9          220             BMI TR0         ; BR IF RUN
+2676:68             221 <a class='f' name='NOTRUN'   >NOTRUN      </a>PLA             ;INDICATE PROGRAM NOT RUNNING
+2677:38             222             SEC             ; WITH CARRY SET.
+2678:60             223             RTS
                     224 ;
                     225 ICFDB       EQU *           ; NOT RUN MODE
                     226             JSR CLOSE       ; GO CLOSE FILE
