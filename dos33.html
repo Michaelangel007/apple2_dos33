@@ -2168,24 +2168,24 @@ With that "legalese" out of the way ... enjoy the read!
                     188 ; EREN - RENAME
                     189 ;
                     190 <a class='f' name='EREN'     >EREN        </a>EQU *
-2281:               191             LDA FN2ADR      ; MOVE FILE NAME2
-                    192             STA CCBFN2          
+2281:               191             LDA <a class='v' href='#FN2ADR'>FN2ADR</a>      ; MOVE FILE NAME2
+                    192             STA <a class='v' href='#CCBFN2'>CCBFN2</a>
                     193             LDA <a class='v' href='#FN2ADR'>FN2ADR</a>+<span class='n'>1</span>        
                     194             STA <a class='v' href='#CCBFN2'>CCBFN2</a>+<span class='n'>1</span>        
-                    195             LDA #CRQRNM         
-                    196             STA TEMP1A      ; SET RENAME
-                    197             JSR EO3         ; GO OPEN AND RENAME
-                    198             JMP ECLOSE      ; GO CLOSE
+                    195             LDA <a class='v' href='#CRQRNM'>CRQRNM</a>
+                    196             STA <a class='v' href='#TEMP1A'>TEMP1A</a>      ; SET RENAME
+                    197             JSR <a class='x' href='#EO3'>EO3</a>         ; GO OPEN AND RENAME
+                    198             JMP <a class='x' href='#ECLOSE'>ECLOSE</a>      ; GO CLOSE
                     199 ;
                     200 ; EAPND - OPEN FILE FOR APPEND
                     201 ;
                     202 <a class='f' name='EAPND'    >EAPND       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [E]
-2298:               203             JSR EOPEN       ; GO OPEN
-                    204 AP1         EQU *
-                    205             JSR RBYTE       ; READ A BYTE
-                    206             BNE AP1         ; BR IF NOT ZERO
+2298:               203             JSR <a class='x' href='#EOPEN'>EOPEN</a>       ; GO OPEN
+                    204 <a class='f' name='AP1'      >AP1         </a>EQU *
+                    205             JSR <a class='x' href='#RBYTE'>RBYTE</a>       ; READ A BYTE
+                    206             BNE <a class='x' href='#AP1'>AP1</a>         ; BR IF NOT ZERO
                     207 ;                                                           ; <b>Test Time!</b> Without looking at the code, give a summary of why 
-                    208             JMP BUMPER      ; GO TO PATCH FOR APPEND FIX    ; a) <span class='code'>BUMPER</span> exists, and
+                    208             JMP <a class='x' href='#BUMPER'>BUMPER</a>      ; GO TO PATCH FOR APPEND FIX    ; a) <span class='code'>BUMPER</span> exists, and
                     209             PAGE                                            ; b) <span class='code'>APPEND_FIX</span>.
                     210 ;
                     211 ; EOPEN - OPEN A FILE
