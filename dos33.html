@@ -2582,19 +2582,19 @@ With that "legalese" out of the way ... enjoy the read!
 2531:20 4E 27       027 <!--                           -->            JSR <a class='x' href='#MVBUFP'>MVBUFP</a>      ; MOVE BUFF POINTERS
                     028 <a class='f' name='RWP2'     >RWP2        </a>EQU *
 2534:AD 65 2A       029 <!--                           -->            LDA <a class='v' href='#INOPTS'>INOPTS</a>      ; GET IN OPTIONS
-2537:29 06          030 <!--                           -->            AND #R+B        ; WAS IT B OR R
+2537:29 06          030 <!--                           -->            AND #<a class='v' href='#R'>R</a>+<a class='v' href='#B'>B</a>        ; WAS IT B OR R
 2539:F0 13          031 <!--                           -->            BEQ <a class='x' href='#RWPR'  >RWPR</a>        ; BR IF NOT                     ; wastes one byte, <span class='code'>BEQ LD1C</span>
 253B:A2 03          032 <!--                           -->            LDX #<span class='n'>3</span>
-253D:BD 6E 2A       033 <a class='f' name='RWP2A'    >RWP2A       </a>LDA CR,X        ; MOVE REL REC
+253D:BD 6E 2A       033 <a class='f' name='RWP2A'    >RWP2A       </a>LDA <a class='v' href='#CR'    >CR</a>,X        ; MOVE REL REC
 2540:9D BD 35       034 <!--                           -->            STA <a class='v' href='#CCBRRN'>CCBRRN</a>,X    ; AND REL BYTE
-2543:CA             035             DEX
-2544:10 F7          036             BPL RWP2A
-                    037 RWP3        EQU *
-2546:A9 0A          038             LDA #CRQPOS     ; INDICATE POISTION REQUEST     ; *spelling* Position
-2548:8D BB 35       039             STA CCBREQ
-254B:20 A8 26       040             JSR DOSGO                                       ; wastes 1 byte next instruction RTS, should be <span class='code'>JMP</span>
-254E:60             041 RWPR        RTS
-                    042             PAGE
+2543:CA             035 <!--                           -->            DEX
+2544:10 F7          036 <!--                           -->            BPL <a class='x' href='#RWP2A' >RWP2A</a>
+                    037 <a class='f' name='RWP3'     >RWP3        </a>EQU *
+2546:A9 0A          038 <!--                           -->            LDA #<a class='v' href='#CRQPOS'>CRQPOS</a>     ; INDICATE POISTION REQUEST     ; *spelling* Position
+2548:8D BB 35       039 <!--                           -->            STA <a class='v' href='#CCBREQ'>CCBREQ</a>
+254B:20 A8 26       040 <!--                           -->            JSR <a class='x' href='#DOSGO' >DOSGO</a>                                       ; wastes 1 byte next instruction RTS, should be <span class='code'>JMP</span>
+254E:60             041 <a class='f' name='RWPR'     >RWPR        </a>RTS
+                    042 <!--                           -->            PAGE
                     043 ;
                     044 ;
                     045 ; EINIT - EXECUTE INIT COMMAND
