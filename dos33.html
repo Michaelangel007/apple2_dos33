@@ -2785,11 +2785,11 @@ With that "legalese" out of the way ... enjoy the read!
                     230 ;
                     231 ; NXTEXC - NEXT EXECUTE CHAR
                     232 ;
-                    233 NXTEXC      EQU *
-                    234             JSR MVEFTA
-                    235             JSR MVBUFP      ; GO MOVE PTRS
-                    236             LDA #3
-                    237             BNE ICFD3                                       ; &uarr; (always)
+                    233 <a class='f' name='NXTEXC'   >NXTEXC      </a>EQU *
+2682:20 9D 26       234             JSR MVEFTA
+2685:20 4E 27       235             JSR MVBUFP      ; GO MOVE PTRS
+2688:A9 03          236             LDA #<span class='n'>3</span>
+268A:D0 A1          237             BNE ICFD3                                       ; &uarr; (always)
                     238 ;
                     239 ; RBYTE - READ NEXT BYTE
                     240 ;
