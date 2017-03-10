@@ -2660,14 +2660,14 @@ With that "legalese" out of the way ... enjoy the read!
                     105 <a class='f' name='GOINIT'   >GOINIT</a>      EQU *
 25AF:4C 84 1D       106             JMP <a class='f' href='#DBINIT'>DBINIT</a>      ; GO INIT DOS
                     107 <a class='f' name='SWTST'    >SWTST       </a>EQU *
-                    108             CMP AITSTL      ; TEST CURRENT VALUE
-                    109             BEQ SWTR
-                    110             STA $<span class='n'>C080</span>       ; TRY SWITCH 1                  ; <a class='magic' name='_'>magic number</a>
-                    111             CMP AITSTL      ; TEST AGAIN
-                    112             BEQ SWTR        ; BR IF NOW SAME
-                    113             STA $<span class='n'>C081</span>       ; TRY SWITCH 2                  ; <a class='magic' name='_'>magic number</a>
-                    114             CMP AITSTL      ; TEST AND
-                    115 SWTR        RTS             ; RETURN
+25B2:CD 00 E0       108             CMP <a class='v' href='#'>AITSTL</a>      ; TEST CURRENT VALUE
+25B5:F0 0E          109             BEQ <a class='x' href='#'>SWTR</a>
+25B7:8D 80 C0       110             STA $<span class='n'>C080</span>       ; TRY SWITCH 1                  ; <a class='magic' name='_'>magic number</a>
+25BA:CD 00 E0       111             CMP <a class='v' href='#AITSTL'>AITSTL</a>      ; TEST AGAIN
+25BD:F0 06          112             BEQ <a class='x' href='#SWTR'>SWTR</a>        ; BR IF NOW SAME
+25BF:8D 81 C0       113             STA $<span class='n'>C081</span>       ; TRY SWITCH 2                  ; <a class='magic' name='_'>magic number</a>
+25C2:CD 00 E0       114             CMP <a class='v' href='#AITSTL'>AITSTL</a>      ; TEST AND
+25C5:60             115 <a class='f' name='SWTR'     >SWTR</a>        RTS             ; RETURN
                     116 ;
 <hr>                    117             PAGE                                            ; === Page <a class='page' name='page147'>147</a> ===
                     118 ;
