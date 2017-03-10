@@ -436,6 +436,14 @@ span.patch {
 .rows td {
     border: 0px;
 }
+.commentmargin {
+    z-index         :    1;
+    position        :fixed;
+    top             :  0px;
+    right           :  0px;
+    margin          :  0px;
+    color           : #EEE;
+}
 .syntax {
     z-index         :    2;
     position        :fixed;
@@ -620,6 +628,76 @@ console.log( "TODO: CSS Monochrome" );
 <i>Syntax Highlighting</i><br>
 <button type='button' id='syntax_color' disabled onclick='onSyntaxChangeColor();'>Color     </button>
 <button type='button' id='syntax_mono'           onclick='onSyntaxChangeMono ();'>Monochrome</button>
+</div>
+<div class='commentmargin'>
+<pre><br>
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+|                                                                            
+<pre>
 </div>
 <h1>Apple DOS 3.3C Source Code (Unified HTML and Annotated Version)</h1>
 <h1>0.0 Table of Contents</h1>
@@ -5717,8 +5795,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     282             LSR A
                     283             TAX
                     284             LDA #<span class='n'>0</span>
-3732:9D F8 04       285             STA $<span class='n'>4F8</span>,X                                      ; <a class='magic' name='_'>magic number</a> The 40x24 text screen has "memory holes"
-3735:9D 78 04       286             STA $<span class='n'>478</span>,X                                      ; <a class='magic' name='_'>magic number</a> reserved for each Slot 1..7 as "scratchpad" or temp vars
+3732:9D F8 04       285             STA $<span class='n'>4F8</span>,X                                      ; <a class='magic' name='_3733'>magic number</a> The 40x24 text screen has "memory holes"
+3735:9D 78 04       286             STA $<span class='n'>478</span>,X                                      ; <a class='magic' name='_3736'>magic number</a> reserved for each Slot 1..7 as "scratchpad" or temp vars
                     287             JSR BOOTIO      ; GO READ DOS
                     288 ;
                     <a class='line' name='BOOTLDR.289'>289</a> ;DOSINT - INITIALIZE DOS                                    ; /sarcasm Couldn't afford extra 'i' in "dosinIt"
