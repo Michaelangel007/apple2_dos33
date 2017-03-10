@@ -2793,17 +2793,17 @@ With that "legalese" out of the way ... enjoy the read!
                     238 ;
                     239 ; RBYTE - READ NEXT BYTE
                     240 ;
-                    241 RBYTE       EQU *
-                    242             LDA #CRQRD      ; SET READ
-                    243             STA CCBREQ
-                    244             LDA #CRMNBT     ; SET NEXT BYTE
-                    245             STA CCBRQM
-                    246             JSR DOSGO       ; GO TO DOS
-                    247             LDA CCBDAT      ; GET THE DATA BYTE
-                    248             RTS
-                    249 MVEFTA      EQU *
-269D:AD B5 2A       250             LDA EFTABA+1    ; MOVE TABLE ADR
-26A0:85 41          251             STA ZPGWRK+1    ; NO ZPG
+                    241 <a class='f' name='RBYTE'    >RBYTE       </a>EQU *
+268C:A9 03          242             LDA #CRQRD      ; SET READ
+268E:8D BB 35       243             STA CCBREQ
+2691:A9 01          244             LDA #CRMNBT     ; SET NEXT BYTE
+2693:8D BC 35       245             STA CCBRQM
+2696:20 A8 26       246             JSR DOSGO       ; GO TO DOS
+2699:AD C3 35       247             LDA CCBDAT      ; GET THE DATA BYTE
+269C:60             248             RTS
+                    249 <a class='f' name='MVEFTA'   >MVEFTA      </a>EQU *
+269D:AD B5 2A       250             LDA EFTABA+<span class='n'>1</span>    ; MOVE TABLE ADR
+26A0:85 41          251             STA ZPGWRK+<span class='n'>1</span>    ; NO ZPG
 26A2:AD B4 2A       252             LDA EFTABA
 26A5:85 40          253             STA ZPGWRK
 26A7:60             254             RTS
@@ -2820,7 +2820,7 @@ With that "legalese" out of the way ... enjoy the read!
 26AB:90 16          007             BCC DG3         ; BR IF NOT ERROR
                     008 ;
 26AD:AD C5 35       009             LDA CCBSTA      ;GET RETURN CODE
-26B0:C9 05          010             CMP #5                                          ; <a class='magic' name='_26B1'>magic number</a>
+26B0:C9 05          010             CMP #<span class='n'>5</span>                                          ; <a class='magic' name='_26B1'>magic number</a>
 26B2:F0 03          011             BEQ YESEOF
 26B4:4C 5E 36       012             JMP CLOSFILE    ;NO. CLOSE &amp; COMPLAIN
 26B7:4C 92 36       013 YESEOF      JMP EOFFIX      ;MAYBE FIX IT UP?
