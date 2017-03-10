@@ -2650,15 +2650,15 @@ With that "legalese" out of the way ... enjoy the read!
                     095 ; EINT - EXECUTE INTEGER REQUEST
                     096 ;
                     097 <a class='f' name='EINT'     >EINT</a>        EQU *
-                    098             LDA #ITSTV      ; GET IB TEST VALUE
-                    099             JSR SWTST       ; GO SWITCH AND TEST
-                    100             BEQ <a class='x' name='GOINT'>GOINT</a>       ;BR IF INTIGER BASIC                ; *spelling* Integer
-                    101             LDA #<span class='n'>1</span>          ;LANGUAGE NOT AVIALABLE, TOO BAD... ; *spelling* Available <a class='magic' name='_'>magic number</a>
-                    102             JMP <a class='x' name='ERROR'>ERROR</a>
-                    103 <a class='f' name='GOINT'    >GOINT</a>       LDA #<span class='n'>0</span>          ;RESET RSTATE
-                    104             STA RSTATE      ; FOR NON APPLESOFT PROG.
-                    105 GOINIT      EQU *
-                    106             JMP <a class='f' name='DBINIT'>DBINIT</a>      ; GO INIT DOS
+259E:A9 20          098             LDA #<a class='v' href='#ITSTV'>ITSTV</a>      ; GET IB TEST VALUE
+25A0:20 B2 25       099             JSR <a class='x' href='#SWTST'>SWTST</a>       ; GO SWITCH AND TEST
+25A3:F0 05          100             BEQ <a class='x' href='#GOINT'>GOINT</a>       ;BR IF INTIGER BASIC                ; *spelling* Integer
+25A5:A9 01          101             LDA #<span class='n'>1</span>          ;LANGUAGE NOT AVIALABLE, TOO BAD... ; *spelling* Available <a class='magic' name='_'>magic number</a>
+25A7:4C D2 26       102             JMP <a class='x' href='#ERROR'>ERROR</a>
+25AA:A9 00          103 <a class='f' name='GOINT'    >GOINT</a>       LDA #<span class='n'>0</span>          ;RESET RSTATE                   ; <a class='magic' name='_'>magic number</a>
+25AC:8D B7 2A       104             STA <a class='v' href='#RSTATE'>RSTATE</a>      ; FOR NON APPLESOFT PROG.
+                    105 <a class='f' name='GOINIT'   >GOINIT</a>      EQU *
+25AF:4C 84 1D       106             JMP <a class='f' href='#DBINIT'>DBINIT</a>      ; GO INIT DOS
                     107 <a class='f' name='SWTST'    >SWTST       </a>EQU *
                     108             CMP AITSTL      ; TEST CURRENT VALUE
                     109             BEQ SWTR
