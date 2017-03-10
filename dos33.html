@@ -2902,12 +2902,12 @@ With that "legalese" out of the way ... enjoy the read!
                     089             STA CCBSLT
                     090             LDA FN1ADR      ; FILENAME 1 ADR
                     091             STA CCBFN1
-                    092             LDA FN1ADR+1
-                    093             STA CCBFN1+1
+                    092             LDA FN1ADR+<span class='n'>1</span>
+                    093             STA CCBFN1+<span class='n'>1</span>
                     094             LDA ZPGWRK
                     095             STA CFTABA
-                    096             LDA ZPGWRK+1
-                    097             STA CFTABA+1
+                    096             LDA ZPGWRK+<span class='n'>1</span>
+                    097             STA CFTABA+<span class='n'>1</span>
                     098             RTS
                     099 ;
                     100 ; MVFN1 - MOVE FILE NAME 1 TO FILE PTR
