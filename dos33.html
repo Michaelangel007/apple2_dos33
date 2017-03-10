@@ -2727,36 +2727,36 @@ With that "legalese" out of the way ... enjoy the read!
                     172 ;
                     173 ; INCFD - INPUT A CHAR FROM DISK
                     174 ;
-                    175 ICFD        EQU *
-                    176             JSR TSTRUN      ; GO TEST RUN
-                    177             BCS ICFDB       ;BRANCH IF NOT RUN MODE
-                    178             LDA #6          ; SET OUT STE = 6               ; <a class='magic' name='_'>magic number</a>
-                    179 ICFD3       EQU *
-<hr>                    180             STA OSTATE      ; TO CATCH ECHO                 ; === Page <a class='page' name='page148'>148</a> ===
-                    181             JSR RBYTE
-                    182             BNE ICFD1       ; BR IF NOT ZERO CHAR
-                    183 ICFD2       EQU *
-                    184             JSR CLOSE
-                    185             LDA #3                                          ; <a class='magic' name='_'>magic number</a>
-                    186             CMP OSTATE
-                    187             BEQ EX2
-                    188 ICFD4       EQU *
-                    189             LDA #CREEOF
-                    190             JMP ERROR       ; GO TO ERROR                   ; /sarcasm No shit, Sherlock -- HOW did we get here?
-                    191 ICFD1       EQU *
-                    192             CMP #$E0        ;CHECK FOR LOWER CASE
-                    193             BCC ICFNLC      ;BRANCH IF NOT LOWER-CASE
-                    194             AND #$<span class='n'>7F</span>        ;STRIP HI BIT TO FOOL GETLINE
-                    195 ICFNLC      EQU *
-                    196             STA SVA         ; PUT INTO SAVED ACU
-                    197             LDX SVX         ; MUST CHECK LAST FOR LOWER CASE
-                    198             BEQ ICFD0       ;IGNORE IF FIRST CHAR.
-                    199             DEX
-                    200             LDA LBUFF,X
-                    201             ORA #$<span class='n'>80</span>        ;RESET HI BIT
-                    202             STA LBUFF,X     ; EVEN THOUGH IT MAY NOT NEED IT
-                    203 ICFD0       EQU *
-                    204             JMP ORTN        ; GO RESTORE REGS AND RTS
+                    175 <a class='f' name='ICFD'     >ICFD        </a>EQU *
+2626:20 5E 26       176             JSR TSTRUN      ; GO TEST RUN
+2629:B0 4E          177             BCS ICFDB       ;BRANCH IF NOT RUN MODE
+262B:A9 06          178             LDA #6          ; SET OUT STE = 6               ; <a class='magic' name='_'>magic number</a>
+                    179 <a class='f' name='ICFD3'    >ICFD3       </a>EQU *
+<hr>262D:8D 52 2A       180             STA OSTATE      ; TO CATCH ECHO                 ; === Page <a class='page' name='page148'>148</a> ===
+2630:20 8C 26       181             JSR RBYTE
+2633:D0 0F          182             BNE ICFD1       ; BR IF NOT ZERO CHAR
+                    183 <a class='f' name='ICFD2'    >ICFD2       </a>EQU *
+2635:20 FC 22       184             JSR CLOSE
+2638:A9 03          185             LDA #3                                          ; <a class='magic' name='_'>magic number</a>
+263A:CD 52 2A       186             CMP OSTATE
+263D:F0 CE          187             BEQ EX2
+                    188 <a class='f' name='ICFD4'    >ICFD4       </a>EQU *
+263F:A9 05          189             LDA #CREEOF
+2641:4C D2 26       190             JMP ERROR       ; GO TO ERROR                   ; /sarcasm No shit, Sherlock -- HOW did we get here?
+                    191 <a class='f' name='ICFD1'    >ICFD1       </a>EQU *
+2644:C9 E0          192             CMP #$E0        ;CHECK FOR LOWER CASE
+2646:90 02          193             BCC ICFNLC      ;BRANCH IF NOT LOWER-CASE
+2648:29 7F          194             AND #$<span class='n'>7F</span>        ;STRIP HI BIT TO FOOL GETLINE
+                    195 <a class='f' name='ICFNLC'   >ICFNLC      </a>EQU *
+264A:8D 5C 2A       196             STA SVA         ; PUT INTO SAVED ACU
+264D:AE 5A 2A       197             LDX SVX         ; MUST CHECK LAST FOR LOWER CASE
+2650:F0 09          198             BEQ ICFD0       ;IGNORE IF FIRST CHAR.
+2652:CA             199             DEX
+2653:BD 00 02       200             LDA LBUFF,X
+2656:09 80          201             ORA #$<span class='n'>80</span>        ;RESET HI BIT
+2658:9D 00 02       202             STA LBUFF,X     ; EVEN THOUGH IT MAY NOT NEED IT
+                    203 <a class='f' name='ICFD0'    >ICFD0       </a>EQU *
+265B:4C B3 1F       204             JMP ORTN        ; GO RESTORE REGS AND RTS
                     205 ;
                     206 <a class='f' name='TSTRUN'   >TSTRUN      </a>PHA
                     207             LDA ASIBSW      ; GET AS/INT BASIC SWITCH
