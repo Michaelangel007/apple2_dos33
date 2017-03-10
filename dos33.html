@@ -2627,18 +2627,18 @@ With that "legalese" out of the way ... enjoy the read!
                     072 ; EAS - EXECUTE APPLESOFT REQUEST
                     073 ;
                     074 <a class='f' name='EAS'      >EAS</a>         EQU *
-257A:A9 4C          075             LDA #ATSTV      ; GET APPLESOFT TEST VALUE
+257A:A9 4C          075             LDA #<a class='v' href='#ATSTV'>ATSTV</a>      ; GET APPLESOFT TEST VALUE
 257C:20 B2 25       076             JSR <a class='x' href='SWTST'>SWTST</a>       ; GO SWITCH AND TEST
-257F:F0 2E          077             BEQ GOINIT      ; BR IF APPLESOFT
+257F:F0 2E          077             BEQ <a class='x' href='#GOINIT'>GOINIT</a>      ; BR IF APPLESOFT
 2581:A9 00          078             LDA #<span class='n'>0</span>                                          ; <a class='magic' name='_'>magic number</a> LANGUAGE_APPLESOFT
-2583:8D B6 2A       079             STA ASIBSW
+2583:8D B6 2A       079             STA <a class='v' href='#ASIBSW'>ASIBSW</a>
                     080 ;
                     081 <a class='f' name='EAS0'     >EAS0</a>        EQU *
 2586:A0 1E          082             LDY #<span class='n'>30</span>                                         ; <a class='magic' name='_'>magic number</a> MAX_FILENAME_LEN-1
-2588:20 97 20       083             JSR <a class='x' href='CLRFNA'>CLRFNA</a>                                      ; ClearFileName1
-258B:A2 09          084             LDX #FASBL
-258D:BD B7 2A       085 <a class='f' name='EAS1'     >EAS1</a>        LDA FASB-<span class='n'>1</span>,X    ; MOVE SYSTEM FILENAME          ; No, <i>copy</i>
-2590:9D 74 2A       086             STA FNAME1-<span class='n'>1</span>,X
+2588:20 97 20       083             JSR <a class='x' href='#CLRFNA'>CLRFNA</a>                                      ; ClearFileName1
+258B:A2 09          084             LDX #<a class='v' href='#FASBL'>FASBL</a>
+258D:BD B7 2A       085 <a class='f' name='EAS1'     >EAS1</a>        LDA <a class='v' href='#FASB'>FASB</a>-<span class='n'>1</span>,X    ; MOVE SYSTEM FILENAME          ; No, <i>copy</i>
+2590:9D 74 2A       086             STA <a class='v' href='#FNAME1'>FNAME1</a>-<span class='n'>1</span>,X
 2593:CA             087             DEX
 2594:D0 F7          088             BNE <a class='x' href='EAS1'>EAS1</a>
                     089 ;
