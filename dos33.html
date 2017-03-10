@@ -2673,15 +2673,15 @@ With that "legalese" out of the way ... enjoy the read!
                     118 ;
                     119 ; EEXEC - EXECUTE EXEC CMD
                     120 ;
-                    121 EEXEC       EQU *
-                    122             JSR EOPEN       ; OPEN FILE
-                    123             LDA CFTABA      ; MOVE TABLE POINTERS
-                    124             STA EFTABA
-                    125             LDA CFTABA+1
-                    126             STA EFTABA+1
-                    127             LDA FNAME1      ; USE FILNAME                   ; *spelling* Filename
-                    128             STA ESTATE      ; SET EXSTATE NON ZERO
-                    129             BNE EXP2
+                    121 <a class='f' name='EEXEC'    >EEXEC       </a>EQU *                                           ; "EXEC"
+25C6:20 A3 22       122             JSR <a class='x' href='#EOPEN'>EOPEN</a>       ; OPEN FILE
+25C9:AD 4F 2A       123             LDA <a class='v' href='#CFTABA'>CFTABA</a>      ; MOVE TABLE POINTERS
+25CC:8D B4 2A       124             STA <a class='v' href='#EFTABA'>EFTABA</a>
+25CF:AD 50 2A       125             LDA <a class='v' href='#CFTABA'>CFTABA</a>+<span class='n'>1</span>
+25D2:8D B5 2A       126             STA <a class='v' href='#EFTABA'>EFTABA</a>+<span class='n'>1</span>
+25D5:AD 75 2A       127             LDA <a class='v' href='#FNAME1'>FNAME1</a>      ; USE FILNAME                   ; *spelling* Filename
+25D8:8D B3 2A       128             STA <a class='v' href='#ESTATE'>ESTATE</a>      ; SET EXSTATE NON ZERO
+25DB:D0 0E          129             BNE <a class='x' href='#EXP2'>EXP2</a>
                     130 ;
                     131 ;
                     132 ; EPOS - EXECUTE POSITION
