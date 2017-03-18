@@ -6387,110 +6387,111 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 38D9:D0 EB          058             BNE <a class="x" href="#POST2">POST2</a>                                       ; ^
 38DB:60             059             RTS             RETURN.
                     060                 SBTL '16-SECTOR READ'
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-3939:BD 8C C0       160 READ8       LDA Q6L,X
-393C:10 FB          161             BPL READ8       *** NO PAGE CROSS! ***
-393E:C9 AA          162             CMP #$AA        SECOND BIT SLIP MARK?
-3940:F0 5C          163             BEQ RDEXIT      (DONE IF IT IS)
-3942:38             164 RDERR       SEC             INDICATE 'ERROR EXIT'.
-3943:60             165             RTS             FROM READ16 OR RDADR16.
+                    061 **************************
+                    062 *                        *
+                    063 *     READ SUBROUTINE    *
+                    043 *   (16-SECTOR FORMAT)   *
+                    065 *                        *
+                    066 **************************
+                    067 *                        *
+                    068 *    READS 6-BIT NIBLS   *
+                    069 *     (00ABCDEF) INTO    *
+                    070 *     NBUF1 and NBUF2    *
+                    071 *    CONVERTING 7-BIT    *
+                    072 *     NIBLS TO 7-BIT     *
+                    073 *    VIA 'DNIBL' TABLE   *
+                    074 *                        *
+                    075 *  FIRST READS NBUF2     *
+                    076 *           HIGH TO LOW  *
+                    077 *  THEN READS NBUF1      *
+                    078 *           LOW TO HIGH  *
+                    079 *                        *
+                    080 *   ---- ON ENTRY ----   *
+                    081 *                        *
+                    082 *  X-REG: SLOTNUM        *
+                    083 *         TIMES $10.     *
+                    084 *                        *
+                    085 *  READ MODE (Q6L, Q7L)  *
+                    086 *                        *
+                    087 *   ---- ON EXIT -----   *
+                    088 *                        *
+                    089 *  CARRY SET IF ERROR    *
+                    090 *                        *
+                    091 *  IF NO ERROR:          *
+                    092 *     A-REG HOLDS $AA.   *
+                    093 *     X-REG UNCHANGED.   *
+                    094 *     Y-REG HOLDS $00.   *
+                    095 *     CARRY CLEAR.       *
+                    096 *                        *
+                    097 *     NBUF1 AND NBUF2    *
+                    098 *       HOLD 6-BIT NIBLS *
+                    099 *       (00ABCDEF)       *
+                    100 *                        *
+                    101 *     USES TEMP 'IDX'.   *
+                    102 *                        *
+                    103 *  ---- CAUTION -----    *
+                    104 *                        *
+                    105 *        OBSERVE         *
+                    106 *    'NO PAGE CROSS'     *
+                    107 *      WARNIGNS ON       *
+                    108 *    SOME BRANCHES!!     *
+                    109 *                        *
+                    110 *   ---- ASSUMES ----    *
+                    111 *                        *
+                    112 *   1 USEC CYCLE TIME    *
+                    113 *                        *
+                    114 **************************
+38DC:A0 20          115 <a class="f" name="READ16"   >READ16      </a>LDY #$20        'MUST FIND' COUNT.
+38DE:88             116 <a class="f" name="RSYNC"    >RSYNC       </a>DEY             IF CAN'T FIND MARKS
+<hr>38DF:F0 61          117 <!--                       -->            BEQ RDERR       ;THEN EXIT WITH CARRY SET       ; === Page <a class="page" name="page103">103</a> ===
+38E1:BD 8C C0       118 <a class="f" name="READ1"    >READ1       </a>LDA Q6L,X       READ NIBL.
+38E4:10 FB          119 <!--                           -->            BPL READ1       *** NO PAGE CROSS! ***
+38E6:49 D5          120 <a class="f" name="RSYNC1"   >RSYNC1      </a>EOR #$D5        DATA MARK 1?
+38E8:D0 F4          121 <!--                           -->            BNE RSYNC       LOOP IF NOT.
+38EA:EA             122 <!--                           -->            NOP             DELAY BETWEEN NIBLS.
+38EB:BD 8C C0       123 <a class="f" name="READ2"    >READ2       </a>LDA Q6L,X
+38EE:10 FB          124 <!--                           -->            BPL READ2       *** NO PAGE CROSS! ***
+38F0:C9 AA          125 <!--                           -->            CMP #$AA        DATA MARK 2?
+38F2:D0 F2          126 <!--                           -->            BNE RSYNC1      (IF NOT, IS IT DM1?)            ;              <span class='code'>NUM_6N2_NIBBLES = 342</span>
+38F4:A0 56          127 <!--                           -->            LDY #$<span class='n'>56</span>        INIT NBUF2 INDEX                ; <a class='magic' name='#_38F5'>magic number</a> <span class='code'>NUM_6N2_NIBBLES - 256</span>
+                    128 <!--                           -->*                           (ADDED NIBL DELAY)
+38F6:BD 8C C0       129 <a class="f" name="READ3"    >READ3       </a>LDA Q6L,X
+38F9:10 FB          130 <!--                           -->            BPL READ3       *** NO PAGE CROSS! ***
+38FB:C9 AD          131 <!--                           -->            CMP #$AD        DATA MARK 3?
+38FD:D0 E7          132 <!--                           -->            BNE RSYNC1
+                    133 <!--                           -->*                           (CARRY SET IF DM3!)             ; And this imporant <b>why??</b>
+38FF:A9 00          134 <!--                           -->            LDA #$00        INIT CHECKSUM
+3901:88             135 <a class="f" name="RDATA1"   >RDATA1      </a>DEY
+3902:84 26          136 <!--                           -->            STY IDX
+3904:BC 8C C0       137 <a class="f" name="READ4"    >READ4       </a>LDY Q6L,X
+3907:10 FB          138 <!--                           -->            BPL READ4       *** NO PAGE CROSS! ***
+3909:59 00 3A       139 <!--                           -->            EOR DNIBL,Y     XOR 6-BIT NIBL.
+390C:A4 26          140 <!--                           -->            LDY IDX
+390E:99 00 3C       141 <!--                           -->            STA NBUF2,Y     STORE IN NBUF2 PAGE.
+3911:D0 EE          142 <!--                           -->            BNE RDATA1      TAKEN IF Y-REG NONZERO.
+3913:84 26          143 <a class="f" name="RDATA2"   >RDATA2      </a>STY IDX
+3915:BC 8C C0       144 <a class="f" name="READ5"    >READ5       </a>LDY Q6L,X
+3918:10 FB          145 <!--                           -->            BPL READ5       *** NO PAGE CROSS! ***
+391A:59 00 3A       146 <!--                           -->            EOR DNIBL,Y     XOR 6-BIT NIBL.
+391D:A4 26          147 <!--                           -->            LDY IDX
+391F:99 00 BB       148 <!--                           -->            STA NBUF1,Y     STORE IN NBUF1 PAGE.
+3922:C8             149 <!--                           -->            INY
+3923:D0 EE          150 <!--                           -->            BNE RDATA2
+3925:BC 8C C0       151 <a class="f" name="READ6"    >READ6       </a>LDY Q6L,X       READ 7-BIT CSUM NIBL.
+3928:10 FB          152 <!--                           -->            BPL READ6       *** NO PAGE CROSS! ***
+392A:D9 00 3A       153 <!--                           -->            CMP DNIBL,Y     IF LAST NBUF1 NIBL NOT
+392D:D0 13          154 <!--                           -->            BNE RDERR       EQUAL CHKSUM NIBL THEN ERR.
+392F:BD 8C C0       155 <a class="f" name="READ7"    >READ7       </a>LDA Q6L,X
+3932:10 FB          156 <!--                           -->            BPL READ7       *** NO PAGE CROSS! ***
+3934:C9 DE          157 <!--                           -->            CMP #$DE        FIRST BIT SLIP MARK?
+3936:D0 0A          158 <!--                           -->            BNE RDERR       (ERR IF NOT)
+3938:EA             159 <!--                           -->            NOP             DELAY BETWEEN NIBLS.
+3939:BD 8C C0       160 <a class="f" name="READ8"    >READ8       </a>LDA Q6L,X
+393C:10 FB          161 <!--                           -->            BPL READ8       *** NO PAGE CROSS! ***
+393E:C9 AA          162 <!--                           -->            CMP #$AA        SECOND BIT SLIP MARK?
+3940:F0 5C          163 <!--                           -->            BEQ RDEXIT      (DONE IF IT IS)
+3942:38             164 <a class="f" name="RDERR"    >RDERR       </a>SEC             INDICATE 'ERROR EXIT'.
+3943:60             165 <!--                           -->            RTS             FROM READ16 OR RDADR16.
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="RDADSEK">RDADSEK</a> - Read Disk Address; Seek, Page <a class="page" name="page106">106</a>, <a class='ts' href='#T0S3'>T0S3</a> @ $44, $<span class='n'>B944</span> .. $<span class='n'>B9FC</span> ===<hr class='join'><hr></div>
