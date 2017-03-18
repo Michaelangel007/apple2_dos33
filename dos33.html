@@ -1434,12 +1434,12 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                     ;      to make IBVT, AS1VT, and AS2VT all the <b>same length</b>
                                                                                     ;
                                                                                     ;                  Table  SourceOffset  Instructios
-                                                                                    ;                  IBVT   $00           #IBVT -IBVT
-                                                                                    ;                  AS1VT  $0C           #AS1VT-IBVT
-                                                                                    ;                  AS2VT  $1E           #AS2VT-IBVT
+                                                                                    ;                  IBVT   #$00          #IBVT -IBVT
+                                                                                    ;                  AS1VT  #$0C          #AS1VT-IBVT
+                                                                                    ;                  AS2VT  #$1E          #AS2VT-IBVT
                                                                                     ;
-                                                                                    ; AA       109     TAX                  ; X = SourceOffset $0 = IBVT
-                                                                                    ; 2C               DB  $2C              ; BIT $adr to skip next instruction
+                                                                                    ; AA       109     TAX                  ; X = SourceOffset #$00 = IBVT
+                                                                                    ; 2C               DB  $2C              ; BIT $abs to skip next instruction
                                                                                     ;
                                                                                     ; A2 0C    IAS1    LDX #AS1VT-IBVTL     ;     SourceOffset $C = AS1VT 
 1DB1:A2 0C          119             LDX #<a class='v' href='#AS1VTL'>AS1VTL</a>                                     ; A0 00            LDY #0               ; Y = DestOffset = BytesCopied
