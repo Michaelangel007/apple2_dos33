@@ -1409,7 +1409,7 @@ With that "legalese" out of the way ... enjoy the read!
 1D8B:8D 6A 2A       101             STA <a class='v' href='#CS'>CS</a>          ; SET AS CUURENT SLOT           ; *spelling* CURRENT
 1D8E:AD EA 37       102             LDA <a class='v' href='#IBDRVN'>IBDRVN</a>      ; GET BOOT DRIVE NUMBER
 1D91:8D 68 2A       <a class='line' name='DOSINIT.103'>103</a>             STA <a class='v' href='#CD'>CD</a>          ; SET AS CURRENT DRIVE
-1D94:AD 00 E0       104             LDA <a class='v' href='#AITSTL'>AITSTL</a>      ; GET APPLESOFT/IB TEST
+1D94:AD 00 E0       104             LDA <a class='v' href='#AITSTL'>AITSTL</a>      ; GET APPLESOFT/IB TEST         ; E000:4C = Applesoft
 1D97:49 20          105             EOR #<a class='v' href='#ITSTV'>ITSTV</a>      ; IF AS THEN
 1D99:D0 11          106             BNE <a class='x' href='#IAS1'>IAS1</a>        ; GO TO AS INIT                 ; 
                     107 ;                           ; ELSE INIT FOR IB
