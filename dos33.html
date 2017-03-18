@@ -1411,13 +1411,14 @@ With that "legalese" out of the way ... enjoy the read!
 1D91:8D 68 2A       <a class='line' name='DOSINIT.103'>103</a>             STA <a class='v' href='#CD'>CD</a>          ; SET AS CURRENT DRIVE
 1D94:AD 00 E0       104             LDA <a class='v' href='#AITSTL'>AITSTL</a>      ; GET APPLESOFT/IB TEST         ; E000:4C = Applesoft
 1D97:49 20          105             EOR #<a class='v' href='#ITSTV'>ITSTV</a>      ; IF AS THEN
-1D99:D0 11          106             BNE <a class='x' href='#IAS1'>IAS1</a>        ; GO TO AS INIT                 ; 
+1D99:D0 11          106             BNE <a class='x' href='#IAS1'>IAS1</a>        ; GO TO AS INIT                 ;
                     107 ;                           ; ELSE INIT FOR IB
 1D9B:8D B6 2A       108             STA <a class='v' href='#ASIBSW'>ASIBSW</a>      ; SET SW FOR IB                 ; <a class='magic' name='#_'>magic number</a> BASIC_TYPE_INTEGER = $00
                                                                                     ;        30 = $1D9E .. $1DBB
                                                                                     ;        -5 = Don't count opcodes at Lines #117,118
                                                                                     ;       -18 = Replacement code at Line <a class='link' href='#DOSINIT.118.Solution'>118 Solution</a>
-1D9E:A2 0A          <a class='line' name='DOSINIT.109'>109</a>             LDX #<a class='v' href='#IBVTL'>IBVTL</a>      ; GET IB VT LENGTH              ; <a class='mem' name='_1D9E'>wastes</a> =7 bytes
+                                                                                    ;       ===
+1D9E:A2 0A          <a class='line' name='DOSINIT.109'>109</a>             LDX #<a class='v' href='#IBVTL'>IBVTL</a>      ; GET IB VT LENGTH              ; <a class='mem' name='_1D9E'>wastes</a>  7 bytes
 1DA0:BD 61 1D       110 <a class='f' name='IIB1'     >IIB1        </a>LDA <a class='v' href='#IBVT'>IBVT</a>-<span class='n'>1</span>,X    ; MOVE IB ADDR                  ; <b>Problem</b>: *sigh* due to IBVTL=$A != AS1VTL=$C
 1DA3:9D 55 1D       111             STA <a class='v' href='#IBASVT'>IBASVT</a>-<span class='n'>1</span>,X                                  ;           we end up with <i>duplicate code</i> (**9 times**, er, 3 times!) to
 1DA6:CA             112             DEX                                             ;           copy the BASIC Vector Table! (An array of function pointers)
