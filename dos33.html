@@ -2401,16 +2401,20 @@ With that "legalese" out of the way ... enjoy the read!
                     049 ;
                     050 ; EBRUN - EXECUTE BINARY RUN
                     051 ;
-                    052 <a class='f' name='EBRUN'    >EBRUN       </a>JSR EBLD                                        ; <a class='v' href='#CMDETB'>CMDETB</a> [1A]
-238E:               053             JSR MVCSW       ; GO RESTORE CHAR I/O SW
-<hr>                    054             JMP (CA)        ; GO EXEC THE STUFF             ; <a class='dumb'>How Not To Design an OS</a>
-                                                                                    ; <b>Problem</b>: This <span class='code'>JMP</span> is why Binary programs can't use <span class='code'>RTS</span> to return to DOS
-                                                                                    ; <b>Solution</b>:    LDA CA    ; Short-Sighted 6502 design lacks indirect mode: <span class='code'>JSR ($addr)</span>
-                                                                                    ;              STA GOBRUN+1
-                                                                                    ;              LDA CA+1
-                                                                                    ;              STA GOBRUN+2
-                                                                                    ; GOBRUN       JSR $0000       ; NOTE: Self-Modifying code
-                                                                                    ;              RTS
+238E:20 5D 23       052 <a class='f' name='EBRUN'    >EBRUN       </a>JSR EBLD                                        ; <a class='v' href='#CMDETB'>CMDETB</a> [1A]
+2391:20 51 28       053             JSR MVCSW       ; GO RESTORE CHAR I/O SW
+<hr>2394:6C 72 2A       054             JMP (CA)        ; GO EXEC THE STUFF             ; === Page <a class="page" name="page141">141</a> ===
+                                                                                    ; <a class='dumb'>How Not To Design an OS</a>
+                                                                                    ; <b>Problem :</b> This (indirect) <span class='code'>JMP</span> is why Binary programs can't use <span class='code'>RTS</span> to return to DOS
+                                                                                    ; <b>Solution:</b> The otherwise excellent 6502 has a short-Sighted design
+                                                                                    ;           it lacks indirect mode: <span class='code'>JSR ($addr)</span>:
+                                                                                    ;           Regular 6502 solution requires self-modifying code.
+                                                                                    ; <span class='code'>             LDA CA                                     </span>
+                                                                                    ; <span class='code'>             STA GOBRUN+1    ; ** SELF-MODIFYING ! **   </span>
+                                                                                    ; <span class='code'>             LDA CA+1                                   </span>
+                                                                                    ; <span class='code'>             STA GOBRUN+2    ; ** SELF-MODIFYING ! **   </span>
+                                                                                    ; <span class='code'>GOBRUN       JSR $0000       ; NOTE: Self-Modifying code</span>
+                                                                                    ; <span class='code'>             JMP <a class='x' href='#DBRST'>DBRST</a>       ; Warmstart DOS            </span>
                     055             PAGE
                     056 ;
                     057 ; ESAVE - EXECUTE SAVE REQUEST
