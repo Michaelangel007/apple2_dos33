@@ -6372,7 +6372,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     043 *    AND NBUF2.           *
                     044 *      (342 NIBLS)        *
                     045 ***************************
-38C2:A0 00          046 <a class="f"    name="POSTNB16"   >POSTNB16    </a>LDA #$<span class='n'>0</span>         USER DATA BUF IDX.              ; <a class='ts' href='#T0S2'>T0S2</a> <span class="todo">TODO</span>
+38C2:A0 00          046 <a class="f"    name="POSTNB16"   >POSTNB16    </a>LDY #$<span class='n'>0</span>         USER DATA BUF IDX.              ; <a class='ts' href='#T0S2'>T0S2</a> <span class="todo">TODO</span>
 38C4:A2 56          047 <a class="f"    name="POST1"      >POST1       </a>LDX #$<span class='n'>56</span>        INIT NBUF2 INDEX.
 38C6:CA             048 <a class="f"    name="POST2"      >POST2       </a>DEX             IDX $55 TO $0
 38C7:30 FB          049             BMI <a class="x" href="#POST1">POST1</a>       WRAPAROUND IF NEG.              ; ^
