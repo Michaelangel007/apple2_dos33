@@ -2420,62 +2420,62 @@ With that "legalese" out of the way ... enjoy the read!
                     057 ; ESAVE - EXECUTE SAVE REQUEST
                     058 ;
                     059 <a class='f' name='ESAVE'    >ESAVE       </a>EQU *
-                    060             LDA ASIBSW      ; IF IB THEN
-                    061             BEQ EIBSV       ; GO TO IB SAVE
-                    062             LDA ASRNX       ; CAN NOT DO AS SAVE WHEN RUN-ONLY PROG.
-                    063             BPL EASAV       ; BRANCH IF OK TO SAVE, OTHERWISE
-                    064             JMP MFERR       ; PRINT "PROGRAM TOO LARGE", THAT OUGHT TO GET 'EM.
-                    065 <a class='f' name='EASAV'    >EASAV       </a>LDA #<span class='n'>2</span>          ; GET APPLESOFT PGM             ; <a class='magic' name='_'>magic number</a> <span class='code'>FILE_TYPE_APPLESOFT EQU 2</span>
-                    066             JSR SV1         ; GO OPEN AND TEST
+2397:AD B6 2A       060             LDA ASIBSW      ; IF IB THEN
+239A:F0 20          061             BEQ EIBSV       ; GO TO IB SAVE
+239C:A5 D6          062             LDA ASRNX       ; CAN NOT DO AS SAVE WHEN RUN-ONLY PROG.
+239E:10 03          063             BPL EASAV       ; BRANCH IF OK TO SAVE, OTHERWISE
+23A0:4C CC 26       064             JMP MFERR       ; PRINT "PROGRAM TOO LARGE", THAT OUGHT TO GET 'EM.
+23A3:A9 02          065 <a class='f' name='EASAV'    >EASAV       </a>LDA #<span class='n'>2</span>          ; GET APPLESOFT PGM             ; <a class='magic' name='_'>magic number</a> <span class='code'>FILE_TYPE_APPLESOFT EQU 2</span>
+23A5:20 D5 23       066             JSR SV1         ; GO OPEN AND TEST
                     067 ;
-                    068             SEC             ; BLOCK LENGTH
-                    069             LDA ASEOP       ; =EOP-SOP
-                    070             SBC ASSOP
-                    071             TAY
-                    072             LDA ASEOP+<span class='n'>1</span>                                     ; single letter difference asEop
-                    073             SBC ASSOP+<span class='n'>1</span>                                     ; is never a good idea:    asSop
-                    074             JSR SV2         ; GO OUTPUT LENGTH
+23A8:38             068             SEC             ; BLOCK LENGTH
+23A9:A5 AF          069             LDA ASEOP       ; =EOP-SOP
+23AB:E5 67          070             SBC ASSOP
+23AD:A8             071             TAY
+23AE:A5 B0          072             LDA ASEOP+<span class='n'>1</span>                                     ; single letter difference asEop
+23B0:E5 68          073             SBC ASSOP+<span class='n'>1</span>                                     ; is never a good idea:    asSop
+23B2:20 E0 23       074             JSR SV2         ; GO OUTPUT LENGTH
                     075 ;
-                    076             LDA ASSOP+1     ; BLOCK ADR
-                    077             LDY ASSOP       ; =SOP
-                    078             JMP SV3         ; GO OUTPUT BLOCK
+23B5:A5 68          076             LDA ASSOP+1     ; BLOCK ADR
+23B7:A4 67          077             LDY ASSOP       ; =SOP
+23B9:4C FF 23       078             JMP SV3         ; GO OUTPUT BLOCK
                     079 ;
                     080 <a class='f' name='EIBSV'    >EIBSV       </a>EQU *
-                    081             LDA #<span class='n'>1</span>          ; SET IB PGM                    ; PGM = Program, <a class='magic' name='_'>magic number</a> <span class='code'>FILE_TYPE_INTEGER_BASIC EQU 1</span>
-                    082             JSR SV1         ; GO OPEN AND TEST
+23BC:A9 01          081             LDA #<span class='n'>1</span>          ; SET IB PGM                    ; PGM = Program, <a class='magic' name='_'>magic number</a> <span class='code'>FILE_TYPE_INTEGER_BASIC EQU 1</span>
+23BE:20 D5 23       082             JSR SV1         ; GO OPEN AND TEST
                     083 ;
-                    084             SEC             ; BLOCK LENGTH
-                    085             LDA IBHMEM      ; =HIMEM-SOP
-                    086             SBC IBSOP
-                    087             TAY
-                    088             LDA IBHMEM+<span class='n'>1</span>
-                    089             SBC IBSOP+<span class='n'>1</span>
-                    090             JSR SV2         ; GO OUTPUT LENGTH
+23C1:38             084             SEC             ; BLOCK LENGTH
+23C2:A5 4C          085             LDA IBHMEM      ; =HIMEM-SOP
+23C4:E5 CA          086             SBC IBSOP
+23C6:A8             087             TAY
+23C7:A5 4D          088             LDA IBHMEM+<span class='n'>1</span>
+23C9:E5 CB          089             SBC IBSOP+<span class='n'>1</span>
+23CB:20 E0 23       090             JSR SV2         ; GO OUTPUT LENGTH
                     091 ;
-                    092             LDA IBSOP+<span class='n'>1</span>     ; BLOCK ADR
-                    093             LDY IBSOP       ; =SOP
-                    094             JMP SV3         ; GO OUTPUT BLOCK
+23CE:A5 CB          092             LDA IBSOP+<span class='n'>1</span>     ; BLOCK ADR
+23D0:A4 CA          093             LDY IBSOP       ; =SOP
+23D2:4C FF 23       094             JMP SV3         ; GO OUTPUT BLOCK
                     095 ;
                     096 <a class='f' name='SV1'      >SV1         </a>EQU *
                     097 <a class='f' name='SV1A'     >SV1A        </a>EQU *
-                    098             STA CCBFUC      ; SET PGM TYPE
-                    099             PHA             ; SAVE PGM TYPE
-                    100             JSR EOPN1       ; GO OPEN FILE  (CHGED 11/1/78)
-                    101             PLA             ; GET SAVE TYPE
-                    102             JMP TSTFUC      ; GO CHECK
+23D5:8D C2 35       098             STA CCBFUC      ; SET PGM TYPE
+23D8:48             099             PHA             ; SAVE PGM TYPE
+23D9:20 A8 22       100             JSR EOPN1       ; GO OPEN FILE  (CHGED 11/1/78)
+23DC:68             101             PLA             ; GET SAVE TYPE
+23DD:4C C4 27       102             JMP TSTFUC      ; GO CHECK
                     103 ;
                     104 <a class='f' name='SV2'      >SV2         </a>EQU *
-                    105             STY CCBBLN      ; SET BLOCK LENGTH              ; === <a class='dumb' name='HNTDAFS5'>HNTDAFS #5</a> ===
-                    106             STY CCBDAT      ; AND DATA BYTE                 ; You <b>never</b> store file meta-data
-                    107             STA CCBBLN+<span class='n'>1</span>                                    ;    File Length
-                    108             LDA #CRQWR      ; INDICATE WRITE                ; <i>in</i> the file itself!
-                    109             STA CCBREQ
-                    110             LDA #CRNBT      ; NEXT BYTE
-                    111             STA CCBRQM
-                    112             JSR DOSGO       ; GO WRITE
-                    113             LDA CCBBLN+<span class='n'>1</span>    ; OTHER BYTE TOO
-                    114             STA CCBDAT
-<hr>                    115             JMP DOSGO                                       ; === Page <a class='page' name='page142'>142</a> ===
+23E0:8C C1 35       105             STY CCBBLN      ; SET BLOCK LENGTH              ; === <a class='dumb' name='HNTDAFS5'>HNTDAFS #5</a> ===
+23E3:8C C3 35       106             STY CCBDAT      ; AND DATA BYTE                 ; You <b>never</b> store file meta-data
+23E6:8D C2 35       107             STA CCBBLN+<span class='n'>1</span>                                    ;    File Length
+23E9:A9 04          108             LDA #CRQWR      ; INDICATE WRITE                ; <i>in</i> the file itself!
+23EB:8D BB 35       109             STA CCBREQ
+23EE:A9 01          110             LDA #CRNBT      ; NEXT BYTE
+23F0:8D BC 35       111             STA CCBRQM
+23F3:20 A8 26       112             JSR DOSGO       ; GO WRITE
+23F6:AD C2 35       113             LDA CCBBLN+<span class='n'>1</span>    ; OTHER BYTE TOO
+23F9:8D C3 35       114             STA CCBDAT
+<hr>23FC:4C A8 26       115             JMP DOSGO                                       ; === Page <a class='page' name='page142'>142</a> ===
                     116 ;
                     117 <a class='f' name='SV3'      >SV3         </a>STY CCBBBA      ; SET BLOCK ADR
                     118             STA CCBBBA+<span class='n'>1</span>
