@@ -2376,28 +2376,28 @@ With that "legalese" out of the way ... enjoy the read!
                     024 ; EBLD - EXECUTE BINARY LOAD
                     025 ;
                     026 <a class='f' name='EBLD'     >EBLD        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [19]
-235D:               027             JSR EOPN1       ;(CHANGED 11/1/78 FOR TYPE MISMATCH)
+235D:20 A8 22       027             JSR EOPN1       ;(CHANGED 11/1/78 FOR TYPE MISMATCH)
                     028 <a class='f' name='EBLD2'    >EBLD2       </a>EQU *                                           ; *sigh* If only the local labels were in alphabetical order ...
-                    029             LDA #$<span class='n'>7F</span>                                        ; <a class='magic' name='_'>magic number</a> ~FILE_LOCK
-                    030             AND CCBFUC
-                    031             CMP #<span class='n'>4</span>                                          ; <a class='magic' name='_'>magic number</a> FILE_TYPE_BINARY
-                    032             BEQ EBLD3
-                    033             JMP ETYP        ;TYPE MISMATCH ERROR MESSAGE
+2360:A9 7F          029             LDA #$<span class='n'>7F</span>                                        ; <a class='magic' name='_'>magic number</a> ~FILE_LOCK
+2362:2D C2 35       030             AND CCBFUC
+2365:C9 04          031             CMP #<span class='n'>4</span>                                          ; <a class='magic' name='_'>magic number</a> FILE_TYPE_BINARY
+2367:F0 03          032             BEQ EBLD3
+2369:4C D0 26       033             JMP ETYP        ;TYPE MISMATCH ERROR MESSAGE
                     034 <a class='f' name='EBLD3'    >EBLD3       </a>EQU *
-                    035             LDA #4          ; SET BINARY FILE               ; <a class='magic' name='_'>magic number</a> /sarcasm if only we had <span class='code'>FILE_TYPE_BINARY EQU 4</span>
-                    036             JSR SV1         ; GO OPEN &amp; TEST
-                    037             JSR LD2         ; GO GET ADR
-                    038             TAX
-                    039             LDA INOPTS
-                    040             AND #ADR        ; IF ADR NOT GIVEN
-                    041             BNE EBLD1
-                    042             STX CA          ; THEN USE ADR FROM FILE
-                    043             STY CA+1
+236C:A9 04          035             LDA #4          ; SET BINARY FILE               ; <a class='magic' name='_'>magic number</a> /sarcasm if only we had <span class='code'>FILE_TYPE_BINARY EQU 4</span>
+236E:20 D5 23       036             JSR SV1         ; GO OPEN &amp; TEST
+2371:20 7A 24       037             JSR LD2         ; GO GET ADR
+2374:AA             038             TAX
+2375:AD 65 2A       039             LDA INOPTS
+2378:29 01          040             AND #ADR        ; IF ADR NOT GIVEN
+237A:D0 06          041             BNE EBLD1                                       ; &darr;
+237C:8E 72 2A       042             STX CA          ; THEN USE ADR FROM FILE
+237F:8C 73 2A       043             STY CA+1
                     044 <a class='f' name='EBLD1'    >EBLD1       </a>EQU *
-                    045             JSR LD2         ; GET LENGTH
-                    046             LDX CA          ; GET GIVEN ADR
-                    047             LDY CA+1
-                    048             JMP LD3         ; GO GET BLOCK                  ; Why is this +128 bytes away??
+2382:20 7A 24       045             JSR LD2         ; GET LENGTH
+2385:AE 72 2A       046             LDX CA          ; GET GIVEN ADR
+2388:AC 73 2A       047             LDY CA+1
+238B:4C 71 24       048             JMP LD3         ; GO GET BLOCK                  ; Why is this +128 bytes away??
                     049 ;
                     050 ; EBRUN - EXECUTE BINARY RUN
                     051 ;
