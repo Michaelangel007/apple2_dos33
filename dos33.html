@@ -6581,12 +6581,12 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 396F:85 27          079 <a class="f" name="RDAFLD"   >RDAFLD      </a>STA CSUM
 3971:BD 8C C0       080 <a class="f" name="RDA4"     >RDA4        </a>LDA Q6L,X       READ 'ODD BIT' NIBL.            ; Technically, read odd <b>bits</b>
 3974:10 FB          081 <!--                           -->            BPL RDA4        *** NO PAGE CROSS! ***          ; A=1a1c1e1g
-3976:2A             <a class='line' name='RDADSEK.082'>082</a>             ROL A           ;ALIGN ODD BITS, '1' into LSB.  ; A=a1c1e1gC
+3976:2A             <a class='line' name='RDADSEK.082'>082</a>             ROL A           ;ALIGN ODD BITS, '1' into LSB.  ; A=a1c1e1gC, and C <i>stays</i> set
 3977:85 26          083 <!--                           -->            STA LAST
 3979:BD 8C C0       084 <a class="f" name="RDA5"     >RDA5        </a>LDA Q6L,X       READ 'EVEN BIT' NIBL.           ; Technically, read even <b>bits</b>
-397C:10 FB          085 <!--                           -->            BPL RDA5        *** NO PAGE CROSS! ***
-397E:25 26          086 <!--                           -->            AND LAST        MERGE ODD AND EVEN BITS         ; &amp;=1b1d1f1h
-3980:99 2C 00       087 <!--                           -->            STA CSSTV,Y     STORE DATA BYTE.                ; A=abcdefgh Store in backwards order due to counting down
+397C:10 FB          085 <!--                           -->            BPL RDA5        *** NO PAGE CROSS! ***          ; A=1b1d1f1h
+397E:25 26          086 <!--                           -->            AND LAST        MERGE ODD AND EVEN BITS         ; &amp;=a1c1e1g1
+3980:99 2C 00       087 <!--                           -->            STA CSSTV,Y     STORE DATA BYTE.                ; A=abcdefgh, Store bytes in reverse order due to Y counting down
 3983:45 27          088 <!--                           -->            EOR CSUM        XOR CHECKSUM
 3985:88             089 <!--                           -->            DEY
 3986:10 E7          090 <!--                           -->            BPL RDAFLD      LOOP ON 4 DATA BYTES.
