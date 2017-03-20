@@ -6576,7 +6576,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3967:10 FB          074 <!--                           -->            BPL RDA3        *** NO PAGE CROSS! ***
 3969:C9 96          075 <!--                           -->            CMP #$<span class='n'>96</span>        ADR MARK 3?                     ; <a class='magic' name='#_396A'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_3 EQU #$96</span>
 396B:D0 E7          076 <!--                           -->            BNE RDASN1      (IF NOT, IS IT AM1?)
-                    077 <!--                           -->*                           (LEAVES CARRY SET!)             ; C=1, <i>And this important WHY?</i> Bit 0 of 4&4 Checksum, Line #<a class='line' href='#RDADSEK.082'>082</a>
+                    077 <!--                           -->*                           (LEAVES CARRY SET!)             ; C=1, <i>And this important WHY?</i> Carry becomes Bit 0 of 4&4 Checksum odd nibble, Line #<a class='line' href='#RDADSEK.082'>082</a>
 396D:A9 00          078 <!--                           -->            LDA #$<span class='n'>0</span>         INIT CHECKSUM.
 396F:85 27          079 <a class="f" name="RDAFLD"   >RDAFLD      </a>STA CSUM
 3971:BD 8C C0       080 <a class="f" name="RDA4"     >RDA4        </a>LDA Q6L,X       READ 'ODD BIT' NIBL.            ; Technically, read odd <b>bits</b>
