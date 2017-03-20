@@ -6066,8 +6066,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     101 <a class='d' name='COUNT'    >COUNT       </a>EQU $26         'MUST FIND' COUNT.
                     102 <a class='d' name='LAST'     >LAST        </a>EQU $26         'ODD BIT' NIBLS.
                     103 <a class='d' name='CSUM'     >CSUM        </a>EQU $27         CHECKSUM BYTE.
-                    104 <a class='d' name='CSSTV'    >CSSTV       </a>EQU $2C         FOUR BYTES,
-                    105 *       CHECKSUM, SECTOR, TRACK, AND VOLUME.
+                    104 <a class='d' name='CSSTV'    >CSSTV       </a>EQU $2C         FOUR BYTES,                     ; Read forward, stored in <i>backwards order</i> due to <a class="x" href="#RDA5">RDA5</a>
+                    105 *                           CHECKSUM, SECTOR, TRACK, AND VOLUME.
                     106 *
                     107 ************************
                     108 *                      *
