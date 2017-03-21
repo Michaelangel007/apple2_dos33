@@ -6605,86 +6605,86 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3995:BD 8C C0       098 <a class="f" name="RDA7"     >RDA7        </a>LDA Q6L,X       SECOND BIT-SLIP NIBL.
 3998:10 FB          099 <!--                           -->            BPL RDA7        *** NO PAGE CROSS! ***
 399A:C9 AA          100 <!--                           -->            CMP #$<span class='n'>AA</span>                                        ; <a class='magic' name='#_399B'>magic number</a> <span class='macro'>DISK_ADR_EPILOG_2 EQU #$AA</span>
-                    101 <!--                           -->            BNE RDERR       ERROR IF NONMATCH.              ; <b>Uh, what happened to checking the last disk nibble!?!?!</b> <span class='macro'>DISK_ADR_EPILOG_3 EQU #$EB</span>
-                    102 <a class="f" name="RDEXIT"   >RDEXIT      </a>CLC             CLEAR CARRY ON                  ; This probably deserves a "<i>No shit, Sherlock</i>"
-                    103 <!--                           -->            RTS             NORMAL READ EXITS.              ; Brilliant <i>hardware</i> engineers tend to clutter up code with useless trivial comments. :-/
+399C:D0 A4          101 <!--                           -->            BNE RDERR       ERROR IF NONMATCH.              ; <b>Uh, what happened to checking the last disk nibble!?!?!</b> <span class='macro'>DISK_ADR_EPILOG_3 EQU #$EB</span>
+399E:18             102 <a class="f" name="RDEXIT"   >RDEXIT      </a>CLC             CLEAR CARRY ON                  ; This probably deserves a "<i>No shit, Sherlock</i>"
+399F:60             103 <!--                           -->            RTS             NORMAL READ EXITS.              ; Brilliant <i>hardware</i> engineers tend to clutter up code with useless trivial comments. :-/
                     104             SBTL '16-SECTOR SEEK'
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
-                    165 
-                    166 
-                    167 
-                    168 
-                    169 
-                    170 
-                    171 
-                    172 
-                    173 
-                    174 
-                    175 
-                    176 
-                    177 
-                    178 
-                    179 
-<hr>39DA:A5 27          180             LDA <a class="v" hred="PRIOR"    >PRIOR</a>
+                    105 **************************
+                    106 *                        *
+                    107 *  FAST SEEK SUBROUTINE  *                                  ; A fast seek is <i>completely useless</i>
+                    108 *                        *                                  ; if READING forces extra disk spins due to buffer bloat
+                    109 **************************
+                    110 *                        *
+                    111 *   ---- ON ENTRY ----   *
+                    112 *                        *
+                    113 *  X-REG HOLDS SLOTNUM   *
+                    114 *         TIMES $10.     *
+                    115 *                        *
+                    116 *  A-REG HOLDS DESIRED   *
+<hr>                    117 *         HALFTRACK,     *                                  ; === Page <a class='page' name='page110'>110</a> ===
+                    118 *         (SINGLE PHASE) *
+                    119 *                        *
+                    120 *  CURTRK HOLDS CURRENT  *
+                    121 *          HALFTRACK.    *
+                    122 *                        *
+                    123 *   ---- ON EXIT -----   *
+                    124 *                        *
+                    125 *  A-REG UNCERTAIN.      *
+                    126 *  Y-REG UNCERTAIN.      *
+                    127 *  X-REG UNCERTAIN.      *
+                    128 *                        *
+                    129 *  CURTRK AND TRKN HOLD  *
+                    130 *      FINAL HALFTRACK.  *
+                    131 *                        *
+                    132 *  PRIOR HOLDS PRIOR     *
+                    133 *    HALFTRACK IF SEEK   *
+                    134 *    WAS REQUIRED.       *
+                    135 *                        *
+                    136 *  MONTIMEL AND MONTIMEH *
+                    137 *    ARE INCREMENTED BY  *
+                    138 *    THE NUMBER OF       *
+                    139 *    100 USEC QUANTUMS   *
+                    140 *    REQUIRED BY SEEK    *
+                    141 *    FOR MOTOR ON TIME   *
+                    142 *    OVERLAP.            *
+                    143 *                        *
+                    144 * --- VARIABLES USED --- *
+                    145 *                        *
+                    146 *  CURTRK, TRKN, COUNT,  *
+                    147 *    PRIOR, SLOTTEMP     *
+                    148 *    MONTIMEL, MONTIMEH  *
+                    149 *                        *
+                    150 **************************
+39A0:86 2B          151 <a class="f" name="SEEK"     >SEEK        </a>STX SLOTTEMP    ;SAVE X-REG
+39A2:85 2A          152 <!--                           -->            STA TRKN        ;SAVE TARGET TRACK
+39A4:CD 78 04       153 <!--                           -->            CMP CURTRK      ON DESIRED TRACK?               ;
+39A7:F0 53          154 <!--                           -->            BEQ <a class="x" href="#SEEKRTS">SEEKRTS</a>     ;YES, RETURN
+39A9:A9 00          155 <!--                           -->            LDA #$<span class='n'>0</span>
+39AB:85 26          156 <!--                           -->            STA TRKCNT      ;HALFTRACK COUNT.
+39AD:AD 78 04       157 <a class="f" name="SEEK2"    >SEEK2       </a>LDA CURTRK      ;SAVE CURTRK FOR
+39B0:85 27          158 <!--                           -->            STA PRIOR       ; DELAYED TURNOFF.
+39B2:38             159 <!--                           -->            SEC
+39B3:E5 2A          160 <!--                           -->            SBC TRKN        ;DELTA-TRACKS.
+39B5:F0 33          161 <!--                           -->            BEQ <a class="x" href="#SEEKEND">SEEKEND</a>     ;BR IF CURTRK=DESTINATION
+39B7:B0 07          162 <!--                           -->            BCS <a class="x" href="#OUT"    >OUT</a>         (MOVE OUT, NOT IN)
+39B9:49 FF          163 <!--                           -->            EOR #$<span class='n'>FF</span>        CALC TRKS TO GO
+39BB:EE 78 04       164 <!--                           -->            INC CURTRK      INCR CURRENT TRACK (IN).
+39BE:90 05          165 <!--                           -->            BCC MINTST      (ALWAYS TAKEN)
+39C0:69 FE          166 <a class="f" name="OUT"      >OUT         </a>ADC #$<span class='n'>FE</span>        CALC TRKS TO GO.
+39C2:CE 78 04       167 <!--                           -->            DEC CURTRK      DECR CURRENT TRACK (OUT).
+39C7:C5 26          168 <a class="f" name="MINTST"   >MINTST      </a>CMP TRKCNT                                      ; crappy abbreviation: <i>Min Test</i>
+39C7:90 02          169 <!--                           -->            BCC MAXTST      AND 'TRKS MOVED'.
+39C9:A5 26          170 <!--                           -->            LDA TRKCNT                                      ; crappy abbreviation: <i>Max Test</i>
+39CB:C9 0C          171 <a class="f" name="MAXTST"   >MAXTST      </a>CMP #$<span class='n'>C</span>                                         ; <a class='magic' name='#_39CC'>magic number</a> <span class='code'>ON_TIME_SIZE EQU $C</span>, or even <span class='code'>OFFTABLE - ONTABLE</span>
+39CD:BB 01          172 <!--                           -->            BCS STEP2       ;IF TRKCNT&gt;$B LEAVE Y ALONE (Y=$B).
+39CF:A8             173 <a class="f" name="STEP"     >STEP        </a>TAY             ;ELSE SET ACCELERATION INDEX IN Y
+                    174 <a class="f" name="STEP2"    >STEP2       </a>EQU *
+39D0:38             175 <!--                           -->            SEC             ;CARRY SET=PHASE ON
+39D1:20 EE 39       176 <!--                           -->            JSR SETPHASE    ;PHASE ON
+39D4:B9 11 3A       177 <!--                           -->            LDA <a class="v" href="#ONTABLE"  >ONTABLE</a>,Y   FOR 'ONTIME'.
+39D7:20 00 3A       178 <!--                           -->            JSR <a class="x" href="#MSWAIT"   >MSWAIT</a>      (100 USEC INTERVALS)
+                    179 <!--                           -->*
+<hr>39DA:A5 27          180             LDA <a class="v" href="#PRIOR"    >PRIOR</a>
 39DC:18             181             CLC             ;CARRY CLEAR=PHASE OFF
 39DD:20 F1 39       182             JSR <a class="x" href="#CLRPHASE">CLRPHASE</a>    ;PHASE OFF
 39E0:BD 1D 3A       <a class='line' name='RDADSEEK.183'>183</a>             LDA <a class="v" href="#OFFTABLE">OFFTABLE</a>,Y  THEN WAIT 'OFFTIME'.
