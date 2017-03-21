@@ -6518,46 +6518,46 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     011 *        AND SECTOR        *
                     012 *                          *
                     013 *   ---- ON ENTRY ----     *
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
+                    014 *                          *
+                    015 *  XREG: SLOTNUM TIMES $10 *
+                    016 *                          *
+                    017 *  READ MODE (Q6L, Q7L)    *
+                    018 *                          *
+                    019 *   ---- ON EXIT -----     *
+                    020 *                          *
+                    021 *  CARRY SET IF ERROR.     *
+                    022 *                          *
+                    023 *  IF NO ERROR:            *
+                    024 *    A-REG HOLDS $AA.      *
+                    025 *    Y-REG HOLDS $00.      *
+                    026 *    X-REG UNCHANGED.      *
+                    027 *    CARRY CLEAR.          *
+                    028 *                          *
+                    029 *    CSSTV HOLDS CHKSUM,   *
+                    030 *      SECTOR, TRACK, AND  *
+                    031 *      VOLUME READ.        *
+                    032 *                          *
+                    033 *    USES TEMPS COUNT,     *
+                    034 *      LAST, CSUM, AND     *
+                    035 *      4 BYTES AT CSSTV.   *
+                    036 *                          *
+                    037 *    ---- EXPECTS ----     *
+                    038 *                          *
+                    039 *   ORIGINAL 10-SECTOR     *
+                    040 *  NORMAL DENSITY NIBLS    *
+                    041 *   (4-BIT), ODD BITS,     *
+                    042 *   THEN EVEN.             *
+                    043 *                          *
+                    044 *    ---- CAUTION ----     *
+                    045 *                          *
+                    046 *         OBSERVE          *
+                    047 *    'NO PAGE CROSS'       *
+                    048 *      WARNINGS ON         *
+                    049 *    SOME BRANCHES!!       *
+                    050 *                          *
+                    051 *    ---- ASSUMES ----     *
+                    052 *                          *
+                    053 *    1 USEC CYCLE TIME     *
 <hr>                    054 *                          *                                ; === Page <a class="page" name="page107">107</a> ===
                     055 ****************************
 3944:A0 FC          056 <a class="f" name="RDADR16"  >RDADR16     </a>LDY #$<span class='n'>FC</span>
