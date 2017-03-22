@@ -337,6 +337,23 @@ var StickyHeaders = (function() {
 
     var _aHeaders;
 
+    var _onFadeTimer;
+    var _onFadeTimeBegin = 0;
+    var _onFadeTimeEnd = 0;
+    var _onFadeTimeQuantum = 250;
+
+    var _onScrollTimer;
+    var _onScrollTimeQuantum = 2000; // milliseconds
+
+    // Fade out sticky headers who have been taged with '.a == 0'
+    var Fade = function( headers, alpha )
+    {
+        var nHeaders = headers.length;
+        for( var i = 0; i < nHeaders; ++i )
+            if(!headers[ i ].a)
+                headers[ i ].e.style.opacity = "" + alpha;
+    };
+
     var Init = function( stickyClassName )
     {
         _aHeaders = [];
@@ -355,7 +372,8 @@ var StickyHeaders = (function() {
                 data   = {
                     e: sticky, // injected parent that we will adjust styles on
                     h: h,      // original height
-                    y: y       // original position
+                    y: y,      // original position
+                    a: 0       // =0 fade out, =1 (always) visible
                 };
                 _aHeaders.push( data ); // stash in array so when we scroll we can adjust ALL the sticky header's y position as needed
 
