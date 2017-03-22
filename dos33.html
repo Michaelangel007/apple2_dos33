@@ -384,9 +384,32 @@ var StickyHeaders = (function() {
         console.log( "Stickies found: ", _aHeaders.length );
 
         // Add callback when scrolling starts/stops
-        window.onscroll = function() {
+        window.onscroll = function()
+        {
+            if( _onFadeTimer )
+                clearTimeout( _onFadeTimer )
+
+            _onFadeTimeBegin = 0; // Don't update fading
+            _onFadeTimeEnd   = 0;
+
+            if( _onScrollTimer )
+                clearTimeout( _onScrollTimer )
+
             Scroll( _aHeaders );
+
+            // The problem with Sticky Headers is that they obscure the top of the page
+            // causing whenever a user clicks on a link the scrolled page to be hidden underneath them.
+            // The solution is to auto-hide the sticky header(s) after X milliseconds when scrolling stops.
+            // http://stackoverflow.com/questions/3701311/event-when-user-stops-scrolling
+
+            // There is no 'onScrollEnd' event
+            // Create a timer and call that after X milliseconds
+            _onScrollTimer = setTimeout( function() { onScrollEnd( _aHeaders ); }, _onScrollTimeQuantum );
         };
+
+        _onFadeTimeBegin = 0;
+        _onFadeTimeEnd   = 0;
+        requestAnimationFrame( onFade ); // update() @ dynamic 60 fps
     };
 
     var Scroll = function( headers )
@@ -401,6 +424,7 @@ var StickyHeaders = (function() {
 
             if (y <= top) {
                 sticky.classList.add( "fixed" );
+                headers[ i ].a = 0; // this sticky header needs to fade out
 
                 // Handle case when 2 sticky headers are overlapping
                 if( (i+1) < nHeaders )
@@ -415,6 +439,7 @@ var StickyHeaders = (function() {
                 }
             } else {
                 sticky.classList.remove( "fixed" );
+                headers[ i ].a = 1; // never fade out this sticky header
 
                 if (i > 0)
                 {
@@ -427,6 +452,35 @@ var StickyHeaders = (function() {
                 }
             }
         }
+    };
+
+    var onFade = function( ellapsed ) // relative time
+    {
+        var now = new Date().getTime(); // absolute time
+        if( now >= _onFadeTimeBegin && _onFadeTimeBegin )
+        {
+            var t = 0;
+
+            if( now < _onFadeTimeEnd )
+                t = (_onFadeTimeEnd - now) / _onFadeTimeQuantum;
+            else
+                _onFadeTimeBegin = 0;
+
+            Fade( _aHeaders, t );
+        }
+
+        requestAnimationFrame( onFade );
+    }
+
+    // Hide all sticky headers
+    var onScrollEnd = function( headers )
+    {
+        var now = new Date().getTime();
+
+        _onFadeTimeBegin = now;
+        _onFadeTimeEnd   = now + _onFadeTimeQuantum;
+
+        onFade( now ); // Force redraw
     };
 
     return {
