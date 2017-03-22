@@ -140,7 +140,7 @@ This is done in two places:
 This DOS (sector) order is:
 
 ```
-0 7 E 6 D 5 C 4 B 3 A 2 9 1 8 F (Hex) DOS 3.3 Boot Logical (and Copy ]\[+ Sector Edit)
+0 7 E 6 D 5 C 4 B 3 A 2 9 1 8 F (Hex) DOS 3.3 Boot Logical (and Copy ][+ Sector Edit)
 0 1 2 3 4 5 6 7 8 9 A B C D E F (Hex) DOS 3.3 Boot Physical
 ```
 
