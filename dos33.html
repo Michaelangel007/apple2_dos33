@@ -417,12 +417,14 @@ var StickyHeaders = (function() {
         var top = js_scrollTop();
 
         var nHeaders = headers.length;
-        for( var i = 0; i < nHeaders; ++i ) {
+        for( var i = 0; i < nHeaders; ++i )
+        {
             var sticky = headers[ i ].e,
                 h      = headers[ i ].h,
                 y      = headers[ i ].y;
 
-            if (y <= top) {
+            if (y <= top)
+            {
                 sticky.classList.add( "fixed" );
                 headers[ i ].a = 0; // this sticky header needs to fade out
 
