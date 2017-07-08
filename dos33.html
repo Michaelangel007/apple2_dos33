@@ -4925,7 +4925,7 @@ With that "legalese" out of the way ... enjoy the read!
                     180             ASL A           ; TRACK*4
                     181             ASL A
                     182             TAY
-                    <a class='line' name='FLOCSEC.183'>183</a>             BEQ <a class='x' href='#FS4'>FS4</a>                                         ; See <a class="dumb" href='HNTDAFS3'>HNTDAFS #3</a>
+                    <a class='line' name='FLOCSEC.183'>183</a>             BEQ <a class='x' href='#FS4'>FS4</a>                                         ; See <a class="dumb" href='#HNTDAFS3'>HNTDAFS #3</a>
 32F0:A2 04          <a class='line' name='FLOCSEC.184'>184</a>             LDX #<span class='n'>4</span>                                          ; Wastes 4 bytes/track for free sector bitmap
 32F2:BD F1 35       185 <a class="f" name="FS3"    >FS3         </a>LDA <a class="v" href="#DCBABM">DCBABM</a>-1,X  ; GET BIT MAP BYTE
 32F5:19 F6 33       186             ORA <a class="v" href="#VSECAL">VSECAL</a>+3,Y  ; OR WITH VTOC BM
