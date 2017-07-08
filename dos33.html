@@ -4820,24 +4820,24 @@ With that "legalese" out of the way ... enjoy the read!
                     075 
                     076 
                     077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
+                    078 ;
+                    079 ;GETSEC - GET A SECTOR
+                    080 ;
+                    081 <a class='f' name='GETSEC' >GETSEC      </a>EQU *
+3244:AD 51 35       082             LDA <a class='v' href='#DCBATK'>DCBATK</a>      ; GET ALLOCATED TRK
+3247:F0 21          <a class='line' name="FLOCSEC.83">083</a>             BEQ <a class="x" href="#GSS1"  >GSS1</a>        ; BR IF NONE                    ; DESIGN FLAW: Can't store file on track 0 !
+                    084 ;
+                    085 <a class="f" name="GS0"    >GS0         </a>EQU *
+3249:CD F0 35       086             DEC <a class='v' href='#DCBALS'>DCBALS</a>      ; DECREMENT SECTOR NO
+324C:30 17          087             BMI <a class='x' href='#CS2'>CS2</a>         ; BR IF NO SECTORS REM
+                    088 ;
+324E:18             089             CLC
+324F:A2 04          090             LDX #<span class='n'>4</span>          ; 4 BYTE SHIFT
+3251:3E F1 35       091 <a class='f' name='GS1'      >GS1         </a>ROL DCBABM-<span class='n'>1</span>    ; SHIFT BYTE LEFT               ; ???
+3254:CA             092             DEX
+3255:D0 FA          093             BNE <a class='x' href='#GS1'>GS1</a>
+3257:90 F0          094             BCC <a class='x' href='#GS0'>GS0</a>
+                    095 ;
                     096 
                     097 
                     098 
