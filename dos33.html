@@ -4914,17 +4914,17 @@ With that "legalese" out of the way ... enjoy the read!
                     169 
                     170 
                     171 <a class='f' name='FRESEC' >FRESEC      </a>EQU *
-                    172 
-                    173 
-                    174 
-                    175 
-                    176 
-                    177 
-                    178 
-                    179 
-                    180 
-                    181 
-                    182 
+32DD:A2 FC          172 <a class='f' name='FS1'    >FS1         </a>LDX #<span class='n'>252</span>        ; 4 BYTE SHIFT
+32DF:7E F6 34       173 <a class='f' name='FS2'    >FS2         </a>ROR <a class='v' href='#DCBABM'>DCBABM</a>-<span class='n'>252</span>  ; SHIFT IN CARRY
+32E2:E8             174             INX             ; NEXT BYTE
+32E3:D0 FA          175             BNE <a class='x' href='#FS2'>FS2</a>         ; BR IF NOT DONE
+32E5:C8             176             INY             ; INC SECTOR NO
+32E6:CC F0 33       177             CPY <a class='v' href='#VNOSEC'>VNOSEC</a>      ; NORMAL
+32E9:D0 F2          178             BNE <a class='x' href='#FS1'>FS1</a>         ; BR IF NOT
+                    179 ;
+                    180             ASL A           ; TRACK*4
+                    181             ASL A
+                    182             TAY
                     <a class='line' name='FLOCSEC.183'>183</a>             BEQ <a class='x' href='#FS4'>FS4</a>                                         ; See <a class="dumb" href='HNTDAFS3'>HNTDAFS #3</a>
 32F0:A2 04          <a class='line' name='FLOCSEC.184'>184</a>             LDX #<span class='n'>4</span>                                          ; Wastes 4 bytes/track for free sector bitmap
 32F2:BD F1 35       185 <a class="f" name="FS3"    >FS3         </a>LDA <a class="v" href="#DCBABM">DCBABM</a>-1,X  ; GET BIT MAP BYTE
@@ -4933,7 +4933,7 @@ With that "legalese" out of the way ... enjoy the read!
 32FB:88             188             DEY
 32FC:CA             189             DEX
 32FD:D0 F3          190             BNE <a class="x" href="#FS3">FS3</a>
-32FF:60             191 <a class="f" name="FS4"    >FS4         </a>RTS
+32FF:60             191 <a class="f" name="FS4"    >FS4         </a>RTS             ; DONE
                     192             PAGE
                     193 ;
                     194 ;LOCSEC - LOCATE SECTOR FOR RECORD I/O
