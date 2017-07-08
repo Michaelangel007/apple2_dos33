@@ -4016,7 +4016,7 @@ With that "legalese" out of the way ... enjoy the read!
                     089 ;
                     090 <a class='f' name='FDSUB'    >FDSUB       </a>EQU *
                     091             SEC             ; SET FOR REUSE OF SEC
-                    092             JSR FRESEC      ; GO FREE SECTOR
+                    092             JSR <a class='x' href='#FRESEC'>FRESEC</a>      ; GO FREE SECTOR
                     093             LDA #0          ; CLEAR DCB BIT MAP
                     094             LDX #5          ; CLEAR ALL OF TRK BITMAP SO    ; <a class='mem' name='_'>wastes</a> 1 byte
                     095 *                           ;gt;16 SECTORS/TRK WILL WORK
@@ -4913,7 +4913,7 @@ With that "legalese" out of the way ... enjoy the read!
                     168 
                     169 
                     170 
-                    171 
+                    171 <a class='f' name='FRESEC' >FRESEC      </a>EQU *
                     172 
                     173 
                     174 
@@ -4925,8 +4925,8 @@ With that "legalese" out of the way ... enjoy the read!
                     180 
                     181 
                     182 
-                    183 
-32F0:A2 04          <a class='line' name='FLOCSEC.184'>184</a>             LDX #4                                          ; Wastes 4 bytes/track for free sector bitmap
+                    <a class='line' name='FLOCSEC.183'>183</a>             BEQ <a class='x' href='#FS4'>FS4</a>                                         ; See <a class="dumb" href='HNTDAFS3'>HNTDAFS #3</a>
+32F0:A2 04          <a class='line' name='FLOCSEC.184'>184</a>             LDX #<span class='n'>4</span>                                          ; Wastes 4 bytes/track for free sector bitmap
 32F2:BD F1 35       185 <a class="f" name="FS3"    >FS3         </a>LDA <a class="v" href="#DCBABM">DCBABM</a>-1,X  ; GET BIT MAP BYTE
 32F5:19 F6 33       186             ORA <a class="v" href="#VSECAL">VSECAL</a>+3,Y  ; OR WITH VTOC BM
 32F8:99 F6 33       187             STA <a class="v" href="#VSECAL">VSECAL</a>+3,Y
@@ -4941,7 +4941,7 @@ With that "legalese" out of the way ... enjoy the read!
                     196 ;RELSEC = (REL REC * RECLEN + RELBYTE)/256
                     197 ;SECBYT = REMAINDER
                     198 ;
-                    199 LOCSEC      EQU *                                           ;               <b>Proper</b> variable names such as
+                    199 <a class='f' name='LOCSEC' >LOCSEC      </a>EQU *                                           ;               <b>Proper</b> variable names such as
 3300:AD BD 35       200             LDA <a class="v" href="#CCBRRN">CCBRRN</a>      ; RELATIVE RECORD NUMBER        ; === <a class='ts' href='#TS2S'>T2S2</a> ===  CCB_REL_REC_NUM
 3303:8D E6 35       201             STA <a class="v" href="#DCBCSB">DCBCSB</a>      ; TO CSB FOR MULT               ;               Would negate the need for
 3306:8D EA 35       202             STA <a class="v" href="#DCBCRR">DCBCRR</a>      ; AND CRR FOR SAVE              ;               50% of comments
@@ -5170,7 +5170,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 344B:FF FF FF FF                                                                    ; [90]=T16 DOS is <b>unable</b> to use Track 0 to store user files.
 344F:FF FF FF FF                                                                    ; [94]=T17 This means a non-bootable <i>data disk</i> is robbed of an <i>additional</i> 15 sectors!
 3453:FF FF FF FF                                                                    ; [98]=T18 (Boot sector would display non-bootable message)
-3457:FF FF FF FF                                                                    ; [9C]=T19 See File <a class="file" href="#FLOCSEC">FLOCSEC</a>, Func <a class="x" href="#GETSEC">GETSEC</a>, Line #<a class='line' href='#FLOCSEC.83'>83</a> and Track Allocation <span class="todo">todo</span>
+3457:FF FF FF FF                                                                    ; [9C]=T19 See File <a class="file" href="#FLOCSEC">FLOCSEC</a>, Func <a class="x" href="#GETSEC">GETSEC</a>, Line #<a class='line' href='#FLOCSEC.83'>83</a>; Trk Free <a class='x' name='FRESEC'>FRESEC</a>, Line ##<a class='line' href='#FLOCSEC.183'>183</a>; Trk Allocation <span class="todo">todo</span>
 345B:FF FF FF FF                                                                    ; [A0]=T1A The <b>smart</b> thing to have done would be to
 345F:FF FF FF FF                                                                    ; [A4]=T1B put the VTOC and CATALOG on <a class='ts'>T0SF</a> - <a class='ts'>T0S1</a>
 3463:FF FF FF FF                                                                    ; [A8]=T1C That way <b>both</b> a bootable and data disk would
