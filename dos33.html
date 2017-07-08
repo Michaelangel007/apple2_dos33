@@ -4914,7 +4914,7 @@ With that "legalese" out of the way ... enjoy the read!
                     169 
                     170 
                     171 <a class='f' name='FRESEC' >FRESEC      </a>EQU *
-32DD:A2 FC          172 <a class='f' name='FS1'    >FS1         </a>LDX #<span class='n'>252</span>        ; 4 BYTE SHIFT
+32DD:A2 FC          172 <a class='f' name='FS1'    >FS1         </a>LDX #<span class='n'>252</span>        ; 4 BYTE SHIFT               ; <a class='magic' name='#_32dd'>magic number</a> 256 - sizeof(<a class='v' href='#DCBABM'>DCBABM</a>)
 32DF:7E F6 34       173 <a class='f' name='FS2'    >FS2         </a>ROR <a class='v' href='#DCBABM'>DCBABM</a>-<span class='n'>252</span>  ; SHIFT IN CARRY
 32E2:E8             174             INX             ; NEXT BYTE
 32E3:D0 FA          175             BNE <a class='x' href='#FS2'>FS2</a>         ; BR IF NOT DONE
@@ -9623,7 +9623,7 @@ And the corresponding Track / Sector <b>disk map</b>
     <tr><td>Total Spelling mistakes:             </td><td> 13</td></tr> <!-- :%s/\*spelling\*//gn -->
     <tr><td>Total Functions:                     </td><td> 99</td></tr> <!-- :%s/class="f"//gn -->
     <tr><td>Total Variables:                     </td><td>102</td></tr> <!-- :%s/class="d"//gn -->
-    <tr><td>Total Magic Numbers:                 </td><td> 37</td></tr>
+    <tr><td>Total Magic Numbers:                 </td><td> 38</td></tr>
     <tr><td>Total Wasted bytes (run-time memory):</td><td>160</td></tr>
     <tr><td>Total Wasted sectors:                </td><td> 14</td></tr>
 </table>
