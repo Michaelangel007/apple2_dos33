@@ -1006,7 +1006,7 @@ With that "legalese" out of the way ... enjoy the read!
 1BB9:BD 5B 1C       00257 221             LDA <a class="v" href="#CDTAB" >CDETAB</a>+<span class='n'>2</span>,X
 1BBC:85 41          00258 222             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>+<span class='n'>1</span>
                     00259 223 ;
-1BBE:A2 00          00260 224 <a class="f" name="DR8"         >DR8         </a>LDX #<span class='n'>0</span>         ; GET OP CODE
+1BBE:A2 00          00260 224 <a class="f" name="DR8"         >DR8         </a>LDX #<span class='n'>0</span>          ; GET OP CODE
 1BC0:A1 40          00261 225             LDA (<a class="v" href="#ZPGWRK">ZPGWRK</a>,X)  ; GO FIND OUT HOW LONG          ; Since we don't have a linker, interesting hack of using
 1BC2:20 8E F8       00262 226             JSR <a class="x" href="#INSDS2">INSDS2</a>                                      ; monitor ROM to get instruction opcode length
                     00263 227 ;
