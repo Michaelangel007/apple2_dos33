@@ -3627,7 +3627,7 @@ With that "legalese" out of the way ... enjoy the read!
                     055             STA DCBCDT      ; AND AS CURRENT FILE DIR       ; that differ by a single letter: dcbCdt
                     056;
                     057             LDA CCBFUC      ; SET USE CODE
-2B8F:9D C8 34       058             STA VDFILE+2,X  ; INTO DIRECTORY                ; <a class='magic' name='_2B90'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
+2B8F:9D C8 34       058             STA VDFILE+<span class='n'>2</span>,X  ; INTO DIRECTORY                ; <a class='magic' name='_2B90'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
                     059 ;
                     060             JSR WRVDIR      ; GO WRITE VOL DIRECTORY
                     061 ;
@@ -3642,20 +3642,20 @@ With that "legalese" out of the way ... enjoy the read!
                     070 <a class='f' name='F03'      >F03         </a>EQU *
 2BA6:BD C6 34       071             LDA VDFILE,X    ; MOVE FILE DIR TRACK           ; <a class='magic' name='_2BA7'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
 2BA9:               072             STA DCBFDT
-2BAC:BD C7 34       073             LDA VDFILE+1,X  ; MOVE FILE DIR SECTOR          ; <a class='magic' name='_2BAD'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
+2BAC:BD C7 34       073             LDA VDFILE+<span class='n'>1</span>,X  ; MOVE FILE DIR SECTOR          ; <a class='magic' name='_2BAD'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
 2BAF:               074             STA DCBFDS
-2BB2:BD C8 34       075             LDA VDFILE+2,X  ; 7OVE FILE USE CODE            ; *spelling* Move; <a class='magic' name='_2BB3'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
+2BB2:BD C8 34       075             LDA VDFILE+<span class='n'>2</span>,X  ; 7OVE FILE USE CODE            ; *spelling* Move; <a class='magic' name='_2BB3'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
 2BB5:               076             STA CCBFUC
 2BB8:               077             STA DCBFUC
-2BBB:BD E7 34       078             LDA VDFILE+33,X                                 ; <a class='magic' name='_2BBC'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC</span>
+2BBB:BD E7 34       078             LDA VDFILE+<span class='n'>33</span>,X                                 ; <a class='magic' name='_2BBC'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC</span>
 2BBE:               079             STA DCBNSA
-2BC1:BD E8 34       080             LDA VDFILE+34,X                                 ; <a class='magic' name='_2BC2'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+1</span>
-                    081             STA DCBNSA+1
+2BC1:BD E8 34       080             LDA VDFILE+<span class='n'>34</span>,X                                 ; <a class='magic' name='_2BC2'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+1</span>
+                    081             STA DCBNSA+<span class='n'>1</span>
                     082             STX DCBVDI      ;SAVE DIRECTORY INDEX
                     083 ;
                     084             LDA #255        ; INDICATE NO SECTOR
                     085             STA DCBCMS      ; IN MEMORY                     ; More crappy variable names    : dcbCms
-                    086             STA DCBCMS+1
+                    086             STA DCBCMS+<span class='n'>1</span>
                     087             LDA VTDMS       ; MOVE MAX FD SECTS
                     088             STA DCBDMS      ; TODCB                         ; that differ by a single letter: dcbDms
                     089             CLC
