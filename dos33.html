@@ -1385,7 +1385,7 @@ With that "legalese" out of the way ... enjoy the read!
 1DF5:9D 55 1D       158             STA <a class='v' href='#IBASVT'>IBASVT</a>-<span class='n'>1</span>,X                                  ;        When you see the <b>same block of code</b> your <i>spidey sense</i> should be tingling:
 1DF8:CA             159             DEX                                             ;        Is there a way to refactor this common code?
 1DF9:D0 F7          160             BNE <a class='x' href='#IAS2A'>IAS2A</a>
-1DFB:A2 1D          161             LDX #<span class='n'>29</span>                                         ; <a class='magic' name='_'>magic number</a> <i>better</i>: 30-1, <b>best</b>: FILENAME_MAX-1
+1DFB:A2 1D          161             LDX #<span class='n'>29</span>                                         ; <a class='magic' name='_1DFC'>magic number</a> <i>better</i>: 30-1, <b>best</b>: FILENAME_MAX-1
 1DFD:BD 93 2A       162 <a class='f' name='IAS2B'    >IAS2B       </a>LDA <a class='v' href='#FNAME2'>FNAME2</a>,X
 1E00:9D 75 2A       163             STA <a class='v' href='#FNAME1'>FNAME1</a>,X                                    ; === <a class='ts' href='#T0SD'>T0SD</a> ===
 1E03:CA             164             DEX
