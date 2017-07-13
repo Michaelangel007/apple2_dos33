@@ -892,47 +892,47 @@ With that "legalese" out of the way ... enjoy the read!
                     00143 107 <a class="f" name="DR0"     >DR0         </a>EQU *
                     00144 108 <a class="d" name="LOC1"    >LOC1        </a>EQU $26                                         ; Monitor ROM GBASL = $26, Pointer to last HGR Byte plotted
 1B03:A9 BF          00145 109             LDA #$<span class='n'>BF</span>        ; START AT BF00                 ; Top of 48K
-1B05:85 41          00146 110             STA <a class='v' href='#ZPGWRK'>ZPGWRK</a>+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
+1B05:85 41          00146 110             STA <a  class='v' href='#ZPGWRK' >ZPGWRK</a>+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
 1B07:A2 00          00147 111             LDX #<span class='n'>0</span>          ; HIGH RAM
-1B09:86 40          00148 112             STX <a class='v' href='#ZPGWRK'>ZPGWRK</a>
+1B09:86 40          00148 112             STX <a  class='v' href='#ZPGWRK' >ZPGWRK</a>
 1B0B:A0 00          00149 113 <a class="f" name="DR0A"    >DR0A        </a>LDY #<span class='n'>0</span>          ; APPLE TEST
                     00150 114 <a class="f" name="DR1B"    >DR1B        </a>EQU *                                           ; unused label
 1B0D:A1 40          00151 115             LDA (<a class='v' href='#ZPGWRK' >ZPGWRK</a>,X)
-1B0F:85 26          00152 116             STA <a class='v' href='#LOC1' >LOC1</a>                                        ; LOC1 = MemTestVal
+1B0F:85 26          00152 116             STA <a  class='v' href='#LOC1'   >LOC1</a>                                        ; LOC1 = MemTestVal
 <hr>1B11:98             00153 117 <a class="f" name="DR1"         >DR1         </a>TYA                                             ; === Page <a class="page" name="page112">112</a> ===
-1B12:45 26          00154 118             EOR <a class="v" href="#LOC1" >LOC1</a>
-1B14:85 26          00155 119             STA <a class="v" href="#LOC1" >LOC1</a>
+1B12:45 26          00154 118             EOR <a  class='v' href="#LOC1"   >LOC1</a>
+1B14:85 26          00155 119             STA <a  class='v' href="#LOC1"   >LOC1</a>
 1B16:98             00156 120             TYA
-1B17:41 40          00157 121             EOR (<a class="v" href="#ZPGWRK" >ZPGWRK</a>,X)
-1B19:81 40          00158 122             STA (<a class="v" href="#ZPGWRK" >ZPGWRK</a>,X)
-1B1B:C5 26          00159 123             CMP <a class="v" href="#LOC1" >LOC1</a>
-1B1D:D0 05          00160 124             BNE <a class="x" href="#DR1A" >DR1A</a>                                        ; &darr;   /rant Crappy HTML name <span class='macro'>&amp;darr;</span> instead of simpler \v
+1B17:41 40          00157 121             EOR (<a class='v' href="#ZPGWRK" >ZPGWRK</a>,X)
+1B19:81 40          00158 122             STA (<a class='v' href="#ZPGWRK" >ZPGWRK</a>,X)
+1B1B:C5 26          00159 123             CMP <a  class='v' href="#LOC1"   >LOC1</a>
+1B1D:D0 05          00160 124             BNE <a  class='x' href="#DR1A"   >DR1A</a>                                        ; &darr;   /rant Crappy HTML name <span class='macro'>&amp;darr;</span> instead of simpler \v
 1B1F:C8             00161 125             INY
-1B20:D0 EF          00162 126             BNE <a class="x" href="#DR1"  >DR1</a>                                         ; &uarr;   /rant Crappy HTML name <span class='macro'>&amp;uarr;</span> instead of simpler \^
-1B22:F0 04          00163 127             BEQ <a class="x" href="#DR2"  >DR2</a>         ; BR IF TOOK                    ; v
+1B20:D0 EF          00162 126             BNE <a  class='x' href="#DR1"    >DR1</a>                                         ; &uarr;   /rant Crappy HTML name <span class='macro'>&amp;uarr;</span> instead of simpler \^
+1B22:F0 04          00163 127             BEQ <a  class='x' href="#DR2"    >DR2</a>         ; BR IF TOOK                    ; v
                     00164 128 <a class="f" name="DR1A"        >DR1A        </a>EQU *
-1B24:C6 41          00165 129             DEC <a class="v" href="#ZPGWRK" >ZPGWRK</a>+<span class='n'>1</span>    ; NOT RAM
-1B26:D0 E3          00166 130             BNE <a class="x" href="#DR0A" >DR0A</a>        ; TRY NEXT PAGE                 ; ^
+1B24:C6 41          00165 129             DEC <a  class='v' href="#ZPGWRK" >ZPGWRK</a>+<span class='n'>1</span>    ; NOT RAM
+1B26:D0 E3          00166 130             BNE <a  class='x' href="#DR0A"   >DR0A</a>        ; TRY NEXT PAGE                 ; ^
                     00167 131 ;
                     00168 132 <a class="f" name="DR2"         >DR2         </a>EQU *
                     00169 133 ;
-1B28:A5 41          00170 134             LDA <a class="v" href="#ZPGWRK" >ZPGWRK</a>+<span class='n'>1</span>    ;BEGIN PATCH TO INSURE   *****  ; note: '*****' is BEGIN_PATCH
+1B28:A5 41          00170 134             LDA <a  class='v' href="#ZPGWRK" >ZPGWRK</a>+<span class='n'>1</span>    ;BEGIN PATCH TO INSURE   *****  ; note: '*****' is BEGIN_PATCH
 1B2A:29 DF          00171 135             AND #$<span class='n'>DF</span>        ; PROPER HIGH MEMORY CHECK.
-1B2C:85 43          00172 136             STA <a class="v" href="#ZPGFCB" >ZPGFCB</a>+<span class='n'>1</span>    ;(DOS MASTER 3.1 CONTAINS
-1B2E:86 42          00173 137             STX <a class="v" href="#ZPGFCB" >ZPGFCB</a>      ; THIS ROUTINE STARTING AT LOCATION
-1B30:A1 42          00174 138             LDA (<a class="v" href="#ZPGFCB">ZPGFCB</a>,X)  ; $3540)
+1B2C:85 43          00172 136             STA <a  class='v' href="#ZPGFCB" >ZPGFCB</a>+<span class='n'>1</span>    ;(DOS MASTER 3.1 CONTAINS
+1B2E:86 42          00173 137             STX <a  class='v' href="#ZPGFCB" >ZPGFCB</a>      ; THIS ROUTINE STARTING AT LOCATION
+1B30:A1 42          00174 138             LDA (<a class='v' href="#ZPGFCB" >ZPGFCB</a>,X)  ; $3540)
 1B32:48             00175 139             PHA
-1B33:85 26          00176 140             STA <a class="v" href="#LOC1">LOC1</a>        ;SAVE TEST VALUE
+1B33:85 26          00176 140             STA <a  class="v" href="#LOC1">LOC1</a>        ;SAVE TEST VALUE
 1B35:98             00177 141 <a class="f" name="DR2A"        >DR2A        </a>TYA             ;(FIRST TIME Y=0)
-1B36:45 26          00178 142             EOR <a class="v" href="#LOC1"   >LOC1</a>        ;TEST EACH (ALLEDGED) MEMORY BYTE
-1B38:85 26          00179 143             STA <a class="v" href="#LOC1"   >LOC1</a>        ; 256 TIMES TO DETERMINE IF
+1B36:45 26          00178 142             EOR <a  class="v" href="#LOC1"   >LOC1</a>        ;TEST EACH (ALLEDGED) MEMORY BYTE
+1B38:85 26          00179 143             STA <a  class="v" href="#LOC1"   >LOC1</a>        ; 256 TIMES TO DETERMINE IF
 1B3A:98             00180 144             TYA             ; IT IS REALLY GOOD MEMORY AND
 1B3B:41 40          00181 145             EOR (<a class="v" href="#ZPGWRK">ZPGWRK</a>,X)  ; MIRRORED 8K LOWER IN RAM.
 1B3D:81 42          00182 146             STA (<a class="v" href="#ZPGFCB">ZPGFCB</a>,X)
-1B3F:C5 26          00183 147             CMP <a class="v" href="#LOC1"   >LOC1</a>        ;DID IT PASS THIS TIME?
-1B41:D0 09          00184 148             BNE <a class="x" href="#DR2B"   >DR2B</a>        ; BYTE NOT MIRRORED, THEN GOOD MEMORY   ; *sigh* more crap code: S-L-O-W
+1B3F:C5 26          00183 147             CMP <a  class="v" href="#LOC1"   >LOC1</a>        ;DID IT PASS THIS TIME?
+1B41:D0 09          00184 148             BNE <a  class="x" href="#DR2B"   >DR2B</a>        ; BYTE NOT MIRRORED, THEN GOOD MEMORY   ; *sigh* more crap code: S-L-O-W
 1B43:C8             00185 149             INY             ;MAYBE IT WAS COINCIDENCE               ; Instead of testing *every* byte (256 times WTF!)
-1B44:D0 EF          00186 150             BNE <a class="x" href="#DR2A"   >DR2A</a>        ; BRANCH UNLESS IT'S MATCHED 256 TIMES  ; just test the last byte of every page
+1B44:D0 EF          00186 150             BNE <a  class="x" href="#DR2A"   >DR2A</a>        ; BRANCH UNLESS IT'S MATCHED 256 TIMES  ; just test the last byte of every page
 1B46:A4 43          00187 <a class='line' name='RELOCTR.151'>151</a>             LDY <a class="v" href="#ZPGFCB" >ZPGFCB</a>+<span class='n'>1</span>    ;HIMEM IS 8K LOWER THEN WAS             ;        Switch PLA, LDY, then BNE instead
 1B48:68             00188 152             PLA             ;ORIGINALLY THOUGHT!                    ;        since ZPGFCB can never be on mem page $00
 1B49:4C 51 1B       00189 <a class='line' name='RELOCTR.153'>153</a>             JMP <a class="x" href="#DR2C"   >DR2C</a>                                                ; <a class='mem' name='_1B49'>wastes</a> 1 byte with JMP instead of BNE. See Line #<a class='line' href='#RELOCTR.151'>151</a>
