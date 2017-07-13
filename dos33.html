@@ -827,54 +827,54 @@ With that "legalese" out of the way ... enjoy the read!
                     00078 042 ;
                     00079 043 ;EQUATES REQD TO FIND THINGS IN APPLE II
                     00080 044 ;
-                    00081 045 <a class="f" name="SETVID" >SETVID      </a>EQU $<span class='e'>FE93</span>                                       ; Monitor: 0 Ctrl-P
-                    00082 046 <a class="f" name="SETKBD" >SETKBD      </a>EQU $<span class='e'>FE89</span>                                       ; Monitor: 0 Ctrl-K
-                    00083 047 <a class="d" name="PROMPT" >PROMPT      </a>EQU $<span class='n'>33</span>         ; PROMPT CHAR
-                    00084 048 <a class="d" name="OUTSW"  >OUTSW       </a>EQU $<span class='n'>36</span>         ; OUTPUT VECTOR SWITCH
-                    00085 049 <a class="d" name="INSW"   >INSW        </a>EQU $<span class='n'>38</span>         ; INPUT VECTOR SWITCH
-                    00086 050 <a class="d" name="ZPGWRK" >ZPGWRK      </a>EQU $<span class='n'>40</span>         ; ZERO PAGE WORK CELL
-                    00087 051 <a class="d" name="CNUM"   >CNUM        </a>EQU $<span class='n'>44</span>         ; CONVERTED NUMERIC             ; 16-bit input number
-                    00088 052 <a class="d" name="LBUFF"  >LBUFF       </a>EQU $<span class='n'>200</span>        ; LINE BUFFER                   ; Keyboard buffer of 255 chars
-                    00089 053 <a class="f" name="MULT"   >MULT        </a>EQU $<span class='e'>FB63</span>       ; MULT ROUTINE
-<hr>                    00090 054 <a class="f" name="INPRT">INPRT       </a>EQU $<span class='e'>FE8B</span>       ; SET IN PORT                   ; === Page <a class="page" name="page111">111</a> ===
-                    00091 055 <a class="f" name="OUTPTR" >OUTPRT      </a>EQU $<span class='e'>FE95</span>       ; SET OUT PORT
-                    00092 056 <a class="f" name="IBCHN"  >IBCHN       </a>EQU $<span class='e'>E836</span>       ; BASIC RUN                     ; Integer Basic
-                    00093 057 <a class="d" name="IBLMEM" >IBLMEM      </a>EQU $<span class='n'>4A</span>         ; BASIC LOW MEM                 ; Integer Basic
-                    00094 058 <a class="d" name="IBHMEM" >IBHMEM      </a>EQU $<span class='n'>4C</span>         ; INTEGER BASIC HIMEM           ; Integer Basic
-                    00095 059 <a class="d" name="IBSOP"  >IBSOP       </a>EQU $<span class='n'>CA</span>         ; INTEGER BASIC START OF CGM    ; Integer Basic CGM ???
-                    00096 060 <a class="f" name="IBBRK"  >IBBRK       </a>EQU $<span class='e'>E3E3</span>       ; BASIC BREAK                   ; Integer Basic
-                    00097 061 <a class="f" name="IBGO"   >IBGO        </a>EQU $<span class='e'>E000</span>       ; BASIC ENTRY POINT             ; Integer Basic
-                    00098 062 <a class="f" name="IBCONT" >IBCONT      </a>EQU $<span class='e'>E003</span>       ; BASIC CONTINUE ENTRY POINT    ; Integer Basic
-                    00099 063 <a class="d" name="IBSOV"  >IBSOV       </a>EQU $<span class='n'>CC</span>         ; BASIC START OF VARIABLES      ; Integer Basic
-                    00100 064 <a class="d" name="ASSOP"  >ASSOP       </a>EQU $<span class='n'>67</span>         ; AS START OF PROGRAM           ; Applesoft Basic
-                    00101 065 <a class="d" name="ASEOP"  >ASEOP       </a>EQU $<span class='n'>AF</span>         ; AS END OF PROGRAM             ; Applesoft Basic
-                    00102 066 <a class="d" name="ASEOP2" >ASEOP2      </a>EQU $<span class='n'>69</span>         ; AS END-OF PGM 2               ; Applesoft Basic
-                    00103 067 <a class="d" name="ASHM1"  >ASHM1       </a>EQU $<span class='n'>73</span>         ; AS HIGH MEM 1                 ; Applesoft Basic
-                    00104 068 <a class="d" name="ASHM2"  >ASHM2       </a>EQU $<span class='n'>6F</span>         ; AS HIGH MEM 2                 ; Applesoft Basic
-                    00105 069 <a class="d" name="ASRNX"  >ASRNX       </a>EQU $<span class='n'>D6</span>         ;AS RUN-ONLY FLAG               ; Applesoft Basic
-                    00106 070 <a class="d" name="ASONERR">ASONERR     </a>EQU $<span class='n'>D8</span>         ;AS ON-ERR GOTO FLAG            ; Applesoft Basic
-                    00107 071 <a class="d" name="ASLMEM" >ASLMEM      </a>EQU <a class='v' href='#ASSOP'>ASSOP</a>       ; AS LOW MEM                    ; Applesoft Basic
-                    00108 072 <a class="f" name="ASBRK1" >ASBRK1      </a>EQU $<span class='e'>D865</span>       ; AS ROM BREAK                  ; Applesoft Basic
-                    00109 073 <a class="f" name="ASBRK2" >ASBRK2      </a>EQU $<span class='n'>1067</span>       ; AS RAM BREAK                  ; Applesoft Basic
-                    00110 074 <a class="f" name="ASCNTU1">ASCNTU1     </a>EQU $<span class='e'>D43C</span>                                       ; ROM entry point
-                    00111 075 <a class="f" name="ASCNTU2">ASCNTU2     </a>EQU $<span class='n'>C3C</span>                                        ; RAM entry point
-                    00112 076 <a class="f" name="ASRSEQ1">ASRSEQ1     </a>EQU $<span class='e'>D4F2</span>                                       ; ROM entry point
-                    00113 077 <a class="f" name="ASRSEQ2">ASRSEQ2     </a>EQU $<span class='n'>CF2</span>                                        ; RAM entry point
-                    00114 078 <a class="f" name="AITSTL" >AITSTL      </a>EQU $<span class='e'>E000</span>       ; AS 1 IB TEST LOC              ; Applesoft Basic E000: JMP $F128
-                    00115 079 <a class="e" name="ATSTV"  >ATSTV       </a>EQU $<span class='n'>4C</span>         ; AS TEST VALUE                 ; Applesoft Basic
-                    00116 080 <a class="e" name="ITSTV"  >ITSTV       </a>EQU $<span class='n'>20</span>         ; IB TEST VALUE                 ; Integer Basic
-                    00117 081 <a class="d" name="BOOTSL" >BOOTSL      </a>EQU $<span class='n'>2E</span>         ; BOOT FROM SLOT                ; Slot from Boot
-                    00118 082 <a class="d" name="ZPGFCB" >ZPGFCB      </a>EQU $<span class='n'>42</span>         ; ZERO PAGE WORK CELL           ; File Control Block
-                    00119 083 <a class="f" name="MONRST" >MONRST      </a>EQU $<span class='e'>FF65</span>       ;MONITOR RESET ENTRY
-                    00120 084 <a class="f" name="MONBRK" >MONBRK      </a>EQU $<span class='e'>FA59</span>       ;MONITOR BREAK ENTRY
-                    00121 085 <a class="f" name="IORTS"  >IORTS       </a>EQU $<span class='e'>FF58</span>       ;KNOWN RTS IN MONITOR ROM
-                    00122 086 <a class="f" name="HOME"   >HOME        </a>EQU $<span class='e'>FC58</span>                                       ; cls(); Clear the text screen
-                    00123 087 <a class="f" name="PRINT"  >PRINT       </a>EQU $<span class='e'>FDED</span>                                       ; putchar();
-                    00124 088 <a class="f" name="GETKEY" >GETKEY      </a>EQU $<span class='e'>FD0C</span>                                       ; getchar();
-                    00125 089 <a class="f" name="INSDS2" >INSDS2      </a>EQU $<span class='e'>F88E</span>                                       ; Instruction Disassembly Opcode Length
-                    00126 090 <a class="d" name="LENGTH" >LENGTH      </a>EQU $<span class='n'>2F</span>
-                    00127 091 <a class="d" name="ZRSET"  >ZRSET       </a>EQU $<span class='n'>3F2</span>        ;NEW MONITOR ROM RESET VECTOR
-                    00128 092 <a class="d" name="PWCNST" >PWCNST      </a>EQU $<span class='n'>3F4</span>        ;NEW MONITOR ROM POWER UP CONSTANT
+                    00081 045 <a class='f' name='SETVID'     >SETVID      </a>EQU $<span class='e'>FE93</span>                                       ; Monitor: 0 Ctrl-P
+                    00082 046 <a class='f' name='SETKBD'     >SETKBD      </a>EQU $<span class='e'>FE89</span>                                       ; Monitor: 0 Ctrl-K
+                    00083 047 <a class='d' name='PROMPT'     >PROMPT      </a>EQU $<span class='n'>33</span>         ; PROMPT CHAR
+                    00084 048 <a class='d' name='OUTSW'      >OUTSW       </a>EQU $<span class='n'>36</span>         ; OUTPUT VECTOR SWITCH
+                    00085 049 <a class='d' name='INSW'       >INSW        </a>EQU $<span class='n'>38</span>         ; INPUT VECTOR SWITCH
+                    00086 050 <a class='d' name='ZPGWRK'     >ZPGWRK      </a>EQU $<span class='n'>40</span>         ; ZERO PAGE WORK CELL
+                    00087 051 <a class='d' name='CNUM'       >CNUM        </a>EQU $<span class='n'>44</span>         ; CONVERTED NUMERIC             ; 16-bit input number
+                    00088 052 <a class='d' name='LBUFF'      >LBUFF       </a>EQU $<span class='n'>200</span>        ; LINE BUFFER                   ; Keyboard buffer of 255 chars
+                    00089 053 <a class='f' name='MULT'       >MULT        </a>EQU $<span class='e'>FB63</span>       ; MULT ROUTINE
+<hr>                    00090 054 <a class='f' name='INPRT'      >INPRT       </a>EQU $<span class='e'>FE8B</span>       ; SET IN PORT                   ; === Page <a class="page" name="page111">111</a> ===
+                    00091 055 <a class='f' name='OUTPTR'     >OUTPRT      </a>EQU $<span class='e'>FE95</span>       ; SET OUT PORT
+                    00092 056 <a class='f' name='IBCHN'      >IBCHN       </a>EQU $<span class='e'>E836</span>       ; BASIC RUN                     ; Integer Basic
+                    00093 057 <a class='d' name='IBLMEM'     >IBLMEM      </a>EQU $<span class='n'>4A</span>         ; BASIC LOW MEM                 ; Integer Basic
+                    00094 058 <a class='d' name='IBHMEM'     >IBHMEM      </a>EQU $<span class='n'>4C</span>         ; INTEGER BASIC HIMEM           ; Integer Basic
+                    00095 059 <a class='d' name='IBSOP'      >IBSOP       </a>EQU $<span class='n'>CA</span>         ; INTEGER BASIC START OF CGM    ; Integer Basic CGM ???
+                    00096 060 <a class='f' name='IBBRK'      >IBBRK       </a>EQU $<span class='e'>E3E3</span>       ; BASIC BREAK                   ; Integer Basic
+                    00097 061 <a class='f' name='IBGO'       >IBGO        </a>EQU $<span class='e'>E000</span>       ; BASIC ENTRY POINT             ; Integer Basic
+                    00098 062 <a class='f' name='IBCONT'     >IBCONT      </a>EQU $<span class='e'>E003</span>       ; BASIC CONTINUE ENTRY POINT    ; Integer Basic
+                    00099 063 <a class='d' name='IBSOV'      >IBSOV       </a>EQU $<span class='n'>CC</span>         ; BASIC START OF VARIABLES      ; Integer Basic
+                    00100 064 <a class='d' name='ASSOP'      >ASSOP       </a>EQU $<span class='n'>67</span>         ; AS START OF PROGRAM           ; Applesoft Basic
+                    00101 065 <a class='d' name='ASEOP'      >ASEOP       </a>EQU $<span class='n'>AF</span>         ; AS END OF PROGRAM             ; Applesoft Basic
+                    00102 066 <a class='d' name='ASEOP2'     >ASEOP2      </a>EQU $<span class='n'>69</span>         ; AS END-OF PGM 2               ; Applesoft Basic
+                    00103 067 <a class='d' name='ASHM1'      >ASHM1       </a>EQU $<span class='n'>73</span>         ; AS HIGH MEM 1                 ; Applesoft Basic
+                    00104 068 <a class='d' name='ASHM2'      >ASHM2       </a>EQU $<span class='n'>6F</span>         ; AS HIGH MEM 2                 ; Applesoft Basic
+                    00105 069 <a class='d' name='ASRNX'      >ASRNX       </a>EQU $<span class='n'>D6</span>         ;AS RUN-ONLY FLAG               ; Applesoft Basic
+                    00106 070 <a class='d' name='ASONERR'    >ASONERR     </a>EQU $<span class='n'>D8</span>         ;AS ON-ERR GOTO FLAG            ; Applesoft Basic
+                    00107 071 <a class='d' name='ASLMEM'     >ASLMEM      </a>EQU <a class='v' href='#ASSOP'>ASSOP</a>       ; AS LOW MEM                    ; Applesoft Basic
+                    00108 072 <a class='f' name='ASBRK1'     >ASBRK1      </a>EQU $<span class='e'>D865</span>       ; AS ROM BREAK                  ; Applesoft Basic
+                    00109 073 <a class='f' name='ASBRK2'     >ASBRK2      </a>EQU $<span class='n'>1067</span>       ; AS RAM BREAK                  ; Applesoft Basic
+                    00110 074 <a class='f' name='ASCNTU1'    >ASCNTU1     </a>EQU $<span class='e'>D43C</span>                                       ; ROM entry point
+                    00111 075 <a class='f' name='ASCNTU2'    >ASCNTU2     </a>EQU $<span class='n'>C3C</span>                                        ; RAM entry point
+                    00112 076 <a class='f' name='ASRSEQ1'    >ASRSEQ1     </a>EQU $<span class='e'>D4F2</span>                                       ; ROM entry point
+                    00113 077 <a class='f' name='ASRSEQ2'    >ASRSEQ2     </a>EQU $<span class='n'>CF2</span>                                        ; RAM entry point
+                    00114 078 <a class='f' name='AITSTL'     >AITSTL      </a>EQU $<span class='e'>E000</span>       ; AS 1 IB TEST LOC              ; Applesoft Basic E000: JMP $F128
+                    00115 079 <a class='e' name='ATSTV'      >ATSTV       </a>EQU $<span class='n'>4C</span>         ; AS TEST VALUE                 ; Applesoft Basic
+                    00116 080 <a class='e' name='ITSTV'      >ITSTV       </a>EQU $<span class='n'>20</span>         ; IB TEST VALUE                 ; Integer Basic
+                    00117 081 <a class='d' name='BOOTSL'     >BOOTSL      </a>EQU $<span class='n'>2E</span>         ; BOOT FROM SLOT                ; Slot from Boot
+                    00118 082 <a class='d' name='ZPGFCB'     >ZPGFCB      </a>EQU $<span class='n'>42</span>         ; ZERO PAGE WORK CELL           ; File Control Block
+                    00119 083 <a class='f' name='MONRST'     >MONRST      </a>EQU $<span class='e'>FF65</span>       ;MONITOR RESET ENTRY
+                    00120 084 <a class='f' name='MONBRK'     >MONBRK      </a>EQU $<span class='e'>FA59</span>       ;MONITOR BREAK ENTRY
+                    00121 085 <a class='f' name='IORTS'      >IORTS       </a>EQU $<span class='e'>FF58</span>       ;KNOWN RTS IN MONITOR ROM
+                    00122 086 <a class='f' name='HOME'       >HOME        </a>EQU $<span class='e'>FC58</span>                                       ; cls(); Clear the text screen
+                    00123 087 <a class='f' name='PRINT'      >PRINT       </a>EQU $<span class='e'>FDED</span>                                       ; putchar();
+                    00124 088 <a class='f' name='GETKEY'     >GETKEY      </a>EQU $<span class='e'>FD0C</span>                                       ; getchar();
+                    00125 089 <a class='f' name='INSDS2'     >INSDS2      </a>EQU $<span class='e'>F88E</span>                                       ; Instruction Disassembly Opcode Length
+                    00126 090 <a class='d' name='LENGTH'     >LENGTH      </a>EQU $<span class='n'>2F</span>
+                    00127 091 <a class='d' name='ZRSET'      >ZRSET       </a>EQU $<span class='n'>3F2</span>        ;NEW MONITOR ROM RESET VECTOR
+                    00128 092 <a class='d' name='PWCNST'     >PWCNST      </a>EQU $<span class='n'>3F4</span>        ;NEW MONITOR ROM POWER UP CONSTANT
                     00129 093                 REP 40
                     00130 094 *
                     00131 095 *
