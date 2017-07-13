@@ -2695,9 +2695,9 @@ With that "legalese" out of the way ... enjoy the read!
                     160 ; OCTD - OUTPUT A CHAR TO DISK
                     161 ;
                     162 <a class='f' name='OCTD'     >OCTD        </a>EQU *
-260E:20 5E 26       163             JSR TSTRUN      ; GO TEST RUN
-2611:B0 66          164             BCS ICFDB       ;BRANCH IF NOT RUN MODE
-2613:AD 5C 2A       165             LDA SVA         ; CHAR IN SAVED ACU
+260E:20 5E 26       163             JSR <a class='x' href='#TSTRUN'>TSTRUN</a>      ; GO TEST RUN
+2611:B0 66          164             BCS <a class='x' href='#ICFDB'>ICFDB</a>       ;BRANCH IF NOT RUN MODE
+2613:AD 5C 2A       165             LDA <a class='v' href='#SVA'>SVA</a>         ; CHAR IN SAVED ACU
 2616:8D C3 35       166             STA CCBDAT      ; PUT INTO CCBDATA AREA
 2619:A9 04          167             LDA #CRQWR      ; SET WRITE
 261B:8D BB 35       168             STA CCBREQ
