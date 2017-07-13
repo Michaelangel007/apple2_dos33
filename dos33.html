@@ -1465,7 +1465,7 @@ With that "legalese" out of the way ... enjoy the read!
 1E87:F0 15          008             BEQ <a  class='x' href='#CHIN1'>CHIN1</a>       ; THEN BRANCH, ELSE
 1E89:48             009             PHA             ;SAVE ISTATE
 1E8A:AD 5C 2A       010             LDA <a  class='v' href='#SVA'>SVA</a>
-1E8D:91 28          011             STA ($<span class='n'>28</span>),Y     ;REPLACE CURSOR                 ; <a class='magic' name='_1E8D'>magic number</a> /sarcasm If only F800.S ROM defined BASL EQU $28
+1E8D:91 28          011             STA ($<span class='n'>28</span>),Y     ;REPLACE CURSOR                 ; <a class='magic' name='_1E8E'>magic number</a> /sarcasm If only F800.S ROM defined BASL EQU $28
 1E8F:68             012             PLA             ;GET ISTATE AGAIN
 1E90:30 03          013             BMI <a  class='x' href='#CHIN0'>CHIN0</a>       ;BRANCH IF NOT 'READ' FROM DISK
 1E92:4C 26 26       014             JMP <a  class='x' href='#ICFD'>ICFD</a>        ; AND GET CHAR FROM DISK
