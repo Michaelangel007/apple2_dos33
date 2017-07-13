@@ -943,14 +943,14 @@ With that "legalese" out of the way ... enjoy the read!
 1B52:8C 7D 1C       00194 158             STY <a class="v" href="#NEPAGE">NEPAGE</a>
 1B55:38             00195 159             SEC
 1B56:98             00196 160             TYA
-1B57:ED 7E 1C       00197 161             SBC <a class="v" href="#DOSLNG">DOSLNG</a>      ; MINUS DOS LENGTH
-1B5A:8D 7C 1C       00198 162             STA <a class="v" href="#NSPAGE">NSPAGE</a>      ; IS NEW START OF DOS
+1B57:ED 7E 1C       00197 161             SBC <a class='v' href="#DOSLNG">DOSLNG</a>      ; MINUS DOS LENGTH
+1B5A:8D 7C 1C       00198 162             STA <a class='v' href="#NSPAGE">NSPAGE</a>      ; IS NEW START OF DOS
 1B5D:38             00199 163             SEC
-1B5E:ED 7A 1C       00200 164             SBC <a class="v" href="#RSPAGE">RSPAGE</a>      ; MINUS OLD DOS START
-1B61:F0 9D          00201 165             BEQ <a class="x" href="#BEGIN" >BEGIN</a>       ; (BREIF NO DELTA)              ; ^ Giving the benefit of doubt; NOT misspelt: BRanch Equal If ?
-1B63:8D 7F 1C       00202 166             STA <a class="v" href="#DELTA" >DELTA</a>       ; IS DELTA
-1B66:AD 7A 1C       00203 167             LDA <a class="v" href="#RSPAGE">RSPAGE</a>      ; RESET START PAGE TO NORMAL
-1B69:8D 0D 1D       00204 168             STA <a class="v" href="#ASTART">ASTART</a>+<span class='n'>1</span>
+1B5E:ED 7A 1C       00200 164             SBC <a class='v' href="#RSPAGE">RSPAGE</a>      ; MINUS OLD DOS START
+1B61:F0 9D          00201 165             BEQ <a class='x' href="#BEGIN" >BEGIN</a>       ; (BREIF NO DELTA)              ; ^ Giving the benefit of doubt; NOT misspelt: BRanch Equal If ?
+1B63:8D 7F 1C       00202 166             STA <a class='v' href="#DELTA" >DELTA</a>       ; IS DELTA
+1B66:AD 7A 1C       00203 167             LDA <a class='v' href="#RSPAGE">RSPAGE</a>      ; RESET START PAGE TO NORMAL
+1B69:8D 0D 1D       00204 168             STA <a class='v' href="#ASTART">ASTART</a>+<span class='n'>1</span>
                     00205 169 ;
 1B6C:A9 1D          00206 170             LDA #&lt;<a class="x" href="#DBINIT">DBINIT</a>    ; RESET PI RTN TO NORMAL        ; PI = Post Init; @ boot defaults to us, our relocator: <a class='x' href='#DOSREL'>DOSREL</a>
 1B6E:8D 49 37       00207 171             STA <a class="x" href="#DI3">DI3</a>+<span class='n'>2</span>
