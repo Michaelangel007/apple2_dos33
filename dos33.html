@@ -3034,16 +3034,16 @@ With that "legalese" out of the way ... enjoy the read!
                     022 ;   SBUF PTR (2)
                     023 ;   LINK     (2)
                     024 ;
-                    025 <a class="f" name="BLDFTB"     >BLDFTB      </a>EQU *
+                    025 <a class='f' name='BLDFTB'     >BLDFTB      </a>EQU *
 27D4:38             026             SEC
-27D5:AD 00 1D       027             LDA <a class="v" href="#FTAB"  >FTAB</a>        ; START OF FTAB AREA            ;
-27D8:85 40          028             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>      ; IS 1ST FTB PTR                ; $1D00: ptr $1CD3
-27DA:AD 01 1D       029             LDA <a class="v" href="#FTAB"  >FTAB</a>+<span class='n'>1</span>      ; HEADER
-27DD:85 41          030             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>+<span class='n'>1</span>
-27DF:AD 57 2A       031             LDA <a class="v" href="#CNFTBS">CNFTBS</a>      ; MOVE NO FTABS                 ; <a class="v" href="#DFNFTS">DFNFTS</a> default 3 buffers, <a class="x" href="#INITD">INITD</a>
-27E2:8D 63 2A       032             STA <a class="v" href="#TEMP1A">TEMP1A</a>      ; TO TEMP                       ; fdosent, 60
+27D5:AD 00 1D       027             LDA <a class='v' href='#FTAB'  >FTAB</a>        ; START OF FTAB AREA            ;
+27D8:85 40          028             STA <a class='v' href='#ZPGWRK'>ZPGWRK</a>      ; IS 1ST FTB PTR                ; $1D00: ptr $1CD3
+27DA:AD 01 1D       029             LDA <a class='v' href='#FTAB'  >FTAB</a>+<span class='n'>1</span>      ; HEADER
+27DD:85 41          030             STA <a class='v' href='#ZPGWRK'>ZPGWRK</a>+<span class='n'>1</span>
+27DF:AD 57 2A       031             LDA <a class='v' href='#CNFTBS'>CNFTBS</a>      ; MOVE NO FTABS                 ; <a class="v" href="#DFNFTS">DFNFTS</a> default 3 buffers, <a class="x" href="#INITD">INITD</a>
+27E2:8D 63 2A       032             STA <a class='v' href='#TEMP1A'>TEMP1A</a>      ; TO TEMP                       ; fdosent, 60
                     033 ;
-27E5:A0 00          034 <a class="f" name="BFT1"       >BFT1        </a>LDY #<span class='n'>0</span>                                          ; [.. <a class='mem' name='_27E5'>wastes</a> 2 bytes, should <span class='code'>JSR <a class='link code' href='#ZEROFILE'>ZEROFILE</a></span>
+27E5:A0 00          034 <a class='f' name='BFT1'       >BFT1        </a>LDY #<span class='n'>0</span>                                          ; [.. <a class='mem' name='_27E5'>wastes</a> 2 bytes, should <span class='code'>JSR <a class='link code' href='#ZEROFILE'>ZEROFILE</a></span>
 27E7:98             035             TYA                                             ; ...
 27E8:91 40          <a class='line' name='BLDFTAB.036'>036</a>             STA (ZPGWRK),Y  ; 1ST CHAR FN=0                 ; ..] Init [00] $9CD3: 00
 27EA:A0 1E          037             LDY #<span class='n'>30</span>         ; INC Y TO FCB PTR              ; [[FTAB] + offset $1E] = $1CF1 <a class='magic' name='_27EA'>magic number</a> MAX_FILENAME_LEN
