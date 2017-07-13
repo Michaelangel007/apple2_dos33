@@ -1460,23 +1460,23 @@ With that "legalese" out of the way ... enjoy the read!
                     003 ;CHRIN - CHAR RCVD VIA IN SWITCH
                     004 ;
                     005 <a class='f' name='CHRIN'    >CHRIN       </a>EQU *
-1E81:20 D1 1E       006             JSR SVREGS      ;
-1E84:AD 51 2A       007             LDA ISTATE      ; IF NOT DISKIN
-1E87:F0 15          008             BEQ CHIN1       ; THEN BRANCH, ELSE
+1E81:20 D1 1E       006             JSR <a  class='x' href='#SVREGS'>SVREGS</a>      ;
+1E84:AD 51 2A       007             LDA <a  class='v' href='#ISTATE'>ISTATE</a>      ; IF NOT DISKIN
+1E87:F0 15          008             BEQ <a  class='x' href='#CHIN1'>CHIN1</a>       ; THEN BRANCH, ELSE
 1E89:48             009             PHA             ;SAVE ISTATE
-1E8A:AD 5C 2A       010             LDA SVA
+1E8A:AD 5C 2A       010             LDA <a  class='v' href='#SVA'>SVA</a>
 1E8D:91 28          011             STA ($<span class='n'>28</span>),Y     ;REPLACE CURSOR                 ; <a class='magic' name='_1E8D'>magic number</a> /sarcasm If only F800.S ROM defined BASL EQU $28
 1E8F:68             012             PLA             ;GET ISTATE AGAIN
-1E90:30 03          013             BMI CHIN0       ;BRANCH IF NOT 'READ' FROM DISK
-1E92:4C 26 26       014             JMP ICFD        ; AND GET CHAR FROM DISK
-1E95:20 EA 1D       015 <a class='f' name='CHIN0'    >CHIN0       </a>JSR INITC
+1E90:30 03          013             BMI <a  class='x' href='#CHIN0'>CHIN0</a>       ;BRANCH IF NOT 'READ' FROM DISK
+1E92:4C 26 26       014             JMP <a  class='x' href='#ICFD'>ICFD</a>        ; AND GET CHAR FROM DISK
+1E95:20 EA 1D       015 <a class='f' name='CHIN0'    >CHIN0       </a>JSR <a class='x' href='#INITC'>INITC</a>
 1E98:A4 24          016             LDY $<span class='n'>24</span>         ;GET CURSOR HORIZ               ; <a class='magic' name='_1E98'>magic number</a> /sarcasm If only F800.S ROM defined CH EQU $24
 1E9A:A9 60          017             LDA #$<span class='n'>60</span>        ;RESTORE A FLASHING CURSOR      ; #' ' + FLASH ; INVERSE = $00..$3F, FLASH = $40..$7F, NORMAL = $80..FF
 1E9C:91 28          018             STA ($<span class='n'>28</span>),Y     ; TO PROMPT USER                ; <a class='magic' name='_1E9C'>magic number</a>
                     019 <a class='f' name='CHIN1'    >CHIN1       </a>EQU *
-1E9E:AD B3 2A       020             LDA ESTATE
-1EA1:F0 03          021             BEQ CHIN2
-1EA3:20 82 26       022             JSR NXTEXC      ;RETURNS TO HERE ONLY WHEN 'EXEC' IS EXHAUSTED
+1E9E:AD B3 2A       020             LDA <a  class='v' href='#ESTATE'>ESTATE</a>
+1EA1:F0 03          021             BEQ <a  class='x' href='#CHIN2'>CHIN2</a>
+1EA3:20 82 26       022             JSR <a  class='x' href='#NXTEXC'>NXTEXC</a>      ;RETURNS TO HERE ONLY WHEN 'EXEC' IS EXHAUSTED
 
                     023 <a class='f' name='CHIN2'    >CHIN2       </a>EQU *
 1EA6:A9 03          024             LDA #<span class='n'>3</span>          ; SET OUT CHAR                   ; <a class='magic' name='_1EA6'>magic number</a> COS_INPUT_ECHO = 3
