@@ -3038,8 +3038,8 @@ With that "legalese" out of the way ... enjoy the read!
 27D4:38             026             SEC
 27D5:AD 00 1D       027             LDA <a class="v" href="#FTAB"  >FTAB</a>        ; START OF FTAB AREA            ;
 27D8:85 40          028             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>      ; IS 1ST FTB PTR                ; $1D00: ptr $1CD3
-27DA:AD 01 1D       029             LDA <a class="v" href="#FTAB"  >FTAB</a>+1      ; HEADER
-27DD:85 41          030             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>+1
+27DA:AD 01 1D       029             LDA <a class="v" href="#FTAB"  >FTAB</a>+<span class='n'>1</span>      ; HEADER
+27DD:85 41          030             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>+<span class='n'>1</span>
 27DF:AD 57 2A       031             LDA <a class="v" href="#CNFTBS">CNFTBS</a>      ; MOVE NO FTABS                 ; <a class="v" href="#DFNFTS">DFNFTS</a> default 3 buffers, <a class="x" href="#INITD">INITD</a>
 27E2:8D 63 2A       032             STA <a class="v" href="#TEMP1A">TEMP1A</a>      ; TO TEMP                       ; fdosent, 60
                     033 ;
@@ -3088,7 +3088,7 @@ With that "legalese" out of the way ... enjoy the read!
 2820:E9 00          076             SBC #<span class='n'>0</span>
 2822:C8             077             INY
 2823:91 40          078             STA (ZPGWRK),Y
-2825:85 41          079             STA ZPGWRK+1    ; AND INTO ZPGWRK
+2825:85 41          079             STA ZPGWRK+<span class='n'>1</span>    ; AND INTO ZPGWRK
 2827:68             080             PLA             ; FOR NEXT ENTRY
 2828:85 40          081             STA ZPGWRK      ; BUILD
 282A:4C E5 27       082             JMP <a class="x" href="#BFT1">BFT1</a>                                        ; ^ BFT1 @ $<b class='n'>A7E4</b> <a class='mem' name='_282A'>wastes</a> 1 byte, A = addr lo: $80
@@ -3105,8 +3105,8 @@ With that "legalese" out of the way ... enjoy the read!
 2839:F0 0B          093             BEQ <a class="x" href="#BFTIB">BFTIB</a>
                     094 ;
 283B:68             095             PLA
-283C:85 74          096             STA ASHM1+1
-283E:85 70          097             STA ASHM2+1
+283C:85 74          096             STA ASHM1+<span class='n'>1</span>
+283E:85 70          097             STA ASHM2+<span class='n'>1</span>
 2840:68             098             PLA
 2841:85 73          099             STA ASHM1
 2843:85 6F          100             STA ASHM2
@@ -3114,8 +3114,8 @@ With that "legalese" out of the way ... enjoy the read!
                     102 ;
                     103 <a class="f" name="BFTIB"   >BFTIB       </a>EQU *
 2846:68             104             PLA             ; SET IB
-2847:85 4D          105             STA IBHMEM+1    ; UPPER MEM LIMITS
-2849:85 CB          106             STA IBSOP+1
+2847:85 4D          105             STA IBHMEM+<span class='n'>1</span>    ; UPPER MEM LIMITS
+2849:85 CB          106             STA IBSOP+<span class='n'>1</span>
 284B:68             107             PLA
 284C:85 4C          108             STA IBHMEM
 284E:85 CA          109             STA IBSOP
@@ -3125,7 +3125,7 @@ With that "legalese" out of the way ... enjoy the read!
                     113 ; MVISW - MOVE INPUT SWITCH
                     114 ;
                     115 <a class="f" name="MVCSW"  >MVCSW       </a>EQU *
-2851:A5 39          116             LDA INSW+1
+2851:A5 39          116             LDA INSW+<span class='n'>1</span>
 <hr>2853:CD 03 1D       117             CMP CINA+<span class='n'>1</span>
 2856:F0 12          118             BEQ <a class="x" href="#MVOSW">MVOSW</a>
 2858:8D 56 2A       119             STA SVINS+<span class='n'>1</span>
