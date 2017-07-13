@@ -3611,7 +3611,7 @@ With that "legalese" out of the way ... enjoy the read!
 2B5E:4C 5F 33       039             JMP ERROR1                                      ; Which error message?? "LANGUAGE NOT AVAILABLE"
 2B61:4C 73 33       040 <a class='f' name='F02A'     >F02A        </a>JMP ERROR6      ; PRINT "FILE NOT FOUND" MESSAGE.
 2B64:A9 00          041 <a class='f' name='F02B'     >F02B        </a>LDA #<span class='n'>0</span>                                          ; 0001 Little Endian
-2B66:9D E8 34       042             STA VDFILE+34,X                                 ; <a class='magic' name='_2B67'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+0</span> (See <a class='v' href='#VDFILE'>VDFILE</a>)
+2B66:9D E8 34       042             STA VDFILE+<span class='n'>34</span>,X                                 ; <a class='magic' name='_2B67'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+0</span> (See <a class='v' href='#VDFILE'>VDFILE</a>)
 2B69:A9 01          043             LDA #<span class='n'>1</span>
 2B6B:9D E7 34       044             STA VDFILE+<span class='n'>33</span>,X                                 ; <a class='magic' name='_2B6C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+1</span>
 2B6E:8E 9C 33       045             STX TEMP1       ; SAVE VDIR INDEX               ; Why?? <a class='mem' name='_2B6E'>wastes</a> 2 bytes, Line #<a class='line' href='#FOPCLRW.30'>30</a> already saved
