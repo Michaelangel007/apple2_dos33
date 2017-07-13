@@ -1311,7 +1311,7 @@ With that "legalese" out of the way ... enjoy the read!
 1D97:49 20          105             EOR #<a class='v' href='#ITSTV'>ITSTV</a>      ; IF AS THEN
 1D99:D0 11          106             BNE <a class='x' href='#IAS1'>IAS1</a>        ; GO TO AS INIT                 ;
                     107 ;                           ; ELSE INIT FOR IB
-1D9B:8D B6 2A       108             STA <a class='v' href='#ASIBSW'>ASIBSW</a>      ; SET SW FOR IB                 ; <a class='magic' name='#_'>magic number</a> BASIC_TYPE_INTEGER = $00
+1D9B:8D B6 2A       108             STA <a class='v' href='#ASIBSW'>ASIBSW</a>      ; SET SW FOR IB                 ; <a class='magic' name='_1D9C'>magic number</a> BASIC_TYPE_INTEGER = $00
                                                                                     ;        30 = $1D9E .. $1DBB
                                                                                     ;        -5 = Don't count opcodes at Lines #117,118
                                                                                     ;       -18 = Replacement code at Line <a class='link' href='#DOSINIT.118.Solution'>118 Solution</a>
@@ -3080,7 +3080,7 @@ With that "legalese" out of the way ... enjoy the read!
 2816:AA             068             TAX
 2817:68             069             PLA
 2818:38             070             SEC
-2819:E9 26          071             SBC #<span class='n'>38</span>         ; SBUFF ADR - 38
+2819:E9 26          071             SBC #<span class='n'>38</span>         ; SBUFF ADR - 38                ; <a class='magic' name='_2819'>magic number</a> HEADER_SIZE
 281B:C8             072             INY
 281C:91 40          073             STA (ZPGWRK),Y  ; IF ADR OF NEXT TAB            ; [24] $9CD3 = $9CF7: $9A80
 281E:48             074             PHA             ; WHICH GOES INTO
