@@ -3046,7 +3046,7 @@ With that "legalese" out of the way ... enjoy the read!
 27E5:A0 00          034 <a class='f' name='BFT1'       >BFT1        </a>LDY #<span class='n'>0</span>                                          ; [.. <a class='mem' name='_27E5'>wastes</a> 2 bytes, should <span class='code'>JSR <a class='link code' href='#ZEROFILE'>ZEROFILE</a></span>
 27E7:98             035             TYA                                             ; ...
 27E8:91 40          <a class='line' name='BLDFTAB.036'>036</a>             STA (ZPGWRK),Y  ; 1ST CHAR FN=0                 ; ..] Init [00] $9CD3: 00
-27EA:A0 1E          037             LDY #<span class='n'>30</span>         ; INC Y TO FCB PTR              ; [[FTAB] + offset $1E] = $1CF1 <a class='magic' name='_27EA'>magic number</a> MAX_FILENAME_LEN
+27EA:A0 1E          037             LDY #<span class='n'>30</span>         ; INC Y TO FCB PTR              ; [[FTAB] + offset $1E] = $1CF1 <a class='magic' name='_27EB'>magic number</a> MAX_FILENAME_LEN
 27EC:38             038             SEC
 27ED:A5 40          039             LDA ZPGWRK      ; END OF PTR HEADER
 27EF:E9 2D          040             SBC #FCBLEN     ; MINUS FTAB LENGTH
