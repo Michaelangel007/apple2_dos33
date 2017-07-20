@@ -4602,17 +4602,17 @@ With that "legalese" out of the way ... enjoy the read!
                     141 LNB3        LDA DCBCRS+1    ; CURRENT REL SECTOR
                     142             CMP DCBDNF+1    ; IN CURRENT DIRECTOR (HI LIMIT)
                     143             BCC LNB6        ; BR IF IN THIS ONE
-                    144             
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
+                    144             BNE LNB4
+                    145             LDA DCBCRS
+                    146             CMP DCBDNF
+                    147             BCC LNB6
+                    148 ;REQD SECTOR IN A NEXT DIRECTORY
+                    149 LNB4        JSR RDFDIR
+                    150             BCC LNB2
+                    151             RTS
+                    152 ;
+                    153 ;
+                    154 LNB6
                     155 
                     156 
                     157 
