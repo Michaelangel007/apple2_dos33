@@ -6697,49 +6697,49 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     094             DFB $FF
                     095             PAGE
                     096 ***************************
-                    097 *                         *
-                    098 *      7-BIT TO 6-BIT     *
-                    099 *     'DENIBLIZE' TABL    *
-                    100 *    (16-SECTOR FORMAT)   *
-                    101 *                         *
-                    102 *       VALID CODES       *
-                    103 *     $96 TO $FF ONLY.    *
+                    097 *      7-BIT TO 6-BIT     *
+                    098 *     'DENIBLIZE' TABL    *
+                    099 *    (16-SECTOR FORMAT)   *
+                    100 *                         *
+                    101 *       VALID CODES       *
+                    102 *     $96 TO $FF ONLY.    *
+                    103 *                         *
                     104 *                         *
-                    105 *                         *
-                    106 *   CODES WITH MORE THAN  *
-                    107 *   ONE PAIR OF ADJACENT  *
-                    108 *    ZEROES OR WITH NO    *
-                    109 *   ADJACENT ONES (EXCEPT *
-                    110 *    BIT 7) ARE EXCLUDED. *
-                    111 *                         *
-                    112 * THIS TABLE *MUST* BE    *
-                    113 * ALIGNED AT THE END OF   *
-                    114 * A PAGE IN MEMORY!!!     *
-                    115 ***************************
-                    116 <a class="d"    name='XP'         >XP          </a>EQU &lt;*          ;CURRENT PAGE ADDRESS
-                    117 <a class="d"    name='DNIBL'      >DNIBL       </a>EQU 256*XP      ;DNIBL  TABLE PAGE              ; See <a class='f' href='#READ4'>READ4</a>
-<hr>                    118             PAGE                                            ; === Page <a class='page' name='page99'>99</a> ===
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 <a class="f"    name="OFF80"      >OFF80       </a>EQU *
+                    105 *   CODES WITH MORE THAN  *
+                    106 *   ONE PAIR OF ADJACENT  *
+                    107 *    ZEROES OR WITH NO    *
+                    108 *   ADJACENT ONES (EXCEPT *
+                    109 *    BIT 7) ARE EXCLUDED. *
+                    110 *                         *
+                    111 * THIS TABLE *MUST* BE    *
+                    112 * ALIGNED AT THE END OF   *
+                    113 * A PAGE IN MEMORY!!!     *
+                    114 ***************************
+                    115 <a class="d"    name='XP'         >XP          </a>EQU &lt;*          ;CURRENT PAGE ADDRESS
+                    116 <a class="d"    name='DNIBL'      >DNIBL       </a>EQU 256*XP      ;DNIBL  TABLE PAGE              ; See <a class='f' href='#READ4'>READ4</a>
+<hr>                    117             PAGE                                            ; === Page <a class='page' name='page99'>99</a> ===
+                    118 ***********************************************
+                    119 *
+                    120 * GHOST APPEND BUG PATCH BY
+                    121 * BILL GRIMM
+                    122 *
+                    123 ***********************************************
+                    124 <a class='f'    name='PSC1'       >PSC1        </a>EQU *           ;Tell relocater where to start
+                    125 <a class='f'    name='MOVEOF'     >MOVEOF      </a>EQU *
+3A69:AE 5F 2A       126             LDX <a class='v' href='#CMDNO'>CMDNO</a>       ; GET CMD NUMBER
+3A6C:E0 1C          127             CPX #$<span class='n'>1C</span>        ; APPEND COMMAND?               ; <a class='magic' name='#_3A6D'>magic number</a> TODO:
+3A6E:F0 05          128             BEQ <a class='x' href='#GOON'>GOON</a>        ; YES, RETURN TO CALLING ROUTINE
+3A70:A2 00          129             LDX #$<span class='n'>00</span>        ; NO, THEN CLEAR X              ; <i>Aye, Aye, Captain Obvious</i>
+3A72:8E 5D 36       130             STX <a class='v' href='#EOFFLAG'>EOFFLAG</a>     ; CLEAR EOF FLAG
+3A75:60             131 <a class='f'    name='GOON'       >GOON        </a>RTS
+                    132             SKP 4
+                    133 ***********************************************
+                    134 *
+                    135 * TURN Apple //e 80 COLUMN CARD
+                    136 * OFF &amp; INIT APPLE
+                    137 *
+                    138 ***********************************************
+                    139 <a class='f'    name='OFF80'      >OFF80       </a>EQU *
 3A76:A9 FF          140             LDA #$<span class='n'>FF</span>
 3A78:8D FB 04       141             STA $<span class='n'>4FB</span>        ; CLEARS FUNNY 80 COL STUFF
 3A7B:8D 0C C0       142             STA $<span class='n'>C00C</span>       ; TURNS 80 COL OFF
