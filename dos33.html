@@ -5417,7 +5417,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     043 <a class="f" name="MONINIT"  >MONINIT     </a>EQU $FB2F       ;MONINIT SCREEN
                     044 <a class="d" name="BHERE3"   >BHERE3      </a>EQU &gt;*
                     045 <a class="d" name="BOOTCNT"  >BOOTCNT     </a>EQU $800+BHERE3
-3600:01             046             DFB <span class='n'>01</span>                                          ; Would <i>could</i> read $F sectors via P6 PROM but nah, 
+3600:01             046             DFB <span class='n'>01</span>                                          ; We <b>could</b> store $10 here to have the P6 PROM read <i>16 sectors</i> but nah,
                     047             PAGE                                            ; let's waste $839-$801 = $38 (56) bytes instead!
                     048             LDA <a class="d" href="#POINTA">POINTA</a>+1    ;WHERE DID BSECTR GET LOADED?   ;[.. <a class='mem' name='_3601'>wastes</a> 56 bytes; Get memory page of last load
                     049             CMP #<span class='n'>09</span>         ; (AT 0800)?                    ; ..
