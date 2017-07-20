@@ -2811,7 +2811,7 @@ With that "legalese" out of the way ... enjoy the read!
                     018 *
                     019 ***************************
                     020             DO <a class='e' href='#DOS33B'>DOS33B</a>
-26BB:20 69 3A       021 <a class='f' name='DOSGO2A'  >DOSGO2A     </a>JSR MOVEOF      ; MOVE END OF FILE PATCH        ; Called from <a class='x' href='#BACK'>BACK</a>
+26BB:20 69 3A       021 <a class='f' name='DOSGO2A'  >DOSGO2A     </a>JSR <a class='x' href='#MOVEOF'>MOVEOF</a>      ; MOVE END OF FILE PATCH        ; Called from <a class='x' href='#BACK'>BACK</a>
                     022             ELSE<span class='macro'>
                     023             NOP                                             
                     024 DOSGO2A     NOP                                             </span>Why isn't this label on the previous line???<span class='macro'>
@@ -6725,9 +6725,9 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     122 *
                     123 ***********************************************
                     124 <a class='f'    name='PSC1'       >PSC1        </a>EQU *           ;Tell relocater where to start
-                    125 <a class='f'    name='MOVEOF'     >MOVEOF      </a>EQU *
+                    125 <a class='f'    name='MOVEOF'     >MOVEOF      </a>EQU *                         ; Called from <a class='x' href='#DOSGO2A'>DOSGO2A</a>
 3A69:AE 5F 2A       126             LDX <a class='v' href='#CMDNO'>CMDNO</a>       ; GET CMD NUMBER
-3A6C:E0 1C          127             CPX #$<span class='n'>1C</span>        ; APPEND COMMAND?               ; <a class='magic' name='#_3A6D'>magic number</a> TODO:
+3A6C:E0 1C          127             CPX #$<span class='n'>1C</span>        ; APPEND COMMAND?               ; <a class='magic' name='#_3A6D'>magic number</a> <span class='todo'>TODO</span>
 3A6E:F0 05          128             BEQ <a class='x' href='#GOON'>GOON</a>        ; YES, RETURN TO CALLING ROUTINE
 3A70:A2 00          129             LDX #$<span class='n'>00</span>        ; NO, THEN CLEAR X              ; <i>Aye, Aye, Captain Obvious</i>
 3A72:8E 5D 36       130             STX <a class='v' href='#EOFFLAG'>EOFFLAG</a>     ; CLEAR EOF FLAG
