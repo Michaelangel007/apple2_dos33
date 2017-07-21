@@ -5414,7 +5414,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     040 <a class="d" name="BTEMP"    >BTEMP       </a>EQU $3E         ;ADDRESS BTEMP
                     041 <a class="d" name="BRETRY"   >BRETRY      </a>EQU $5C         ;OFFSET TO READER
                     042 *
-                    043 <a class="f" name="MONINIT"  >MONINIT     </a>EQU $FB2F       ;MONINIT SCREEN
+                    043 <a class="f" name="MONINIT"  >MONINIT     </a>EQU $<span class='e'>FB2F</span>       ;MONINIT SCREEN
                     044 <a class="d" name="BHERE3"   >BHERE3      </a>EQU &gt;*
                     045 <a class="d" name="BOOTCNT"  >BOOTCNT     </a>EQU $800+BHERE3
 3600:01             046             DFB <span class='n'>01</span>                                          ; We <b>could</b> store $10 here to have the P6 PROM read <i>16 sectors</i> but nah,
@@ -5453,10 +5453,10 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     079             JMP (BTEMP)     ;READ MORE OF TRACK 0           ; ..]
                     080 <a class='f' name='GOLOADER' >GOLOADER    </a>INC LOADADDR+<span class='n'>1</span>  ;ENTRY AT SECOND PAGE
                     081             INC LOADADDR+<span class='n'>1</span>
-                    082             JSR SETKBD      ;CLEAR IN#X
-                    083             JSR SETVID      ; AND PR#X
-                    084             JSR MONINIT     ;MONINIT THE SCREEN PARAMS
-                    085             LDX BSLOT       ;PASS BSLOT NBR TO LOADER
+                    082             JSR <a class='x' href='#SETKBD'>SETKBD</a>      ;CLEAR IN#X
+                    083             JSR <a class='x' href='#SETVID'>SETVID</a>      ; AND PR#X
+                    084             JSR <a class='x' href='#MONINIT'>MONINIT</a>     ;MONINIT THE SCREEN PARAMS
+                    085             LDX <a class='v' href='#BSLOT'>BSLOT</a>       ;PASS BSLOT NBR TO LOADER
                     086             JMP (LOADADDR)  ;OFF TO LOOADER!                ; *spelling* Loader
                     087 * TABLE OF PHYSICAL BSECTR NUMBERS
                     088 *  WHICH CORRESPOND TO THE LOGICAL
