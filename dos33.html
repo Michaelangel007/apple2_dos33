@@ -1110,7 +1110,7 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                           ;        CMP ADRTABE+1,X    ; hi byte of end   address; was CMP ADRTAB+4,X
                                                                                           ;        CMP ADRTABE+0,X    ; lo byte of end   address; was CMP ADRTAB+3,X
                                                                                           ;
-1C28:24             00323 287 <a class='d' name='ADRTAB'     id='ADRTAB'     >ADRTAB      </a>DFB <span class='n'>9</span>*<span class='n'>4</span>                                         ; <a class='magic' name='#_1C28'>magic number</a> <i>Really?!</i> We can't do <span class='macro'>ADRTAB_LEN DFB ADRTAB_END - ADRTAB_START</span> ???
+1C28:24             00323 287 <a class='d' name='ADRTAB'     id='ADRTAB'     >ADRTAB      </a>DFB <span class='n'>9</span>*<span class='n'>4</span>                                         ; <a class='magic' name='_1C28'>magic number</a> <i>Really?!</i> We can't do <span class='macro'>ADRTAB_LEN DFB ADRTAB_END - ADRTAB_START</span> ???
 1C29:00 1D          00324 288             DW  <a class="v" href="#SAT1"  >SAT1   </a>                                     ; [0] Start Address Table 1 in <a class="x" href="#DOSINIT">DOSINIT</a>
 1C2B:56 1D          00325 289             DW  <a class="v" href="#EAT1"  >EAT1   </a>                                     ;     End   Address Table 1
                                                                                           ;     <a class='mem' name='_1C2D'>wastes</a> 4 bytes due to non-contiguous memory
@@ -1137,7 +1137,7 @@ With that "legalese" out of the way ... enjoy the read!
 1C51:00 00 00 00    00343 307             DFB <span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>
 1C55:00 00 00 00    00344 308             DFB <span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>
                     00345 309 <a class="d"    name="CDETAB"     id="CDETAB"     >CDETAB      </a>EQU *                                           ; 1C59:1C = v1980, 20 = v1983
-1C59:20             00346 310             DFB <span class='n'>8</span>*<span class='n'>4</span>                                         ; <a class='magic' name='#_1C28'>magic number</a> <i>Really?!</i> We can't do <span class='macro'>CDETAB_LEN DFB CDETAB_END - CDETAB_START</span> ???
+1C59:20             00346 310             DFB <span class='n'>8</span>*<span class='n'>4</span>                                         ; <a class='magic' name='_1C28'>magic number</a> <i>Really?!</i> We can't do <span class='macro'>CDETAB_LEN DFB CDETAB_END - CDETAB_START</span> ???
 1C5A:84 1D          00347 311             DW  <a class="x" href="#SC1"   >SC1   </a>                                      ; [0]
 1C5C:84 28          00348 312             DW  <a class="x" href="#EC1"   >EC1   </a>
 1C5E:FD 2A          00349 313             DW  <a class="x" href="#SC2"   >SC2   </a>                                      ; [1]
@@ -1539,7 +1539,7 @@ With that "legalese" out of the way ... enjoy the read!
 1EFC:C5 33          079             CMP PROMPT
 1EFE:F0 27          080             BEQ COS2A
                     081 <a class='f' name='COS01'    >COS01       </a>EQU *                                           ; === <a class='ts' href='#T0SE'>T0SE</a> ===
-1F00:A2 02          082             LDX #<span class='n'>2</span>                                          ; <a class='magic' name=''>magic number</a>
+1F00:A2 02          082             LDX #<span class='n'>2</span>                                          ; <a class='magic' name='_1F01'>magic number</a>
 1F02:8E 52 2A       083             STX OSTATE
 1F05:CD B2 2A       084             CMP CCHAR       ; IF NOT CNTL-D
 1F08:D0 19          085             BNE COS2        ; THEN GO TO STATE 2
@@ -1555,7 +1555,7 @@ With that "legalese" out of the way ... enjoy the read!
 1F15:9D 00 02       095 <a class='f' name='COS1A'    >COS1A       </a>STA LBUFF,X     ; PUT CHAR IN BUFF
 1F18:E8             096             INX             ; INCR PTR
 1F19:8E FD 2A       097             STX LBUFD       ; SAVE PTR
-1F1C:C9 8D          098             CMP #$<span class='n'>8D</span>        ; WAS THIS A CR                 ; <a class='magic'>magic number</a>
+1F1C:C9 8D          098             CMP #$<span class='n'>8D</span>        ; WAS THIS A CR                 ; <a class='magic' name='_1F1D'>magic number</a>
 1F1E:D0 75          099             BNE CMDRTN      ; IF NOT THEN PR CHAR
                     100 ;
 1F20:4C CD 1F       101             JMP SCNCMD      ; GO SCAN COMMAND
@@ -1563,9 +1563,9 @@ With that "legalese" out of the way ... enjoy the read!
                     103 ;COS2 - PRINTED OUTPUT, NOT FIRST CHAR
                     104 ;
                     105 <a class='f' name='COS2'     >COS2        </a>EQU *
-1F23:C9 8D          106             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; <a class='magic'>magic number</a>
+1F23:C9 8D          106             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; <a class='magic' name='_1F24'>magic number</a>
 1F25:D0 7D          107             BNE PRRTN       ; BR IF NOT
-1F27:A2 00          108 <a class='f' name='COS2A'    >COS2A       </a>LDX #<span class='n'>0</span>          ; SET FOR POSSIBLE C-D NEXT     ; C-D = Control-D <a class='magic'>magic number</a> COS_STATE_FIRST_CONTROL_D = 0
+1F27:A2 00          108 <a class='f' name='COS2A'    >COS2A       </a>LDX #<span class='n'>0</span>          ; SET FOR POSSIBLE C-D NEXT     ; C-D = Control-D <a class='magic' name='_1F28'>magic number</a> COS_STATE_FIRST_CONTROL_D = 0
 1F29:8E 52 2A       109             STX OSTATE      ; NEXT STATE
 1F2C:4C A4 1F       110             JMP PRRTN       ; GO PRINT CHAR                 ; <a class='mem' name='_1F2C'>wastes</a> 1 byte, $1F83 - $1F2C = $57, <span class='code'>BEQ PRRTN</span>
                     111             PAGE
@@ -1573,7 +1573,7 @@ With that "legalese" out of the way ... enjoy the read!
                     113 ;COS3 - KEY IN ECHO PRINT
                     114 ;
 <hr>                    115 <a class='f' name='COS3'     >COS3        </a>EQU *
-1F2F:A2 00          116 <!--                       -->            LDX #<span class='n'>0</span>                                          ; <a class='magic' name='_1Fxx'>magic number</a> COS_STATE_0
+1F2F:A2 00          116 <!--                       -->            LDX #<span class='n'>0</span>                                          ; <a class='magic' name='_1F30'>magic number</a> COS_STATE_0
 1F31:8E 52 2A       117 <!--                       -->            STX OSTATE      ; RESET OUT STATE
 1F34:C9 8D          118 <!--                       -->            CMP #$<span class='n'>8D</span>        ; IS IT CR
 1F36:F0 07          119 <!--                       -->            BEQ COS3A       ; IF CR THEN CMD CHECK
@@ -1635,8 +1635,8 @@ With that "legalese" out of the way ... enjoy the read!
                     175 <a class='f' name='CERTN'    >CERTN       </a>EQU *
 1F83:AD 00 02       176             LDA LBUFF       ; CHECK FOR PRINTED COMMAND
 1F86:CD B2 2A       177             CMP CCHAR
-                    178             BEQ CMDRTN      ; IF PC THEN NO RESET X REG
-<hr>                    179             LDA #$<span class='n'>8D</span>        ; CARRAGE RETURN                ; === Page #<a class='page' name='page47'>47</a>=== <a class='magic'>magic number</a> KEY_CR
+1F89:F0 0A          178             BEQ CMDRTN      ; IF PC THEN NO RESET X REG
+<hr>1F8B:A9 8D          179             LDA #$<span class='n'>8D</span>        ; CARRAGE RETURN                ; === Page #<a class='page' name='page47'>47</a>=== <a class='magic' name='_1F8C'>magic number</a> KEY_CR
                     180             STA <a class='v' href='#LBUFF'>LBUFF</a>       ; TO OUT BUFFER
                     181             LDX #<span class='n'>0</span>          ; RESET TO SOL                  ; StartOfLine
                     182             STX <a class='v' href='#SVX'>SVX</a>
@@ -1671,7 +1671,7 @@ With that "legalese" out of the way ... enjoy the read!
                     211 ; PRRIF - PRINT CR IF MON CMDS
                     212 ;
                     213 <a class='f' name='PRCRIF'   >PRCRIF      </a>EQU *
-                    214             LDA #$<span class='n'>8D</span>        ; ELSE PRINT CR                 ; <a class='magic'>magic number</a> KEY_CR
+1FC8:A9 8D          214             LDA #$<span class='n'>8D</span>        ; ELSE PRINT CR                 ; <a class='magic' name='_1FC9'>magic number</a> KEY_CR
 1FCA:4C C5 1F       215             JMP ORTN1                                       ; <a class='mem' href='_1FCA'>wastes</a> 1 byte; BNE ORTN1
 </pre>
 
@@ -1724,7 +1724,7 @@ With that "legalese" out of the way ... enjoy the read!
 2008:4C A4 1F       045             JMP PRRTN       ; ITS A BASIC INPUT LINE
                     046 <a class='f' name='CNF1'        >CNF1        </a>EQU *
 200B:AD 01 02       047             LDA LBUFF+<span class='n'>1</span>     ; GET NEXT CHAR
-200E:C9 8D          048             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; <a class='magic' name='_'>magic number</a> KEY_CR
+200E:C9 8D          048             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; <a class='magic' name='_200F'>magic number</a> KEY_CR
 2010:D0 06          049             BNE CSERR       ; BR IF CR
 2012:20 5B 27       050             JSR CLRSTS      ; CLEAR THE STATES
 2015:4C 95 1F       051             JMP CMDRTN      ; CNTL-D ONLY
@@ -1742,9 +1742,9 @@ With that "legalese" out of the way ... enjoy the read!
 2026:A9 02          063             LDA #RNONLY
 2028:39 09 29       064             AND CMDSTB,Y
 202B:F0 05          065             BEQ SYN1
-202D:A9 0F          066             LDA #$<span class='n'>F</span>                                         ; <a class='magic' name='_'>magic number</a> ERR_NOT_DIRECT
+202D:A9 0F          066             LDA #$<span class='n'>F</span>                                         ; <a class='magic' name='_202E'>magic number</a> ERR_NOT_DIRECT
 202F:4C D2 26       067             JMP ERROR
-2032:C0 06          068 <a class='f' name='SYN1'        >SYN1        </a>CPY #<span class='n'>6</span>                                          ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span> CMD_RUN
+2032:C0 06          068 <a class='f' name='SYN1'        >SYN1        </a>CPY #<span class='n'>6</span>                                          ; <a class='magic' name='_2033'>magic number</a> <span class='todo'>TODO</span> CMD_RUN
 2034:D0 02          069             BNE SYN1A
 2036:84 33          070             STY PROMPT      ; CHANGE PROMPT TO INSURE APPLESOFT RUN DETECT.
 2038:A9 20          071 <a class='f' name='SYN1A'       >SYN1A       </a>LDA #FN1
@@ -1779,7 +1779,7 @@ With that "legalese" out of the way ... enjoy the read!
 206E:39 09 29       100             AND CMDSTB,Y    ; IF FN2 NOT REQD THEN
 2071:F0 0C          101             BEQ SN8         ; BRANCH
                     102 ;
-2073:A0 1E          103             LDY #<span class='n'>30</span>         ; SET FN2 INDEX                 ; @filename2[0] <a class='magic' name='_'>magic number</a> MAX_FILENAME_LEN
+2073:A0 1E          103             LDY #<span class='n'>30</span>         ; SET FN2 INDEX                 ; @filename2[0] <a class='magic' name='_2074'>magic number</a> MAX_FILENAME_LEN
 2075:08             104             PHP             ; INDICATE FN2 SEEK
 2076:D0 CB          105             BNE SN2         ; GO LOOK FOR FN2
                     106 ;
@@ -1801,7 +1801,7 @@ With that "legalese" out of the way ... enjoy the read!
 2092:4C 00 20       122 SERR1       JMP CNF
                     123 ;
                     124 CLRFNS      EQU *
-2095:A0 3C          125             LDY #<span class='n'>60</span>                                         ; <a class='magic' name='_'>magic number</a> MAX_FILENAME_LEN * 2
+2095:A0 3C          125             LDY #<span class='n'>60</span>                                         ; <a class='magic' name='_2096'>magic number</a> MAX_FILENAME_LEN * 2
                     126 CLRFNA      EQU *
 2097:A9 A0          127             LDA #$<span class='n'>A0</span>
 2099:99 74 2A       128 SN1         STA <a class='v' href='#FNAME1'>FNAME1</a>-<span class='n'>1</span>,Y  ; CLEAR FN1, FN2                ; *sigh* instead of -1 offset, <span class='code'>LDY #2*MAX_FILENAME_LEN-1</span>
@@ -1837,7 +1837,7 @@ With that "legalese" out of the way ... enjoy the read!
 20C6:8A             158             TXA             ; IF NUM1=0
 20C7:D0 08          159             BNE SOPTS       ; THEN ERROR, ELSE GET OPTIONS
                     160 ;
-20C9:A9 02          161 SERR3       LDA #<span class='n'>2</span>          ;RANGE ERROR!                   ; <a class='magic' name='_'>magic number</a>
+20C9:A9 02          161 SERR3       LDA #<span class='n'>2</span>          ;RANGE ERROR!                   ; <a class='magic' name='_20CA'>magic number</a>
 20CB:4C D2 26       162             JMP ERROR
 20CE:4C C4 26       163 SERR2       JMP ESYNTX      ;DISK CMD SYNTAX ERROR
                     164 ;
@@ -1857,7 +1857,7 @@ With that "legalese" out of the way ... enjoy the read!
 <hr>                    178 ;                                                           ; === Page <a class='page' name='page19'>19</a> ===
 20E8:20 A4 21       179 <a class='f' name='SP1'    >SP1         </a>JSR GNBC        ; GO GET NON-BLANK CHAR
 20EB:D0 1F          180             BNE SP2         ; BR IF NOT COMMA OR CR
-20ED:C9 8D          181             CMP #$<span class='n'>8D</span>        ; IF CHAR IS COMMA              ; <a class='magic' name='_'>magic number</a> KEY_CR
+20ED:C9 8D          181             CMP #$<span class='n'>8D</span>        ; IF CHAR IS COMMA              ; <a class='magic' name='_20EE'>magic number</a> KEY_CR
 20EF:D0 F7          182             BNE SP1         ; THEN GO GET CHAR
                     183 ;
 20F1:AE 5F 2A       184             LDX CMDNO       ; OPTIONS INPUT = I
@@ -1926,7 +1926,7 @@ With that "legalese" out of the way ... enjoy the read!
 2167:0D 65 2A       247             ORA <a class='v' href='#INOPTS'>INOPTS</a>
 216A:8D 65 2A       248             STA <a class='v' href='#INOPTS'>INOPTS</a>
 216D:68             249             PLA             ; RESTOERE REQ
-216E:29 7F          250             AND #$<span class='n'>7F</span>        ; CLEAR CIO                     ; <a class='magic' name='_'>magic number</a> Why not ~<a class='e' href='#CIO'>CIO</a> ? Crappy tool (assembler)??
+216E:29 7F          250             AND #$<span class='n'>7F</span>        ; CLEAR CIO                     ; <a class='magic' name='_216F'>magic number</a> Why not ~<a class='e' href='#CIO'>CIO</a> ? Crappy tool (assembler)??
 2170:0D 74 2A       251             ORA <a class='v' href='#IMBITS'>IMBITS</a>      ; OR WITH PREV IMBITS
 2173:8D 74 2A       252             STA <a class='v' href='#IMBITS'>IMBITS</a>
 2176:D0 E9          253             BNE <a class='x' href='#SP7'>SP7</a>         ; GO FOR NEXT
@@ -2047,7 +2047,7 @@ With that "legalese" out of the way ... enjoy the read!
 220C:30 EE          094             BMI GN4         ; BR IF LT0                     ; signed c = GetNextLineBufferChar()
 220E:C9 0A          095             CMP #<span class='n'>10</span>         ; IS IT LT10                    ; if ((c - '0') &lt; 0) return;
 2210:90 08          096             BCC HN1         ; BR IF LT                      ; if (c &gt;= 10) c -= ('A' -'9');
-2212:E9 07          097             SBC #$<span class='n'>7</span>         ; SUB 7 FOR ASCII A             ; <a class='magic' name='_'>magic number</a> 7 = ('A' -'9')
+2212:E9 07          097             SBC #$<span class='n'>7</span>         ; SUB 7 FOR ASCII A             ; <a class='magic' name='_2213'>magic number</a> 7 = ('A' -'9')
 2214:30 E6          098             BMI GN4         ; BR IF LT A 
 2216:C9 10          099             CMP #<span class='n'>16</span>         ; TEST GT 15 
 2218:B0 E2          100             BCS GN4         ; BR GT 15                      ; A = digit = 0..F
@@ -2086,11 +2086,11 @@ With that "legalese" out of the way ... enjoy the read!
                     131 ;
                     132 <a class='f' name='ENOMON'   >ENOMON      </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [12]
 
-223D:               133             BIT IMBITS
+223D:2C 74 2A       133             BIT IMBITS
                     134             BVC ENM1
                     135             JSR PRCRIF
                     136 ENM1        EQU *
-                    137             LDA #$<span class='n'>70</span>                                        ; <a class='magic' name='_'>magic number</a>
+2245:A9 70          137             LDA #$<span class='n'>70</span>                                        ; <a class='magic' name='_2246'>magic number</a>
                     138             EOR IMBITS      ; INVERT INPUT BITS
                     139             AND MONMOD      ; AND WITH CURRENT
                     140             STA MONMOD      ; SET NEW MODE
@@ -2276,13 +2276,13 @@ With that "legalese" out of the way ... enjoy the read!
                     026 <a class='f' name='EBLD'     >EBLD        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [19]
 235D:20 A8 22       027             JSR EOPN1       ;(CHANGED 11/1/78 FOR TYPE MISMATCH)
                     028 <a class='f' name='EBLD2'    >EBLD2       </a>EQU *                                           ; *sigh* If only the local labels were in alphabetical order ...
-2360:A9 7F          029             LDA #$<span class='n'>7F</span>                                        ; <a class='magic' name='_'>magic number</a> ~FILE_LOCK
+2360:A9 7F          029             LDA #$<span class='n'>7F</span>                                        ; <a class='magic' name='_2361'>magic number</a> ~FILE_LOCK
 2362:2D C2 35       030             AND CCBFUC
-2365:C9 04          031             CMP #<span class='n'>4</span>                                          ; <a class='magic' name='_'>magic number</a> FILE_TYPE_BINARY
+2365:C9 04          031             CMP #<span class='n'>4</span>                                          ; <a class='magic' name='_2366'>magic number</a> FILE_TYPE_BINARY
 2367:F0 03          032             BEQ EBLD3
 2369:4C D0 26       033             JMP ETYP        ;TYPE MISMATCH ERROR MESSAGE
                     034 <a class='f' name='EBLD3'    >EBLD3       </a>EQU *
-236C:A9 04          035             LDA #4          ; SET BINARY FILE               ; <a class='magic' name='_'>magic number</a> /sarcasm if only we had <span class='code'>FILE_TYPE_BINARY EQU 4</span>
+236C:A9 04          035             LDA #4          ; SET BINARY FILE               ; <a class='magic' name='_236D'>magic number</a> /sarcasm if only we had <span class='code'>FILE_TYPE_BINARY EQU 4</span>
 236E:20 D5 23       036             JSR SV1         ; GO OPEN &amp; TEST
 2371:20 7A 24       037             JSR LD2         ; GO GET ADR
 2374:AA             038             TAX
@@ -2323,7 +2323,7 @@ With that "legalese" out of the way ... enjoy the read!
 239C:A5 D6          062             LDA ASRNX       ; CAN NOT DO AS SAVE WHEN RUN-ONLY PROG.
 239E:10 03          063             BPL EASAV       ; BRANCH IF OK TO SAVE, OTHERWISE
 23A0:4C CC 26       064             JMP MFERR       ; PRINT "PROGRAM TOO LARGE", THAT OUGHT TO GET 'EM.
-23A3:A9 02          065 <a class='f' name='EASAV'    >EASAV       </a>LDA #<span class='n'>2</span>          ; GET APPLESOFT PGM             ; <a class='magic' name='_'>magic number</a> <span class='code'>FILE_TYPE_APPLESOFT EQU 2</span>
+23A3:A9 02          065 <a class='f' name='EASAV'    >EASAV       </a>LDA #<span class='n'>2</span>          ; GET APPLESOFT PGM             ; <a class='magic' name='_23A4'>magic number</a> <span class='code'>FILE_TYPE_APPLESOFT EQU 2</span>
 23A5:20 D5 23       066             JSR SV1         ; GO OPEN AND TEST
                     067 ;
 23A8:38             068             SEC             ; BLOCK LENGTH
@@ -2339,7 +2339,7 @@ With that "legalese" out of the way ... enjoy the read!
 23B9:4C FF 23       078             JMP SV3         ; GO OUTPUT BLOCK
                     079 ;
                     080 <a class='f' name='EIBSV'    >EIBSV       </a>EQU *
-23BC:A9 01          081             LDA #<span class='n'>1</span>          ; SET IB PGM                    ; PGM = Program, <a class='magic' name='_'>magic number</a> <span class='code'>FILE_TYPE_INTEGER_BASIC EQU 1</span>
+23BC:A9 01          081             LDA #<span class='n'>1</span>          ; SET IB PGM                    ; PGM = Program, <a class='magic' name='_23BD'>magic number</a> <span class='code'>FILE_TYPE_INTEGER_BASIC EQU 1</span>
 23BE:20 D5 23       082             JSR SV1         ; GO OPEN AND TEST
                     083 ;
 23C1:38             084             SEC             ; BLOCK LENGTH
@@ -2391,7 +2391,7 @@ With that "legalese" out of the way ... enjoy the read!
                     130 <a class='f' name='ELOAD0'   >ELOAD0      </a>JSR EOPN1
                     131 ;
                     132 <a class='f' name='ELD1'     >ELD1        </a>EQU *                                           ; *sigh* Pick a bloody <i>consistent</i> naming schema: ELOAD# or ELD#
-                    133             LDA #$<span class='n'>23</span>        ; STRIP UNRELATED STUFF         ; <a class='magic' name='_'>magic number</a>
+2419:A9 23          133             LDA #$<span class='n'>23</span>        ; STRIP UNRELATED STUFF         ; <a class='magic' name='_241A'>magic number</a>
                     134             AND CCBFUC      ; OUT OF FUC
                     135             BEQ NBPER       ; BR IF ERROR
                     136 ; ISOLATE IB &amp; AS
@@ -2399,10 +2399,10 @@ With that "legalese" out of the way ... enjoy the read!
                     138             STA CCBFUC      ; SAVE IB/AS ONLY
                     139             LDA ASISBSW     ; IF IB THEN
                     140             BEQ EIBL        ; GO TO IB LOAD
-                    141             LDA #2                                          ; <a class='magic' name='_'>magic number</a> <span class='code'>FILE_TYPE_APPLESOFT EQU 2</span>
+2428:A9 02          141             LDA #2                                          ; <a class='magic' name='_2429'>magic number</a> <span class='code'>FILE_TYPE_APPLESOFT EQU 2</span>
                     142             JSR LD1         ; GO OPEN AND TEST
                     143 ;
-                    144             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_'>wastes</a> 3 bytes, LD1 should fall into LD2
+242D:20 7A 24       144             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_242D'>wastes</a> 3 bytes, LD1 should fall into LD2
                     145 ;                                                           ; While EBLD2 (ExecBload2) calls LD2 by itself, LD1 is always followed by LD2
                     146             CLC
                     147             ADC ASSOP       ; ADD BLOCK LENGTH TO SOP
