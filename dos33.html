@@ -3915,7 +3915,7 @@ With that "legalese" out of the way ... enjoy the read!
                     278 ;
 2CDE:68             279 <a class='f' name='PB0'      >PB0         </a>PLA           ; GET SAVED BYTE
 2CDF:91 42          280             STA (ZPGFCB),Y  ; PUT THE BYTE
-2CE1:A9 40          281             LDA #$<span class='n'>40</span>        ; SET WRITE SECTOR REQD         ; <a class='magic' name='_2CE2'>magic number</a>
+2CE1:A9 40          281             LDA #$<span class='n'>40</span>        ; SET WRITE SECTOR REQD         ; <a class='magic' name='_2CE2'>magic number</a> WRITE_FLAG_SECTOR, See <a class='x' href='#GNWSEC'>GNWSEC</a>
 2CE3:0D D3 35       282             ORA DCBWRF
 2CE6:8D D5 35       283             STA DCBWRF
                     284 ;
