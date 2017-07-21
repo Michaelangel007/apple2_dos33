@@ -2426,11 +2426,11 @@ With that "legalese" out of the way ... enjoy the read!
                     165 ;
                     166 <a class='f' name='EIBL'     >EIBL        </a>EQU *
                     167             LDA #1          ; SET IB PGM                    ; Yup, almost 99% the same as ELD2
-                    168             JSR LD1         ; GO OPEN AND TEST
+2452:20 B1 24       168             JSR LD1         ; GO OPEN AND TEST
                     169 ;
-                    170             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_'>wastes</a> 3  bytes, see Line #141
+2555:20 7A 24       170             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_2555'>wastes</a> 3  bytes, see Line #141
                     171 ;
-                    172             SEC             ; HMEM - BLOCK LENGTH
+2458:38             172             SEC             ; HMEM - BLOCK LENGTH
                     173             LDA IBHMEM      ; IS NEW SOP
                     174             SBC SVBL
                     175             TAX
