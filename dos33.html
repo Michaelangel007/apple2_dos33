@@ -4591,7 +4591,7 @@ With that "legalese" out of the way ... enjoy the read!
                     130 <a class='f' name='LNB1'     >LNB1        </a>EQU *           ; NEED A DIFFERENT SECTOR IN MEM
 30C6:20 1D 2F       131             JSR WRSECT      ; GO WRITE SECTOR (IF REQD)
                     132 ;
-                    133 LNB2        LDA DCBCRS+1    ; IS CURRENT REL SECTORY
+                    133 <a class='f' name='LNB2'     >LNB2        </a>LDA DCBCRS+<span class='n'>1</span>    ; IS CURRENT REL SECTORY
                     134             CMP DCBDFS+1    ; IN CURRENT DIRECTORY (LOW LIMIT)
                     135             BCC LNB4        ; BR IF IN A PREVIOUS DIR
                     136             BNE LNB3        ; BR IF MAYBE IN THIS ONE
@@ -4599,7 +4599,7 @@ With that "legalese" out of the way ... enjoy the read!
                     138             CMP DCBDFS
                     139             BCC LNB4        ; BR IF IN PREVIOUS DIR
                     140 ;
-                    141 LNB3        LDA DCBCRS+1    ; CURRENT REL SECTOR
+                    141 <a class='f' name='LNB3'     >LNB3        </a>LDA DCBCRS+1    ; CURRENT REL SECTOR
                     142             CMP DCBDNF+1    ; IN CURRENT DIRECTOR (HI LIMIT)
                     143             BCC LNB6        ; BR IF IN THIS ONE
                     144             BNE LNB4
