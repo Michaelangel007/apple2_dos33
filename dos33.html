@@ -4607,138 +4607,138 @@ With that "legalese" out of the way ... enjoy the read!
                     146             CMP DCBDNF
                     147             BCC LNB6
                     148 ;REQD SECTOR IN A NEXT DIRECTORY
-                    149 LNB4        JSR RDFDIR
-                    150             BCC LNB2
-                    151             RTS
+30ED:20 5E 2F       149 LNB4        JSR RDFDIR
+30F0:90 D7          150             BCC LNB2
+30F2:60             151             RTS
                     152 ;
                     153 ;
-                    154 LNB6
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
-                    165 
-                    166 
-                    167 
-                    168 
-                    169 
-                    170 
-                    171 
-                    172 
-                    173 
-                    174 
-                    175 
-                    176 
-                    177 
-                    178 
-                    179 
-                    180 
-                    181 
-                    182 
-                    183 
-                    184 
-                    185 
-                    186 
-                    187 
-                    188 
-                    189 
-                    190 
-                    191 
-                    192 
-                    193 
-                    194 
-                    195 
-                    196 
-                    197 
-                    198 
-                    199 
-                    200 
-                    201 
-                    202 
-                    203 
-                    204 
-                    205 
-                    206 
-                    207 
-                    208 
-                    209 
-                    210 
-                    211 
-                    212 
-                    213 
-                    214 
-                    215 
-                    216 
-                    217 
-                    218 
-                    219 
-                    220 
-                    221 
-                    222 
-                    223 
-                    224 
-                    225 
-                    226 
-                    227 
-                    228 
-                    229 
-                    230 
-                    231 
-                    232 
-                    233 
-                    234 
-                    235 
-                    236 
-                    237 
-                    238 
-                    239 
-                    240 
-                    241 
-                    242 
-                    243 
-                    244 
-                    245 
-                    246 
-                    247 
-                    248 
-                    249 
-                    250 
-                    251 
-                    252 
-                    253 
-                    254 
-                    255 
-                    256 
-                    257 
-                    258 
-                    259 
-                    260 
-                    261 
-                    262 
-                    263 
-                    264 
-                    265 
-                    266 
-                    267 
-                    268 
-                    269 
-                    270 
-                    271 
-                    272 
-                    273 
-                    274 
-                    275 
-                    276 
-                    277 
-                    278 
-                    279 
-                    280 
+                    154 <a class='f' name='LNB6'     >LNB6        </a>EQU *           ; CALCULATE DISPL INTO DIR
+30F3:38             155             SEC
+                    156             LDA DCBCRS      ;
+                    157             SBC DCBDFS
+                    158             ASL A           ; TIMES 2
+                    159             ADC #FDENT      ; PLUS DISPL TO 1ST
+                    160             TAY
+                    161             JSR MVFCBD      ; MOVE DIR ADR TO ZPG
+                    162             LDA (ZPGFCB),Y  ; GET TRACK
+                    163             BNE LNB7        ; BR IF NOT ZERO                ; should be <b>BPL</b>, Filesystem Design FLAW: Can't store data on Track 0
+                    164             LDA CCBREQ
+                    165             CMP #CRQWR      ; WRITE!
+                    166             BEQ LNB7A
+                    167             SEC
+310D:60             168             RTS
+310E:20 34 31       169 LNB7A       JSR <a class='x' href='#GNWSEC'>GNWSEC</a>      ; GO GET A NEW SECTOR           ; A=C0
+3111:4C 20 31       170             JMP <a class='x' href='#LNBCON'>LNBCON</a>                                      ;&darr; <a class='mem' name='_3111'>wastes</a> 1 byte 1 byte, BNE LNBCON
+                    171 <a class='f' name='LNB7'     >LNB7        </a>STA DCBTRK      ; SET TRK INTO DCB
+                    172             INY
+                    173             LDA (ZPGFCB),Y  ; GET SECTOR
+                    174             STA DCBSEC      ; PUT INTO DCB
+311D:20 DC 2F       175             JSR RDSEC       ; GO READ SECTOR
+3120:AD E4 35       176 <a class='f' name='LNBCON'   >LNBCON      </a>LDA DCBCRS      ; MOVE CUR REL SECTOR
+                    177             STA DCBCMS
+                    178             LDA DCBCRS+<span class='n'>1</span>    ; TO CUR MEM SECTOR
+                    179             STA DCBCMS+<span class='n'>1</span>
+<hr>                    180 ;                                                           ; === <a class='page' name='page66'>66</a> ===
+                    181 <a class='f' name='LNB8'     >LNB8        </a>EQU *
+                    182             JSR MVFCBS      ; MOVE SECTOR BUFF ADR TO ZP
+                    183             LDY DCBCSB      ; GET SECT BYTE
+                    184             CLC             ; CARRY CLEAR = ALL OK
+3133:60             185             RTS             ; DONE
+                    186             PAGE
+                    187 ;
+                    188 ;
+                    189 <a class='f' name='GNWSEC'   >GNWSEC      </a>EQU *           ; NEED NEW SECTOR
+3134:8C 9D 33       190             STY TEMP2       ; SAVE DIR INDEX
+3137:20 44 32       191             JSR GETSEC      ; GET A SECTOR
+313A:AC 9D 33       192             LDY TEMP2
+313D:C8             193             INY
+313E:91 42          194             STA (ZPGFCB),Y  ; SET NEW SECTOR
+3140:8D D7 35       195             STA DCBSEC
+                    196             DEY
+                    197             LDA DCBATK                                      ; Allocated track?
+                    198             STA (ZPGFCB),Y  ; SET NEW TRACK
+                    199             STA DCBTRK
+                    200 ;
+                    201             JSR MVFCBS
+                    202             JSR CLRSEC      ; GO CLEAR SECTOR
+                    203 ;
+                    204 ;
+3152:A9 C0          205             LDA #$C0        ; INDICATE BOTH                 ; <a class='magic' name='_3153'>magic number</a> WRITE_FLAG_SECTOR | WRITE_FLAG_DIR
+                    206             ORA DCBWRF      ; DIR AND SECTOR                ; <span class='todo'>TODO</span>DIRECTORY or DIRECTION ???
+                    207             STA DCBWRF      ; MUST BE WRITTEN
+                    208             RTS             ; DONE                          ; For the love of god, WHY do you keep stating the obvious???
+                    209             PAGE
+                    210 ;
+                    211 ;INCRRB - INCREMENT RELATIVE RECORD BYTE
+                    212 ;
+                    213 <a class='f' name='INCRRB'   >INCRRB      </a>EQU *
+                    214             LDX DCBCRR      ; MOVE BYTE JUST READ OR WRITTEN
+                    215             STX CCBRRN
+                    216             LDX DCBCRR+1
+                    217             STX CCBRRN+1
+                    218             LDX DCBCRB      ; X=REL BYTE (LOW)
+                    219             LDY DCBCRB+1    ; Y=REL BYTE HI
+                    220             STX CCBBYT
+                    221             STY CCBBYT+1
+                    222             INX             ; INC REL BYTE (LOW)
+                    223             BNE INCR1       ; BR IF NO CARRY
+                    224             INY
+                    225 ;
+                    226 <a class='f' name='INCR1'    >INCR1       </a>CPY DCBRCL+<span class='n'>1</span>    ; REL BYTE=REC LENGTH
+                    227             BNE INCR2       ; BR IF NOT
+                    228             CPX DCBRCL
+                    229             BNE INCR2
+                    230             LDX #0
+                    231             LDY #0          ; RESET REL BYTE TO ZERO
+                    232             INC DCBCRR      ; AND INCR
+                    233             BNE INCR2       ; RELATIVE RECORD
+                    234             INC DCBCRR+1
+                    235 ;
+                    236 <a class='f' name='INCR2'    >INCR2       </a>STX DCBCRB      ; SAVE NEW RELATIVE BYTE
+                    237             STY DCBCRB+1
+                    238 ;
+                    239             RTS
+                    240             PAGE
+                    241 ;
+                    242 ;INCSCB - INCREMENT SECTOR BYTE
+<hr>                    243 ;                                                           ; === <a class='page' name='page67'>67</a> ===
+                    244 <a class='f' name='INCSCB'   >INCSCB      </a>EQU *
+                    245             INC DCBCSB      ; INC SECTOR BYTE
+                    246             BNE INCS2       ; BR IF NOT FULL
+                    247             INC DCBCRS      ; AND INCR
+                    248             BNE INCS2       ; RELATIVE SECTOR
+                    249             INC DCBCRS+<span class='n'>1</span>
+                    250 ;
+                    251 ;
+                    252 <a class='f' name='INCS2'    >INCS2       </a>EQU *
+                    253             RTS
+                    254             PAGE
+                    255 ;
+                    256 ;MIBDA - MOVE AND INCREMENT CCBDAT
+                    257 ;
+                    258 <a class='f' name='MIBDA'    >MIBDA       </a>EQU *
+                    259             LDY CCBBBA      ; Y=ADR LOW
+                    260             LDX CCBBBA+<span class='n'>1</span>    ; X=ADR HI
+                    261             STY ZPGFCB      ; PUT ADR INTO ZPG
+                    262             STX ZPGFCB+<span class='n'>1</span>
+                    263 ;
+                    264             INC CCBBA       ; INC ADR LOW
+                    265             BNE MIB1        ; BR IF NOT ZERO
+                    266             INC CCBBA+<span class='n'>1</span>     ; DONE
+                    267 <a class='f' name='MIB1'     >MIB1        </a>RTS             ; DONE
+                    268 ;
+                    269 ;DTBLN - DECREMENT BLONG LENGTH AND TEST ZERO
+                    270 ;
+                    271 <a class='f' name='DTB2'     >DTBLN       </a>EQU *
+                    272             LDY CCBBLN      ; GET LEN LOW
+                    273             BNE DTB1        ; BR IF NOT ZERO                ; <i>No shit Caption Obvious!</i>
+                    274             LDX CCBBLN+<span class='n'>1</span>    ; GET LEN HI
+                    275             BEQ DTB2        ; BR IF LEN=0
+                    276             DEC CCBBLN+<span class='n'>1</span>    ; DEC LEN (HIGH)
+                    277 <a class='f' name='DTB1'     >DTB1        </a>DEC CCBBLN      ; DEC LEN (LOW)
+                    278             RTS             ; DONE
+                    279 ;
+                    280 <a class='f' name='DTB2'     >DTB2        </a>JMP <a class='x' href='#GOOIO'>GOODIO</a>      ; FINISHED BLOCK
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="FLOCSEC">FLOCSEC</a> - Locate Sector, Page <a class="page" name="page68">68</a>, <a class='ts' href='#T2S0'>T2S0</a> - <a class='ts' href='#T2S2'>T2S2</a>, $<span class='n'>B1C9</span> .. $<span class='n'>B396</span>  ===<hr class='join'><hr></div>
