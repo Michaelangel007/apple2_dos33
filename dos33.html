@@ -2483,7 +2483,7 @@ With that "legalese" out of the way ... enjoy the read!
                     222             JMP EINT        ; GO FOR INTG BASIC
                     223 ;
                     224 LD1A        EQU *
-                    225             LDX #<span class='n'>29</span>         ; SAVE FILENAME                 ; <a class='magic' name='_'>magic number</a> <span class='code'>FILENAME_MAX-1</span>
+24C2:A2 1D          225             LDX #<span class='n'>29</span>         ; SAVE FILENAME                 ; <a class='magic' name='_24C3'>magic number</a> <span class='code'>FILENAME_MAX-1</span>
                     226 LD1B        LDA FNAME1,X    ; INCASE IS RAM APPLESOFT
                     227             STA FNAME2,X
                     228             DEX
@@ -2520,7 +2520,7 @@ With that "legalese" out of the way ... enjoy the read!
 24F3:20 C8 1F       259             JSR PRCRIF
 24F6:20 51 28       260             JSR MVCSW       ; GO RESTORE CHAR I/O SW
 24D9:6C 56 1D       261             JMP (CHAIN)
-24FC:20 65 D6       262 ASRUN1      JSR $<span class='n'>D665</span>       ; ROM                           ; <a class='magic' name='_'>magic number</a>
+24FC:20 65 D6       262 ASRUN1      JSR $<span class='e'>D665</span>       ; ROM                           ; <a class='magic' name='_24FD'>magic number</a>
 24FF:85 33          263             STA PROMPT      ;INSURES APPLESOFT RUN DETECT (A=0)     ; === <a class='ts' name=T1S4'>T1S4</a> ===
 2501:85 D8          264             STA ASONERR     ;RESET APPLESOFT ONERR FLAG
 2503:4C D2 D7       265             JMP $<span class='n'>D7D2</span>                                       ; <a class='magic' name='_2503'>magic number</a>
