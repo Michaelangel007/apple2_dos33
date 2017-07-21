@@ -4589,7 +4589,7 @@ With that "legalese" out of the way ... enjoy the read!
                     128             BEQ LNB8        ; BR IF REQD SECTOR IN MEM
                     129 ;
                     130 <a class='f' name='LNB1'     >LNB1        </a>EQU *           ; NEED A DIFFERENT SECTOR IN MEM
-                    131             JSR WRSECT      ; GO WRITE SECTOR (IF REQD)
+30C6:20 1D 2F       131             JSR WRSECT      ; GO WRITE SECTOR (IF REQD)
                     132 ;
                     133 LNB2        LDA DCBCRS+1    ; IS CURRENT REL SECTORY
                     134             CMP DCBDFS+1    ; IN CURRENT DIRECTORY (LOW LIMIT)
