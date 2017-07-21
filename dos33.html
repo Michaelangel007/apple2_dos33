@@ -2450,7 +2450,7 @@ With that "legalese" out of the way ... enjoy the read!
                     189             JMP GODOS
                     190 ;
                     191 <a class='f' name='LD2'      >LD2         </a>EQU *                                           ; By putting this before LD1 this forces 6 byes to be wasted, see Line #143
-                    192             LDA SVBLA       ; MOVE ADR OF WHERE
+247A:AD 0A 1D       192             LDA SVBLA       ; MOVE ADR OF WHERE
                     193             STA CCBBA       ; TO PUT DATA TO
                     194             LDA SVBLA+1     ; CCBN
                     195             STA CCBBBA+1
@@ -2462,7 +2462,7 @@ With that "legalese" out of the way ... enjoy the read!
                     201             STA CCBREQ
                     202             LDA #CRMNBL     ; BLOCK
                     203             STA CCBRQM
-                    204             JSR DOSGO
+249A:20 A8 26       204             JSR DOSGO
                     205             LDA SVBL+1
                     206             STA CCBBLN+1
                     207             TAY
@@ -2471,8 +2471,8 @@ With that "legalese" out of the way ... enjoy the read!
                     210             RTS
                     211 ;
                     212 <a class='f' name='MFULL1'   >MFULL1      </a>EQU *
-                    213             JSR ECLOSE      ; GO CLOSE FILE
-                    214             JMP MFERR       ; AND GIVE ERR MSG
+24AB:20 EA 2A       213             JSR ECLOSE      ; GO CLOSE FILE
+24AE:4C CC 26       214             JMP MFERR       ; AND GIVE ERR MSG
                     215 LD1         EQU *
                     216             CMP CCBFUC      ; TEST TYPE
                     217             BEQ LD1C        ; BR IF MATCH
