@@ -4555,7 +4555,7 @@ With that "legalese" out of the way ... enjoy the read!
 3085:A9 01          094             LDA #1          ; IOB TYPE                      ;[..  <a class='mem' name='_3085'>wastes</a> 5 bytes, <a class='magic' name='_'>magic number</a>
 3087:8D E8 37       <a class='line' name='FLOCNXB.095'>095</a>             STA <a class='v' href='#IBTYPE'>IBTYPE</a>                                      ; ..] never referenced!
                     096 ;
-                    097             LDY AIOB
+308A:AC C1 2A       097             LDY AIOB
                     098             LDA AIOB+1
                     099             JSR DISKIO
                     100 ;
@@ -4566,7 +4566,7 @@ With that "legalese" out of the way ... enjoy the read!
                     105             BCS BADIO       ; BR IF BAD
                     106             RTS             ; RTN IF GOOD
                     107 ;
-                    108 BADIO       LDA IBSTAT      ; GET STATUS
+30A1:AD F5 37       108 BADIO       LDA IBSTAT      ; GET STATUS
                     109             LDY #CREVMM
                     110             CMP #IBVMME     ; WAS IT VOLUME MISMATCH
                     111             BEQ BD2         ; BR IF YES
@@ -4575,13 +4575,13 @@ With that "legalese" out of the way ... enjoy the read!
                     114             BEQ BD2
                     115             LDY #CREIOE
                     116 BD2         TYA
-                    117             JMP ERRROB
+<hr>30B3:4C 85 33       117             JMP ERRROB                                      ; === <a class='page' name='page65'>65</a> ===
                     118             PAGE
                     119 ;
                     120 ;LOCNXB - LOCATE NEXT BYTE
                     121 ;
                     122 <a class='f' name='LOCNXB'   >LOCNXB      </a>EQU *
-                    123             LDA DCBCRS      ; IS THE CURRENT RELATIVE SECTOR
+30B6:AD E4 35       123             LDA DCBCRS      ; IS THE CURRENT RELATIVE SECTOR
                     124             CMP DCBCMS      ; EQUAL TO THE CURRENT MEM SECTOR
                     125             BNE LNB1        ; BR IF NOT EQ
                     126             LDA DCBCRS+1
