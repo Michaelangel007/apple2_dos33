@@ -1,0 +1,220 @@
+
+# TODO
+* [ ] Email linked version to:
+  * https://aurir.wordpress.com/2013/11/14/steve-wozniaks-response-to-the-open-sourced-apple-ii-dos-source-code/
+
+<!--
+                        25          37              53                              85  89  93
+Local Line Number
+####:## ## ##       ### LABEL       NMEMONIC        COMMENT                         ; Annotation
+Global Line Number
+####:## ## ##       ##### ### LABEL       NMEMONIC        COMMENT                         ; Annotation
+
+TODO:
+* [x] Add scroll timer to auto-hide sticky header
+
+<span class="todo">TODO</span> add fixed header on scroll for filenames
+
+<a class="page" href="#page1"></a>
+=== Page <a class="page" name="page1"></a> ===
+
+<span class='code'>FOO EQU $00</span>
+<a class='magic' name='#_1C28'>magic number</a>
+<a class='mem' name='_1D7D'>wastes</a>
+<a class="f" name="CORRECTVOL" id="CORRECTVOL" >CORRECTVOL  </a>
+<a class='f' name='BLDFTB'     >BLDFTB      </a>EQU *
+<a class='f' name='_8'       >12_         </a>
+
+<a class='f' name="SETVID" >SETVID      </a>
+<a class='x'>Function Reference</a>
+<a class="f" name="DR4"         >DR4         </a>
+
+<a class='d' name=c >Data Definition</a>
+<a class='v'>Variable Reference</a>
+
+Line Number
+<a class='line' name="FLOCSEC.83">083</a>
+
+<!--                           -->            SEC
+<a class="f" name="SEEK"     >SEEK        </a>
+
+Project Status Pages left:
+
+        1st pass = Text
+          2nd pass = HTML / Hyperlinks
+            3rd pass = address & Opcodes
+              4th pass = Commentary / Annotation
+                HTML numbers
+                  Magic Numbers
+                    Page Numbers
+                      Arrows
+        T H O C N M P A
+      0 n/a
+      1 n/a  
+      2 n/a
+      3 n/a
+      4 T - - - N - P - BLDFTAB
+      5 T - - - - - P -
+      6 T - - - - - P -
+      7 n/a             BLOCKIO.hex -- need disassembly
+      8 - - - - - - P - BOOTLDR
+      9 - - - - - - P - 
+     10 - - - - - - P -
+     11 - - - - - - P - 
+     12 - - - - - - P -
+     13 - - - - - - P -
+     14 - - - - - - P -
+     15 - - - - - - P - 
+     16 - - - - - - - -
+     17 - - - - - - - -
+     18 - - - - - - - -
+     19 - - - - - - - -
+     20 - - - - - - - -
+     21 - - - - - - - -
+     22 - - - - - - - -
+     23 - - - - - - - -
+     24 - - - - - - - -
+     25 - - - - - - - -
+     26 - - - - - - - -
+     27 - - - - - - - -
+     28 - - - - - - - -
+     29 - - - - - - - -
+     30 - - - - - - - -
+     31 - - - - - - - -
+     32 - - - - - - - -
+     33 - - - - - - - -
+     34 - - - - - - - -
+     35 - - - - - - - -
+     36 - - - - - - - -
+     37 - - - - - - - -
+     38 - - - - - - - -
+     39 x - / x - - - - Done (no, still need to markup address and track/sector)
+     40 - - - - - - - -
+     41 - - - - - - - -
+     42 - - - - - - - -
+     43 - - - - - - - -
+     44 - - - - - - - -
+     45 - - - - - - - -
+     46 - - - - - - - -
+     47 - - - - - - - -
+     48 - - - - - - - -
+     49 - - - - - - - -
+     50 - - - - - - - -
+     51 - - - - - - - -
+     52 - - - - - - - -
+     53 - - - - - - - -
+     54 - - - - - - - -
+     55 - - - - - - - -
+     56 - - - - - - - -
+     57 - - - - - - - -
+     58 - - - - - - - -
+     59 - - - - - - - -
+     60 - - - - - - - -
+     61 - - - - - - - -
+     62 - - - - - - - -
+     63 - - - - - - - -
+     64 - - - - - - - -
+     65 - - - - - - - -
+     66 - - - - - - - -
+     67 - - - - - - - -
+     68 T - - - - - - - FLOCSEC
+     69 - - - - - - - -
+     70 - - - - - - - -
+     71 - - - - - - - -
+     72 - - - - - - - -
+     73 - - - - - - - -
+     74 - - - - - - - -
+     75 - - - - - - - -
+     76 - - - - - - - -
+     77 - - - - - - - -
+     78 - - - - - - - -
+     79 - - - - - - - -
+     80 - - - - - - - -
+     81 - - - - - - - -
+     82 - - - - - - - -
+     83 - - - - - - - -
+     84 - - - - - - - -
+     85 - - - - - - - -
+     86 - - - - - - - -
+     87 - - - - - - - -
+     88 - - - - - - - -
+     89 - - - - - - - -
+     90 - - - - - - - -
+     91 - - - - - - - -
+     92 - - - - - - - -
+     93 - - - - - - - -
+     94 - - - - - - - -
+     95 - - - - - - - -
+     96 - - - - - - - -
+     97 - - - - - - - -
+     98 - - - - - - - -
+     99 - - - - - - - -
+    100 - - - - - - - -
+    101 - - - - - - - -
+    102 - - - - - - - -
+    103 - - - - - - - -
+    104 - - - - - - - -
+    105 - - - - - - - -
+    106 - - - - - - - -
+    107 - - - - - - - -
+    108 - - - - - - - -
+    109 - - - - - - - -
+    110 x x x x - - - - Done, 1=Text, 2=Links, 3=Addr/Opcode, 4=Commentary
+    111 x x x x - - - - Done
+    112 - - - - - - - -
+    113 - - - - - - - -
+    114 - - - - - - - -
+    115 - - - - - - - -
+    116 - - - - - - - -
+    117 - - - - - - - -
+    118 - - - - - - - -
+    119 - - - - - - - -
+    120 - - - - - - - -
+    121 - - - - - - - -
+    122 - - - - - - - -
+    123 - - - - - - - -
+    124 - - - - - - - -
+    125 - - - - - - - -
+    126 - - - - - - - -
+    127 - - - - - - - -
+    128 - - - - - - - -
+    129 - - - - - - - -
+    130 - - - - - - - -
+    131 - - - - - - - -
+    132 - - - - - - - -
+    133 - - - - - - - -
+    134 - - - - - - - -
+    135 - - - - - - - -
+    136 - - - - - - - -
+    137 - - - - - - - -
+    138 - - - - - - - -
+    139 - - - - - - - -
+    140 - - - - - - - -
+    141 - - - - - - - -
+    142 - - - - - - - -
+    143 - - - - - - - -
+    144 - - - - - - - -
+    145 - - - - - - - -
+    146 - - - - - - - -
+    147 - - - - - - - -
+    148 - - - - - - - -
+    149 - - - - - - - -
+    150 - - - - - - - -
+    151 - - - - - - - -
+    152 - - - - - - - -
+    153 - - - - - - - -
+    154 - - - - - - - -
+        T H O C N M P A
+        1st pass = Text
+          2nd pass = HTML / Hyperlinks
+            3rd pass = address & Opcodes
+              4th pass = Commentary / Annotation
+                HTML numbers
+                  Magic Numbers
+                    Page Numbers
+                      Arrows
+        1st 3rd
+          2nd 4th
+
+-->
+
