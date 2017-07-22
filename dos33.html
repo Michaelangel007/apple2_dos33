@@ -4747,74 +4747,74 @@ With that "legalese" out of the way ... enjoy the read!
                     002 ;
                     003 ;FNDFIL - FIND FILE NAME IN VOLUUME DIR                     ; *spelling* VOLUME
                     004 ;
-                    005 <a class="f" name="FNDFIL" >FNDFIL      </a>EQU *
-31C9:20 F7 2F       006             JSR <a class="x" href="#RDVTOC">RDVTOC</a>      ; GO GET VTOC
-31CC:AD C3 35       007             LDA CCBFN       ; MOVE FN PTR
-31CD:85 42          008             STA ZPGFCB      ; TO ZERO PAGE
-31D1:AD C4 35       009             LDA CCBFN+1
-31D5:85 43          010             STA ZPGFCB+1
+                    005 <a class='f' name='FNDFIL'   >FNDFIL      </a>EQU *
+31C9:20 F7 2F       006             JSR <a class='x' href='#RDVTOC'>RDVTOC</a>      ; GO GET VTOC
+31CC:AD C3 35       007             LDA <a class='v' href='#CCBFN'>CCBFN</a>       ; MOVE FN PTR
+31CD:85 42          008             STA <a class='v' href='#ZPGFCB'>ZPGFCB</a>      ; TO ZERO PAGE
+31D1:AD C4 35       009             LDA <a class='v' href='#CCBFN'>CCBFN</a>+<span class='n'>1</span>
+31D5:85 43          010             STA <a class='v' href='#ZPGFCB'>ZPGFCB</a>+<span class='n'>1</span>
 31D6:A9 01          011             LDA #<span class='n'>1</span>                                          ; *sigh* <a class='magic' name='_31D6'>magic number</a> <span class='todo'>TODO</span>
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
-                    055 
-                    056 
-                    057 
-                    058 
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
+31D8:8D 9D 33       012 <a class='f' name='FF1'      >FF1         </a>STA <a class='v' href='#TEMP2'>TEMP2</a>
+31DB:A9 00          013             LDA #<span class='n'>0</span>
+31DD:8D D8 35       014             STA <a class='v' href='#DCBVDR'>DCBVDR</a>
+31E0:18             015             CLC
+                    016 <a class='f' name='FF2'      >FF2         </a>EQU *
+31E1:EE D8 35       017             INC <a class='v' href='#DCBVDR'>DCBVDR</a>                                      ;
+31E4:20 11 30       018             JSR <a class='x' href='#RDVDIR'>RDVDIR</a>      ; GO GET VDIR SECTOR
+31E7:B0 51          019             BCS <a class='x' href='#FF4A'>FF4A</a>                                        ;&darr;
+31E9:A2 00          020             LDX #<span class='n'>0</span>          ; SET FOR 1ST FILE
+                    021 ;
+31EB:8E 9C 33       022 <a class='f' name='FF3'      >FF3         </a>STX <a class='v' href='#TEMP1'>TEMP1</a>       ; SAVE INDEX
+31EE:BD C6 34       023             LDA <a class='v' href='#VDFILE'>VDFILE</a>,X    ; GET FILE TRK
+31F1:F0 1F          024             BEQ <a class='x' href='#FF6'>FF6</a>         ; BR IF LAST ENTRY              ;&darr; <span class='todo'>TODO</span> NTODAFS can't store data on track 0; Should be <span class='code'>NOP NOP</span>
+31F3:30 22          025             BMI <a class='x' href='#FF7'>FF7</a>         ; BR IF DELETED ENTRY           ;&darr;
+31F5:A0 00          026             LDY #<span class='n'>0</span>          ; X=X+3
+31F6:E8             027             INX
+31F7:E8             028             INX
+31F8:E8             029 <a class='f' name='FF4'      >FF4         </a>INX
+31FA:B1 42          030             LDA (<a class='v' href='#ZPGFCB'>ZPGFCB</a>),Y  ; GET FN CHAR
+31FC:DD C6 B4       031             CMP <a class='v' href='#VDFILE'>VDFILE</a>,X    ; COMPARE TO ENTRY CHAR
+31FF:D0 0A          032             BNE <a class='x' href='#FF5'>FF5</a>         ; BR IF NOT SAME                ;&darr;
+3201:C8             033             INY
+3202:C0 1E          034             CPY #<span class='n'>30</span>         ; ALL 30 CHARS                  ;  <a class='magic' name='_3203'>magic number</a> <span class='code'>FILENAME_MAX</span>
+3204:D0 F3          035             BNE <a class='x' href='#FF4'>FF4</a>         ; BR IF NOT                     ;&uarr;
+3206:AE 9C 33       036             LDX <a class='v' href='#TEMP1'>TEMP1</a>       ; GET INDEX
+3209:18             037             CLC             ; FILE FOUND
+320A:60             038             RTS             ; RETURN
+                    039 ;
+                    040 <a class='f' name='FF5'      >FF5         </a>EQU *
+320B:20 30 32       041             JSR <a class='x' href='#VDINC'>VDINC</a>
+320E:90 DB          042             BCC <a class='x' href='#FF3'>FF3</a>                                         ;&uarr;
+3210:B0 CF          043             BCS <a class='x' href='#FF2'>FF2</a>                                         ;&uarr;
+                    044 ;
+3212:AC 9D 33       045 <a class='f' name='FF6'      >FF6         </a>LDY <a class='v' href='#TEMP2'>TEMP2</a>       ; LOOKING FOR DELETED           ;           *sigh* <b>Found Last Catalog Entry</b>
+3215:D0 C1          046             BNE <a class='x' href='#FF1'>FF1</a>         ; BR IF NOT (DO)                ;&uarr; (always?) This is why you don't use crappy function names
+                    047 ;                                                           ;            that only differ by one digit
+3217:AC 9D 33       048 <a class='f' name='FF7'      >FF7         </a>LDY <a class='v' href='#TEMP2'>TEMP2</a>       ; LOOKING FOR EMPTY             ;           *sigh* Found Deleted
+321A:D0 EF          049             BNE <a class='x' href='#FF5'>FF5</a>         ; BR IF NOT                     ;&uarr; (always?)
+                    050 ;
+                    051 <a class='f' name='MVN'      >MVN         </a>EQU *
+321C:A0 00          052             LDY #<span class='n'>0</span>          ; HAVE NEW ENTRY
+321E:E8             053             INX
+<hr>321F:E8             054             INX                                             ; === <a class='page' name='page69'>69</a> ===
+3220:E8             055 <a class='f' name='FF8'      >FF8         </a>INX
+3221:B1 42          056             LDA (<a class='v' href='#ZPGFCB'>ZPGFCB</a>),Y  ; MOVE FILENAME
+3223:9D C6 34       057             STA <a class='v' href='#VDFILE'>VDFILE</a>,X
+3226:C8             058             INY
+3227:C0 1E          059             CPY #<span class='n'>30</span>                                         ;  <a class='magic' name='_3228'>magic number</a> <span class='code'>FILENAME_MAX</span>
+3229:D0 F5          060             BNE <a class='x' href='#FF8'>FF8</a>                                         ;&uarr;
+                    061 ;
+322B:AE 9C 33       062             LDX <a class='v' href='#TEMP1'>TEMP1</a>       ; GET INDEX
+322E:38             063             SEC                                             ; <span class='todo'>TODO</span> PASS? FAIL?
+322F:60             064             RTS
+                    065 <a class='f' name='VDINC'    >VDINC       </a>EQU *
+3230:18             066             CLC
+3231:AD 9C 33       067             LDA <a class='v' href='#TEMP1'>TEMP1</a>                                       ; pCatalog++;
+3234:69 23          068             ADC #<span class='n'>35</span>                                         ;  <a class='magic' name='_3228'>magic number</a> <span class='code'>FILENAME_ENTRY_SIZE</span>
+3236:AA             069             TAX
+2337:E0 F5          070             CPX #<a class='v' href='#VDFLEN'>VDFLEN</a>
+3239:60             071             RTS
+                    072 <a class='f' name='FF4A'     >FF4A        </a>EQU *
                     073 
                     074 
                     075 
