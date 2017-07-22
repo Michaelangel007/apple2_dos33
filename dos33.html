@@ -5240,18 +5240,44 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3524:FD FC FE FF
 3528:FE FC FC FC
 352C:FF FC FC FC
-3530:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-3540:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-3550:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-3560:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-3570:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-3580:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-3590:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-35A0:0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-35B0:00 00 00 00
-35B4:00 00 00 00    069 <a class='d' name='VDEND'      >VDEND       </a>EQU *
-35B8:00 00 00       070 <a class='d' name='VDLEN'      >VDLEN       </a>EQU *-VOLDIR                                   ; = 256
-                    071 <a class='d' name='VDFLEN'     >VDFLEN      </a>EQU *-VDFIL
+3530:FC FD FC FC
+3534:FC FC FC FD
+3538:FE FE FD FE
+353C:FD FF FC FE
+3540:FE FC FE FD
+3544:FC FD FD FE
+3548:FF FE FC FF
+354C:FC FF FC FC
+3550:FD FC FC FF
+3554:FC FF FF FC
+3558:FC FC FD FC
+355C:FE FC FC FD
+3560:FC FE FC FE
+3564:FC FD FC FC
+3568:FD FC FE FD
+356C:FD FC FC FC
+3570:FC FC FD FF
+3574:FF FC FD FD
+3578:FC FC FE FC
+357C:FC FF FC FC
+3580:FE FD FC FE
+3584:FE FC FD FC
+3588:FC FF FD FD
+358C:FF FC FC FF
+3590:FC FD FE FC
+3594:FC FF FC FF
+3598:FC FC FF FC
+359C:FC FD FC FE
+35A0:FD FC FC FC
+35A4:FC FC FD FC
+35A8:FE FE FE FD
+35AC:FE FF FE FC
+35B0:FC FC FC FD
+35B4:FC FC FC FD
+35B8:FC FD FE
+                    069 <a class='d' name='VDEND'      >VDEND       </a>EQU *
+                    070 <a class='d' name='VDLEN'      >VDLEN       </a>EQU *-VOLDIR                                   ; $35BB - $34BB = 256
+                    071 <a class='d' name='VDFLEN'     >VDFLEN      </a>EQU *-VDFIL                                    ; $35BB - $34C6 = $F5
                     072 ;
                     073             PAGE
                     074 ;
