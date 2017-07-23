@@ -4838,83 +4838,83 @@ With that "legalese" out of the way ... enjoy the read!
 3255:D0 FA          093             BNE <a class='x' href='#GS1'>GS1</a>
 3257:90 F0          094             BCC <a class='x' href='#GS0'>GS0</a>
                     095 ;
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
-                    165 
-                    166 
-                    167 
-                    168 
-                    169 
-                    170 
+3259:EE EE 35       096             INC DCBNSA
+325C:D0 03          097             BNE GS1A                                        ;&darr;
+325E:EE EF 35       098             INC DCBNSA+1
+3261:AD F0 35       099 <a class='f' name='GS1A'   >GS1A        </a>EQU *
+3264:60             100             LDA DCBALS      ; GET ALLOCATED SECTOR
+                    101             RTS             ; RETURN
+                    102 ;
+3265:A9 00          103 <a class='f' name='CS2'    >CS2         </a>LDA #<span class='n'>0</span>          ; CLEAR ALLOCATED
+3267:8D F1 35       104             STA <a class='v' href='#DCBATK'>DCBATK</a>      ; TRK
+                    105 ;
+326A:A9 00          106 <a class='f' name='GSS1'   >GSS1        </a>LDA #0          ; SET SEARCH STATE=0
+326C:8D 9E 33       107             LDA TEMP3
+326F:20 F7 2F       108             JSR RDVTOC      ; GET VTOC
+                    109 ;
+                    110 <a class='f' name='GS2'    >GS2         </a>EQU *
+3272:18             111             CLC
+3273:AD EB 33       112             LDA VALCA1      ; GET LAST ALLOCATED TRK
+3276:6D EC 33       113             ADC VALCA2      ; AD (+1) OR (-1)
+3279:F0 09          114             BEQ GS3         ; BR IF DECK TO ZERO            ; <span class='todo'>TODO</span> Can't allocate data on Track 0
+327B:CD EF 33       115             CMP VNOTRK
+327E:90 14          116             BCC GS5         ; BR IF NOT AT OUTER LIMIT
+<hr>3280:A9 FF          117             LDA #$FF        ; SET (-1)                      ; === Page <a class="page" name="page70">70</a> ===
+3282:D0 0A          118             BNE GS4                                         ;&darr; Allways
+3284:AD 9E 33       119 <a class='f' name='GS3'    >GS3         </a>LDA TEMP3       ; GET SEARCH STATE
+3287:D0 37          120             BNE ERR9        ; BR IF NOT ZERO
+3289:A9 01          121             LDA #1          ; SET (+1)
+328B:8D 9E 33       122             STA TEMP3       ; SET SEARCH SATE = 1
+328E:8D EC 33       123 <a class='f' name='GS4'    >GS4         </a>STA VALCA2      ; SET NEW (+1) OR (-1)
+3291:18             124             CLC
+3292:69 11          125             ADC #17         ; ADD VTOC TRK NO               ; <a class='magic' name='_3293'>magic number</a> CAT_FILE_TRACK
+3294:8D EB 33       126 <a class='f' name='GS5'    >GS5         </a>STA VALCA1      ; SET NEW LAST ALLOCATED
+3297:8D F1 35       127             STA DCBATK      ; PUT IN DCB
+                    128 ;
+329A:A8             129             TAY             ; ALLOCATED TRACK
+329B:0A             130             ASL A           ; TIME 4                        ; HARD-CODED 4 bytes/VTOC
+329C:0A             131             ASL A
+329D:A8             132             TAY                                             ; See <a class="dumb" href='#HNTDAFS3'>HNTDAFS #3</a> Wastes 4 bytes/track for free sector bitmap
+329E:A2 04          133             LDX #<span class='n'>4</span>                                          ; <a class='magic' name='_???'>magic number</a> VTOC_BITMAP_BYTES_PER_TRACK = sizeof(DCBABM)
+32A0:18             134             CLC
+32A1:B9 F6 33       135 <a class='f' name='GS6'    >GS6         </a>LDA VSECAL+3,Y  ; MOVE BIT MAP BYTE
+32A4:9D F1 35       136             STA DCBABM-1,X
+32A7:F0 06          137             BEQ GS7         ; BR IF NO BITS ON
+32A9:38             138             SEC             ; SET HAVE SECTOR
+32AA:A9 00          139             LDA #0          ; CLEAR VTOC BYTE
+32AC:99 F6 33       140             STA VSECAL+3,Y
+32AF:88             141 <a class='f' name='GS7'    >GS7         </a>DEY
+32B0:CA             142             DEX
+32B1:D0 EE          143             BNE GS6         ; BR IF MORE TO MOVE
+32B3:90 BD          144             BCC GS2
+32B5:20 FB 2F       145             JSR WRVTOC      ; GO WRITE VTOC
+32B8:AD F0 33       146             LDA VNOSEC      ; GET NO SECTORS
+32BB:8D F0 35       147             STA DCBALS      ; SET IN DCB SECTOR BYTE
+32BE:D0 89          148             BNE GS0         ; GO ALLOCATED  SECTOR          ;&uarr;
+32C0:4C 77 33       149 <a class='f' name='GS8'    >GS8         </a>JMP ERROR9
+                    150             PAGE
+                    151 ;
+                    152 ;FRETRK - FREE TRACK OF SECTORS
+                    153 ;
+                    154 <a class='f' name='FRETRK' >FRETRK      </a>EQU *
+32C3:AD F1 35       155             LDA <a class='x' href='#DCBATK'>DCBATK</a>      ; GET ALLOCATED TRACK
+32C6:D0 01          156             BNE <a class='x' href='#FT1'>FT1</a>         ; BR IF NONE                ;&darr; DESIGN FLAW: Can't store data on track 0
+32C8:60             157             RTS
+32C9:48             158 <a class='f' name='FT1'    >FT1         </a>PHA
+32CA:20 F7 2F       159             JSR <a class='x' href='#RDVTOC'>RDVTOC</a>      ; GET VTOC
+32CD:AC F0 35       160             LDY <a class='v' href='#DCBALS'>DCBALS</a>      ; GET SECTORS
+32D0:68             161             PLA             ; GET TRACK
+32D1:18             162             CLC             ; SET FREE
+32D2:20 DD 32       163             JSR <a class='x' href='#FRESEC'>FRESEC</a>      ; GO FREE
+32D5:A9 00          164             LDA #<span class='n'>0</span>          ; CLEAR ALLOCATED TRK
+32D7:8D F1 35       165             STA <a class='v' href='#DCBATK'>DCBATK</a>
+32DA:4C FB 2F       166             JMP <a class='x' href='#WRVTOC'>WRVTOC</a>      ; WRITE VTOC
+                    167 ;
+                    168 ;FRESEC - FREE A SECTOR
+                    169 ;A=TRK, Y=SECTOR, C=ON/OFF
+                    170 ;
                     171 <a class='f' name='FRESEC' >FRESEC      </a>EQU *
-32DD:A2 FC          172 <a class='f' name='FS1'    >FS1         </a>LDX #<span class='n'>252</span>        ; 4 BYTE SHIFT               ; <a class='magic' name='#_32dd'>magic number</a> 256 - sizeof(<a class='v' href='#DCBABM'>DCBABM</a>)
+32DD:A2 FC          172 <a class='f' name='FS1'    >FS1         </a>LDX #<span class='n'>252</span>        ; 4 BYTE SHIFT                  ; <a class='magic' name='#_32dd'>magic number</a> 256 - sizeof(<a class='v' href='#DCBABM'>DCBABM</a>)
 32DF:7E F6 34       173 <a class='f' name='FS2'    >FS2         </a>ROR <a class='v' href='#DCBABM'>DCBABM</a>-<span class='n'>252</span>  ; SHIFT IN CARRY
 32E2:E8             174             INX             ; NEXT BYTE
 32E3:D0 FA          175             BNE <a class='x' href='#FS2'>FS2</a>         ; BR IF NOT DONE
