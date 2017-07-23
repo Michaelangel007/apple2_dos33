@@ -4867,7 +4867,7 @@ With that "legalese" out of the way ... enjoy the read!
 328B:8D 9E 33       122             STA TEMP3       ; SET SEARCH SATE = 1
 328E:8D EC 33       123 <a class='f' name='GS4'    >GS4         </a>STA VALCA2      ; SET NEW (+1) OR (-1)
 3291:18             124             CLC
-3292:69 11          125             ADC #17         ; ADD VTOC TRK NO               ; <a class='magic' name='_3293'>magic number</a> CAT_FILE_TRACK
+3292:69 11          125             ADC #17         ; ADD VTOC TRK NO               ; <a class='magic' name='_3293'>magic number</a> CAT_FILE_TRACK, FILESYSTEM_VTOC_CAT_TRACK = $11
 3294:8D EB 33       126 <a class='f' name='GS5'    >GS5         </a>STA VALCA1      ; SET NEW LAST ALLOCATED
 3297:8D F1 35       127             STA DCBATK      ; PUT IN DCB
                     128 ;
