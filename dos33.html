@@ -4922,11 +4922,11 @@ With that "legalese" out of the way ... enjoy the read!
 32E6:CC F0 33       177             CPY <a class='v' href='#VNOSEC'>VNOSEC</a>      ; NORMAL
 32E9:D0 F2          178             BNE <a class='x' href='#FS1'>FS1</a>         ; BR IF NOT
                     179 ;
-                    180             ASL A           ; TRACK*4
+<hr>                    180             ASL A           ; TRACK*4                       ; === Page <a class='page' name='page71'>71</a> ===
                     181             ASL A
                     182             TAY
-                    <a class='line' name='FLOCSEC.183'>183</a>             BEQ <a class='x' href='#FS4'>FS4</a>                                         ; See <a class="dumb" href='#HNTDAFS3'>HNTDAFS #3</a>
-32F0:A2 04          <a class='line' name='FLOCSEC.184'>184</a>             LDX #<span class='n'>4</span>                                          ; Wastes 4 bytes/track for free sector bitmap
+                    <a class='line' name='FLOCSEC.183'>183</a>             BEQ <a class='x' href='#FS4'>FS4</a>                                         ; See <a class="dumb" href='#HNTDAFS3'>HNTDAFS #3</a> Wastes 4 bytes/track for free sector bitmap
+32F0:A2 04          <a class='line' name='FLOCSEC.184'>184</a>             LDX #<span class='n'>4</span>                                          ; <a class='magic' name='_???'>magic number</a> VTOC_BITMAP_BYTES_PER_TRACK
 32F2:BD F1 35       185 <a class="f" name="FS3"    >FS3         </a>LDA <a class="v" href="#DCBABM">DCBABM</a>-1,X  ; GET BIT MAP BYTE
 32F5:19 F6 33       186             ORA <a class="v" href="#VSECAL">VSECAL</a>+3,Y  ; OR WITH VTOC BM
 32F8:99 F6 33       187             STA <a class="v" href="#VSECAL">VSECAL</a>+3,Y
@@ -5022,11 +5022,11 @@ With that "legalese" out of the way ... enjoy the read!
                     277 
                     278 
                     279 
-                    280 
-                    281 
-                    282 
-                    283 
-                    284 
+3391:28             280             PLP             ; GET STATUS
+3392:AE 9B 23       281             LDX ENTSTK      ; GET ENT STACK
+3395:9A             282             TXS             ; RESTORE STACK                 ; o7 Captain Obvious
+3396:60             283             RTS             ; DONE
+                    284 <a class='f' name='EC2'    >EC2         </a>EQU *
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="FVCBUFS">FVCBUFS</a> - File Volume Catalog Buffers, Page <a class="page" name="page86">86</a>, <a class='ts' href='#T2S2'>T2S2</a> @ $97 - <a class='ts' href='#T2S4'>T2S4</a> @ $FD, $<span class='n'>B397</span> .. $<span class='n'>B5FD</span> ===<hr class='join'><hr></div>
