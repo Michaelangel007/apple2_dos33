@@ -3981,7 +3981,7 @@ With that "legalese" out of the way ... enjoy the read!
 2D3C:BD C6 34       054             LDA VDFILE,X    ; GET DIR TRACK                 ; <a class='magic' name='_2D3C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
 2D3F:8D D1 35       055             STA DCBFDT      ; SET AS 1ST FD TRACK           ; LC = last character
 2D42:9D E6 34       056             STA VDFILE+<span class='n'>32</span>,X ; SAVE IN LC OF FN              ; <a class='magic' name='_2D42'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NAME + MAX_FILENAME_LEN - 1</span>
-2D45:A9 FF          057             LDA #$FF        ; DELETED FILE MARKER
+2D45:A9 FF          057             LDA #$<span class='n'>FF</span>        ; DELETED FILE MARKER           ; <a class='magic' name='_2D46'>magic number</a> FILE_TYPE_DELETED
 2D47:9D C6 34       058             STA VDFILE,X    ; CLEAR ENTRY                   ; <a class='magic' name='_2D47'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
 2D4A:BC C7 34       059             LDY VDFILE+<span class='n'>1</span>,X  ; GET DIR SECTOR                ; <a class='magic' name='_2D4A'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
 2D4D:8C D2 35       060             STY DCBFDS      ; SET AS 1ST FD SEC
