@@ -5746,11 +5746,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     305             LDA ADOSLD+<span class='n'>1</span>
                     306             STA IBBUFP+<span class='n'>1</span>    ;BUFFER=LAST PAGE OF RWTS
                     307             DEC IBBUFP+<span class='n'>1</span>
-                    308             LDA #<span class='n'>2</span>
+                    308             LDA #<span class='n'>2</span>                                          ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> sizeof( PROGRAM ) / 16
                     309             STA IBTRK       ;ENDING TRACK
                     310             LDA #<span class='n'>4</span>
                     311             STA IBSECT      ;ENDING SECTOR
-3767:A9 02          312             LDA #<span class='n'>2</span>                                          ; <a class='magic' name='_'>magic number</a> Why not <span class='code'>IBCWTS</span> ???
+3767:A9 02          312             LDA #<span class='n'>2</span>                                          ; <a class='magic' name='_????'>magic number</a> Why not <span class='code'>IBCWTS</span> ???
 3769:8D F4 37       313             STA IBCMD       ;COMMAND = WRITE
 376C:20 93 37       314             JSR BOOTIO      ;WRITE DOS IMAGE TRK 2, SEC 4
                     315 *                           ;BACKWARDS TO TRK 0,SEC C
