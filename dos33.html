@@ -4832,7 +4832,7 @@ With that "legalese" out of the way ... enjoy the read!
 324C:30 17          087             BMI <a class='x' href='#CS2'>CS2</a>         ; BR IF NO SECTORS REM
                     088 ;
 324E:18             089             CLC
-324F:A2 04          090             LDX #<span class='n'>4</span>          ; 4 BYTE SHIFT
+324F:A2 04          090             LDX #<span class='n'>4</span>          ; 4 BYTE SHIFT       ; <span class='TODO'>TODO</span> magic number sizeof( DCBABM ),  See: <a class='v' href='#ALC10S'>ALC10S</a>)
 3251:3E F1 35       091 <a class='f' name='GS1'      >GS1         </a>ROL DCBABM-<span class='n'>1</span>    ; SHIFT BYTE LEFT               ; ???
 3254:CA             092             DEX
 3255:D0 FA          093             BNE <a class='x' href='#GS1'>GS1</a>
@@ -4874,8 +4874,8 @@ With that "legalese" out of the way ... enjoy the read!
 329A:A8             129             TAY             ; ALLOCATED TRACK
 329B:0A             130             ASL A           ; TIME 4                        ; HARD-CODED 4 bytes/VTOC
 329C:0A             131             ASL A
-329D:A8             132             TAY                                             ; See <a class="dumb" href='#HNTDAFS3'>HNTDAFS #3</a> Wastes 4 bytes/track for free sector bitmap
-329E:A2 04          133             LDX #<span class='n'>4</span>                                          ; <a class='magic' name='_???'>magic number</a> VTOC_BITMAP_BYTES_PER_TRACK = sizeof(DCBABM)
+329D:A8             132             TAY                                             ; See <a class="dumb" href='#HNTDAFS3'>HNTDAFS #3</a> Wastes 4 bytes/track for free sector bitmap, sizeof( DCBABM )
+329E:A2 04          133             LDX #<span class='n'>4</span>                                          ; <a class='magic' name='_???'>magic number</a> VTOC_BITMAP_BYTES_PER_TRACK = sizeof(DCBABM),  See: <a class='v' href='#ALC10S'>ALC10S</a>
 32A0:18             134             CLC
 32A1:B9 F6 33       135 <a class='f' name='GS6'    >GS6         </a>LDA VSECAL+3,Y  ; MOVE BIT MAP BYTE
 32A4:9D F1 35       136             STA DCBABM-1,X
@@ -4914,7 +4914,7 @@ With that "legalese" out of the way ... enjoy the read!
                     169 ;A=TRK, Y=SECTOR, C=ON/OFF
                     170 ;
                     171 <a class='f' name='FRESEC' >FRESEC      </a>EQU *
-32DD:A2 FC          172 <a class='f' name='FS1'    >FS1         </a>LDX #<span class='n'>252</span>        ; 4 BYTE SHIFT                  ; <a class='magic' name='#_32dd'>magic number</a> 256 - sizeof(<a class='v' href='#DCBABM'>DCBABM</a>)
+32DD:A2 FC          172 <a class='f' name='FS1'    >FS1         </a>LDX #<span class='n'>252</span>        ; 4 BYTE SHIFT                  ; <a class='magic' name='#_32dd'>magic number</a> 256 - sizeof(<a class='v' href='#DCBABM'>DCBABM</a>), See: <a class='v' href='#ALC10S'>ALC10S</a>
 32DF:7E F6 34       173 <a class='f' name='FS2'    >FS2         </a>ROR <a class='v' href='#DCBABM'>DCBABM</a>-<span class='n'>252</span>  ; SHIFT IN CARRY
 32E2:E8             174             INX             ; NEXT BYTE
 32E3:D0 FA          175             BNE <a class='x' href='#FS2'>FS2</a>         ; BR IF NOT DONE
@@ -4925,8 +4925,8 @@ With that "legalese" out of the way ... enjoy the read!
 <hr>                    180             ASL A           ; TRACK*4                       ; === Page <a class='page' name='page71'>71</a> ===
                     181             ASL A
                     182             TAY
-                    <a class='line' name='FLOCSEC.183'>183</a>             BEQ <a class='x' href='#FS4'>FS4</a>                                         ; See <a class="dumb" href='#HNTDAFS3'>HNTDAFS #3</a> Wastes 4 bytes/track for free sector bitmap
-32F0:A2 04          <a class='line' name='FLOCSEC.184'>184</a>             LDX #<span class='n'>4</span>                                          ; <a class='magic' name='_???'>magic number</a> VTOC_BITMAP_BYTES_PER_TRACK
+                    <a class='line' name='FLOCSEC.183'>183</a>             BEQ <a class='x' href='#FS4'>FS4</a>                                         ; See <a class="dumb" href='#HNTDAFS3'>HNTDAFS #3</a> Wastes 4 bytes/track for free sector bitmap, sizeof( DCBABM )
+32F0:A2 04          <a class='line' name='FLOCSEC.184'>184</a>             LDX #<span class='n'>4</span>                                          ; <a class='magic' name='_32F1'>magic number</a> VTOC_BITMAP_BYTES_PER_TRACK,  See: <a class='v' href='#ALC10S'>ALC10S</a>
 32F2:BD F1 35       185 <a class="f" name="FS3"    >FS3         </a>LDA <a class="v" href="#DCBABM">DCBABM</a>-1,X  ; GET BIT MAP BYTE
 32F5:19 F6 33       186             ORA <a class="v" href="#VSECAL">VSECAL</a>+3,Y  ; OR WITH VTOC BM
 32F8:99 F6 33       187             STA <a class="v" href="#VSECAL">VSECAL</a>+3,Y
@@ -5052,7 +5052,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 339D:00             009 <a class="d" name="TEMP2" >TEMP2       </a>DFB 0           ; TEMP BYTE 2                   ;   *note* All the cool kids use "o7" for salute these days
 339E:00             010 <a class="d" name="TEMP3" >TEMP3       </a>DFB 0           ; TEMP BYTE 3                   ; Used by <a class="x" href="#FLOCK">FLOCK</a>, <a class="x" href="#FUNLCK">FUNLCK</a> and <a class="x" href="#GSS1">GSS1</a>
 339F:00             011 <a class="d" name="ENTSLT">ENTSLT      </a>DFB 0           ; BOOT SLOT SAVE
-33A0:00 00 FF FF    012 <a class="d" name="ALC10S">ALC10S      </a>DFB 0,0,$FF,$FF ; ALLOCATION TRACK BIT MAP      ; <a class='mem' name='_33A0'>wastes</a> 4 bytes sector free bitmap mask, used in <a class='x' href='#NT3'>NT3</a>; also see <a class='v' href='#DCBABM '>DCBABM </a>
+33A0:00 00 FF FF    012 <a class="d" name="ALC10S">ALC10S      </a>DFB 0,0,$FF,$FF ; ALLOCATION TRACK BIT MAP      ; <a class='mem' name='_33A0'>wastes</a> 4 bytes/track free sector bitmap mask, used in <a class='x' href='#NT3'>NT3</a>; See <a class='v' href='#DCBABM'>DCBABM</a>,
                                                                                     ; The thinking was probably:
                                                                                     ;     DOS 3.2 = 13 sector
                                                                                     ;     DOS 3.3 = 16 sector
