@@ -4898,7 +4898,7 @@ With that "legalese" out of the way ... enjoy the read!
                     153 ;
                     154 <a class='f' name='FRETRK' >FRETRK      </a>EQU *
 32C3:AD F1 35       155             LDA <a class='x' href='#DCBATK'>DCBATK</a>      ; GET ALLOCATED TRACK
-32C6:D0 01          156             BNE <a class='x' href='#FT1'>FT1</a>         ; BR IF NONE                ;&darr; DESIGN FLAW: Can't store data on track 0
+32C6:D0 01          156             BNE <a class='x' href='#FT1'>FT1</a>         ; BR IF NONE                    ;&darr; DESIGN FLAW: Can't store data on track 0, <span class='todo'>TODO</span>
 32C8:60             157             RTS
 32C9:48             158 <a class='f' name='FT1'    >FT1         </a>PHA
 32CA:20 F7 2F       159             JSR <a class='x' href='#RDVTOC'>RDVTOC</a>      ; GET VTOC
