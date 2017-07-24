@@ -2499,7 +2499,7 @@ With that "legalese" out of the way ... enjoy the read!
                     238             LDA ASIBSW      ; IF APPLESOFT THEN RELOC FLAG SET
                     239             BEQ ERUN0
                     240             STA RSTATE      ; INDICATE APSFT RUN
-                    241 ERUN0       JSR ELOAD       ; LOAD PGM                      ; === <a class='page' name='page144'>144</a> ===
+<hr>                    241 ERUN0       JSR ELOAD       ; LOAD PGM                      ; === <a class='page' name='page144'>144</a> ===
                     242 ERUN1       JSR PRCRIF      ;REENTRY POINT FOR ASFT RELOC
                     243             JSR MVCSW       ; GO RESTORE CHAR I/O SW        ; <span class='todo'>TODO</span> What keeps futzing with CIN / COUT ??
                     244             JMP (RUN)
