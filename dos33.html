@@ -2904,7 +2904,7 @@ With that "legalese" out of the way ... enjoy the read!
                     111 ;
                     112 MVBUFP      EQU *
 274E:A0 1E          113             LDY #<span class='n'>30</span>                                         ; <a class='magic' name='_274F'>magic number</a> <span class='code'>MAX_FILENAME</span>
-2750:B1 40          114 MVBP1       LDA (ZPGWRK),Y
+<hr>2750:B1 40          114 MVBP1       LDA (ZPGWRK),Y                                  ; === Page <a class='page' name='page42'>42</a> ===
 2752:99 A9 35       115             STA CCBFCB-<span class='n'>30</span>,Y                                 ; <a class='magic' name='_2752'>magic number</a> <span class='code'>MAX_FILENAME</span>
 2755:C8             116             INY
 2756:C0 26          117             CPY #<span class='n'>38</span>                                         ; <a class='magic' name='_2756'>magic number</a> <span class='code'>MAX_FILENAME + HEADER.SIZE</span> (See <a class='file' href='#BLDFTAB'>BLDFTAB</a>)
