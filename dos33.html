@@ -1942,9 +1942,9 @@ With that "legalese" out of the way ... enjoy the read!
                     263 <a class="f" name="ECMD"   >ECMD        </a>EQU *
 2186:AD 5F 2A       <a class='line' name='CMDSCAN.264'>264</a>             LDA <a class="v" href="#CMDNO">CMDNO</a>       ; COMMAND NO                    ; <i>Think, McFly!</i>
 2189:AA             265             TAX             ; IS CMD EXEC TAB INDEX         ; <a class='mem' name='_2189'>wastes</a> 1 byte /sarcasm If only we had <span class='code'>LDX CMDNO</span> on Line #<a class='line' href='#CMDSCAN.264'>264</a>
-218A:BD 1F 1D       266             LDA <a class="v" href='#CMDETB'>CMDETB</a>+<span class='n'>1</span>,X  ; GET CMD ADR                        ;[..
+218A:BD 1F 1D       266             LDA <a class='v' href='#CMDETB'>CMDETB</a>+<span class='n'>1</span>,X  ; GET CMD ADR                   ;[..
 218D:48             267             PHA             ; ONTO STACK                    ; ..
-218E:BD 1E 1D       268             LDA <a class="v" href='#CMDETB'>CMDETB</a>,X                        ; ..
+218E:BD 1E 1D       268             LDA <a class='v' href='#CMDETB'>CMDETB</a>,X                                    ; ..
 2191:48             269             PHA                                             ; ..
 2192:60             270             RTS             ; AND GOTO COMMAND              ; ..] classic technique of 6502 jump table, use RTS to "call" the function pointer
 </pre>
