@@ -1517,7 +1517,7 @@ With that "legalese" out of the way ... enjoy the read!
 1EDD:8E 59 2A       059             STX SVSTK
 1EE0:A2 03          060             LDX #<span class='n'>3</span>          ; SET FOR FOUR BYTE MOVE        ; /sarcasm If only we could read assembly ...
 1EE2:BD 53 2A       061 <a class='f' name='SVRB'     >SVRB        </a>LDA SVOUTS,X    ; MOVE SAVED OUT AND IN SW      ; Save RB??? <span class='todo'>TOOD</span>
-1EE5:95 36,X        062             STA OUTSW,X     ; TO APPLE OUT/IN SW
+1EE5:95 36          062             STA OUTSW,X     ; TO APPLE OUT/IN SW
 1EE7:CA             063             DEX
 1EE8:10 F8          064             BPL SVRB
 1EEA:60             065             RTS             ; DONE                          ; Can someone please put Captain Obvious out of _our_ misery?
