@@ -1572,8 +1572,8 @@ With that "legalese" out of the way ... enjoy the read!
                     112 ;
                     113 ;COS3 - KEY IN ECHO PRINT
                     114 ;
-<hr>                    115 <a class='f' name='COS3'     >COS3        </a>EQU *
-1F2F:A2 00          116 <!--                       -->            LDX #<span class='n'>0</span>                                          ; <a class='magic' name='_1F30'>magic number</a> COS_STATE_0
+                    115 <a class='f' name='COS3'     >COS3        </a>EQU *
+<hr>1F2F:A2 00          116 <!--                       -->            LDX #<span class='n'>0</span>                                          ; === Page <a class='page' name='page46'>46</a> === <a class='magic' name='_1F30'>magic number</a> COS_STATE_0
 1F31:8E 52 2A       117 <!--                       -->            STX OSTATE      ; RESET OUT STATE
 1F34:C9 8D          118 <!--                       -->            CMP #$<span class='n'>8D</span>        ; IS IT CR
 1F36:F0 07          119 <!--                       -->            BEQ COS3A       ; IF CR THEN CMD CHECK
