@@ -3557,10 +3557,10 @@ With that "legalese" out of the way ... enjoy the read!
 2B0A:20 6A 2E       111             JSR <a class='x' href='#CLCFCB'>CLCFCB</a>      ; GO CALCULATE FCB
 2B0D:AD BB 35       112             LDA <a class='v' href='#CCBREQ'>CCBREQ</a>      ; GET REQUEST
 2B10:C9 0D          113             CMP #CRQMAX     ; TTEST REQ RANGE               ; /sarcasm South Park: Jimmy
-2B12:B0 0B          114             BCS <a class='x' href='#ERR2'>ERR2</a>                                        ; <i>A-a-n-d you still have an of-of-of-off-by-one bug allocation in array <a class='v' href='#CMDVT'>CMDVT</a>!</i>
-2B14:0A             115             ASL A
+<hr>2B12:B0 0B          114             BCS <a class='x' href='#ERR2'>ERR2</a>        ; BR OUT OF RANGE               ; === Page <a class='page' name='page62'>62</a> === <i>A-a-n-d you still have an of-of-of-off-by-one bug allocation in array <a class='v' href='#CMDVT'>CMDVT</a>!</i>
+2B14:0A             115             ASL A           ; REQ CODE *2
 2B15:AA             116             TAX
-2B16:BD CA 2A       117             LDA <a class='v' href='#CMDVT'>CMDVT</a>+<span class='n'>1</span>,X
+2B16:BD CA 2A       117             LDA <a class='v' href='#CMDVT'>CMDVT</a>+<span class='n'>1</span>,X   ; PUSH ADR ONTO STACK
 2B19:48             118             PHA
 2B1A:BD C9 2A       119             LDA <a class='v' href='#CMDVT'>CMDVT</a>,X
 2B1D:48             120             PHA
