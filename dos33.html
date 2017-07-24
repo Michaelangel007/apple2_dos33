@@ -1998,9 +1998,9 @@ With that "legalese" out of the way ... enjoy the read!
 21C7:28             045             PLP
 21C8:4C CE 21       046             JMP GN2A                                        ; <a class='mem' name='_'>wastes</a> 1 byte, <span class='code'>BMI GN2A</span>
                     047 ;
-21CB:20 A4 21       048 GN2         JSR GNBC        ; GET NEXT NON BLANK
-                    049 GN2A        EQU *
-21CE:D0 06          050             BNE GN3         ; BR NOT COMMA OR CR
+21CB:20 A4 21       048 <a class='f' name='GN2'      >GN2         </a>JSR GNBC        ; GET NEXT NON BLANK
+                    049 <a class='f' name='GN2A'     >GN2A        </a>EQU *
+21CE:D0 06          050             BNE <a class='x' href='#GN3'>GN3</a>         ; BR NOT COMMA OR CR
 21D0:A6 44          051             LDX CNUM        ; X=RESULT LOW
 21D2:A5 45          052             LDA CNUM+<span class='n'>1</span>      ; Y=RESULT HI                   ; *sigh* *spelling* A=Result Hi as Y isn't even used!
 21D4:18             053             CLC
@@ -2027,18 +2027,18 @@ With that "legalese" out of the way ... enjoy the read!
 21F8:85 45          074             STA CNUM+<span class='n'>1</span>
 21FA:90 CF          075             BCC GN2
                     076 ;
-                    077 GN4         EQU *
+                    077 <a class='f' name='GN4'      >GN5         </a>EQU *
 21FC:38             078             SEC
 21FD:60             079             RTS             ; DONE
-                    080 GN5         EQU *
+                    080 <a class='f' name='GN5'      >GN5         </a>EQU *
 21FE:06 44          081             ASL CNUM        ; CNUM * 2
 2200:26 45          082             ROL CNUM+<span class='n'>1</span>                                      ; === <a class='ts' name='T1S1'>T1S1</a> ===
 2202:60             083             RTS
                     084             PAGE
                     085 ;
-                    086 HEXNUM      EQU *
+                    086 <a class='f' name='HEXNUM'   >HEXNUM      </a>EQU *
 2203:28             087             PLP
-                    088 HN0         EQU *
+                    088 <a class='f' name='HN0'      >HN0         </a>EQU *
 2204:20 A4 21       089             JSR GNBC        ; GO GET CHAR
 2207:F0 C5          090             BEQ GN2A        ; BR IF CR OR COMMA
                     091 ;
@@ -2048,11 +2048,11 @@ With that "legalese" out of the way ... enjoy the read!
 220E:C9 0A          095             CMP #<span class='n'>10</span>         ; IS IT LT10                    ; if ((c - '0') &lt; 0) return;
 2210:90 08          096             BCC HN1         ; BR IF LT                      ; if (c &gt;= 10) c -= ('A' -'9');
 2212:E9 07          097             SBC #$<span class='n'>7</span>         ; SUB 7 FOR ASCII A             ; <a class='magic' name='_2213'>magic number</a> 7 = ('A' -'9')
-2214:30 E6          098             BMI GN4         ; BR IF LT A 
-2216:C9 10          099             CMP #<span class='n'>16</span>         ; TEST GT 15 
+2214:30 E6          098             BMI GN4         ; BR IF LT A
+2216:C9 10          099             CMP #<span class='n'>16</span>         ; TEST GT 15
 2218:B0 E2          100             BCS GN4         ; BR GT 15                      ; A = digit = 0..F
-221A:A2 04          101 HN1         LDX #<span class='n'>4</span>                                          ; CNUM &lt;&lt;= 4; // shift left one nibble
-221C:20 FE 21       102 HN2         JSR GN5         ; OLD*16
+221A:A2 04          101 <a class='f' name='HN1'      >HN1         </a>LDX #<span class='n'>4</span>                                          ; CNUM &lt;&lt;= 4; // shift left one nibble
+221C:20 FE 21       102 <a class='f' name='HN2'      >HN2         </a>JSR GN5         ; OLD*16
 221F:CA             103             DEX             ;LOOP 4 TIMES ONLY
 2220:D0 FA          104             BNE HN2
 2222:05 44          105             ORA CNUM        ; OR IN NEW                     ; CNUM += digit
