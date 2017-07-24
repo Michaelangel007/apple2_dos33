@@ -5725,18 +5725,18 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     284             LDA #<span class='n'>0</span>
 3732:9D F8 04       285             STA $<span class='n'>4F8</span>,X                                      ; <a class='magic' name='_3733'>magic number</a> The 40x24 text screen has "memory holes"
 3735:9D 78 04       286             STA $<span class='n'>478</span>,X                                      ; <a class='magic' name='_3736'>magic number</a> reserved for each Slot 1..7 as "scratchpad" or temp vars
-                    287             JSR BOOTIO      ; GO READ DOS
+3738:20 93 27       287             JSR BOOTIO      ; GO READ DOS
                     288 ;
                     <a class='line' name='BOOTLDR.289'>289</a> ;DOSINT - INITIALIZE DOS                                    ; /sarcasm Couldn't afford extra 'i' in "dosinIt"
                     290 ;
                     291 <a class="f" name="DOSINT"   >DOSINT      </a>EQU *                                            ; Ironically in Boot Loader, not Dos Init
-                    292             LDX #$<span class='n'>FF</span>
-                    293             TXS
-                    294             STX IBVOL
-                    <a class='line' name='BOOTLDR.295'>295</a>             JMP <a class="x" href="#RCPATCH">RCPATCH</a>
-                    296 <a class="f" name="RCBACK"   >RCBACK      </a>JSR SEKBD
+373B:A2 FF          292             LDX #$<span class='n'>FF</span>
+373D:9A             293             TXS
+373E:8E EB 37       294             STX IBVOL
+3741:4C C8 3F       <a class='line' name='BOOTLDR.295'>295</a>             JMP <a class="x" href="#RCPATCH">RCPATCH</a>
+3744:20 89 FE       296 <a class="f" name="RCBACK"   >RCBACK      </a>JSR SETKBD
                     297 ;
-                    <a class='line' name='BOOTLDR.298'>298</a> <a class="f" name="DI3"      >DI3         </a>JMP <a class="x" href="#DOSREL">DOSREL</a>      ; GO TO POST INIT ROUTINE       ; Relocate DOS to high mem
+3747:4C 84 1D       <a class='line' name='BOOTLDR.298'>298</a> <a class="f" name="DI3"      >DI3         </a>JMP <a class="x" href="#DOSREL">DOSREL</a>      ; GO TO POST INIT ROUTINE       ; Relocate DOS to high mem
                     299             PAGE
                     300 <a class='f' name='WBOOT'    >WBOOT       </a>EQU *                                           ; Write Boot; part of the INIT process
                     301             LDA ADOSLD+<span class='n'>1</span>
