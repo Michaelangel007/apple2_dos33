@@ -1636,7 +1636,7 @@ With that "legalese" out of the way ... enjoy the read!
 1F83:AD 00 02       176             LDA LBUFF       ; CHECK FOR PRINTED COMMAND
 1F86:CD B2 2A       177             CMP CCHAR
 1F89:F0 0A          178             BEQ CMDRTN      ; IF PC THEN NO RESET X REG
-<hr>1F8B:A9 8D          179             LDA #$<span class='n'>8D</span>        ; CARRAGE RETURN                ; === Page #<a class='page' name='page47'>47</a>=== <a class='magic' name='_1F8C'>magic number</a> KEY_CR
+<hr>1F8B:A9 8D          179             LDA #$<span class='n'>8D</span>        ; CARRAGE RETURN                ; === Page <a class='page' name='page47'>47</a> === <a class='magic' name='_1F8C'>magic number</a> KEY_CR
                     180             STA <a class='v' href='#LBUFF'>LBUFF</a>       ; TO OUT BUFFER
                     181             LDX #<span class='n'>0</span>          ; RESET TO SOL                  ; StartOfLine
                     182             STX <a class='v' href='#SVX'>SVX</a>
