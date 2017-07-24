@@ -7689,14 +7689,14 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     052             INC TRK         INCREMENT TRACK NUMBER.         ; /sarcasm <i>Gee, George what does this do?</i>
                     053             LDA TRK
 <hr>3EFD:C9 23          <a class='line' name='FORMATR.054'>054</a>             CMP #$23        CONTINUE IF LESS THEN 35        ; === Page <a class='page' name='page83'>83</a> === <a class='magic' name='_3EFE'>magic number</a> DISK_MAX_TRACK or at least <a class="v" href="#VNOTRK">VNOTRK</a>
-3EFF:90 D3          055             BCC <a class="x" href="#FORMTRK">FORMTRK</a>
-3F01:18             056             CLC             CLEAR CARRY TO INDICATE 'NO ERR'; === <a class='ts' href='#T0S9'>T0S9</a> ===
-3F02:90 05          057             BCC <a class="x" href="#FORMDONE">FORMDONE</a>    ELSE TURN OFF MOTOR AND RETURN
-3F04:A0 0D          058 <a class="f" name="FORMERR"    >FORMERR     </a>LDY #$0D                                        ; <a class='magic' name='_3F04'>magic number</a> IOB_OFFSET_ERR = $D
-3F06:91 48          059             STA (IOBPL),Y   RETURN ERROR CODE.
-3F08:38             060             SEC             SET CARRY TO INDICATE ERR.
-3F09:AD 88 C0       061 <a class="f" name="FORMDONE"   >FORMDONE    </a>LDA <a class="v" href="#MOTOROFF">MOTOROFF</a>,X  ; TURN MOTOR OFF.
-3F0C:60             062             RTS             ; AND RETURN.
+3EFF:90 D3          055             BCC <a class="x" href="#FORMTRK">FORMTRK</a>                                     ; === <a class='ts' href='#T0S9'>T0S9</a> ===
+3F01:18             056             CLC             CLEAR CARRY TO INDICATE 'NO ERR'<!--                                                               -->;[.. <span class='code'>JMP <a class='x' href='#ALLDONE'>ALLDONE</a></span>
+3F02:90 05          057             BCC <a class="x" href="#FORMDONE">FORMDONE</a>    ELSE TURN OFF MOTOR AND RETURN <!--                             --> ; ..
+3F04:A0 0D          058 <a class="f" name="FORMERR"    >FORMERR     </a>LDY #$0D                                       <!--                           --> ; .. <span class='code'>JMP <a class='x' href='#HNDLERR'>HNDLERR</a></span> <a class='magic' name='_3F05'>magic number</a> IOB_OFFSET_ERR = $D
+3F06:91 48          059             STA (IOBPL),Y   RETURN ERROR CODE.             <!--                                                               --> ; .. <a class='mem' name='_3F0C'>wastes</a> remaining 6 bytes.
+3F08:38             060             SEC             SET CARRY TO INDICATE ERR.     <!--                                                               --> ; .. We could invert the return value,
+3F09:AD 88 C0       061 <a class="f" name="FORMDONE"   >FORMDONE    </a>LDA <a class="v" href="#MOTOROFF">MOTOROFF</a>,X  ; TURN MOTOR OFF.               ; .. but there is a better optimization
+3F0C:60             062             RTS             ; AND RETURN.                  <!--                                                               --> ; .. using the two JMPs above to reach common code in <a class='file' href='#RWTSTWO'>RWTSTWO</a> ]
                     063             PAGE
                     064 ******************************
                     065 *                            *
