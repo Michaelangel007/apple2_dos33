@@ -5014,19 +5014,19 @@ With that "legalese" out of the way ... enjoy the read!
                     266 
                     267 
                     268 
-                    269 
-                    270 
-                    271 
-                    272 
-                    273 
-                    274 
-                    275 
-                    276 
-                    277 
-                    278 
-                    279 
+337F:AD C5 35       269 <a class='f' name='GOODIO'     >GOODIO      </a>LDA CCBSTA
+3382:18             270             CLC             ; CARRY=CLR                     ; <b>No Shit Sherlock</b>, <i>C=0 No error</i>
+3383:90 01          271             BCC RETURN      ; GO RETURN
+                    272 <a class='f' name='ERRORA'     >ERRORA      </a>EQU *
+3385:38             273 <a class='f' name='ERRORB'     >ERRORB      </a>SEC             ; CARRY SET                     ; <b>STOP documenting stupid shit!</b> <i>Instead, WHAT significance does C=1 have?</i> &rarr; C=1 ERROR
+                    274 <a class='f' name='RETURN'     >RETURN      </a>EQU *
+3386:08             275             PHP
+3387:8D C5 35       276             STA CCBSTA      ; SET STA
+338A:A9 00          277             LDA #0          ;(FIX FOR APPLE SYS MONITOR $48 USED BY RWTS)
+338C:85 48          278             STA $48         ;(THIS ADDED 11/1/78)           ; <a class='magic' href='_338D'>magic number</a> <b>NOT</b> <a class='x' href='#ALLDONE'>ALLDONE</a> <span class='code'>DFB $24 SEC</span>, but <span class='todo'>TODO</span>
+338E:20 7E 2E       279             JSR RTNFCB      ; GO RTN FCB
 3391:28             280             PLP             ; GET STATUS
-3392:AE 9B 23       281             LDX ENTSTK      ; GET ENT STACK
+3392:AE 9B 33       281             LDX ENTSTK      ; GET ENT STACK
 3395:9A             282             TXS             ; RESTORE STACK                 ; o7 Captain Obvious
 3396:60             283             RTS             ; DONE
                     284 <a class='f' name='EC2'    >EC2         </a>EQU *
