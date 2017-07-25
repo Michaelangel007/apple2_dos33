@@ -44,7 +44,7 @@ Project Status Pages left:
           2nd pass = HTML / Hyperlinks
             3rd pass = address & Opcodes
               4th pass = Commentary / Annotation
-                HTML numbers
+                Numbers marked up HTML span
                   Magic Numbers
                     Page Numbers
                       Arrows
@@ -53,9 +53,9 @@ Project Status Pages left:
       1 n/a  
       2 n/a
       3 n/a
-      4 T - - - N - P - BLDFTAB
-      5 T - - - - - P -
-      6 T - - - - - P -
+      4 T - - - N - P - BLDFTAB $27D4
+      5 T - - - - - P - BLDFTAB $2803
+      6 T - - - - - P - BLDFTAB $2853
       7 n/a             BLOCKIO.hex -- need disassembly
       8 - - - - - - P - BOOTLDR
       9 - - - - - - P - 
@@ -65,15 +65,15 @@ Project Status Pages left:
      13 - - - - - - P -
      14 - - - - - - P -
      15 - - - - - - P - 
-     16 - - - - - - - -
-     17 - - - - - - - -
-     18 - - - - - - - -
-     19 - - - - - - - -
-     20 - - - - - - - -
-     21 - - - - - - - -
-     22 - - - - - - - -
-     23 - - - - - - - -
-     24 - - - - - - - -
+     16 T - - - - - - - CMDSCAN
+     17 T - - - - - - - CMDSCAN
+     18 T - - - - - - - CMDSCAN
+     19 T - - - - - - - CMDSCAN
+     20 T - - - - - - - CMDSCAN
+     21 T - - - - - - - CMDTBLS $2884
+     22 T - - - - - - - CMDTBLS $2909
+     23 T - - - - - - - CMDTBLS $2963
+     24 T - - - - - - - COREQUS n/a
      25 - - - - - - - -
      26 - - - - - - - -
      27 - - - - - - - -
@@ -88,30 +88,30 @@ Project Status Pages left:
      36 - - - - - - - -
      37 - - - - - - - -
      38 - - - - - - - -
-     39 x - / x - - - - Done (no, still need to markup address and track/sector)
-     40 - - - - - - - -
-     41 - - - - - - - -
-     42 - - - - - - - -
-     43 - - - - - - - -
-     44 - - - - - - - -
-     45 - - - - - - - -
-     46 - - - - - - - -
-     47 - - - - - - - -
-     48 - - - - - - - -
-     49 - - - - - - - -
-     50 - - - - - - - -
-     51 - - - - - - - -
+     39 T - / x - - - - Done (no, still need to markup address and track/sector)
+     40 T - - - - - - - DOSGOER $26A8
+     41 T - - - - - - - DOSGOER $26E3
+     42 T - - - - - - - DOSGOER $2750
+     43 T - - - - - - - DOSGOER $
+     44 T - - - - - - - DOSHOOK
+     45 T - - - - - - - DOSHOOK
+     46 T - - - - - - - DOSHOOK
+     47 T - - - - - - - DOSHOOK
+     48 T - - - - - - - DOSINIT
+     49 T - - - - - - - DOSINIT
+     50 T - - - - - - - DOSINIT
+     51 T - - - - - - - DOSINIT
      52 - - - - - - - -
      53 - - - - - - - -
      54 - - - - - - - -
-     55 - - - - - - - -
-     56 - - - - - - - -
-     57 - - - - - - - -
-     58 - - - - - - - -
-     59 - - - - - - - -
-     60 - - - - - - - -
-     61 - - - - - - - -
-     62 - - - - - - - -
+     55 T - - - - - - - FDELCAT $2CEF
+     56 T - - - - - - - FDELCAT $2D3C
+     57 T - - - - - - - FDELCAT $
+     58 T - - - - - - - FDELCAT $
+     59 T - - - - - - - FDELCAT $2E81
+     60 T - - - - - - - FDOSENT $2A4F
+     61 T - - - - - - - FDOSENT $2AC1
+     62 T - - - - - - - FDOSENT $2B12
      63 - - - - - - - -
      64 - - - - - - - -
      65 - - - - - - - -
@@ -126,11 +126,11 @@ Project Status Pages left:
      74 - - - - - - - -
      75 - - - - - - - -
      76 - - - - - - - -
-     77 - - - - - - - -
-     78 - - - - - - - -
-     79 - - - - - - - -
-     80 - - - - - - - -
-     81 - - - - - - - -
+     77 T - - - - - - - FOPCLRW $2B22
+     78 T - - - - - - - FOPCLRW $2B86
+     79 T - - - - - - - FOPCLRW $2C00
+     80 T - - - - - - - FOPCLRW $2C65
+     81 T - - - - - - - FOPCLRW $2CB8
      82 - - - - - - - -
      83 - - - - - - - -
      84 - - - - - - - -
@@ -159,12 +159,12 @@ Project Status Pages left:
     107 - - - - - - - -
     108 - - - - - - - -
     109 - - - - - - - -
-    110 x x x x - - - - Done, 1=Text, 2=Links, 3=Addr/Opcode, 4=Commentary
-    111 x x x x - - - - Done
-    112 - - - - - - - -
-    113 - - - - - - - -
-    114 - - - - - - - -
-    115 - - - - - - - -
+    110 T x x x - - - - RELOCTR Done, 1=Text, 2=Links, 3=Addr/Opcode, 4=Commentary
+    111 T x x x - - - - RELOCTR Done
+    112 T - - - - - - - RELOCTR
+    113 T - - - - - - - RELOCTR
+    114 T - - - - - - - RELOCTR
+    115 T - - - - - - - RELOCTR
     116 - - - - - - - -
     117 - - - - - - - -
     118 - - - - - - - -
@@ -189,21 +189,21 @@ Project Status Pages left:
     137 - - - - - - - -
     138 - - - - - - - -
     139 - - - - - - - -
-    140 - - - - - - - -
-    141 - - - - - - - -
-    142 - - - - - - - -
-    143 - - - - - - - -
-    144 - - - - - - - -
-    145 - - - - - - - -
-    146 - - - - - - - -
-    147 - - - - - - - -
-    148 - - - - - - - -
-    149 - - - - - - - -
-    150 - - - - - - - -
-    151 - - - - - - - -
-    152 - - - - - - - -
-    153 - - - - - - - -
-    154 - - - - - - - -
+    140 T - - - - - - - XLODSAV
+    141 T - - - - - - - XLODSAV
+    142 T - - - - - - - XLODSAV $23FC
+    143 T - - - - - - - XLODSAV
+    144 T - - - - - - - XLODSAV
+    145 T - - - - - - - XMISCMD $2510
+    146 T - - - - - - - XMISCMD $255D
+    147 T - - - - - - - XMISCMD $24C6
+    148 T - - - - - - - XMISCMD $262D
+    149 T - - - - - - - XMISCMD $268C
+    150 T - - - - - - - XOPNCLS
+    151 T - - - - - - - XOPNCLS
+    152 T - - - - - - - XOPNCLS
+    153 T - - - - - - - XOPNCLS
+    154 T - - - - - - - XOPNCLS
         T H O C N M P A
         1st pass = Text
           2nd pass = HTML / Hyperlinks
