@@ -4675,7 +4675,7 @@ With that "legalese" out of the way ... enjoy the read!
                     211 ;INCRRB - INCREMENT RELATIVE RECORD BYTE
                     212 ;
                     213 <a class='f' name='INCRRB'   >INCRRB      </a>EQU *
-315B:               214             LDX DCBCRR      ; MOVE BYTE JUST READ OR WRITTEN
+315B:AE EA 35       214             LDX DCBCRR      ; MOVE BYTE JUST READ OR WRITTEN
                     215             STX CCBRRN
                     216             LDX DCBCRR+1
                     217             STX CCBRRN+1
