@@ -4234,9 +4234,9 @@ With that "legalese" out of the way ... enjoy the read!
                     051             STA IBTRK       ; INTO IOB
                     052 NT6         STA VDLTRK      ; INTO LINK
                     053 NT7         STY VDLSEC      ;
-                    054             INY
-                    055             STY IBSECT
-                    056             LDA #IBCWTS
+<hr>2EEB:C8             054             INY                                             ; === Page <a class='page' name='page74'>74</a> ===
+2EEC:8C ED 37       055             STY IBSECT
+2EEF:A9 02          056             LDA #IBCWTS
 2EF1:20 58 30       057             JSR DCBIO2
                     058             LDY VDLSEC
                     059             DEY             ; DECREMENT SECTOR
