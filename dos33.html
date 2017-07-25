@@ -5015,8 +5015,8 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                     ; "I/O ERR"             - <i>What happened to error 8 ???</i>
 3377:4C ED 3F       265 <a class='f' name='ERROR9' >ERROR9      </a>JMP ERROR9X     ;MUST CLOSE ALL FILES (WAS LDA #CRENSA)     ; "NO SECTORS AVAILABLE"
 337A:EA             266             NOP                                             ;&darr; <a class='mem' name='_337A'>wastes</a> 1 byte to keep Entry Point address unchanged
-33                  267 <a class='f' name='ERROR10'>ERROR10     </a>LDA #<a class='e' href='#CREFLK'>CREFLK</a>
-33                  268             BNE ERRORA                                      ;&darr;
+337B:A9 0A          267 <a class='f' name='ERROR10'>ERROR10     </a>LDA #<a class='e' href='#CREFLK'>CREFLK</a>
+337D:D0 06          268             BNE ERRORA                                      ;&darr;
 337F:AD C5 35       269 <a class='f' name='GOODIO'     >GOODIO      </a>LDA CCBSTA                                      ; Default to no change in status
 3382:18             270             CLC             ; CARRY=CLR                     ; <b>No Shit Sherlock</b>, <i>Comment <b>WHY</B>, _not_ how</i>; C=0 &rarr; No error
 3383:90 01          271             BCC RETURN      ; GO RETURN
