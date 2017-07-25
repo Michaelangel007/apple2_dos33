@@ -4471,10 +4471,10 @@ With that "legalese" out of the way ... enjoy the read!
                     051 ;WRVDIR - WRITE VOLUME DIRECTORY SECTOR
                     052 ;
                     053 <a class='f' name='WRVDIR'   >WRVDIR      </a>EQU *
-<hr>                    054             JSR MVVDBA                                      ; === <a class='page' name='page64'>64</a> ===
+<hr>3037:20 45 30       054             JSR MVVDBA                                      ; === <a class='page' name='page64'>64</a> ===
                     055 ;
-                    056             LDX CVDTRK      ; CURRENT TRACK
-                    057             LDY CVDSEC      ; CURRENT SECTOR
+303A:AE 97 33       056             LDX CVDTRK      ; CURRENT TRACK
+303D:AC 98 33       057             LDY CVDSEC      ; CURRENT SECTOR
 3040:A9 02          058             LDA #IBCWTS     ; WRITE COMMAND
 3042:4C 52 30       059             JMP DCBIO       ; GO DO I/O                     ; <a class='mem' name='_3042'>wastes</a> 1 byte, <span class='code'>BNE DCBIO</span> &darr; (always)
                     060 ;
