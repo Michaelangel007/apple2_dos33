@@ -4998,24 +4998,24 @@ With that "legalese" out of the way ... enjoy the read!
                     250             RTS                                             </span>
                     251     FIN
                     252             PAGE
-335F:A9 01          253 <a class='f' name='ERROR1' >ERROR1      </a>LDA #CREFUN                                     ; "FCB UNALLOCATED"     - JMP'd from exactly ONE spot: <a class='x' href='#F02'>F02</a>
+335F:A9 01          253 <a class='f' name='ERROR1' >ERROR1      </a>LDA #<a class='e' href='#CREFUN'>CREFUN</a>                                     ; "FCB UNALLOCATED"     - JMP'd from exactly ONE spot: <a class='x' href='#F02'>F02</a>
 3361:D0 22          254             BNE ERRORA                                      ;&darr; <a class='mem' name='_3361'>wastes</a> 2 bytes, above should be located at F02: <span class='code'>LDA #CREFUN, JMP ERRORA</span>
-3363:A9 02          255 <a class='f' name='ERROR2' >ERROR2      </a>LDA #CRERR                                      ; "CCB REQ RANGE ERR"   - JMP'd from exactly ONE spot: <a class='x' href='#ERR2'>ERR2</a>
+3363:A9 02          255 <a class='f' name='ERROR2' >ERROR2      </a>LDA #<a class='e' href='#CRERR'>CRERR</a>                                      ; "CCB REQ RANGE ERR"   - JMP'd from exactly ONE spot: <a class='x' href='#ERR2'>ERR2</a>
 3365:D0 1E          256             BNE ERRORA                                      ;&darr; <a class='mem' name='_3365'>wastes</a> 2 bytes, above should be located at ERR2: <span class='code'>LDA #CRERR, JMP ERRORA</span>
-3367:A9 03          257 <a class='f' name='ERROR3' >ERROR3      </a>LDA #CREMRE                                     ; "REQ MOD RANGE ERR"   - JMP'd from exactly ONE spot: <a class='x' href='#ERR3A'>ERR3A</a>
+3367:A9 03          257 <a class='f' name='ERROR3' >ERROR3      </a>LDA #<a class='e' href='#CREMRE'>CREMRE</a>                                     ; "REQ MOD RANGE ERR"   - JMP'd from exactly ONE spot: <a class='x' href='#ERR3A'>ERR3A</a>
 3369:D0 1A          258             BNE ERRORA                                      ;&darr; <a class='mem' name='_3369'>wastes</a> 2 bytes, above should be located at ERR3A: <span class='code'>LDA #CREMRE, JMP ERRORA</span>
-336B:A9 04          259 <a class='f' name='ERROR4' >ERROR4      </a>LDA #CREPRO                                     ; "WRITE PROTECT"       - [.. <a class='mem' name='_336B'>wastes</a> 4 bytes -- never referenced!
+336B:A9 04          259 <a class='f' name='ERROR4' >ERROR4      </a>LDA #<a class='e' href='#CREPRO'>CREPRO</a>                                     ; "WRITE PROTECT"       - [.. <a class='mem' name='_336B'>wastes</a> 4 bytes -- never referenced!
 336D:D0 16          260             BNE ERRORA                                      ;&darr;                         ..]
-336D:A9 05          261 <a class='f' name='ERROR5' >ERROR5      </a>LDA #CREEOF                                     ; "END OF FILE ON READ" - JMP'd from exactly ONE spot: <a class='x' href='#EOFIN'>EOFIN</a>
+336D:A9 05          261 <a class='f' name='ERROR5' >ERROR5      </a>LDA #<a class='e' href='#CREEOF'>CREEOF</a>                                     ; "END OF FILE ON READ" - JMP'd from exactly ONE spot: <a class='x' href='#EOFIN'>EOFIN</a>
 3371:D0 12          262             BNE ERRORA                                      ;&darr; <a class='mem' name='_3371'>wastes</a> 2 bytes, above should be located at EOFIN: <span class='code'>LDA #CREEOF, JMP ERRORA</span>
-3373:A9 06          263 <a class='f' name='ERROR6' >ERROR6      </a>LDA #CREFNF                                     ; "FILE NOT FOUND"      - JMP'd from exactly ONE spot: <a class='x' href='#F02A'>F02A</a>
+3373:A9 06          263 <a class='f' name='ERROR6' >ERROR6      </a>LDA #<a class='e' href='#CREFNF'>CREFNF</a>                                     ; "FILE NOT FOUND"      - JMP'd from exactly ONE spot: <a class='x' href='#F02A'>F02A</a>
 3375:D0 0E          264             BNE ERRORA                                      ;&darr; <a class='mem' name='_3375'>wastes</a> 2 bytes, above should be located at F02A: <span class='code'>LDA #CREFNF, JMP ERRORA</span>
 
                                                                                     ; "VOL MIS MATCH"       - <i>What happened to error 7 ???</i>
                                                                                     ; "I/O ERR"             - <i>What happened to error 8 ???</i>
 3377:4C ED 3F       265 <a class='f' name='ERROR9' >ERROR9      </a>JMP ERROR9X     ;MUST CLOSE ALL FILES (WAS LDA #CRENSA)     ; "NO SECTORS AVAILABLE"
 337A:EA             266             NOP                                             ;&darr; <a class='mem' name='_337A'>wastes</a> 1 byte to keep Entry Point address unchanged
-33                  267 <a class='f' name='ERROR10'>ERROR10     </a>LDA CREFLK
+33                  267 <a class='f' name='ERROR10'>ERROR10     </a>LDA #<a class='e' href='#CREFLK'>CREFLK</a>
 33                  268             BNE ERRORA                                      ;&darr;
 337F:AD C5 35       269 <a class='f' name='GOODIO'     >GOODIO      </a>LDA CCBSTA                                      ; Default to no change in status
 3382:18             270             CLC             ; CARRY=CLR                     ; <b>No Shit Sherlock</b>, <i>Comment <b>WHY</B>, _not_ how</i>; C=0 &rarr; No error
