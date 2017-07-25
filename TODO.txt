@@ -49,10 +49,9 @@ Project Status Pages left:
                     Page Numbers
                       Arrows
         T H O C N M P A
-      0 n/a
-      1 n/a  
-      2 n/a
-      3 n/a
+      1 n/a             Cover
+      2 n/a             List of files
+      3 n/a             ASMIDSTAMP
       4 T - - - N - P - BLDFTAB $27D4
       5 T - - - - - P - BLDFTAB $2803
       6 T - - - - - P - BLDFTAB $2853
@@ -78,16 +77,16 @@ Project Status Pages left:
      26 - - - - - - - -
      27 - - - - - - - -
      28 - - - - - - - -
-     29 - - - - - - - -
-     30 - - - - - - - -
-     31 - - - - - - - -
-     32 - - - - - - - -
-     33 - - - - - - - -
-     34 - - - - - - - -
-     35 - - - - - - - -
-     36 - - - - - - - -
-     37 - - - - - - - -
-     38 - - - - - - - -
+     29 n/a             DOS33C.OBJ hexdump
+     30 n/a             DOS33C.OBJ hexdump
+     31 n/a             DOS33C.OBJ hexdump
+     32 n/a             DOS33C.OBJ hexdump
+     33 n/a             DOS33C.OBJ hexdump
+     34 n/a             DOS33C.OBJ hexdump
+     35 n/a             DOS33C.OBJ hexdump
+     36 n/a             DOS33C.OBJ hexdump
+     37 n/a             DOS33C.OBJ hexdump
+     38 n/a             DOS33C.OBJ hexdump
      39 T - / x - - - - Done (no, still need to markup address and track/sector)
      40 T - - - - - - - DOSGOER $26A8
      41 T - - - - - - - DOSGOER $26E3
@@ -101,9 +100,9 @@ Project Status Pages left:
      49 T - - - - - - - DOSINIT
      50 T - - - - - - - DOSINIT
      51 T - - - - - - - DOSINIT
-     52 - - - - - - - -
-     53 - - - - - - - -
-     54 - - - - - - - -
+     52 T - - - - - - - DOSPTCH $3FC8
+     53 T - - - - - - - DOSPTCH n/a
+     54 n/a             EASM
      55 T - - - - - - - FDELCAT $2CEF
      56 T - - - - - - - FDELCAT $2D3C
      57 T - - - - - - - FDELCAT $
@@ -121,7 +120,7 @@ Project Status Pages left:
      69 T - - - - - - - FLOCSEC $321F
      70 T - - - - - - - FLOCSEC $3280
      71 T - - - - - - - FLOCSEC $32EB
-     72   - - - - - - - FLOCSEC $3359 <-- TODO
+     72 T - - - - - - - FLOCSEC $3359
      73 T - - - - - - - FMTRWIO $2E8E
      74 T - - - - - - - FMTRWIO $2EEB
      75 T - - - - - - - FMTRWIO $
@@ -139,18 +138,18 @@ Project Status Pages left:
      87 T - - - - - - - FVCBUFS $34BB
      88 T - - - - - - - FVCBUFS $35C3
      89 T - - - - - - - FVCBUFS $35F8
-     90 - - - - - - - -
-     91 - - - - - - - -
-     92 - - - - - - - -
-     93 - - - - - - - -
-     94 - - - - - - - -
-     95 - - - - - - - -
-     96 - - - - - - - -
+     90 n/a             HELLO.A.BAS -- need Applesoft listing
+     91 n/a             HELLO.B.BAS -- need Applesoft listing
+     92 n/a             MAKE.MASTER.BAS -- need Applesoft listing
+     93 n/a             MASTER.3.3E.BAS -- need Applesoft listing
+     94 n/a             MASTER.3.3E.BAS -- need Applesoft listing
+     95 n/a             MASTER.3.3E.BAS -- need Applesoft listing
+     96 n/a             MASTERE.OBJ0 -- need disassembly
      97 - - - - - - - -
      98 - - - - - - - -
      99 - - - - - - - -
     100 - - - - - - - -
-    101 - - - - - - - -
+    101 T - - - - - - - POSTNRD $38C2
     102 - - - - - - - -
     103 - - - - - - - -
     104 - - - - - - - -
@@ -178,17 +177,17 @@ Project Status Pages left:
     126 - - - - - - - -
     127 - - - - - - - -
     128 - - - - - - - -
-    129 - - - - - - - -
-    130 - - - - - - - -
-    131 - - - - - - - -
-    132 - - - - - - - -
-    133 - - - - - - - -
+    129 n/a             TRASH (dup of FLOCSEC)
+    130 n/a             TRASH (dup of FLOCSEC)
+    131 n/a             TRASH (dup of FLOCSEC)
+    132 n/a             TRASH (dup of FLOCSEC)
+    133 n/a             TRASH (dup of FLOCSEC)
     134 - - - - - - - -
     135 - - - - - - - -
     136 - - - - - - - -
     137 - - - - - - - -
     138 - - - - - - - -
-    139 - - - - - - - -
+    139 T - - - - - - - WRITRTN $38B8
     140 T - - - - - - - XLODSAV
     141 T - - - - - - - XLODSAV
     142 T - - - - - - - XLODSAV $23FC
@@ -216,5 +215,6 @@ Project Status Pages left:
         1st 3rd
           2nd 4th
 
+1st pass Remaining: 46
 -->
 
