@@ -1435,7 +1435,7 @@ With that "legalese" out of the way ... enjoy the read!
 1E5A:4C B5 37       208 <!--                           -->            JMP <a class='x' href='#DISKIO '>DISKIO</a>                                      ; $3D9: JMP $B7B5 RWTS (ReadWriteTrackSector)
                     209 <a class='f' name='CCBLDR'   >CCBLDR      </a>EQU *                                           ; $3DC: GetParamFM (A,Y = $B5BB, CCB = Command Control Block)
 1E5D:AD 0F 1D       210 <!--                           -->            LDA <a class='v' href='#CCBADR'>CCBADR</a>+<span class='n'>1</span>
-1E60:AC 0E 1D       211 <!--                           -->            LDY <a class='v' href='#CCBADR'>CCBADR</a>
+1E60:AC 0E 1D       211 <!--                           -->            LDY <a class='v' href='#CCBADR'>CCBADR</a>                                      ; <b>NOTE</b> The labels <span class='code'>CCBLDR</span> and <span class='code'>IOBLDR</span> are never referenced anywhere.
 1E63:60             212 <!--                           -->            RTS
                     213 <a class='f' name='IOBLDR'   >IOBLDR      </a>EQU *                                           ; $3E3: GetParamRWTS (A,Y = $B7E8, IOB = Input Output Block)
 1E64:AD C2 2A       214             LDA <a class='v' href='#AIOB'  >AIOB</a>+<span class='n'>1</span>                                      ; /sarcasm <i>Really? You couldn't be consistent and call it</i> <span class='code'>IOBADR</span> ???
