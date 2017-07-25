@@ -122,10 +122,10 @@ Project Status Pages left:
      70 - - - - - - - -
      71 - - - - - - - -
      72 - - - - - - - -
-     73 - - - - - - - -
-     74 - - - - - - - -
-     75 - - - - - - - -
-     76 - - - - - - - -
+     73 T - - - - - - - FMTRWIO $2E8E
+     74 T - - - - - - - FMTRWIO $2EEB
+     75 T - - - - - - - FMTRWIO $
+     76 T - - - - - - - FMTRWIO $
      77 T - - - - - - - FOPCLRW $2B22
      78 T - - - - - - - FOPCLRW $2B86
      79 T - - - - - - - FOPCLRW $2C00
