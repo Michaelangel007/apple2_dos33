@@ -3685,7 +3685,9 @@ With that "legalese" out of the way ... enjoy the read!
 2BFC:AA             113             TAX
                     114 <a class='f' name='F01A'     >F01A        </a>EQU *
 2BFD:8E F7 FF       115             STX DCBSLT
-<hr>2C00:A9             116             LDA #<span class='n'>17</span>                                         ;[.. <a class='mem' name='_2C00'>wastes</a> 5 bytes; === <a class='ts' name='T1SB'>T1SB</a> === <a class='magic' name='_2C01'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
+<hr>                                                                                    ; === Page <a class='page' name='page79'>79</a> ===
+                                                                                    ; === <a class='ts' name='T1SB'>T1SB</a> ===
+2C00:A9             116             LDA #<span class='n'>17</span>                                         ;[.. <a class='mem' name='_2C00'>wastes</a> 5 bytes; <a class='magic' name='_2C01'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
 2C02:8D FA 35       117             STA <a class='v' href='#DCBVTN'>DCBVTN</a>                                      ; ..] due to unitialized <a class='x' href='#DCBVTN'>DCBVTN</a> DS 1           Because this can change???
 2C05:60             118             RTS
                     119             PAGE
@@ -3978,6 +3980,7 @@ With that "legalese" out of the way ... enjoy the read!
                     051 ;
                     052 FD3         EQU *
 2D39:AE 9C 33       053             LDX TEMP        ; GET SAVED INDEX
+<hr>                                                                                    ; === Page <a class='page' name='page56'>56</a> ===
 2D3C:BD C6 34       054             LDA VDFILE,X    ; GET DIR TRACK                 ; <a class='magic' name='_2D3C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
 2D3F:8D D1 35       055             STA DCBFDT      ; SET AS 1ST FD TRACK           ; LC = last character
 2D42:9D E6 34       056             STA VDFILE+<span class='n'>32</span>,X ; SAVE IN LC OF FN              ; <a class='magic' name='_2D42'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NAME + MAX_FILENAME_LEN - 1</span>
