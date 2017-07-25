@@ -4399,10 +4399,10 @@ With that "legalese" out of the way ... enjoy the read!
                     216 ;RDSECT - READ A SECTOR
                     217 ;
                     218 <a class='f' name='RDSECT'   >RDSECT      </a>EQU *                                           ; X = Track, Y = Sector
-2FDC:20 E4 2F       219             JSR MVSBA
+2FDC:20 E4 2F       219             JSR MVSBA       ; GO MOVE SECTOR BUFFER ADR
                     220 ;
 2FDF:A9 01          221             LDA #IBCRTS
-2FE1:3C 52 30       222             JMP DCBIO                                       ; <a class='mem' name='_2FE1'>wastes</a> 1 byte, <span class='code'>BNE DCBIO</span> ($2FE3 - $3052 = $6F &lt; $80)
+2FE1:3C 52 30       222             JMP DCBIO       ; GO DO I/O                     ; <a class='mem' name='_2FE1'>wastes</a> 1 byte, <span class='code'>BNE DCBIO</span> ($3052 - $2FE3 = $6F &lt; $80)
                     223 ;
                     224 ;MVSBA - MOVE SECTOR BUFFER ADR FOR I/O
                     225 ;
