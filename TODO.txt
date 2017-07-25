@@ -120,8 +120,8 @@ Project Status Pages left:
      68 T - - - - - - - FLOCSEC $31C9
      69 T - - - - - - - FLOCSEC $321F
      70 T - - - - - - - FLOCSEC $3280
-     71   - - - - - - - FLOCSEC $32EB <-- TODO
-     72   - - - - - - - FLOCSEC $     <-- TODO
+     71 T - - - - - - - FLOCSEC $32EB
+     72   - - - - - - - FLOCSEC $3359 <-- TODO
      73 T - - - - - - - FMTRWIO $2E8E
      74 T - - - - - - - FMTRWIO $2EEB
      75 T - - - - - - - FMTRWIO $
