@@ -7908,7 +7908,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3FF4:20 16 23       046             JSR <a class="x" href="#CLALL">CLALL</a>       ;GO CLOSE EVERYBODY
 3FF7:BA             047             TSX
 3FF8:8E 9B 33       048             STX <a class="v" href="#ENTSTK">ENTSTK</a>      ;RESTORE SAVE STK
-3FFB:A9 09          049             LDA #9                                          ; <a class='magic' name='_3FFB'>magic number</a> <span class="todo">TODO</span> What error??
+3FFB:A9 09          049             LDA #<span class='n'>9</span>                                          ; <a class='magic' name='_3FFC'>magic number</a> <span class='code'>LDA #CRENSA</span>
 3FFD:4C 85 33       050             JMP <a class="x" href="#ERRORA">ERRORA</a>      ;AND BACK
                     051 *****************************
                     052 <a class="d" name="ENDP1"      >ENDP1       </a>EQU *-1         ; END OF DOS PATCHES FOR RELOCTR
