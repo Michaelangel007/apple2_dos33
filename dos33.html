@@ -6302,14 +6302,14 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     043 *    AND NBUF2.           *
                     044 *      (342 NIBLS)        *
                     045 ***************************
-38C2:A0 00          046 <a class="f"    name="POSTNB16"   >POSTNB16    </a>LDY #$<span class='n'>0</span>         USER DATA BUF IDX.              ; <a class='ts' href='#T0S2'>T0S2</a> <span class="todo">TODO</span>
-38C4:A2 56          047 <a class="f"    name="POST1"      >POST1       </a>LDX #$<span class='n'>56</span>        INIT NBUF2 INDEX.
-38C6:CA             048 <a class="f"    name="POST2"      >POST2       </a>DEX             IDX $55 TO $0
-38C7:30 FB          049             BMI <a class="x" href="#POST1">POST1</a>       WRAPAROUND IF NEG.              ; ^
+38C2:A0 00          046 <a class="f"    name="POSTNB16"   >POSTNB16    </a>LDY #$<span class='n'>0</span>         ; USER DATA BUF IDX.            ; <a class='ts' href='#T0S2'>T0S2</a> <span class="todo">TODO</span>
+38C4:A2 56          047 <a class="f"    name="POST1"      >POST1       </a>LDX #$<span class='n'>56</span>        ; INIT NBUF2 INDEX.
+38C6:CA             048 <a class="f"    name="POST2"      >POST2       </a>DEX             ; NBUF IDX $55 TO $0
+38C7:30 FB          049             BMI <a class="x" href="#POST1">POST1</a>       ; WRAPAROUND IF NEG.            ;&uarr;
 38C9:B9 00 3B       050             LDA <a class="v" href="#NBUF1">NBUF1</a>,Y
-38CC:5E 00 3C       051             LSR <a class="v" href="#NBUF2">NBUF2</a>,X     SHIFT 2 BITS FROM
-38CF:2A             052             ROL A           CURRENT NBUF2 NIBL
-38D0:5E 00 3C       053             LSR             INTO CURRENT NBUF1
+38CC:5E 00 3C       051             LSR <a class="v" href="#NBUF2">NBUF2</a>,X     ; SHIFT 2 BITS FROM
+38CF:2A             052             ROL A           ; CURRENT NBUF2 NIBL
+38D0:5E 00 3C       053             LSR             ; INTO CURRENT NBUF1
 <hr>38D3:2A             054             ROL A           NIBL.                           ; === Page <a class="page" name="page102">102</a> ===
 38D4:91 3E          055             STA (<a class="v" href="#">BUF</a>),Y     BYTE OF USER DATA.
 38D6:C8             056             INY             NEXT USER BYTE.
