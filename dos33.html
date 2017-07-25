@@ -4375,30 +4375,30 @@ With that "legalese" out of the way ... enjoy the read!
                     192             BNE RFDIO2      ; GO DO I/O
                     193 ;
                     194 <a class='f' name='RFDIO1'   >RFDIO1      </a>LDA #IBCRTS     ; SET READ CMD
-                    195 <a class='f' name='RFDIO2'   >RFDIO2      </a>STX DCBCDT
-                    196             STY DCBCDS
-                    197             JSR DCBIO
+                    195 <a class='f' name='RFDIO2'   >RFDIO2      </a>STX DCBCDT      ; SET CURR TRACK
+                    196             STY DCBCDS      ; SET CUR SECTOR
+                    197             JSR DCBIO       ; GO I/O
                     198 ;
-                    199 <a class='f' name='RDFDC'    >RDFDC       </a>LDY #FDFRS
-                    200             LDA (ZPGFCB),Y
-                    201             STA DCBDFS
+                    199 <a class='f' name='RDFDC'    >RDFDC       </a>LDY #FDFRS      ; GET POINTER TO FIRST REL SECTOR
+                    200             LDA (ZPGFCB),Y  ; GET FRS                       ; <b>F</b>irst <b>R</b>elative <b>S</b>ector
+                    201             STA DCBDFS      ; SET INTO DCB
 2FC7:18             202             CLC
-2FC8:6D DA 35       203             ADC DCBDMS
-2FCB:8D De 35       204             STA DCBDNF
+2FC8:6D DA 35       203             ADC DCBDMS      ; ADD MAX SECTORS
+2FCB:8D De 35       204             STA DCBDNF      ; PUT INTO DCB
                     205 ;
-                    206             INY
+                    206             INY             ; DO SAME FOR HI BYTE
                     207             LDA (ZPGFCB),Y
                     208             STA DCBDFS+1
                     209             ADC DCBDMS+1
                     210             STA DCBDNF+1
                     211 ;
 2FDA:18             212             CLC
-2FDB:60             213             RTS
+2FDB:60             213             RTS             ; DONE
                     214             PAGE
                     215 ;
                     216 ;RDSECT - READ A SECTOR
                     217 ;
-                    218 <a class='f' name='RDSECT'   >RDSECT      </a>EQU *                                            ; X = Track, Y = Sector
+                    218 <a class='f' name='RDSECT'   >RDSECT      </a>EQU *                                           ; X = Track, Y = Sector
 2FDC:20 E4 2F       219             JSR MVSBA
                     220 ;
 2FDF:A9 01          221             LDA #IBCRTS
