@@ -4349,28 +4349,28 @@ With that "legalese" out of the way ... enjoy the read!
                     166             RTS             ; RETURN                        ; o7 Captain Obvious
                     167 ;
                     168 <a class='f' name='RFDNL1'   >RFDNL1      </a>EQU *
-                    169             JSR GETSEC
-                    170             LDY #FDLSEC                                     ; === Page <a class='page' name='page76'>76</a> ===
-                    171             STA (ZPGFCB),Y
-                    172             PHA
+                    169             JSR GETSEC      ; GET A SECTOR
+                    170             LDY #FDLSEC                                     ;
+                    171             STA (ZPGFCB),Y  ; PUT IN LINK
+                    172             PHA             ; SAVE SECTOR
                     173             DEY
-                    174             LDA DCBATK
-                    175             STA (ZPGFCB),Y
-                    176             PHA
-                    177             JSR WRFDGO
+                    174             LDA DCBATK      ; GET TRACK
+                    175             STA (ZPGFCB),Y  ; PUT IN LINK
+                    176             PHA             ; SAVE TRACK
+                    177             JSR WRFDGO      ; Go WRITE OLD DIR DEC
                     178 ;
-                    179             JSR CLRSEC
-                    180             LDY #FDFRS
-                    181             LDA DCBDNF
+                    179             JSR CLRSEC      ; CLEAN OUT DIR
+<hr>                    180             LDY #FDFRS      ; SET NEW DIR SEC 1ST REL       ; === Page <a class='page' name='page76'>76</a> ===
+                    181             LDA DCBDNF      ; FILE SECTOR
                     182             STA (ZPGFCB),Y
                     183             INY
                     184             LDA DCBDNF+1
                     185             STA (ZPGFCB),Y
                     186 ;
-                    187             PLA
-                    188             TAX
-                    189             PLA
-                    190             TAY
+                    187             PLA             ; GET SAVED TRACK
+                    188             TAX             ; INFO X
+                    189             PLA             ; GET SAVED TRACK
+                    190             TAY             ; INFO Y
                     191             LDA #IBCWTS     ; SET WRITE CMD
                     192             BNE RFDIO2      ; GO DO I/O
                     193 ;
