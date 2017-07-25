@@ -112,16 +112,16 @@ Project Status Pages left:
      60 T - - - - - - - FDOSENT $2A4F
      61 T - - - - - - - FDOSENT $2AC1
      62 T - - - - - - - FDOSENT $2B12
-     63 - - - - - - - -
-     64 - - - - - - - -
-     65 - - - - - - - -
-     66 - - - - - - - -
-     67 - - - - - - - -
-     68 T - - - - - - - FLOCSEC
-     69 - - - - - - - -
-     70 - - - - - - - -
-     71 - - - - - - - -
-     72 - - - - - - - -
+     63 T - - - - - - - FLOCNXB $2FF7
+     64 T - - - - - - - FLOCNXB $3037
+     65 T - - - - - - - FLOCNXB $30B3
+     66 T - - - - - - - FLOCNXB $312C
+     67 T - - - - - - - FLOCNXB $3194
+     68 T - - - - - - - FLOCSEC $31C9
+     69 T - - - - - - - FLOCSEC $321F
+     70 T - - - - - - - FLOCSEC $3280
+     71   - - - - - - - FLOCSEC $32EB <-- TODO
+     72   - - - - - - - FLOCSEC $     <-- TODO
      73 T - - - - - - - FMTRWIO $2E8E
      74 T - - - - - - - FMTRWIO $2EEB
      75 T - - - - - - - FMTRWIO $
@@ -135,10 +135,10 @@ Project Status Pages left:
      83 - - - - - - - -
      84 - - - - - - - -
      85 - - - - - - - -
-     86 - - - - - - - -
-     87 - - - - - - - -
-     88 - - - - - - - -
-     89 - - - - - - - -
+     86 T - - - - - - - FVCBUFS $3397
+     87 T - - - - - - - FVCBUFS $34BB
+     88 T - - - - - - - FVCBUFS $35C3
+     89 T - - - - - - - FVCBUFS $35F8
      90 - - - - - - - -
      91 - - - - - - - -
      92 - - - - - - - -
