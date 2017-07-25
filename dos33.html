@@ -4945,61 +4945,61 @@ With that "legalese" out of the way ... enjoy the read!
                     197 ;SECBYT = REMAINDER
                     198 ;
                     199 <a class='f' name='LOCSEC' >LOCSEC      </a>EQU *                                           ;               <b>Proper</b> variable names such as
-3300:AD BD 35       200             LDA <a class="v" href="#CCBRRN">CCBRRN</a>      ; RELATIVE RECORD NUMBER        ; === <a class='ts' href='#TS2S'>T2S2</a> ===  CCB_REL_REC_NUM
-3303:8D E6 35       201             STA <a class="v" href="#DCBCSB">DCBCSB</a>      ; TO CSB FOR MULT               ;               Would negate the need for
-3306:8D EA 35       202             STA <a class="v" href="#DCBCRR">DCBCRR</a>      ; AND CRR FOR SAVE              ;               50% of comments
-3309:AD BE 35       203             LDA <a class="v" href="#CCBRRN">CCBRRN</a>+1                                    ; But's let abbrev. the frak out of everything
-                    204             
-                    205 
-                    206 
-                    207 
-                    208 
-                    209 
-                    210 
-                    211 
-                    212 
-                    213 
-                    214 
-                    215 
-                    216 
-                    217 
-                    218 
-                    219 
-                    220 
-                    221 
-                    222 
-                    223 
-                    224 
-                    225 
-                    226 
-                    227 
-                    228 
-                    229 
-                    230 
-                    231 
-                    232 
-                    233 
-                    234 
-                    235 
-                    236 
-                    237 
-                    238 
-                    239 
-                    240 
-                    241 
-<hr>                    242                                                             ; === Page <a class='page' name='page72'>72</a> ===
-                    243 
-                    244 
-                    245 
-                    246 
-                    247 
-                    248 
-                    249 
-                    250 
-                    251 
-                    252 
-                    253 
-                    254 
+3300:AD BD 35       200             LDA <a class='v' href='#CCBRRN'>CCBRRN</a>      ; RELATIVE RECORD NUMBER        ; === <a class='ts' href='#TS2S'>T2S2</a> ===  CCB_REL_REC_NUM
+3303:8D E6 35       201             STA <a class='v' href='#DCBCSB'>DCBCSB</a>      ; TO CSB FOR MULT               ;               Would negate the need for
+3306:8D EA 35       202             STA <a class='v' href='#DCBCRR'>DCBCRR</a>      ; AND CRR FOR SAVE              ;               50% of comments
+3309:AD BE 35       203             LDA <a class='v' href='#CCBRRN'>CCBRRN</a>+1                                    ; But's let abbreviate the fuck out of everything
+330C:8D E4 35       204             STA DCBCRS                                      ; Quick! What's the difference between <span class='code'>DCBCRR</span> and <span class='code'>DCBCRS</span>
+330F:8D EB 35       205             STA DCBCRR+1
+3312:A9 00          206             LDA #0
+3314:8D E5 35       207             STA DCBCRS+1    ; HIGH CRS=0
+3317:A0 10          208             LDY #16         ; 16 BIT MULT
+                    209 ;
+3319:AA             210 <a class='f' name='LS1'    >LS1         </a>TAX             ; SAVE MS BYTE
+331A:AD E6 35       211             LDA DCBCSB
+331D:4A             212             LSR A           ; IF NO CARRY THEN NO PART PROD
+331E:B0 03          213             BCS LS1A
+3320:8A             214             TXA
+                    215             BCC LS2
+3323:18             216 <a class='f' name='LS1A'   >LS1A        </a>CLC
+3324:AD E5 35       217             LDA DCBCRS+1    ; FPORM PARTIAL PROD            ; *spelling* FORM
+3327:6D E8 35       218             ADC DCBRCL
+332A:8D E5 35       219             STA DCBCRS+1
+332D:8A             220             TXA
+332E:6D E9 B5       221             ADC DCBRCL+1
+                    222 ;
+3331:6A             223 <a class='f' name='LS2'    >LS2         </a>ROR A           ; MULT BY 2
+3332:6E E5 35       224             ROR DCBCRS+1
+3335:6E E4 35       225             ROR DCBCRS
+3338:6E E6 35       226             ROR DCBCSB
+333B:88             227             DEY             ; DEC BIT COUNT
+333C:D0 DB          228             BNE LS1         ; BR IF MORE BITS
+                    229 ;
+                    230     DO <a class='do' href='#DOS33B'>DOS33B</a>                                               ; <b>Proof</b> that the designer didn't <b>THINK</b> about the <i>user</i> and <i>file sizes.</i>
+333E:18             231             CLC             ; FOR FILE LENGTH &gt; $7FFF BYTES ; /sarcastic <i>What? It was too hard to realize that someone will try to do:</i> <span class='code'>BSAVE RAM.48K,A$0,L$C000</span> ???
+                    232     FIN                                                     ; <b>THINK, McFLY!</b>
+333F:AD BF 35       233             LDA CCBBYT      ; ADD REL BYTE RESULT
+3342:8D EC 35       234             STA DCBCRB      ; (SAVE REL BYTE)
+3345:6D E6 35       235             ADC DCBCSB
+3348:8D E6 35       236             STA DCBCSB
+334B:AD C0 35       237             LDA CCBBYT+1
+334E:8D ED 35       238             STA DCBCRB+1    ; (SAVE REL BYTE)
+3351:6D E4 35       239             ADC DCBCRS
+3354:8D E4 35       240             STA DCBCRS
+                    241     DO <a class='do' href='#DOS33B'>DOS33B</a>
+3357:90 03          242             BCC DONTINC
+<hr>3359:EE E5 35       243             INC DCBCRS+1                                    ; === Page <a class='page' name='page72'>72</a> ===
+335C:60             244 <a class='f' name='DONTINC'>DONTINC     </a>RTS
+335D:00 00          245             DS 2,$00                                        ; <a class='mem' name='_335D'>wastes</a> 2 bytes. Line 231 = 1 byte + 8 bytes keep remaining Entry Points @ same address
+                    246     ELSE                                                    ; 9 bytes<span class='macro'>
+                    247             LDA #0                                          
+                    248             ADC DCBCRS+1                                    
+                    249             STA DCBCRS+1                                    
+                    250             RTS                                             </span>
+                    251     FIN
+                    252             PAGE
+335F:A9 01          253 <a class='f' name='ERROR1' >ERROR1      </a>LDA #CREFUN
+3361:D0 22          254             BNE ERRORA
                     255 
                     256 
                     257 
