@@ -4700,13 +4700,13 @@ With that "legalese" out of the way ... enjoy the read!
                     236 <a class='f' name='INCR2'    >INCR2       </a>STX DCBCRB      ; SAVE NEW RELATIVE BYTE
                     237             STY DCBCRB+1
                     238 ;
-                    239             RTS
+3193:60             239             RTS
                     240             PAGE
                     241 ;
                     242 ;INCSCB - INCREMENT SECTOR BYTE
 <hr>                    243 ;                                                           ; === <a class='page' name='page67'>67</a> ===
                     244 <a class='f' name='INCSCB'   >INCSCB      </a>EQU *
-                    245             INC DCBCSB      ; INC SECTOR BYTE
+3194:EE E6 35       245             INC DCBCSB      ; INC SECTOR BYTE
                     246             BNE INCS2       ; BR IF NOT FULL
                     247             INC DCBCRS      ; AND INCR
                     248             BNE INCS2       ; RELATIVE SECTOR
