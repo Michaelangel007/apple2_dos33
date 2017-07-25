@@ -4925,10 +4925,10 @@ With that "legalese" out of the way ... enjoy the read!
 32E6:CC F0 33       177             CPY <a class='v' href='#VNOSEC'>VNOSEC</a>      ; NORMAL
 32E9:D0 F2          178             BNE <a class='x' href='#FS1'>FS1</a>         ; BR IF NOT
                     179 ;
-<hr>                    180             ASL A           ; TRACK*4                       ; === Page <a class='page' name='page71'>71</a> ===
-                    181             ASL A
-                    182             TAY
-                    <a class='line' name='FLOCSEC.183'>183</a>             BEQ <a class='x' href='#FS4'>FS4</a>                                         ; See <a class="dumb" href='#HNTDAFS3'>HNTDAFS #3</a> Wastes 4 bytes/track for free sector bitmap, sizeof( DCBABM )
+<hr>32EB:0A             180             ASL A           ; TRACK*4                       ; === Page <a class='page' name='page71'>71</a> ===
+32EC:0A             181             ASL A
+32ED:A8             182             TAY
+32EE:F0 0F          <a class='line' name='FLOCSEC.183'>183</a>             BEQ <a class='x' href='#FS4'>FS4</a>                                         ; See <a class="dumb" href='#HNTDAFS3'>HNTDAFS #3</a> Wastes 4 bytes/track for free sector bitmap, sizeof( DCBABM )
 32F0:A2 04          <a class='line' name='FLOCSEC.184'>184</a>             LDX #<span class='n'>4</span>                                          ; <a class='magic' name='_32F1'>magic number</a> VTOC_BITMAP_BYTES_PER_TRACK,  See: <a class='v' href='#ALC10S'>ALC10S</a>
 32F2:BD F1 35       185 <a class="f" name="FS3"    >FS3         </a>LDA <a class="v" href="#DCBABM">DCBABM</a>-1,X  ; GET BIT MAP BYTE
 32F5:19 F6 33       186             ORA <a class="v" href="#VSECAL">VSECAL</a>+3,Y  ; OR WITH VTOC BM
