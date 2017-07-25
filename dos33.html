@@ -607,20 +607,20 @@ that overflow into this region -->
             <li>3.1 <a class='link' href='#Alphabetical'   >Symbols (Alphabetical)</a>         </li>
             <li>3.2 <a class='link' href='#Address'        >Symbols (Address)</a>              </li>
         </ul>
-        <li>2.0 Miscellaneous Information               </li>
+        <li>4.0 Miscellaneous Information               </li>
         <ul class="toc">
-            <li>2.1 Statistics                          </li>
-            <li>2.2 <a class='link' href='#ColorSrcFile'>Color-Coded Memory by Source File</a> </li>
-            <li>2.3 <a class='link' href='#ColorHexDump'>Color-Coded Hex Dump</a>              </li>
+            <li>4.1 Statistics                          </li>
+            <li>4.2 <a class='link' href='#ColorSrcFile'>Color-Coded Memory by Source File</a> </li>
+            <li>4.3 <a class='link' href='#ColorHexDump'>Color-Coded Hex Dump</a>              </li>
         </ul>
-        <li>3.0 <a class='link' href='#Inefficiencies'     >Inefficiencies</a>                 </li>
+        <li>5.0 <a class='link' href='#Inefficiencies'     >Inefficiencies</a>                 </li>
         <ul class="toc">
-            <li>3.1 <a class='link' href='#WastedMemory'   >Wasted Memory</a>                  </li>
-            <li>3.2 <a class='link' href='#WastedDisk'     >Wasted Disk Space</a>              </li>
-            <li>3.3 <a class='link' href='#WastedSectors'  >Wasted Sectors</a>                 </li>
-            <li>3.4 <a class='link' href='#BufferBloat'    >Buffer Bloat</a>                   </li>
+            <li>5.1 <a class='link' href='#WastedMemory'   >Wasted Memory</a>                  </li>
+            <li>5.2 <a class='link' href='#WastedDisk'     >Wasted Disk Space</a>              </li>
+            <li>5.3 <a class='link' href='#WastedSectors'  >Wasted Sectors</a>                 </li>
+            <li>5.4 <a class='link' href='#BufferBloat'    >Buffer Bloat</a>                   </li>
         </ul>
-        <li>4.0 <a class='link' href='#Acknowledgements'   >Acknowledgements</a>               </li>
+        <li>6.0 <a class='link' href='#Acknowledgements'   >Acknowledgements</a>               </li>
     </ul>
 <p>
 
@@ -8007,8 +8007,24 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 </pre>
 
 
+<hr>
 
-<h1><a class='section' name='ColorSrcFile'>Color-Coded Memory by Source File</a></h1>
+
+<h1>Miscellaneous Information</a>
+<h2><a class='section' name='Stats'>4.1 Statistics</a></h2>
+<p>
+<table class='borders'>
+    <tr><td>Total Spelling mistakes:             </td><td> 13</td></tr> <!-- :%s/\*spelling\*//gn -->
+    <tr><td>Total Functions:                     </td><td> 99</td></tr> <!-- :%s/class="f"//gn -->
+    <tr><td>Total Variables:                     </td><td>102</td></tr> <!-- :%s/class="d"//gn -->
+    <tr><td>Total Magic Numbers:                 </td><td> 38</td></tr>
+    <tr><td>Total Wasted bytes (run-time memory):</td><td>160</td></tr>
+    <tr><td>Total Wasted sectors:                </td><td> 14</td></tr>
+</table>
+<p>
+
+
+<h1><a class='section' name='ColorSrcFile'>4.2 Color-Coded Memory by Source File</a></h1>
 <!--
     :%s/</\&lt;/g
     :%s/>/\&gt;/g
@@ -8050,7 +8066,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 
 <img src="color_memory_usage_filename.png">
 
-<h1><a class='section' name='ColorHexDump'>Color-Coded Hex Dump</a></h1>
+<h1><a class='section' name='ColorHexDump'>4.3 Color-Coded Hex Dump</a></h1>
 <pre>
 1B00:<span class="c00">4C 84 1D A9 BF 85 41 A2</span> |L..)?.A"| <a class='ts' name='T0SA'>T0SA</a>, RELOCTR, $1B00 .. $1CFF, T0SA - T0SB
 1B08:<span class="c00">00 86 40 A0 00 A1 40 85</span> |..@ .!@.|
@@ -9238,13 +9254,19 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3FF8:<span class="c44">8E 9B 33 A9 09 4C 85 33</span> |..3).L.3|
 </pre>
 
+
+
+<hr>
+
+
+
 <a class='section' name='Waste'></a>
-<h1><a class='section' name='Inefficiencies'>3.0 Inefficiencies</a></h1>
+<h1><a class='section' name='Inefficiencies'>5.0 Inefficiencies</a></h1>
 <p>
 There are several locations where memory and disk space are wasted.
 <p>
 
-<h2><a class='section' name='WastedMemory'>3.1 Wasted Memory</a></h2>
+<h2><a class='section' name='WastedMemory'>5.1 Wasted Memory</a></h2>
 <p>
 I've annotated <a class='mem'>*wastes*</a> locations in the listing where memory is wasted.
 <p>
@@ -9318,7 +9340,7 @@ I've annotated <a class='mem'>*wastes*</a> locations in the listing where memory
 </div>
 <p>
 
-<h2><a class='section' name='WastedDisk'>3.2 Wasted Disk Space</a></h2>
+<h2><a class='section' name='WastedDisk'>5.2 Wasted Disk Space</a></h2>
 <p>
 There are <i>two</i> types of <b>data</b> that reside in both memory and on disk:
 <p>
@@ -9522,7 +9544,7 @@ DATA_END    EQU *           ; $2300
 In contradistinction to the previous example, our new code plus initialized data only takes up 100 bytes ($64) in memory; This is only <b>1 sector</b> on disk <i>even though it uses the same Total run-time memory data bytes as Example 1 !</i>
 <p>
 
-<h2><a class='section' name='WastedSectors'>3.3 Wasted Sectors</a></h2>
+<h2><a class='section' name='WastedSectors'>5.3 Wasted Sectors</a></h2>
 <div style="padding-left:5%">
     <font style="font-family: monospace;">
         <table class='borders'>
@@ -9538,7 +9560,7 @@ In contradistinction to the previous example, our new code plus initialized data
 <p>
 <b>Total sectors wasted</b>: 14 !
 <p>
-<h2><a class='section' name='BufferBloat'>3.4 Buffer Bloat</a></h2>
+<h2><a class='section' name='BufferBloat'>5.4 Buffer Bloat</a></h2>
 <p>
 Why is DOS 3.3 so slow loading files when faster DOS's such as DiversiDOS, Pronto DOS, FastDOS, are able to load significantly faster?
 <p>
@@ -9648,20 +9670,13 @@ And the corresponding Track / Sector <b>disk map</b>
         V = VTOC (Volume Table of Contents -- Free/Used sectors bitmap)
 </pre>
 
-<h1>Miscellaneous Information</a>
-<h2><a class='section' name='Stats'>Statistics</a></h2>
-<p>
-<table class='borders'>
-    <tr><td>Total Spelling mistakes:             </td><td> 13</td></tr> <!-- :%s/\*spelling\*//gn -->
-    <tr><td>Total Functions:                     </td><td> 99</td></tr> <!-- :%s/class="f"//gn -->
-    <tr><td>Total Variables:                     </td><td>102</td></tr> <!-- :%s/class="d"//gn -->
-    <tr><td>Total Magic Numbers:                 </td><td> 38</td></tr>
-    <tr><td>Total Wasted bytes (run-time memory):</td><td>160</td></tr>
-    <tr><td>Total Wasted sectors:                </td><td> 14</td></tr>
-</table>
-<p>
 
-<h1><a class='section' name='Acknowledgements'>4.0 Acknowledgements</a></h1>
+
+<hr>
+
+
+
+<h1><a class='section' name='Acknowledgements'>6.0 Acknowledgements</a></h1>
 <p>
 A special Thank-You to:
 <ul>
