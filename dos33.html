@@ -7893,13 +7893,13 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     031         DS  3,0                                             </span>
                     032     FIN
                     033 *****************************
-3FDC:8D 63 2A       034 <a class="f" name="CLRBYTE"    >CLRBYTE     </a>STA <a class="v" href="#TEMP1A">TEMP1A</a>                                      ; Called from <a class="x" href="#SOPTS">SOPTS</a>, Page <a class="page" hre="#page18">18</a>, Line <a class='line' href='#CMDSCAN.176'>176</a>
-3FDF:8D 70 2A       035             STA <a class="v" href="#CB">CB</a>          ;SET TYPE PARAM DEFAUTL=0       ; *spelling* DEFAULT
-3FE2:8D 71 2A       036             STA <a class="v" href="#CB">CB</a>+1
+3FDC:8D 63 2A       034 <a class='f' name='CLRBYTE'    >CLRBYTE     </a>STA <a class='v' href='#TEMP1A'>TEMP1A</a>                                      ; Called from <a class="x" href="#SOPTS">SOPTS</a>, Page <a class="page" hre="#page18">18</a>, Line <a class='line' href='#CMDSCAN.176'>176</a>
+3FDF:8D 70 2A       035             STA <a class='v' href='#CB'>CB</a>          ;SET TYPE PARAM DEFAUTL=0       ; *spelling* DEFAULT
+3FE2:8D 71 2A       036             STA <a class='v' href='#CB'>CB</a>+<span class='n'>1</span>
 3FE5:60             037             RTS
                     038             SKP 4
-3FE6:20 5B 27       039 <a class="f" name="CLRSTS1"    >CLRSTS1     </a>JSR <a class="x" href="#CLRSTS">CLRSTS</a>                                      ; <span class="todo">TODO</span> Clear ???
-3FE9:8C B7 2A       040             STY <a class="v" href="#RSTATE">RSTATE</a>      ;PREVENTS FOREVER 'FILE NOT FOUND'
+3FE6:20 5B 27       039 <a class='f' name='CLRSTS1'    >CLRSTS1     </a>JSR <a class='x' href='#CLRSTS'>CLRSTS</a>                                      ; <span class="todo">TODO</span> Clear ???
+3FE9:8C B7 2A       040             STY <a class='v' href='#RSTATE'>RSTATE</a>      ;PREVENTS FOREVER 'FILE NOT FOUND'
 3FEC:60             041             RTS             ; IN APPLESOFT
                     042 *****************************
 3FED:20 7E 2E       043 <a class="f" name="ERROR9X"    >ERROR9X     </a>JSR <a class="x" href="#RTNFCB">RTNFCB</a>
