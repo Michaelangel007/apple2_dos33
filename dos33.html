@@ -5279,53 +5279,53 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 35B4:FC FC FC FD
 35B8:FC FD FE
                     069 <a class='d' name='VDEND'      >VDEND       </a>EQU *
-                    070 <a class='d' name='VDLEN'      >VDLEN       </a>EQU *-VOLDIR                                   ; $35BB - $34BB = 256
-                    071 <a class='d' name='VDFLEN'     >VDFLEN      </a>EQU *-VDFIL                                    ; $35BB - $34C6 = $F5
+                    070 <a class='d' name='VDLEN'      >VDLEN       </a>EQU *-VOLDIR                                   ; VDEND - VOLDIR = $35BB - $34BB = 256
+                    071 <a class='d' name='VDFLEN'     >VDFLEN      </a>EQU *-VDFIL                                    ; VDEND - VDFIL  = $35BB - $34C6 = $F5
                     072 ;
                     073             PAGE
                     074 ;
                     075 ;COMMAND CONTROL BLOCK (CCB)
                     076 ;
                     077 <a class='d' name='CCB'        >CCB         </a>EQU *                                           ;$B5BB CCB Buffer; FM = File Manager
-35BB:FD             078 <a class='d' name='CCBREQ'     >CCBREQ      </a>DS 1        ; USER REQUEST BYTE                 ; [0] FM_Command = 0, See GetCCBAdr aka <a class='x' href='#CCBLDR'>CCBLDR</a>
-                    079 <a class='e' name='CRQNUL'     >CRQNUL      </a>EQU 0
-                    080 <a class='e' name='CRQOPN'     >CRQOPN      </a>EQU 1
-                    081 <a class='e' name='CRQCLS'     >CRQCLS      </a>EQU 2
-                    082 <a class='e' name='CRQRD'      >CRQRD       </a>EQU 3
-                    083 <a class='e' name='CRQWR'      >CRQWR       </a>EQU 4
-                    084 <a class='e' name='CRQDEL'     >CRQDEL      </a>EQU 5
-                    085 <a class='e' name='CRQDIR'     >CRQDIR      </a>EQU 6
-                    086 <a class='e' name='CRQLCK'     >CRQLCK      </a>EQU 7
-                    087 <a class='e' name='CRQUNL'     >CRQUNL      </a>EQU 8
-                    088 <a class='e' name='CRQRNM'     >CRQRNM      </a>EQU 9
-                    089 <a class='e' name='CRQPOS'     >CRQPOS      </a>EQU 10
-                    090 <a class='e' name='CRQFMT'     >CRQFMT      </a>EQU 11
-                    091 <a class='e' name='CRQVAR'     >CRQVAR      </a>EQU 12
-                    092 <a class='e' name='CRQMAX'     >CRQMAX      </a>EQU 13
+35BB:FD             078 <a class='d' name='CCBREQ'     >CCBREQ      </a>DS 1             ; USER REQUEST BYTE            ; [0] FM_Command = 0, See GetCCBAdr aka <a class='x' href='#CCBLDR'>CCBLDR</a>
+                    079 <a class='e' name='CRQNUL'     >CRQNUL      </a>EQU 0            ; 0-NO REQUEST                 ; WTF!!! <b>NO ONE</b> will <i>ever</i> call DOS's NOP!!!
+                    080 <a class='e' name='CRQOPN'     >CRQOPN      </a>EQU 1            ; 1-OPEN FILE                  ; <b>Crap abbreviations:</b> <span class='code'>CMD_FILE_OPEN</span>
+                    081 <a class='e' name='CRQCLS'     >CRQCLS      </a>EQU 2            ; 2-CLOSE FILE                 ;                     <span class='code'>CMD_FILE_CLOSE</span>
+                    082 <a class='e' name='CRQRD'      >CRQRD       </a>EQU 3            ; 3-READ DATA                  ;                     <span class='code'>CMD_FILE_READ</span>
+                    083 <a class='e' name='CRQWR'      >CRQWR       </a>EQU 4            ; WRITE DATA                   ; What happened to 4? <span class='code'>CMD_FILE_WRITE</span>
+                    084 <a class='e' name='CRQDEL'     >CRQDEL      </a>EQU 5            ; 5-DELETE FILE                ;                     <span class='code'>CMD_FILE_DELETE</span>
+                    085 <a class='e' name='CRQDIR'     >CRQDIR      </a>EQU 6            ; 6-READ DIRECTORY             ;                     <span class='code'>CMD_DIR_READ</span>
+                    086 <a class='e' name='CRQLCK'     >CRQLCK      </a>EQU 7            ; 7-LOCK FILE                  ;                     <span class='code'>CMD_FILE_LOCK</span>
+                    087 <a class='e' name='CRQUNL'     >CRQUNL      </a>EQU 8            ; 8-UNLOCK FILE                ;                     <span class='code'>CMD_FILE_UNLOCK</span>
+                    088 <a class='e' name='CRQRNM'     >CRQRNM      </a>EQU 9            ; 9-RENAME                     ;                     <span class='code'>CMD_FILE_RENAME</span>
+                    089 <a class='e' name='CRQPOS'     >CRQPOS      </a>EQU 10           ; 10-POSITION FILE             ;                     <span class='code'>CMD_FILE_SEEK</span>
+                    090 <a class='e' name='CRQFMT'     >CRQFMT      </a>EQU 11           ; 11-FORMAT                    ;                     <span class='code'>CMD_DISK_FORMAT</span>
+                    091 <a class='e' name='CRQVAR'     >CRQVAR      </a>EQU 12           ; 12 - VERIFY                  ; Really?             <span class='code'>CMD_DISK_VERIFY</span>
+                    092 <a class='e' name='CRQMAX'     >CRQMAX      </a>EQU 13           ;                              ; You couldn't be <i>consistent</i> with first 11?
                     093 ;
-                    094 <a class='d' name='CCBBSA'     >CCBBSA      </a>EQU *
-35BC:FD             095 <a class='d' name='CCBRQM'     >CCBRQM      </a>DS 1                                            ; [1] FM_RequestMod = 1 (SubCommand)
-                    096 <a class='e' name='CRMNUL'     >CRMNUL      </a>EQU 0
-                    097 <a class='e' name='CRMNBT'     >CRMNBT      </a>EQU 1
-                    098 <a class='e' name='CRMNBL'     >CRMNBL      </a>EQU 2
-                    099 <a class='e' name='CRMSBT'     >CRMSBT      </a>EQU 3
-                    100 <a class='e' name='CRMSBL'     >CRMSBL      </a>EQU 4
+                    094 <a class='d' name='CCBBSA'     >CCBBSA      </a>EQU *           ; FORMAT - BOOT START ADR PAG
+35BC:FD             095 <a class='d' name='CCBRQM'     >CCBRQM      </a>DS 1            ; RREQUEST MODIFIER BYTE        ; [1] FM_RequestMod = 1 (SubCommand) *spelling* RREQUEST RRReally???
+                    096 <a class='e' name='CRMNUL'     >CRMNUL      </a>EQU 0           ; NO MODIFIER                   ; <b>And this serves <i>what</i> purpose again</b> ???
+                    097 <a class='e' name='CRMNBT'     >CRMNBT      </a>EQU 1           ; R/W - 1 - NEXTBYTE
+                    098 <a class='e' name='CRMNBL'     >CRMNBL      </a>EQU 2           ; R/W - 2 - NEXTBLOCK
+                    099 <a class='e' name='CRMSBT'     >CRMSBT      </a>EQU 3           ; R/W - 3 - SPECIFCBYTE
+                    100 <a class='e' name='CRMSBL'     >CRMSBL      </a>EQU 4           ; R/W - 4 - SPECIFIC BLOCK
                     101 <a class='e' name='CRMMAX'     >CRMMAX      </a>EQU 5
                     102 ;
-                    103 <a class='d' name='CCBBYT'     >CCBRRN      </a>EQU *                                           ; Relative Record Number, see <a class='x' href='#LOCSEC'>LOCSEC</a>
-                    104 <a class='d' name='CCBBYT'     >CCBFN2      </a>EQU *                                           ; Address of FileNameDst
-35BD:FD FC          105 <a class='d' name='CCBBYT'     >CCBRLN      </a>DS 2                                            ; [2] FM_RelRecordNum
+                    103 <a class='d' name='CCBBYT'     >CCBRRN      </a>EQU *           ; I/O - RELATIVE RECORD NUMBER  ; Relative Record Number, see <a class='x' href='#LOCSEC'>LOCSEC</a>
+                    104 <a class='d' name='CCBBYT'     >CCBFN2      </a>EQU *           ; RENAME - FILE NAME 2 PTR      ; Address of FileNameDst
+35BD:FD FC          105 <a class='d' name='CCBBYT'     >CCBRLN      </a>DS 2            ; OPEN - RECORD LENGTH          ; [2] FM_RelRecordNum
                     106 ;
-                    107 <a class='d' name='CCBBYT'     >CCBBYT      </a>EQU *
-35BF:FC             108 <a class='d' name='CCBVOL'     >CCBVOL      </a>DS 1                                            ; [4] FM_Volume
-35C0:FD             109 <a class='d' name='CCBDRV'     >CCBDRV      </a>DS 1                                            ; [5] FM_Drive
+                    107 <a class='d' name='CCBBYT'     >CCBBYT      </a>EQU *           ; I/O - RELATIVE BYTE NO (2 BYTES)
+35BF:FC             108 <a class='d' name='CCBVOL'     >CCBVOL      </a>DS 1            ; OPEN - VOL NO.                ; [4] FM_Volume
+35C0:FD             109 <a class='d' name='CCBDRV'     >CCBDRV      </a>DS 1            ; OPEN - DRIVE                  ; [5] FM_Drive
                     110 ;
-                    111 <a class='d' name='CCBBLN'     >CCBBLN      </a>EQU *                                           ; FM_BLockLength
-35C1:FF             112 <a class='d' name='CCBSLT'     >CCBSLT      </a>DS 1                                            ; [6] FM_Slot
-35C2:FD             113 <a class='d' name='CCBFUC'     >CCBFUC      </a>DS 1                                            ; [7] FM_FileUseCode (File Type), See <a class='x' href='#TSTFUC'>TSTFUC</a>, <a class='x' href='#FRNME'>FRNME</a>
+                    111 <a class='d' name='CCBBLN'     >CCBBLN      </a>EQU *           ; I/O - BLOCK LENGTH (2 BYTES)  ; FM_BLockLength
+35C1:FF             112 <a class='d' name='CCBSLT'     >CCBSLT      </a>DS 1            ; OPEN - SLOT NO                ; [6] FM_Slot
+35C2:FD             113 <a class='d' name='CCBFUC'     >CCBFUC      </a>DS 1            ; OPEN - FILE USE CODE          ; [7] FM_FileUseCode (File Type), See <a class='x' href='#TSTFUC'>TSTFUC</a>, <a class='x' href='#FRNME'>FRNME</a>
                     114 ;
                     115 <a class='d' name='CCBFN1'     >CCBFN1      </a>EQU *           ; OPEN, DELETE, LOCK, UNLOCK, RENAME - FILENAME
-<hr>                    116 <a class='d' name='CCBBBA'     >CCBBBA      </a>EQU *           ; BLOCKK I/O - BLOCK BUFFER PTR ; === Page <a class='page' name='page88'>88</a> === **spelling* BLOCK
+<hr>                    116 <a class='d' name='CCBBBA'     >CCBBBA      </a>EQU *           ; BLOCKK I/O - BLOCK BUFFER PTR ; === Page <a class='page' name='page88'>88</a> === *spelling* BLOCK, OKKK
 35C3:FC FD          117 <a class='d' name='CCBDAT'     >CCBDAT      </a>DS 2            ; BYTE I/O - DATA BYTE          ; [8]
                     118 ;
 35C5:FD             119 <a class='d' name='CCBSTA'     >CCBSTA      </a>DS 1            ; RESULT STATUS                 ; [A] Return Code
