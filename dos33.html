@@ -1442,8 +1442,8 @@ With that "legalese" out of the way ... enjoy the read!
 1E67:AC C1 2A       215             LDY <a class='v' href='#AIOB'  >AIOB</a>
 1E6A:60             216             RTS
 1E6B:4C 51 28       217             JMP <a class='x' href='#MVCSW' >MVCSW</a>                                       ; $3EA: Set CIN/COUT to DOS
-1E6E:EA             218             NOP
-1E6F:EA             219             NOP
+1E6E:EA             218             NOP                                             ; [.. <a class='mem' name='_1E6E'>wastes</a> 2 bytes -- NEVER used anywhere
+1E6F:EA             219             NOP                                             ;  ..]
 1E70:4C 59 FA       220             JMP <a class='e' href='#MONBRK'>MONBRK</a>                                      ; $3EF: JMP $FA59 Autostart BRK handler
 1E73:4C 65 FF       <a class='line' name='DOSINIT.221'>221</a>             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3F2: $9DBF,$38 Control-Reset - Why not <span class='code'>DW DBRST</span>, <span class='code'>DB $#&gt;DBRST ^ $A5</span> ??? Line #<a class='line' href='#DOSINIT.191'>191</a>
 1E76:4C 58 FF       222             JMP <a class='e' href='#IORTS' >IORTS</a>                                       ; $3F5: JMP $FF58 Ampersand handler
