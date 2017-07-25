@@ -4821,7 +4821,7 @@ With that "legalese" out of the way ... enjoy the read!
 323A:A9 00          073             LDA #<span class='n'>0</span>
 323C:AC 9D 33       074             LDY <a class='v' href='#TEMP2'>TEMP2</a>                                       ; /cynical What? Can't do <span class='code'>FILE_ENTRY_OFFSET = TEMP2</span>
 323F:D0 97          075             BNE <a class='x' href='#FF1'>FF1</a>                                         ;
-3241:4C 77 33       076             JMP <a class='x' href='#ERROR9'>ERROR9</a>                                      ; <a class='v' href='#EM9'>EM9</a>: I/O ERROR
+3241:4C 77 33       076             JMP <a class='x' href='#ERROR9'>ERROR9</a>                                      ; NOT <a class='v' href='#EM9'>EM9</a>: I/O ERROR, but <a class='e' href='#CRENSA'>CRENSA</a> &rarr; "NO SECTORS AVAILABLE"
                     077             PAGE
                     078 ;
                     079 ;GETSEC - GET A SECTOR
