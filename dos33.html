@@ -4998,35 +4998,38 @@ With that "legalese" out of the way ... enjoy the read!
                     250             RTS                                             </span>
                     251     FIN
                     252             PAGE
-335F:A9 01          253 <a class='f' name='ERROR1' >ERROR1      </a>LDA #CREFUN
-3361:D0 22          254             BNE ERRORA
-                    255 
-                    256 
-                    257 
-                    258 
-                    259 
-                    260 
-                    261 
-                    262 
-                    263 
-                    264 
-                    265 
-                    266 
-                    267 
-                    268 
-337F:AD C5 35       269 <a class='f' name='GOODIO'     >GOODIO      </a>LDA CCBSTA
-3382:18             270             CLC             ; CARRY=CLR                     ; <b>No Shit Sherlock</b>, <i>C=0 No error</i>
+335F:A9 01          253 <a class='f' name='ERROR1' >ERROR1      </a>LDA #CREFUN                                     ; "FCB UNALLOCATED"     - JMP'd from exactly ONE spot: <a class='x' href='#F02'>F02</a>
+3361:D0 22          254             BNE ERRORA                                      ;&darr; <a class='mem' name='_3361'>wastes</a> 2 bytes, above should be located at F02: <span class='code'>LDA #CREFUN, JMP ERRORA</span>
+3363:A9 02          255 <a class='f' name='ERROR2' >ERROR2      </a>LDA #CRERR                                      ; "CCB REQ RANGE ERR"   - JMP'd from exactly ONE spot: <a class='x' href='#ERR2'>ERR2</a>
+3365:D0 1E          256             BNE ERRORA                                      ;&darr; <a class='mem' name='_3365'>wastes</a> 2 bytes, above should be located at ERR2: <span class='code'>LDA #CRERR, JMP ERRORA</span>
+3367:A9 03          257 <a class='f' name='ERROR3' >ERROR3      </a>LDA #CREMRE                                     ; "REQ MOD RANGE ERR"   - JMP'd from exactly ONE spot: <a class='x' href='#ERR3A'>ERR3A</a>
+3369:D0 1A          258             BNE ERRORA                                      ;&darr; <a class='mem' name='_3369'>wastes</a> 2 bytes, above should be located at ERR3A: <span class='code'>LDA #CREMRE, JMP ERRORA</span>
+336B:A9 04          259 <a class='f' name='ERROR4' >ERROR4      </a>LDA #CREPRO                                     ; "WRITE PROTECT"       - [.. <a class='mem' name='_336B'>wastes</a> 4 bytes -- never referenced!
+336D:D0 16          260             BNE ERRORA                                      ;&darr;                         ..]
+336D:A9 05          261 <a class='f' name='ERROR5' >ERROR5      </a>LDA #CREEOF                                     ; "END OF FILE ON READ" - JMP'd from exactly ONE spot: <a class='x' href='#EOFIN'>EOFIN</a>
+3371:D0 12          262             BNE ERRORA                                      ;&darr; <a class='mem' name='_3371'>wastes</a> 2 bytes, above should be located at EOFIN: <span class='code'>LDA #CREEOF, JMP ERRORA</span>
+3373:A9 06          263 <a class='f' name='ERROR6' >ERROR6      </a>LDA #CREFNF                                     ; "FILE NOT FOUND"      - JMP'd from exactly ONE spot: <a class='x' href='#F02A'>F02A</a>
+3375:D0 0E          264             BNE ERRORA                                      ;&darr; <a class='mem' name='_3375'>wastes</a> 2 bytes, above should be located at F02A: <span class='code'>LDA #CREFNF, JMP ERRORA</span>
+
+                                                                                    ; "VOL MIS MATCH"       - <i>What happened to error 7 ???</i>
+                                                                                    ; "I/O ERR"             - <i>What happened to error 8 ???</i>
+3377:4C ED 3F       265 <a class='f' name='ERROR9' >ERROR9      </a>JMP ERROR9X     ;MUST CLOSE ALL FILES (WAS LDA #CRENSA)     ; "NO SECTORS AVAILABLE"
+337A:EA             266             NOP                                             ;&darr; <a class='mem' name='_337A'>wastes</a> 1 byte to keep Entry Point address unchanged
+33                  267 <a class='f' name='ERROR10'>ERROR10     </a>LDA CREFLK
+33                  268             BNE ERRORA                                      ;&darr;
+337F:AD C5 35       269 <a class='f' name='GOODIO'     >GOODIO      </a>LDA CCBSTA                                      ; Default to no change in status
+3382:18             270             CLC             ; CARRY=CLR                     ; <b>No Shit Sherlock</b>, <i>Comment <b>WHY</B>, _not_ how</i>; C=0 &rarr; No error
 3383:90 01          271             BCC RETURN      ; GO RETURN
                     272 <a class='f' name='ERRORA'     >ERRORA      </a>EQU *
 3385:38             273 <a class='f' name='ERRORB'     >ERRORB      </a>SEC             ; CARRY SET                     ; <b>STOP documenting stupid shit!</b> <i>Instead, WHAT significance does C=1 have?</i> &rarr; C=1 ERROR
                     274 <a class='f' name='RETURN'     >RETURN      </a>EQU *
 3386:08             275             PHP
-3387:8D C5 35       276             STA CCBSTA      ; SET STA
-338A:A9 00          277             LDA #0          ;(FIX FOR APPLE SYS MONITOR $48 USED BY RWTS)
-338C:85 48          278             STA $48         ;(THIS ADDED 11/1/78)           ; <a class='magic' href='_338D'>magic number</a> <b>NOT</b> <a class='x' href='#ALLDONE'>ALLDONE</a> <span class='code'>DFB $24 SEC</span>, but <span class='todo'>TODO</span>
+3387:8D C5 35       276             STA <a class='v' href='#CCBSTA'>CCBSTA</a>      ; SET STA
+338A:A9 00          277             LDA #<span class='n'>0</span>          ;(FIX FOR APPLE SYS MONITOR $48 USED BY RWTS)
+338C:85 48          278             STA $<span class='n'>48</span>         ;(THIS ADDED 11/1/78)           ; <a class='magic' href='_338D'>magic number</a> <b>NOT</b> <a class='x' href='#ALLDONE'>ALLDONE</a> <span class='code'>DFB $24 SEC</span>, but <span class='todo'>TODO</span>
 338E:20 7E 2E       279             JSR RTNFCB      ; GO RTN FCB
 3391:28             280             PLP             ; GET STATUS
-3392:AE 9B 33       281             LDX ENTSTK      ; GET ENT STACK
+3392:AE 9B 33       281             LDX <a class='v' href='#ENTSTK'>ENTSTK</a>      ; GET ENT STACK
 3395:9A             282             TXS             ; RESTORE STACK                 ; o7 Captain Obvious
 3396:60             283             RTS             ; DONE
                     284 <a class='f' name='EC2'    >EC2         </a>EQU *
