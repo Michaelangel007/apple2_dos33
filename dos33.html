@@ -1429,8 +1429,8 @@ With that "legalese" out of the way ... enjoy the read!
 1E50:60             202 <!--                           -->            RTS
                     203 ;
                     204 <a class='d' name='IFB'      >IFB         </a>EQU *                                           ; --- Copied to $3D0 ---
-1E51:4C BF 1D       205 <a class='f' name='DBVECT'   >DBVECT      </a>JMP <a class='x' href='#DBRST'>DBRST</a>                                       ; $3D0: JMP $9DBF DOS Warm RESET
-1E54:4C 84 1D       206 <!--                           -->            JMP <a class='x' href='#DBINIT' >DBINIT</a>                                      ; $3D3: JMP $9D84 DOS Cold RESET
+1E51:4C BF 1D       205 <a class='f' name='DBVECT'   >DBVECT      </a>JMP <a class='x' href='#DBRST'>DBRST</a>                                       ; $3D0: JMP $9DBF DOS Warm RESET -- <i>Really?? You couldn't put this in the SAME order</i>
+1E54:4C 84 1D       206 <!--                           -->            JMP <a class='x' href='#DBINIT' >DBINIT</a>                                      ; $3D3: JMP $9D84 DOS Cold RESET -- <i>as BASIC:</i> <b>Cold THEN Warm ???</b>
 1E57:4C FD 2A       207 <!--                           -->            JMP <a class='x' href='#USERENT'>USERENT</a> ;USER EXTERNAL ENTRY TO FILE MANAGER; $3D6: JMP $AAFD FM   (File Manager)
 1E5A:4C B5 37       208 <!--                           -->            JMP <a class='x' href='#DISKIO '>DISKIO</a>                                      ; $3D9: JMP $B7B5 RWTS (ReadWriteTrackSector)
                     209 <a class='f' name='CCBLDR'   >CCBLDR      </a>EQU *                                           ; $3DC: GetParamFM (A,Y = $B5BB, CCB = Command Control Block)
