@@ -1437,8 +1437,8 @@ With that "legalese" out of the way ... enjoy the read!
 1E5D:AD 0F 1D       210 <!--                           -->            LDA <a class='v' href='#CCBADR'>CCBADR</a>+<span class='n'>1</span>
 1E60:AC 0E 1D       211 <!--                           -->            LDY <a class='v' href='#CCBADR'>CCBADR</a>
 1E63:60             212 <!--                           -->            RTS
-1E64:AD C2 2A       214             LDA <a class='v' href='#AIOB'  >AIOB</a>+<span class='n'>1</span>
                     213 <a class='f' name='IOBLDR'   >IOBLDR      </a>EQU *                                           ; $3E3: GetParamRWTS (A,Y = $B7E8, IOB = Input Output Block)
+1E64:AD C2 2A       214             LDA <a class='v' href='#AIOB'  >AIOB</a>+<span class='n'>1</span>                                      ; /sarcasm <i>Really? You couldn't be consistent and call it</i> <span class='code'>IOBADR</span> ???
 1E67:AC C1 2A       215             LDY <a class='v' href='#AIOB'  >AIOB</a>
 1E6A:60             216             RTS
 1E6B:4C 51 28       217             JMP <a class='x' href='#MVCSW' >MVCSW</a>                                       ; $3EA: Set CIN/COUT to DOS
