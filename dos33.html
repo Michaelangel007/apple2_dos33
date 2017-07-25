@@ -4669,13 +4669,13 @@ With that "legalese" out of the way ... enjoy the read!
 3152:A9 C0          205             LDA #$C0        ; INDICATE BOTH                 ; <a class='magic' name='_3153'>magic number</a> WRITE_FLAG_SECTOR | WRITE_FLAG_DIR
                     206             ORA DCBWRF      ; DIR AND SECTOR                ; <span class='todo'>TODO</span> DIRECTORY or DIRECTION ???
                     207             STA DCBWRF      ; MUST BE WRITTEN
-                    208             RTS             ; DONE                          ; For the love of god, WHY do you keep stating the obvious???
+315A:60             208             RTS             ; DONE                          ; For the love of god, WHY do you keep stating the obvious???
                     209             PAGE
                     210 ;
                     211 ;INCRRB - INCREMENT RELATIVE RECORD BYTE
                     212 ;
                     213 <a class='f' name='INCRRB'   >INCRRB      </a>EQU *
-                    214             LDX DCBCRR      ; MOVE BYTE JUST READ OR WRITTEN
+315B:               214             LDX DCBCRR      ; MOVE BYTE JUST READ OR WRITTEN
                     215             STX CCBRRN
                     216             LDX DCBCRR+1
                     217             STX CCBRRN+1
