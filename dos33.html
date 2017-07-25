@@ -5332,16 +5332,16 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 35C3:FC FD          117 <a class='d' name='CCBDAT'     >CCBDAT      </a>DS 2            ; BYTE I/O - DATA BYTE          ; [8]
                     118 ;
 35C5:FD             119 <a class='d' name='CCBSTA'     >CCBSTA      </a>DS 1            ; RESULT STATUS                 ; [A] Return Code
-                    120 <a class='e' name='CREFUN'     >CREFUN      </a>EQU 1           ; FCB UNALLOCATED
-                    121 <a class='e' name='CRERR'      >CRERR       </a>EQU 2           ; CCB REQ RANGE ERR
-                    122 <a class='e' name='CREMRE'     >CREMRE      </a>EQU 3           ; REQ MOD RANGE ERR
-                    123 <a class='e' name='CREPRO'     >CREPRO      </a>EQU 4           ; WRITE PROTECT
-                    124 <a class='e' name='CREEOF'     >CREEOF      </a>EQU 5           ; END OF FILE ON READ
-                    125 <a class='e' name='CREFNF'     >CREFNF      </a>EQU 6           ; FILE NOT FOUND
+                    120 <a class='e' name='CREFUN'     >CREFUN      </a>EQU 1           ; FCB UNALLOCATED               ; See: <a class='x' href='#ERROR1'>ERROR1</a>
+                    121 <a class='e' name='CRERR'      >CRERR       </a>EQU 2           ; CCB REQ RANGE ERR             ; See: <a class='x' href='#ERROR2'>ERROR2</a>
+                    122 <a class='e' name='CREMRE'     >CREMRE      </a>EQU 3           ; REQ MOD RANGE ERR             ; See: <a class='x' href='#ERROR3'>ERROR3</a>
+                    123 <a class='e' name='CREPRO'     >CREPRO      </a>EQU 4           ; WRITE PROTECT                 ; See: <a class='x' href='#ERROR4'>ERROR4</a>
+                    124 <a class='e' name='CREEOF'     >CREEOF      </a>EQU 5           ; END OF FILE ON READ           ; See: <a class='x' href='#ERROR5'>ERROR5</a>
+                    125 <a class='e' name='CREFNF'     >CREFNF      </a>EQU 6           ; FILE NOT FOUND                ; See: <a class='x' href='#ERROR6'>ERROR6</a>
                     126 <a class='e' name='CREVMM'     >CREVMM      </a>EQU 7           ; VOL MIS MATCH
                     127 <a class='e' name='CREIOE'     >CREIOE      </a>EQU 8           ; I/O ERR
-                    128 <a class='e' name='CRENSA'     >CRENSA      </a>EQU 9           ; NO SECTORS AVAILABLE
-                    129 <a class='e' name='CREFLK'     >CREFLK      </a>EQU 10          ; FILE LOCKED
+                    128 <a class='e' name='CRENSA'     >CRENSA      </a>EQU 9           ; NO SECTORS AVAILABLE          ; See: <a class='x' href='#ERROR9'>ERROR9</a>
+                    129 <a class='e' name='CREFLK'     >CREFLK      </a>EQU 10          ; FILE LOCKED                   ; See: <a class='x' href='#ERROR10'>ERROR10</a>
                     130 ;
 35C6:FD             131 <a class='d' name='CCBSM'      >CCBSM       </a>DDS 1           ; STATUS MODIFIER               ; [B] FM_WASTED1 <a class='mem' name='_35C6'>wastes</a> 1 byte; never used! Can't remove since middle of struct.
 35C7:FF FC          132 <a class='d' name='CCBFCB'     >CCBFCB      </a>DDS 2           ; FCB PTR                       ; [C] FM_FCB_PTR
