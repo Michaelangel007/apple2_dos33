@@ -493,8 +493,6 @@ var StickyHeaders = (function() {
     function onLoad()
     {
 console.log( "Loading..." );
-        StickyHeaders.Init( 'sticky' );
-console.log( "done!" );
 
         var aData  = document.getElementsByClassName( 'd' );
         var nData  = aData.length;
@@ -525,6 +523,33 @@ console.log( "done!" );
         var nProc  = aProc.length;
         var eProc  = document.getElementsByName( 'stat_proc' )[0];
             eProc.innerHTML = nProc;
+
+
+        var eSymName = document.getElementsByName( 'symbols_by_name' )[0];
+        var eSymAddr = document.getElementsByName( 'symbols_by_addr' )[0];
+        var tSymName = "";
+        var tSymAddr = "";
+
+        var locs = new Array(26); // A-Z
+        var i, n = locs.length;
+        for( i = 0; i < n; ++i )
+        {
+            locs[ i ] = String.fromCharCode( 65 + i );
+            tSymName += "<h3>" + locs[i] + "</h3>";
+            tSymAddr += "<h3>" + locs[i] + "</h3>";
+
+            tSymName += "<pre name='symbol_name_" + locs[i] + "'>";
+            tSymAddr += "<pre name='symbol_name_" + locs[i] + "'>";
+
+            tSymName += "</pre>";
+            tSymAddr += "</pre>";
+        }
+
+        eSymName.innerHTML = tSymName;
+        eSymAddr.innerHTML = tSymAddr;
+
+        StickyHeaders.Init( 'sticky' );
+console.log( "done!" );
     }
 
     function onSyntaxChangeColor()
