@@ -577,6 +577,13 @@ console.log( "Loading..." );
             tSymName += "<pre name='symbol_name_" + locs[i] + "'>";
             tSymAddr += "<pre name='symbol_name_" + locs[i] + "'>";
 
+            var section = locs[ i ];
+            tSymName += symbolsAddMarkup( section, aFuncs, "<span class='f'>", maxFuncLen );
+            tSymName += symbolsAddMarkup( section, aData , "<span class='d'>", maxFuncLen );
+
+            tSymAddr += symbolsAddMarkup( section, aFuncs, "<span class='f'>", maxFuncLen );
+            tSymAddr += symbolsAddMarkup( section, aData , "<span class='d'>", maxFuncLen );
+
             tSymName += "</pre>";
             tSymAddr += "</pre>";
         }
@@ -8068,25 +8075,14 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 <div name='symbols_by_name'></div>
 
 <h3>A</h3>
-    ASHM1       =   $73
-    ASHM2       =   $6F
 
 <h3>B</h3>
 
 <h3>C</h3>
-    COUT        =   $26
 
 <h3>D</h3>
-    DBVECT      = $1E51
-    DELTA       = $1C7F
 
 <h3>E</h3>
-    EC1         = $2884
-    EC2         = $3397
-    EC3         = $37E0
-    ERRORA      = $3F85
-    EWADR1      = $3CDF
-    EAT1        = $1D56
 
 <h3>F</h3>
 
@@ -8095,7 +8091,6 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 <h3>H</h3>
 
 <h3>I</h3>
-    IBVT        = $1D62
 
 <h3>J</h3>
 
@@ -8106,25 +8101,16 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 <h3>M</h3>
 
 <h3>N</h3>
-    NEPAGE      = $1C7D
 
 <h3>O</h3>
 
 <h3>P</h3>
-    PRENIB16    = $B800
 
 <h3>Q</h3>
 
 <h3>R</h3>
-    RUN         = $1D58
-    RSPAGE      = $1C7A
 
 <h3>S</h3>
-    SAT1        = $1D00
-    SC1         = $1D84
-    SC2         = $2AFD
-    SC3         = $365D
-    SWADR1      = $3C56
 
 <h3>T</h3>
 
@@ -8139,8 +8125,6 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 <h3>Y</h3>
 
 <h3>Z</h3>
-    ZPGFCB      =   $42
-    ZPGWRK      =   $40
 
 
 <h2><a class='section' name='Address'>3.2 Symbols (Address)</a></h2>
