@@ -283,6 +283,30 @@ span.patch {
 </head>
 <script>
 // ========== Utility ==========
+    function isHexAddr( text )
+    {
+        var digits = "0123456789ABCDEF";
+        var i = 0, n = text.length;
+        for( ; i < n; ++i )
+        {
+            if( digits.indexOf( text[i] ) < 0 )
+                return false;
+        }
+        return true;
+    }
+
+    function padLeft( text, width, c )
+    {
+        if( !c ) c = ' ';
+        return ("" + new Array( width ).join( c ) + text).slice( -width );
+    }
+
+    function padRight( text, width, c )
+    {
+        if( !c ) c = ' ';
+        return (text + new Array( width).join( c )).substr( 0, width );
+    }
+
     // http://stackoverflow.com/questions/18953144/how-do-i-get-the-offset-top-value-of-an-element-without-using-jquery
     function js_offset( elem )
     {
