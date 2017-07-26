@@ -4175,27 +4175,27 @@ With that "legalese" out of the way ... enjoy the read!
                     102 * RDIR - PRINT DIRECTORY                                    ; "CATALOG"
                     103 ;
                     104 <a class='f' name='RDIR'     >RDIR        </a>EQU *
-                    105             JSR DCBSUP
+2D98:20 DC 2B       105             JSR DCBSUP
                     106             LDA #$FF
                     107             STA DCBVOL
                     108             JSR RDVTOC
-                    109             LDA #22         ; SET 21 LINES                  ;[.. <a class='mem' name='_'>wastes</a> 1 bytes, <span class='code'>JSR NewPage</span> 
+2DA3:A9 16          109             LDA #22         ; SET 21 LINES                  ;[.. <a class='mem' name='_2DA4' coords='1'>wastes</a> 1 bytes, <span class='code'>JSR NewPage</span>
                     110             STA TEMP2                                       ; ..]
                     111             JSR PRCR        ; GO PRINT                      ; Should be <span class='code'>JSR PRCR2</span>
-                    112             JSR PRCR        ; PRINT ANOTHER CHAR            ; <a class='mem' name='_'>wastes</a> 3 bytes
+2DA8:20 2F 2E       112             JSR PRCR        ; PRINT ANOTHER CHAR            ; <a class='mem' name='_2DA8' coords='3'>wastes</a> 3 bytes
                     <a class='line' name='FDELCAT.113'>113</a>             LDX #VML        ; VOLUME MSG LENGTH
                     114 RD0         LDA VOLMES,X    ; GET MSG CHAR                  ; \
-                    115             JSR PRINT       ; PRINT IT                      ;  &gt; More stupid commenting stating the obvious
+2DAB3:20 ED FD      115             JSR PRINT       ; PRINT IT                      ;  &gt; More stupid commenting stating the obvious
                     116             DEX             ; DECREMENT COUNT               ; /
 <hr>                    117             BPL RD0         ; BR IF MORE                    ; === Page <a class='page' name='page57'>57</a> ===
                     118 ;
-                    119             STX CNUM+1                                      ; X=0 &rarr; CNUM+1, clear high byte for printing
+2DB9:86 45          119             STX CNUM+1                                      ; X=0 &rarr; CNUM+1, clear high byte for printing
                     120             LDA IBSMOD      ; MOVE VOL NO FOR
                     121             STA CNUM        ; CONVERSION
                     122             JSR PRNUM       ; GO PRINT VOL NO
                     123 ;
                     124             JSR PRCR        ; PRINT CR                      ; Should be <span class='code'>JSR PRCR2</span>
-                    125             JSR PRCR        ; AND AGAIN                     ; <a class='mem' name='_'>wastes</a> 3 bytes
+2DC6:20 2F 2E       125             JSR PRCR        ; AND AGAIN                     ; <a class='mem' name='_2DC6' coords='3'>wastes</a> 3 bytes
                     126 ;
                     127             CLC             ; FIRST RECORD
                     128 ;
@@ -4415,8 +4415,8 @@ With that "legalese" out of the way ... enjoy the read!
                     089 ;
                     090 <a class='f' name='WRSECT'   >WRSECT      </a>EQU *
 2F1D:2C D5 35       091             BIT DCBWRF      ; GET WRITE REQD FLAG
-                    092             BVS WRSGO       ; BR IF WRITE SECTOR REQD       ; <a class='mem' name='_'>wastes</a> 1 byte with next instruction RTS, should be: <span class='code'>BVC WRFDIR-1</span>
-                    093             RTS             ; RTS                           ; o7 Captain Obvious
+2F20:70 01          092             BVS WRSGO       ; BR IF WRITE SECTOR REQD       ;                               [.. Should be: <span class='code'>BVC WRFDIR-1</span>
+2F22:60             093             RTS             ; RTS                           ; o7 <i>Captain Obvious is Obvious</i>  ..] <a class='mem' name='_2F22' coords='1'>wastes</a> 1 byte with RTS
                     094 ;
                     095 <a class='f' name='WRGO'     >WRGO        </a>EQU *
 2F23:20 E4 2F       096             JSR MVSBA       ; GO MOVE SECT BUFF ADR         ; MoveSectorBufferAddress
@@ -4434,8 +4434,8 @@ With that "legalese" out of the way ... enjoy the read!
                     108 ;
                     109 <a class='f' name='WRFDIR'   >WRFDIR      </a>EQU *
 2F34:AD D5 35       110             LDA DCBWRF      ; GET WRITE REQD FLAG
-2F37:30 01          111             BMI WRFDGO      ; BR IF NOT DIR REQD            ; <a class='mem' name='_'>wastes</a> 1 byte with next instruction RTS, should be: <span class='code'>BPL WRFDIR-1</span>
-2F39:60             112             RTS
+2F37:30 01          111             BMI WRFDGO      ; BR IF NOT DIR REQD            ;[.. Should be: <span class='code'>BPL WRFDIR-1</span>
+2F39:60             112             RTS                                             ; ..] <a class='mem' name='_2F39' coords='1'>wastes</a> 1 byte with RTS
                     113 ;
                     114 <a class='f' name='WRFDGO'   >WRFDGO      </a>EQU *
 2F3A:20 4B 2F       115             JSR MVFDBA                                      ; MoveFileDirectoryBufferAddress
@@ -4568,7 +4568,7 @@ With that "legalese" out of the way ... enjoy the read!
                     005 ;
                     006 <a class="f" name="RDVTOC"   >RDVTOC      </a>EQU *
 2FF7:A9 01          007             LDA #<a class="v" href="#IBCRTS">IBCRTS</a>     ; READ
-2FF9:D0 02          008             BNE <a class="x" href="#VTIO">VTIO</a>                                        ; <a class='mem' name='_2FF9'>wastes</a> 1 byte, FIX: <span class='code'>HEX 2C</span> bit $abs
+2FF9:D0 02          008             BNE <a class="x" href="#VTIO">VTIO</a>                                        ; <a class='mem' name='_2FF9' coords='1'>wastes</a> 1 byte, FIX: <span class='code'>HEX 2C</span> bit $abs
                     009 <a class="f" name="WRVTOC"   >WRVTOC      </a>EQU *
 2FFB:A9 02          010             LDA #<a class="v" href="#IBCWTS">IBCWTS</a>     ; WRITE
                     011 ;
@@ -4579,7 +4579,7 @@ With that "legalese" out of the way ... enjoy the read!
                     016 ;
 3009:AE FA 35       017             LDX DCBVTN      ; GET TRACK                     ; $B5FA = VTN = VTOC Track Number = $11
 300C:A0 00          018             LDY #<span class='n'>0</span>                                          ; VTOC Sector Number = $0 <a class='magic' name='_300D'>magic number</a> <span class='code'>FILESYSTEM_VTOC_SECTOR EQU 0</span>
-300E:4C 52 30       019             JMP <a class="x" href="#DCBIO">DCBIO</a>       ; GO DO I/O                     ; <a class='mem' name='_300E'>wastes</a> 1 byte, FIX: <span class='code'>BPL DCBIO</span> &darr; (always)
+300E:4C 52 30       019             JMP <a class="x" href="#DCBIO">DCBIO</a>       ; GO DO I/O                     ; <a class='mem' name='_300E' coords='1'>wastes</a> 1 byte, FIX: <span class='code'>BPL DCBIO</span> &darr; (always)
                     020             PAGE
                     021 ;
                     022 ;RDVDIR - READ VOLUME DIRECTOR
@@ -4619,7 +4619,7 @@ With that "legalese" out of the way ... enjoy the read!
 303A:AE 97 33       056             LDX CVDTRK      ; CURRENT TRACK
 303D:AC 98 33       057             LDY CVDSEC      ; CURRENT SECTOR
 3040:A9 02          058             LDA #IBCWTS     ; WRITE COMMAND
-3042:4C 52 30       059             JMP DCBIO       ; GO DO I/O                     ; <a class='mem' name='_3042'>wastes</a> 1 byte, <span class='code'>BNE DCBIO</span> &darr; (always)
+3042:4C 52 30       059             JMP DCBIO       ; GO DO I/O                     ; <a class='mem' name='_3042' coords='1'>wastes</a> 1 byte, <span class='code'>BNE DCBIO</span> &darr; (always)
                     060 ;
                     061 ; MVVDBA - MOVE VOL DIR BUF ADR TO IOB
                     062 ;
@@ -4643,7 +4643,7 @@ With that "legalese" out of the way ... enjoy the read!
 305F:0D D5 35       080             ORA DCBWRF
 3062:8D D5 35       081             STA DCBWRF
                     082 <a class='f' name='DBIO1'    >DBIO1       </a>EQU *
-3065:AD F9 35       083             LDA DCBVOL      ; VOL                           ;[..<a class='mem' name='_3065'>wastes</a> 2 bytes
+3065:AD F9 35       083             LDA DCBVOL      ; VOL                           ;[..<a class='mem' name='_3065' coords='2'>wastes</a> 2 bytes
 3068:49 FF          084             EOR #$FF        ; UNINVERT VOL BITS             ; ..  0. Why was it inverted in the first place???
 306A:8D EB 37       085             STA IBVOL                                       ; ..  1. More crappy names; Since DCB and IB are used all the time,
 306D:AD F7 35       086             LDA DCBSLT      ; SLOT                          ; ..     a single letter prefix with an underscore '_' would
@@ -4698,7 +4698,7 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                     ;            <span class='code'>        DEX              </span>
                                                                                     ;            <span class='code'>        BPL DCB2IOB      </span>
                                                                                     ;
-3085:A9 01          094             LDA #1          ; IOB TYPE                      ;[..  <a class='mem' name='_3085'>wastes</a> 5 bytes, <a class='magic' name='_'>magic number</a>
+3085:A9 01          094             LDA #1          ; IOB TYPE                      ;[..  <a class='mem' name='_3085' coords='5'>wastes</a> 5 bytes, <a class='magic' name='_'>magic number</a>
 3087:8D E8 37       <a class='line' name='FLOCNXB.095'>095</a>             STA <a class='v' href='#IBTYPE'>IBTYPE</a>                                      ; ..] never referenced!
                     096 ;
 308A:AC C1 2A       097             LDY AIOB
@@ -4774,7 +4774,7 @@ With that "legalese" out of the way ... enjoy the read!
                     167             SEC
 310D:60             168             RTS
 310E:20 34 31       169 LNB7A       JSR <a class='x' href='#GNWSEC'>GNWSEC</a>      ; GO GET A NEW SECTOR           ; A=C0
-3111:4C 20 31       170             JMP <a class='x' href='#LNBCON'>LNBCON</a>                                      ;&darr; <a class='mem' name='_3111'>wastes</a> 1 byte 1 byte, BNE LNBCON
+3111:4C 20 31       170             JMP <a class='x' href='#LNBCON'>LNBCON</a>                                      ;&darr; <a class='mem' name='_3111' coords='1'>wastes</a> 1 byte 1 byte, BNE LNBCON
                     171 <a class='f' name='LNB7'     >LNB7        </a>STA DCBTRK      ; SET TRK INTO DCB
                     172             INY
                     173             LDA (ZPGFCB),Y  ; GET SECTOR
@@ -5133,7 +5133,7 @@ With that "legalese" out of the way ... enjoy the read!
 3357:90 03          242             BCC DONTINC
 <hr>3359:EE E5 35       243             INC DCBCRS+1                                    ; === Page <a class='page' name='page72'>72</a> ===
 335C:60             244 <a class='f' name='DONTINC'>DONTINC     </a>RTS
-335D:00 00          245             DS 2,$00                                        ; <a class='mem' name='_335D'>wastes</a> 2 bytes. Line 231 = 1 byte + 8 bytes keep remaining Entry Points @ same address
+335D:00 00          245             DS 2,$00                                        ; <a class='mem' name='_335D' coords='2'>wastes</a> 2 bytes. Line 231 = 1 byte + 8 bytes keep remaining Entry Points @ same address
                     246     ELSE                                                    ; 9 bytes<span class='macro'>
                     247             LDA #0                                          
                     248             ADC DCBCRS+1                                    
@@ -5142,22 +5142,22 @@ With that "legalese" out of the way ... enjoy the read!
                     251     FIN
                     252             PAGE
 335F:A9 01          253 <a class='f' name='ERROR1' >ERROR1      </a>LDA #<a class='e' href='#CREFUN'>CREFUN</a>                                     ; "FCB UNALLOCATED"     - JMP'd from exactly ONE spot: <a class='x' href='#F02'>F02</a>
-3361:D0 22          254             BNE ERRORA                                      ;&darr; <a class='mem' name='_3361'>wastes</a> 2 bytes, above should be located at F02: <span class='code'>LDA #CREFUN, JMP ERRORA</span>
+3361:D0 22          254             BNE ERRORA                                      ;&darr; <a class='mem' name='_3361' coords='2'>wastes</a> 2 bytes, above should be located at F02: <span class='code'>LDA #CREFUN, JMP ERRORA</span>
 3363:A9 02          255 <a class='f' name='ERROR2' >ERROR2      </a>LDA #<a class='e' href='#CRERR'>CRERR</a>                                      ; "CCB REQ RANGE ERR"   - JMP'd from exactly ONE spot: <a class='x' href='#ERR2'>ERR2</a>
-3365:D0 1E          256             BNE ERRORA                                      ;&darr; <a class='mem' name='_3365'>wastes</a> 2 bytes, above should be located at ERR2: <span class='code'>LDA #CRERR, JMP ERRORA</span>
+3365:D0 1E          256             BNE ERRORA                                      ;&darr; <a class='mem' name='_3365' coords='2'>wastes</a> 2 bytes, above should be located at ERR2: <span class='code'>LDA #CRERR, JMP ERRORA</span>
 3367:A9 03          257 <a class='f' name='ERROR3' >ERROR3      </a>LDA #<a class='e' href='#CREMRE'>CREMRE</a>                                     ; "REQ MOD RANGE ERR"   - JMP'd from exactly ONE spot: <a class='x' href='#ERR3A'>ERR3A</a>
-3369:D0 1A          258             BNE ERRORA                                      ;&darr; <a class='mem' name='_3369'>wastes</a> 2 bytes, above should be located at ERR3A: <span class='code'>LDA #CREMRE, JMP ERRORA</span>
-336B:A9 04          259 <a class='f' name='ERROR4' >ERROR4      </a>LDA #<a class='e' href='#CREPRO'>CREPRO</a>                                     ; "WRITE PROTECT"       - [.. <a class='mem' name='_336B'>wastes</a> 4 bytes -- never referenced!
+3369:D0 1A          258             BNE ERRORA                                      ;&darr; <a class='mem' name='_3369' coords='2'>wastes</a> 2 bytes, above should be located at ERR3A: <span class='code'>LDA #CREMRE, JMP ERRORA</span>
+336B:A9 04          259 <a class='f' name='ERROR4' >ERROR4      </a>LDA #<a class='e' href='#CREPRO'>CREPRO</a>                                     ; "WRITE PROTECT"       - [.. <a class='mem' name='_336B' coords='4'>wastes</a> 4 bytes -- never referenced!
 336D:D0 16          260             BNE ERRORA                                      ;&darr;                         ..]
 336D:A9 05          261 <a class='f' name='ERROR5' >ERROR5      </a>LDA #<a class='e' href='#CREEOF'>CREEOF</a>                                     ; "END OF FILE ON READ" - JMP'd from exactly ONE spot: <a class='x' href='#EOFIN'>EOFIN</a>
-3371:D0 12          262             BNE ERRORA                                      ;&darr; <a class='mem' name='_3371'>wastes</a> 2 bytes, above should be located at EOFIN: <span class='code'>LDA #CREEOF, JMP ERRORA</span>
+3371:D0 12          262             BNE ERRORA                                      ;&darr; <a class='mem' name='_3371' coords='2'>wastes</a> 2 bytes, above should be located at EOFIN: <span class='code'>LDA #CREEOF, JMP ERRORA</span>
 3373:A9 06          263 <a class='f' name='ERROR6' >ERROR6      </a>LDA #<a class='e' href='#CREFNF'>CREFNF</a>                                     ; "FILE NOT FOUND"      - JMP'd from exactly ONE spot: <a class='x' href='#F02A'>F02A</a>
-3375:D0 0E          264             BNE ERRORA                                      ;&darr; <a class='mem' name='_3375'>wastes</a> 2 bytes, above should be located at F02A: <span class='code'>LDA #CREFNF, JMP ERRORA</span>
+3375:D0 0E          264             BNE ERRORA                                      ;&darr; <a class='mem' name='_3375' coords='2'>wastes</a> 2 bytes, above should be located at F02A: <span class='code'>LDA #CREFNF, JMP ERRORA</span>
 
                                                                                     ; "VOL MIS MATCH"       - <i>What happened to error 7 ???</i>
                                                                                     ; "I/O ERR"             - <i>What happened to error 8 ???</i>
 3377:4C ED 3F       265 <a class='f' id='3377' name='ERROR9' >ERROR9      </a>JMP ERROR9X     ;MUST CLOSE ALL FILES (WAS LDA #CRENSA)     ; "NO SECTORS AVAILABLE"
-337A:EA             266             NOP                                             ;&darr; <a class='mem' name='_337A'>wastes</a> 1 byte to keep Entry Point address unchanged
+337A:EA             266             NOP                                             ;&darr; <a class='mem' name='_337A' coords='1'>wastes</a> 1 byte to keep Entry Point address unchanged
 337B:A9 0A          267 <a class='f' id='337B' name='ERROR10'>ERROR10     </a>LDA #<a class='e' href='#CREFLK'>CREFLK</a>                                     ; "FILE LOCKED"
 337D:D0 06          268             BNE ERRORA                                      ;&darr;
 337F:AD C5 35       269 <a class='f' id='337F' name='GOODIO'     >GOODIO      </a>LDA CCBSTA                                      ; Default to no change in status
@@ -5282,7 +5282,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                                                                                     ;         VALCA2
                                                                                     ;       a total of <b>3 bytes</b> out of 56!
                                                                                     ;       That is ~5% usage!?!?
-                                                                                    ; <a class='mem' name='_33F3'>wastes</a> 70 bytes (35 tracks * 2) due to allocating 32 sectors/track!
+                                                                                    ; <a class='mem' name='_33F3' coords='70'>wastes</a> 70 bytes (35 tracks * 2) due to allocating 32 sectors/track!
                     043 ;SECTORS ALLOCATED BY BIT MAP                               ;struct TrackBitmap {   //    Bits =   MSB.LSB
                     044 ;4 BYTES OF BITS PER TRACK                                  ;    uint8_t _f_8;      //[0] Sectors: FEDCBA98    0=Used
                     045 ;LEFT MOST BIT REPRESENTS SECTOR                            ;    uint8_t _7_0;      //[1] Sectors: 76543210    1=Free
@@ -5335,7 +5335,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 348B:FF FF FF FF                                                                    ; [D0]=T26 (Extra 39th track)
 348F:FF FF FF FF                                                                    ; [D4]=T27 (Extra 40th track)
 3493:FF FF FF FF                                                                    ; [D8]=T28
-3497:FF FF FF FF                                                                    ; [DC]=T29 <a class='mem' name='_3497'>wastes</a> 40 bytes [$D8..$FF] = $28
+3497:FF FF FF FF                                                                    ; [DC]=T29 <a class='mem' name='_3497' coords='40'>wastes</a> 40 bytes [$D8..$FF] = $28
 349B:FF FF FF FF                                                                    ; [E0]=T2A          *note* Tracks 41+ are not accessible
 349F:FF FF FF FF                                                                    ; [E4]=T2B                 on any drive that I know of.
 34A3:FF FF FF FF                                                                    ; [E8]=T2C                 That's not to say that they <i>don't</i>
@@ -5362,7 +5362,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     065 ;  FILE USE CODE                                            ;     DFB CAT_FILE_TYPE     ;[02] (2)
                     066 ;  FILE NAME         (30)                                   ;     DS  CAT_FILE_NAME     ;[03] (3) <b>WTF</b> -- sizeof( FileEntry ) == 35 bytes; make it 27
                     067 ;  FILE SECTOR COUNT (2)                                    ;     DW  CAT_FILE_NUM_SEC  ;[21] (33) so entire struct is 32 bytes
-34C6:FC FF          068             ORG VOLDIR+256                                  ; <a class='mem' name='_34BC'>wastes</a> 256 bytes of disk space <b>spanning two sectors</b> *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>* 
+34C6:FC FF          068             ORG VOLDIR+256                                  ; <a class='mem' name='_34BC' coords='256'>wastes</a> 256 bytes of disk space <b>spanning two sectors</b> *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>* 
 34C8:FC FC FD FC
 34CC:FC FC FE FC
 34D0:FF FC FC FF
