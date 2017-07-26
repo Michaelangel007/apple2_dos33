@@ -4163,12 +4163,12 @@ With that "legalese" out of the way ... enjoy the read!
                     090 <a class='f' name='FDSUB'    >FDSUB       </a>EQU *
                     091             SEC             ; SET FOR REUSE OF SEC
                     092             JSR <a class='x' href='#FRESEC'>FRESEC</a>      ; GO FREE SECTOR
-                    093             LDA #0          ; CLEAR DCB BIT MAP
-                    094             LDX #5          ; CLEAR ALL OF TRK BITMAP SO    ;
-                    095 *                           ;&gt;16 SECTORS/TRK WILL WORK
-                    096 <a class='f' name='FDS1'     >FDS1        </a>STA DCBALS,X                                    ; <span class='todo'>TODO</span> BUFFER OVERFLOW? We are we writing past DCBALS ???
-                    097             DEX                                             ; <span class='code'>INX         </span>
-                    098             BPL FDS1                                        ; <span class='code'>STA DCBALS,X</span>
+                    093             LDA #<span class='n'>0</span>          ; CLEAR DCB BIT MAP
+2D8F:A2 05          094             LDX #<span class='n'>5</span>          ; CLEAR ALL OF TRK BITMAP SO    ; <a class='magic' name='_2D90'>magic number</a> sizeof( DCBALS=1 + DCBATK=1 + DCBABM=4 ) = 6-1 = 5
+                    095 *                           ;&gt;16 SECTORS/TRK WILL WORK      ; Assumes DCBALS DCBATK DCBABM are contiguous, should be: <span class='code'>4 + DCBABM - DCBALS - 1</span>
+                    096 <a class='f' name='FDS1'     >FDS1        </a>STA DCBALS,X                                    ; Intentional BUFFER OVERFLOW
+                    097             DEX                                             ;
+                    098             BPL FDS1                                        ;
                     099             RTS
                     100             PAGE
                     101 ;
