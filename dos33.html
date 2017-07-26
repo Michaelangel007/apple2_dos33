@@ -556,6 +556,18 @@ console.log( "Loading..." );
 
         var locs = new Array(26); // A-Z
         var i, n = locs.length;
+        var maxFuncLen = 0;
+
+        var SortedFuncs = [];
+        var SortedAddrs = [];
+
+        for( j = 0; j < nFuncs; ++j )
+            if( aFuncs[j].name
+            &&  maxFuncLen < aFuncs[j].name.length)
+                maxFuncLen = aFuncs[j].name.length;
+
+        console.log( "... Max Func Name Length = " + maxFuncLen );
+
         for( i = 0; i < n; ++i )
         {
             locs[ i ] = String.fromCharCode( 65 + i );
