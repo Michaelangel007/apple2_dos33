@@ -7895,11 +7895,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     114 *                           *
                     115 *****************************
 <hr>                    116             PAGE                                            ; === Page <a class="page" name="page84">84</a> ===
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
+                    117 VTACK       LDY #$F                                         ; magic number TODO
+                    118             STY NSECT       ; SET 16 BYTES OF
+                    119             LDA #$30        ; SECTOR FOUND TABLE
+                    120             STA RETRYCNT    ; TO $30 (MARK THEM).
+                    121 CLRFOUND
                     122 
                     123 
                     124 
