@@ -4217,8 +4217,8 @@ With that "legalese" out of the way ... enjoy the read!
                     144             LDA VDFILE+2,X  ; GET TYPE                      ; <a class='magic' name='_'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
                     145             AND #$7F        ; MASK OUT MISC                 ; <a class='magic' name='_'>magic number</a> FILE_LOCKED_MASK
                     146             LDY #7          ; SET INDEX = 7                 ; Using a bit mask instead of a enumeration is dumb
-                    147             ASL A           ;GET RID OF HI BIT              ; Instead of the simple
-                    148 RD2B        ASL A           ; SHIFT OUT MSB                 ;    LDX FILE_TYPE
+2DEF:0A             147             ASL A           ;GET RID OF HI BIT              ; Instead of the simple
+2DF0:0A             148 RD2B        ASL A           ; SHIFT OUT MSB                 ;    LDX FILE_TYPE
                     149             BCS RD2C        ; BR IF TYPE BIT OUT            ;    LDA CHAR_FILE_TYPE,X
                     150             DEY             ; DEC INDEX                     ; We waste 9 bytes
                     151             BNE RD2B        ; BR IF NOT ACC BITS
@@ -4226,9 +4226,9 @@ With that "legalese" out of the way ... enjoy the read!
                     153             LDA FTTAB,Y     ; GET TYPE CODE
                     154             JSR PRINT       ; PRINT IT
                     155             LDA #$A0        ; BLANK
-                    156             JSR PRINT       ; PRINT
+2DFE:20 ED FD       156             JSR PRINT       ; PRINT                         ; === <a class='ts' href='#T1SD'>T1SD</a> ===
                     157 ;                                                           ; NOT File length, this is Number of Sectors Allocated
-                    158             LDA VDFILE+33,X ; MOVE FILE LENGTH              ; <a class='magic' name='_'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+0</span>
+2E01:               158             LDA VDFILE+33,X ; MOVE FILE LENGTH              ; <a class='magic' name='_'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+0</span>
                     159             STA CNUM
                     160             LDA VDFILE+34,X ; MOVE FILE LENGTH              ; <a class='magic' name='_'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+1</span>
                     161             STA CNUM+1
@@ -4261,7 +4261,7 @@ With that "legalese" out of the way ... enjoy the read!
                     188             JSR GETKEY      ; WAIT FOR INPUT
                     189             LDA #21         ; RESET LINE COUNTER            ; <span class='code'>NewPage</span>
                     190             STA TEMP2
-                    191 PRCR1       RTS             ; DONE
+2E41:60             191 PRCR1       RTS             ; DONE
                     192             PAGE
                     193 <a class='f' name='PRNUM'    >PRNUM       </a>EQU *                                           ; Print 16-bit CNUM as 3 decimal digits with leading zeroes
                     194             LDY #2          ; 3 DIGITS
@@ -4285,7 +4285,7 @@ With that "legalese" out of the way ... enjoy the read!
                     212 PRN3        EQU *
                     213             PLA             ; GET DIGIT
                     214             ORA #$B0        ; ADD ASCII 0                   ; <a class='magic'>magic number</a> <span class='code'>#'0'+$80</span> or <span class='code'>KEY_0</span>
-                    215             JSR PRINT       ; PRINT IT                      ; Gee I wonder what PRINT does ...
+2E63:20 ED FD       215             JSR PRINT       ; PRINT IT                      ; Gee I wonder what PRINT does ...
                     216             DEY             ; DECREMENT DIGIT COUNT
                     217             BPL PRN1        ; BR IF MORE DIGIT
                     218 ;
@@ -4335,18 +4335,18 @@ With that "legalese" out of the way ... enjoy the read!
 2E96:AD F9 35       009             LDA DCBVOL
                     010             EOR #$FF                                        ; <span class='todo'>TODO</span> Is this the reason why not possible to format with Volume=0
                     011             STA VVOLNO
-                    012             LDA #17                                         ; <a class='mem' name='_'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK</span>;
+2E9E:A9 11          012             LDA #17                                         ; <a class='magic' name='_2E9F' coords='1'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK</span>;
                     013             STA VALCA1      ; ALOCATE BYTE 1                ; *spelling* Allocate; Crappy name, should be: <span class='code'>ALLOC_TRK</span>
                     014             LDA #1                                          ; +$01 inwards to T22
                     015             STA VALCA2      ; ADD BYTE 2                    ; Crappy name, should be: <span class='code'>ALLOC_DIR</span>
                     016 ;
                     017             LDX #VSECAL-VTOC                                ; Skip VTOC header
                     018             LDA #0
-2EAC:9D BB 33       019 <a class='f' name='NT1'      >NT1         </a>STA VTOC,X      ; CLEAR SECTOR AREA             ; We only care about 4 tracks set to used: T0,T1,T2,T17
-                    020             INX
-                    021             BNE NT1
+2EAC:9D BB 33       019 <a class='f' id='2EAC' name='NT1'      >NT1         </a>STA VTOC,X      ; CLEAR SECTOR AREA             ; We only care about 4 tracks set to used: T0,T1,T2,T17
+2EAF:               020             INX
+2EB0:               021             BNE NT1
                     022 ;
-                    023             LDX #3*4        ; START AT TRACK 3              ; Idiotic 4 bytes/track , <a class='magic' name='_'>magic number</a> <span class='code'>FIRST_EMPTY_TRACK</span>
+2EB2:A2 0C          023             LDX #3*4        ; START AT TRACK 3              ; Idiotic 4 bytes/track , <a class='magic' name='_2EB2'>magic number</a> <span class='code'>FIRST_EMPTY_TRACK</span>
                     024 <a class='f' name='NT2'      >NT2         </a>CPX #35*4       ; END AT TRACK 35               ; instead of 2 bytes/trk, <a class='magic' name='_'>magic number</a> <span class='code'>LAST_EMPTY_TRACK</span>
                     025             BEQ NT4
                     026             LDY #3          ; 4 BYTES OF INFO
@@ -4355,7 +4355,7 @@ With that "legalese" out of the way ... enjoy the read!
                     029             INX
                     030             DEY
                     031             BPL NT3
-                    032             CPX #17*4       ; AT TRACK 17                   ; <a class='mem' name='_'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK * ALLOC_BYTE_PER_TRACK</span>;
+2EC4:E0 44          032             CPX #17*4       ; AT TRACK 17                   ; <a class='magic' name='_2EC5'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK * ALLOC_BYTE_PER_TRACK</span>;
                     033             BNE NT2
                     034             LDX #18*4       ; SKIP TO 18
                     035             BNE NT2                                         ; &uarr; (always)
@@ -4396,11 +4396,11 @@ With that "legalese" out of the way ... enjoy the read!
                     070 ;
                     071 * MVFCBX - MOVE FCB ADRS TO ZPGFCB
                     072 ;
-                    073 <a class='f' name='MVFCBP'   >MVFCBP      </a>LDX #<span class='n'>0</span>          ; MOVE FCB ADR                  ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span>
-                    074             BEQ MVF1
-                    075 <a class='f' name='MVFCBD'   >MVFCBD      </a>LDX #<span class='n'>2</span>          ; MOVE FCB DIR BUFF             ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span>
-                    076             BNE MVF1                                        ; <a class='mem' name='_'>wastes</a> 1 byte, $2C bit $abs
-                    077 <a class='f' name='MVFCBS'   >MVFCBS      </a>LDX #<span class='n'>4</span>          ; MOVE FCB SECTOR BUFF          ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span>
+2F08:A2 00          073 <a class='f' name='MVFCBP'   >MVFCBP      </a>LDX #<span class='n'>0</span>          ; MOVE FCB ADR                  ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span>
+2F0A:F0 06          074             BEQ MVF1
+2F0C:A2 02          075 <a class='f' name='MVFCBD'   >MVFCBD      </a>LDX #<span class='n'>2</span>          ; MOVE FCB DIR BUFF             ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span>
+2F0E:D0 02          076             BNE MVF1                                        ; <a class='mem' name='_2F0F' coords='1'>wastes</a> 1 byte, $2C bit $abs
+2F10:A2 04          077 <a class='f' name='MVFCBS'   >MVFCBS      </a>LDX #<span class='n'>4</span>          ; MOVE FCB SECTOR BUFF          ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span>
                     078 ;
                     079 <a class='f' name='MVF1'     >MVF1        </a>EQU *
                     080             LDA CFCBAD,X    ; DO THE MOVE
