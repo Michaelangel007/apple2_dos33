@@ -7011,8 +7011,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="WRITADR">WRITADR</a> - Write Address, Page <a class="page" name="page134">134</a>, <a class='ts' href='#T0S6'>T0S6</a> @ $56, $<b class='n'>BC56</b> .. $<b class='n'>BCFF</b> ===<hr class='join'><hr></div>
 <pre>
                     001             SBTL '16-SECTOR WRITE ADDRESS'
-                    002 
-                    003 
+                    002 ********************************
+                    003 *                              *
                     004 
                     005 
                     006 
@@ -7057,16 +7057,15 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     045 
                     046 
                     047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-3C56:38             053 WADR16      SEC             ANTICIPATE WR PROT ERR.
-3C57:BD 8D C0       054             LDA <a class="v" href="#Q6H"   >Q6H</a>,X       INTO 'WR PROT SENSE' MODE.
+                    048 *  ON BRANCHES                 *
+                    049 *                              *
+                    050 ********************************
+                    051 <a class='f' id='3C56' name='SWADR1'     >SWADR1      </a>EQU *           ;TELL RELOCATOR WHERE TO BEGIN
+                    052 *******************************
+3C56:38             053 <a class='f' id='3C56' name='WADR16'     >WADR16      </a>SEC             ANTICIPATE WR PROT ERR.
+<hr>3C57:BD 8D C0       054             LDA <a class="v" href="#Q6H"   >Q6H</a>,X       INTO 'WR PROT SENSE' MODE.      ; === Page <a class='page' name='page135'>135</a> ===
 3C5A:BD 8E C0       055             LDA <a class="v" href="#Q7L"   >Q7L</a>,X       SENSE IT (NEG=PROTECTED)
 3C5D:30 5E          056             BMI <a class="x" href="#WADRTS">WADRTS</a>      ERR EXIT IF PROTECTED.
-
 3C5F:A9 FF          057             LDA #$<span class='n'>FF</span>        SELF-SYNC NIBL.
 3C61:9D 8F C0       058             STA <a class="v" href="#Q7H"   >Q7H</a>,X       WRITE FRIST NIBL.
 3C64:DD 8C C0       059             CMP <a class="v" href="#Q6L"   >Q6L</a>,X       (4) BACK TO WRITE MODE.
@@ -7120,20 +7119,28 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     107 
                     108 
                     109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
+3CD0:EA             110 
+3CD1:EA             111 
+3CD2:09 AA          112             ORA #$<span class='n'>AA</span>        (2) SET CLOCK BITS.
+3CD4:EA             113 <a class='f' id='3CD4' name='WNIBLA'     >WNIBLA      </a>NOP             (2) (17,9,6) ENTRY.
+3CD5:EA             114 <a class='f' id='3CD5' name='WNIBLB2'    >WNIBLB2     </a>NOP             (2) (15,9,6) ENTRY.
+3CD6:48             115 <!--                                   -->            </a>PHA             (3) FOR
+3CD7:68             116             PLA             (4) DELAY.
+3CD8:9D 8D C0       117 <a class='f' id='3CD8' name='WRNIBL'     >WRNIBL      </a>STA Q6H,X       (5) WRITE NIBL.
+3CDB:DD 8C C0       118             CMP Q6L,X       (4)
+3CDE:60             119             RTS             (6) RETURN
+                    120 <a class='e' id='3CDF' name='EWADR1'     >EWADR1      </a>EQU *           ;TELL RELOCTR WHERE TO STOP
+                    121 <a class='e' id='003D' name='XP2'        >XP2         </a>EQU &lt;*+<span class='n'>255</span>      ;H.O. ADDRESS NEXT PAGE
+                    122 <a class='e' id='3D00' name='XP2H'       >XP2H        </a>EQU <span class='n'>256</span>*XP2     ;NOW AS 16-BITS
+3CDF:00             123             DS XP2H-*,<span class='n'>0</span>     ;PAD OUT TO PAGE BOUNDARY..                 ; <a class='mem' name='_3CDF'>wastes</a> 33 bytes!
+3CE0:00 00 00 00
+3CE4:00 00 00 00
+3CE8:00 00 00 00
+3CEC:00 00 00 00
+3CF0:00 00 00 00
+3CF4:00 00 00 00
+3CF8:00 00 00 00
+3CFC:00 00 00 00
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="RWTSONE">RWTSONE</a> - Read Write Track Sector - Part 1, Page <a class="page" name="page116">116</a>, <a class='ts' href='#T0S7'>T0S7</a>, $<b class='n'>BD00</b> .. $<b class='n'>BDAA</b> ===<hr class='join'><hr></div>
