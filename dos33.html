@@ -7158,33 +7158,34 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="RWTSONE">RWTSONE</a> - Read Write Track Sector - Part 1, Page <a class="page" name="page116">116</a>, <a class='ts' href='#T0S7'>T0S7</a>, $<b class='n'>BD00</b> .. $<b class='n'>BDAA</b> ===<hr class='join'><hr></div>
 <pre>
                     001             STBL '16-SECTOR RWTS'
-                    002 
-                    003 
-                    004 
-                    005 
-                    006 
-                    007 
-                    008 
-                    009 
-                    010 
-                    011 
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
+                    002 ****************************
+                    003 *         DISK II          *
+                    004 * READ/WRITE TRACK-SECTOR  *
+                    005 *                          *
+                    006 *   COPYRIGHT 1978 BY      *
+                    007 *  APPLE COMPUTER, INC.    *
+                    008 *                          *
+                    009 *  ALL RIGHTS RESERVED     *
+                    010 *                          *
+                    011 *      R. WIGGINTON        *
+                    012 *                          *
+                    013 *  MODIFIED: 07/13/79      *
+                    014 *     R. AURICCHIO         *
+                    015 *  ADDED WAIT-SEEK WHEN    *
+                    016 *  POWERING-UP MOTOR.      *
+                    017 *                          *
+                    018 *  MODIFIED: 10/25/79      *
+                    019 *      R. AURICCHIO        *
+                    020 *  ADDED DIAGMODE DISPLAYS *
+                    021 *   FOR ACTIVITY ANALYSIS. *
+                    022 ****************************
+                    023 ASC2        EQU *           ;TELL RELOCTR WHERE RWTS BEGINS
+                    024 *********************************
+                    025 MOTOROFF    EQU $C088
+                    026 MOTORON     EQU $C089
+                    027 DRV1EN      EQU $C08A
+                    028 DRV2EN      EQU $C08B
+####:## ## ##       ### LABEL       NMEMONIC        COMMENT                         ; Annotation
                     029 
                     030 
                     031 
@@ -7398,88 +7399,88 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     239 
                     240 
                     241 
-                    242 
-                    243 
-                    244 
-                    245 
-                    246 
-                    247 
-                    248 
-                    249 
-                    250 
-                    251 
-                    252 
-                    253 
-                    254 
-                    255 
-                    256 
-                    257 
-                    258 
-                    259 
-                    260 
-                    261 
-                    262 
-                    263 
-                    264 
-                    265 
-                    266 
-                    267 
-                    268 
-                    269 
-                    270 
-                    271 
-                    272 
-                    273 
-                    274 
-                    275 
-                    276 
-                    277 
-                    278 
-                    279 
-                    280 
-                    281 
-                    282 
-                    283 
-                    284 
-                    285 
-                    286 
-                    287 
-                    288 
-                    289 
-                    290 
-                    291 
-                    292 
-                    293 
-                    294 
-                    295 
-                    296 
-                    297 
-                    298 
-                    299 
-                    300 
-                    301 
-                    302 
-                    303 
-                    304 
-                    305 
-                    306 
-                    307 
-                    308 
-                    309 
-                    310 
-                    311 
-                    312 
-                    313 
-                    314 
-                    315 
-                    316 
-                    317 
-                    318 
-                    319 
-                    320 
-                    321 
-                    322 
-                    323 
+<hr>3D4E:08             242             PHP             ;SAVE TEST RESULTS              ; === Page <a class='page' name='page120'>120</a> ===
+3D4F:BD 89 C0       243             LDA MOTORON,X   ;TURN ON MOTOR REGARDLESS
+3D52:A0 06          244             LDY #<span class='n'>6</span>          ;MOVE OUT ALL POINTERS INTO ZPAGE    ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> IOB_
+                    245 PTRMOV      LDA (IOBPL),Y
+                    246             STA PTRSDEST-6,Y
+                    247             INY
+                    248             CPY #$<span class='n'>0A</span>        ;MOVED ALL POINTERS?            ;  <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> IOB_
+                    249             BNE PTRMOV
+                    250             LDY #<span class='n'>3</span>          ;SET UP THE                     ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> DEV_
+                    251             LDA (DEVCTBL),Y ; MOTOR-ON TIME
+                    252             STA MONTIME+1
+                    253             LDY #<span class='n'>2</span>          ;NOW GET PARAMS
+                    254             LDA (IOBPL),Y   ;DETERMINE DRIVE ONE OR TWO
+                    255             LDY #$<span class='n'>10</span>        ;SAME DRIVE USED BEFORE?        ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> IOB_
+                    256             CMP (IOBPL),Y
+                    257             BEQ OK          ;IF SO, DON'T NECESSARILY WAIT FOR
+                    258 MOTOR
+                    259             STA (IOBPL),Y   ;NOW USING THIS DRIVE
+3D70:28             260             PLP             ;TELL HIM MOTOR WAS OFF
+3D71:A0 00          261             LDY #$<span class='n'>00</span>        ;SET ZERO FLAG                  ; 6502 doesn't have a <span class='code'>CLZ</span> instruction
+3D73:08             262             PHP
+                    263 OK          ROR A           ;BY GOING INTO THE CARRY
+                    264             BCC SD1         ;SELECT DRIVE 2 !
+                    265             LDA DRV1EN,X    ;ASSUME DRIVE 1 TO HIT
+                    266             BCS DRVSEL      ;IF WRONG, ENABLE DRIVE 2 INSTEAD
+                    267 SD1         LDA DRV2EN,X
+                    268 DRVSEL      EQU *
+                    269             ROR DRIVNO      ;SAVE SELECTED DRIVE
+                    270 *
+                    271 * DRIVE SELECTED. IF MOTORING-UP,
+                    272 *  WAIT BEFORE SEEKING...
+                    273 *
+                    274             PLP             ;WAS THE MOTOR
+                    275             PHP             ; PREVIOUSLY OFF?
+                    276             BNE NOWAIT      ;=&gt;NO, FORGET WAITING.
+                    277             LDY #7          ;YES, DELAY 150 MS
+                    278 SEEKW       JSR MSWAIT
+                    279             DEY
+                    280             BNE SEEKW
+                    281             LDX SLOT        ;RESTORE SLOT NUMBER
+                    282 NOWAIT      EQU *
+                    283 *
+                    284 * SEEK TO DESIRED TRACK...
+                    285 *
+3D90:A0 04          286             LDY #<span class='n'>4</span>          ;SET TO IOBTRK                  ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span>
+3D92:B1 48          287             LDA (IOBPL),Y   ;GET DESIRED TRACK
+3D94:20 5A 3E       288             JSR MYSEEK      ;SEEK!
+                    289 *
+                    290 * SEE IF MOTOR WAS ALREADY SPINNING.
+                    291 *
+3D97:28             292             PLP
+3D98:D0 11          293             BNE TRYTRK
+                    294 *
+                    295 * WAIT FOR MOTOR SPEED TO COME UP.
+                    296 *
+                    297     LST OFF
+                    298     DO <a class='do' href='#DIAGMODE'>DIAGMODE</a><span class='macro'>
+                    299             LDY #TC2                                        
+                    300             STY TL2                                         
+                    301             LDY #0                                          
+                    302             STY SCOUNT                                      
+                    303             STY LCOUNT                                      
+<hr>                    304             LDY #SP         ;SHUT OFF THE                   </span>; === Page <a class='page' name='page121'>121</a> ===<span class='macro'>
+                    305             STY TL12        ; LATENCY INDICATOR             </span>
+                    306     FIN
+                    307     LST ON
+3D9A:A4 47          308             LDY MONTIME+1   ;IF MOTORTIME IS POSITIVE,
+3D9C:10 0D          309             BPL MOTORUP     ; THEN SEEK WASTED ENUFF TIME FOR US
+3D9E:A0 12          310 MOTOF       LDY #$<span class='n'>12</span>        ;DELAY 100 USEC PER COUNT
+                    311 CONWAIT     DEY
+                    312             BNE CONWAIT
+                    313             INC MONTIME
+3DA5:D0 F7          314             BNE MOTOF
+3DA7:E6 47          315             INC MONTIME+1
+3DA9:D0 F3          316             BNE MOTOF       ;COUNT UP TO $0000
+                    317 MOTORUP     EQU *
+                    318     LST OFF
+                    319     DO <a class='do' href='#DIAGMODE'>DIAGMODE</a><span class='macro'>
+                    320             LDY #SP         ;SAY 'MOTOR RUNNING'            
+                    321             STY TL2                                         </span>
+                    322     FIN
+                    323     LST ON
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="RWTSTWO">RWTSTWO</a> - Read Write Track Sector - Part 2, Page <a class="page" name="page122">122</a>, <a class='ts'>T0S7</a> - <a class='ts' href='#T0S8'>T0S8</a>, $<b class='n'>BDAB</b> .. $<b class='n'>BEAE</b> ===<hr class='join'><hr></div>
