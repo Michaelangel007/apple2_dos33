@@ -595,6 +595,46 @@ console.log( "TODO: CSS Monochrome" );
         colo.disabled = enableColor;
         mono.disabled = enableMono;
     }
+
+    // section       = 'A' .. 'Z'
+    // symbols       = document.getElementsByClassName( 'f' );
+    // nameColorSpan = <span stle='background-color:#F80'"
+    function symbolsAddMarkup( section, symbols, nameColorSpan, maxNameLen )
+    {
+        var j;
+        var size = symbols.length;
+
+        var text = "";
+
+            for( j = 0; j < size; ++j )
+            {
+                if( symbols[j].name && (symbols[j].name[0].toUpperCase() === section) )
+                {
+                    // TODO: Sort
+                    var addr = symbols[j].id;
+                    var markup = "";
+
+                    if( addr )
+                    {
+                        if( isHexAddr( addr ) )
+                            markup = "<span class='n'>";
+                        else
+                            markup = "<span class='todo'>";
+                    }
+                    else
+                        markup = "<span style='background-color:#FED'>???";
+
+                    text += "    "
+                         + nameColorSpan + padRight( symbols[j].name, maxNameLen )
+                         + "</span> = "
+                         + markup + addr + "</span>"
+                         + "\n";
+                }
+            }
+
+        return text;
+    }
+
 </script>
 
 <body onload='onLoad()'>
