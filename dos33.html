@@ -496,20 +496,35 @@ console.log( "Loading..." );
         StickyHeaders.Init( 'sticky' );
 console.log( "done!" );
 
-        var aFuncs = document.getElementsByClassName( 'f' );
-        var nFuncs = aFuncs.length;
-        var eFuncs = document.getElementsByName( 'stat_func' )[0];
-            eFuncs.innerHTML = nFuncs;
-
         var aData  = document.getElementsByClassName( 'd' );
         var nData  = aData.length;
         var eData  = document.getElementsByName( 'stat_data' )[0];
             eData.innerHTML = nData;
 
+        var aEQUs  = document.getElementsByClassName( 'e' );
+        var nEQUs  = aEQUs.length;
+        var eEQUs  = document.getElementsByName( 'stat_equ' )[0];
+            eEQUs.innerHTML = nEQUs;
+
+        var aFuncs = document.getElementsByClassName( 'f' );
+        var nFuncs = aFuncs.length;
+        var eFuncs = document.getElementsByName( 'stat_func' )[0];
+            eFuncs.innerHTML = nFuncs;
+
         var aMagic = document.getElementsByClassName( 'magic' );
         var nMagic = aMagic.length;
         var eMagic = document.getElementsByName( 'statmagic' )[0];
             eMagic.innerHTML = nMagic;
+
+        var aVars  = document.getElementsByClassName( 'v' );
+        var nVars  = aVars.length;
+        var eVars  = document.getElementsByName( 'stat_var' )[0];
+            eVars.innerHTML = nVars;
+
+        var aProc  = document.getElementsByClassName( 'x' );
+        var nProc  = aProc.length;
+        var eProc  = document.getElementsByName( 'stat_proc' )[0];
+            eProc.innerHTML = nProc;
     }
 
     function onSyntaxChangeColor()
@@ -8030,12 +8045,18 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 <p>
 <table class='borders'>
     <tr><td>Total Spelling mistakes:             </td><td name='statspell'> 36</td></tr> <!-- :%s/\*spelling\*//gn -->
-    <tr><td>Total Functions:                     </td><td name='stat_func'>  ?</td></tr> <!-- :%s/class="f"//gn -->
-    <tr><td>Total Variables:                     </td><td name='stat_data'>  ?</td></tr> <!-- :%s/class="d"//gn -->
+    <tr><td>Total Equates:                       </td><td name='stat_equ' >  ?</td></tr>
+    <tr><td>Total Functions:                     </td><td name='stat_func'>  ?</td></tr> <!-- :%s/class='f'//gn -->
+    <tr><td>Total Variables:                     </td><td name='stat_data'>  ?</td></tr> <!-- :%s/class='d'//gn -->
+    <tr><td>Total Functions referenced (*)       </td><td name='stat_proc'>  ?</td></tr>
+    <tr><td>Total Variables referenced (*)       </td><td name='stat_var' >  ?</td></tr>
     <tr><td>Total Magic Numbers:                 </td><td name='statmagic'>  ?</td></tr>
     <tr><td>Total Wasted bytes (run-time memory):</td><td                 >160</td></tr>
     <tr><td>Total Wasted sectors:                </td><td                 > 14</td></tr>
 </table>
+<pre>
+(*) Note: Includes commentary references to functions and variables.
+</pre>
 <p>
 
 
