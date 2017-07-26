@@ -4161,32 +4161,32 @@ With that "legalese" out of the way ... enjoy the read!
 2D86:4C 7F 33       088             JMP GOODIO
                     089 ;
                     090 <a class='f' name='FDSUB'    >FDSUB       </a>EQU *
-                    091             SEC             ; SET FOR REUSE OF SEC
-                    092             JSR <a class='x' href='#FRESEC'>FRESEC</a>      ; GO FREE SECTOR
-                    093             LDA #<span class='n'>0</span>          ; CLEAR DCB BIT MAP
+2D89:38             091             SEC             ; SET FOR REUSE OF SEC
+2D8A:20 DD 32       092             JSR <a class='x' href='#FRESEC'>FRESEC</a>      ; GO FREE SECTOR
+2D8D:A9 00          093             LDA #<span class='n'>0</span>          ; CLEAR DCB BIT MAP
 2D8F:A2 05          094             LDX #<span class='n'>5</span>          ; CLEAR ALL OF TRK BITMAP SO    ; <a class='magic' name='_2D90'>magic number</a> sizeof( DCBALS=1 + DCBATK=1 + DCBABM=4 ) = 6-1 = 5
                     095 *                           ;&gt;16 SECTORS/TRK WILL WORK      ; Assumes DCBALS DCBATK DCBABM are contiguous, should be: <span class='code'>4 + DCBABM - DCBALS - 1</span>
-                    096 <a class='f' name='FDS1'     >FDS1        </a>STA DCBALS,X                                    ; Intentional BUFFER OVERFLOW
-                    097             DEX                                             ;
-                    098             BPL FDS1                                        ;
-                    099             RTS
+2D91:9D F0 35       096 <a class='f' name='FDS1'     >FDS1        </a>STA DCBALS,X                                    ; Intentional BUFFER OVERFLOW
+2D94:CA             097             DEX                                             ;
+2D95:10 FA          098             BPL FDS1                                        ;
+2D97:60             099             RTS
                     100             PAGE
                     101 ;
                     102 * RDIR - PRINT DIRECTORY                                    ; "CATALOG"
                     103 ;
                     104 <a class='f' name='RDIR'     >RDIR        </a>EQU *
 2D98:20 DC 2B       105             JSR DCBSUP
-                    106             LDA #$FF
-                    107             STA DCBVOL
-                    108             JSR RDVTOC
+2D9B:A9 FF          106             LDA #$FF
+2D9D:8D F9 35       107             STA DCBVOL
+2DA0:20 F7 2F       108             JSR RDVTOC
 2DA3:A9 16          109             LDA #22         ; SET 21 LINES                  ;[.. <a class='mem' name='_2DA4' coords='1'>wastes</a> 1 bytes, <span class='code'>JSR NewPage</span>
-                    110             STA TEMP2                                       ; ..]
-                    111             JSR PRCR        ; GO PRINT                      ; Should be <span class='code'>JSR PRCR2</span>
-2DA8:20 2F 2E       112             JSR PRCR        ; PRINT ANOTHER CHAR            ; <a class='mem' name='_2DA8' coords='3'>wastes</a> 3 bytes
-                    <a class='line' name='FDELCAT.113'>113</a>             LDX #VML        ; VOLUME MSG LENGTH
-                    114 RD0         LDA VOLMES,X    ; GET MSG CHAR                  ; \
-2DAB3:20 ED FD      115             JSR PRINT       ; PRINT IT                      ;  &gt; More stupid commenting stating the obvious
-                    116             DEX             ; DECREMENT COUNT               ; /
+2DA5:8D 9D 33       110             STA TEMP2                                       ; ..]
+2DA8:20 2F 2E       111             JSR PRCR        ; GO PRINT                      ; Should be <span class='code'>JSR PRCR2</span>
+2DAB:20 2F 2E       112             JSR PRCR        ; PRINT ANOTHER CHAR            ; <a class='mem' name='_2DAB' coords='3'>wastes</a> 3 bytes
+2DAE:A2 0B          <a class='line' name='FDELCAT.113'>113</a>             LDX #VML        ; VOLUME MSG LENGTH
+2DB0:BD AF 33       114 RD0         LDA VOLMES,X    ; GET MSG CHAR                  ; \
+2DB3:20 ED FD       115             JSR PRINT       ; PRINT IT                      ;  &gt; More stupid commenting stating the obvious
+2DB6:CA             116             DEX             ; DECREMENT COUNT               ; /
 <hr>                    117             BPL RD0         ; BR IF MORE                    ; === Page <a class='page' name='page57'>57</a> ===
                     118 ;
 2DB9:86 45          119             STX CNUM+1                                      ; X=0 &rarr; CNUM+1, clear high byte for printing
