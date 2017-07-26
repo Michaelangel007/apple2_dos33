@@ -4064,7 +4064,7 @@ With that "legalese" out of the way ... enjoy the read!
 2CE3:0D D3 35       282             ORA DCBWRF
 2CE6:8D D5 35       283             STA DCBWRF
                     284 ;
-2CE9:20 5B 31       285             JSR <a class='x' href='#INCRRB'>INCRRB</a>      ; INCR REL REC BYTE             ;[.. <a class='mem' name='_2CE9'>wastes</a> 3 bytes
+2CE9:20 5B 31       285             JSR <a class='x' href='#INCRRB'>INCRRB</a>      ; INCR REL REC BYTE             ;[.. <a class='mem' name='_2CE9' coords='3'>wastes</a> 3 bytes
 2CEC:4C 94 31       286             JMP INCSCB      ; INCR SECTOR BYTE              ; ..] <span class='code'>JMP INCBYT</span> = (<a class='x' href='#GETBYT'>GETBYT</a>+7) = Line #<a class='line' href='#FOPCLRW.237'>237</a>
 </pre>
 
@@ -4075,7 +4075,7 @@ With that "legalese" out of the way ... enjoy the read!
                     003 * FLOCK - LOCK A FILE
                     004 ;
 2CEF:A9 80          005 <a class="f" name="FLOCK"      >FLOCK       </a>LDA #$<span class='n'>80</span>        ; REMEMBER LOCK                 ; <a class='magic' name='_2CF0'>magic number</a> LOCK_MASK = $80
-2CF1:8D 9E 33       006             STA <a class="v" href="#TEMP3">TEMP3</a>                                       ; <a class='mem' name='_2CF1'>wastes</a> 3 bytes, BNE line #<a class='line' href='#FDELCAT.012'>12</a>
+2CF1:8D 9E 33       006             STA <a class="v" href="#TEMP3">TEMP3</a>                                       ; <a class='mem' name='_2CF1' coords='3'>wastes</a> 3 bytes, BNE line #<a class='line' href='#FDELCAT.012'>12</a>
 2CF4:D0 05          007             BNE <a class="x" href="#LCKGO">LCKGO</a>                                       ; even better, change to BIT $abs ($00A9)
                     008 ;
                     009 * FUNLOCK - UNLOCK A FILE
@@ -4108,7 +4108,7 @@ With that "legalese" out of the way ... enjoy the read!
 2D20:EE E4 35       036             INC <a class="v" href="#DCBCRS">DCBCRS</a>      ; INCREMENT SECTOR
 2D23:D0 F6          037             BNE <a class="x" href="#VAR1"  >VAR1</a>                                        ; Can't save &gt; 32KB, See <a class='v' href='#OPTAB3'>OPTAB3</a> 32767
 2D25:EE E5 35       038             INC <a class="v" href="#DCBCRS">DCBCRS</a>+<span class='n'>1</span>                                    ; Therfore Current Relative Sector can never overflow to zero
-2D28:4C 1B 2D       039             JMP <a class="x" href="#VAR1"  >VAR1</a>        ; READ THIS ONE                 ; <a class='mem' name='_2D28'>wastes</a> 1 bytes <span class='code'>BNE VAR1</span>
+2D28:4C 1B 2D       039             JMP <a class="x" href="#VAR1"  >VAR1</a>        ; READ THIS ONE                 ; <a class='mem' name='_2D28' coords='1'>wastes</a> 1 bytes <span class='code'>BNE VAR1</span>
                     040             PAGE
                     041 ;
                     042 * FDEL - DELETE A FILE
@@ -4119,7 +4119,7 @@ With that "legalese" out of the way ... enjoy the read!
 2D2E:AE 9C 33       047 <a class='f' name='FD2'      >FD2         </a>LDX TEMP1       ; SAVED INDEX
 2D31:BD C8 34       048             LDA VDFILE+<span class='n'>2</span>,X  ; IS FILE LOCKED                ; <a class='magic' name='_2C2C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
 2D34:10 03          049             BPL FD3                                         ; Should be <span class='code'>BMI ER10</span> (once ER10 is moved)
-2D36:4C 7B 33       050             JMP ERROR10                                     ; <a class='mem' name='_2D36'>wastes</a> 3 bytes with <span class='code'>JMP</span>, See <a class='x' href='#ER10'>ER10</a> optimization above
+2D36:4C 7B 33       050             JMP ERROR10                                     ; <a class='mem' name='_2D36' coords='3'>wastes</a> 3 bytes with <span class='code'>JMP</span>, See <a class='x' href='#ER10'>ER10</a> optimization above
                     051 ;
                     052 FD3         EQU *
 2D39:AE 9C 33       053             LDX TEMP        ; GET SAVED INDEX
@@ -4164,9 +4164,9 @@ With that "legalese" out of the way ... enjoy the read!
                     091             SEC             ; SET FOR REUSE OF SEC
                     092             JSR <a class='x' href='#FRESEC'>FRESEC</a>      ; GO FREE SECTOR
                     093             LDA #0          ; CLEAR DCB BIT MAP
-                    094             LDX #5          ; CLEAR ALL OF TRK BITMAP SO    ; <a class='mem' name='_'>wastes</a> 1 byte
+                    094             LDX #5          ; CLEAR ALL OF TRK BITMAP SO    ;
                     095 *                           ;gt;16 SECTORS/TRK WILL WORK
-                    096 <a class='f' name='FDS1'     >FDS1        </a>STA DCBALS,X                                    ;
+                    096 <a class='f' name='FDS1'     >FDS1        </a>STA DCBALS,X                                    ; <span class='todo'>TODO</span> BUFFER OVERFLOW? We are we writing past DCBALS ???
                     097             DEX                                             ; <span class='code'>INX         </span>
                     098             BPL FDS1                                        ; <span class='code'>STA DCBALS,X</span>
                     099             RTS
