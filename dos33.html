@@ -1188,7 +1188,7 @@ With that "legalese" out of the way ... enjoy the read!
 1C10:85 42          00308 272             STA <a class="v" href="#ZPGFCB">ZPGFCB</a>
 1C12:A8             00309 <a class='line' name='RELOCTR.273'>273</a>             TAY                                             ; <a class='mem' name='_1C12'>wastes</a> 1 byte; ... to remove this one. See Line #<a class='line' href='#RELOCTR.270'>270</a>
                     00310 274 ;
-1C13:B1 40          00311 275 <a class="f" name="DR10"       id="DR10"       >DR10        </a>LDA (<a class="v" href="#ZPGWRK">ZPGWRK</a>),Y  ; BYTE FROM
+1C13:B1 40          00311 275 <a class='f' id='1C13' name='DR10'              >DR10        </a>LDA (<a class="v" href="#ZPGWRK">ZPGWRK</a>),Y  ; BYTE FROM
 1C15:91 42          00312 276             STA (<a class="v" href="#ZPGFCB">ZPGFCB</a>),Y  ; BYTE  TO
 1C17:C8             00313 277             INY             ; INCREMENT                     ; /sarcasm No shit, Sherlock
 1C18:D0 F9          00314 278             BNE <a class="x" href="#DR10">DR10</a>        ; BR NOT FULL PAGE
@@ -1198,7 +1198,7 @@ With that "legalese" out of the way ... enjoy the read!
 1C21:C6 43          00318 282             DEC <a class="v" href="#ZPGFCB">ZPGFCB</a>+<span class='n'>1</span>    ; INC TOO PAGE
 1C23:D0 EE          00319 283             BNE <a class="x" href="#DR10">DR10</a>        ; MOVE PAGE
                     00320 284 ;
-1C25:4C 54 1E       00321 285 <a class="f" name="DR11" id="DR11"       >DR11        </a>JMP <a class="x" href="#DBVECT">DBVECT</a>+<span class='n'>3</span>    ; DONE                          ; <a class="file" href="#DOSINIT">DOSINIT</a>, Page <a class="page" href="#page51">51</a> -&gt; JMP <a class="x" href="#DBINIT">DBINIT</a>
+1C25:4C 54 1E       00321 285 <a class='f' id='1C25' name='DR11'        >DR11        </a>JMP <a class="x" href="#DBVECT">DBVECT</a>+<span class='n'>3</span>    ; DONE                          ; <a class="file" href="#DOSINIT">DOSINIT</a>, Page <a class="page" href="#page51">51</a> -&gt; JMP <a class="x" href="#DBINIT">DBINIT</a>
                     00322 <a class='line' name='RELOCTR.286'>286</a>             PAGE
                                                                                           ; This is <b>really crappy table formatting</b> due to 2 reasons:
                                                                                           ; 1) A redundant +1 offset is needed for "almost all"(*) offsets in code
