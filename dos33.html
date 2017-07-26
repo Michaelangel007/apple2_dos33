@@ -5362,7 +5362,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     065 ;  FILE USE CODE                                            ;     DFB CAT_FILE_TYPE     ;[02] (2)
                     066 ;  FILE NAME         (30)                                   ;     DS  CAT_FILE_NAME     ;[03] (3) <b>WTF</b> -- sizeof( FileEntry ) == 35 bytes; make it 27
                     067 ;  FILE SECTOR COUNT (2)                                    ;     DW  CAT_FILE_NUM_SEC  ;[21] (33) so entire struct is 32 bytes
-34C6:FC FF          068             ORG VOLDIR+256                                  ; <a class='mem' name='_34BC' coords='256'>wastes</a> 256 bytes of disk space <b>spanning two sectors</b> *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>* 
+34C6:FC FF          068             ORG VOLDIR+256                                  ; <a class='mem' name='_34BC' coords='256'>wastes</a> 256 bytes of disk space <b>spanning two sectors</b> *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>*
 34C8:FC FC FD FC
 34CC:FC FC FE FC
 34D0:FF FC FC FF
