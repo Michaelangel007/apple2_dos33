@@ -2534,7 +2534,7 @@ With that "legalese" out of the way ... enjoy the read!
                     130 <a class='f' name='ELOAD0'   >ELOAD0      </a>JSR EOPN1
                     131 ;
                     132 <a class='f' name='ELD1'     >ELD1        </a>EQU *                                           ; *sigh* Pick a bloody <i>consistent</i> naming schema: ELOAD# or ELD#
-2419:A9 23          133             LDA #$<span class='n'>23</span>        ; STRIP UNRELATED STUFF         ; <a class='magic' name='_241A'>magic number</a>
+2419:A9 23          133             LDA #$<span class='n'>23</span>        ; STRIP UNRELATED STUFF         ; <a class='magic' name='_241A'>magic number</a> <span class='todo'>TODO</span> WTF do these bits mean???
                     134             AND CCBFUC      ; OUT OF FUC
                     135             BEQ NBPER       ; BR IF ERROR
                     136 ; ISOLATE IB &amp; AS
