@@ -1646,15 +1646,15 @@ With that "legalese" out of the way ... enjoy the read!
                     050 ;
                     051 <a class='f' id='1ED1' name='SVREGS'   >SVREGS      </a>EQU *
 1ED1:8D 5C 2A       052             STA SVA         ; SAVE ACU                      ; Captain Obvious to the rescue!
-<hr>                    053 <a class='f' id='1ED4' name='SVRGSA'   >SVRGSA      </a>EQU *                                           ; === Page <a class='page' name='page45'>45</a> === SaveRegsA, uh, NO, SaveRegsXY, we _already_ saved A
-1ED4:8D 5A 2A       054             STX SVX         ; SAVE X                        ; Good variable naming, SAVEX, SAVEY
-1ED7:8C 5B 2A       055             STY SVY         ; SAVE Y                        ; negates the need for these useless comments
+<hr>                    053 <a class='f' id='1ED4' name='SVRGSA'   >SVRGSA      </a>EQU *                                           ; === Page <a class='page' name='page45'>45</a> === SaveRegsA, uh, NO, SaveRegsXY, we _already_ saved A; this is why using <span class='code'>nameA</span> <span class='code'>nameB</span> are bad.
+1ED4:8D 5A 2A       054             STX SVX         ; SAVE X                        ; More crap names. Good variable naming such as <span class='code'>SAVEX</span> and <span class='code'>SAVEY</span>
+1ED7:8C 5B 2A       055             STY SVY         ; SAVE Y                        ; negates the need for these <b>useless redundant</b> comments.
 1EDA:BA             056             TSX             ;SAVE STACK POINTER
 1EDB:E8             057             INX
 1EDC:E8             058             INX             ;ADJUST IT TO ORIGINAL
 1EDD:8E 59 2A       059             STX SVSTK
 1EE0:A2 03          060             LDX #<span class='n'>3</span>          ; SET FOR FOUR BYTE MOVE        ; /sarcasm If only we could read assembly ...
-1EE2:BD 53 2A       061 <a class='f' id='1EE2' name='SVRB'     >SVRB        </a>LDA SVOUTS,X    ; MOVE SAVED OUT AND IN SW      ; Save RB??? <span class='todo'>TOOD</span>
+1EE2:BD 53 2A       061 <a class='f' id='1EE2' name='SVRB'     >SVRB        </a>LDA SVOUTS,X    ; MOVE SAVED OUT AND IN SW      ; SVRB = <b class='f'>S</b>a<b class='f'>V</b>e <b class='f'>R</b>egs <b class='f'>B</b>, /sarcasm <i>What,</i> <span class='code'>SVRGSB</span> <i>wasn't available???</i> (A. It is.)
 1EE5:95 36          062             STA OUTSW,X     ; TO APPLE OUT/IN SW
 1EE7:CA             063             DEX
 1EE8:10 F8          064             BPL SVRB
