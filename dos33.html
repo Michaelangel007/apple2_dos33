@@ -752,7 +752,7 @@ that overflow into this region -->
         </ul>
         <li>4.0 Miscellaneous Information               </li>
         <ul class="toc">
-            <li>4.1 Statistics                          </li>
+            <li>4.1 <a class='link' href='#Stats'       >Statistics</a>                        </li>
             <li>4.2 <a class='link' href='#ColorSrcFile'>Color-Coded Memory by Source File</a> </li>
             <li>4.3 <a class='link' href='#ColorHexDump'>Color-Coded Hex Dump</a>              </li>
         </ul>
@@ -8094,15 +8094,18 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 </div>
 <p>
 <table class='borders'>
-    <tr><td>Total Spelling mistakes:             </td><td name='statspell'> 36</td></tr> <!-- :%s/\*spelling\*//gn -->
-    <tr><td>Total Equates:                       </td><td name='stat_equ' >  ?</td></tr>
-    <tr><td>Total Functions:                     </td><td name='stat_func'>  ?</td></tr> <!-- :%s/class='f'//gn -->
-    <tr><td>Total Variables:                     </td><td name='stat_data'>  ?</td></tr> <!-- :%s/class='d'//gn -->
-    <tr><td>Total Functions referenced (*)       </td><td name='stat_proc'>  ?</td></tr>
-    <tr><td>Total Variables referenced (*)       </td><td name='stat_var' >  ?</td></tr>
-    <tr><td>Total Magic Numbers:                 </td><td name='statmagic'>  ?</td></tr>
-    <tr><td>Total Wasted bytes (run-time memory):</td><td                 >160</td></tr>
-    <tr><td>Total Wasted sectors:                </td><td                 > 14</td></tr>
+    <tr><td>Total LOC (Lines of Code):           </td><td                 >6,442</td></tr>
+    <tr><td>Number of Source assembly files:     </td><td                 >   29</td></tr>
+    <tr><td>Average LOC per source file:         </td><td                 >  222</td></tr>
+    <tr><td>Total Spelling mistakes:             </td><td name='statspell'>   36</td></tr> <!-- :%s/\*spelling\*//gn -->
+    <tr><td>Total Equates:                       </td><td name='stat_equ' >    ?</td></tr>
+    <tr><td>Total Functions:                     </td><td name='stat_func'>    ?</td></tr> <!-- :%s/class='f'//gn -->
+    <tr><td>Total Variables:                     </td><td name='stat_data'>    ?</td></tr> <!-- :%s/class='d'//gn -->
+    <tr><td>Total Functions referenced (*)       </td><td name='stat_proc'>    ?</td></tr>
+    <tr><td>Total Variables referenced (*)       </td><td name='stat_var' >    ?</td></tr>
+    <tr><td>Total Magic Numbers:                 </td><td name='statmagic'>    ?</td></tr>
+    <tr><td>Total Wasted bytes (run-time memory):</td><td name='statwaste'>  160</td></tr>
+    <tr><td>Total Wasted sectors:                </td><td                 >   14</td></tr>
 </table>
 <pre>
 (*) Note: Includes commentary references to functions and variables.
