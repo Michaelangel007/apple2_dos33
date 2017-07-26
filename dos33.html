@@ -4190,17 +4190,17 @@ With that "legalese" out of the way ... enjoy the read!
 <hr>                    117             BPL RD0         ; BR IF MORE                    ; === Page <a class='page' name='page57'>57</a> ===
                     118 ;
 2DB9:86 45          119             STX CNUM+1                                      ; X=0 &rarr; CNUM+1, clear high byte for printing
-                    120             LDA IBSMOD      ; MOVE VOL NO FOR
-                    121             STA CNUM        ; CONVERSION
-                    122             JSR PRNUM       ; GO PRINT VOL NO
+2DBB:AD F6 37       120             LDA IBSMOD      ; MOVE VOL NO FOR
+2DBE:85 44          121             STA CNUM        ; CONVERSION
+2DC0:20 42 2E       122             JSR PRNUM       ; GO PRINT VOL NO
                     123 ;
-                    124             JSR PRCR        ; PRINT CR                      ; Should be <span class='code'>JSR PRCR2</span>
+2DC3:20 2F 2E       124             JSR PRCR        ; PRINT CR                      ; Should be <span class='code'>JSR PRCR2</span>
 2DC6:20 2F 2E       125             JSR PRCR        ; AND AGAIN                     ; <a class='mem' name='_2DC6' coords='3'>wastes</a> 3 bytes
                     126 ;
-                    127             CLC             ; FIRST RECORD
+2DC9:18             127             CLC             ; FIRST RECORD
                     128 ;
-                    129 RD1         JSR RDVDIR      ; GO READ REC
-                    130             BCS RD5
+2DCA:20 11 30       129 RD1         JSR RDVDIR      ; GO READ REC
+2DCD:B0 5D          130             BCS RD5
                     131             LDX #<span class='n'>0</span>          ; SET INDEX=0
                     132 RD2         STX TEMP1       ; SAVE INDEX
                     133             LDA VDFILE,X    ; GET TRACK                     ; <a class='magic' name='_'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
