@@ -4280,7 +4280,7 @@ With that "legalese" out of the way ... enjoy the read!
                     207             PLA             ; INCREMENT DIGIT
                     208             ADC #0
                     209             PHA
-                    210             JMP PRN2        ; TRY AGAIN                     ; <a class='mem'>wastes</a> 1 byte, A is &gt; 0, A &lt; $80, <span class='code'>BNE PRN2</span>
+2E5D:4C 47 2E       210             JMP PRN2        ; TRY AGAIN                     ; <a class='mem' name='_2E5D' coords='1'>wastes</a> 1 byte, A is &gt; 0, A &lt; $80, <span class='code'>BNE PRN2</span>
                     211 ;
                     212 PRN3        EQU *
                     213             PLA             ; GET DIGIT
@@ -5486,11 +5486,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     128 <a class='e' name='CRENSA'     >CRENSA      </a>EQU 9           ; NO SECTORS AVAILABLE          ; See: <a class='x' href='#ERROR9'>ERROR9</a>
                     129 <a class='e' name='CREFLK'     >CREFLK      </a>EQU 10          ; FILE LOCKED                   ; See: <a class='x' href='#ERROR10'>ERROR10</a>
                     130 ;
-35C6:FD             131 <a class='d' name='CCBSM'      >CCBSM       </a>DDS 1           ; STATUS MODIFIER               ; [B] FM_WASTED1 <a class='mem' name='_35C6'>wastes</a> 1 byte; never used! Can't remove since middle of struct.
+35C6:FD             131 <a class='d' name='CCBSM'      >CCBSM       </a>DDS 1           ; STATUS MODIFIER               ; [B] FM_WASTED1 <a class='mem' name='_35C6' coords='1'>wastes</a> 1 byte; never used! Can't remove since middle of struct.
 35C7:FF FC          132 <a class='d' name='CCBFCB'     >CCBFCB      </a>DDS 2           ; FCB PTR                       ; [C] FM_FCB_PTR
 35C9:FC FC          133 <a class='d' name='CCBDBP'     >CCBDBP      </a>DDS 2           ; DIR BUF PTR                   ; [E] FM_DIR_PTR
 35CB:FC FC          134 <a class='d' name='CCBSBP'     >CCBSBP      </a>DDS 2           ; SECTOR BUF PTR                ;[10] FM_SEC_PTR
-35CD:FF FC FC FC    135 <a class='d' name='CCBSPR'     >CCBSPR      </a>DDS 4           ; SPARE                         ;[12] FM_WASTED2 <a class='mem' name='_35CD'>wastes</a> 4 bytes /sarcasm Someday, someday.
+35CD:FF FC FC FC    135 <a class='d' name='CCBSPR'     >CCBSPR      </a>DDS 4           ; SPARE                         ;[12] FM_WASTED2 <a class='mem' name='_35CD' coords='4'>wastes</a> 4 bytes /sarcasm Someday, someday.
                     136 <a class='d' name='CCBLEN'     >CCBLEN      </a>EQU *-CCB       ; CCB LENGTH                    ;$16
                     137 <a class='d' name='CFCBAD'     >CFCBAD      </a>EQU CCBFCB
                     138 <a class='d' name='CFCBDR'     >CFCBDR      </a>EQU CCBDBP
@@ -5538,7 +5538,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 35F9:FE             180 <a class="d" name="DCBVOL"     >DCBVOL      </a>DS 1            ; VOLUME DRIVER                 ; [28]
 35FA:FD             181 <a class="d" name="DCBVTN"     >DCBVTN      </a>DS 1            ; VTOC TRACK NUMBER             ; [29] Why isn't this <span class='code'>DFB 17</span>?? See <a class='x' href='#F01A'>F01A</a>
                     182 ;
-35FB:FC FD FC       183 <a class="d" name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; [2A] <a class="mem" name="_35fb">wastes</a> 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *unused*
+35FB:FC FD FC       183 <a class="d" name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; [2A] <a class='mem' name='_35fb' coords='3'>wastes</a> 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *unused*
                     184 ;
                     185 <a class="e" name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH                    ;=$2D
                     <a class='line' name='FVCBUFS.186'>186</a> <a class="e" name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH                    ; = $35FE - $35D1 = $2D
@@ -5550,7 +5550,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     001             SBTL '16-SECTOR DOS BOOT'
                     002 <a class="d" name="HERE3L"     id="HERE3L"     >HERE3L      </a>EQU &gt;*                                          ; End of FVCBUFS = $35FD, * = $35FE
                     003 <a class="d" name="REMDR3"     id="REMDR3"     >REMDR3      </a>EQU 256-HERE3L                                  ; Remainder 2
-35FE:FD FE          004             ORG *+<a class="v" href="#REMDR3">REMDR3</a>                                    ; <a class='mem' name='_35fe'>wastes</a> 2 bytes to page align BOOTLDR
+35FE:FD FE          004             ORG *+<a class="v" href="#REMDR3">REMDR3</a>                                    ; <a class='mem' name='_35fe' coords='2'>wastes</a> 2 bytes to page align BOOTLDR
                     005 <a class="d" name="TRK0LDR"    id="TRK0LDR"    >TRK0LDR     </a>EQU *
                     006     DO &gt;<a class="do" href="#TRK0LDR">TRK0LDR</a><span class="macro">
                     007         ???                 ;DELIBERATE ERROR IF NOT AT PAGE BOUNDARY</span>
@@ -5594,7 +5594,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     045 <a class="d" name="BOOTCNT"  >BOOTCNT     </a>EQU $800+BHERE3
 3600:01             046             DFB <span class='n'>01</span>                                          ; We <b>could</b> store $10 here to have the P6 PROM read <i>16 sectors</i> but nah,
                     047             PAGE                                            ; let's waste $839-$801 = $38 (56) bytes instead!
-                    048             LDA <a class="d" href="#POINTA">POINTA</a>+1    ;WHERE DID BSECTR GET LOADED?   ;[.. <a class='mem' name='_3601'>wastes</a> 56 bytes; Get memory page of last load
+                    048             LDA <a class="d" href="#POINTA">POINTA</a>+1    ;WHERE DID BSECTR GET LOADED?   ;[.. <a class='mem' name='_3601' coords='56'>wastes</a> 56 bytes; Get memory page of last load
                     049             CMP #<span class='n'>09</span>         ; (AT 0800)?                    ; ..
                     050             BNE <a class="x" href="#READNEXT">READNEXT</a>    ;=&gt;NO. WE'RE LOADING SOMETHING  ; ..
                     051 * WE'VE BEEN BOOTED. SET UP                                 ; ..
@@ -5804,7 +5804,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     234             FIN                                             ; Patch incomplete! Where is the <span class='code'>RTS</span>??? Called from <a class='x' href='#SCNCMD'>SCNCMD</a>
                     235             SKP 1
                     236 BHERE1      EQU &gt;*
-36B3:00             237             DS $FD-BHERE1,0                                 ;[.. <a class='mem' name='_36B3'>wastes</a> 74 bytes ($36FD-$36B3=$4A)
+36B3:00             237             DS $FD-BHERE1,0                                 ;[.. <a class='mem' name='_36B3' coords='74'>wastes</a> 74 bytes ($36FD-$36B3=$4A)
 36B4:00 00 00 00                                                                    ; ..
 36B8:00 00 00 00                                                                    ; ..
 36BC:00 00 00 00                                                                    ; ..
@@ -5916,10 +5916,10 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     326             STA IBSECT      ;START AT END OF RWTS&amp;BOOT
                     327             JSR BOOTIO      ;AND WRITE DOWN TO ZERO
 378C:60             328             RTS
-378D:00 00 00 00    329             DS <span class='n'>6</span>,<span class='n'>0</span>          ;FILL WITH BRKS                 ; <a class='mem' name='_378D'>wastes</a> 6 bytes -- WHY ???
+378D:00 00 00 00    329             DS <span class='n'>6</span>,<span class='n'>0</span>          ;FILL WITH BRKS                 ; <a class='mem' name='378D' coords='6'>wastes</a> 6 bytes -- WHY ???
 3791:00 00          330             PAGE
                     331 <a class='f' name='BOOTIO'   >BOOTIO      </a>EQU *
-3793:AD E5 37       332             LDA BAIOB+<span class='n'>1</span>                                     ; <a class='mem' name='_3793'>wastes</a> 3 bytes; <a class='v' href='#BAIOB'>BAIOB</a> &rarr; <a class='v' href='#IOB'>IOB</a>, <span class='code'>JSR <a class='x' href='#IOBLDR'>IOBLDR</a></span> loads <a class='v' href='#AIOB'>AIOB</a> &rarr; <a class='v' href='#IOB'>IOB</a>
+3793:AD E5 37       332             LDA BAIOB+<span class='n'>1</span>                                     ; <a class='mem' name='3793' coords='3'>wastes</a> 3 bytes; <a class='v' href='#BAIOB'>BAIOB</a> &rarr; <a class='v' href='#IOB'>IOB</a>, <span class='code'>JSR <a class='x' href='#IOBLDR'>IOBLDR</a></span> loads <a class='v' href='#AIOB'>AIOB</a> &rarr; <a class='v' href='#IOB'>IOB</a>
 3796:AC E5 37       333             LDY BAIOB
 3799:20 B5 37       334             JSR DISKIO
                     335 ;
@@ -5927,7 +5927,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     337             DEY             ; DECREMENT TO NEXT             ; Stupid Commenting - stop treating the reader as a moron
                     338             BPL BIO1        ;AT END OF TRACK?               ; See now this is a useful comment in contradistinction to the one above
                     339             LDY #<span class='n'>15</span>         :SET TO SECTOR 15               ; as it tells us WHY we are branching
-37A4:EA             340             NOP                                             ; [.. <a class='mem' name='_37A4'>wastes</a> 2 bytes
+37A4:EA             340             NOP                                             ; [.. <a class='mem' name='37A4' coords='2'>wastes</a> 2 bytes
 37A5:EA             341             NOP                                             ;  ..]
                     342             DEC IBTRK
                     343 BI01        STY IBSECT      ; SET NEXT SECTOR
@@ -5963,11 +5963,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 37DB:C8             373             INY
 37DC:D0 FB          374             BNE CS1
 37DE:60             375             RTS
-37DF:00             376             BRK                                             ; <a class='mem' name='_37DF'>wastes</a> 1 byte -- Why???
+37DF:00             376             BRK                                             ; <a class='mem' name='_37DF' coords='1'>wastes</a> 1 byte -- Why???
                     377 <a class='d' id='37E0' name='EC3'      >EC3         </a>EQU *
 37E0:1B             378 NDPGS       DFB &lt;<a class='v' href='#TRK0LDR'>TRK0LDR</a>-<a class='x' href='#BEGIN'>BEGIN</a> ;CALC #PAGES IN DOS WITHOUT RWTS
 37E1:00             379 BRWCNT      DFB <span class='n'>0</span>           ;WRK CTR FOR BOOTIO
-37E2:0A             380             DFB $<span class='n'>0A</span>                                         ;[.. <a class='mem' name='_37E2'>wastes</a> 2 bytes -- never used!
+37E2:0A             380             DFB $<span class='n'>0A</span>                                         ;[.. <a class='mem' name='_37E2' coords='2'>wastes</a> 2 bytes -- never used!
 37E3:1B             381             DFB $<span class='n'>1B</span>                                         ; ..] 
 37E4:E8 37          382 <a class='d' name='BAIOB'    >BAIOB       </a>DW <a class='v' href='#IOB'>IOB</a>                                          ; <a class='v' href='#BAIOB'>BAIOB</a> and <a class='v' href='#AIOB'>AIOB</a> both point to <a class='v' href='#IOB'>IOB</a>
 37E6:00 36          383 ADOSLD      DW <a class='v' href='#TRK0LDR'>TRK0LDR</a>
@@ -6007,7 +6007,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                                                                                     ;     DFB 0    ; Device Type, $0 = Disk II
                                                                                     ;     DFB 1    ; Phases per Track
                                                                                     ;     DW $D8EF ; Motor on time in 100 microseconds
-37FF:00             416             DS <span class='n'>1</span>,<span class='n'>0</span>          ; FILL IN 3700 PAGE             ; <a class='mem'    name='_37FF'>wastes</a> 1 byte
+37FF:00             416             DS <span class='n'>1</span>,<span class='n'>0</span>          ; FILL IN 3700 PAGE             ; <a class='mem' name='_37FF' coords='1'>wastes</a> 1 byte
                     417             PAGE
                     418 ;
                     419 ; FILE DIRECTORY DEFINITION                                 ; i-node; meta-data: array of sectors belonging to file
@@ -6805,7 +6805,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     027 *    ---- ASSUMES ----   *
                     028 * 1 USEC CYCLE TIME      *
                     029 **************************
-39FD:00 00 00       <a class='line' name='MSWAITR.030'>030</a>         DS 3,0              ;AVOID PAGE BOUNDARY CROSSING...; <a class='ts' href='#T0S3'>T0S3</a> @ $FC <a class='mem' name='_39FD'>wastes</a> 3 bytes
+39FD:00 00 00       <a class='line' name='MSWAITR.030'>030</a>         DS 3,0              ;AVOID PAGE BOUNDARY CROSSING...; <a class='ts' href='#T0S3'>T0S3</a> @ $FC <a class='mem' name='_39FD' coords='3'>wastes</a> 3 bytes
 3A00:A2 11          031 <a class="f"    name="MSWAIT"     >MSWAIT      </a>LDX #$<span class='n'>11</span>                                        ; === <a class='ts' href='#T0S4'>T0S4</a> === *sigh* Typical bloated code ...
 3A02:CA             032 <a class="f"    name="MSW1"       >MSW1        </a>DEX             DELAY 86 USEC.                  ; ... should just adjust algorithm timing instead!
 3A03:D0 FD          033             BNE <a class="x" href="#MSW1"    >MSW1</a>
@@ -6932,7 +6932,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     3A8E:8E 9B 33   STX $<span class='n'>339B</span> ; <span class="todo">TODO</span>
                     3A91:4C 7F 33   JMP $<span class='n'>337F</span> ; <span class="todo">TODO</span>
                     === DOS 3.3 ? PATCH ===         </span>
-3A84:00 00 00 00    149             DS  PD2,0       ;Must pad to $XX96              ; [.. <a class='mem' id='_3A84'>*wastes*</a> 18 bytes
+3A84:00 00 00 00    149             DS  PD2,0       ;Must pad to $XX96              ; [.. <a class='mem' id='_3A84' coords='18'>*wastes*</a> 18 bytes
 3A88:00 00 00 00                                                                    ;  .. No, no, no!
 3A8C:00 00 00 00                                                                    ;  .. Negative array index OFFSETS like the P6 PROM uses
 3A90:00 00 00 00                                                                    ;  ..
@@ -6951,7 +6951,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3AB7:13 B8 14       161             DFB $13,$B8,$14                                 ; B7 -- B9
 3ABA:15 16 17       162             DFB $15,$16,$17                                 ; BA BB BC
 3ABD:18 19 1A       163             DFB $18,$19,$1A                                 ; BD BE BF
-3AC0:C0 C1 C2       164             DFB $C0,$C1,$C2                                 ; -- -- --   [.. <a class='mem' id='_3AC0'>*wastes*</a> 11 bytes (unused)
+3AC0:C0 C1 C2       164             DFB $C0,$C1,$C2                                 ; -- -- --   [.. <a class='mem' name='_3AC0' coords='11'>*wastes*</a> 11 bytes (unused)
 3AC3:C3 C4 C5       165             DFB $C3,$C4,$C5                                 ; -- -- --    .. /sarcasm But who cares, we have 48K right!?
 3AC6:C6 C7 C8       166             DFB $C6,$C7,$C8                                 ; -- -- --    .. This is why DOS takes seconds longer to boot.
 3AC9:C9 CA 1B       167             DFB $C9,$CA,$1B                                 ; -- -- CB    ..]
@@ -7144,7 +7144,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     120 <a class='e' id='3CDF' name='EWADR1'     >EWADR1      </a>EQU *           ;TELL RELOCTR WHERE TO STOP
                     121 <a class='e' id='003D' name='XP2'        >XP2         </a>EQU &lt;*+<span class='n'>255</span>      ;H.O. ADDRESS NEXT PAGE
                     122 <a class='e' id='3D00' name='XP2H'       >XP2H        </a>EQU <span class='n'>256</span>*XP2     ;NOW AS 16-BITS
-3CDF:00             123             DS XP2H-*,<span class='n'>0</span>     ;PAD OUT TO PAGE BOUNDARY..                 ; <a class='mem' name='_3CDF'>wastes</a> 33 bytes!
+3CDF:00             123             DS XP2H-*,<span class='n'>0</span>     ;PAD OUT TO PAGE BOUNDARY..                 ; <a class='mem' name='_3CDF' coords='33'>*wastes*</a> 33 bytes!
 3CE0:00 00 00 00
 3CE4:00 00 00 00
 3CE8:00 00 00 00
@@ -7849,7 +7849,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3F01:18             056             CLC             CLEAR CARRY TO INDICATE 'NO ERR'<!--                                                               -->;[.. <span class='code'>JMP <a class='x' href='#ALLDONE'>ALLDONE</a></span>
 3F02:90 05          057             BCC <a class="x" href="#FORMDONE">FORMDONE</a>    ELSE TURN OFF MOTOR AND RETURN <!--                             --> ; ..
 3F04:A0 0D          058 <a class="f" name="FORMERR"    >FORMERR     </a>LDY #$0D                                       <!--                           --> ; .. <span class='code'>JMP <a class='x' href='#HNDLERR'>HNDLERR</a></span> <a class='magic' name='_3F05'>magic number</a> IOB_OFFSET_ERR = $D
-3F06:91 48          059             STA (IOBPL),Y   RETURN ERROR CODE.             <!--                                                               --> ; .. <a class='mem' name='_3F0C'>wastes</a> remaining 6 bytes.
+3F06:91 48          059             STA (IOBPL),Y   RETURN ERROR CODE.             <!--                                                               --> ; .. <a class='mem' name='_3F0C' coords='6'>wastes</a> remaining 6 bytes.
 3F08:38             060             SEC             SET CARRY TO INDICATE ERR.     <!--                                                               --> ; .. We could invert the return value,
 3F09:AD 88 C0       061 <a class="f" name="FORMDONE"   >FORMDONE    </a>LDA <a class="v" href="#MOTOROFF">MOTOROFF</a>,X  ; TURN MOTOR OFF.               ; .. but there is a better optimization
 3F0C:60             062             RTS             ; AND RETURN.                  <!--                                                               --> ; .. using the two JMPs above to reach common code in <a class='file' href='#RWTSTWO'>RWTSTWO</a> ]
@@ -8037,7 +8037,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3FD3:8D 00 E0       025             STA $<span class='n'>E000</span>                                       ; <a class='magic' name='_3FD3'>magic number</a> *sigh* Forces Language Card to reload
                     026     DO <a class="do" href="#DOS33B">DOS33B</a>
 3FD6:20 76 3A       027             JSR <a class="x" href="#OFF80" >OFF80</a>                                       
-3FD9:4C 44 37       <a class='line' name='DOSPTCH.028'>028</a>             JMP <a class="x" href="#RCBACK">RCBACK</a>                                      ; <a class='mem' name='_3FDA'>wastes</a> 2 bytes Why not RTS ???
+3FD9:4C 44 37       <a class='line' name='DOSPTCH.028'>028</a>             JMP <a class="x" href="#RCBACK">RCBACK</a>                                      ; <a class='mem' name='_3FDA' coords='2'>wastes</a> 2 bytes Why not RTS ???
                     029     ELSE<span class="macro">
                     030         JMP RCBACK                                          
                     031         DS  3,0                                             </span>
