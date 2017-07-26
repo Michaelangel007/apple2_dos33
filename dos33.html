@@ -56,10 +56,15 @@ a.do { /* do macroname */
 a.dumb { /* How Not To Design a File System (HNTDAFS) or How Not To Design an Operating Systems (HNTDAOS) */
     color: #808; /* purple */
 }
-.e { /* const equ -- ROM address, i.e. $FCA8 */
+.e { /* unbolded const equ -- ROM address, i.e. $FCA8 */
     color          : #80F  ; /* 088 = dark green */
     text-decoration: none  ; /* remove underlink from data link */
     font-weight    : normal; /* remove bold */
+}
+.rom { /* bolded const equ -- ROM address, i.e. $FCA8 */
+    color          : #80F  ; /* 088 = dark green */
+    text-decoration: none  ; /* remove underlink from data link */
+    font-weight    : bold  ; /* ROM is bold, E is not */
 }
 .file {
     color: #088;           /* old filename red */
@@ -2653,15 +2658,15 @@ With that "legalese" out of the way ... enjoy the read!
                     254 ;
                     255 ; EHCAIN - EXECUTE CHAIN REQUEST                            ; *spelling* ECHAIN
                     256 ;
-                    257 ECHAIN      EQU *
+                    257 <a class='f' id='24F0' name='ECHAIN'     >ECHAIN      </a>EQU *
 24F0:20 16 24       258             JSR ELOAD0      ; LOAD PGM WITHOUT CLOSING READ FILES
 24F3:20 C8 1F       259             JSR PRCRIF
 24F6:20 51 28       260             JSR MVCSW       ; GO RESTORE CHAR I/O SW
 24D9:6C 56 1D       261             JMP (CHAIN)
-24FC:20 65 D6       262 ASRUN1      JSR $<span class='e'>D665</span>       ; ROM                           ; <a class='magic' name='_24FD'>magic number</a>
+24FC:20 65 D6       262 <a class='f' id='24FC' name='ASRUN1'     >ASRUN1      </a>JSR $<span class='rom'>D665</span>       ; ROM                           ; <a class='magic' name='_24FD'>magic number</a>
 24FF:85 33          263             STA PROMPT      ;INSURES APPLESOFT RUN DETECT (A=0)     ; === <a class='ts' name=T1S4'>T1S4</a> ===
 2501:85 D8          264             STA ASONERR     ;RESET APPLESOFT ONERR FLAG
-2503:4C D2 D7       265             JMP $<span class='n'>D7D2</span>                                       ; <a class='magic' name='_2503'>magic number</a>
+2503:4C D2 D7       265             JMP $<span class='rom'>D7D2</span>                                       ; <a class='magic' name='_2503'>magic number</a>
 2506:20 65 0E       266 <a class="f" name="ASRUN2"  >ASRUN2      </a>JSR $<span class='n'>E65</span>        ; RAM                           ; <a class='magic' name='_2506'>magic number</a> <a class="d" href="#AS2VT">AS2VT</a> has pointer to us
 2509:85 33          267             STA <a class="d" href="#PROMPT">PROMPT</a>      ;INSURES APPLESOFT RUN DETECT (A=0)     ; (dead code) <a class='mem' name='_2506'>wastes</a> 10 bytes on Apple ][+ or later
 250B:85 D8          268             STA <a class="d" href="#ASONER">ASONER</a>      ;RESET APPLESOFT ONERR FLAG     ;
