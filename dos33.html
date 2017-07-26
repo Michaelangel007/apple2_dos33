@@ -6904,7 +6904,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     138 ***********************************************
                     139 <a class='f'    name='OFF80'      >OFF80       </a>EQU *
 3A76:A9 FF          140             LDA #$<span class='n'>FF</span>
-3A78:8D FB 04       141             STA $<span class='n'>4FB</span>        ; CLEARS FUNNY 80 COL STUFF
+3A78:8D FB 04       141             STA $<span class='n'>4FB</span>        ; CLEARS FUNNY 80 COL STUFF          ; <a class='mem' id='_3A79'>magic number</a> TEXT screen hole <span class='todo'>TODO</span>
 3A7B:8D 0C C0       142             STA $<span class='n'>C00C</span>       ; TURNS 80 COL OFF
 3A7E:8D 0E C0       143             STA $<span class='n'>C00E</span>       ; TURN OFF  ALT CHAR SET        ; /sarcasm <i>If only we could define symbols ...</i>
 3A81:4C 2F FB       144             JMP $<span class='n'>FB2F</span>       ; MONITOR INIT ROUTINE          ;          <i>Oh wait!</i> <b>We already have</b> <a class='x' href='#MONINIT'>MONINIT</a> in <a class='file' href='#BOOTLDR'>BOOTLDR</a>
