@@ -4165,7 +4165,7 @@ With that "legalese" out of the way ... enjoy the read!
                     092             JSR <a class='x' href='#FRESEC'>FRESEC</a>      ; GO FREE SECTOR
                     093             LDA #0          ; CLEAR DCB BIT MAP
                     094             LDX #5          ; CLEAR ALL OF TRK BITMAP SO    ;
-                    095 *                           ;gt;16 SECTORS/TRK WILL WORK
+                    095 *                           ;&gt;16 SECTORS/TRK WILL WORK
                     096 <a class='f' name='FDS1'     >FDS1        </a>STA DCBALS,X                                    ; <span class='todo'>TODO</span> BUFFER OVERFLOW? We are we writing past DCBALS ???
                     097             DEX                                             ; <span class='code'>INX         </span>
                     098             BPL FDS1                                        ; <span class='code'>STA DCBALS,X</span>
