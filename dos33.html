@@ -1285,16 +1285,16 @@ With that "legalese" out of the way ... enjoy the read!
 1C74:A8 3F          00360 324             DW  <a class="x" href="#AEC2"  >AEC2  </a>
 1C76:C8 3F          00361 325             DW  <a class="x" href="#SDP1"  >SDP1  </a>                                      ; [7] Start Dos Patch
 1C78:FF 3F          00362 326             DW  <a class="x" href="#EDP1"  >EDP1  </a>                                      ;     End   Dos Patch
-1C7A:1D             00363 327 <a class="d" name="RSPAGE"     id="RSPAGE"     >RSPAGE      </a>DFB &lt;<a class="v" href="#START"   >START</a>                                      ; (Source) Relocation Start Page $1D00
-1C7B:40             00364 328 <a class="d" name="REPAGE"     id="REPAGE"     >REPAGE      </a>DFB &lt;<a class="v" href="#ENDOFDOS">ENDOFDOS</a>                                   ; (Source) Relocation End+1 Page $4000, <a class='mem' name="_1C7B">wastes</a> 1 bytes; See <a class='v' href='#AEND'>AEND</a>
+1C7A:1D             00363 327 <a class='d' id='1C7A' name='RSPAGE'     >RSPAGE      </a>DFB &lt;<a class="v" href="#START"   >START</a>                                      ; (Source) Relocation Start Page $1D00
+1C7B:40             00364 328 <a class='d' id='1C7B' name='REPAGE'     >REPAGE      </a>DFB &lt;<a class="v" href="#ENDOFDOS">ENDOFDOS</a>                                   ; (Source) Relocation End+1 Page $4000, <a class='mem' name="_1C7B">wastes</a> 1 bytes; See <a class='v' href='#AEND'>AEND</a>
                     00365 329 ;
-1C7C:00             00366 330 <a class="d" name="NSPAGE"     id="NSPAGE"     >NSPAGE      </a>DFB <span class='n'>0</span>
-1C7D:00             00367 331 <a class="d" name="NEPAGE"     id="NEPAGE"     >NEPAGE      </a>DFB <span class='n'>0</span>
+1C7C:00             00366 330 <a class='d' id='1C7C' name='NSPAGE'     >NSPAGE      </a>DFB <span class='n'>0</span>
+1C7D:00             00367 331 <a class='d' id='1C7D' name='NEPAGE'     >NEPAGE      </a>DFB <span class='n'>0</span>
                     00368 332 ;
-1C7E:23             00369 333 <a class="d" name="DOSLNG"     id="DOSLNG"     >DOSLNG      </a>DFB &lt;<a class="v" href="#ENDOFDOS">ENDOFDOS</a>-<a class="v" href="#START">START</a>
+1C7E:23             00369 333 <a class='d' id='1C7E' name='DOSLNG'     >DOSLNG      </a>DFB &lt;<a class="v" href="#ENDOFDOS">ENDOFDOS</a>-<a class="v" href="#START">START</a>
                     00370 334 ;
-1C7F:00             00371 335 <a class="d" name="DELTA"      id="DELTA"      >DELTA       </a>DFB <span class='n'>0</span>
-1C80:23             00372 336 <a class="d" name="DPGCNT"     id="DPGCNT"     >DPGCNT      </a>DFB &lt;<a class="v" href="#ENDOFDOS">ENDOFDOS</a>-<a class="v" href="#START">START</a>
+1C7F:00             00371 335 <a class='d' id='1C7F' name='DELTA'      >DELTA       </a>DFB <span class='n'>0</span>
+1C80:23             00372 336 <a class='d' id='1C80' name='DPGCNT'     >DPGCNT      </a>DFB &lt;<a class="v" href="#ENDOFDOS">ENDOFDOS</a>-<a class="v" href="#START">START</a>
                     00373 337             PAGE
 </pre>
 
@@ -1533,12 +1533,12 @@ With that "legalese" out of the way ... enjoy the read!
 1E18:68             175             PLA
 1E19:A0 00          176             LDA #<span class='n'>0</span>
 1E1B:91 40          177             STA (<a class='v' href='#ZPGWRK'>ZPGWRK</a>),Y                                  ; Oh, we're still around?
-                    178 <a class='f' name='INITZ'    >INITZ       </a>EQU *
+                    178 <a class='f' id='1E1D' name='INITZ'    >INITZ       </a>EQU *
 <hr>1E1D:20 5B 27       179             JSR <a class='x' href='#CLRSTS'>CLRSTS</a>      ; SET IN AND OUT STATES TO ZERO ; === Page <a class='page' name='page51'>51</a> === ClearStates
 1E20:AD 5F 2A       180             LDA <a class='v' href='#CMDNO'>CMDNO</a>       ; IF NOT BOOT (DUPLICATED FROM LINES 4540, 4550)
 1E23:D0 20          181             BNE <a class='x' href='#INITF'>INITF</a>       ; THEN DONE
 1E25:A2 2F          182             LDX #<a class='v' href='#IFBL'>IFBL</a>
-1E27:BD 51 1E       183 <a class='f' name='INITE'    >INITE       </a>LDA <a class='x' href='#DBVECT'>DBVECT</a>,X    ; MOVE RESTART VECTORS
+1E27:BD 51 1E       183 <a class='f' id='1E2A' name='INITE'    >INITE       </a>LDA <a class='x' href='#DBVECT'>DBVECT</a>,X    ; MOVE RESTART VECTORS
 1E2A:9D D0 03       184             STA $<span class='n'>3D0</span>,X                                                          ; <a class='magic' name='_1E2B'>magic number</a>
 1E2D:CA             185             DEX
 1E2E:10 F7          186             BPL <a class='x' href='#INITE'>INITE</a>
@@ -1546,29 +1546,29 @@ With that "legalese" out of the way ... enjoy the read!
 1E33:8D F3 03       188             STA <a class='v' href='#ZRSET'>ZRSET</a>+<span class='n'>1</span>     ;NOTE: THESE ARE NOT NORMALLY USED AND              ;    if you're just going to ignore part of it???
 1E36:49 A5          189             EOR #$<span class='n'>A5</span>        ; ARE ONLY SET ONCE ON BOOT                         ;    <a class='magic' name='_1E37'>magic number</a> F800.S Ctrl-Reset Powered Up
 1E38:8D F4 03       190             STA <a class='v' href='#PWCNST'>PWCNST</a>      ;POWER UP CONSTANT=COMPLIMENT OF HI RESET VECTOR.   ;                        <b>Checksum</b> <i>not</i> constant
-1E3B:AD 52 1E       <a class='line' name='DOSINIT.191'>191</a>             LDA <a class='x' href='#DBVECT'>DBVECT</a>+<span class='n'>1</span>    ;SET LOW VECTOR ADDRESS.                            ;[.. <a class='mem' name='_1E3B'>wastes</a> 6 bytes due to Line #<a class='line' href='DOSINIT.221'>221</a> Clusterfrak
+1E3B:AD 52 1E       <a class='line' id='1E3B' name='DOSINIT.191'>191</a>             LDA <a class='x' href='#DBVECT'>DBVECT</a>+<span class='n'>1</span>    ;SET LOW VECTOR ADDRESS.                            ;[.. <a class='mem' name='_1E3B'>wastes</a> 6 bytes due to Line #<a class='line' href='DOSINIT.221'>221</a> Clusterfrak
 1E3E:8D F2 03       192             STA <a class='v' href='#ZRSET'>ZRSET</a>       ;NOW APPLE RESET WILL KEEP DOS IN I/O LOOP          ; ..]            
 1E41:A9 06          193             LDA #<span class='n'>6</span>          ;INIDICATE RUN                                      ; <a class='magic' name='_1E42'>magic number</a> <span class='todo'>TODO</span> 
 1E43:D0 05          194             BNE <a class='x' href='#INITF1'>INITF1</a>      ;LOAD AND RUN THE 'HELLO' PROGRAM                   ; &darr; (always) 
                     195 ;
-                    196 <a class='f' name='INITF'    >INITF       </a>EQU *
+                    196 <a class='f' id='1E45' name='INITF'    >INITF       </a>EQU *
 1E45:AD 62 2A       197 <!--                           -->            LDA <a class='v' href='#SVCMD'>SVCMD</a>
 1E48:F0 06          198 <!--                           -->            BEQ <a class='x' href='#INITG'>INITG</a>
-1E4A:8d 5F 2A       199 <a class='f' name='INITF1'   >INITF1      </a>STA CMDNO
+1E4A:8d 5F 2A       199 <a class='f' id='1E4A' name='INITF1'   >INITF1      </a>STA CMDNO
 1E4D:4C 80 21       200 <!--                           -->            JMP <a class='x' href='#CMDGO1'>CMDGO1</a>
-                    201 <a class='f' name='INITG'    >INITG       </a>EQU *
+                    201 <a class='f' id='1E50' name='INITG'    >INITG       </a>EQU *
 1E50:60             202 <!--                           -->            RTS
                     203 ;
-                    204 <a class='d' name='IFB'      >IFB         </a>EQU *                                           ; --- Copied to $3D0 ---
-1E51:4C BF 1D       205 <a class='f' name='DBVECT'   >DBVECT      </a>JMP <a class='x' href='#DBRST'>DBRST</a>                                       ; $3D0: JMP $9DBF DOS Warm RESET -- <i>Really?? You couldn't put this in the SAME order</i>
+                    204 <a class='d' id='1E51' name='IFB'      >IFB         </a>EQU *                                           ; --- Copied to $3D0 ---
+1E51:4C BF 1D       205 <a class='f' id='1E51' name='DBVECT'   >DBVECT      </a>JMP <a class='x' href='#DBRST'>DBRST</a>                                       ; $3D0: JMP $9DBF DOS Warm RESET -- <i>Really?? You couldn't put this in the SAME order</i>
 1E54:4C 84 1D       206 <!--                           -->            JMP <a class='x' href='#DBINIT' >DBINIT</a>                                      ; $3D3: JMP $9D84 DOS Cold RESET -- <i>as BASIC:</i> <b>Cold THEN Warm ???</b>
 1E57:4C FD 2A       207 <!--                           -->            JMP <a class='x' href='#USERENT'>USERENT</a> ;USER EXTERNAL ENTRY TO FILE MANAGER; $3D6: JMP $AAFD FM   (File Manager)
 1E5A:4C B5 37       208 <!--                           -->            JMP <a class='x' href='#DISKIO '>DISKIO</a>                                      ; $3D9: JMP $B7B5 RWTS (ReadWriteTrackSector)
-                    209 <a class='f' name='CCBLDR'   >CCBLDR      </a>EQU *                                           ; $3DC: GetParamFM (A,Y = $B5BB, CCB = Command Control Block)
+                    209 <a class='f' id='1E5D'name='CCBLDR'   >CCBLDR      </a>EQU *                                           ; $3DC: GetParamFM (A,Y = $B5BB, CCB = Command Control Block)
 1E5D:AD 0F 1D       210 <!--                           -->            LDA <a class='v' href='#CCBADR'>CCBADR</a>+<span class='n'>1</span>
 1E60:AC 0E 1D       211 <!--                           -->            LDY <a class='v' href='#CCBADR'>CCBADR</a>                                      ; <b>NOTE</b> The labels <span class='code'>CCBLDR</span> and <span class='code'>IOBLDR</span> are never referenced anywhere.
 1E63:60             212 <!--                           -->            RTS
-                    213 <a class='f' name='IOBLDR'   >IOBLDR      </a>EQU *                                           ; $3E3: GetParamRWTS (A,Y = $B7E8, IOB = Input Output Block)
+                    213 <a class='f' id='1E64' name='IOBLDR'   >IOBLDR      </a>EQU *                                           ; $3E3: GetParamRWTS (A,Y = $B7E8, IOB = Input Output Block)
 1E64:AD C2 2A       214             LDA <a class='v' href='#AIOB'  >AIOB</a>+<span class='n'>1</span>                                      ; /sarcasm <i>Really? You couldn't be consistent and call it</i> <span class='code'>IOBADR</span> ???
 1E67:AC C1 2A       215             LDY <a class='v' href='#AIOB'  >AIOB</a>
 1E6A:60             216             RTS
@@ -1590,7 +1590,7 @@ With that "legalese" out of the way ... enjoy the read!
                     002 ;
                     003 ;CHRIN - CHAR RCVD VIA IN SWITCH
                     004 ;
-                    005 <a class='f' name='CHRIN'    >CHRIN       </a>EQU *
+                    005 <a class='f' id='1E81' name='CHRIN'    >CHRIN       </a>EQU *
 1E81:20 D1 1E       006             JSR <a  class='x' href='#SVREGS'>SVREGS</a>      ;
 1E84:AD 51 2A       007             LDA <a  class='v' href='#ISTATE'>ISTATE</a>      ; IF NOT DISKIN
 1E87:F0 15          008             BEQ <a  class='x' href='#CHIN1'>CHIN1</a>       ; THEN BRANCH, ELSE
@@ -1600,16 +1600,16 @@ With that "legalese" out of the way ... enjoy the read!
 1E8F:68             012             PLA             ;GET ISTATE AGAIN
 1E90:30 03          013             BMI <a  class='x' href='#CHIN0'>CHIN0</a>       ;BRANCH IF NOT 'READ' FROM DISK
 1E92:4C 26 26       014             JMP <a  class='x' href='#ICFD'>ICFD</a>        ; AND GET CHAR FROM DISK
-1E95:20 EA 1D       015 <a class='f' name='CHIN0'    >CHIN0       </a>JSR <a class='x' href='#INITC'>INITC</a>
+1E95:20 EA 1D       015 <a class='f' id='1E95' name='CHIN0'    >CHIN0       </a>JSR <a class='x' href='#INITC'>INITC</a>
 1E98:A4 24          016             LDY $<span class='n'>24</span>         ;GET CURSOR HORIZ               ; <a class='magic' name='_1E98'>magic number</a> /sarcasm If only F800.S ROM defined CH EQU $24
 1E9A:A9 60          017             LDA #$<span class='n'>60</span>        ;RESTORE A FLASHING CURSOR      ; #' ' + FLASH ; INVERSE = $00..$3F, FLASH = $40..$7F, NORMAL = $80..FF
 1E9C:91 28          018             STA ($<span class='n'>28</span>),Y     ; TO PROMPT USER                ; <a class='magic' name='_1E9C'>magic number</a>
-                    019 <a class='f' name='CHIN1'    >CHIN1       </a>EQU *
+                    019 <a class='f' id='1E9E' name='CHIN1'    >CHIN1       </a>EQU *
 1E9E:AD B3 2A       020             LDA <a  class='v' href='#ESTATE'>ESTATE</a>
 1EA1:F0 03          021             BEQ <a  class='x' href='#CHIN2'>CHIN2</a>
 1EA3:20 82 26       022             JSR <a  class='x' href='#NXTEXC'>NXTEXC</a>      ;RETURNS TO HERE ONLY WHEN 'EXEC' IS EXHAUSTED
 
-                    023 <a class='f' name='CHIN2'    >CHIN2       </a>EQU *
+                    023 <a class='f' id='1EA6' name='CHIN2'    >CHIN2       </a>EQU *
 1EA6:A9 03          024             LDA #<span class='n'>3</span>          ; SET OUT CHAR                   ; <a class='magic' name='_1EA6'>magic number</a> COS_INPUT_ECHO = 3
 1EA8:8D 52 2A       025             STA OSTATE      ; STATE TO INPUT ECHO
                     026             JSR LDREGS
@@ -1637,9 +1637,9 @@ With that "legalese" out of the way ... enjoy the read!
                     048 ;
                     049 ;SVREGS - SAVE REGS WHILE PROCESSING CHARS
                     050 ;
-                    051 <a class='f' name='SVREGS'   >SVREGS      </a>EQU *
+                    051 <a class='f' id='1ED1' name='SVREGS'   >SVREGS      </a>EQU *
 1ED1:8D 5C 2A       052             STA SVA         ; SAVE ACU                      ; Captain Obvious to the rescue!
-<hr>                    053 <a class='f' name='SVRGSA'   >SVRGSA      </a>EQU *                                           ; === Page <a class='page' name='page45'>45</a> === SaveRegsA, uh, NO, SaveRegsXY, we _already_ saved A
+<hr>                    053 <a class='f' id='1ED4' name='SVRGSA'   >SVRGSA      </a>EQU *                                           ; === Page <a class='page' name='page45'>45</a> === SaveRegsA, uh, NO, SaveRegsXY, we _already_ saved A
 1ED4:8D 5A 2A       054             STX SVX         ; SAVE X                        ; Good variable naming, SAVEX, SAVEY
 1ED7:8C 5B 2A       055             STY SVY         ; SAVE Y                        ; negates the need for these useless comments
 1EDA:BA             056             TSX             ;SAVE STACK POINTER
@@ -1647,7 +1647,7 @@ With that "legalese" out of the way ... enjoy the read!
 1EDC:E8             058             INX             ;ADJUST IT TO ORIGINAL
 1EDD:8E 59 2A       059             STX SVSTK
 1EE0:A2 03          060             LDX #<span class='n'>3</span>          ; SET FOR FOUR BYTE MOVE        ; /sarcasm If only we could read assembly ...
-1EE2:BD 53 2A       061 <a class='f' name='SVRB'     >SVRB        </a>LDA SVOUTS,X    ; MOVE SAVED OUT AND IN SW      ; Save RB??? <span class='todo'>TOOD</span>
+1EE2:BD 53 2A       061 <a class='f' id='1EE2' name='SVRB'     >SVRB        </a>LDA SVOUTS,X    ; MOVE SAVED OUT AND IN SW      ; Save RB??? <span class='todo'>TOOD</span>
 1EE5:95 36          062             STA OUTSW,X     ; TO APPLE OUT/IN SW
 1EE7:CA             063             DEX
 1EE8:10 F8          064             BPL SVRB
@@ -1657,19 +1657,19 @@ With that "legalese" out of the way ... enjoy the read!
                     068 ; COS0 - 1ST CHAR OF PRINTED OUTPUT LINE
                     069 ;CHECK FOR  CNTL-D                                          ; "<i>You say CNTL-D, I say CTRL-D</i>"
                     070 ;                                                           ; We're <b>both</b> inconsistently dropping <i>a consonant</i>: CoNTRoL
-                    071 <a class='f' name='COS0'     >COS0        </a>EQU *
+                    071 <a class='f' id='1EEB' name='COS0'     >COS0        </a>EQU *
 1EEB:AE B7 2A       072             LDX RSTATE      ;FIRST CHECK FOR 'AFTER APSFT RELOC'
 1EEE:F0 03          073             BEQ <a class='x' href='#COS00'>COS00</a>       ;BRANCH IF NOT                  ; <b>Really?!</b> You couldn't use COS0A and COS0B like you do for the <i>other</i> states??
                                                                                     ; COS0 &amp; COS00 are <b>crap function names</b>; they are WAY too easy to mis-read/type
 1EF0:4C 78 1F       074             JMP COS7                                        ; <a class='mem' name='_'>wastes</a> 3 bytes, but since $1F78-$1EF0 &gt; $80 
                                                                                     ; <span clas='todo'>TODO</span> We need to move <a class='x' href='#COS5'>COS5</a>..<a class='x' href='#COS7'>COS7</a> <b>before</b> <a class='x' href='#COS0'>COS0</a>; change Line #<a class='line' href='#DOSHOOK.074'>74</a> to BNE COS7
-1EF3:AE 51 2A       075 <a class='f' name='COS00'    >COS00       </a>LDX ISTATE      ;IS IN STATE NOT ZERO           ; I'm serious, someone <i>please</i> shoot Captain Obvious
+1EF3:AE 51 2A       075 <a class='f' id='1EF3' name='COS00'    >COS00       </a>LDX ISTATE      ;IS IN STATE NOT ZERO           ; I'm serious, someone <i>please</i> shoot Captain Obvious
 1EF6:F0 08          076             BEQ COS01                                       ; 
 1EF8:C9 BF          077             CMP #'?'+$<span class='n'>80</span>    ; THEN IS THIS ?
 1EFA:F0 75          078             BEQ COS6        ; THEN PRINT ONLY IF MONITOR
 1EFC:C5 33          079             CMP PROMPT
 1EFE:F0 27          080             BEQ COS2A
-                    081 <a class='f' name='COS01'    >COS01       </a>EQU *                                           ; === <a class='ts' href='#T0SE'>T0SE</a> ===
+                    081 <a class='f' id='1F00' name='COS01'    >COS01       </a>EQU *                                           ; === <a class='ts' href='#T0SE'>T0SE</a> ===
 1F00:A2 02          082             LDX #<span class='n'>2</span>                                          ; <a class='magic' name='_1F01'>magic number</a>
 1F02:8E 52 2A       083             STX OSTATE
 1F05:CD B2 2A       084             CMP CCHAR       ; IF NOT CNTL-D
@@ -1681,9 +1681,9 @@ With that "legalese" out of the way ... enjoy the read!
                     090 ;
                     091 ;COS1 - ACCUMULATE CMD FROM PRINTED OUTPUT
                     092 ;
-                    093 <a class='f' name='COS1'     >COS1        </a>EQU *
+                    093 <a class='f' id='1F12' name='COS1'     >COS1        </a>EQU *
 1F12:AE 5D 2A       094             LDX LBUFD       ; GET LINE BUFF DISPL
-1F15:9D 00 02       095 <a class='f' name='COS1A'    >COS1A       </a>STA LBUFF,X     ; PUT CHAR IN BUFF
+1F15:9D 00 02       095 <a class='f' id='1F15' name='COS1A'    >COS1A       </a>STA LBUFF,X     ; PUT CHAR IN BUFF
 1F18:E8             096             INX             ; INCR PTR
 1F19:8E FD 2A       097             STX LBUFD       ; SAVE PTR
 1F1C:C9 8D          098             CMP #$<span class='n'>8D</span>        ; WAS THIS A CR                 ; <a class='magic' name='_1F1D'>magic number</a>
