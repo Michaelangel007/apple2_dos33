@@ -877,10 +877,10 @@ With that "legalese" out of the way ... enjoy the read!
                     00001 001             SBTL "DOS3.3C w/APPEND fix, U/L case"
                     00002 002             LST  ON,VSYM
                     00003 003             MSB  OFF
-                    00004 004 <a class='f'  name='ORIGIN' >ORIGIN      </a>EQU  $1B00
-                    00005 005 <a class='do' name='DIAGMOD'>DIAGMOD     </a>EQU  0
-                    00006 006 <a class='do' name='DOS33B' >DOS33B      </a>EQU  1
-                    00007 007 <a class='do' name='ULC'    >ULC         </a>EQU  0          ;1=ASM with lower case patch    ;Address .. Addr, Track/Sector(s)
+                    00004 004 <a class='f'  id='1B00' name='ORIGIN' >ORIGIN      </a>EQU  $1B00
+                    00005 005 <a class='do' id='0'    name='DIAGMOD'>DIAGMOD     </a>EQU  0
+                    00006 006 <a class='do' id='1'    name='DOS33B' >DOS33B      </a>EQU  1
+                    00007 007 <a class='do' id='0'    name='ULC'    >ULC         </a>EQU  0          ;1=ASM with lower case patch    ;Address .. Addr, Track/Sector(s)
                     00008 008             INCLUDE <a class="_c00 file" href="#RELOCTR">RELOCTR</a>,,2                              ; $1B00 .. $1C80, T0SA - T0SB
                     00009 009             INCLUDE <a class="_c01 file" href="#DOSINIT">DOSINIT</a>,,2                              ; $1C81 .. $1E80, T0SB - T0SD
                     00010 010             INCLUDE <a class="_c02 file" href="#DOSHOOK">DOSHOOK</a>,,2                              ; $1E81 .. $1FCC, T0SD - T0SE
@@ -958,8 +958,8 @@ With that "legalese" out of the way ... enjoy the read!
                     00078 042 ;
                     00079 043 ;EQUATES REQD TO FIND THINGS IN APPLE II
                     00080 044 ;
-                    00081 045 <a class='f' name='SETVID'     >SETVID      </a>EQU $<span class='e'>FE93</span>                                       ; Monitor: 0 Ctrl-P
-                    00082 046 <a class='f' name='SETKBD'     >SETKBD      </a>EQU $<span class='e'>FE89</span>                                       ; Monitor: 0 Ctrl-K
+                    00081 045 <a class='f' id='FE93' name='SETVID'     >SETVID      </a>EQU $<span class='e'>FE93</span>                                       ; Monitor: 0 Ctrl-P
+                    00082 046 <a class='f' id='FE89' name='SETKBD'     >SETKBD      </a>EQU $<span class='e'>FE89</span>                                       ; Monitor: 0 Ctrl-K
                     00083 047 <a class='d' name='PROMPT'     >PROMPT      </a>EQU $<span class='n'>33</span>         ; PROMPT CHAR
                     00084 048 <a class='d' name='OUTSW'      >OUTSW       </a>EQU $<span class='n'>36</span>         ; OUTPUT VECTOR SWITCH
                     00085 049 <a class='d' name='INSW'       >INSW        </a>EQU $<span class='n'>38</span>         ; INPUT VECTOR SWITCH
@@ -980,8 +980,8 @@ With that "legalese" out of the way ... enjoy the read!
                     00100 064 <a class='d' name='ASSOP'      >ASSOP       </a>EQU $<span class='n'>67</span>         ; AS START OF PROGRAM           ; Applesoft Basic
                     00101 065 <a class='d' name='ASEOP'      >ASEOP       </a>EQU $<span class='n'>AF</span>         ; AS END OF PROGRAM             ; Applesoft Basic
                     00102 066 <a class='d' name='ASEOP2'     >ASEOP2      </a>EQU $<span class='n'>69</span>         ; AS END-OF PGM 2               ; Applesoft Basic
-                    00103 067 <a class='d' name='ASHM1'      >ASHM1       </a>EQU $<span class='n'>73</span>         ; AS HIGH MEM 1                 ; Applesoft Basic
-                    00104 068 <a class='d' name='ASHM2'      >ASHM2       </a>EQU $<span class='n'>6F</span>         ; AS HIGH MEM 2                 ; Applesoft Basic
+                    00103 067 <a class='d' id='0073' name='ASHM1'      >ASHM1       </a>EQU $<span class='n'>73</span>         ; AS HIGH MEM 1                 ; Applesoft Basic
+                    00104 068 <a class='d' id='006F' name='ASHM2'      >ASHM2       </a>EQU $<span class='n'>6F</span>         ; AS HIGH MEM 2                 ; Applesoft Basic
                     00105 069 <a class='d' name='ASRNX'      >ASRNX       </a>EQU $<span class='n'>D6</span>         ;AS RUN-ONLY FLAG               ; Applesoft Basic
                     00106 070 <a class='d' name='ASONERR'    >ASONERR     </a>EQU $<span class='n'>D8</span>         ;AS ON-ERR GOTO FLAG            ; Applesoft Basic
                     00107 071 <a class='d' name='ASLMEM'     >ASLMEM      </a>EQU <a class='v' href='#ASSOP'>ASSOP</a>       ; AS LOW MEM                    ; Applesoft Basic
@@ -1020,17 +1020,17 @@ With that "legalese" out of the way ... enjoy the read!
                     00140 104 ;
                     00141 105 ; GET RELOCATION PARMS
                     00142 106 ;
-                    00143 107 <a class="f" name="DR0"     >DR0         </a>EQU *
-                    00144 108 <a class="d" name="LOC1"    >LOC1        </a>EQU $<span class='n'>26</span>                                         ; Monitor ROM GBASL = $26, Pointer to last HGR Byte plotted
+                    00143 107 <a class='f' id='1B03' name='DR0'     >DR0         </a>EQU *
+                    00144 108 <a class='d' id='0026' name='LOC1'    >LOC1        </a>EQU $<span class='n'>26</span>                                         ; Monitor ROM GBASL = $26, Pointer to last HGR Byte plotted
 1B03:A9 BF          00145 109             LDA #$<span class='n'>BF</span>        ; START AT BF00                 ; Top of 48K
 1B05:85 41          00146 110             STA <a  class='v' href='#ZPGWRK' >ZPGWRK</a>+1    ; TO LOOK FOR                   ; ZPGWRK = MemTestAdr
 1B07:A2 00          00147 111             LDX #<span class='n'>0</span>          ; HIGH RAM
 1B09:86 40          00148 112             STX <a  class='v' href='#ZPGWRK' >ZPGWRK</a>
-1B0B:A0 00          00149 113 <a class="f" name="DR0A"    >DR0A        </a>LDY #<span class='n'>0</span>          ; APPLE TEST
-                    00150 114 <a class="f" name="DR1B"    >DR1B        </a>EQU *                                           ; unused label
+1B0B:A0 00          00149 113 <a class='f' id='1B0B' name='DR0A'    >DR0A        </a>LDY #<span class='n'>0</span>          ; APPLE TEST
+                    00150 114 <a class='f' id='1B0D' name='DR1B'    >DR1B        </a>EQU *                                           ; unused label
 1B0D:A1 40          00151 115             LDA (<a class='v' href='#ZPGWRK' >ZPGWRK</a>,X)
 1B0F:85 26          00152 116             STA <a  class='v' href='#LOC1'   >LOC1</a>                                        ; LOC1 = MemTestVal
-<hr>1B11:98             00153 117 <a class="f" name="DR1"         >DR1         </a>TYA                                             ; === Page <a class="page" name="page112">112</a> ===
+<hr>1B11:98             00153 117 <a class='f' id='1B11' name='DR1'         >DR1         </a>TYA                                             ; === Page <a class="page" name="page112">112</a> ===
 1B12:45 26          00154 118             EOR <a  class='v' href="#LOC1"   >LOC1</a>
 1B14:85 26          00155 119             STA <a  class='v' href="#LOC1"   >LOC1</a>
 1B16:98             00156 120             TYA
@@ -1041,11 +1041,11 @@ With that "legalese" out of the way ... enjoy the read!
 1B1F:C8             00161 125             INY
 1B20:D0 EF          00162 126             BNE <a  class='x' href="#DR1"    >DR1</a>                                         ; &uarr;   /rant Crappy HTML name <span class='macro'>&amp;uarr;</span> instead of simpler \^
 1B22:F0 04          00163 127             BEQ <a  class='x' href="#DR2"    >DR2</a>         ; BR IF TOOK                    ; v
-                    00164 128 <a class="f" name="DR1A"        >DR1A        </a>EQU *
+                    00164 128 <a class='f' id='1B24' name='DR1A'        >DR1A        </a>EQU *
 1B24:C6 41          00165 129             DEC <a  class='v' href="#ZPGWRK" >ZPGWRK</a>+<span class='n'>1</span>    ; NOT RAM
 1B26:D0 E3          00166 130             BNE <a  class='x' href="#DR0A"   >DR0A</a>        ; TRY NEXT PAGE                 ; ^
                     00167 131 ;
-                    00168 132 <a class="f" name="DR2"         >DR2         </a>EQU *
+                    00168 132 <a class='f' id='1B28' name='DR2'         >DR2         </a>EQU *
                     00169 133 ;
 1B28:A5 41          00170 134             LDA <a  class='v' href="#ZPGWRK" >ZPGWRK</a>+<span class='n'>1</span>    ;BEGIN PATCH TO INSURE   *****  ; note: '*****' is BEGIN_PATCH
 1B2A:29 DF          00171 135             AND #$<span class='n'>DF</span>        ; PROPER HIGH MEMORY CHECK.
@@ -1054,7 +1054,7 @@ With that "legalese" out of the way ... enjoy the read!
 1B30:A1 42          00174 138             LDA (<a class='v' href="#ZPGFCB" >ZPGFCB</a>,X)  ; $3540)
 1B32:48             00175 139             PHA
 1B33:85 26          00176 140             STA <a  class="v" href="#LOC1">LOC1</a>        ;SAVE TEST VALUE
-1B35:98             00177 141 <a class="f" name="DR2A"        >DR2A        </a>TYA             ;(FIRST TIME Y=0)
+1B35:98             00177 141 <a class='f' id='1B35' name='DR2A'        >DR2A        </a>TYA             ;(FIRST TIME Y=0)
 1B36:45 26          00178 142             EOR <a  class="v" href="#LOC1"   >LOC1</a>        ;TEST EACH (ALLEDGED) MEMORY BYTE
 1B38:85 26          00179 143             STA <a  class="v" href="#LOC1"   >LOC1</a>        ; 256 TIMES TO DETERMINE IF
 1B3A:98             00180 144             TYA             ; IT IS REALLY GOOD MEMORY AND
@@ -1067,10 +1067,10 @@ With that "legalese" out of the way ... enjoy the read!
 1B46:A4 43          00187 <a class='line' name='RELOCTR.151'>151</a>             LDY <a class="v" href="#ZPGFCB" >ZPGFCB</a>+<span class='n'>1</span>    ;HIMEM IS 8K LOWER THEN WAS             ;        Switch PLA, LDY, then BNE instead
 1B48:68             00188 152             PLA             ;ORIGINALLY THOUGHT!                    ;        since ZPGFCB can never be on mem page $00
 1B49:4C 51 1B       00189 <a class='line' name='RELOCTR.153'>153</a>             JMP <a class="x" href="#DR2C"   >DR2C</a>                                                ; <a class='mem' name='_1B49'>wastes</a> 1 byte with JMP instead of BNE. See Line #<a class='line' href='#RELOCTR.151'>151</a>
-1B4C:68             00190 154 <a class="f" name="DR2B"        >DR2B        </a>PLA             ; ORIGINAL HIMEM PROVED GOOD
+1B4C:68             00190 154 <a class='f' id='1B4C' name='DR2B'        >DR2B        </a>PLA             ; ORIGINAL HIMEM PROVED GOOD
 1B4D:81 42          00191 155             STA (<a class="v" href="#ZPGFCB">ZPGFCB</a>,X)  ;RESTORE BYTE ORIGINALLY MESSED WITH.
 1B4F:A4 41          00192 156             LDY <a class="v" href="#ZPGWRK" >ZPGWRK</a>+<span class='n'>1</span>    ;END OF PATCH   *****           ; ***** = END_PATCH
-1B51:C8             00193 157 <a class="f" name="DR2C"        >DR2C        </a>INY             ; NEW END OF DOS                ; Y = $BF
+1B51:C8             00193 157 <a class='f' id='1B51' name='DR2C'        >DR2C        </a>INY             ; NEW END OF DOS                ; Y = $BF
 1B52:8C 7D 1C       00194 158             STY <a class="v" href="#NEPAGE">NEPAGE</a>
 1B55:38             00195 159             SEC
 1B56:98             00196 160             TYA
@@ -1812,7 +1812,7 @@ With that "legalese" out of the way ... enjoy the read!
                     002 ;
                     003 ; SCNCMD - SCAN A COMMAND
                     004 ;
-                    005 <a class="f" name="SCNCMD"      >SCNCMD      </a>EQU *
+                    005 <a class='f' id='1FCD' name='SCNCMD'      >SCNCMD      </a>EQU *
                     006     DO <a class='do' href='#ULC'>ULC</a><span class='macro'>
                     007             LDX #<span class='n'>0</span>          ;Init X for lower case check    
                     008             JSR UPRCASE     ;Go check                       </span>
@@ -1822,7 +1822,7 @@ With that "legalese" out of the way ... enjoy the read!
                     012     FIN
 1FD2:C8             013             INY             ; INCR TABLE INDEX
 1FD3:8C 62 2A       014             STY SVCMD
-                    015 <a class="f" name='SC0'         >SC0         </a>EQU *
+                    015 <a class='f' id='1FD6' name='SC0'         >SC0         </a>EQU *
 1FD6:EE 5F 2A       016             INC CMDNO       ; INCR CMD NO                   ; Thanks Captain Obvious
 1FD9:A2 00          017             LDX #<span class='n'>0</span>          ; RESET LINE INDEX TO 0
 1FDB:08             018             PHP             ; SAVE EQ STATUS
@@ -1830,9 +1830,9 @@ With that "legalese" out of the way ... enjoy the read!
 1FDF:CD B2 2A       020             CMP CCHAR       ; IS IT CONTROL D
 1FE2:D0 01          021             BNE SC0A        ; BR /IF NOT
 1FE4:E8             022             INX             ; INCR OVER CNTLD
-1FE5:8E 5D 2A       023 <a class='f' name='SC0A'        >SC0A        </a>STX LBUFD
+1FE5:8E 5D 2A       023 <a class='f' id='1FE5' name='SC0A'        >SC0A        </a>STX LBUFD
                     024 ;
-                    025 <a class='f' name='SC1X'        >SC1X        </a>EQU *
+                    025 <a class='f' id='1FE8' name='SC1X'        >SC1X        </a>EQU *
 1FE8:20 A4 21       026             JSR GNBC        ; GET NON BLANK INPUT CHAR
 1FEB:29 7F          027             AND #$<span class='n'>7F</span>        ; MSB OF CHAR OFF
 1FED:59 84 28       028             EOR CMDNTB,Y    ; EOR WITH INPUT
@@ -1841,31 +1841,31 @@ With that "legalese" out of the way ... enjoy the read!
 1FF2:F0 02          031             BEQ SC1A        ; IF RESULT NOT NOW ZERO
 1FF4:68             032             PLA             ; THEN INPUT DOES NOT
 1FF5:08             033             PHP             ; EQUAL ENTRY
-1FF6:90 F0          034 <a class='f' name='SC1A'        >SC1A        </a>BCC SC1X        ; LOOP FOR END OF ENTRY
+1FF6:90 F0          034 <a class='f' id='1FF6' name='SC1A'        >SC1A        </a>BCC SC1X        ; LOOP FOR END OF ENTRY
                     035 ;
 1FF8:28             036             PLP             ; IF INPUT EQUALS END           ;
 1FF9:F0 20          037             BEQ SYNTAX      ; THEN GO SYNTAX
                     038 ;
 1FFB:B9 84 A8       039             LDA CMDNTB,Y    ; IF NEXT TABLE CHAR NOT ZERO
 1FFE:D0 D6          040             BNE SC0         ; THENSCANTHE NEXT TABLE ENTRY  ; /sarcasm whoneedsspacesanyways
-                    041 <a class='f' name='CNF'         >CNF         </a>EQU *           ; COMMAND NOT FOUND
+                    041 <a class='f' id='2000' name='CNF'         >CNF         </a>EQU *           ; COMMAND NOT FOUND
 2000:AD 00 02       042             LDA LBUFF       ; LINE IS A CNOTROL-D           ; *spelling* Control-D
 2003:CD B2 2A       043             CMP CCHAR       ; THEN THIS IS A
 2006:F0 03          044             BEQ CNF1        ; POSSIBLE SYNTAX ERROR, ELSE 
 2008:4C A4 1F       045             JMP PRRTN       ; ITS A BASIC INPUT LINE
-                    046 <a class='f' name='CNF1'        >CNF1        </a>EQU *
+                    046 <a class='f' id='200B' name='CNF1'        >CNF1        </a>EQU *
 200B:AD 01 02       047             LDA LBUFF+<span class='n'>1</span>     ; GET NEXT CHAR
 200E:C9 8D          048             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; <a class='magic' name='_200F'>magic number</a> KEY_CR
 2010:D0 06          049             BNE CSERR       ; BR IF CR
 2012:20 5B 27       050             JSR CLRSTS      ; CLEAR THE STATES
 2015:4C 95 1F       051             JMP CMDRTN      ; CNTL-D ONLY
                     052 ;
-2018:4C C4 26       053 <a class='f' name='CSERR'       >CSERR       </a>JMP ESYNTX
+2018:4C C4 26       053 <a class='f' id='2018' name='CSERR'       >CSERR       </a>JMP ESYNTX
 <hr>                    054             PAGE                                            ; === Page <a class='page' name='page17'>17</a> ===
                     055 ;
-                    056 ; SYNTAX - FIGURE OUT WHAT WE GOT HERE 
+                    056 ; SYNTAX - FIGURE OUT WHAT WE GOT HERE
                     057 ;
-                    058 <a class='f' name='SYNTAX'      >SYNTAX      </a>EQU *
+                    058 <a class='f' id='201B' name='SYNTAX'      >SYNTAX      </a>EQU *
 201B:0E 5F 2A       059             ASL CMDNO
 201E:AC 5F 2A       060             LDY CMDNO
 2021:20 5E 26       061             JSR TSTRUN
@@ -1875,34 +1875,34 @@ With that "legalese" out of the way ... enjoy the read!
 202B:F0 05          065             BEQ SYN1
 202D:A9 0F          066             LDA #$<span class='n'>F</span>                                         ; <a class='magic' name='_202E'>magic number</a> ERR_NOT_DIRECT
 202F:4C D2 26       067             JMP ERROR
-2032:C0 06          068 <a class='f' name='SYN1'        >SYN1        </a>CPY #<span class='n'>6</span>                                          ; <a class='magic' name='_2033'>magic number</a> <span class='todo'>TODO</span> CMD_RUN
+2032:C0 06          068 <a class='f' id='2032' name='SYN1'        >SYN1        </a>CPY #<span class='n'>6</span>                                          ; <a class='magic' name='_2033'>magic number</a> <span class='todo'>TODO</span> CMD_RUN
 2034:D0 02          069             BNE SYN1A
 2036:84 33          070             STY PROMPT      ; CHANGE PROMPT TO INSURE APPLESOFT RUN DETECT.
-2038:A9 20          071 <a class='f' name='SYN1A'       >SYN1A       </a>LDA #FN1
+2038:A9 20          071 <a class='f' id='2038' name='SYN1A'       >SYN1A       </a>LDA #FN1
 203A:39 09 29       072             AND CMDSTB,Y
 203D:F0 61          073             BEQ SN10
 203F:20 95 20       074             JSR CLRFNS
 2042:08             075             PHP             ; SAVE EQ STATUS
                     076 ;
-                    077 <a class='f' name='SN2'         >SN2         </a>EQU *
+                    077 <a class='f' id='2043' name='SN2'         >SN2         </a>EQU *
 2043:20 A4 21       078             JSR GNBC        ; GET NON BLANK CHAR
 2046:F0 1E          079             BEQ SN6         ; BR IF CR OR COMMA
 2048:0A             080             ASL A           ; TEST FOR ALPHA
 2049:90 05          081             BCC SN2A        ; BR IF ALPHA
 204B:30 03          082             BMI SN2A        ; BR IF APLHA
 204D:4C 00 20       083             JMP CNF         ; LURCH IF NOT ALPHA
-2050:6A             084 SN2A        ROR A           ; RESTORE BITS
+2050:6A             084 <a class='f' id='2050' name='SN2A'>SN2A        </a>ROR A           ; RESTORE BITS
 2051:4C 59 20       085             JMP SN4         ; AWAY WE GO
-2054:20 93 21       086 SN3         JSR GNXTC       ; GO GET NEXT CHAR              ; GetNextChar
+2054:20 93 21       086 <a class='f' id='2054' name='SN3'>SN3         </a>JSR GNXTC       ; GO GET NEXT CHAR              ; GetNextChar
 2057:F0 0D          087             BEQ SN6         ; BR IF COMMA OR CR
-2059:99 75 2A       088 SN4         STA FNAME1,Y    ; PUT INTO FILENAME
+2059:99 75 2A       088 <a class='f' id='2059' name='SN4'>SN4         </a>STA FNAME1,Y    ; PUT INTO FILENAME
 205C:C8             089             INY             ; INC FN INDEX                  ; Total filenames length &lt; 60 ?
 205D:C0 3C          090             CPY #<span class='n'>60</span>         ; ATFN CHAR LIMIT               ; At Filename Character Limit <span class='todo'>TODO</span> What triggers this?
 205F:90 F3          091             BCC SN3         ; BR IF NOT
-2061:20 93 21       092 SN5         JSR GNXTC       ; LOOP UNTIL CR OR COMMA
+2061:20 93 21       092 <a class='f' id='2061' name='SN5'>SN5         </a>JSR GNXTC       ; LOOP UNTIL CR OR COMMA
 2064:D0 FB          093             BNE SN5
                     094 ;
-2066:28             095 SN6         PLP             ; WAS THIS FN2 L OO             ; <span class='todo'>TODO</span> Was this filename 2 _length_ _ok_???
+2066:28             095 <a class='f' id='2066' name='SN6'>SN6         </a>PLP             ; WAS THIS FN2 L OO             ; <span class='todo'>TODO</span> Was this filename 2 _length_ _ok_???
 2067:D0 0F          096             BNE SN7         ; BR IF IT WAS
                     097 ;
 2069:AC 5F 2A       098             LDY CMDNO
@@ -1914,11 +1914,11 @@ With that "legalese" out of the way ... enjoy the read!
 2075:08             104             PHP             ; INDICATE FN2 SEEK
 2076:D0 CB          105             BNE SN2         ; GO LOOK FOR FN2
                     106 ;
-2078:AD 93 2A       107 SN7         LDA FNAME2      ; IF 1ST CHAR OF
+2078:AD 93 2A       107 <a class='f' id='2078' name='SN7'>SN7         </a>LDA FNAME2      ; IF 1ST CHAR OF
 207B:C9 A0          108             CMP #$<span class='n'>A0</span>        ; FN2 IS BLANK THEN
 207D:F0 13          109             BEQ SERR1       ; SYNTAX ERROR
                     110 ;
-207F:AD 75 2A       111 SN8         LDA FNAME1      ; IF 1ST CHAR OF
+207F:AD 75 2A       111 <a class='f' id='207F' name='SN8'>SN8         </a>LDA FNAME1      ; IF 1ST CHAR OF
 2082:C9 A0          112             CMP #$<span class='n'>A0</span>        ; FN1 IS NOT BLANK
 2084:D0 4B          113             BNE SOPTS       ; THEN GO LOOK FOR OPTIONS
                     114 ;
@@ -1929,18 +1929,18 @@ With that "legalese" out of the way ... enjoy the read!
                     119 ;
 2090:10 3F          120             BPL SOPTS       ; ITS EXCUTABLE WITHOUT         ; *spelling* Executable
                     121 ;
-2092:4C 00 20       122 SERR1       JMP CNF
+2092:4C 00 20       122 <a class='f' id='2092' name='SERR1'>SERR1       </a>JMP CNF
                     123 ;
-                    124 CLRFNS      EQU *
+                    124 <a class='f' id='2095' name='CLRFNS'>CLRFNS      </a>EQU *
 2095:A0 3C          125             LDY #<span class='n'>60</span>                                         ; <a class='magic' name='_2096'>magic number</a> MAX_FILENAME_LEN * 2
-                    126 CLRFNA      EQU *
+                    126 <a class='f' id='2097' name='CLRFNA'>CLRFNA      </a>EQU *
 2097:A9 A0          127             LDA #$<span class='n'>A0</span>
-2099:99 74 2A       128 SN1         STA <a class='v' href='#FNAME1'>FNAME1</a>-<span class='n'>1</span>,Y  ; CLEAR FN1, FN2                ; *sigh* instead of -1 offset, <span class='code'>LDY #2*MAX_FILENAME_LEN-1</span>
+2099:99 74 2A       128 <a class='f' id='2099' name='SN1'>SN1         </a>STA <a class='v' href='#FNAME1'>FNAME1</a>-<span class='n'>1</span>,Y  ; CLEAR FN1, FN2                ; *sigh* instead of -1 offset, <span class='code'>LDY #2*MAX_FILENAME_LEN-1</span>
 209C:88             129             DEY
 209D:D0 FA          130             BNE SN1
 209F:60             131             RTS
                     132             PAGE
-                    133 SN10        EQU *           ; FILE NAMES NOT REQD
+                    133 <a class='f' id='20A0' name='SN10'>SN10        </a>EQU *           ; FILE NAMES NOT REQD
 20A0:8D 75 2A       134             STA FNAME1
 20A3:A9 0C          135             LDA #NUM1+NUM2  ; IF NEITHER NUM1
 20A5:39 09 29       136             AND CMDSTB,Y    ; OR NUM2 IS REQD
@@ -7741,9 +7741,9 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     273 
                     274 
 3E86:10 03          275             BPL <a class="x" href="#GOSEEK">GOSEEK</a>      ;ALWAYS TAKEN
-3E88:99 78 04       276 <a class="f" name="ISDRV1"      >ISDRV1      </a>STA DRV1TRK,Y
-3E8B:4C A0 B9       277 <a class="f" name="GOSEEK"      >GOSEEK      </a>JMP <a class="x" href="#SEEK">SEEK</a>        ;GO THERE!
-3E8E:8A             278 <a class="f" name="XTOY"        >XTOY        </a>TXA
+3E88:99 78 04       276 <a class='f' id='3E88' name='ISDRV1'      >ISDRV1      </a>STA DRV1TRK,Y
+3E8B:4C A0 B9       277 <a class='f' id='3E8B' name='GOSEEK'      >GOSEEK      </a>JMP <a class="x" href="#SEEK">SEEK</a>        ;GO THERE!
+3E8E:8A             278 <a class='f' id='3E8E' name='XTOY'        >XTOY        </a>TXA
 3E8F:4A             279             LSR A
 3E90:4A             280             LSR A
 3E91:4A             281             LSR A
@@ -7754,7 +7754,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     286 * THIS SUBROUTINE SETS THE SLOT DEPENDENT TRACK
                     287 * LOCATION.
                     288 *
-3E95:48             289 <a class="f" name="SETTRK"     id="SETTRK"     >SETTRK      </a>PHA             ;PRESERVE DESTINATION TRACK
+3E95:48             289 <a class='f' id='3E95' name='SETTRK'     >SETTRK      </a>PHA             ;PRESERVE DESTINATION TRACK
 3E96:A0 02          290             LDY #$02                                        ; <a class='magic' name='_3E96'>magic number</a> IOB_OFFSET_DRIVE = $2
 3E98:B1 48          291             LDA (IOBPL),Y
 3E9A:6A             292             ROR A           ;GET DRIVE # INTO CARRY
@@ -7762,12 +7762,12 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3E9D:20 8E 3E       294             JSR <a class="x" href="#XTOY">XTOY</a>        ;SET UP Y-REG
 3EA0:68             295             PLA
 3EA1:0A             296             ASL A           ;ASSUME TRACK IS HELD*2
-3EA2:24 35          297 SETTRK2     BIT DRIVNO                                      ; unused label
+3EA2:24 35          297 <a class='f' id='3EA2' name='SETTRK2'    >SETTRK2     </a>BIT DRIVNO                                      ; unused label
 3EA4:30 05          298             BMI <a class="x" href="#ONDRV1">ONDRV1</a>      ;IF ON DRIVE 1(1), DRIVNO MINUS
 3EA6:99 F8 04       299             STA DRV2TRK,Y
 3EA9:10 03          300             BPL <a class="x" href="#SETRTS">SETRTS</a>
-3EAB:99 78 04       301 <a class="f" name="ONDRV1"     id="ONDRV1"    >ONDRV1      </a>STA DRV1TRK,Y
-3EAE:60             302 <a class="f" name="SETRTS"     id="SETRTS"    >SETRTS      </a>RTS
+3EAB:99 78 04       301 <a class='f' id='3EAB' name='ONDRV1'     >ONDRV1      </a>STA DRV1TRK,Y
+3EAE:60             302 <a class='f' id='3EAE' name='SETRTS'     >SETRTS      </a>RTS
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="FORMATR">FORMATR</a> - Format Disk, Page <a class='page' name='page82'>82</a> - 85, <a class='ts' href='#T0S8'>T0S8</a> @ $AF..  <a class='ts' href='#T0S9'>T0S9</a> @ $C7, $<span class='n'>BEAF</span> .. $<span class='n'>BFC7</span> ===<hr class='join'><hr></div>
