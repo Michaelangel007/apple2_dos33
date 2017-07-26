@@ -6612,43 +6612,43 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     053 *    1 USEC CYCLE TIME     *
 <hr>                    054 *                          *                                ; === Page <a class="page" name="page107">107</a> ===
                     055 ****************************
-3944:A0 FC          056 <a class="f" name="RDADR16"  >RDADR16     </a>LDY #$<span class='n'>FC</span>
-3946:84 26          057 <!--                           -->            STY COUNT       'MUST FIND' COUNT.
-3948:C8             058 <a class="f" name="RDASYN"   >RDASYN      </a>INY
-3949:D0 04          059 <!--                           -->            BNE RDA1        LOW ORER OF COUNT.
-394B:E6 26          060 <!--                           -->            INC COUNT       (2K NIBLS TO FIND)
-394D:F0 F3          061 <!--                           -->            BEQ RDERR       (ADR MARK, ELSE ERR)
-394F:BD 8C C0       062 <a class="f" name="RDA1"     >RDA1        </a>LDA Q6L,X       READ NIBL.
-3952:10 FB          063 <!--                           -->            BPL RDA1        *** NO PAGE CROSS! ***
-3954:C9 D5          064 <a class="f" name="RDASN1"   >RDASN1      </a>CMP #$<span class='n'>D5</span>        ADR MARK 1?                     ; <a class='magic' name='#_3955'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_1 EQU #$D5</span>
-3956:D0 F0          065 <!--                           -->            BNE RDASYN      (LOOP IF NOT)
-3958:EA             066 <!--                           -->            NOP             ADDED NIBL DELAY.
-3959:BD 8C C0       067 <a class="f" name="RDA2"     >RDA2        </a>LDA Q6L,X
-395C:10 FB          068 <!--                           -->            BPL RDA2        *** NO PAGE CROSS! ***
-395E:C9 AA          069 <!--                           -->            CMP #$<span class='n'>AA</span>        ADR MARK 2?                     ; <a class='magic' name='#_395F'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_2 EQU #$AA</span>
-3960:D0 F2          070 <!--                           -->            BNE RDASN1      (IF NOT, IS IT AM1?)
-3962:A0 03          071 <!--                           -->            LDY #$3         INDEX FOR 4-BYTE READ.          ; Technically, we read 8 disk nibbles &rarrow; 4 memory bytes
-                    072 <!--                           -->*                           (ADDED NIBL DELAY)
-3964:BD 8C C0       073 <a class="f" name="RDA3"     >RDA3        </a>LDA Q6L,X
-3967:10 FB          074 <!--                           -->            BPL RDA3        *** NO PAGE CROSS! ***
-3969:C9 96          075 <!--                           -->            CMP #$<span class='n'>96</span>        ADR MARK 3?                     ; <a class='magic' name='#_396A'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_3 EQU #$96</span>
-396B:D0 E7          076 <!--                           -->            BNE RDASN1      (IF NOT, IS IT AM1?)
-                    077 <!--                           -->*                           (LEAVES CARRY SET!)             ; C=1, <i>And this important WHY?</i> Carry becomes Bit 0 of 4&4 Checksum odd nibble, Line #<a class='line' href='#RDADSEK.082'>082</a>
-396D:A9 00          078 <!--                           -->            LDA #$<span class='n'>0</span>         INIT CHECKSUM.
-396F:85 27          079 <a class="f" name="RDAFLD"   >RDAFLD      </a>STA CSUM
-3971:BD 8C C0       080 <a class="f" name="RDA4"     >RDA4        </a>LDA Q6L,X       READ 'ODD BIT' NIBL.            ; Technically, read odd <b>bits</b>
-3974:10 FB          081 <!--                           -->            BPL RDA4        *** NO PAGE CROSS! ***          ; A=1a1c1e1g
+3944:A0 FC          056 <a class='f' id='3944' name='RDADR16'  >RDADR16     </a>LDY #$<span class='n'>FC</span>
+3946:84 26          057 <!--                                     -->            STY COUNT       'MUST FIND' COUNT.
+3948:C8             058 <a class='f' id='3948' name='RDASYN'   >RDASYN      </a>INY
+3949:D0 04          059 <!--                                     -->            BNE RDA1        LOW ORER OF COUNT.
+394B:E6 26          060 <!--                                     -->            INC COUNT       (2K NIBLS TO FIND)
+394D:F0 F3          061 <!--                                     -->            BEQ RDERR       (ADR MARK, ELSE ERR)
+394F:BD 8C C0       062 <a class='f' id='394F' name='RDA1'     >RDA1        </a>LDA Q6L,X       READ NIBL.
+3952:10 FB          063 <!--                                     -->            BPL RDA1        *** NO PAGE CROSS! ***
+3954:C9 D5          064 <a class='f' id='3954' name='RDASN1'   >RDASN1      </a>CMP #$<span class='n'>D5</span>        ADR MARK 1?                     ; <a class='magic' name='#_3955'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_1 EQU #$D5</span>
+3956:D0 F0          065 <!--                                     -->            BNE RDASYN      (LOOP IF NOT)
+3958:EA             066 <!--                                     -->            NOP             ADDED NIBL DELAY.
+3959:BD 8C C0       067 <a class='f' id='39F9' name='RDA2'     >RDA2        </a>LDA Q6L,X
+395C:10 FB          068 <!--                                     -->            BPL RDA2        *** NO PAGE CROSS! ***
+395E:C9 AA          069 <!--                                     -->            CMP #$<span class='n'>AA</span>        ADR MARK 2?                     ; <a class='magic' name='#_395F'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_2 EQU #$AA</span>
+3960:D0 F2          070 <!--                                     -->            BNE RDASN1      (IF NOT, IS IT AM1?)
+3962:A0 03          071 <!--                                     -->            LDY #$3         INDEX FOR 4-BYTE READ.          ; Technically, we read 8 disk nibbles &rarrow; 4 memory bytes
+                    072 <!--                                     -->*                           (ADDED NIBL DELAY)
+3964:BD 8C C0       073 <a class='f' id='3964' name='RDA3'     >RDA3        </a>LDA Q6L,X
+3967:10 FB          074 <!--                                     -->            BPL RDA3        *** NO PAGE CROSS! ***
+3969:C9 96          075 <!--                                     -->            CMP #$<span class='n'>96</span>        ADR MARK 3?                     ; <a class='magic' name='#_396A'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_3 EQU #$96</span>
+396B:D0 E7          076 <!--                                     -->            BNE RDASN1      (IF NOT, IS IT AM1?)
+                    077 <!--                                     -->*                           (LEAVES CARRY SET!)             ; C=1, <i>And this important WHY?</i> Carry becomes Bit 0 of 4&4 Checksum odd nibble, Line #<a class='line' href='#RDADSEK.082'>082</a>
+396D:A9 00          078 <!--                                     -->            LDA #$<span class='n'>0</span>         INIT CHECKSUM.
+396F:85 27          079 <a class='f' id='396F' name='RDAFLD'   >RDAFLD      </a>STA CSUM
+3971:BD 8C C0       080 <a class='f' id='3971' name='RDA4'     >RDA4        </a>LDA Q6L,X       READ 'ODD BIT' NIBL.            ; Technically, read odd <b>bits</b>
+3974:10 FB          081 <!--                                     -->            BPL RDA4        *** NO PAGE CROSS! ***          ; A=1a1c1e1g
 3976:2A             <a class='line' name='RDADSEK.082'>082</a>             ROL A           ;ALIGN ODD BITS, '1' into LSB.  ; A=a1c1e1gC, and C <i>stays</i> set
-3977:85 26          083 <!--                           -->            STA LAST
-3979:BD 8C C0       084 <a class="f" name="RDA5"     >RDA5        </a>LDA Q6L,X       READ 'EVEN BIT' NIBL.           ; Technically, read even <b>bits</b>
-397C:10 FB          085 <!--                           -->            BPL RDA5        *** NO PAGE CROSS! ***          ; A=1b1d1f1h
-397E:25 26          086 <!--                           -->            AND LAST        MERGE ODD AND EVEN BITS         ; &amp;=a1c1e1g1
-3980:99 2C 00       087 <!--                           -->            STA CSSTV,Y     STORE DATA BYTE.                ; A=abcdefgh, Store bytes in reverse order due to Y counting down
-3983:45 27          088 <!--                           -->            EOR CSUM        XOR CHECKSUM
-3985:88             089 <!--                           -->            DEY
-3986:10 E7          090 <!--                           -->            BPL RDAFLD      LOOP ON 4 DATA BYTES.
-3988:A8             091 <!--                           -->            TAY             IF FINAL CHECKSUM
-3989:D0 B7          092 <!--                           -->            BNE RDERR       NONZERO, THEN ERROR.
+3977:85 26          083 <!--                                     -->            STA LAST
+3979:BD 8C C0       084 <a class='f' id='3979' name='RDA5'     >RDA5        </a>LDA Q6L,X       READ 'EVEN BIT' NIBL.           ; Technically, read even <b>bits</b>
+397C:10 FB          085 <!--                                     -->            BPL RDA5        *** NO PAGE CROSS! ***          ; A=1b1d1f1h
+397E:25 26          086 <!--                                     -->            AND LAST        MERGE ODD AND EVEN BITS         ; &amp;=a1c1e1g1
+3980:99 2C 00       087 <!--                                     -->            STA CSSTV,Y     STORE DATA BYTE.                ; A=abcdefgh, Store bytes in reverse order due to Y counting down
+3983:45 27          088 <!--                                     -->            EOR CSUM        XOR CHECKSUM
+3985:88             089 <!--                                     -->            DEY
+3986:10 E7          090 <!--                                     -->            BPL RDAFLD      LOOP ON 4 DATA BYTES.
+3988:A8             091 <!--                                     -->            TAY             IF FINAL CHECKSUM
+3989:D0 B7          092 <!--                                     -->            BNE RDERR       NONZERO, THEN ERROR.
 398B:BD 8C C0       093 <a class="f" name="RDA6"     >RDA6        </a>LDA Q6L,X       FIRST BIT-SLIP NIBL.
 398E:10 FB          094 <!--                           -->            BPL RDA6        *** NO PAGE CROSS! ***
 3990:C9 DE          095 <!--                           -->            CMP #$<span class='n'>DE</span>                                        ; <a class='magic' name='#_3991'>magic number</a> <span class='macro'>DISK_ADR_EPILOG_1 EQU #$DE</span>
