@@ -521,12 +521,14 @@ var StickyHeaders = (function() {
 
     function onLoad()
     {
+        var i, n;
+
 console.log( "Loading..." );
 
-        var aData  = document.getElementsByClassName( 'd' );
-        var nData  = aData.length;
-        var eData  = document.getElementsByName( 'stat_data' )[0];
-            eData.innerHTML = nData;
+        var aVars  = document.getElementsByClassName( 'd' );
+        var nVars  = aVars.length;
+        var eVars  = document.getElementsByName( 'stat_data' )[0];
+            eVars.innerHTML = nVars;
 
         var aEQUs  = document.getElementsByClassName( 'e' );
         var nEQUs  = aEQUs.length;
@@ -543,10 +545,23 @@ console.log( "Loading..." );
         var eMagic = document.getElementsByName( 'statmagic' )[0];
             eMagic.innerHTML = nMagic;
 
-        var aVars  = document.getElementsByClassName( 'v' );
-        var nVars  = aVars.length;
-        var eVars  = document.getElementsByName( 'stat_var' )[0];
-            eVars.innerHTML = nVars;
+        var aMem   = document.getElementsByClassName( 'mem' );
+        var nMem   = aMem.length;
+        var nWaste = 0;
+
+        for( i = 0; i < nMem; ++i )
+        {
+            var bytes = parseInt( aMem[i].coords | 0 );
+                nWaste += bytes;
+console.log( padLeft( i, 4 ) + ": @ " + padLeft( aMem[i].name, 5 ) + " x " + bytes + " ... Total: " + nWaste );
+        }
+        var eMagic = document.getElementsByName( 'statwaste' )[0];
+            eMagic.innerHTML = nWaste;
+
+        var aDatas = document.getElementsByClassName( 'v' );
+        var nDatas = aVars.length;
+        var eDatas = document.getElementsByName( 'stat_var' )[0];
+            eDatas.innerHTML = nDatas;
 
         var aProc  = document.getElementsByClassName( 'x' );
         var nProc  = aProc.length;
@@ -560,19 +575,26 @@ console.log( "Loading..." );
         var tSymAddr = "";
 
         var locs = new Array(26); // A-Z
-        var i, n = locs.length;
-        var maxFuncLen = 0;
 
         var SortedFuncs = [];
         var SortedAddrs = [];
 
+        var maxFuncLen = 0;
         for( j = 0; j < nFuncs; ++j )
             if( aFuncs[j].name
             &&  maxFuncLen < aFuncs[j].name.length)
                 maxFuncLen = aFuncs[j].name.length;
-
         console.log( "... Max Func Name Length = " + maxFuncLen );
 
+        var maxVarsLen = 0;
+        for( j = 0; j < nVars; ++j )
+            if( aVars[j].name
+            &&  maxVarsLen < aVars[j].name.length)
+                maxVarsLen = aVars[j].name.length;
+        console.log( "... Max Vars Name Length = " + maxVarsLen );
+
+
+        n = locs.length;
         for( i = 0; i < n; ++i )
         {
             locs[ i ] = String.fromCharCode( 65 + i );
@@ -584,10 +606,10 @@ console.log( "Loading..." );
 
             var section = locs[ i ];
             tSymName += symbolsAddMarkup( section, aFuncs, "<span class='f'>", maxFuncLen );
-            tSymName += symbolsAddMarkup( section, aData , "<span class='d'>", maxFuncLen );
+            tSymName += symbolsAddMarkup( section, aVars , "<span class='d'>", maxFuncLen );
 
             tSymAddr += symbolsAddMarkup( section, aFuncs, "<span class='f'>", maxFuncLen );
-            tSymAddr += symbolsAddMarkup( section, aData , "<span class='d'>", maxFuncLen );
+            tSymAddr += symbolsAddMarkup( section, aVars , "<span class='d'>", maxFuncLen );
 
             tSymName += "</pre>";
             tSymAddr += "</pre>";
