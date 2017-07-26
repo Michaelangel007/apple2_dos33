@@ -1078,7 +1078,7 @@ With that "legalese" out of the way ... enjoy the read!
 1B44:D0 EF          00186 150             BNE <a  class="x" href="#DR2A"   >DR2A</a>        ; BRANCH UNLESS IT'S MATCHED 256 TIMES  ; just test the last byte of every page
 1B46:A4 43          00187 <a class='line' name='RELOCTR.151'>151</a>             LDY <a class="v" href="#ZPGFCB" >ZPGFCB</a>+<span class='n'>1</span>    ;HIMEM IS 8K LOWER THEN WAS             ;        Switch PLA, LDY, then BNE instead
 1B48:68             00188 152             PLA             ;ORIGINALLY THOUGHT!                    ;        since ZPGFCB can never be on mem page $00
-1B49:4C 51 1B       00189 <a class='line' name='RELOCTR.153'>153</a>             JMP <a class="x" href="#DR2C"   >DR2C</a>                                                ; <a class='mem' name='_1B49'>wastes</a> 1 byte with JMP instead of BNE. See Line #<a class='line' href='#RELOCTR.151'>151</a>
+1B49:4C 51 1B       00189 <a class='line' name='RELOCTR.153'>153</a>             JMP <a class="x" href="#DR2C"   >DR2C</a>                                                ; <a class='mem' name='_1B49' coords='1'>wastes</a> 1 byte with JMP instead of BNE. See Line #<a class='line' href='#RELOCTR.151'>151</a>
 1B4C:68             00190 154 <a class='f' id='1B4C' name='DR2B'        >DR2B        </a>PLA             ; ORIGINAL HIMEM PROVED GOOD
 1B4D:81 42          00191 155             STA (<a class="v" href="#ZPGFCB">ZPGFCB</a>,X)  ;RESTORE BYTE ORIGINALLY MESSED WITH.
 1B4F:A4 41          00192 156             LDY <a class="v" href="#ZPGWRK" >ZPGWRK</a>+<span class='n'>1</span>    ;END OF PATCH   *****           ; ***** = END_PATCH
@@ -1106,10 +1106,10 @@ With that "legalese" out of the way ... enjoy the read!
 1B78:86 40          00214 178             STX <a class='v' href='#ZPGWRK'>ZPGWRK</a>
                     00215 179 <a class="f" name="DR3"         >DR3         </a>EQU *
 1B7A:BD 29 1C       00216 180             LDA <a class='v' href='#ADRTAB'>ADRTAB</a>+<span class='n'>1</span>,X                                  ; [StartLo] If only we had an ($BC) LDY ADRTAB+1,X instruction ...
-1B7D:A8             00217 <a class='line' name='RELOCTR.181'>181</a>             TAY                                             ; <a class='mem' name='_1B7D'>wastes</a> 1 byte; ... to skip this useless instruction.
+1B7D:A8             00217 <a class='line' name='RELOCTR.181'>181</a>             TAY                                             ; <a class='mem' name='_1B7D' coords='1'>wastes</a> 1 byte; ... to skip this useless instruction.
 1B7E:BD 2A 1C       00218 182             LDA <a class='v' href='#ADRTAB'>ADRTAB</a>+<span class='n'>2</span>,X                                  ; [StartHi]      Oh wait, we do! /rhetorical Who knew!
 1B81:85 41          00219 183             STA <a class='v' href='#ZPGWRK'>ZPGWRK</a>+<span class='n'>1</span>                                    ;                Evident code quality to come. :-/
-1B83:4C 93 1B       00220 <a class='line' name='RELOCTR.184'>184</a>             JMP <a class='x' href='#DR5'>DR5</a>                                         ; <a class='mem' name='_1B83'>wastes</a> 1 byte instead of BNE; skip low address ptr
+1B83:4C 93 1B       00220 <a class='line' name='RELOCTR.184'>184</a>             JMP <a class='x' href='#DR5'>DR5</a>                                         ; <a class='mem' name='_1B83' coords='1'>wastes</a> 1 byte instead of BNE; skip low address ptr
                     00221 185 ;                                                           ; See software was bloated in the "good ol' days" too. :-(
                     00222 186 <a class="f" name="DR4"         >DR4         </a>EQU *
 1B86:18             00223 187             CLC
@@ -1198,7 +1198,7 @@ With that "legalese" out of the way ... enjoy the read!
 1C0C:A9 00          00306 <a class='line' name='RELOCTR.270'>270</a>             LDA #<span class='n'>0</span>                                          ; /sarcasm If only we had a LDY #0 instruction ...
 1C0E:85 40          00307 271             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>
 1C10:85 42          00308 272             STA <a class="v" href="#ZPGFCB">ZPGFCB</a>
-1C12:A8             00309 <a class='line' name='RELOCTR.273'>273</a>             TAY                                             ; <a class='mem' name='_1C12'>wastes</a> 1 byte; ... to remove this one. See Line #<a class='line' href='#RELOCTR.270'>270</a>
+1C12:A8             00309 <a class='line' name='RELOCTR.273'>273</a>             TAY                                             ; <a class='mem' name='_1C12' coords='1'>wastes</a> 1 byte; ... to remove this one. See Line #<a class='line' href='#RELOCTR.270'>270</a>
                     00310 274 ;
 1C13:B1 40          00311 275 <a class='f' id='1C13' name='DR10'              >DR10        </a>LDA (<a class="v" href="#ZPGWRK">ZPGWRK</a>),Y  ; BYTE FROM
 1C15:91 42          00312 276             STA (<a class="v" href="#ZPGFCB">ZPGFCB</a>),Y  ; BYTE  TO
@@ -1256,7 +1256,7 @@ With that "legalese" out of the way ... enjoy the read!
 1C28:24             00323 287 <a class='d' name='ADRTAB'     id='ADRTAB'     >ADRTAB      </a>DFB <span class='n'>9</span>*<span class='n'>4</span>                                         ; <a class='magic' name='_1C28'>magic number</a> <i>Really?!</i> We can't do <span class='macro'>ADRTAB_LEN DFB ADRTAB_END - ADRTAB_START</span> ???
 1C29:00 1D          00324 288             DW  <a class="v" href="#SAT1"  >SAT1   </a>                                     ; [0] Start Address Table 1 in <a class="x" href="#DOSINIT">DOSINIT</a>
 1C2B:56 1D          00325 289             DW  <a class="v" href="#EAT1"  >EAT1   </a>                                     ;     End   Address Table 1
-                                                                                          ;     <a class='mem' name='_1C2D'>wastes</a> 4 bytes due to non-contiguous memory
+                                                                                          ;     <a class='mem' name='_1C2D' coords='4'>wastes</a> 4 bytes due to non-contiguous memory
                                                                                           ;     $1D56, $1D57 = <a class='v' href='#CHAIN' >CHAIN</a>
                                                                                           ;     Solution would be to add our own stub of 3 bytes
                                                                                           ;         DOS_CHAIN_IB: JMP $E836
@@ -1276,7 +1276,7 @@ With that "legalese" out of the way ... enjoy the read!
 <hr>1C47:E8 37          00339 303             DW  <a class="v" href="#">ADOSLD</a>+<span class='n'>2</span>                                    ; === Page <a class="page" name="page115">115</a> ===
 1C49:EE 37          00340 304             DW  <a class="v" href="#IBDCTP">IBDCTP </a>                                     ; [8]
 1C4B:F0 37          00341 305             DW  <a class="v" href="#IBDCTP">IBDCTP</a>+<span class='n'>2</span>
-1C4D:00 00 00 00    00342 <a class='line' name='RELOCTR.306'>306</a>             DFB <span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>                                     ; <a class='mem' name="_1C4D">wastes</a> 12 bytes -- never referenced !
+1C4D:00 00 00 00    00342 <a class='line' name='RELOCTR.306'>306</a>             DFB <span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>                                     ; <a class='mem' name='_1C4D' coords='12'>wastes</a> 12 bytes -- never referenced !
 1C51:00 00 00 00    00343 307             DFB <span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>
 1C55:00 00 00 00    00344 308             DFB <span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>,<span class='n'>0</span>
                     00345 309 <a class="d"    name="CDETAB"     id="CDETAB"     >CDETAB      </a>EQU *                                           ; 1C59:1C = v1980, 20 = v1983
@@ -1298,7 +1298,7 @@ With that "legalese" out of the way ... enjoy the read!
 1C76:C8 3F          00361 325             DW  <a class="x" href="#SDP1"  >SDP1  </a>                                      ; [7] Start Dos Patch
 1C78:FF 3F          00362 326             DW  <a class="x" href="#EDP1"  >EDP1  </a>                                      ;     End   Dos Patch
 1C7A:1D             00363 327 <a class='d' id='1C7A' name='RSPAGE'     >RSPAGE      </a>DFB &lt;<a class="v" href="#START"   >START</a>                                      ; (Source) Relocation Start Page $1D00
-1C7B:40             00364 328 <a class='d' id='1C7B' name='REPAGE'     >REPAGE      </a>DFB &lt;<a class="v" href="#ENDOFDOS">ENDOFDOS</a>                                   ; (Source) Relocation End+1 Page $4000, <a class='mem' name="_1C7B">wastes</a> 1 bytes; See <a class='v' href='#AEND'>AEND</a>
+1C7B:40             00364 328 <a class='d' id='1C7B' name='REPAGE'     >REPAGE      </a>DFB &lt;<a class="v" href="#ENDOFDOS">ENDOFDOS</a>                                   ; (Source) Relocation End+1 Page $4000, <a class='mem' name='_1C7B' coords='1'>wastes</a> 1 bytes; See <a class='v' href='#AEND'>AEND</a>
                     00365 329 ;
 1C7C:00             00366 330 <a class='d' id='1C7C' name='NSPAGE'     >NSPAGE      </a>DFB <span class='n'>0</span>
 1C7D:00             00367 331 <a class='d' id='1C7D' name='NEPAGE'     >NEPAGE      </a>DFB <span class='n'>0</span>
@@ -1403,7 +1403,7 @@ With that "legalese" out of the way ... enjoy the read!
                     058 ;                                                           ; *note* Annotating [-] to mean <i>addresss is not relocated</i> in <a class='v' href='#ADRTAB'>ADRTAB</a>
                     059 ;NON-RELOCATING ADRS
                     060 ;                                                           ; Using <b>a</b>,b,c,d,e,f for abbreviated field names in IBASVT
-                    061 <a class='d' id='1D56' name='IBASVT'   >IBASVT      </a>EQU *                                           ; <i>ACTIVE</i> table but <a class='mem' name='_1D56'>waste</a> disk space (12 bytes @ $56) storing it!
+                    061 <a class='d' id='1D56' name='IBASVT'   >IBASVT      </a>EQU *                                           ; <i>ACTIVE</i> table but <a class='mem' name='_1D56' coords='12'>waste</a> disk space (12 bytes @ $56) storing it!
 1D56:36 E8          062 <a class='d' id='1D56' name='CHAIN'    >CHAIN       </a>DW <a class='x' href='#IBCHN' >IBCHN </a>                                       ;<b>a</b>[-] Really? Forces <i>another</i> table entry [1] in <a class='v' href='#ADRTAB'>ADRTAB</a>
 1D58:E5 24          063 <a class='d' id='1D58' name='RUN'      >RUN         </a>DW <a class='x' href='#IBRUN' >IBRUN </a>                                       ;b[<a class='line' href='#RELOCTR.290'>1</a>] Repeat after me: You **group**
 1D5A:E3 E3          064 <a class='d' id='1D5A' name='BREAK'    >BREAK       </a>DW <a class='x' href='#IBBRK' >IBBRK </a>                                       ;c[-]     CONST data together THEN
@@ -1429,7 +1429,7 @@ With that "legalese" out of the way ... enjoy the read!
 1D76:F2 D4          080             DW <a class='x' href='#ASRSEQ1'>ASRSEQ1</a>                                      ;f[-] Applesoft <a class='link' href='http://jamtronix.com/files/applesoft.html#FIX.LINKS'>FIX.LINKS</a>
                     081 <a class='e' id='000C' name="AS1VTL"   >AS1VTL      </a>EQU *-<a class='v' href='#AS1VT'>AS1VT</a>
                     082 ;                                                           ; Copied into <a class="v" href="#IBASVT">IBASVT</a> via INIT_AS_RAM, oh wait, <a class='x' href='#INITC'>INITC</a>
-1D78:06 25          083 <a class="d" id='1D78' name='AS2VT'    >AS2VT       </a>DW <a class="x" href="#ASRUN2">ASRUN2</a>                                       ;<b>a</b>[<a class='line' href='#RELOCTR.296'>4</a>] <a class='mem' name='_1D78'>wastes</a> 12 bytes on Apple ][+ or newer
+1D78:06 25          083 <a class="d" id='1D78' name='AS2VT'    >AS2VT       </a>DW <a class="x" href="#ASRUN2">ASRUN2</a>                                       ;<b>a</b>[<a class='line' href='#RELOCTR.296'>4</a>] <a class='mem' name='_1D78' coords='12'>wastes</a> 12 bytes on Apple ][+ or newer
 1D7A:06 25          084             DW <a class="x" href="#ASRUN2" >ASRUN2 </a>                                      ;b[4] Type 2: AppleSoft in RAM Vector Table (early Apple 1 or ][ ???)
 1D7C:67 10          085             DW <a class="x" href="#ASBRK2" >ASBRK2 </a>                                      ;c[-]
 1D7E:84 1D          086             DW <a class="x" href="#DBINIT" >DBINIT </a>                                      ;d[<a class='line' href='#RELOCTR.298'>5</a>]
@@ -1459,12 +1459,12 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                     ;        -5 = Don't count opcodes at Lines #117,118
                                                                                     ;       -18 = Replacement code at Line <a class='link' href='#DOSINIT.118.Solution'>118 Solution</a>
                                                                                     ;       ===
-1D9E:A2 0A          <a class='line' name='DOSINIT.109'>109</a>             LDX #<a class='v' href='#IBVTL'>IBVTL</a>      ; GET IB VT LENGTH              ; <a class='mem' name='_1D9E'>wastes</a>  7 bytes
+1D9E:A2 0A          <a class='line' name='DOSINIT.109'>109</a>             LDX #<a class='v' href='#IBVTL'>IBVTL</a>      ; GET IB VT LENGTH              ; <a class='mem' name='_1D9E' coords='7'>wastes</a>  7 bytes
 1DA0:BD 61 1D       110 <a class='f' name='IIB1'     >IIB1        </a>LDA <a class='v' href='#IBVT'>IBVT</a>-<span class='n'>1</span>,X    ; MOVE IB ADDR                  ; <b>Problem</b>: *sigh* due to IBVTL=$A != AS1VTL=$C
 1DA3:9D 55 1D       111             STA <a class='v' href='#IBASVT'>IBASVT</a>-<span class='n'>1</span>,X                                  ;           we end up with <i>duplicate code</i> (**9 times**, er, 3 times!) to
 1DA6:CA             112             DEX                                             ;           copy the BASIC Vector Table! (An array of function pointers)
 1DA7:D0 F7          113             BNE <a class='x' href='#IIB1'>IIB1</a>                                        ;
-1DA9:4C BC 1D       114             JMP <a class='x' href='#INITAA'>INITAA</a>                                      ; normally <a class='mem' name='#_1DA9'>wastes</a> 1 byte, BEQ INITAA; but see bigger optimization on Line #<a class='line' href='#DOSINIT.109'>109</a>
+1DA9:4C BC 1D       114             JMP <a class='x' href='#INITAA'>INITAA</a>                                      ; normally <a class='mem' name='#_1DA9' coords='1'>wastes</a> 1 byte, BEQ INITAA; but see bigger optimization on Line #<a class='line' href='#DOSINIT.109'>109</a>
                     115 ;
                     116 <a class='f' name='IAS1'     >IAS1        </a>EQU *                                           ; IAS1 = Init Applesoft ROM; /cynical "<i>There will be a test</i>"
 <hr>1DAC:A9 40          117             LDA #$<span class='n'>40</span>        ; INDICATE ROM APPLESOFT        ; === Page <a class='page' name='page50'>50</a> === <a class='magic' name='_1DAD'>magic number</a> BASIC_TYPE_APPLESOFT_ROM = $40
@@ -1524,7 +1524,7 @@ With that "legalese" out of the way ... enjoy the read!
 1DEB:10 19          154             BPL <a class='x' href='#INITD' >INITD</a>       ; THEN NOT RAM AS               ; 
 1DED:8D 62 2A       155             STA <a class='v' href='#ASIBSW'>ASIBSW</a>      ; SET RAM AS
 1DF0:A2 0C          156             LDX #<a class='v' href='#AS2VTL'>AS2VTL</a>                                     ; more duplicate code, we should <span class='macro'>LDA #AS2VT-IBVT</span> and JSR <a class='link' href='#DOSINIT.118.Solution'>118 Solution</a> (make a subroutine)
-1DF2:BD 77 1D       157 <a class='f' name='IAS2A'    >IAS2A       </a>LDA <a class='v' href='#AS2VT'>AS2VT</a>-<span class='n'>1</span>,X   ; MOVE RAM AS ADRS              ; <a class='mem' name='_'>wastes</a> 6 bytes, (9 - 3 for JSR SOLUTION.118)</a>
+1DF2:BD 77 1D       157 <a class='f' name='IAS2A'    >IAS2A       </a>LDA <a class='v' href='#AS2VT'>AS2VT</a>-<span class='n'>1</span>,X   ; MOVE RAM AS ADRS              ; <a class='mem' name='_1DF3' coords='6'>wastes</a> 6 bytes, (9 - 3 for JSR SOLUTION.118)</a>
 1DF5:9D 55 1D       158             STA <a class='v' href='#IBASVT'>IBASVT</a>-<span class='n'>1</span>,X                                  ;        When you see the <b>same block of code</b> your <i>spidey sense</i> should be tingling:
 1DF8:CA             159             DEX                                             ;        Is there a way to refactor this common code?
 1DF9:D0 F7          160             BNE <a class='x' href='#IAS2A'>IAS2A</a>
@@ -1558,7 +1558,7 @@ With that "legalese" out of the way ... enjoy the read!
 1E33:8D F3 03       188             STA <a class='v' href='#ZRSET'>ZRSET</a>+<span class='n'>1</span>     ;NOTE: THESE ARE NOT NORMALLY USED AND              ;    if you're just going to ignore part of it???
 1E36:49 A5          189             EOR #$<span class='n'>A5</span>        ; ARE ONLY SET ONCE ON BOOT                         ;    <a class='magic' name='_1E37'>magic number</a> F800.S Ctrl-Reset Powered Up
 1E38:8D F4 03       190             STA <a class='v' href='#PWCNST'>PWCNST</a>      ;POWER UP CONSTANT=COMPLIMENT OF HI RESET VECTOR.   ;                        <b>Checksum</b> <i>not</i> constant
-1E3B:AD 52 1E       <a class='line' id='1E3B' name='DOSINIT.191'>191</a>             LDA <a class='x' href='#DBVECT'>DBVECT</a>+<span class='n'>1</span>    ;SET LOW VECTOR ADDRESS.                            ;[.. <a class='mem' name='_1E3B'>wastes</a> 6 bytes due to Line #<a class='line' href='DOSINIT.221'>221</a> Clusterfrak
+1E3B:AD 52 1E       <a class='line' id='1E3B' name='DOSINIT.191'>191</a>             LDA <a class='x' href='#DBVECT'>DBVECT</a>+<span class='n'>1</span>    ;SET LOW VECTOR ADDRESS.                            ;[.. <a class='mem' name='_1E3B' coords='6'>wastes</a> 6 bytes due to Line #<a class='line' href='DOSINIT.221'>221</a> Clusterfrak
 1E3E:8D F2 03       192             STA <a class='v' href='#ZRSET'>ZRSET</a>       ;NOW APPLE RESET WILL KEEP DOS IN I/O LOOP          ; ..]            
 1E41:A9 06          193             LDA #<span class='n'>6</span>          ;INIDICATE RUN                                      ; <a class='magic' name='_1E42'>magic number</a> <span class='todo'>TODO</span> 
 1E43:D0 05          194             BNE <a class='x' href='#INITF1'>INITF1</a>      ;LOAD AND RUN THE 'HELLO' PROGRAM                   ; &darr; (always) 
@@ -1585,7 +1585,7 @@ With that "legalese" out of the way ... enjoy the read!
 1E67:AC C1 2A       215             LDY <a class='v' href='#AIOB'  >AIOB</a>
 1E6A:60             216             RTS
 1E6B:4C 51 28       217             JMP <a class='x' href='#MVCSW' >MVCSW</a>                                       ; $3EA: Set CIN/COUT to DOS
-1E6E:EA             218             NOP                                             ; [.. <a class='mem' name='_1E6E'>wastes</a> 2 bytes -- NEVER used anywhere
+1E6E:EA             218             NOP                                             ; [.. <a class='mem' name='_1E6E' coords='2'>wastes</a> 2 bytes -- NEVER used anywhere
 1E6F:EA             219             NOP                                             ;  ..]
 1E70:4C 59 FA       220             JMP <a class='e' href='#MONBRK'>MONBRK</a>                                      ; $3EF: JMP $FA59 Autostart BRK handler
 1E73:4C 65 FF       <a class='line' name='DOSINIT.221'>221</a>             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3F2: $9DBF,$38 Control-Reset - Why not <span class='code'>DW DBRST</span>, <span class='code'>DB $#&gt;DBRST ^ $A5</span> ??? Line #<a class='line' href='#DOSINIT.191'>191</a>
@@ -1673,7 +1673,7 @@ With that "legalese" out of the way ... enjoy the read!
 1EEB:AE B7 2A       072             LDX RSTATE      ;FIRST CHECK FOR 'AFTER APSFT RELOC'
 1EEE:F0 03          073             BEQ <a class='x' href='#COS00'>COS00</a>       ;BRANCH IF NOT                  ; <b>Really?!</b> You couldn't use COS0A and COS0B like you do for the <i>other</i> states??
                                                                                     ; COS0 &amp; COS00 are <b>crap function names</b>; they are WAY too easy to mis-read/type
-1EF0:4C 78 1F       074             JMP COS7                                        ; <a class='mem' name='_'>wastes</a> 3 bytes, but since $1F78-$1EF0 &gt; $80 
+1EF0:4C 78 1F       074             JMP COS7                                        ; <a class='mem' name='_1EF0' coords='3'>wastes</a> 3 bytes, but since $1F78-$1EF0 &gt; $80
                                                                                     ; <span clas='todo'>TODO</span> We need to move <a class='x' href='#COS5'>COS5</a>..<a class='x' href='#COS7'>COS7</a> <b>before</b> <a class='x' href='#COS0'>COS0</a>; change Line #<a class='line' href='#DOSHOOK.074'>74</a> to BNE COS7
 1EF3:AE 51 2A       075 <a class='f' id='1EF3' name='COS00'    >COS00       </a>LDX ISTATE      ;IS IN STATE NOT ZERO           ; I'm serious, someone <i>please</i> shoot Captain Obvious
 1EF6:F0 08          076             BEQ COS01                                       ; 
@@ -1710,7 +1710,7 @@ With that "legalese" out of the way ... enjoy the read!
 1F25:D0 7D          107             BNE PRRTN       ; BR IF NOT
 1F27:A2 00          108 <a class='f' name='COS2A'    >COS2A       </a>LDX #<span class='n'>0</span>          ; SET FOR POSSIBLE C-D NEXT     ; C-D = Control-D <a class='magic' name='_1F28'>magic number</a> COS_STATE_FIRST_CONTROL_D = 0
 1F29:8E 52 2A       109             STX OSTATE      ; NEXT STATE
-1F2C:4C A4 1F       110             JMP PRRTN       ; GO PRINT CHAR                 ; <a class='mem' name='_1F2C'>wastes</a> 1 byte, $1F83 - $1F2C = $57, <span class='code'>BEQ PRRTN</span>
+1F2C:4C A4 1F       110             JMP PRRTN       ; GO PRINT CHAR                 ; <a class='mem' name='_1F2C' coords='1'>wastes</a> 1 byte, $1F83 - $1F2C = $57, <span class='code'>BEQ PRRTN</span>
                     111             PAGE
                     112 ;
                     113 ;COS3 - KEY IN ECHO PRINT
@@ -1752,7 +1752,7 @@ With that "legalese" out of the way ... enjoy the read!
 1F68:F0 F1          149             BEQ COS4A
 1F6A:A2 04          150             LDX #<span class='n'>4</span>
 1F6C:8E 52 2A       151             STX OSTATE      ; SET NEW OUT STATE             ; No Shit Sherlock, *what* is State 4 ??
-1F6F:D0 E1          152             BNE COS4        ; BR IF NOT CNTL D              ; &uarr; (always) <a class='mem' name='_'>wastes</a> 2 bytes, move COS5 before COS4 and remove this branch
+1F6F:D0 E1          152             BNE COS4        ; BR IF NOT CNTL D              ; &uarr; (always) <a class='mem' name='_1F6F' coords='2'>wastes</a> 2 bytes, move COS5 before COS4 and remove this branch
                     153 ;
                     154 ;COS6 - DISK INPUT ECHO
                     155 ;
@@ -1815,7 +1815,7 @@ With that "legalese" out of the way ... enjoy the read!
                     212 ;
                     213 <a class='f' name='PRCRIF'   >PRCRIF      </a>EQU *
 1FC8:A9 8D          214             LDA #$<span class='n'>8D</span>        ; ELSE PRINT CR                 ; <a class='magic' name='_1FC9'>magic number</a> KEY_CR
-1FCA:4C C5 1F       215             JMP ORTN1                                       ; <a class='mem' href='_1FCA'>wastes</a> 1 byte; BNE ORTN1
+1FCA:4C C5 1F       215             JMP ORTN1                                       ; <a class='mem' href='_1FCA' coords='1'>wastes</a> 1 byte; BNE ORTN1
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="CMDSCAN">CMDSCAN</a> - Scan for commands, Page <a class="page" page="page16">16</a>, <a class='ts' href='#T0SE'>T0SE</a> - <a class='ts' href='#T1S0'>T1S0</a>, $<span class='n'>9FCD</span> .. $<span class='n'>A192</span> ===<hr class='join'><hr></div>
@@ -2084,7 +2084,7 @@ With that "legalese" out of the way ... enjoy the read!
 2183:20 AE 21       262             JSR <a class="x" href="#CLRCCB">CLRCCB</a>      ; GO CLEAR CCB                  ; /sarcasm I never would have guessed
                     263 <a class="f" name="ECMD"   >ECMD        </a>EQU *
 2186:AD 5F 2A       <a class='line' name='CMDSCAN.264'>264</a>             LDA <a class="v" href="#CMDNO">CMDNO</a>       ; COMMAND NO                    ; <i>Think, McFly!</i>
-2189:AA             265             TAX             ; IS CMD EXEC TAB INDEX         ; <a class='mem' name='_2189'>wastes</a> 1 byte /sarcasm If only we had <span class='code'>LDX CMDNO</span> on Line #<a class='line' href='#CMDSCAN.264'>264</a>
+2189:AA             265             TAX             ; IS CMD EXEC TAB INDEX         ; <a class='mem' name='_2189' coords='1'>wastes</a> 1 byte /sarcasm If only we had <span class='code'>LDX CMDNO</span> on Line #<a class='line' href='#CMDSCAN.264'>264</a>
 218A:BD 1F 1D       266             LDA <a class='v' href='#CMDETB'>CMDETB</a>+<span class='n'>1</span>,X  ; GET CMD ADR                   ;[..
 218D:48             267             PHA             ; ONTO STACK                    ; ..
 218E:BD 1E 1D       268             LDA <a class='v' href='#CMDETB'>CMDETB</a>,X                                    ; ..
@@ -2139,7 +2139,7 @@ With that "legalese" out of the way ... enjoy the read!
 21C3:C9 A4          043             CMP #$<span class='n'>A4</span>                                        ; <a class='magic' name='_21C4'>magic number</a> #'$'+$80 (improvement), CHAR_DOLLAR (better), or OPT_NUM_HEX (best)
 21C5:F0 3C          044             BEQ HEXNUM                                      ; &darr; $2203
 21C7:28             045             PLP
-21C8:4C CE 21       046             JMP GN2A                                        ; <a class='mem' name='_'>wastes</a> 1 byte, <span class='code'>BMI GN2A</span>
+21C8:4C CE 21       046             JMP GN2A                                        ; <a class='mem' name='_21CA' coords='1'>wastes</a> 1 byte, <span class='code'>BMI GN2A</span>
                     047 ;
 21CB:20 A4 21       048 <a class='f' name='GN2'      >GN2         </a>JSR GNBC        ; GET NEXT NON BLANK
                     049 <a class='f' name='GN2A'     >GN2A        </a>EQU *
@@ -2266,8 +2266,8 @@ With that "legalese" out of the way ... enjoy the read!
                     167 ;  ELOCK - LOCK A FILE
                     168 ;
                     169 <a class='f' name='ELOCK'    >ELOCK       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [6]
-2271:               170             LDA #CRQLCK     ; SET LOCK
-                    171             BNE ELGO                                        ; <a class='mem' name='_'>wastes</a> 1 byte, use <span class='code'>DFB $2C ; BIT $abs</span> to skip next instruction
+2271:A9 07          170             LDA #CRQLCK     ; SET LOCK
+2273:D0 02          171             BNE ELGO                                        ; <a class='mem' name='_2274' coords='1'>wastes</a> 1 byte, use <span class='code'>DFB $2C ; BIT $abs</span> to skip next instruction
                     172 ;
                     173 ; EUNLK - UNLOCK A FILE
                     174 ;
@@ -2363,7 +2363,7 @@ With that "legalese" out of the way ... enjoy the read!
 2301:A9 00          264             LDA #<span class='n'>0</span>
 2303:8D B3 2A       265             STA ESTATE
                     266 CLX         EQU *
-2306:A0 00          267             LDY #<span class='n'>0</span>          ; CLEAR 1ST FN                  ; [.. <a class='mem' name='_2306'>wastes</a> 2 bytes, see <a class='link' href='#ZEROFILE'>ZEROFILE</a> note
+2306:A0 00          267             LDY #<span class='n'>0</span>          ; CLEAR 1ST FN                  ; [.. <a class='mem' name='_2306' coords='2'>wastes</a> 2 bytes, see <a class='link' href='#ZEROFILE'>ZEROFILE</a> note
                     268             TYA             ; CHAR TO ZERO                  ;  ..
                     269             STA (ZPGWRK),Y                                  ;  ..]
                     270             JSR MVBUFP      ; MOVE BUFFER PTRS
@@ -2545,7 +2545,7 @@ With that "legalese" out of the way ... enjoy the read!
 2428:A9 02          141             LDA #2                                          ; <a class='magic' name='_2429'>magic number</a> <span class='code'>FILE_TYPE_APPLESOFT EQU 2</span>
                     142             JSR LD1         ; GO OPEN AND TEST
                     143 ;
-242D:20 7A 24       144             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_242D'>wastes</a> 3 bytes, LD1 should fall into LD2
+242D:20 7A 24       144             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_242D' coords='3'>wastes</a> 3 bytes, LD1 should fall into LD2
                     145 ;                                                           ; While EBLD2 (ExecBload2) calls LD2 by itself, LD1 is always followed by LD2
                     146             CLC
                     147             ADC ASSOP       ; ADD BLOCK LENGTH TO SOP
@@ -2571,7 +2571,7 @@ With that "legalese" out of the way ... enjoy the read!
                     167             LDA #1          ; SET IB PGM                    ; Yup, almost 99% the same as ELD2
 2452:20 B1 24       168             JSR LD1         ; GO OPEN AND TEST
                     169 ;
-2555:20 7A 24       170             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_2555'>wastes</a> 3  bytes, see Line #141
+2555:20 7A 24       170             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_2555' coords='3'>wastes</a> 3  bytes, see Line #141
                     171 ;
 2458:38             172             SEC             ; HMEM - BLOCK LENGTH
                     173             LDA IBHMEM      ; IS NEW SOP
@@ -2668,7 +2668,7 @@ With that "legalese" out of the way ... enjoy the read!
 2501:85 D8          264             STA ASONERR     ;RESET APPLESOFT ONERR FLAG
 2503:4C D2 D7       265             JMP $<span class='rom'>D7D2</span>                                       ; <a class='magic' name='_2503'>magic number</a>
 2506:20 65 0E       266 <a class="f" name="ASRUN2"  >ASRUN2      </a>JSR $<span class='n'>E65</span>        ; RAM                           ; <a class='magic' name='_2506'>magic number</a> <a class="d" href="#AS2VT">AS2VT</a> has pointer to us
-2509:85 33          267             STA <a class="d" href="#PROMPT">PROMPT</a>      ;INSURES APPLESOFT RUN DETECT (A=0)     ; (dead code) <a class='mem' name='_2506'>wastes</a> 10 bytes on Apple ][+ or later
+2509:85 33          267             STA <a class="d" href="#PROMPT">PROMPT</a>      ;INSURES APPLESOFT RUN DETECT (A=0)     ; (dead code) <a class='mem' name='_2506' coords='10'>wastes</a> 10 bytes on Apple ][+ or later
 250B:85 D8          268             STA <a class="d" href="#ASONER">ASONER</a>      ;RESET APPLESOFT ONERR FLAG     ;
 250D:4C D4 0F       269             JMP $<span class='n'>FD4</span>                                        ; <a class='magic' name='_250D'>magic number</a>
 </pre>
@@ -2692,7 +2692,7 @@ With that "legalese" out of the way ... enjoy the read!
 251B:20 26 25       014             JSR <a class='x' href='#RWPOSN'>RWPOSN</a>      ; GO POSITION FILE IF REQD
 251E:A9 01          015             LDA #<span class='n'>1</span>    
 2520:8D 51 2A       016             STA <a class='v' href='#ISTATE'>ISTATE</a>      ; SET I STATE = DISK INPUT      ; /voice="Nick Burns" <i>See, that wasn't so hard!</i>
-2523:4C 83 1F       017             JMP <a class='x' href='#CERTN'>CERTN</a>                                       ; <a class='mem' name='_2523'>wastes</a> 1 bytes, <span class='code'>BNE EREAD-3</span>
+2523:4C 83 1F       017             JMP <a class='x' href='#CERTN'>CERTN</a>                                       ; <a class='mem' name='_2523' coords='1'>wastes</a> 1 bytes, <span class='code'>BNE EREAD-3</span>
                     018 ;
                     019 ; RWPOSN - POSTION FOR READ/ WRITE
                     020 ;
@@ -2700,7 +2700,7 @@ With that "legalese" out of the way ... enjoy the read!
 2526:20 64 27       022 <!--                           -->            JSR <a class='x' href='#FILSRC'>FILSRC</a>      ; FIND THE FILE
 2529:90 06          023 <!--                           -->            BCC <a class='x' href='#RWP1'  >RWP1</a>        ; BR IF FILE FOUND
 252B:20 A3 22       024 <!--                           -->            JSR <a class='x' href='#EOPEN' >EOPEN</a>       ; GO OPEN FOR KLUTZ             ; ??? if file doesn't exist, open it ???
-252E:4C 34 25       025 <!--                           -->            JMP <a class='x' href='#RWP2'  >RWP2</a>        ; THEN SKIP NEXT LINE           ; <a class='mem' name='_252E'>wastes</a> 1 byte
+252E:4C 34 25       025 <!--                           -->            JMP <a class='x' href='#RWP2'  >RWP2</a>        ; THEN SKIP NEXT LINE           ; <a class='mem' name='_252E' coords='1'>wastes</a> 1 byte
                     026 <a class='f' name='RWP1'     >RWP1        </a>EQU *
 2531:20 4E 27       027 <!--                           -->            JSR <a class='x' href='#MVBUFP'>MVBUFP</a>      ; MOVE BUFF POINTERS
                     028 <a class='f' name='RWP2'     >RWP2        </a>EQU *
@@ -2947,7 +2947,7 @@ With that "legalese" out of the way ... enjoy the read!
 26B2:F0 03          011             BEQ YESEOF
 26B4:4C 5E 36       012             JMP CLOSFILE    ;NO. CLOSE &amp; COMPLAIN
 26B7:4C 92 36       013 <a class='f' name='YESEOF'   >YESEOF      </a>JMP EOFFIX      ;MAYBE FIX IT UP?
-26BA:EA             014             NOP                                             ; <a class='mem' name='_26BA'>wastes</a> 1 byte
+26BA:EA             014             NOP                                             ; <a class='mem' name='_26BA' coords='1'>wastes</a> 1 byte
                     015 ***************************
                     016 *
                     017 * DOS 3.3  (REV B) PATCH
@@ -2973,7 +2973,7 @@ With that "legalese" out of the way ... enjoy the read!
 26C8:A9 0C          037 <a class='f' name='ENFA'     >ENFA        </a>LDA #CREFLK+<span class='n'>2</span>
 26CA:D0 06          038 <!--                           -->            BNE ERROR                                       ; &darr; (always)
 26CC:A9 0E          039 <a class='f' name='MFERR'    >MFERR       </a>LDA #CREFLK+<span class='n'>4</span>
-26CE:D0 02          040 <!--                           -->            BNE ERROR                                       ; &darr; (always) <a class='mem' name='_26CE'>wastes</a> 1 byte, $2C bit $abs to skip next instruction
+26CE:D0 02          040 <!--                           -->            BNE ERROR                                       ; &darr; (always) <a class='mem' name='_26CE' coords='1'>wastes</a> 1 byte, $2C bit $abs to skip next instruction
                     041 <a class='f' name='ETYP'     >ETYP        </a>EQU *
 26D0:A9 0D          042 <a class='f' name='ERNU1'    >ERNU1       </a>LDA #CREFLK+<span class='n'>3</span>
                     043 ;                                                           ; Intentional fall into ERROR
@@ -3070,7 +3070,7 @@ With that "legalese" out of the way ... enjoy the read!
 2765:85 45          134             STA CNUM+1
                     135 ;
 2768:20 92 27       136             JSR <a class='x' href='#TSINIT'>TSINIT</a>      ; GO INIT SEARCH                ; &darr;
-276B:4C 73 27       137             JMP FLS1A                                       ; <a class='mem' name='_276B'>wastes</a> 1 byte, <a class='x' href='#CLALL'>CLALL</a> has <span class='code'>JSR TSINIT, BNE SKIPNEXT</span> so why JMP ???
+276B:4C 73 27       137             JMP FLS1A                                       ; <a class='mem' name='_276B' coords='1'>wastes</a> 1 byte, <a class='x' href='#CLALL'>CLALL</a> has <span class='code'>JSR TSINIT, BNE SKIPNEXT</span> so why JMP ???
 276E:20 9A 27       138 <a class='f' name='FLS1'     >FLS1        </a>JSR TSNXT       ; LOOK AT NEXT
 2771:F0 1D          139             BEQ FLS4        ; BR IF NO NET
                     140 ;
@@ -3092,7 +3092,7 @@ With that "legalese" out of the way ... enjoy the read!
                     156             CLC             ; FOUND
                     157             RTS
                     158 ;
-2790:38             159 FLS4        SEC             ; NOT FOUND                     ;[.. <a class='mem' name='_2790'>wastes</a> 1 byte, these 2 bytes should be moved to Line #<a class='line' href='#DOSGOER.127'>127</a>
+2790:38             159 FLS4        SEC             ; NOT FOUND                     ;[.. <a class='mem' name='_2790' coords='1'>wastes</a> 1 byte, these 2 bytes should be moved to Line #<a class='line' href='#DOSGOER.127'>127</a>
 2791:60             160             RTS             ; DONE                          ; ..]
                     161             PAGE
                     162 ;
@@ -3148,7 +3148,7 @@ With that "legalese" out of the way ... enjoy the read!
 27CB:F0 06          <a class='line' name='DOSGOER.212'>212</a>             BEQ TFUCR                                       ; Forces TFUCR to waste 1 byte, should be <span class='code'>BEQ TXC2</span>
 27CD:20 EA 22       213             JSR ECLOSE      ; GO CLOSE THE SOB
 27D0:4C D0 26       214             JMP ERNU1
-27D3:60             215 TFUCR       RTS                                             ; <a class='mem' name='_27D3'>wastes</a> 1 byte due to Lines #<a class='line' href='#DOSGOER.210'>210</a> and #<a class='line' href='#DOSGOER.212'>212</a>
+27D3:60             215 TFUCR       RTS                                             ; <a class='mem' name='_27D3' coords'1'>wastes</a> 1 byte due to Lines #<a class='line' href='#DOSGOER.210'>210</a> and #<a class='line' href='#DOSGOER.212'>212</a>
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="BLDFTAB">BLDFTAB</a> - Build File Tables, Page <a class="page" name="page4">4</a>, <a class='ts' href='#T1S6'>T1S6</a> @ $D4 - <a class='ts' href='#T1S7'>T1S7</a> @ $83, $<span class='n'>A7D4</span> .. $<span class='n'>A883</span> ===<hr class='join'><hr></div>
@@ -3186,7 +3186,7 @@ With that "legalese" out of the way ... enjoy the read!
 27DF:AD 57 2A       031             LDA <a class='v' href='#CNFTBS'>CNFTBS</a>      ; MOVE NO FTABS                 ; <a class="v" href="#DFNFTS">DFNFTS</a> default 3 buffers, <a class="x" href="#INITD">INITD</a>
 27E2:8D 63 2A       032             STA <a class='v' href='#TEMP1A'>TEMP1A</a>      ; TO TEMP                       ; fdosent, 60
                     033 ;
-27E5:A0 00          034 <a class='f' name='BFT1'       >BFT1        </a>LDY #<span class='n'>0</span>                                          ; [.. <a class='mem' name='_27E5'>wastes</a> 2 bytes, should <span class='code'>JSR <a class='link code' href='#ZEROFILE'>ZEROFILE</a></span>
+27E5:A0 00          034 <a class='f' name='BFT1'       >BFT1        </a>LDY #<span class='n'>0</span>                                          ; [.. <a class='mem' name='_27E5' coords='2'>wastes</a> 2 bytes, should <span class='code'>JSR <a class='link code' href='#ZEROFILE'>ZEROFILE</a></span>
 27E7:98             035             TYA                                             ; ...
 27E8:91 40          <a class='line' name='BLDFTAB.036'>036</a>             STA (ZPGWRK),Y  ; 1ST CHAR FN=0                 ; ..] Init [00] $9CD3: 00
 27EA:A0 1E          037             LDY #<span class='n'>30</span>         ; INC Y TO FCB PTR              ; [[FTAB] + offset $1E] = $1CF1 <a class='magic' name='_27EB'>magic number</a> MAX_FILENAME_LEN
@@ -3234,7 +3234,7 @@ With that "legalese" out of the way ... enjoy the read!
 2825:85 41          079             STA ZPGWRK+<span class='n'>1</span>    ; AND INTO ZPGWRK
 2827:68             080             PLA             ; FOR NEXT ENTRY
 2828:85 40          081             STA ZPGWRK      ; BUILD
-282A:4C E5 27       082             JMP <a class="x" href="#BFT1">BFT1</a>                                        ; ^ BFT1 @ $<b class='n'>A7E4</b> <a class='mem' name='_282A'>wastes</a> 1 byte, A = addr lo: $80
+282A:4C E5 27       082             JMP <a class="x" href="#BFT1">BFT1</a>                                        ; ^ BFT1 @ $<b class='n'>A7E4</b> <a class='mem' name='_282A' coords='1'>wastes</a> 1 byte, A = addr lo: $80
                     083 ;
                     084 <a class="f" name="BFT2"      id="BFT2"       >BFT2        </a>EQU *
 282D:48             085             PHA
@@ -3553,7 +3553,7 @@ With that "legalese" out of the way ... enjoy the read!
 2A3C:4E C4
 2A3E:8D             158             DFB $8D                                         ; KEY_CR
                     159 <a class='d' name='EMDTB'    >EMDTB       </a>EQU *                                           ; Array of (byte) Pointers to start of each error message
-2A3F:00 03 19 19    160             DFB 0,<a class='v' href='#EM1' >EM1</a >,<a class='v' href='#EM2' >EM2</a >,<a class='v' href='#EM3' >EM3</a >                               ; <a class='mem' name='_2A42'>wastes</a> 1 byte for redundant error message EM3
+2A3F:00 03 19 19    160             DFB 0,<a class='v' href='#EM1' >EM1</a >,<a class='v' href='#EM2' >EM2</a >,<a class='v' href='#EM3' >EM3</a >                               ; <a class='mem' name='_2A42' coords='1'>wastes</a> 1 byte for redundant error message EM3
 2A43:24 33 3E 4C    161             DFB <a   class='v' href='#EM4' >EM4</a >,<a class='v' href='#EM5' >EM5</a >,<a class='v' href='#EM6' >EM6</a >,<a class='v' href='#EM7'>EM7</a>
 2A47:5B 64 6D 78    162             DFB <a   class='v' href='#EM8' >EM8</a >,<a class='v' href='#EM8' >EM9</a >,<a class='v' href='#EM10'>EM10</a>,<a class='v' href='#EM11'>EM11</a>
 2A4B:84 98 AA       163             DFB <a   class='v' href='#EM12'>EM12</a>,<a class='v' href='#EM13'>EM13</a>,<a class='v' href='#EM14'>EM14</a>
@@ -3590,9 +3590,9 @@ With that "legalese" out of the way ... enjoy the read!
 2A65:00             026 <a class="d" name="INOPTS">INOPTS      </a>DFB <span class='n'>0</span>           ; INPUT OPTIONS
                     027 <a class="d" name="CUROPT">CUROPT      </a>EQU *           ; CURRENT OPTIONS               ; /sarcasm So we <i>can</i> type CUR ... but too lazy to type CUR_VOL, CUR_DRV, CUR_SLT??
                                                                                     ; <span class='note'>Note</span>: OPTAB3 and CUROPT must be keep in size sync! 
-2A66:00 00          028 <a class="d" name="CV"    >CV          </a>DW <span class='n'>0</span>            ; VOLUME                        ; [0] normally <a class='mem' name='_2A67'>wastes</a> 1 byte; all numbers 16-bit, See CMDSCAN, Line #<a class='line' href='#CMDSCAN.239'>239</a>
-2A68:00 00          029 <a class="d" name="CD"    >CD          </a>DW <span class='n'>0</span>            ; DRIVE                         ; [2] normally <a class='mem' name='_2A69'>wastes</a> 1 byte, all numbers 16-bit, /sarcasm because <a class="x" href="#DBINIT">DBINIT</a>, <a class="x" href="#OPNSUP">OPNSUP</a>
-2A6A:00 00          030 <a class="d" name="CS"    >CS          </a>DW <span class='n'>0</span>            ; SLOT                          ; [4] normally <a class='mem' name='_2A6B'>wastes</a> 1 byte, all numbers 16-bit,      need 2 bytes bytes, right?
+2A66:00 00          028 <a class="d" name="CV"    >CV          </a>DW <span class='n'>0</span>            ; VOLUME                        ; [0] normally <a class='mem' name='_2A67' coords='1'>wastes</a> 1 byte; all numbers 16-bit, See CMDSCAN, Line #<a class='line' href='#CMDSCAN.239'>239</a>
+2A68:00 00          029 <a class="d" name="CD"    >CD          </a>DW <span class='n'>0</span>            ; DRIVE                         ; [2] normally <a class='mem' name='_2A69' coords='1'>wastes</a> 1 byte, all numbers 16-bit, /sarcasm because <a class="x" href="#DBINIT">DBINIT</a>, <a class="x" href="#OPNSUP">OPNSUP</a>
+2A6A:00 00          030 <a class="d" name="CS"    >CS          </a>DW <span class='n'>0</span>            ; SLOT                          ; [4] normally <a class='mem' name='_2A6B' coords='1'>wastes</a> 1 byte, all numbers 16-bit,      need 2 bytes bytes, right?
 2A6C:01 00          031 <a class="d" name="CL"    >CL          </a>DW <span class='n'>1</span>            ; RECORD LENGTH                 ; [6]               
 2A6E:00 00          032 <a class="d" name="CR"    >CR          </a>DW <span class='n'>0</span>            ; RECORD NUMBER                 ; [8] Not Carriage Return, but Current Record. /sarcasm Obvious, right?
 2A70:00 00          033 <a class="d" name="CB"    >CB          </a>DW <span class='n'>0</span>            ; RECORD BYTE                   ; [A]
@@ -3637,7 +3637,7 @@ With that "legalese" out of the way ... enjoy the read!
 2AC5:BB 34          057 <a class="d" name="AVOLDR">AVOLDR      </a>DW <a class="v" href="#VOLDIR"  >VOLDIR</a>       ; 7-ADR VOLDIR
 2AC7:00 40          058 <a class="d" name="AEND"  >AEND        </a>DW <a class="v" href="#ENDOFDOS">ENDOFDOS</a>     ;END OF DOS                     ; See <a class='v' href='#REPAGE'>REPAGE</a>
                     059 ;                                                           ; File Manager
-2AC9:7E 33          060 <a class='d' name='CMDVT'>CMDVT       </a>DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>     ; 0-NULL                        ; [0] <a class='mem' name='_2AC9'>wastes</a> 2 bytes &rarr; $B37E
+2AC9:7E 33          060 <a class='d' name='CMDVT'>CMDVT       </a>DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>     ; 0-NULL                        ; [0] <a class='mem' name='_2AC9' coords='2'>wastes</a> 2 bytes &rarr; $B37E
 2ACB:21 2B          061             DW <a class='x' href='#FOPEN' >FOPEN</a>-<span class='n'>1</span>      ; 1-OPEN FILE                   ; [1]
 2ACD:05 2C          062             DW <a class='x' href='#FCLOSE'>FCLOSE</a>-<span class='n'>1</span>     ; 2-CLOSE FILE                  ; [2]
 2ACF:57 2C          063             DW <a class='x' href='#FREAD' >FREAD</a>-<span class='n'>1</span>      ; 3-READ DATA                   ; [3]
@@ -3650,7 +3650,7 @@ With that "legalese" out of the way ... enjoy the read!
 2ADC:11 2D          070             DW <a class='x' href='#FPOSTN'>FPOSTN</a>-<span class='n'>1</span>     ; 10-POSITION A FILE            ; [A]
 2ADE:8D 2E          071             DW <a class='x' href='#FFMT'  >FFMT</a>-<span class='n'>1</span>       ; FORMAT                        ; [B]
 2AE1:17 2D          072             DW <a class='x' href='#FVAR'  >FVAR</a>-<span class='n'>1</span>       ; VARIFY                        ; [C] *spelling* VERIFY
-2AE3:7E 33          073             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>     ; 11-SPARE                      ; [D] <a class='mem' name='_2AE3'>wastes</a> 2 bytes due to fencepost error
+2AE3:7E 33          073             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>     ; 11-SPARE                      ; [D] <a class='mem' name='_2AE3' coords='2'>wastes</a> 2 bytes due to fencepost error
                                                                                     ;     Uh, calling 13 "eleven" doesn't make it so. 
                     074 ;                                                           ;     See <a class='x' href='#DOSENT'>DOSENT</a>: CCBREQ (FileManager.command) &gt;= <a class='v' href='#CRQMAX'>CRQMAX</a>
                                                                                     ;         AAE3:00 00                 ; (was 7E B3) to prove this is never called
@@ -3662,20 +3662,20 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                     ;         030B:91 FD     STA ($FD),Y
                                                                                     ;         030D:4C D6 03  JMP USERENT ; $AAFD FileManager
                     075 <a class='f' name='RVT'      >RVT         </a>EQU *                                           ; <a class='x' href='#USERNT'>USERENT</a> calls <a class='x' href='#FREAD'>FREAD</a>
-2AE5:7E 33          076             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>                                     ; [0] <a class='mem' name='_2AE5'>wastes</a> 2 bytes; See <a class='v' href='#CRMNUL'>CRMNUL</a>
+2AE5:7E 33          076             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>                                     ; [0] <a class='mem' name='_2AE5' coords='2'>wastes</a> 2 bytes; See <a class='v' href='#CRMNUL'>CRMNUL</a>
 2AE7:89 2C          077             DW <a class='x' href='#RNXBYT'>RNXBYT</a>-<span class='n'>1</span>    ; 1-RD NEXT BYTE                 ; [1]
 2AE9:95 2C          078             DW <a class='x' href='#RNXBLK'>NXBLK</a>-<span class='n'>1</span>     ; 1-RD NEXT BLOCK                ; [2] *sigh* copy-paste
 2AEB:86 2C          079             DW <a class='x' href='#RSPBYT'>RSPBYT</a>-<span class='n'>1</span>    ; 2-RD SPECIFIC BYTE             ; [3]
 2AED:92 2C          080             DW <a class='x' href='#RSPBLK'>RSPBLK</a>-<span class='n'>1</span>    ; 3 - RD SPECIFIC BLOCK          ; [4]
-2AEF:7E 33          081             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>    ; 4 - SPARE                      ; [5] <a class='mem' name'_2AEF'>wastes</a> 2 bytes off-by-1 allocation, see <a class='v' href='#CRMMAX'>CRMMAX</a>, <a class='x' href='#FREAD'>FREAD</a>
+2AEF:7E 33          081             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>    ; 4 - SPARE                      ; [5] <a class='mem' name'_2AEF' coords='2'>wastes</a> 2 bytes off-by-1 allocation, see <a class='v' href='#CRMMAX'>CRMMAX</a>, <a class='x' href='#FREAD'>FREAD</a>
                     082 ;
                     083 <a class='f' name='WVT'      >WVT         </a>EQU *
-2AF1:7E 33          084             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>                                     ; [0] <a class='mem' name'_2AF1'>wastes</a> 2 bytes; Stop, please stop this stupidity
+2AF1:7E 33          084             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>                                     ; [0] <a class='mem' name'_2AF1' coords='2'>wastes</a> 2 bytes; Stop, please stop this stupidity
 2AF3:BD 2C          085             DW <a class='x' href='#WNXBYT'>WNXBYT</a>-<span class='n'>1</span>    ; 1-WR NEXT BYTE                 ; [1]
 2AF5:C9 2C          086             DW <a class='x' href='#WNXBLK'>WNXBLK</a>-<span class='n'>1</span>    ; WR NEXT BLOCK                  ; [2] *sigh* copy-paste
 2AF7:BA 2C          087             DW <a class='x' href='#WSPBYT'>WSPBYT</a>-<span class='n'>1</span>    ; 2-WR SPECIFIC BYTE             ; [3]
 2AF9:C6 2C          088             DW <a class='x' href='#WSPBLK'>WSPBLK</a>-<span class='n'>1</span>    ; 3-WR SPECIFIC BLOCK            ; [4]
-2AFB:7E 33          089             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>    ; 4 - SPARE                      ; [5] <a class='mem' name='_2AFB'>wastes</a> 2 bytes
+2AFB:7E 33          089             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>    ; 4 - SPARE                      ; [5] <a class='mem' name='_2AFB' coords='2'>wastes</a> 2 bytes
                     090 <a class='d' name='EAT2'>EAT2        </a>EQU *
                     091             PAGE
                     092 ;
@@ -3757,7 +3757,7 @@ With that "legalese" out of the way ... enjoy the read!
 2B66:9D E8 34       042             STA VDFILE+<span class='n'>34</span>,X                                 ; <a class='magic' name='_2B67'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+0</span> (See <a class='v' href='#VDFILE'>VDFILE</a>)
 2B69:A9 01          043             LDA #<span class='n'>1</span>
 2B6B:9D E7 34       044             STA VDFILE+<span class='n'>33</span>,X                                 ; <a class='magic' name='_2B6C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+1</span>
-2B6E:8E 9C 33       045             STX TEMP1       ; SAVE VDIR INDEX               ; Why?? <a class='mem' name='_2B6E'>wastes</a> 2 bytes, Line #<a class='line' href='#FOPCLRW.30'>30</a> already saved
+2B6E:8E 9C 33       045             STX TEMP1       ; SAVE VDIR INDEX               ; Why?? <a class='mem' name='_2B6E' coords='2'>wastes</a> 2 bytes, Line #<a class='line' href='#FOPCLRW.30'>30</a> already saved
 2B71:20 44 32       046             JSR GETSEC      ; GO ALLOCATE SECTOR
 2B74:AE 9C 33       047             LDX TEMP1
 2B77:9D C7 34       048             STA VDFILE+<span class='n'>1</span>,X  ; PUT SECTOR INTO VDIR          ; <a class='magic' name='_2B78'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
@@ -3830,7 +3830,7 @@ With that "legalese" out of the way ... enjoy the read!
 2BFD:8E F7 FF       115             STX DCBSLT
 <hr>                                                                                    ; === Page <a class='page' name='page79'>79</a> ===
                                                                                     ; === <a class='ts' name='T1SB'>T1SB</a> ===
-2C00:A9             116             LDA #<span class='n'>17</span>                                         ;[.. <a class='mem' name='_2C00'>wastes</a> 5 bytes; <a class='magic' name='_2C01'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
+2C00:A9             116             LDA #<span class='n'>17</span>                                         ;[.. <a class='mem' name='_2C00' coords='5'>wastes</a> 5 bytes; <a class='magic' name='_2C01'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
 2C02:8D FA 35       117             STA <a class='v' href='#DCBVTN'>DCBVTN</a>                                      ; ..] due to unitialized <a class='x' href='#DCBVTN'>DCBVTN</a> DS 1           Because this can change???
 2C05:60             118             RTS
                     119             PAGE
