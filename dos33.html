@@ -5639,10 +5639,10 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     068 * READ IN ANOTHER BSECTR FROM                               ; ..
                     069 *  TRACK ZERO...                                            ; ..
 361F:AE FF 08       070 <a class='f' name='READNEXT' >READNEXT    </a>LDX BGRPGC                                      ; ..
-                    071             BMI GOLOADER    ;=&gt;ALL DONE...EXECUTE IT!       ; ..
-                    072             LDA TABLE,X     ;GET PHYSICAL BSECTR NUMBER     ; .. /sarcasm Real original name there guys
-                    073             STA BSECTR      ; AND SET FOR BOOT PROM READ    ; ..          You couldn't call it <span class='code'>LOGSECTR</span> for Logical Sector??
-                    074             DEC BGRPGC      ;ONE LESS BELL TO ANSWER...     ; ..
+3622:30 15          071             BMI GOLOADER    ;=&gt;ALL DONE...EXECUTE IT!       ; ..
+3624:BD 4D 08       072             LDA TABLE,X     ;GET PHYSICAL BSECTR NUMBER     ; .. /sarcasm Real original name there guys
+3627:85 3D          073             STA BSECTR      ; AND SET FOR BOOT PROM READ    ; ..          You couldn't call it <span class='code'>LOGSECTR</span> for Logical Sector??
+3629:CE FF 08       074             DEC BGRPGC      ;ONE LESS BELL TO ANSWER...     ; ..
                     075             LDA LOADADDR+<span class='n'>1</span>  ;GET LOAD ADDRESS               ; ..
                     076             STA POINTA+<span class='n'>1</span>    ; FOR BSECTR READ               ; ..
                     077             DEC LOADADDR+<span class='n'>1</span>  ;MOVE LOAD ADDRESS DOWN A PAGE  ; ..
