@@ -5616,29 +5616,29 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     045 <a class="d" name="BOOTCNT"  >BOOTCNT     </a>EQU $800+BHERE3
 3600:01             046             DFB <span class='n'>01</span>                                          ; We <b>could</b> store $10 here to have the P6 PROM read <i>16 sectors</i> but nah,
                     047             PAGE                                            ; let's waste $839-$801 = $38 (56) bytes instead!
-                    048             LDA <a class="d" href="#POINTA">POINTA</a>+1    ;WHERE DID BSECTR GET LOADED?   ;[.. <a class='mem' name='_3601' coords='56'>wastes</a> 56 bytes; Get memory page of last load
-                    049             CMP #<span class='n'>09</span>         ; (AT 0800)?                    ; ..
-                    050             BNE <a class="x" href="#READNEXT">READNEXT</a>    ;=&gt;NO. WE'RE LOADING SOMETHING  ; ..
+3601:A5 27          048             LDA <a class="d" href="#POINTA">POINTA</a>+<span class='n'>1</span>    ;WHERE DID BSECTR GET LOADED?   ;[.. <a class='mem' name='_3601' coords='56'>wastes</a> 56 bytes; Get memory page of last load
+3603:C9 09          049             CMP #<span class='n'>09</span>         ; (AT 0800)?                    ; ..
+3605:D0 18          050             BNE <a class="x" href="#READNEXT">READNEXT</a>    ;=&gt;NO. WE'RE LOADING SOMETHING  ; ..
                     051 * WE'VE BEEN BOOTED. SET UP                                 ; ..
                     052 * PARAMS FOR BOOT PROM SO                                   ; ..
 <hr>                    053 * THAT WE'LL READ IN TRACK 0,                               ; .. === Page <a class="page" name="page9">9</a> ===
                     054 * BSECTRS 00-09.                                            ; ..
-                    055             LDA BSLOT       ;GET BOOT SLOT                  ; ..
-                    056             LSR A           ;CONVERT TO CX00                ; ..
-                    057             LSR A                                           ; ..
-                    058             LSR A                                           ; ..
-                    059             LSR A                                           ; ..
-                    060             ORA #$<span class='n'>C0</span>                                        ; ..
-                    061             STA BTEMP+<span class='n'>1</span>                                     ; ..
-                    062             LDA #BRETRY     ; PROM ROUTINE OFFSET           ; ..
-                    063             STA BTEMP                                       ; ..
-                    064             CLC             ;BUMP LOAD ADDRESS UP TO        ; ..
-                    065             LDA LOADADDR+<span class='n'>1</span>  ; LAST PAGE SO WE               ; ..
-                    066             ADC BGRPGC      ;  CAN LOAD 'EM BACKWARDS       ; ..
-                    067             STA LOADADDR+<span class='n'>1</span>                                  ; ..
+3607:A5 2B          055             LDA <a class='d' href='#BSLOT'>BSLOT</a>       ;GET BOOT SLOT                  ; ..
+3609:4A             056             LSR A           ;CONVERT TO CX00                ; ..
+360A:4A             057             LSR A                                           ; ..
+360B:4A             058             LSR A                                           ; ..
+360C:4A             059             LSR A                                           ; ..
+360D:09 C0          060             ORA #$<span class='n'>C0</span>                                        ; ..
+360F:85 3F          061             STA <a class='d' href='#BTEMP'>BTEMP</a>+<span class='n'>1</span>                                     ; ..
+3611:A9 5C          062             LDA #BRETRY     ; PROM ROUTINE OFFSET           ; ..
+3613:85 3E          063             STA BTEMP                                       ; ..
+3615:18             064             CLC             ;BUMP LOAD ADDRESS UP TO        ; ..
+3616:AD FE 08       065             LDA LOADADDR+<span class='n'>1</span>  ; LAST PAGE SO WE               ; ..
+3619:6D FF 08       066             ADC <a class='d' href='#BGRPGC'>BGRPGC</a>      ;  CAN LOAD 'EM BACKWARDS       ; ..
+361C:8D FE 08       067             STA LOADADDR+<span class='n'>1</span>                                  ; ..
                     068 * READ IN ANOTHER BSECTR FROM                               ; ..
                     069 *  TRACK ZERO...                                            ; ..
-                    070 <a class='f' name='READNEXT' >READNEXT    </a>LDX BGRPGC                                      ; ..
+361F:AE FF 08       070 <a class='f' name='READNEXT' >READNEXT    </a>LDX BGRPGC                                      ; ..
                     071             BMI GOLOADER    ;=&gt;ALL DONE...EXECUTE IT!       ; ..
                     072             LDA TABLE,X     ;GET PHYSICAL BSECTR NUMBER     ; .. /sarcasm Real original name there guys
                     073             STA BSECTR      ; AND SET FOR BOOT PROM READ    ; ..          You couldn't call it <span class='code'>LOGSECTR</span> for Logical Sector??
@@ -5854,14 +5854,14 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     238 * LOAD ADDRESS FOR CODE (PG BDY)
                     239 * ENTRY AFTER BOOT IS AT LOADADDR+256 (SECOND PAGE LOADED)
                     240 *
-                    241 BHERE4      EQU &gt;*
-<hr>                    242 LOADADDR    EQU $<span class='n'>800</span>+BHERE4                                 ; === Page <a class="page" name="page12">12</a> ===
+                    241 <a class='f' id='36FD' name='BHERE4'>BHERE4      </a>EQU &gt;*
+<hr>                    242 <a class='d' id='36FD' name='LOADADDR'>LOADADDR    </a>EQU $<span class='n'>800</span>+BHERE4                                 ; === Page <a class="page" name="page12">12</a> ===
 36FD:00             243             DFB <span class='n'>0</span>
-36FE:36             244 GRSPG       DFB &lt;<a class='v' href='#TRK0LDR'>TRK0LDR</a>        ;CONTAINS PAGE#-1 OF TRK 0, SEC 1 LOAD ADDRESS
+36FE:36             244 <a class='d' id='36FE' name='GRSPG' >GRSPG       </a>DFB &lt;<a class='v' href='#TRK0LDR'>TRK0LDR</a>        ;CONTAINS PAGE#-1 OF TRK 0, SEC 1 LOAD ADDRESS
                     245 * LAST LOGICAL BSECTOR TO READ STARTING AT $00
-                    246 BHERE5      EQU &gt;*
-36FF:09             247 BGRPGC      EQU $<span class='n'>800</span>+BHERE5
-                    248 GRPGC       DFB &lt;<a class='v' href='#ENDOFDOS'>ENDOFDOS</a>-<a class='v' href='#TRK0LDR'>TRK0LDR</a>-$<span class='n'>100</span>
+                    246 <a class='f' id='36FF' name='BHERE5'>BHERE5      </a>EQU &gt;*
+                    247 <a class='d' id='0800' name='BGRPGC'>BGRPGC      </a>EQU $<span class='n'>800</span>+BHERE5
+36FF:09             248 <a class='d' id='36FF' name='GRPGC' >GRPGC       </a>DFB &lt;<a class='v' href='#ENDOFDOS'>ENDOFDOS</a>-<a class='v' href='#TRK0LDR'>TRK0LDR</a>-$<span class='n'>100</span>
                     249 ********************
                     250             PAGE
                     251 DOSLODR     EQU *
