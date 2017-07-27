@@ -6947,6 +6947,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3A7E:8D 0E C0       143             STA $<span class='n'>C00E</span>       ; TURN OFF  ALT CHAR SET        ; /sarcasm <i>If only we could define symbols ...</i>
 3A81:4C 2F FB       144             JMP $<span class='n'>FB2F</span>       ; MONITOR INIT ROUTINE          ;          <i>Oh wait!</i> <b>We already have</b> <a class='x' href='#MONINIT'>MONINIT</a> in <a class='file' href='#BOOTLDR'>BOOTLDR</a><span class="patch">
                         ; === DOS 3.3 D PATCH ===       Called from <a class='x' href='#GOBACK'>GOBACK+5</a> = $<span class='n'>3683</span>
+                        FIXIT3      EQU *
 3A84:AD BD 35                       LDA <a class='d' href='#CCBBYT'>CCBBYT</a>                                      
 3A87:8D E6 35                       STA <a class='d' href='#DCBCSB'>DCBCSB</a>                                      
 3A8A:8D EA 35                       STA <a class='d' href='#DCBCRR'>DCBCRR</a>                                      
