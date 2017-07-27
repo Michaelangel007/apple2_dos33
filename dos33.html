@@ -5865,9 +5865,9 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     253             ???             ;ERROR IF NOT ON PAGE BOUNDARY  </span>
                     254             FIN
                     255             REP 40
-                    256 * FAST BOOT AT 2:1 INTERLEAVE                               ; "<i>You keep using this word fast,</i>
+                    256 * FAST BOOT AT 2:1 INTERLEAVE                               ; "<i>You keep using this word <b>fast</b>,</i>
                     257 * FOR 16-SECTOR DISKETTES                                   ;  <i>it doesn't mean what you think it means.</i>"
-                    258             REP 40                                          ; Copy ][+ has a FAST boot via 4&amp;4 encoding, not 6&amp2;2 encoding.
+                    258             REP 40                                          ; Copy ][+ has a FAST boot via 4&amp;4 encoding, not 6&amp;2 encoding.
 3700:8E E9 37       259             STX IBSLOT      ; SET BOOT SLOT                 ; === <a class='ts' href='#T0S1'>T0S1</a> ===
 3703:8E F7 37       260             STX IBPSLT      ; SET PREVIOUS SLOT
 3706:A9 01          261             LDA #<span class='n'>1</span>          ; SET PREV DRIVE                ; <i>Assumes</i> boot was from drive 1; Sadly there is no hardware support to tell.
