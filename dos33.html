@@ -652,36 +652,40 @@ console.log( "TODO: CSS Monochrome" );
 
         var text = "";
         var name;
+        var sort = [];
 
-            for( j = 0; j < size; ++j )
+        for( j = 0; j < size; ++j )
+        {
+            name = symbols[j].name
+            if( name && (name[0].toUpperCase() === section) )
             {
-                name = symbols[j].name
-                if( name && (name[0].toUpperCase() === section) )
+                var addr = symbols[j].id;
+                var markup = "";
+
+                if( addr )
                 {
-                    // TODO: Sort
-                    var addr = symbols[j].id;
-                    var markup = "";
-
-                    if( addr )
-                    {
-                        if( isHexAddr( addr ) )
-                            markup = "<span class='n'>";
-                        else
-                            markup = "<span class='todo'>";
-                    }
+                    if( isHexAddr( addr ) )
+                        markup = "<span class='n'>";
                     else
-                        markup = "<span style='background-color:#FED'>???";
-
-                    text += "    "
-                         + nameColorSpan + " href='#" + name + "'>"
-                         +  padRight( name, maxNameLen )
-                         + "</a> = "
-                         + markup  + addr + "</span>"
-                         + "\n";
+                        markup = "<span class='todo'>";
                 }
+                else
+                    markup = "<span style='background-color:#FED'>???";
+
+                text = "    "
+                     + nameColorSpan + " href='#" + name + "'>"
+                     +  padRight( name, maxNameLen )
+                     + "</a> = "
+                     + markup  + addr + "</span>"
+                     + "\n";
+
+                sort.push( text );
             }
 
-        return text;
+            sort.sort();
+        }
+
+        return sort.join( '' );
     }
 
 </script>
