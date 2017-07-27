@@ -5892,10 +5892,10 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     280             LSR A
                     281             LSR A
                     282             LSR A
-                    283             TAX
-                    284             LDA #<span class='n'>0</span>
-3732:9D F8 04       285             STA $<span class='n'>4F8</span>,X                                      ; <a class='magic' name='_3733'>magic number</a> The 40x24 text screen has "memory holes"
-3735:9D 78 04       286             STA $<span class='n'>478</span>,X                                      ; <a class='magic' name='_3736'>magic number</a> reserved for each Slot 1..7 as "scratchpad" or temp vars
+                    283             TAX                                             <!--                -->; The 40x24 text screen has "memory holes" that are NOT displayed
+                    284             LDA #<span class='n'>0</span>                                          ; reserved for each Slot 1..7 as "scratchpad" or temp vars
+3732:9D F8 04       285             STA $<span class='n'>4F8</span>,X                                      ; <a class='magic' name='_3733'>magic number</a> /sarcasm <i>What,</i> <span class='code'><a class='x' href='#DRV2TRK'>DRV2TRK</a></span> <i>wasn't available???</i>
+3735:9D 78 04       286             STA $<span class='n'>478</span>,X                                      ; <a class='magic' name='_3736'>magic number</a> /sarcasm <i>What,</i> <span class='code'><a class='x' href='#DRV1TRK'>DRV1TRK</a></span> <i>wasn't available???</i>
 3738:20 93 27       287             JSR BOOTIO      ; GO READ DOS
                     288 ;
                     <a class='line' name='BOOTLDR.289'>289</a> ;DOSINT - INITIALIZE DOS                                    ; /sarcasm Couldn't afford extra 'i' in "dosinIt"
@@ -6196,7 +6196,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     140 <a class='d' name='PRIOR'    >PRIOR       </a>EQU $27         PRIOR HALFTRACK.
                     141 <a class='d' name='TRKN'     >TRKN        </a>EQU $2A         DESIRED TRACK.
                     142 <a class='d' name='SLOTTEMP' >SLOTTEMP    </a>EQU $2B         SLOT NUM TIMES $10.
-                    143 <a class='d' name='CURTRK'   >CRKTRK      </a>EQU $478        CURRENT TRACK ON ENTRY.           ; "Current Track" Drive 1
+                    143 <a class='d' name='CURTRK'   >CRKTRK      </a>EQU $478        CURRENT TRACK ON ENTRY.           ; "Current Track" Drive 1, <b>Why is this defined AGAIN?</b> <a class='x' href='#DRV1TRK'>DRV1TRK</a>
                     144 *
                     145 ************************
                     146 *                      *
