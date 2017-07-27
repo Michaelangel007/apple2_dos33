@@ -6016,14 +6016,14 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     404 <a class='e' id='4'    name='IBFMT'    >IBFMT       </a>EQU 4           ; 4-FORMAT DISK                 ;     IB_CMD_FORMAT
                     405 <a class='e' id='8'    name='IBBOOT'   >IBBOOT      </a>EQU 8           ; 8-WRITE BOOT                  ;     IB_CMD_X_BOOT
 37F5:00             406 <a class='d' id='37F5' name='IBSTAT'   >IBSTAT      </a>DFB <span class='n'>0</span>           ; STATUS                        ; [D] IOB_OFFSET_STATUS
-                    407 <a class='e' name='IBRERR'   >IBRERR      </a>EQU $80         ; READ ERR                      ;     IB_ERR_R         Interleaving const and struct types
-                    408 <a class='e' name='IBDERR'   >IBDERR      </a>EQU $40         ; DRIVE ERR                     ;     IB_ERR_DRV       makes for extremely poor readability
-                    409 <a class='e' name='IBVMME'   >IBVMME      </a>EQU $20         ; VOLUME MISMATCH               ;     IB_ERR_VOL
-                    410 <a class='e' name='IBWPER'   >IBWPER      </a>EQU $10         ; WRITE PROTECT ERROR           ;     IB_ERR_W
-37F6:00             411 <a class='d' name='IBSMOD'   >IBSMOD      </a>DFB <span class='n'>0</span>           ; STATUS MODIFIER BYTE          ; [E] IOB_OFFSET_MOD
-37F7:60             412 <a class='d' name='IBPSLT'   >IBPSLT      </a>DFB <span class='n'>6</span>*<span class='n'>16</span>        ; PREVIOUS SLOT                 ; [F] IOB_OFFSET_PREV_SLOT   Why isn't this set at boot ???
-37F8:01             413 <a class='d' name='IBPDRV'   >IBPDRV      </a>DFB <span class='n'>1</span>           ; PREVIOUS DRIVE                ;[10] IOB_OFFSET_PREV_DRV
-37F9:00 00          414 <a class='d' name='IBSPAR'   >IBSPAR      </a>DS <span class='n'>2</span>,<span class='n'>0</span>          ; IOB SPARES                    ;[11] <a class='struct' name='_37F9'>wastes</a> 2 bytes
+                    407 <a class='e' id='0080' name='IBRERR'   >IBRERR      </a>EQU $80         ; READ ERR                      ;     IB_ERR_R         Interleaving const and struct types
+                    408 <a class='e' id='0040' name='IBDERR'   >IBDERR      </a>EQU $40         ; DRIVE ERR                     ;     IB_ERR_DRV       makes for extremely poor readability
+                    409 <a class='e' id='0020' name='IBVMME'   >IBVMME      </a>EQU $20         ; VOLUME MISMATCH               ;     IB_ERR_VOL
+                    410 <a class='e' id='0010' name='IBWPER'   >IBWPER      </a>EQU $10         ; WRITE PROTECT ERROR           ;     IB_ERR_W
+37F6:00             411 <a class='d' id='37F6' name='IBSMOD'   >IBSMOD      </a>DFB <span class='n'>0</span>           ; STATUS MODIFIER BYTE          ; [E] IOB_OFFSET_MOD
+37F7:60             412 <a class='d' id='37F7' name='IBPSLT'   >IBPSLT      </a>DFB <span class='n'>6</span>*<span class='n'>16</span>        ; PREVIOUS SLOT                 ; [F] IOB_OFFSET_PREV_SLOT   Why isn't this set at boot ???
+37F8:01             413 <a class='d' id='37F8' name='IBPDRV'   >IBPDRV      </a>DFB <span class='n'>1</span>           ; PREVIOUS DRIVE                ;[10] IOB_OFFSET_PREV_DRV
+37F9:00 00          414 <a class='d' id='37F9' name='IBSPAR'   >IBSPAR      </a>DS <span class='n'>2</span>,<span class='n'>0</span>          ; IOB SPARES                    ;[11] <a class='mem' name='_37F9' coords='2'>wastes</a> 2 bytes
 37FB:00 01 EF D8    415 <a class='d' name='DCT'      >DCT         </a>DFB <span class='n'>0</span>,<span class='n'>1</span>,$<span class='n'>EF</span>,$<span class='n'>D8</span> ;                               ; <a class='magic'  name='_37FB'>magic number</a> More crappy formatting, values defined in <a class='file' href='#RWTSONE'>RWTSONE</a>
                                                                                     ; Put these values on one per line for <b>readability</b> like this:
                                                                                     ;     DFB 0    ; Device Type, $0 = Disk II
