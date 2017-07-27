@@ -605,11 +605,11 @@ console.log( padLeft( i, 4 ) + ": @ " + padLeft( aMem[i].name, 5 ) + " x " + byt
             tSymAddr += "<pre name='symbol_name_" + locs[i] + "'>";
 
             var section = locs[ i ];
-            tSymName += symbolsAddMarkup( section, aFuncs, "<span class='f'>", maxFuncLen );
-            tSymName += symbolsAddMarkup( section, aVars , "<span class='d'>", maxFuncLen );
+            tSymName += symbolsAddMarkup( section, aFuncs, "<a class='f'", maxFuncLen );
+            tSymName += symbolsAddMarkup( section, aVars , "<a class='d'", maxFuncLen );
 
-            tSymAddr += symbolsAddMarkup( section, aFuncs, "<span class='f'>", maxFuncLen );
-            tSymAddr += symbolsAddMarkup( section, aVars , "<span class='d'>", maxFuncLen );
+            tSymAddr += symbolsAddMarkup( section, aFuncs, "<a class='f'", maxFuncLen );
+            tSymAddr += symbolsAddMarkup( section, aVars , "<a class='d'", maxFuncLen );
 
             tSymName += "</pre>";
             tSymAddr += "</pre>";
@@ -651,10 +651,12 @@ console.log( "TODO: CSS Monochrome" );
         var size = symbols.length;
 
         var text = "";
+        var name;
 
             for( j = 0; j < size; ++j )
             {
-                if( symbols[j].name && (symbols[j].name[0].toUpperCase() === section) )
+                name = symbols[j].name
+                if( name && (name[0].toUpperCase() === section) )
                 {
                     // TODO: Sort
                     var addr = symbols[j].id;
@@ -671,9 +673,10 @@ console.log( "TODO: CSS Monochrome" );
                         markup = "<span style='background-color:#FED'>???";
 
                     text += "    "
-                         + nameColorSpan + padRight( symbols[j].name, maxNameLen )
-                         + "</span> = "
-                         + markup + addr + "</span>"
+                         + nameColorSpan + " href='#" + name + "'>"
+                         +  padRight( name, maxNameLen )
+                         + "</a> = "
+                         + markup  + addr + "</span>"
                          + "\n";
                 }
             }
