@@ -7052,50 +7052,50 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     001             SBTL '16-SECTOR WRITE ADDRESS'
                     002 ********************************
                     003 *                              *
-                    004 
-                    005 
-                    006 
-                    007 
-                    008 
-                    009 
-                    010 
-                    011 
-                    012 
-                    013 
-                    014 
-                    015 
-                    016 
-                    017 
-                    018 
-                    019 
-                    020 
-                    021 
-                    022 
-                    023 
-                    024 
-                    025 
-                    026 
-                    027 
-                    028 
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
+                    004 *  WRITE ADR FIELD SUBROUTINE  *
+                    005 *      (16-SECTOR FORMAT)      *
+                    006 *  WRITES SPECIFIED NUMBER OF  *
+                    007 *  40-USEC (10-BIT) SELF-SYNC  *
+                    008 *  NIBLS, ADR FIELDS 16-SECTOR *
+                    009 *  START MARKS ($D5,$AA,$96),  *
+                    010 *  BODY (VOLUME, TRACK, SECTOR,*
+                    011 *  CHECKSUM), END FIELD MARKS, *
+                    012 *  AND THE WRITE TURN-OFF NIBL.*
+                    013 *                              *
+                    014 ********************************
+                    015 *                              *
+                    016 *   ------- ON ENTRY -------   *
+                    017 *                              *
+                    018 *  THE LOCATIONS VOLUME, TRK,  *
+                    019 *  AND NSECT MUST CONTAIN THE  *
+                    020 *  DESIRED VOLUME, TRACK, AND  *
+                    021 *  SECTOR VALUES DESIRED.      *
+                    022 *                              *
+                    023 *  THE PROPER DRIVE MUST BE    *
+                    024 *  ENABLED AND UP TO SPEED IN  *
+                    025 *  READ MODE (Q7L, Q6L).       *
+                    026 *                              *
+                    027 *  X-REG CONTAINS SLOTNUM      *
+                    028 *                    TIMES 16. *
+                    029 *                              *
+                    030 *  Y-REG CONTAINS NUMBER OF    *
+                    031 *    SELF SYNC NIBLS DESIRED   *
+                    032 *    MINUS 1.                  *
+                    033 *      (0 FOR 256 NIBLS)       *
+                    034 *                              *
+                    035 ********************************
+                    036 *                              *
+                    037 *   ------- CAUTION --------   *
+                    038 *                              *
+                    039 *         1 USEC CYCLE         *
+                    040 *                              *
+                    041 ********************************
+                    042 *                              *
+                    043 *   ------- CAUTION --------   *
+                    044 *                              *
+                    045 *  MOST OF THIS CODE IS TIME   *
+                    046 *  CRITICAL.  OBSERVE ALL      *
+                    047 *  'NO PAGE CROSS!' WARNINGS   *
                     048 *  ON BRANCHES                 *
                     049 *                              *
                     050 ********************************
