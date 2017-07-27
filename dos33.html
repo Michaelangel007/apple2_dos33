@@ -5881,23 +5881,23 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 370E:AD E0 37       265             LDA NDPGS       ; COPY NO PAGES TO GET
 3711:8D E1 37       266             STA BRWCNT
 3714:A9 02          267             LDA #<span class='n'>2</span>
-                    268             STA IBTRK       ; SET TRACK 0                   ; Uhm, T2S4, not T0S4
-                    269             LDA #<span class='n'>4</span>          ;ENDING SECTOR OF DOS IMAGE
-                    270             STA IBSECT      ;TO IOB
-                    271             LDY ADOSLD+<span class='n'>1</span>    ;END PAGE OF DOS IMAGE
-                    272             DEY             ;IS ONE LESS THAN
-                    273             STY IBBUFP+<span class='n'>1</span>    ;START OF DOSLDR+BOOT
+3716:8D EC 37       268             STA IBTRK       ; SET TRACK 0                   ; Uhm, T2S4, not T0S4
+3719:A9 04          269             LDA #<span class='n'>4</span>          ;ENDING SECTOR OF DOS IMAGE
+371B:8D ED 37       270             STA IBSECT      ;TO IOB
+371E:AC E7 37       271             LDY ADOSLD+<span class='n'>1</span>    ;END PAGE OF DOS IMAGE
+3721:88             272             DEY             ;IS ONE LESS THAN
+3722:8C F1 37       273             STY IBBUFP+<span class='n'>1</span>    ;START OF DOSLDR+BOOT
                     274 ;
-                    275             LDA #IBCRTS     ; SET READ
-                    276             STA IBCMD
+3725:A9 01          275             LDA #IBCRTS     ; SET READ
+3727:8D F4 37       276             STA IBCMD
                     277 ;
-                    278             TXA             ; SET PREV TRACK = 0
-                    279             LSR A
-                    280             LSR A
-                    281             LSR A
-                    282             LSR A
-                    283             TAX                                             <!--                -->; The 40x24 text screen has "memory holes" that are NOT displayed
-                    284             LDA #<span class='n'>0</span>                                          ; reserved for each Slot 1..7 as "scratchpad" or temp vars
+372A:8A             278             TXA             ; SET PREV TRACK = 0
+372B:4A             279             LSR A
+372C:4A             280             LSR A
+372D:4A             281             LSR A
+372E:4A             282             LSR A
+372F:AA             283             TAX                                             <!--                -->; The 40x24 text screen has "memory holes" that are NOT displayed
+3730:A9 00          284             LDA #<span class='n'>0</span>                                          ; reserved for each Slot 1..7 as "scratchpad" or temp vars
 3732:9D F8 04       285             STA $<span class='n'>4F8</span>,X                                      ; <a class='magic' name='_3733'>magic number</a> /sarcasm <i>What,</i> <span class='code'><a class='x' href='#DRV2TRK'>DRV2TRK</a></span> <i>wasn't available???</i>
 3735:9D 78 04       286             STA $<span class='n'>478</span>,X                                      ; <a class='magic' name='_3736'>magic number</a> /sarcasm <i>What,</i> <span class='code'><a class='x' href='#DRV1TRK'>DRV1TRK</a></span> <i>wasn't available???</i>
 3738:20 93 27       287             JSR BOOTIO      ; GO READ DOS
