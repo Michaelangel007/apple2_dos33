@@ -5719,10 +5719,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 367E:A9 00          119 <a class='f' id='367E' name='GOBACK'>GOBACK      </a>LDA #<span class='n'>0</span>
 3680:8D 5D 36       120             STA EOFFLAG     ;TURN FLAG OFF
 <span class='macro'>
-3683:4C 46 25       121             JMP FIXIT2      ;Go to FIXIT2 as exit           ; Oh look, we have lowercase CapsLock on //e!</span><span class='patch'>
-                        ; === DOS 3.3 D PATCH ===                                   
-3683:4C 84 3A       121             JMP FIXIT3                                      </span>; DOS 3.3 1983<span class='patch'>
-                        ; === DOS 3.3 D PATCH ===                                   </span>
+3683:4C 46 25       121             JMP FIXIT2      ;Go to FIXIT2 as exit       </span>    ; Oh look, we have lowercase CapsLock on //e!<span class='patch'>
+3683:4C 84 3A       121             JMP FIXIT3                                  </span>    ; DOS 3.3 1983 -- see below -- WHICH version of DOS is this?
                     122             REP 40
                     123 VPATCH      EQU *
 3686:8D BC 35       124             STA CCBRQM      ;ORIGINAL INSTRUCTION
@@ -5753,38 +5751,39 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     149 * END OF BOOT PAGE DATA SETUP
                     150             REP 40
                     151 *
-                    152 * FIXIT2 was developed to fix the wrap around
-                    153 * problem APPEND has when trying to APPEND to
-                    154 * a sequential file which is &gt; 255 sectors in length.
-                    155 *
-                    156 *                  Fix by
-                    157 *
-                    158 *              Fern Bachman
-                    159 *               Guil Banks
-                    160 *           September 28, 1982
-                    161 *
-                    162 * Fix to fix added to correctly APPEND to a SECTOR
-                    163 * 255 bytes in length
-                    164 *
-                    165 *                    by
-                    166 *                Guil Banks
-                    167 *               July 11, 1983
-                    168 *
-                    169             REP 30
-                    170             SKP 1
-                    171 FIXIT2      EQU *
-                    172             LDA CCBRLN      ;Current record length lo
-                    173             STA DCBCSB      ;Current sector byte
-                    174             STA DCBCRR      ;Current relative record
-                    175             LDA CCBRLN+1    ;Do hi as well
-                    176             STA DCBCSB+1
-                    177             STA DCBCRR+1
-                    178             STA DCBCRS      ;Set current relative sector
-<hr>                    179             TSX                                             ; === Page <a class="page" name="page11">11</a> ===
-                    180             STX ENTSTK
-                    181             JMP GOODIO
-                    182             SKP 2
-                    183             REP 30
+<span class='macro'>
+                    152 * FIXIT2 was developed to fix the wrap around           </span>    ; This is NOT _here_ DOS 3.3 1983<span class='macro'>
+                    153 * problem APPEND has when trying to APPEND to           </span>    ; It was relocated to $3A84 (see line 121 above) <span class='macro'>
+                    154 * a sequential file which is &gt; 255 sectors in length.   
+                    155 *                                                       
+                    156 *                  Fix by                               
+                    157 *                                                       
+                    158 *              Fern Bachman                             
+                    159 *               Guil Banks                              
+                    160 *           September 28, 1982                          
+                    161 *                                                       
+                    162 * Fix to fix added to correctly APPEND to a SECTOR      
+                    163 * 255 bytes in length                                   
+                    164 *                                                       
+                    165 *                    by                                 
+                    166 *                Guil Banks                             
+                    167 *               July 11, 1983                           
+                    168 *                                                       
+                    169             REP 30                                      
+                    170             SKP 1                                       
+                    171 FIXIT2      EQU *                                       
+                    172             LDA CCBRLN      ;Current record length lo   
+                    173             STA DCBCSB      ;Current sector byte        
+                    174             STA DCBCRR      ;Current relative record    
+                    175             LDA CCBRLN+1    ;Do hi as well              
+                    176             STA DCBCSB+1                                
+                    177             STA DCBCRR+1                                
+                    178             STA DCBCRS      ;Set current relative sector</span>
+<hr><span class='macro'>                    179             TSX                                         </span>    ; === Page <a class="page" name="page11">11</a> ===<span class='macro'>
+                    180             STX ENTSTK                                  
+                    181             JMP GOODIO                                  
+                    182             SKP 2                                       
+                    183             REP 30                                      </span>
                     184 *
                     185 *   Upper/Lower case patch
                     186 *   for DOS 3.3C and BASIC
