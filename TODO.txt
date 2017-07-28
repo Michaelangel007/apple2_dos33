@@ -21,7 +21,7 @@ TODO:
 <span class='code'>FOO EQU $00</span>
 <a class='magic' name='#_1C28'>magic number</a>
 <a class='mem' name='_1D7D'>wastes</a>
-<a class="f" name="CORRECTVOL" id="CORRECTVOL" >CORRECTVOL  </a>
+<a class='f' id='0000' name='CORRECTVOL'  >CORRECTVOL  </a>
 <a class='f' name='BLDFTB'     >BLDFTB      </a>EQU *
 <a class='f' name='_8'       >12_         </a>
 
@@ -44,10 +44,11 @@ Project Status Pages left:
           2nd pass = HTML / Hyperlinks
             3rd pass = address & Opcodes
               4th pass = Commentary / Annotation
-                Numbers marked up HTML span
+                Numbers marked up HTML span class='n'
                   Magic Numbers
                     Page Numbers
                       Arrows
+                        S Symbols for Applewin (coords='#')
         T H O C N M P A
       1 n/a             Cover
       2 n/a             List of files
@@ -56,8 +57,8 @@ Project Status Pages left:
       5 T - - - - - P - BLDFTAB $2803
       6 T - - - - - P - BLDFTAB $2853
       7 n/a             BLOCKIO.hex -- need disassembly
-      8 - - - - - - P - BOOTLDR
-      9 - - - - - - P - 
+      8 T - - - - - P - BOOTLDR $3600
+      9 - - - - - - P - BOOTLDR $3607
      10 - - - - - - P -
      11 - - - - - - P - 
      12 - - - - - - P -
@@ -168,9 +169,9 @@ Project Status Pages left:
     117 - - - - - - - -
     118 - - - - - - - -
     119 - - - - - - - -
-    120 - - - - - - - -
-    121 - - - - - - - -
-    122 - - - - - - - -
+    120 T - - - - - - - RWTSONE $3D4E
+    121 T - - - - - - - RWTSONE $3D9A
+    122 - - - - - - - - RWTSTWO $3DAB
     123 - - - - - - - -
     124 - - - - - - - -
     125 - - - - - - - -
@@ -182,8 +183,8 @@ Project Status Pages left:
     131 n/a             TRASH (dup of FLOCSEC)
     132 n/a             TRASH (dup of FLOCSEC)
     133 n/a             TRASH (dup of FLOCSEC)
-    134 - - - - - - - -
-    135 - - - - - - - -
+    134 T - - - - - - - WRITADR $3C56
+    135 - - - - - - - - WRITADR $3C57
     136 - - - - - - - -
     137 - - - - - - - -
     138 - - - - - - - -
