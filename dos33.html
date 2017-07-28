@@ -5844,20 +5844,20 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 36BC:00 00 00 00                                                                    ; ..
 36C0:00 00 00 00                                                                    ; ..
 36C4:00 00 00 00                                                                    ; ..
-36C8:00 00 00 00                                                                    ; ..
-36CC:00 00 00 00                                                                    ; ..
-36D0:00 00 00 00                                                                    ; .. DOS 3.3A (Jan. 1980) has a secret message @ 36D0 ($B6D0): "B01-00"
-36D4:00 00 00 00                                                                    ; ..   JSR HOME        ; $FC58
-36D8:00 00 00 00                                                                    ; ..   LDA #'B'+$80    ;   $C2
-36DC:00 00 00 00                                                                    ; ..   JSR COUT        ; $FDED
-36E0:00 00 00 00                                                                    ; ..   LDA #$01        ;
-36E4:00 00 00 00                                                                    ; ..   JSR PRBYTE      ; $FDDA
-36E8:00 00 00 00                                                                    ; ..   LDA #'-'+$80    ;   $AD
-36EC:00 00 00 00                                                                    ; ..   JSR COUT        ; $$FDED
-36F0:00 00 00 00                                                                    ; ..   LDA #$00
-36F4:00 00 00 00                                                                    ; ..   JMP PRBYTE      ; $FDDA
-36F8:00 00 00 00                                                                    ; ..
-36FC:00                                                                             ; ..]
+36C8:00 00 00 00                                                                    ; .. DOS 3.3B (Jan. 1980) has a secret message @ 36D0 ($B6D0): "B01-00"
+36CC:00 00 00 00                                                                    ; .. ; === DOS 3.3 <a class='f' id='36D0'>EASTER EGG</a> ===
+36D0:00 00 00 00                                                                    ; .. <span class='macro'>                PRBYTE EQU $FDDA     </span> Print A as 2 hex digits</span>
+36D4:00 00 00 00                                                                    ; .. <span class='macro'>36D0:20 58 FC           JSR HOME     </span>
+36D8:00 00 00 00                                                                    ; .. <span class='macro'>36D3:A9 C2              LDA #'B'+$80 </span>
+36DC:00 00 00 00                                                                    ; .. <span class='macro'>36D5:20 ED FD           JSR COUT     </span>
+36E0:00 00 00 00                                                                    ; .. <span class='macro'>36D8:A9 01              LDA #$01     </span>
+36E4:00 00 00 00                                                                    ; .. <span class='macro'>36DA:20 DA FD           JSR PRBYTE   </span>
+36E8:00 00 00 00                                                                    ; .. <span class='macro'>36DD:A9 AD              LDA #'-'+$80 </span>
+36EC:00 00 00 00                                                                    ; .. <span class='macro'>36DF:20 ED FD           JSR COUT     </span>
+36F0:00 00 00 00                                                                    ; .. <span class='macro'>36E2:A9 00              LDA #$00     </span>
+36F4:00 00 00 00                                                                    ; .. <span class='macro'>36E4:20 DA FD           JSR PRBYTE   </span> Really?? Wastes 1 byte with JSR/RTS
+36F8:00 00 00 00                                                                    ; .. <span class='macro'>36E7:60                 RTS          </span> instead of JMP
+36FC:00                                                                             ; ..]  === DOS 3.3 EASTER EGG ===
 
                     238 * LOAD ADDRESS FOR CODE (PG BDY)
                     239 * ENTRY AFTER BOOT IS AT LOADADDR+256 (SECOND PAGE LOADED)
