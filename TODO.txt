@@ -58,13 +58,13 @@ Project Status Pages left:
       6 T - - - - - P - BLDFTAB $2853
       7 n/a             BLOCKIO.hex -- need disassembly
       8 T - - - - - P - BOOTLDR $3600
-      9 - - - - - - P - BOOTLDR $3607
-     10 - - - - - - P -
-     11 - - - - - - P - 
-     12 - - - - - - P -
-     13 - - - - - - P -
-     14 - - - - - - P -
-     15 - - - - - - P - 
+      9 T - - - - - P - BOOTLDR $3607
+     10 T - - - - - P - BOOTLDR $3676
+     11 T - - - - - P - BOOTLDR $36B3
+     12 T - - - - - P - BOOTLDR $36FD
+     13 T - - - - - P - BOOTLDR $3751
+     14 T - - - - - P - BOOTLDR $37D0
+     15 T - - - - - P - BOOTLDR n/a
      16 T - - - - - - - CMDSCAN
      17 T - - - - - - - CMDSCAN
      18 T - - - - - - - CMDSCAN
@@ -74,10 +74,10 @@ Project Status Pages left:
      22 T - - - - - - - CMDTBLS $2909
      23 T - - - - - - - CMDTBLS $2963
      24 T - - - - - - - COREQUS n/a
-     25 - - - - - - - -
-     26 - - - - - - - -
-     27 - - - - - - - -
-     28 - - - - - - - -
+     25 T - - - - - - - COREQUS n/a
+     26 T - - - - - - - COREQUS n/a
+     27 T - - - - - - - COREQUS n/a
+     28 n/a             DOS.TO.DISK
      29 n/a             DOS33C.OBJ hexdump
      30 n/a             DOS33C.OBJ hexdump
      31 n/a             DOS33C.OBJ hexdump
