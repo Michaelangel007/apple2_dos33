@@ -5959,7 +5959,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     336             LDY IBSECT      ; GET SECTOR
                     337             DEY             ; DECREMENT TO NEXT             ; Stupid Commenting - stop treating the reader as a moron
                     338             BPL BIO1        ;AT END OF TRACK?               ; See now this is a useful comment in contradistinction to the one above
-                    339             LDY #<span class='n'>15</span>         :SET TO SECTOR 15               ; as it tells us WHY we are branching
+                    339             LDY #<span class='n'>15</span>         ;SET TO SECTOR 15               ; as it tells us WHY we are branching
 37A4:EA             340             NOP                                             ; [.. <a class='mem' name='37A4' coords='2'>wastes</a> 2 bytes
 37A5:EA             341             NOP                                             ;  ..]
                     342             DEC IBTRK
