@@ -5921,10 +5921,10 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3747:4C 84 1D       <a class='line' name='BOOTLDR.298'>298</a> <a class="f" name="DI3"      >DI3         </a>JMP <a class="x" href="#DOSREL">DOSREL</a>      ; GO TO POST INIT ROUTINE       ; Relocate DOS to high mem
                     299             PAGE
                     300 <a class='f' name='WBOOT'    >WBOOT       </a>EQU *                                           ; Write Boot; part of the INIT process
-                    301             LDA ADOSLD+<span class='n'>1</span>
-                    302             SEC
-                    303             SBC IBBUFP+<span class='n'>1</span>
-<hr>                    304             STA BRWCNT      ;COMPUT PAGE COUNT              ; === Page <a class='page' name='page13'>13</a> === *spelling* Compute
+374A:AD E7 37       301             LDA ADOSLD+<span class='n'>1</span>
+374D:38             302             SEC
+374E:ED F1 37       303             SBC IBBUFP+<span class='n'>1</span>
+<hr>3751:8D E1 37       304             STA BRWCNT      ;COMPUT PAGE COUNT              ; === Page <a class='page' name='page13'>13</a> === *spelling* Compute
                     305             LDA ADOSLD+<span class='n'>1</span>
                     306             STA IBBUFP+<span class='n'>1</span>    ;BUFFER=LAST PAGE OF RWTS
                     307             DEC IBBUFP+<span class='n'>1</span>
