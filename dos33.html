@@ -7109,72 +7109,73 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     051 <a class='f' id='3C56' name='SWADR1'     >SWADR1      </a>EQU *           ;TELL RELOCATOR WHERE TO BEGIN
                     052 *******************************
 3C56:38             053 <a class='f' id='3C56' name='WADR16'     >WADR16      </a>SEC             ANTICIPATE WR PROT ERR.
-<hr>3C57:BD 8D C0       054             LDA <a class="v" href="#Q6H"   >Q6H</a>,X       INTO 'WR PROT SENSE' MODE.      ; === Page <a class='page' name='page135'>135</a> ===
-3C5A:BD 8E C0       055             LDA <a class="v" href="#Q7L"   >Q7L</a>,X       SENSE IT (NEG=PROTECTED)
-3C5D:30 5E          056             BMI <a class="x" href="#WADRTS">WADRTS</a>      ERR EXIT IF PROTECTED.
-3C5F:A9 FF          057             LDA #$<span class='n'>FF</span>        SELF-SYNC NIBL.
-3C61:9D 8F C0       058             STA <a class="v" href="#Q7H"   >Q7H</a>,X       WRITE FRIST NIBL.
-3C64:DD 8C C0       059             CMP <a class="v" href="#Q6L"   >Q6L</a>,X       (4) BACK TO WRITE MODE.
-3C67:48             060             PHA             (3) FOR DELAY
-3C68:68             061             PLA             (4)
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-3CD0:EA             110 
-3CD1:EA             111 
-3CD2:09 AA          112             ORA #$<span class='n'>AA</span>        (2) SET CLOCK BITS.
-3CD4:EA             113 <a class='f' id='3CD4' name='WNIBLA'     >WNIBLA      </a>NOP             (2) (17,9,6) ENTRY.
-3CD5:EA             114 <a class='f' id='3CD5' name='WNIBLB2'    >WNIBLB2     </a>NOP             (2) (15,9,6) ENTRY.
-3CD6:48             115 <!--                                   -->            </a>PHA             (3) FOR
-<hr>3CD7:68             116             PLA             (4) DELAY.                      ; === Page <a class='page' name='page136'>136</a> ===
-3CD8:9D 8D C0       117 <a class='f' id='3CD8' name='WRNIBL'     >WRNIBL      </a>STA Q6H,X       (5) WRITE NIBL.
-3CDB:DD 8C C0       118             CMP Q6L,X       (4)
-3CDE:60             119             RTS             (6) RETURN
+<hr>3C57:BD 8D C0       054             LDA <a class='v' href='#Q6H'   >Q6H</a>,X       INTO 'WR PROT SENSE' MODE.      ; === Page <a class='page' name='page135'>135</a> ===
+3C5A:BD 8E C0       055             LDA <a class='v' href='#Q7L'    >Q7L</a>,X       SENSE IT (NEG=PROTECTED)
+3C5D:30 5E          056             BMI <a class='x' href='#WADRTS' >WADRTS</a>      ERR EXIT IF PROTECTED.
+3C5F:A9 FF          057             LDA #$<span class='n'>FF</span>        SELF-SYNC NIBL.                 ; 40 &micro; seconds to write any SYNC nibble
+3C61:9D 8F C0       058             STA <a class='v' href='#Q7H'    >Q7H</a>,X       WRITE FRIST NIBL.               ; = 0 [ 0]
+3C64:DD 8C C0       059             CMP <a class='v' href='#Q6L'    >Q6L</a>,X       (4) BACK TO WRITE MODE.         ; + 4 [ 4]
+3C67:48             060             PHA             (3) FOR DELAY                   ; + 3 [ 7]
+3C68:68             061             PLA             (4)                             ; + 4 [11]
+3C69:20 C3 3C       062 WSYNC1      JSR <a class='x' href='#WADRTS1'>WADRTS1</a>     (12) FOR 40-USEC NIBLS.         ; +12 [23] JSR=+6, &lt;----------------+
+                    063             JSR <a class='x' href='#WADRTS1'>WADRTS1</a>     (12)                            ; +12 [35] RTS=+6                   |
+                    064             STA <a class='v' href='#Q6H'    >Q6H</a>,X       (5) WRITE NIBL.                 ; + 5 [40] ========&gt; 0 [ 0]         |
+                    065             CMP <a class='v' href='#Q6L'    >Q6L</a>,X       (4) (BACK TO WRITE MODE)        ;                  + 4 [ 4]         |
+                    066             NOP             (2) FOR DELAY.                  ;                  + 2 [ 6]         |
+                    067             DEY             (2) NEXT OF 'N' NIBLS.          ;                  + 2 [ 8]         |
+                    068             BNE <a class='x' href='#WSYNC1' >WSYNC1</a>      (3) *** NO PAGE CROSS! ***      ; + 2 [10] BEQ &lt;== + 3 [11] --&gt; BNE ^
+                                                                                    ; 32 &micro; seconds write DATA nibble
+                    069             LDA #$<span class='n'>D5</span>        (2) ADR MARK 1.                 ; + 2 [12] <a class='magic'>magic number</a> <span class='todo'>TODO</span>
+                    070             JSR WNIBLB2     (15,9,6) WRITE IT.              ; +24 [10] &lt;-- JSR=6, WNIBLB2=9, WRNIBL=15
+                    071             LDA #$<span class='n'>AA</span>        (2) ADR MARK 2.                 ; + 2 [12] <a class='magic'>magic number</a> <span class='todo'>TODO</span>
+                    072             JSR WNIBLB2     (15,9,6) WRITE IT.              ; +24 [10]
+                    073             LDA #$<span class='n'>96</span>        (2) 16-SECTOR ADR MARK 3.       ; + 2 [10] <a class='magic'>magic number</a> <span class='todo'>TODO</span>
+                    074             JSR WNIBLB2     (15,9,6) WRITE IT.              ; +24 [10]
+                    075             LDA NVOL        (3)                             ; + 3 [13]
+                    076             JSR WBYTE       (14,9,6) WRITE NVOL (ODD, THEN EVEN, BITS.) ; JSR=6
+                    077             LDA TRK         (3) WRITE TRACK NUMBER.         ;
+                    078             JSR WBYTE       (14,9,6) ODD, THEN EVEN, BITS)  ;
+                    079             LDA NSECT       (3) WRITE SECTOR NUMBER.        ;
+                    080             JSR WBYTE       (14,9,6) (ODD, THEN EVEN, BITS) ;
+                    081             LDA NVOL        (3)                             ;
+                    082             EOR TRK         (3) FORM ADR FIELD CHECKSUM.    ;
+                    083             EOR NSECT       (3)                             ;
+                    084             PHA             (3) SAVE FOR EVEN BITS.         ;
+                    085             LSR A           (2) ALIGHN ODD BITS.            ; Poorly written assemblers implicitly need the explicit A register
+                    086             ORA AA          (3) SET CLOCK BITS.             ; This is shitty variable name: <span class='code'>AA</span>
+                    087 *                           (PRECISE TIMING, 32 CYCLES PER NIBL)
+                    088             STA Q6H,X       (5) WRITE CHECKSUM ODD BITS.    ;
+                    089             LDA Q6L,X       (4) BACK TO WRITE MODE.         ;
+                    090             PLA             (4) RECOVER FOR EVEN BITS.      ;
+                    091             ORA #$<span class='n'>AA</span>        (2) SET CLOCK BITS.             ;
+                    092             JSR WNIBLA      (17,9,6) WRITE THEM.            ;
+                    093             LDA #$<span class='n'>DE</span>        (2) END MARK 1.                 ; <a class='magic'>magic number</a> <span class='todo'>TODO</span>
+                    094             JSR WNIBLB2     (15,9,6) WRITE IT.              ;
+                    095             LDA #$<span class='n'>AA</span>        (2) END MARK 2.                 ; <a class='magic'>magic number</a> <span class='todo'>TODO</span>
+                    096             JSR WNIBLB2     (15,9,6) WRITE IT.              ;
+                    097             LDA #$<span class='n'>EB</span>        (2) END MARK 3.                 ; <a class='magic'>magic number</a> <span class='todo'>TODO</span>
+                    098             JSR WNIBLB2     (15,9,6) 'WRITE TURN-OFF'       ;
+3CBC:18             099             CLC             INDICATE NO WR PROT ERR.
+3CBD:BD 8E C0       100 WADRTS      LDA Q7L,X       OUT OF WRITE MODE.              ; TODO: used elsewhere?
+3CC0:BD 8C C0       101             LDA Q6L,X       TO READ MODE.                   ;        These are shit function names -- they give <b>no clue</b> <i>when</i> they should be called!
+3CC3:60             102 WADRTS1     RTS             RETURN                          ;        should be called <span class='code'>WAIT_6</span>
+3CC4:48             103 WBYTE       PHA             (3) PRESERVE FOR EVEN BITS.     ;+3 [22] should be called <span class='code'>WRITE13_2NIB_22</span>, JSR when cycles=13
+3CC5:4A             104             LSR A           (2) ALIGN ODD BITS.             ;+2 [25]
+3CC6:05 3E          105             ORA AA          (3) SET CLOCK BITS.             ;+3 [27]
+3CC8:9D 8D C0       106             STA Q6H,X       (5) WRITE NIBL.                 ;+5 [32] See: WRNIBL
+3CCB:DD 8C C0       107             CMP Q6L,X       (4)                             ;=4 [ 4]
+3CEE:68             108             PLA             (4) RECOVER FOR EVEN BITS.      ;+4 [ 8]
+3CEF:EA             109             NOP             (2)                             ;+2 [10]
+3CD0:EA             110             NOP             (2) FOR DELAY.                  ;+2 [12]
+3CD1:EA             111             NOP             (2)                             ;+2 [14]
+3CD2:09 AA          112             ORA #$<span class='n'>AA</span>        (2) SET CLOCK BITS.             ;+2 [16]
+3CD4:EA             113 <a class='f' id='3CD4' name='WNIBLA'     >WNIBLA      </a>NOP             (2) (17,9,6) ENTRY.             ;+2 [18] Should be called <span class='code'>WRITE12_1NIB_18</span>, JSR when cycles=12
+3CD5:EA             114 <a class='f' id='3CD5' name='WNIBLB2'    >WNIBLB2     </a>NOP             (2) (15,9,6) ENTRY.             ;+2 [20] should be called <span class='code'>WRITE14_1NIB_20</span>, JSR when cycles=14
+3CD6:48             115 <!--                                   -->            </a>PHA             (3) FOR                         ;+3 [23]
+<hr>3CD7:68             116             PLA             (4) DELAY.                      ;+4 [27] === Page <a class='page' name='page136'>136</a> ===
+3CD8:9D 8D C0       117 <a class='f' id='3CD8' name='WRNIBL'     >WRNIBL      </a>STA Q6H,X       (5) WRITE NIBL.                 ;+5 [32] Should be called <span class='code'>WRITE21_1NIB_27</span>, JSR when cycles=21
+3CDB:DD 8C C0       118             CMP Q6L,X       (4)                             ;=4 [ 4] <i>labled unused, NEVER referenced</i>
+3CDE:60             119             RTS             (6) RETURN                      ;+6 [10]
                     120 <a class='e' id='3CDF' name='EWADR1'     >EWADR1      </a>EQU *           ;TELL RELOCTR WHERE TO STOP
                     121 <a class='e' id='003D' name='XP2'        >XP2         </a>EQU &lt;*+<span class='n'>255</span>      ;H.O. ADDRESS NEXT PAGE
                     122 <a class='e' id='3D00' name='XP2H'       >XP2H        </a>EQU <span class='n'>256</span>*XP2     ;NOW AS 16-BITS
