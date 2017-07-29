@@ -7943,75 +7943,75 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     114 *                           *
                     115 *****************************
 <hr>                    116             PAGE                                            ; === Page <a class="page" name="page84">84</a> ===
-                    117 VTACK       LDY #$F                                         ; magic number TODO
-                    118             STY NSECT       ; SET 16 BYTES OF
-                    119             LDA #$30        ; SECTOR FOUND TABLE
-                    120             STA RETRYCNT    ; TO $30 (MARK THEM).
-                    121 CLRFOUND
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
-                    165 
-                    166 
-                    167 
-                    168 
-                    169 
-                    170 
-                    171 
-                    172 
-                    173 
-                    174 
-                    175 
-                    176 
-                    177 
-                    178 
+3F29:A0 0F          117 VTRACK      LDY #$F                                         ; <a class='magic' id='3F2A'>magic number</a> <span class='todo'>TODO</span>
+3F2B:84 3F          118             STY NSECT       SET 16 BYTES OF
+3F2D:A9 30          119             LDA #$30        SECTOR FOUND TABLE
+3F2F:8D 78 05       120             STA RETRYCNT    TO $30 (MARK THEM).             ; TEXT HOLE <span class='todo'>TODO</span> XREF with other screen holes
+                    121 CLRFOUND    STA FOUND,Y
+                    122             DEY
+                    123             BPl CLRFOUND
+                    124             LDY NSYNC
+                    125 S0DELAY     JSR WEXIT2
+                    126             JSR WEXIT2      (12) EXPECTED TO INSURE
+                    127             JSR WEXIT2      (12) PROPER GAP PRIOR SECTOR 0.
+                    128             PHA             (3)
+                    129             PLA             (4)
+                    130             NOP             (2)
+                    131             NOP             (2)
+                    132             DEY S0DELAY     (3)
+                    133             JSR RDADR16     ;READ NEXT ADDRESS FIELD.
+                    134             BCS S15LOC      ERR, LOCATE SECT 15 AND REWRITE TRK.
+                    135             LDA SECT        WAS IT SECTOR 0?
+                    136             BEQ VDATA       YES, NOW VERIFY DATA FIELD.
+                    137             LDA #$10                                        ; <a class='magic' id='????'>magic number</a> <span class='todo'>TODO</span>
+                    138             CMP NSYNC       DECR NSYNC BY 1 IF LESS THAN
+                    139             LDA NSYNC       16, BY 2 IF NOT LESS.
+                    140             SBC #1
+                    141             STA NSYNC
+                    142             CMP #5          IF LESS THAN 5, UNRECOVERABLE
+                    143             BCS S15LOC      ERR, ELSE REWRITE AFTER DATA FLD 15.
+                    144 VERR        SEC             DRIVE EXTREMELY FAST OR
+                    145             RTS             OTHER SEVERE ERROR.
+                    146 VSECT       JSR RDADR16     ;READ AN ADDRESS FIELD.
+                    147             BCS VERR1       RETRY IF ERR.
+                    148 VDATA       JSR READ16      ;READ DATA FIELD.
+                    149             BCC SECTOK      (GOOD)
+                    150 VERR1       DEC RETRYCNT    NEXT OF 48 SECTOR TRIES.
+                    151             BNE VSECT       (KEEP TRYING)
+                    152 S15LOC      JSR RDADR16     ;READ ADDRESS FIELD.
+                    153             BCS NOTS15      ERR, TRY UP TO 128 TIMES.
+                    154             LDA SECT        SECTOR THAT WAS READ.
+                    155             CMP #$F         SECTOR 15?                      ; <a class='magic' id='????'>magic number </a>VERIFY_REREAD_LAST_SEC
+                    156             BNE NOTS15      NO, CONTINUE SEARCHING.
+                    157             JSR READ16      ;READ DATA FIELD.               ; Why isn't this called READDATAHDR ???
+                    158             BCC WRITE TRACK FROM HERE IF NO ERR.            ; <i>Read 16 what?</i> <b>Oh, Read 16 Sector Data Field</b>
+                    159 NOTS15      DEC RETRYCNT    $FF TO $7F, 128 TRIES.
+                    160             BNE S15LOC      TRY FOR SECT 15 AGAIN.
+                    161             SEC             SET CARRY TO INDICATE VERIFY ERR.
+                    162 WEXIT2      RTS             AND RETURN TO FORMATTER.
+                    163 SECTOK      LDY SECT        THIS IS SECTOR READ.
+                    164             LDA FOUND,Y     ALREADY FOUND?
+                    165             BMI VERR1       YES, IGNORE IT.
+                    166             LDA #$FF                                        ; <a class='magic' id='????'>magic number</a> <span class='code'>FLAG_SECTOR_FOUND = 1</span>
+                    167             STA FOUND,Y     INDICATE THIS SECT NOW FOUND.
+                    168             DEC NSECT       FOUND 16 SECTORS?
+                    169             BPL VSECT       NO, LOOK FOR NEXT.
+                    170             LDA TRK
+                    171             BNE WEXIT1      IF TRACK 0 AND NSYNC &gt; 16       ;
+                    172             LDA NSYNC       (NUM GAP SYNC NIBLS)
+                    173             CMP #$10        THEN SUBTRACT 2 FROM NSYNC
+                    174             BCC WEXIT2      TO AVOID RETRIES ON LATER TRKS.
+                    175             DEC NSYNC
+                    176             DEC NSYNC
+3FA6:18             177 WEXIT1      CLC             INDICATE NO ERROR.
+3FA7:60             178             RTS             RETURN.
 <hr>                    179 ******************************                              ; === Page <a class='page' name='page85'>85</a> ===
                     180 <a class='d' id='3FA8' name='AEC2'     >AEC2        </a>EQU *           ;TELL RELOCTR WHERE RWTS ENDS
                     181 ******************************
-3FA8:00 00 00 00    182 <a class='d' id='3FA8' name='FOUND'    >FOUND       </a>DFB 0,0,0,0     'SECTOR FOUND' TABLE            ; See: <a class='x' href='#SECTOK'>SECTOK</a>
-3FAC:00 00 00 00    183         DFB 0,0,0,0                                         ; <span class='todo'>TODO</span> DOS 3.3 1980 has these as $FF
-3FB0:00 00 00 00    184         DFB 0,0,0,0
-3FB4:00 00 00 00    185         DFB 0,0,0,0
+3FA8:00 00 00 00    182 <a class='d' id='3FA8' name='FOUND'    >FOUND       </a>DFB 0,0,0,0     'SECTOR FOUND' TABLE            ;[.. <a class='disk' coords='16'>wastes</a> 16 bytes -- these are always cleared before used <a class='x' href='#CLRFOUND'>CLRFOUND</a>, See: <a class='x' href='#SECTOK'>SECTOK</a>
+3FAC:00 00 00 00    183             DFB 0,0,0,0                                     ; .. <span class='todo'>TODO</span> DOS 3.3 1980 has these as $FF
+3FB0:00 00 00 00    184             DFB 0,0,0,0                                     ; ..
+3FB4:00 00 00 00    185             DFB 0,0,0,0                                     ; ..]
                     186     FIN                                                     ; Macro started waaay back on Line #<a class='line' href='#FORMATR.014'>014</a>, <a class="x" href="#DSKFORM">DSKFORM</a>
                     187     LST ON
                     188             REP 40
