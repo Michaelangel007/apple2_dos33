@@ -131,10 +131,10 @@ Project Status Pages left:
      79 T - - - - - - - FOPCLRW $2C00
      80 T - - - - - - - FOPCLRW $2C65
      81 T - - - - - - - FOPCLRW $2CB8
-     82 - - - - - - - - FORMATR $3EAF <-- TODO
-     83 - - - - - - - - FORMATR $3EFD
-     84 - - - - - - - - FORMATR $____
-     85 - - - - - - - - FORMATR $____
+     82 T - - - - - - - FORMATR $3EAF
+     83 T - - - - - - - FORMATR $3EFD
+     84 T - - - - - - - FORMATR $3F29
+     85 T - - - - - - - FORMATR $3FA8
      86 T - - - - - - - FVCBUFS $3397
      87 T - - - - - - - FVCBUFS $34BB
      88 T - - - - - - - FVCBUFS $35C3
@@ -155,20 +155,20 @@ Project Status Pages left:
     103 - - - - - - - -
     104 - - - - - - - -
     105 - - - - - - - -
-    106 - - - - - - - -
-    107 - - - - - - - -
-    108 - - - - - - - -
-    109 - - - - - - - -
+    106 T - - - - - - - RDADSEK $3944
+    107 T - - - - - - - RDADSEK $3944
+    108 T - - - - - - - RDADSEK $39A0
+    109 T - - - - - - - RDADSEK $39DA
     110 T x x x - - - - RELOCTR Done, 1=Text, 2=Links, 3=Addr/Opcode, 4=Commentary
     111 T x x x - - - - RELOCTR Done
     112 T - - - - - - - RELOCTR
     113 T - - - - - - - RELOCTR
     114 T - - - - - - - RELOCTR
     115 T - - - - - - - RELOCTR
-    116 - - - - - - - -
-    117 - - - - - - - -
-    118 - - - - - - - -
-    119 - - - - - - - -
+    116 - - - - - - - - RWTSONE $3D00
+    117 - - - - - - - - RWTSONE
+    118 - - - - - - - - RWTSONE
+    119 - - - - - - - - RWTSONE
     120 T - - - - - - - RWTSONE $3D4E
     121 T - - - - - - - RWTSONE $3D9A
     122 - - - - - - - - RWTSTWO $3DAB
@@ -184,10 +184,10 @@ Project Status Pages left:
     132 n/a             TRASH (dup of FLOCSEC)
     133 n/a             TRASH (dup of FLOCSEC)
     134 T - - - - - - - WRITADR $3C56
-    135 - - - - - - - - WRITADR $3C57
+    135 T - - - - - - - WRITADR $3C57
     136 T - - - - - - - WRITADR $3CD7
-    137 - - - - - - - -
-    138 - - - - - - - -
+    137 - - - - - - - - WRITRTN
+    138 - - - - - - - - WRITRTN
     139 T - - - - - - - WRITRTN $38B8
     140 T - - - - - - - XLODSAV
     141 T - - - - - - - XLODSAV
@@ -216,6 +216,6 @@ Project Status Pages left:
         1st 3rd
           2nd 4th
 
-1st pass Remaining: 24
+1st pass Remaining: 15
 -->
 
