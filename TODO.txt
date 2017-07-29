@@ -131,10 +131,10 @@ Project Status Pages left:
      79 T - - - - - - - FOPCLRW $2C00
      80 T - - - - - - - FOPCLRW $2C65
      81 T - - - - - - - FOPCLRW $2CB8
-     82 - - - - - - - -
-     83 - - - - - - - -
-     84 - - - - - - - -
-     85 - - - - - - - -
+     82 - - - - - - - - FORMATR $3EAF <-- TODO
+     83 - - - - - - - - FORMATR $3EFD
+     84 - - - - - - - - FORMATR $____
+     85 - - - - - - - - FORMATR $____
      86 T - - - - - - - FVCBUFS $3397
      87 T - - - - - - - FVCBUFS $34BB
      88 T - - - - - - - FVCBUFS $35C3
@@ -146,10 +146,10 @@ Project Status Pages left:
      94 n/a             MASTER.3.3E.BAS -- need Applesoft listing
      95 n/a             MASTER.3.3E.BAS -- need Applesoft listing
      96 n/a             MASTERE.OBJ0 -- need disassembly
-     97 - - - - - - - -
-     98 - - - - - - - -
-     99 - - - - - - - -
-    100 - - - - - - - -
+     97 T - - - - - - - MSWAITR $39FD
+     98 T - - - - - - - MSWAITR $3A26
+     99 T - - - - - - - MSWAITR $3A69
+    100 T - - - - - - - MSWAITR $3AF0
     101 T - - - - - - - POSTNRD $38C2
     102 - - - - - - - -
     103 - - - - - - - -
@@ -216,6 +216,6 @@ Project Status Pages left:
         1st 3rd
           2nd 4th
 
-1st pass Remaining: 46
+1st pass Remaining: 27
 -->
 
