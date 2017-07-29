@@ -7901,8 +7901,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3F13:D0 02          072             BNE WSECT0      ; TO INSURE NO BLANK SPOT BETW 15 &amp; 0
 3F15:A4 45          073 <a class="f" name="WSECT"       >WSECT       </a>LDY NSYNC       CURRENT NUM OF GAP SELF-SYNC NIBLS.
                     074 <a class="f" name="WSET0"       >WSECT0      </a>EQU *
-                    075             JSR WADR16      WRITE GAP AND ADR FIELD.
-                    076             BCS WEXIT2      ERR IF WRITE PROTECTED.
+3F17:20 56 3C       075             JSR WADR16      WRITE GAP AND ADR FIELD.
+3F1A:B0 6B          076             BCS WEXIT2      ERR IF WRITE PROTECTED.
                     077             JSR WRITE16     ;WRITE SECTOR FROM NBUF1, NBUF2
                     078             BCS WEXIT2      ERR IF WRITE PROTECTED.
                     079             INC NSECT       NEXT OF 16 SECTORS.
