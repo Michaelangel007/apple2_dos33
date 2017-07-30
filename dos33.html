@@ -214,15 +214,32 @@ h2 {
 /*
 After an hr there is a line of whitespace
     <div class="hr"><hr></div>
-Solution: place <hr> on same line
+Solution.1: place <hr> on same line
+Solution.2: use div
+    <div class='page'></div>
+    div.page {
+        padding: 0px;
+        margin : 0px;
+        border-top:1px solid black;
+        width: 100%;
+        height: 1px;
+        margin-bottom:-1em
+    }
+Solution.3: place <hr> on last line of page, use:
+    margin-bottom: -1.25em;
 */
 hr {
     margin: 1px 1px;
 /*
 #    padding: 0px;
 #    margin:  0px;
-#    margin-top:-1em
+#    margin-top:-1em; <-- can't use as this put the seperator on the wrong line ABOVE
 */
+}
+hr.page {
+    padding: 0px;
+    margin:  0px;
+    margin-bottom: -1.25em;
 }
 hr.join { /* We have a double horizontal rule for new source files, use 0 padding on the bottom */
     margin: 0px 0px;
