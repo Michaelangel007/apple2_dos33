@@ -7220,96 +7220,96 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     026 MOTORON     EQU $C089
                     027 DRV1EN      EQU $C08A
                     028 DRV2EN      EQU $C08B
-                    029 
-                    030 
-                    031 
-                    032 
-                    033 
-                    034 
-                    035 
-                    036 
-                    037 
-                    038 
-                    039 
-                    040 
-                    041 
-                    042 
-                    043 
-                    044 
-                    045 
-                    046 
-                    047 
-                    048 
-                    049 
-                    050 
-                    051 
-                    052 
-                    053 
-                    054 
-                    055 
-                    056 
-                    057 
-                    058 
-                    059 
-                    060 
-                    061 
-                    062 
-                    063 
-                    064 
-                    065 
-                    066 
-                    067 
-                    068 
-                    069 
-                    070 
-                    071 
-                    072 
-                    073 
-                    074 
-                    075 
-                    076 
-                    077 
-                    078 
-                    079 
-                    080 
-                    081 
-                    082 
-                    083 
-                    084 
-                    085 
-                    086 
-                    087 
-                    088 
-                    089 
-                    090 
-                    091 
-                    092 
-                    093 
-                    094 
-                    095 
-                    096 
-                    097 
-                    098 
-                    099 
-                    100 
-                    101 
-                    102 
-                    103 
-                    104 
-                    105 
-                    106 
-                    107 
-                    108 
-                    109 
-                    110 
-                    111 
-                    112 
-                    113 
-                    114 
-                    115 
-                    116 
-                    117 
-                    118 
+                    029 ******************************
+                    030 * STATE MACHINE CONTROLS
+                    031 * Q6   Q7   FUNCTION
+                    032 * --   --   --------
+                    033 * LO   LO   READ
+                    034 * HI   LO   SENSE WRITE PROTECT
+                    035 * LO   HI   WRITE
+                    036 * HI   HI   WRITE LOAD
+                    037 ******************************
+                    038 DRV1TRK     EQU $478
+                    039 DRV2TRK     EQU $4F8
+                    040 IOBPL       EQU $48                                         ;
+                    041 IOBPH       EQU $49                                         ;
+                    042 SLOT        EQU $5F8        ;HOLDS SLOT NUM USED            ;
+                    043 PTRSDEST    EQU $3C                                         ;
+                    044 DEVCTBL     EQU PTRSDEST                                    ;
+                    045 DRIVNO      EQU $35                                         ;
+                    046 MONTIME     EQU $46                                         ;
+                    047 SECT        EQU CSSTV+1                                     ;
+                    048 TRACK       EQU CSSTV+2                                     ;
+                    049 VOLUME      EQU CSSTV+3                                     ;
+                    050 MAXSEEKS    EQU 4           ;MAX FOR SEEKCNT                ;
+                    051 SEEKCNT     EQU $4F8        ;# RESEEKS BEFORE RECALIBRATE   ;
+                    052 RETRYCNT    EQU $578                                        ;
+                    053 RECALCNT    EQU $6F8        ;# RECALIBRATES -1              ;
+<hr>                    054             PAGE                                            ; === Page <a class='page' name='page117'>117</a> ===
+                    055     LST OFF
+                    056     DO <a class='do' href='#DIAGMODE'>DIAGMODE</a><span class='macro'>
+                    057 *                                                           
+                    058 * DIAGMODE EQUATES...                                       
+                    059 *                                                           
+                    060 SP          EQU $A0        ;SPACE (INDICATOR OFF)           
+                    061 TD          EQU 4          ;DISPL BETWEEN CHARS             
+                    062 TC1         EQU $1E        ;^ - RWTS ACTIVE                 
+                    063 TL1         EQU $07D0                                       
+                    064 TC2         EQU $0D        ;M - MOTOR STARTUP               
+                    065 TL2         EQU TL1+TD                                      
+                    066 TC3         EQU $13        ;S - SEEK IN PROGRESS            
+                    067 TL3         EQU TL2+TD                                      
+                    068 TC4         EQU $01        ;A - READING ADDRESS             
+                    069 TL4         EQU TL3+TD                                      
+                    070 TC5         EQU $0C        ;L - NOT DESIRED SECTOR (LATENCY)
+                    071 TL5         EQU TL4+1                                       
+                    072 TC6         EQU $05        ;E - ADDRESS ERROR               
+                    073 TL6         EQU TL5+1                                       
+                    074 TC7         EQU $10        ;P - PRENIBBILIZING              
+                    075 TL7         EQU TL4+TD                                      
+                    076 TC8         EQU $17        ;W - WRITING                     
+                    077 TL8         EQU TL7+TD                                      
+                    078 TC9         EQU $12        ;R - READING                     
+                    079 TL9         EQU TL8+TD                                      
+                    080 TC10        EQU $05        ;E - READ ERROR                  
+                    081 TL10        EQU TL9+TD                                      
+                    082 TC11        EQU $0F        ;O - POSTNIBBLIZING              
+                    083 TL11        EQU TL10+TD                                     
+                    084 *                                                           
+                    085 SCOUNT      EQU $2FE        ;SECTORS-ACCESSED COUNT         
+                    086 LCOUNT      EQU $2FF        ;LATENCY COUNT                  
+                    087 TL12        EQU TL11+TD     ;LATENCY POSITION               
+                    088             PAGE
+                    089     FIN</span>
+                    090     LST ON
+                    091 **************************
+                    092 *                        *
+                    093 *      READ/WRITE A      *
+                    094 *    TRACK AND SECTOR    *
+                    095 *                        *
+                    096 **************************
+                    097 *                        *
+                    098 *   ENTER WITH A &amp; Y     *
+                    099 * REGISTERS POINTING TO  *
+                    100 * THE I/O CONTROL BLOCK  *
+                    101 * (THE 'IOB'). INSIDE    *
+                    102 * THE IOB:               *
+                    103 *                        *
+                    104 * IBTYPE: IOB TYPE CODE  *
+                    105 *       (SHOULD BE A 01) *
+                    106 *                        *
+                    107 * IBSLOT: CONTROLLER SLOT*
+                    108 *      NUMBER FOR THIS   *
+                    109 *      ACCESS.           *
+                    110 *                        *
+                    111 * IBDRVN: DRIVE NUMBER   *
+                    112 *       FOR THIS ACCESS  *
+                    113 *                        *
+                    114 * IBVOL: EXPECTED VOLUME *
+                    115 *      NUMBER. NOTE THAT *
+                    116 *      VOLUME 00 MATCHES *
+<hr>                    117 *      ANY VOLUME NUMBER *                                  ; === Page <a class='page' name='page118'>118</a> ===
+                    118 *                        *
                     119 
                     120 
                     121 
@@ -7431,8 +7431,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     237 
                     238 
                     239 
-                    240 
-                    241 
+                    240 *
+                    241 ITISON      EQU *
 <hr>3D4E:08             242             PHP             ;SAVE TEST RESULTS              ; === Page <a class='page' name='page120'>120</a> ===
 3D4F:BD 89 C0       243             LDA MOTORON,X   ;TURN ON MOTOR REGARDLESS
 3D52:A0 06          244             LDY #<span class='n'>6</span>          ;MOVE OUT ALL POINTERS INTO ZPAGE    ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> IOB_
