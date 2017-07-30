@@ -6406,7 +6406,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3875:BD 8C C0       086             LDA <a class="v" href="#Q6L"  >Q6L</a>,X       ;(4)
 3878:88             087             DEY             ;(2)  NEXT NIBL.
 3879:D0 EB          088             BNE <a class="x" href="#WDATA0"   >WDATA0</a>      ;(2*) MUST NOT CROSS PAGE!      ; ^
-387B:A5 26          089             LDA WTEMP       ;(3) PRIOR NIBL FROM BUF6.
+387B:A5 26          089             LDA <a class='v' href='#WTEMP'>WTEMP</a>       ;(3) PRIOR NIBL FROM BUF6.
 387D:EA             090             NOP             ;(2)  CRITICAL TIMING.
 387E:59 00 3B       091 <a class="f"    name="WDATA2"       >WDATA2      </a>EOR NBUF1,Y     ;(5)  XOR WITH CURRENT.
 3881:AA             092             TAX             ;(2)
