@@ -6421,7 +6421,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3895:BD 29 3A       101             LDA <a class="v" href="#NIBL"   >NIBL</a>,X      ;(4)  INDEX TO 7-BIT NIBL
 3898:A6 27          102             LDX <a class="v" href="#SLOTZ"  >SLOTZ</a>       ;(3)
 389A:20 BB 38       103             JSR <a class="x" href="#WNIBL"  >WNIBL</a>       ;(6,9,6)  WRITE CHKSUM
-389D:A9 DE          104             LDA #$<span class='n'>DE</span>        ;(2)  DM4, BIT SLIP MARK.
+389D:A9 DE          104             LDA #$<span class='n'>DE</span>        ;(2)  DM4, BIT SLIP MARK.       ; <a class='magic' id='????'>magic number</a> <span class='todo'>TODO</span>
 389F:20 B8 38       105             JSR <a class="x" href="#WNIBL9" >WNIBL9</a>      ;(15,9,6)    WRITE IT.
 38A2:A9 AA          106             LDA #$<span class='n'>AA</span>        ;(2)  DM5, BIT SLIP MARK.
 38A4:20 B8 38       107             JSR <a class="x" href="#WNIBL9" >WNIBL9</a>      ;(15,9,6)    WRITE IT.
