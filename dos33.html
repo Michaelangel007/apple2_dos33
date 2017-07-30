@@ -6370,8 +6370,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 382A:38             050 <a class="f"    name="WRITE16"      >WRITE16     </a>SEC             ;ANTICIPATE WPROT ERR.          ; === Reloc @ $B82A ===
 382B:86 27          051             STX <a class="v" href="#SLOTZ"  >SLOTZ</a>       ;FOR ZERO PAGE ACCESS.
 382D:8E 78 06       052             STX <a class="v" href="#SLOTABS">SLOTABS</a>     ;FOR NON-ZERO PAGE.
-3830:BD 8D C0       053             LDA <a class="v" href="#Q6H"    >Q6H</a>,X
-3833:BD 8E C0       054             LDA <a class="v" href="#Q7L"    >Q7L</a>,X       ;SENSE WPROT FLAG.
+3830:BD 8D C0       053             LDA <a class="v" href="#Q6H"    >Q6H</a>,X<hr class='page'>
+3833:BD 8E C0       054             LDA <a class="v" href="#Q7L"    >Q7L</a>,X       ;SENSE WPROT FLAG.              ; === Page <a class='page' name='page138'>138</a> ===
 3836:30 7C          055             BMI <a class="x" href="#WEXIT"  >WEXIT</a>       ;IF HIGH, THEN ERR.             ; v
 3838:AD 00 3C       056             LDA <a class="v" href="#NBUF2"  >NBUF2</a>
 383B:85 26          057             STA <a class="v" href="#WTEMP"  >WTEMP</a>       ;FOR ZERO-PAGE ACCESS.
