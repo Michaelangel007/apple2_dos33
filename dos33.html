@@ -7761,7 +7761,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     239 * IF DRIVNO IS NEGATIVE, ON DRIVE 1
                     240 * IF DRIVNO IS POSITIVE, ON DRIVE 2
                     241 *
-<hr>3E5A:48             242 <a class="x" name="MYSEEK"      >MYSEEK      </a>PHA             ; AND PRESERVE A-REGISTER       ; === Page <a class="page" name="page126">126</a> === Uhm, OK, Captain Obvious
+<hr>3E5A:48             242 <a class='f' id='3E5A' name="MYSEEK"      >MYSEEK      </a>PHA             ; AND PRESERVE A-REGISTER       ; === Page <a class="page" name="page126">126</a> === Uhm, OK, Captain Obvious
                     243     LST OFF
                     244     DO <a class='do' href='#DIAGMOD'>DIAGMOD</a><span class='macro'>
                     245         LDA #TC3            ;SAY 'SEEKING'                  
@@ -7777,23 +7777,23 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     255             JSR MYSEEK2
                     256             LDA CURTRK      ;DIVIDE BACK DOWN
                     257     LST OFF
-                    258 
-                    259 
-                    260 
-                    261 
-                    262 
-                    263 
-                    264 
-                    265 
-                    266 
-                    267 
-                    268 
-                    269 
-                    270 
-                    271 
-                    272 
-                    273 
-                    274 
+                    258     DO <a class='do' href='#DIAGMOD'>DIAGMOD</a><span class='macro'>
+                    259         LDA #SP                                             
+                    260         STA TL3             ;SEEK DONE                      </span>
+                    261     FIN
+                    262     LST ON
+                    263             RTS
+                    264 <a class='f' id='????' name='MYSEEK2'     >MYSEEK2     </a>STA TRK         ;SAVE DESTINATION TRACK(*2)     ;
+                    265             JSR XTOY        ;SET Y=SLOT#
+                    266             LDA DRV1TRK,Y
+                    267             BIT DRIVNO
+                    268             BMI WASD0       ;IS MINUS, ON DRIVE ZERO
+                    269             LDA DRV2TRK,Y
+                    270 <a class='f' id='????' name='WASD0'       >WASD0       </a>STA CURTRK      ;THIS IS WHERE I AM             ; <i>Going to resist cheap shot here</i>
+                    271             LDA TRKN        ;AND WHERE I'M GOING TO         ; But I <b>will</b> point out crappy var names and better ones:
+                    272             BIT DRIVNO      ;NOW UPDATE SLOT DEPENDENT      ;   <span class='code'>SRC_TRK</span>
+                    273             BMI ISDRV1      ;LOCATIONS WITH TRACK           ;   <span class='code'>DST_TRK</span>
+                    274             STA DRV2TRK,Y   ;INFORMATION
 3E86:10 03          275             BPL <a class="x" href="#GOSEEK">GOSEEK</a>      ;ALWAYS TAKEN
 3E88:99 78 04       276 <a class='f' id='3E88' name='ISDRV1'      >ISDRV1      </a>STA DRV1TRK,Y
 3E8B:4C A0 B9       277 <a class='f' id='3E8B' name='GOSEEK'      >GOSEEK      </a>JMP <a class="x" href="#SEEK">SEEK</a>        ;GO THERE!
@@ -7809,7 +7809,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     287 * LOCATION.
                     288 *
 3E95:48             289 <a class='f' id='3E95' name='SETTRK'     >SETTRK      </a>PHA             ;PRESERVE DESTINATION TRACK
-3E96:A0 02          290             LDY #$02                                        ; <a class='magic' name='_3E96'>magic number</a> IOB_OFFSET_DRIVE = $2
+3E96:A0 02          290             LDY #$<span class='n'>02</span>                                        ; <a class='magic' name='_3E96'>magic number</a> IOB_OFFSET_DRIVE = $2
 3E98:B1 48          291             LDA (IOBPL),Y
 3E9A:6A             292             ROR A           ;GET DRIVE # INTO CARRY
 3E9B:66 35          293             ROR DRIVNO      ;INTO (DRIVNO)

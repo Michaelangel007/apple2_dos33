@@ -171,11 +171,11 @@ Project Status Pages left:
     119 - - - - - - - - RWTSONE
     120 T - - - - - - - RWTSONE $3D4E
     121 T - - - - - - - RWTSONE $3D9A
-    122 - - - - - - - - RWTSTWO $3DAB
-    123 - - - - - - - -
-    124 - - - - - - - -
-    125 - - - - - - - -
-    126 - - - - - - - -
+    122 T - - - - - - - RWTSTWO $3DAB
+    123 T - - - - - - - RWTSTWO $3DCC
+    124 T - - - - - - - RWTSTWO $3E2E
+    125 T - - - - - - - RWTSTWO $3E40
+    126 T - - - - - - - RWTSTWO $3E5E
     127 T - - - - - - - RWTSTWO n/a
     128 n/a             TEMPY
     129 n/a             TRASH (dup of FLOCSEC)
@@ -216,6 +216,6 @@ Project Status Pages left:
         1st 3rd
           2nd 4th
 
-1st pass Remaining: 15
+1st pass Remaining: 8
 -->
 
