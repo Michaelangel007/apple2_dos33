@@ -7666,14 +7666,14 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     145     DO <a class="do" href="#DIAGMOD">DIAGMOD</a><span class="macro">
                     146         LDA #TC9            ;SAY 'READING'                  
                     147         STA TL9                                             
-                    148         LDA #SP                                             
+                    148         LDA #SP             ;SAY 'NO READ ERROR' (YET)      
                     149         STA TL10                                            </span>
                     150     FIN
                     151     LST ON
 3E35:20 DC 38       152             JSR <a class="x" href="#READ16">READ16</a>      ;CLEARED FOR WRITE
                     153     LST OFF
                     154     DO <a class="do" href="#DIAGMOD">DIAGMOD</a><span class="macro">
-                    155         LDA #SP                                             
+                    155         LDA #SP             ;READ FINISHED                  
                     156         STA TL9                                             </span>
                     157     FIN
                     158     LST ON
@@ -7763,20 +7763,20 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     241 *
 <hr>3E5A:48             242 <a class="x" name="MYSEEK"      >MYSEEK      </a>PHA             ; AND PRESERVE A-REGISTER       ; === Page <a class="page" name="page126">126</a> === Uhm, OK, Captain Obvious
                     243     LST OFF
-                    244 
-                    245 
-                    246 
-                    247 
-                    248 
-                    249 
-                    250 
-                    251 
-                    252 
-                    253 
-                    254 
-                    255 
-                    256 
-                    257 
+                    244     DO <a class='do' href='#DIAGMOD'>DIAGMOD</a><span class='macro'>
+                    245         LDA #TC3            ;SAY 'SEEKING'                  
+                    246         STA TL3                                             </span>
+                    247     FIN
+                    248     LST ON
+                    249             LDY #$<span class='n'>01</span>        ;IS THIS A TWO-PHASE DISC?      ; <a class='magic' id='????'>magic number</a> <span class='todo'>TODO</span>
+                    250             LDA (DEVCTBL),Y
+                    251             ROR A           ;GET # OF PHASES INTO CARRY
+                    252             PLA
+                    253             BCC MYSEEK2     ;IF ONE PHASE PER TRACK
+                    254             ASL A
+                    255             JSR MYSEEK2
+                    256             LDA CURTRK      ;DIVIDE BACK DOWN
+                    257     LST OFF
                     258 
                     259 
                     260 
