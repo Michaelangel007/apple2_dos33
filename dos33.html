@@ -7585,7 +7585,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3DDC:F0 28          064             BEQ <a class="x" href="#DRVERR">DRVERR</a>      ;TRIED TO RECALIBRATE TOO MANY TIMES, ERROR! ; v
 3DDE:A9 04          065             LDA #MAXSEEKS   ;RESET THE
 3DDE:8D F8 04       066             STA SEEKCNT     ; SEEK COUNTER
-3DE1:A9 00          067             LDA #$00
+3DE1:A9 00          067             LDA #$<span class='n'>00</span>
 3DE3:20 5A 3E       068             JSR <a class="x" href="#MYSEEK">MYSEEK</a>      ;MOVE TO TRACK 00               ; v
 3DE6:68             069             PLA
 3DE7:4C 5A 3E       070 <a class="f" name="RESEEK"      >RESEEK      </a>JSR <a class="x" href="#MYSEEK">MYSEEK</a>      ;GO TO CORRECT TRACK THIS TIME!
