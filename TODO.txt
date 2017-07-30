@@ -15,8 +15,9 @@ TODO:
 
 <span class="todo">TODO</span> add fixed header on scroll for filenames
 
-<a class="page" href="#page1"></a>
-=== Page <a class="page" name="page1"></a> ===
+<hr class='page'>
+<a class='page' href='#page1'>Page 1</a>
+=== Page <a class='page' name='page1'></a> ===
 
 <span class='code'>FOO EQU $00</span>
 <a class='magic' name='#_1C28'>magic number</a>
@@ -53,18 +54,18 @@ Project Status Pages left:
       1 n/a             Cover
       2 n/a             List of files
       3 n/a             ASMIDSTAMP
-      4 T - - - N - P - BLDFTAB $27D4
-      5 T - - - - - P - BLDFTAB $2803
-      6 T - - - - - P - BLDFTAB $2853
+      4 T - - - N - - - BLDFTAB $27D4
+      5 T - - - - - - - BLDFTAB $2803
+      6 T - - - - - - - BLDFTAB $2853
       7 n/a             BLOCKIO.hex -- need disassembly
-      8 T - - - - - P - BOOTLDR $3600
-      9 T - - - - - P - BOOTLDR $3607
-     10 T - - - - - P - BOOTLDR $3676
-     11 T - - - - - P - BOOTLDR $36B3
-     12 T - - - - - P - BOOTLDR $36FD
-     13 T - - - - - P - BOOTLDR $3751
-     14 T - - - - - P - BOOTLDR $37D0
-     15 T - - - - - P - BOOTLDR n/a
+      8 T - - - - - - - BOOTLDR $3600
+      9 T - - - - - - - BOOTLDR $3607
+     10 T - - - - - - - BOOTLDR $3676
+     11 T - - - - - - - BOOTLDR $36B3
+     12 T - - - - - - - BOOTLDR $36FD
+     13 T - - - - - - - BOOTLDR $3751
+     14 T - - - - - - - BOOTLDR $37D0
+     15 T - - - - - - - BOOTLDR n/a
      16 T - - - - - - - CMDSCAN
      17 T - - - - - - - CMDSCAN
      18 T - - - - - - - CMDSCAN
@@ -186,9 +187,9 @@ Project Status Pages left:
     134 T - - - - - - - WRITADR $3C56
     135 T - - - - - - - WRITADR $3C57
     136 T - - - - - - - WRITADR $3CD7
-    137 - - - - - - - - WRITRTN
-    138 - - - - - - - - WRITRTN
-    139 T - - - - - - - WRITRTN $38B8
+    137 T - - - - - - - WRITRTN $382A
+    138 T - - - - - P - WRITRTN
+    139 T - - - - - P - WRITRTN $38B8
     140 T - - - - - - - XLODSAV
     141 T - - - - - - - XLODSAV
     142 T - - - - - - - XLODSAV $23FC
@@ -216,6 +217,6 @@ Project Status Pages left:
         1st 3rd
           2nd 4th
 
-1st pass Remaining: 8
+1st pass Remaining: 6
 -->
 
