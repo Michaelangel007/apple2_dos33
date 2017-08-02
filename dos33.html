@@ -7265,39 +7265,39 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 <hr>                    054             PAGE                                            ; === Page <a class='page' name='page117'>117</a> ===
                     055     LST OFF
                     056     DO <a class='do' href='#DIAGMODE'>DIAGMODE</a><span class='macro'>
-                    057 *                                                           
-                    058 * DIAGMODE EQUATES...                                       
-                    059 *                                                           
-                    060 SP          EQU $A0        ;SPACE (INDICATOR OFF)           
-                    061 TD          EQU 4          ;DISPL BETWEEN CHARS             
-                    062 TC1         EQU $1E        ;^ - RWTS ACTIVE                 
-                    063 TL1         EQU $07D0                                       
-                    064 TC2         EQU $0D        ;M - MOTOR STARTUP               
-                    065 TL2         EQU TL1+TD                                      
-                    066 TC3         EQU $13        ;S - SEEK IN PROGRESS            
-                    067 TL3         EQU TL2+TD                                      
-                    068 TC4         EQU $01        ;A - READING ADDRESS             
-                    069 TL4         EQU TL3+TD                                      
-                    070 TC5         EQU $0C        ;L - NOT DESIRED SECTOR (LATENCY)
-                    071 TL5         EQU TL4+1                                       
-                    072 TC6         EQU $05        ;E - ADDRESS ERROR               
-                    073 TL6         EQU TL5+1                                       
-                    074 TC7         EQU $10        ;P - PRENIBBILIZING              
-                    075 TL7         EQU TL4+TD                                      
-                    076 TC8         EQU $17        ;W - WRITING                     
-                    077 TL8         EQU TL7+TD                                      
-                    078 TC9         EQU $12        ;R - READING                     
-                    079 TL9         EQU TL8+TD                                      
-                    080 TC10        EQU $05        ;E - READ ERROR                  
-                    081 TL10        EQU TL9+TD                                      
-                    082 TC11        EQU $0F        ;O - POSTNIBBLIZING              
-                    083 TL11        EQU TL10+TD                                     
-                    084 *                                                           
-                    085 SCOUNT      EQU $2FE        ;SECTORS-ACCESSED COUNT         
-                    086 LCOUNT      EQU $2FF        ;LATENCY COUNT                  
-                    087 TL12        EQU TL11+TD     ;LATENCY POSITION               
-                    088             PAGE
-                    089     FIN</span>
+                    057 *                                                            
+                    058 * DIAGMODE EQUATES...                                        
+                    059 *                                                            
+                    060 SP          EQU $A0         ;SPACE (INDICATOR OFF)           
+                    061 TD          EQU 4           ;DISPL BETWEEN CHARS             
+                    062 TC1         EQU $1E         ;^ - RWTS ACTIVE                 
+                    063 TL1         EQU $07D0                                        
+                    064 TC2         EQU $0D         ;M - MOTOR STARTUP               
+                    065 TL2         EQU TL1+TD                                       
+                    066 TC3         EQU $13         ;S - SEEK IN PROGRESS            
+                    067 TL3         EQU TL2+TD                                       
+                    068 TC4         EQU $01         ;A - READING ADDRESS             
+                    069 TL4         EQU TL3+TD                                       
+                    070 TC5         EQU $0C         ;L - NOT DESIRED SECTOR (LATENCY)
+                    071 TL5         EQU TL4+1                                        
+                    072 TC6         EQU $05         ;E - ADDRESS ERROR               
+                    073 TL6         EQU TL5+1                                        
+                    074 TC7         EQU $10         ;P - PRENIBBILIZING              
+                    075 TL7         EQU TL4+TD                                       
+                    076 TC8         EQU $17         ;W - WRITING                     
+                    077 TL8         EQU TL7+TD                                       
+                    078 TC9         EQU $12         ;R - READING                     
+                    079 TL9         EQU TL8+TD                                       
+                    080 TC10        EQU $05         ;E - READ ERROR                  
+                    081 TL10        EQU TL9+TD                                       
+                    082 TC11        EQU $0F         ;O - POSTNIBBLIZING              
+                    083 TL11        EQU TL10+TD                                      
+                    084 *                                                            
+                    085 SCOUNT      EQU $2FE        ;SECTORS-ACCESSED COUNT          
+                    086 LCOUNT      EQU $2FF        ;LATENCY COUNT                   
+                    087 TL12        EQU TL11+TD     ;LATENCY POSITION                
+                    088             PAGE</span>
+                    089     FIN
                     090     LST ON
                     091 **************************
                     092 *                        *
@@ -7324,82 +7324,82 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     113 *                        *
                     114 * IBVOL: EXPECTED VOLUME *
                     115 *      NUMBER. NOTE THAT *
-                    116 *      VOLUME 00 MATCHES *
-<hr>                    117 *      ANY VOLUME NUMBER *                                  ; === Page <a class='page' name='page118'>118</a> ===
+                    116 *      VOLUME 00 MATCHES *<hr class='page'>
+                    117 *      ANY VOLUME NUMBER *                                  ; === Page <a class='page' name='page118'>118</a> ===
                     118 *                        *
-                    119 
-                    120 
-                    121 
-                    122 
-                    123 
-                    124 
-                    125 
-                    126 
-                    127 
-                    128 
-                    129 
-                    130 
-                    131 
-                    132 
-                    133 
-                    134 
-                    135 
-                    136 
-                    137 
-                    138 
-                    139 
-                    140 
-                    141 
-                    142 
-                    143 
-                    144 
-                    145 
-                    146 
-                    147 
-                    148 
-                    149 
-                    150 
-                    151 
-                    152 
-                    153 
-                    154 
-                    155 
-                    156 
-                    157 
-                    158 
-                    159 
-                    160 
-                    161 
-                    162 
-                    163 
-                    164 
-                    165 
-                    166 
-                    167 
-                    168 
-                    169 
-                    170 
-                    171 
-                    172 
-                    173 
-                    174 
-                    175 
-                    176 
-                    177 
-                    178 
-                    179 
-                    180 
-                    181 
-                    182 
-                    183 
-                    184 
-                    185 
-                    186 
-                    187 
-                    188 
-                    189 
-                    190 
-                    191 
+                    119 * IBTRK: TRACK TO USE    *
+                    120 *      THIS ACCESS       *
+                    121 *                        *
+                    122 * IBSECT: SECTOR NUMBER  *
+                    123 *       TO USE THIS TIME *
+                    124 *                        *
+                    125 * IBDCTP: POINTER TO THE *
+                    126 *       DEVICE CHARACTER-*                                  ; Really? You HAD to indent the line and force an artificial word break when it fits??
+                    127 *       ISTICS TABLE.    *
+                    128 *                        *
+                    129 * IBBUFP: POINTER TO THE *
+                    130 *       PLACE THE DATA IS*
+                    131 *       OR SHOULD BE.    *
+                    132 *                        *
+                    133 * IBDLEN: AMOUNT OF DATA *
+                    134 *       INBYTESTOBE      *
+                    135 *       PROCESSED.       *
+                    136 *                        *
+                    137 * IBCMD: COMMAND CODE:   *
+                    138 *      0-&gt; NULL COMMAND  *                                  ; And this serves what purpose???
+                    139 *      1-&gt; READ SECTOR   *
+                    140 *      2-&gt; WRITE SECTOR  *
+                    141 *      4-&gt; FORMAT DISK   *
+                    142 *
+                    143 * IBSTAT: ERROR CODE:    *
+                    144 *     0-> NO ERROR       *
+                    145 *   $10-> WRITE PROTECT  *
+                    146 *   $20-> VOLUME ERROR   *
+                    147 *   $40-> DRIVE ERROR    *
+                    148 *   $80-> READ ERROR     *
+                    149 *
+                    150 * IBSMOD: LOCATION TO    *
+                    151 *       RETURN THE VOLUME*
+                    152 *       NUMBER ACTUALLY  *
+                    153 *       FOUND.           *
+                    154 *                        *
+                    155 * IOBPSN: PREVIOUS SLOT  *
+                    156 *      NUMBER USED LAST  *                                  ; Why isn't the first word aligned with the colon???
+                    157 *      ACCESS.           *
+                    158 *                        *
+                    159 *                        *
+                    160 * IOBPDN: PREVIOUS DRIVE *
+                    161 *      NUMBER USED LAST  *
+                    162 *      ACCESS.           *
+                    163 *                        *
+                    164 **************************
+                    165 *                        *
+                    166 * DEVICE CHARACTERISTICS *
+                    167 * TABLE DESCRIPTION:     *
+                    168 *                        *
+                    169 * DEVICE TYPE CODE       *
+                    170 *  (ZERO FOR DISK II)    *
+                    171 *                        *
+                    172 * NUMBER OF PHASES PER   *
+                    173 * TRACK (TWO FOR DISK II)*
+                    174 *                        *
+                    175 * MOTOR ON TIME IN 100   *
+                    176 * MICROSECOND INTERVALS  *
+                    177 * COMPLEMENTED. ($D8EF   *
+                    178 * FOR DISK II)           *
+                    179 *                        *
+                    180 **************************<hr class='page'>
+                    181             PAGE                                            ; === Page <a class='page' name='page119'>119</a> ===
+3D00:84 48          182 RWTS        STY IOBPL       ;UPON ENTRY, A&Y POINT AT THE
+3D02:85 49          183             STA IOBPH       ;I/O CONTROL BLOCK (IOB)
+                    184         LST OFF
+                    185         DO <a class='do' href='#DIAGMODE'>DIAGMODE</a><span class='macro'>
+                    186             LDY #TC1        ;SAY WE'RE ACTIVE               
+                    187             STY TL1                                         </span>
+                    188         FIN
+                    189         LST ON
+3D04:A0 02          190             LDY #<span class='n'>2</span>          ;SET RECALIBRATE
+3D06:8C F8 06       191             STY RECALCNT    ; COUNT                         ; Text screen hole!
                     192 
                     193 
                     194 
