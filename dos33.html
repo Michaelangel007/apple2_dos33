@@ -7261,8 +7261,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     050 MAXSEEKS    EQU 4           ;MAX FOR SEEKCNT                ;
                     051 SEEKCNT     EQU $4F8        ;# RESEEKS BEFORE RECALIBRATE   ;
                     052 RETRYCNT    EQU $578                                        ;
-                    053 RECALCNT    EQU $6F8        ;# RECALIBRATES -1              ;
-<hr>                    054             PAGE                                            ; === Page <a class='page' name='page117'>117</a> ===
+                    053 RECALCNT    EQU $6F8        ;# RECALIBRATES -1              ;<hr class='page'>
+                    054             PAGE                                            ; === Page <a class='page' name='page117'>117</a> ===
                     055     LST OFF
                     056     DO <a class='do' href='#DIAGMODE'>DIAGMODE</a><span class='macro'>
                     057 *                                                            
@@ -7352,11 +7352,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     141 *      4-&gt; FORMAT DISK   *
                     142 *
                     143 * IBSTAT: ERROR CODE:    *
-                    144 *     0-> NO ERROR       *
-                    145 *   $10-> WRITE PROTECT  *
-                    146 *   $20-> VOLUME ERROR   *
-                    147 *   $40-> DRIVE ERROR    *
-                    148 *   $80-> READ ERROR     *
+                    144 *     0-&gt; NO ERROR       *
+                    145 *   $10-&gt; WRITE PROTECT  *
+                    146 *   $20-&gt; VOLUME ERROR   *
+                    147 *   $40-&gt; DRIVE ERROR    *
+                    148 *   $80-&gt; READ ERROR     *
                     149 *
                     150 * IBSMOD: LOCATION TO    *
                     151 *       RETURN THE VOLUME*
@@ -7367,90 +7367,90 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     156 *      NUMBER USED LAST  *                                  ; Why isn't the first word aligned with the colon???
                     157 *      ACCESS.           *
                     158 *                        *
-                    159 *                        *
-                    160 * IOBPDN: PREVIOUS DRIVE *
-                    161 *      NUMBER USED LAST  *
-                    162 *      ACCESS.           *
-                    163 *                        *
-                    164 **************************
-                    165 *                        *
-                    166 * DEVICE CHARACTERISTICS *
-                    167 * TABLE DESCRIPTION:     *
-                    168 *                        *
-                    169 * DEVICE TYPE CODE       *
-                    170 *  (ZERO FOR DISK II)    *
-                    171 *                        *
-                    172 * NUMBER OF PHASES PER   *
-                    173 * TRACK (TWO FOR DISK II)*
-                    174 *                        *
-                    175 * MOTOR ON TIME IN 100   *
-                    176 * MICROSECOND INTERVALS  *
-                    177 * COMPLEMENTED. ($D8EF   *
-                    178 * FOR DISK II)           *
-                    179 *                        *
-                    180 **************************<hr class='page'>
-                    181             PAGE                                            ; === Page <a class='page' name='page119'>119</a> ===
-3D00:84 48          182 RWTS        STY IOBPL       ;UPON ENTRY, A&Y POINT AT THE
-3D02:85 49          183             STA IOBPH       ;I/O CONTROL BLOCK (IOB)
-                    184         LST OFF
-                    185         DO <a class='do' href='#DIAGMODE'>DIAGMODE</a><span class='macro'>
-                    186             LDY #TC1        ;SAY WE'RE ACTIVE               
-                    187             STY TL1                                         </span>
-                    188         FIN
-                    189         LST ON
-3D04:A0 02          190             LDY #<span class='n'>2</span>          ;SET RECALIBRATE
-3D06:8C F8 06       191             STY RECALCNT    ; COUNT                         ; Text screen hole!
-                    192 
-                    193 
-                    194 
-                    195 
-                    196 
-                    197 
-                    198 
-                    199 
-                    200 
-                    201 
-                    202 
-                    203 
-                    204 
-                    205 
-                    206 
-                    207 
-                    208 
-                    209 
-                    210 
-                    211 
-                    212 
-                    213 
-                    214 
-                    215 
-                    216 
-                    217 
-                    218 
-                    219 
-                    220 
-                    221 
-                    222 
-                    223 
-                    224 
-                    225 
-                    226 
-                    227 
-                    228 
-                    229 
-                    230 
-                    231 
-                    232 
-                    233 
-                    234 
-                    235 
-                    236 
-                    237 
-                    238 
-                    239 
+                    159 * IOBPDN: PREVIOUS DRIVE *
+                    160 *      NUMBER USED LAST  *
+                    161 *      ACCESS.           *
+                    162 *                        *
+                    163 **************************
+                    164 *                        *
+                    165 * DEVICE CHARACTERISTICS *
+                    166 * TABLE DESCRIPTION:     *
+                    167 *                        *
+                    168 * DEVICE TYPE CODE       *
+                    169 *  (ZERO FOR DISK II)    *
+                    170 *                        *
+                    171 * NUMBER OF PHASES PER   *
+                    172 * TRACK (TWO FOR DISK II)*
+                    173 *                        *
+                    174 * MOTOR ON TIME IN 100   *
+                    175 * MICROSECOND INTERVALS  *
+                    176 * COMPLEMENTED. ($D8EF   *
+                    177 * FOR DISK II)           *
+                    178 *                        *
+                    179 **************************<hr class='page'>
+                    180             PAGE                                            ; === Page <a class='page' name='page119'>119</a> ===
+3D00:84 48          181 RWTS        STY IOBPL       ;UPON ENTRY, A&amp;Y POINT AT THE
+3D02:85 49          182             STA IOBPH       ;I/O CONTROL BLOCK (IOB)
+                    183         LST OFF
+                    184         DO <a class='do' href='#DIAGMODE'>DIAGMODE</a><span class='macro'>
+                    185             LDY #TC1        ;SAY WE'RE ACTIVE
+                    186             STY TL1                                         </span>
+                    187         FIN
+                    188         LST ON
+3D04:A0 02          189             LDY #<span class='n'>2</span>          ;SET RECALIBRATE                ; TODO: magic number
+3D06:8C F8 06       190             STY RECALCNT    ; COUNT                         ; Text screen hole!
+                    191             LDY #MAXSEEKS   ;SET RESEEK
+                    192             STY SEEKCNT     ; COUNT
+                    193             LDY #<span class='n'>1</span>          ;GET SLOT # FOR THIS OPERATION  ; TODO: magic number
+                    194             LDA (IOBPL),Y
+                    195             TAX
+                    196             LDY #$<span class='n'>0F</span>        ;DID HE CHANGE SLOTS?           ; TODO: magic number
+                    197             CMP (IOBPL),Y
+                    198             BEQ SAMESLOT    ;IF HE DIDN'T, GOOD FOR HIM!
+                    199 *
+                    200 * NOW ARE USING A DIFFERENT SLOT.
+                    201 * NOW WAIT FOR THIS DRIVE TO TURN OFF
+                    202 * TO SENSE MOTOR NOT SPINNING, DATA FROM DISK MUST
+                    203 * BE THE SAME FOR AT LEAST 96 MICROSECONDS
+                    204             TXA             ;SAVE NEW SLOT #
+                    205             PHA
+                    206             LDA (IOBPL),Y   ;GET 'OLD SLOT NUMBER'
+                    207             TAX
+                    208             PLA
+                    209             PHA             ;PUT BACK ON STACK
+                    210             STA (IOBPL),Y   ;SAVE 'NEW SLOT NUMBER'
+                    211             LDA Q7L,X       ;GO INTO READ MODE
+                    212 STILLON     LDY #$08        ;TO BE SURE, DATA MUST REMAIN
+                    213             LDA Q6L,X       ;STABLE FOR 96 MICROSECONDS
+                    214 NOTSURE     CMP Q6L,X       ;DATA STILL CHANGING?
+                    215             BNE STILLON     ;IF SO, STILL SPINNING
+                    216             DEY
+                    217             BNE NOTSURE     ;STABLE LONG ENOUGH? IF NOT, LOOP
+                    218 *
+                    219 * PREVIOUS SLOT'S DRIVE NOW OFF...
+                    220 *
+                    221             PLA             ;RESTORE NEW SLOT #
+                    222             TAX
+                    223 *
+                    224 * NOW CHECK IF THE MOTOR IS ON, THEN START IT
+                    225 *
+                    226 SAMESLOT    LDA Q7L,X       ;MAKE SURE IN READ MODE
+                    227             LDA Q6L,X
+                    228             LDY #8          ;WE MAY HAFTA CHECK SEVERAL TIMES TO BE SURE
+                    229 CHKIFON     EQU *
+                    230             LDA Q6L,X       ;GET THE DATA
+                    231             PHA             ;DELAY FOR DISK DATA TO CHANGE
+                    232             PLA
+                    233             PHA
+                    234             PLA
+                    235             STA SLOT
+                    236             CMP Q6L,X       ;CHECK RUNNING HERE
+                    237             BNE ITISON      ;=&gt;IT'S ON...
+                    238             DEY             ;MAYBE WE DIDN'T CATCH IT
+                    239             BNE CHKIFON     ; SO WE'LL TRY AGAIN
                     240 *
-                    241 ITISON      EQU *
-<hr>3D4E:08             242             PHP             ;SAVE TEST RESULTS              ; === Page <a class='page' name='page120'>120</a> ===
+                    241 ITISON      EQU *<hr class='page'>
+3D4E:08             242             PHP             ;SAVE TEST RESULTS              ; === Page <a class='page' name='page120'>120</a> ===
 3D4F:BD 89 C0       243             LDA MOTORON,X   ;TURN ON MOTOR REGARDLESS
 3D52:A0 06          244             LDY #<span class='n'>6</span>          ;MOVE OUT ALL POINTERS INTO ZPAGE    ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> IOB_
                     245 PTRMOV      LDA (IOBPL),Y
@@ -7511,8 +7511,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     300             STY TL2                                         
                     301             LDY #0                                          
                     302             STY SCOUNT                                      
-                    303             STY LCOUNT                                      
-<hr>                    304             LDY #SP         ;SHUT OFF THE                   </span>; === Page <a class='page' name='page121'>121</a> ===<span class='macro'>
+                    303             STY LCOUNT                                      <hr class='page'>
+                    304             LDY #SP         ;SHUT OFF THE                   </span>; === Page <a class='page' name='page121'>121</a> ===<span class='macro'>
                     305             STY TL12        ; LATENCY INDICATOR             </span>
                     306     FIN
                     307     LST ON
