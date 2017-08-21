@@ -6182,10 +6182,10 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     098 *    ----RDADR16----   *
                     099 *                      *
                     100 ************************
-                    101 <a class='d' name='COUNT'    >COUNT       </a>EQU $26         'MUST FIND' COUNT.
-                    102 <a class='d' name='LAST'     >LAST        </a>EQU $26         'ODD BIT' NIBLS.
-                    103 <a class='d' name='CSUM'     >CSUM        </a>EQU $27         CHECKSUM BYTE.
-                    104 <a class='d' name='CSSTV'    >CSSTV       </a>EQU $2C         FOUR BYTES,                     ; Read forward, stored in <i>backwards order</i> due to <a class="x" href="#RDA5">RDA5</a>
+                    101 <a class='d' name='COUNT'    >COUNT       </a>EQU $<span class='n'>26</span>         'MUST FIND' COUNT.
+                    102 <a class='d' name='LAST'     >LAST        </a>EQU $<span class='n'>26</span>         'ODD BIT' NIBLS.
+                    103 <a class='d' name='CSUM'     >CSUM        </a>EQU $<span class='n'>27</span>         CHECKSUM BYTE.
+                    104 <a class='d' name='CSSTV'    >CSSTV       </a>EQU $<span class='n'>2C</span>         FOUR BYTES,                     ; Read forward, stored in <i>backwards order</i> due to <a class="x" href="#RDA5">RDA5</a>
                     105 *                           CHECKSUM, SECTOR, TRACK, AND VOLUME.
                     106 *
                     107 ************************
@@ -7246,22 +7246,22 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     035 * LO   HI   WRITE
                     036 * HI   HI   WRITE LOAD
                     037 ******************************
-                    038 DRV1TRK     EQU $478
-                    039 DRV2TRK     EQU $4F8
-                    040 IOBPL       EQU $48                                         ;
-                    041 IOBPH       EQU $49                                         ;
-                    042 SLOT        EQU $5F8        ;HOLDS SLOT NUM USED            ;
-                    043 PTRSDEST    EQU $3C                                         ;
-                    044 DEVCTBL     EQU PTRSDEST                                    ;
-                    045 DRIVNO      EQU $35                                         ;
-                    046 MONTIME     EQU $46                                         ;
-                    047 SECT        EQU CSSTV+1                                     ;
-                    048 TRACK       EQU CSSTV+2                                     ;
-                    049 VOLUME      EQU CSSTV+3                                     ;
-                    050 MAXSEEKS    EQU 4           ;MAX FOR SEEKCNT                ;
-                    051 SEEKCNT     EQU $4F8        ;# RESEEKS BEFORE RECALIBRATE   ;
-                    052 RETRYCNT    EQU $578                                        ;
-                    053 RECALCNT    EQU $6F8        ;# RECALIBRATES -1              ;<hr class='page'>
+                    038 <a class='d' name='DRV1TRK' >DRV1TRK     </a>EQU $<span class='n'>478</span>                                        ; Text screen hole
+                    039 <a class='d' name='DRV2TRK' >DRV2TRK     </a>EQU $<span class='n'>4F8</span>                                        ; Text screen hole
+                    040 <a class='d' name='IOBPL'   >IOBPL       </a>EQU $<span class='n'>48</span>                                         ;
+                    041 <a class='d' name='IOBPH'   >IOBPH       </a>EQU $<span class='n'>49</span>                                         ;
+                    042 <a class='d' name='SLOT'    >SLOT        </a>EQU $<span class='n'>5F8</span>        ;HOLDS SLOT NUM USED            ;
+                    043 <a class='d' name='PTRSDEST'>PTRSDEST    </a>EQU $<span class='n'>3C</span>                                         ;
+                    044 <a class='e' name='DEVCTBL' >DEVCTBL     </a>EQU <a class='v' href='#PTRSDEST'>PTRSDEST</a>                                    ;
+                    045 <a class='d' name='DRIVNO'  >DRIVNO      </a>EQU $<span class='n'>35</span>                                         ;
+                    046 <a class='d' name='MONTIME' >MONTIME     </a>EQU $<span class='n'>46</span>                                         ;
+                    047 <a class='e' name='SECT'    >SECT        </a>EQU CSSTV+<span class='n'>1</span>                                     ; $2D
+                    048 <a class='e' name='TRACK'   >TRACK       </a>EQU CSSTV+<span class='n'>2</span>                                     ; $2E
+                    049 <a class='e' name='VOLUME'  >VOLUME      </a>EQU CSSTV+<span class='n'>3</span>                                     ; $2F
+                    050 <a class='e' name='MAXSEEKS'>MAXSEEKS    </a>EQU <span class='n'>4</span>           ;MAX FOR SEEKCNT                ;
+                    051 <a class='d' name='SEEKCNT' >SEEKCNT     </a>EQU $<span class='n'>4F8</span>        ;# RESEEKS BEFORE RECALIBRATE   ;
+                    052 <a class='d' name='RETRYCNT'>RETRYCNT    </a>EQU $<span class='n'>578</span>                                        ;
+                    053 <a class='d' name='RECALCNT'>RECALCNT    </a>EQU $<span class='n'>6F8</span>        ;# RECALIBRATES -1              ;Text screen hole!<hr class='page'>  
                     054             PAGE                                            ; === Page <a class='page' name='page117'>117</a> ===
                     055     LST OFF
                     056     DO <a class='do' href='#DIAGMODE'>DIAGMODE</a><span class='macro'>
@@ -7398,14 +7398,14 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     187         FIN
                     188         LST ON
 3D04:A0 02          189             LDY #<span class='n'>2</span>          ;SET RECALIBRATE                ; TODO: magic number
-3D06:8C F8 06       190             STY RECALCNT    ; COUNT                         ; Text screen hole!
-                    191             LDY #MAXSEEKS   ;SET RESEEK
-                    192             STY SEEKCNT     ; COUNT
+3D06:8C F8 06       190             STY <a class='v' href='#RECALCNT'>RECALCNT</a>    ; COUNT                         ; Text screen hole!
+                    191             LDY #<a class='v' href='#MAXSEEKS'>MAXSEEKS</a>   ;SET RESEEK
+                    192             STY <a class='v' href='#SEEKCNT'>SEEKCNT</a>     ; COUNT
                     193             LDY #<span class='n'>1</span>          ;GET SLOT # FOR THIS OPERATION  ; TODO: magic number
-                    194             LDA (IOBPL),Y
+                    194             LDA (<a class='v' href='#IOBPL'>IOBPL</a>),Y
                     195             TAX
                     196             LDY #$<span class='n'>0F</span>        ;DID HE CHANGE SLOTS?           ; TODO: magic number
-                    197             CMP (IOBPL),Y
+                    197             CMP (<a class='v' href='#IOBPL'>IOBPL</a>),Y
                     198             BEQ SAMESLOT    ;IF HE DIDN'T, GOOD FOR HIM!
                     199 *
                     200 * NOW ARE USING A DIFFERENT SLOT.
