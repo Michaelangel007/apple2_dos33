@@ -7884,7 +7884,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     039             BCS FORMERR     CONTINUE IF NO ERROR.
                     040             LDA #$30        UP TO 48 SECTOR RETRIES         ; *sigh* <i>Why</i> _this_ value? <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> <span class='code'>FORMAT_MAX_RETRY EQU 48</span>
                     041             STA RETRYCNT    TO FIND SECTOR 0.               ;        Also, why not in <i>decimal</i>??
-                    042 <a class='f' name='FINDS0'   >FINDS0      </a>STA ANTICIPATE  'UNABLE TO FORMAT'
+                    042 <a class='f' name='FINDS0'   >FINDS0      </a>SEC             ANTICIPATE 'UNABLE TO FORMAT'
                     043             DEC RETRYCNT    DONE 48 RETRIES?
                     044             BEQ FORMERR     IF SO, 'UNABLE TO FORMAT' ERR.
                     045             JSR RDADR16     ;READ ADR FIELD.                ; *sigh* Inconsistent comment meta character
