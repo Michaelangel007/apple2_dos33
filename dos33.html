@@ -7399,55 +7399,55 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     188         LST ON
 3D04:A0 02          189             LDY #<span class='n'>2</span>          ;SET RECALIBRATE                ; TODO: magic number
 3D06:8C F8 06       190             STY <a class='v' href='#RECALCNT'>RECALCNT</a>    ; COUNT                         ; Text screen hole!
-                    191             LDY #<a class='v' href='#MAXSEEKS'>MAXSEEKS</a>   ;SET RESEEK
-                    192             STY <a class='v' href='#SEEKCNT'>SEEKCNT</a>     ; COUNT
-                    193             LDY #<span class='n'>1</span>          ;GET SLOT # FOR THIS OPERATION  ; TODO: magic number
-                    194             LDA (<a class='v' href='#IOBPL'>IOBPL</a>),Y
-                    195             TAX
-                    196             LDY #$<span class='n'>0F</span>        ;DID HE CHANGE SLOTS?           ; TODO: magic number
-                    197             CMP (<a class='v' href='#IOBPL'>IOBPL</a>),Y
-                    198             BEQ SAMESLOT    ;IF HE DIDN'T, GOOD FOR HIM!
+3D09:A0 04          191             LDY #<a class='v' href='#MAXSEEKS'>MAXSEEKS</a>   ;SET RESEEK
+3D0B:8C F4 04       192             STY <a class='v' href='#SEEKCNT'>SEEKCNT</a>     ; COUNT                          ; <b>Another</b> text screen hole. WTF! 33 bytes above on page $3C / $BC!
+3D0E:A0 01          193             LDY #<span class='n'>1</span>          ;GET SLOT # FOR THIS OPERATION  ; TODO: magic number
+3D10:B1 48          194             LDA (<a class='v' href='#IOBPL'>IOBPL</a>),Y
+3D12:AA             195             TAX
+3D13:A0 0F          196             LDY #$<span class='n'>0F</span>        ;DID HE CHANGE SLOTS?           ; TODO: magic number
+3D15:D1 48          197             CMP (<a class='v' href='#IOBPL'>IOBPL</a>),Y
+3D17:F0 1B          198             BEQ SAMESLOT    ;IF HE DIDN'T, GOOD FOR HIM!
                     199 *
                     200 * NOW ARE USING A DIFFERENT SLOT.
                     201 * NOW WAIT FOR THIS DRIVE TO TURN OFF
                     202 * TO SENSE MOTOR NOT SPINNING, DATA FROM DISK MUST
                     203 * BE THE SAME FOR AT LEAST 96 MICROSECONDS
-                    204             TXA             ;SAVE NEW SLOT #
-                    205             PHA
-                    206             LDA (IOBPL),Y   ;GET 'OLD SLOT NUMBER'
-                    207             TAX
-                    208             PLA
-                    209             PHA             ;PUT BACK ON STACK
-                    210             STA (IOBPL),Y   ;SAVE 'NEW SLOT NUMBER'
-                    211             LDA Q7L,X       ;GO INTO READ MODE
-                    212 STILLON     LDY #$08        ;TO BE SURE, DATA MUST REMAIN
-                    213             LDA Q6L,X       ;STABLE FOR 96 MICROSECONDS
-                    214 NOTSURE     CMP Q6L,X       ;DATA STILL CHANGING?
-                    215             BNE STILLON     ;IF SO, STILL SPINNING
-                    216             DEY
-                    217             BNE NOTSURE     ;STABLE LONG ENOUGH? IF NOT, LOOP
+3D19:8A             204             TXA             ;SAVE NEW SLOT #
+3D1A:48             205             PHA
+3D1B:B1 48          206             LDA (<a class='v' href='#IOBPL'>IOBPL</a>),Y   ;GET 'OLD SLOT NUMBER'
+3D1D:AA             207             TAX
+3D1E:68             208             PLA
+3D1F:48             209             PHA             ;PUT BACK ON STACK
+3D20:91 48          210             STA (<a class='v' href='#IOBPL'>IOBPL</a>),Y   ;SAVE 'NEW SLOT NUMBER'
+3D22:BD 8E C0       211             LDA Q7L,X       ;GO INTO READ MODE
+3D25:A0 08          212 STILLON     LDY #$<span class='n'>08</span>        ;TO BE SURE, DATA MUST REMAIN
+3D27:BD 8C C0       213             LDA Q6L,X       ;STABLE FOR 96 MICROSECONDS
+3D2A:DD 8C C0       214 NOTSURE     CMP Q6L,X       ;DATA STILL CHANGING?
+3D2D:D0 F6          215             BNE STILLON     ;IF SO, STILL SPINNING
+3D2F:88             216             DEY
+3D30:D0 F8          217             BNE NOTSURE     ;STABLE LONG ENOUGH? IF NOT, LOOP
                     218 *
                     219 * PREVIOUS SLOT'S DRIVE NOW OFF...
                     220 *
-                    221             PLA             ;RESTORE NEW SLOT #
-                    222             TAX
+3D32:68             221             PLA             ;RESTORE NEW SLOT #
+3D33:AA             222             TAX
                     223 *
                     224 * NOW CHECK IF THE MOTOR IS ON, THEN START IT
                     225 *
-                    226 SAMESLOT    LDA Q7L,X       ;MAKE SURE IN READ MODE
-                    227             LDA Q6L,X
-                    228             LDY #8          ;WE MAY HAFTA CHECK SEVERAL TIMES TO BE SURE
+3D34:BD 8E C0       226 SAMESLOT    LDA Q7L,X       ;MAKE SURE IN READ MODE
+3D37:BD 8C C0       227             LDA Q6L,X
+3D3A:A0 08          228             LDY #<span class='n'>8</span>          ;WE MAY HAFTA CHECK SEVERAL TIMES TO BE SURE
                     229 CHKIFON     EQU *
-                    230             LDA Q6L,X       ;GET THE DATA
-                    231             PHA             ;DELAY FOR DISK DATA TO CHANGE
-                    232             PLA
-                    233             PHA
-                    234             PLA
-                    235             STA SLOT
-                    236             CMP Q6L,X       ;CHECK RUNNING HERE
-                    237             BNE ITISON      ;=&gt;IT'S ON...
-                    238             DEY             ;MAYBE WE DIDN'T CATCH IT
-                    239             BNE CHKIFON     ; SO WE'LL TRY AGAIN
+3D3C:BD 8C C0       230             LDA Q6L,X       ;GET THE DATA
+3D3F:48             231             PHA             ;DELAY FOR DISK DATA TO CHANGE
+3D40:68             232             PLA
+3D41:48             233             PHA
+3D42:68             234             PLA
+3D43:8E F8 05       235             STA SLOT                                        ; Text Screen Hole
+3D46:DD 8C C0       236             CMP Q6L,X       ;CHECK RUNNING HERE
+3D49:D0 03          237             BNE ITISON      ;=&gt;IT'S ON...
+3D4B:88             238             DEY             ;MAYBE WE DIDN'T CATCH IT
+3D4C:D0 EE          239             BNE CHKIFON     ; SO WE'LL TRY AGAIN
                     240 *
                     241 ITISON      EQU *<hr class='page'>
 3D4E:08             242             PHP             ;SAVE TEST RESULTS              ; === Page <a class='page' name='page120'>120</a> ===
