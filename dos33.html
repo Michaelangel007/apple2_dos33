@@ -7397,14 +7397,14 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     186             STY TL1                                         </span>
                     187         FIN
                     188         LST ON
-3D04:A0 02          189             LDY #<span class='n'>2</span>          ;SET RECALIBRATE                ; TODO: magic number
+3D04:A0 02          189             LDY #<span class='n'>2</span>          ;SET RECALIBRATE                ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span>
 3D06:8C F8 06       190             STY <a class='v' href='#RECALCNT'>RECALCNT</a>    ; COUNT                         ; Text screen hole!
 3D09:A0 04          191             LDY #<a class='v' href='#MAXSEEKS'>MAXSEEKS</a>   ;SET RESEEK
 3D0B:8C F4 04       192             STY <a class='v' href='#SEEKCNT'>SEEKCNT</a>     ; COUNT                          ; <b>Another</b> text screen hole. WTF! 33 bytes above on page $3C / $BC!
-3D0E:A0 01          193             LDY #<span class='n'>1</span>          ;GET SLOT # FOR THIS OPERATION  ; TODO: magic number
+3D0E:A0 01          193             LDY #<span class='n'>1</span>          ;GET SLOT # FOR THIS OPERATION  ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> IOB_
 3D10:B1 48          194             LDA (<a class='v' href='#IOBPL'>IOBPL</a>),Y
 3D12:AA             195             TAX
-3D13:A0 0F          196             LDY #$<span class='n'>0F</span>        ;DID HE CHANGE SLOTS?           ; TODO: magic number
+3D13:A0 0F          196             LDY #$<span class='n'>0F</span>        ;DID HE CHANGE SLOTS?           ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> IOB_
 3D15:D1 48          197             CMP (<a class='v' href='#IOBPL'>IOBPL</a>),Y
 3D17:F0 1B          198             BEQ SAMESLOT    ;IF HE DIDN'T, GOOD FOR HIM!
                     199 *
@@ -7456,7 +7456,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     245 PTRMOV      LDA (IOBPL),Y
                     246             STA PTRSDEST-6,Y
                     247             INY
-                    248             CPY #$<span class='n'>0A</span>        ;MOVED ALL POINTERS?            ;  <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> IOB_
+                    248             CPY #$<span class='n'>0A</span>        ;MOVED ALL POINTERS?            ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> IOB_
                     249             BNE PTRMOV
                     250             LDY #<span class='n'>3</span>          ;SET UP THE                     ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> DEV_
                     251             LDA (DEVCTBL),Y ; MOTOR-ON TIME
