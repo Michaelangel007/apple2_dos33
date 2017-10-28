@@ -195,3 +195,6 @@ Legend:
  * Logical = Track/Sector used by DOS mapped to a physical sector # (i.e. Copy ]\[+ Sector Editor)
  * Physical= Raw Track/Sector actually read/written on disk.
 
+# Also See
+
+* http://www.textfiles.com/apple/ANATOMY/
