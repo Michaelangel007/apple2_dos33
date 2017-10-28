@@ -7143,17 +7143,17 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3C77:D0 F0          068             BNE <a class='x' href='#WSYNC1' >WSYNC1</a>      (3) *** NO PAGE CROSS! ***      ; + 2 [10] BEQ &lt;== + 3 [11] --&gt; BNE ^
                                                                                     ; 32 &micro; seconds write DATA nibble
 3C79:A9 D5          069             LDA #$<span class='n'>D5</span>        (2) ADR MARK 1.                 ; + 2 [12] <a class='magic'>magic number</a> <span class='todo'>TODO</span>
-3C7B:20 D5 BC       070             JSR WNIBLB2     (15,9,6) WRITE IT.              ; +24 [10] &lt;-- JSR=6, WNIBLB2=9, WRNIBL=15
+3C7B:20 D5 3C       070             JSR WNIBLB2     (15,9,6) WRITE IT.              ; +24 [10] &lt;-- JSR=6, WNIBLB2=9, WRNIBL=15
 3C7E:A9 AA          071             LDA #$<span class='n'>AA</span>        (2) ADR MARK 2.                 ; + 2 [12] <a class='magic'>magic number</a> <span class='todo'>TODO</span>
-3C80:20 D5 BC       072             JSR WNIBLB2     (15,9,6) WRITE IT.              ; +24 [10]
+3C80:20 D5 3C       072             JSR WNIBLB2     (15,9,6) WRITE IT.              ; +24 [10]
 3C83:A9 96          073             LDA #$<span class='n'>96</span>        (2) 16-SECTOR ADR MARK 3.       ; + 2 [10] <a class='magic'>magic number</a> <span class='todo'>TODO</span>
-3C85:20 D5 BC       074             JSR WNIBLB2     (15,9,6) WRITE IT.              ; +24 [10]
+3C85:20 D5 3C       074             JSR WNIBLB2     (15,9,6) WRITE IT.              ; +24 [10]
 3C88:A5 41          075             LDA NVOL        (3)                             ; + 3 [13]
-3C8A:20 C4 BC       076             JSR WBYTE       (14,9,6) WRITE NVOL (ODD, THEN EVEN, BITS.) ; JSR=6
+3C8A:20 C4 3C       076             JSR WBYTE       (14,9,6) WRITE NVOL (ODD, THEN EVEN, BITS.) ; JSR=6
 3C8D:A5 44          077             LDA TRK         (3) WRITE TRACK NUMBER.         ;
-3C8F:20 C4 BC       078             JSR WBYTE       (14,9,6) ODD, THEN EVEN, BITS)  ;
+3C8F:20 C4 3C       078             JSR WBYTE       (14,9,6) ODD, THEN EVEN, BITS)  ;
 3C92:A5 3F          079             LDA NSECT       (3) WRITE SECTOR NUMBER.        ;
-3C94:20 C4 BC       080             JSR WBYTE       (14,9,6) (ODD, THEN EVEN, BITS) ;
+3C94:20 C4 3C       080             JSR WBYTE       (14,9,6) (ODD, THEN EVEN, BITS) ;
 3C97:A5 41          081             LDA NVOL        (3)                             ;
 3C99:45 55          082             EOR TRK         (3) FORM ADR FIELD CHECKSUM.    ;
 3C9B:45 3F          083             EOR NSECT       (3)                             ;
@@ -7165,13 +7165,13 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3CA4:BD 8C C0       089             LDA Q6L,X       (4) BACK TO WRITE MODE.         ;
 3CA7:68             090             PLA             (4) RECOVER FOR EVEN BITS.      ;
 3CA8:09 AA          091             ORA #$<span class='n'>AA</span>        (2) SET CLOCK BITS.             ;
-3CAA:20 D4 BC       092             JSR WNIBLA      (17,9,6) WRITE THEM.            ;
+3CAA:20 D4 3C       092             JSR WNIBLA      (17,9,6) WRITE THEM.            ;
 3CAD:A9 DE          093             LDA #$<span class='n'>DE</span>        (2) END MARK 1.                 ; <a class='magic'>magic number</a> <span class='todo'>TODO</span>
-3CAF:20 D5 BC       094             JSR WNIBLB2     (15,9,6) WRITE IT.              ;
+3CAF:20 D5 3C       094             JSR WNIBLB2     (15,9,6) WRITE IT.              ;
 3CB2:A9 AA          095             LDA #$<span class='n'>AA</span>        (2) END MARK 2.                 ; <a class='magic'>magic number</a> <span class='todo'>TODO</span>
-3CB4:20 D5 BC       096             JSR WNIBLB2     (15,9,6) WRITE IT.              ;
+3CB4:20 D5 3C       096             JSR WNIBLB2     (15,9,6) WRITE IT.              ;
 3CB7:A9 EB          097             LDA #$<span class='n'>EB</span>        (2) END MARK 3.                 ; <a class='magic'>magic number</a> <span class='todo'>TODO</span>
-3CB9:20 D5 BC       098             JSR WNIBLB2     (15,9,6) 'WRITE TURN-OFF'       ;
+3CB9:20 D5 3C       098             JSR WNIBLB2     (15,9,6) 'WRITE TURN-OFF'       ;
 3CBC:18             099             CLC             INDICATE NO WR PROT ERR.
 3CBD:BD 8E C0       100 WADRTS      LDA Q7L,X       OUT OF WRITE MODE.              ; TODO: used elsewhere?
 3CC0:BD 8C C0       101             LDA Q6L,X       TO READ MODE.                   ;        These are shit function names -- they give <b>no clue</b> <i>when</i> they should be called!
