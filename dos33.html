@@ -5724,14 +5724,14 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     101 <a class='d' id='365D' name='SC3'      >SC3         </a>EQU *
 365D:00             102 <a class='d' id='365D' name='EOFFLAG'  >EOFFLAG     </a>DFB <span class='n'>0</span>
                     103 <a class='f' id='365E' name='CLOSFILE' >CLOSFILE    </a>EQU *
-365E:20 64 27       104             JSR FILSRC      ;FILE BUFFER FOUND?
-3661:B0 08          105             BCS NOTFOUND    ;=&gt; NO, SO SKIP IT.
-3663:A9 00          106             LDA #<span class='n'>0</span>          ;YES, CLOSE IT
+365E:20 64 27       104             JSR <a class='x' href='#FILSRC'  >FILSRC</a>      ;FILE BUFFER FOUND?
+3661:B0 08          105             BCS <a class='x' href='#NOTFOUND'>NOTFOUND</a>    ;=&gt; NO, SO SKIP IT.
+3663:A9 00          106             LDA #<span class='n'>0</span>          ;YES, CLOSE IT     ;<a class='magic' name='_3664'>magic number</a>
 3665:A8             107             TAY
-3666:8D 5D 36       108             STA EOFFLAG
-3669:91 40          109             STA (ZPGWRK),Y  ;RIGHT NOW
+3666:8D 5D 36       108             STA <a class='v' href='#EOFFLAG' >EOFFLAG</a>
+3669:91 40          109             STA (<a class='v' href='#ZPGWRK'  >ZPGWRK</a>),Y  ;RIGHT NOW
 366B:AD C5 35       110 <a class='f' id='366B' name='NOTFOUND' >NOTFOUND    </a>LDA CCBSTA      ;ORIGINAL INSTRUCTION
-366E:4C D2 26       111             JMP ERROR       ;BACK TO ERROR HANDLER
+366E:4C D2 26       111             JMP <a class='x' href='#ERROR'   >ERROR</a>       ;BACK TO ERROR HANDLER
                     112 ****************************
                     113 <a class='f' id='3671' name='BUMPER'   >BUMPER      </a>EQU *
 3671:Ad 5D 36       114             LDA EOFFLAG     ;SHOULD WE?
