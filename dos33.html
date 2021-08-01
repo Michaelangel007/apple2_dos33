@@ -3672,7 +3672,7 @@ With that "legalese" out of the way ... enjoy the read!
 2AB8:C1 D0 D0 CC    046 <a class='d' id='2AB8' name="FASB"  >FASB        </a>DFB $<span class='n'>C1</span>,$<span class='n'>D0</span>,$<span class='n'>D0</span>,$<span class='n'>CC</span> ;'APPLESOFT' WITH BIT 7 HIGH; /sarcasm If only we had <span class='code'>MSB ON</span> and <span class='code'>ASC</span> directives
 2ABC:C5 D3 CF C6    047             DFB $<span class='n'>C5</span>,$<span class='n'>D3</span>,$<span class='n'>CF</span>,$<span class='n'>C6</span>                             ; Binary to run if Integer active and user types <a class="x" href="#EAS">FP</a>
 2AC0:D4             048             DFB $<span class='n'>D4</span>
-                    049 <a class="d" name="FASBL" >FASBL       </a>EQU *-<a class="v" href="#FASB"  >FASB</a>                                      ; Filename Length of Applesoft binary, copied in <a class="x" href="#EAS0">EAS0</a>
+    =09             049 <a class="e" id='0009' name="FASBL" >FASBL       </a>EQU *-<a class="v" href="#FASB"  >FASB</a>                                      ; Filename Length of Applesoft binary, copied in <a class="x" href="#EAS0">EAS0</a>
                     050             PAGE
                     051 ;
                     052 ; DOS ADR TABLES (RELOCATED)
