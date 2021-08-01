@@ -2267,23 +2267,23 @@ With that "legalese" out of the way ... enjoy the read!
                     123 ;
                     124 <a class='f' name='EMON'     >EMON        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [11]
 
-2233:AD 5E 2A       125             LDA MONMOD      ; GET CURRENT BITS
-2236:0D 74 2A       126             ORA IMBITS      ; OR IN NEW BITS
-2239:8D 5E 2A       127             STA MONMOD      ; SET NEW MODE
+2233:AD 5E 2A       125             LDA <a  class='v' href='#MONMOD'>MONMOD</a>      ; GET CURRENT BITS
+2236:0D 74 2A       126             ORA <a  class='v' href='#IMBITS'>IMBITS</a>      ; OR IN NEW BITS
+2239:8D 5E 2A       127             STA <a  class='v' href='#MONMOD'>MONMOD</a>      ; SET NEW MODE
 223C:60             128             RTS
                     129 ;
                     130 ; ENOMON - EXECUTE NO MONITOR CMD
                     131 ;
                     132 <a class='f' name='ENOMON'   >ENOMON      </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [12]
 
-223D:2C 74 2A       133             BIT IMBITS
-                    134             BVC ENM1
-                    135             JSR PRCRIF
-                    136 ENM1        EQU *
+223D:2C 74 2A       133             BIT <a  class='v' href='#IMBITS'>IMBITS</a>
+2240:               134             BVC <a  class='x' href='#ENM1'  >ENM1</a>
+2242:20             135             JSR <a  class='x' href='#PRCRIF'>PRCRIF</a>
+                    136 <a class='f' name='ENM1'     >ENM1        </a>EQU *
 2245:A9 70          137             LDA #$<span class='n'>70</span>                                        ; <a class='magic' name='_2246'>magic number</a>
-                    138             EOR IMBITS      ; INVERT INPUT BITS
-                    139             AND MONMOD      ; AND WITH CURRENT
-                    140             STA MONMOD      ; SET NEW MODE
+                    138             EOR <a  class='v' href='#IMBITS'>IMBITS</a>      ; INVERT INPUT BITS
+                    139             AND <a  class='v' href='#MONMOD'>MONMOD</a>      ; AND WITH CURRENT
+                    140             STA <a  class='v' href='#MONMOD'>MONMOD</a>      ; SET NEW MODE
                     141             RTS
                     142             PAGE
                     143 ;
