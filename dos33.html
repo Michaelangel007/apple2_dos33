@@ -1300,9 +1300,9 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                           ;        CMP ADRTABE+1,X    ; hi byte of end   address; was CMP ADRTAB+4,X
                                                                                           ;        CMP ADRTABE+0,X    ; lo byte of end   address; was CMP ADRTAB+3,X
                                                                                           ;
-1C28:24             00323 287 <a class='d' name='ADRTAB'     id='ADRTAB'     >ADRTAB      </a>DFB <span class='n'>9</span>*<span class='n'>4</span>                                         ; <a class='magic' name='_1C28'>magic number</a> <i>Really?!</i> We can't do <span class='macro'>ADRTAB_LEN DFB ADRTAB_END - ADRTAB_START</span> ???
-1C29:00 1D          00324 288             DW  <a class="v" href="#SAT1"  >SAT1   </a>                                     ; [0] Start Address Table 1 in <a class="x" href="#DOSINIT">DOSINIT</a>
-1C2B:56 1D          00325 289             DW  <a class="v" href="#EAT1"  >EAT1   </a>                                     ;     End   Address Table 1
+1C28:24             00323 287 <a class='d' id='1C28' name='ADRTAB'   >ADRTAB      </a>DFB <span class='n'>9</span>*<span class='n'>4</span>                                         ; <a class='magic' name='_1C28'>magic number</a> <i>Really?!</i> We can't do <span class='macro'>ADRTAB_LEN DFB ADRTAB_END - ADRTAB_START</span> ???
+1C29:00 1D          00324 288 <meta                                 />            DW  <a class="v" href="#SAT1"  >SAT1   </a>                                     ; [0] Start Address Table 1 in <a class="x" href="#DOSINIT">DOSINIT</a>
+1C2B:56 1D          00325 289 <meta                                 />            DW  <a class="v" href="#EAT1"  >EAT1   </a>                                     ;     End   Address Table 1
                                                                                           ;     <a class='mem' name='_1C2D' coords='4'>wastes</a> 4 bytes due to non-contiguous memory
                                                                                           ;     $1D56, $1D57 = <a class='v' href='#CHAIN' >CHAIN</a>
                                                                                           ;     Solution would be to add our own stub of 3 bytes
