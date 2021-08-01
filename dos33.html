@@ -4600,8 +4600,8 @@ With that "legalese" out of the way ... enjoy the read!
                     226 <a class="f" name="MVSBA"    >MVSBA       </a>EQU *
 2FE4:AC CB 35       227             LDY CFCBSB      ; GET SECTOR BUFF ADR
 2FE7:AD CC 35       228             LDA CFCBSB+1
-2FEA:8C F0 37       229 <a class="f" name="MSB1"     >MSB1        </a>STY IBBUFP      ; SET IOB SECTOR
-2FED:8D F1 37       230             STA IBBUFP+1    ; BUFF PTR
+2FEA:8C F0 37       229 <a class="f" name="MSB1"     >MSB1        </a>STY <a  class='v' href='#IBBUFP'>IBBUFP</a>      ; SET IOB SECTOR
+2FED:8D F1 37       230             STA <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>    ; BUFF PTR
 2FF0:AE D6 35       231             LDX DCBTRK      ; GET TRACK
 2FF3:AC D7 35       232             LDY DCBSEC      ; GET SECTOR
 2FF6:60             233             RTS             ; RTN
@@ -4621,9 +4621,9 @@ With that "legalese" out of the way ... enjoy the read!
 2FFB:A9 02          010             LDA #<a class="v" href="#IBCWTS">IBCWTS</a>     ; WRITE
                     011 ;
 2FFD:AC C3 2A       012 <a class="f" name="VTIO"     >VTIO        </a>LDY AVTOC       ; MOVE BUFF ADR
-3000:8C F0 37       013             STY IBBUFP                                      ; === <a class='ts' href='#T1SF'>T1SF</a> === $<span class='n'>B000</span>
+3000:8C F0 37       013             STY <a  class='v' href='#IBBUFP'>IBBUFP</a>                                      ; === <a class='ts' href='#T1SF'>T1SF</a> === $<span class='n'>B000</span>
 3003:AC C4 2A       014             LDY AVTOC+1
-3006:8C F1 37       015             STY IBBUFP+1
+3006:8C F1 37       015             STY <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>
                     016 ;
 3009:AE FA 35       017             LDX DCBVTN      ; GET TRACK                     ; $B5FA = VTN = VTOC Track Number = $11
 300C:A0 00          018             LDY #<span class='n'>0</span>                                          ; VTOC Sector Number = $0 <a class='magic' name='_300D'>magic number</a> <span class='code'>FILESYSTEM_VTOC_SECTOR EQU 0</span>
@@ -4671,11 +4671,11 @@ With that "legalese" out of the way ... enjoy the read!
                     060 ;
                     061 ; MVVDBA - MOVE VOL DIR BUF ADR TO IOB
                     062 ;
-                    063 <a class='f' name='MVVDBA'   >MVVDBA      </a>EQU *
-                    064             LDA AVOLDR
-                    065             STA IBBUFP
-                    066             LDA AVOLDR+1
-                    067             STA IBBUFP+1
+                    063 <a class='f' id='3045' name='MVVDBA'   >MVVDBA      </a>EQU *
+3045:AD C5 2A       064             LDA AVOLDR
+3048:8D F0 37       065             STA <a  class='v' href='#IBBUFP'>IBBUFP</a>
+304B:AD C6 2A       066             LDA AVOLDR+1
+304E:8D F1 37       067             STA <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>
 3051:60             068             RTS
                     069             PAGE
                     070 ;
