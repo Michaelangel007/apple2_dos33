@@ -3663,13 +3663,13 @@ With that "legalese" out of the way ... enjoy the read!
 2AA7:A0 A0 A0 A0
 2AAB:A0 A0 A0 A0
 2AAF:A0 A0
-2AB1:03             040 <a class="d" name="DFNFTS">DFNFTS      </a>DFB <span class='n'>3</span>           ; DEFAULT FILE TABLES = 3       ; <a class="x" href="#INITD">INITD</a> copies to <a class="v" href="#CNFTBS">CNFTBS</a>
-2AB2:84             041 <a class="d" name="CCHAR" >CCHAR       </a>DFB $<span class='n'>84</span>         ; CONTROL CHAR                  ; Control-D actives DOS for next ASCII command <a class='magic'>magic number</a> KEY_CTRL_D
-2AB3:00             042 <a class="d" name="ESTATE">ESTATE      </a>DFB <span class='n'>0</span>           ; EXECUTE STATE
-2AB4:00 00          043 <a class="d" name="EFTABA">EFTABA      </a>DFB <span class='n'>0</span>,<span class='n'>0</span>         ; EXECUTE FILE TABLE POINTER
-2AB6:00             044 <a class="d" name="ASIBSW">ASIBSW      </a>DFB <span class='n'>0</span>           ; APPLESOFT, IB SWITCH          ; <a class="x" href="#TSTRUN">00=Integer</a>, <a class="x" href="#IAS1">40=Applesoft ROM</a>, 80=Applesoft RAM
-2AB7:00             045 <a class="d" name="RSTATE">RSTATE      </a>DFB <span class='n'>0</span>           ; FOR APPLESOFT RUN PROGRAM AFTER RELOC
-2AB8:C1 D0 D0 CC    046 <a class="d" name="FASB"  >FASB        </a>DFB $<span class='n'>C1</span>,$<span class='n'>D0</span>,$<span class='n'>D0</span>,$<span class='n'>CC</span> ;'APPLESOFT' WITH BIT 7 HIGH; /sarcasm If only we had <span class='code'>MSB ON</span> and <span class='code'>ASC</span> directives
+2AB1:03             040 <a class='d' id='2AB1' name="DFNFTS">DFNFTS      </a>DFB <span class='n'>3</span>           ; DEFAULT FILE TABLES = 3       ; <a class="x" href="#INITD">INITD</a> copies to <a class="v" href="#CNFTBS">CNFTBS</a>
+2AB2:84             041 <a class='d' id='2AB2' name="CCHAR" >CCHAR       </a>DFB $<span class='n'>84</span>         ; CONTROL CHAR                  ; Control-D actives DOS for next ASCII command <a class='magic'>magic number</a> KEY_CTRL_D
+2AB3:00             042 <a class='d' id='2AB3' name="ESTATE">ESTATE      </a>DFB <span class='n'>0</span>           ; EXECUTE STATE
+2AB4:00 00          043 <a class='d' id='2AB4' name="EFTABA">EFTABA      </a>DFB <span class='n'>0</span>,<span class='n'>0</span>         ; EXECUTE FILE TABLE POINTER
+2AB6:00             044 <a class='d' id='2AB6' name="ASIBSW">ASIBSW      </a>DFB <span class='n'>0</span>           ; APPLESOFT, IB SWITCH          ; <a class="x" href="#TSTRUN">00=Integer</a>, <a class="x" href="#IAS1">40=Applesoft ROM</a>, 80=Applesoft RAM
+2AB7:00             045 <a class='d' id='2AB7' name="RSTATE">RSTATE      </a>DFB <span class='n'>0</span>           ; FOR APPLESOFT RUN PROGRAM AFTER RELOC
+2AB8:C1 D0 D0 CC    046 <a class='d' id='2AB8' name="FASB"  >FASB        </a>DFB $<span class='n'>C1</span>,$<span class='n'>D0</span>,$<span class='n'>D0</span>,$<span class='n'>CC</span> ;'APPLESOFT' WITH BIT 7 HIGH; /sarcasm If only we had <span class='code'>MSB ON</span> and <span class='code'>ASC</span> directives
 2ABC:C5 D3 CF C6    047             DFB $<span class='n'>C5</span>,$<span class='n'>D3</span>,$<span class='n'>CF</span>,$<span class='n'>C6</span>                             ; Binary to run if Integer active and user types <a class="x" href="#EAS">FP</a>
 2AC0:D4             048             DFB $<span class='n'>D4</span>
                     049 <a class="d" name="FASBL" >FASBL       </a>EQU *-<a class="v" href="#FASB"  >FASB</a>                                      ; Filename Length of Applesoft binary, copied in <a class="x" href="#EAS0">EAS0</a>
