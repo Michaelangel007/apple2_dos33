@@ -4479,14 +4479,14 @@ With that "legalese" out of the way ... enjoy the read!
                     106 ;
                     107 * WRFDIR - WRITE FILE DIRECTRY IF REQD                      ; *spelling* Directory
                     108 ;
-                    109 <a class='f' name='WRFDIR'   >WRFDIR      </a>EQU *
+                    109 <a class='f' id='2F34' name='WRFDIR'   >WRFDIR      </a>EQU *
 2F34:AD D5 35       110             LDA DCBWRF      ; GET WRITE REQD FLAG
 2F37:30 01          111             BMI WRFDGO      ; BR IF NOT DIR REQD            ;[.. Should be: <span class='code'>BPL WRFDIR-1</span>
 2F39:60             112             RTS                                             ; ..] <a class='mem' name='_2F39' coords='1'>wastes</a> 1 byte with RTS
                     113 ;
-                    114 <a class='f' name='WRFDGO'   >WRFDGO      </a>EQU *
-2F3A:20 4B 2F       115             JSR MVFDBA                                      ; MoveFileDirectoryBufferAddress
-                    116 ;
+                    114 <a class='f' id='2F3A' name='WRFDGO'   >WRFDGO      </a>EQU *
+2F3A:20 4B 2F       115             JSR MVFDBA                                      ; Yet another crappy name.  Quick what is the difference between: <span class='code'>MVVDBA</span> or <span class='code'>MVFDBA</span> ?
+                    116 ;                                                           ; MoveFileDirectoryBufferAddress
 <hr>
 2F3D:A9 02          117             LDA #IBCWTS     ; GET WRITE CMD                 ; === Page <a class='page' name='page75'>75</a> ===
 2F3F:20 52 30       118             JSR DCBIO       ; GO FILL IN IOB AND DO I/O
@@ -4661,7 +4661,7 @@ With that "legalese" out of the way ... enjoy the read!
                     050 ;
                     051 ;WRVDIR - WRITE VOLUME DIRECTORY SECTOR
                     052 ;
-                    053 <a class='f' name='WRVDIR'   >WRVDIR      </a>EQU *
+                    053 <a class='f' id='3037'name='WRVDIR'   >WRVDIR      </a>EQU *
 <hr>3037:20 45 30       054             JSR MVVDBA                                      ; === <a class='page' name='page64'>64</a> ===
                     055 ;
 303A:AE 97 33       056             LDX CVDTRK      ; CURRENT TRACK
