@@ -1466,7 +1466,7 @@ With that "legalese" out of the way ... enjoy the read!
 1D66:E3 E3          070             DW <a class='x' href='#IBBRK' >IBBRK </a>                                       ;c[-]
 1D68:00 E0          071             DW <a class='x' href='#IBGO'  >IBGO  </a>                                       ;d[-]
 1D6A:03 E0          072             DW <a class='x' href='#IBCONT'>IBCONT</a>                                       ;e[-]
-                    073 <a class='e' id='000A' name='IBVTL'    >IBVTL       </a>EQU *-<a class='v' href='#IBVT'>IBVT</a>                                      ; Length = $A bytes so we don't over-write ASEQ
+    =0A             073 <a class='e' id='000A' name='IBVTL'    >IBVTL       </a>EQU *-<a class='v' href='#IBVT'>IBVT</a>                                      ; Length = $1D6C - $1D62 = $A bytes so we don't over-write ASEQ
                     074 ;                                                           ;     /sarcasm Because it is obvious
 1D6C:FC 24          075 <a class='d' id='1D6C' name='AS1VT'    >AS1VT       </a>DW <a class='x' href='#ASRUN1'>ASRUN1</a>                                       ;<b>a</b>[<a class='line' href='#RELOCTR.294'>3</a>]   1 = ROM, and
 1D6E:FC 24          076             DW <a class='x' href='#ASRUN1' >ASRUN1 </a>                                      ;b[3]   2 = RAM, right?
@@ -1618,7 +1618,7 @@ With that "legalese" out of the way ... enjoy the read!
                     201 <a class='f' id='1E50' name='INITG'    >INITG       </a>EQU *
 1E50:60             202 <meta                                 />            RTS
                     203 ;
-                    204 <a class='d' id='1E51' name='IFB'      >IFB         </a>EQU *                                           ; --- Copied to $3D0 ---
+    =1E51           204 <a class='d' id='1E51' name='IFB'      >IFB         </a>EQU *                                           ; --- Copied to $3D0 ---
 1E51:4C BF 1D       205 <a class='f' id='1E51' name='DBVECT'   >DBVECT      </a>JMP <a class='x' href='#DBRST'>DBRST</a>                                       ; $3D0: JMP $9DBF DOS Warm RESET -- <i>Really?? You couldn't put this in the SAME order</i>
 1E54:4C 84 1D       206 <meta                                 />            JMP <a class='x' href='#DBINIT' >DBINIT</a>                                      ; $3D3: JMP $9D84 DOS Cold RESET -- <i>as BASIC:</i> <b>Cold THEN Warm ???</b>
 1E57:4C FD 2A       207 <meta                                 />            JMP <a class='x' href='#USERENT'>USERENT</a> ;USER EXTERNAL ENTRY TO FILE MANAGER; $3D6: JMP $AAFD FM   (File Manager)
@@ -1643,7 +1643,7 @@ With that "legalese" out of the way ... enjoy the read!
 1E79:4C 65 FF       223             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3F8: JMP $FF65 Ctrl-Y handler
 1E7C:4C 65 FF       224             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3FB: JMP $FF65 NMI handler
 1E7F:65 FF          225             DW <a  class='e' href='#MONRST'>MONRST</a>                                       ; $3FE: dw  $FF65 IRQ vector
-                    226 <a class='d' name='IFBL'     >IFBL        </a>EQU *-<a class='v' href='#IFB'>IFB</a>-<span class='n'>1</span>                                     ; IFB_Length
+    =2F             226 <a class='d' id='1E81' name='IFBL'     >IFBL        </a>EQU *-<a class='v' href='#IFB'>IFB</a>-<span class='n'>1</span>                                     ; IFB_Length = $1E81 - 1E51 = $2F
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Pages <a class="page" name="page44">44</a> - 47, <a class='ts' href='#T0SD'>T0SD</a> - <a class='ts' href='#T0SE'>T0SE</a>, $<span class='n'>9E81</span> .. $<span class='n'>9FCC</span> ===<hr class='join'><hr></div>
