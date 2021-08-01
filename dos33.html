@@ -3613,40 +3613,40 @@ With that "legalese" out of the way ... enjoy the read!
                     002 ;
                     003 ; MISC BUT REQD CELLS
                     004 ;
-2A4F:00 00          005 <a class="d" name="CFTABA">CFTABA      </a>DDB <span class='n'>0</span>           ; CURRENT FILE TABLE POINTER    ; Why Big Endian??? DW is easier to tell this is 2 bytes then DFB DDB confusions
-2A51:00             006 <a class="d" name="ISTATE">ISTATE      </a>DFB <span class='n'>0</span>           ; INPUT STATE
-2A52:00             007 <a class="d" name="OSTATE">OSTATE      </a>DFB <span class='n'>0</span>           ; OUTPUT STATE
-2A53:00 00          008 <a class="d" name="SVOUTS">SVOUTS      </a>DDB <span class='n'>0</span>           ; SAVED OUT SWITCH              ; Why Big Endian???
-2A55:00 00          009 <a class="d" name="SVINS" >SVINS       </a>DDB <span class='n'>0</span>           ; SAVED IN SWITCH               ; Why Big Endian???
-2A57:00             010 <a class="d" name="CNFTBS">CNFTBS      </a>DFB <span class='n'>0</span>           ; CURRENT NO FILE TABLES        ; "NO" == Number
-2A58:03             011 <a class="d" name="DFNFB" >DFNFB       </a>DFB <span class='n'>3</span>           ; DEFAULT NO FILE TABLES        ; Does anyone actually use &gt; 2 ?
-2A59:00             012 <a class="d" name="SVSTK" >SVSTK       </a>DFB <span class='n'>0</span>           ; SAVED STACK PTR
-2A5A:00             013 <a class="d" name="SVX"   >SVX         </a>DFB <span class='n'>0</span>           ; DSAVED X REG                  ; *spelling* Saved
-2A5B:00             014 <a class="d" name="SVY"   >SVY         </a>DFB <span class='n'>0</span>           : SAVED Y REG
-2A5C:00             015 <a class="d" name="SVA"   >SVA         </a>DFB <span class='n'>0</span>           ; SAVED ACU
-2A5D:00             016 <a class="d" name="LBUFD" >LBUFD       </a>DFB <span class='n'>0</span>           ; LINE BUFF DISPL
-2A5E:00             017 <a class="d" name="MONMOD">MONMOD      </a>DFB <span class='n'>0</span>           ; MONITOR MODE BITS
-                    018 <a class='e' name="MC"    >MC          </a>EQU $<span class='n'>40</span>         ; MONITOR CMDS
+2A4F:00 00          005 <a class='d' id='2A4F' name="CFTABA">CFTABA      </a>DDB <span class='n'>0</span>           ; CURRENT FILE TABLE POINTER    ; Why Big Endian??? DW is easier to tell this is 2 bytes then DFB DDB confusions
+2A51:00             006 <a class='d' id='2A51' name="ISTATE">ISTATE      </a>DFB <span class='n'>0</span>           ; INPUT STATE
+2A52:00             007 <a class='d' id='2A52' name="OSTATE">OSTATE      </a>DFB <span class='n'>0</span>           ; OUTPUT STATE
+2A53:00 00          008 <a class='d' id='2A53' name="SVOUTS">SVOUTS      </a>DDB <span class='n'>0</span>           ; SAVED OUT SWITCH              ; Why Big Endian???
+2A55:00 00          009 <a class='d' id='2A55' name="SVINS" >SVINS       </a>DDB <span class='n'>0</span>           ; SAVED IN SWITCH               ; Why Big Endian???
+2A57:00             010 <a class='d' id='2A57' name="CNFTBS">CNFTBS      </a>DFB <span class='n'>0</span>           ; CURRENT NO FILE TABLES        ; "NO" == Number
+2A58:03             011 <a class='d' id='2A58' name="DFNFB" >DFNFB       </a>DFB <span class='n'>3</span>           ; DEFAULT NO FILE TABLES        ; Does anyone actually use &gt; 2 ?
+2A59:00             012 <a class='d' id='2A59' name="SVSTK" >SVSTK       </a>DFB <span class='n'>0</span>           ; SAVED STACK PTR
+2A5A:00             013 <a class='d' id='2A5A' name="SVX"   >SVX         </a>DFB <span class='n'>0</span>           ; DSAVED X REG                  ; *spelling* Saved
+2A5B:00             014 <a class='d' id='2A5B' name="SVY"   >SVY         </a>DFB <span class='n'>0</span>           : SAVED Y REG
+2A5C:00             015 <a class='d' id='2A5C' name="SVA"   >SVA         </a>DFB <span class='n'>0</span>           ; SAVED ACU
+2A5D:00             016 <a class='d' id='2A5D' name="LBUFD" >LBUFD       </a>DFB <span class='n'>0</span>           ; LINE BUFF DISPL
+2A5E:00             017 <a class='d' id='2A5E' name="MONMOD">MONMOD      </a>DFB <span class='n'>0</span>           ; MONITOR MODE BITS
+                    018 <a class='e'           name="MC"    >MC          </a>EQU $<span class='n'>40</span>         ; MONITOR CMDS
                     019 *MI EQU $20 ; MONITOR INPUT                                 ; Moved to <a class='file' href='CMDTBLS'>CMDTBLS</a>, <a class='e' href='#MI'>MI</a>
                     020 *MO EQU $10 ; MONITOR OUTPUT                                ; Moved to <a class='file' href='CMDTBLS'>CMDTBLS</a>, <a class='e' href='#MO'>MO</a>
-2A5F:00             021 <a class="d" name="CMDNO" >CMDNO       </a>DFB $<span class='n'>00</span>         ; COMMAND NO IS ZERO FOR BOOT UP
-2A60:00 00          022 <a class="d" name="SVBL"  >SVBL        </a>DFB <span class='n'>0</span>,<span class='n'>0</span>                                         ; <b>S</b>a<b>V</b>ed <b>B</b>inary <b>L</b>ength $AA60:Length of last BLOAD, BSAVE
-2A62:00             023 <a class="d" name="SVCMD" >SVCMD       </a>DFB <span class='n'>0</span>                                           ; SaVed CoMmanD
-2A63:00             024 <a class="d" name="TEMP1A">TEMP1A      </a>DFB <span class='n'>0</span>
-2A64:00             025 <a class="d" name="TEMP2A">TEMP2A      </a>DFB <span class='n'>0</span>
-2A65:00             026 <a class="d" name="INOPTS">INOPTS      </a>DFB <span class='n'>0</span>           ; INPUT OPTIONS
-                    027 <a class="d" name="CUROPT">CUROPT      </a>EQU *           ; CURRENT OPTIONS               ; /sarcasm So we <i>can</i> type CUR ... but too lazy to type CUR_VOL, CUR_DRV, CUR_SLT??
+2A5F:00             021 <a class='d' id='2A5F' name='CMDNO' >CMDNO       </a>DFB $<span class='n'>00</span>         ; COMMAND NO IS ZERO FOR BOOT UP
+2A60:00 00          022 <a class='d' id='2A60' name='SVBL'  >SVBL        </a>DFB <span class='n'>0</span>,<span class='n'>0</span>                                         ; <b>S</b>a<b>V</b>ed <b>B</b>inary <b>L</b>ength $AA60:Length of last BLOAD, BSAVE
+2A62:00             023 <a class='d' id='2A62' name='SVCMD' >SVCMD       </a>DFB <span class='n'>0</span>                                           ; SaVed CoMmanD
+2A63:00             024 <a class='d' id='2A63' name='TEMP1A'>TEMP1A      </a>DFB <span class='n'>0</span>
+2A64:00             025 <a class='d' id='2A64' name='TEMP2A'>TEMP2A      </a>DFB <span class='n'>0</span>
+2A65:00             026 <a class='d' id='2A65' name='INOPTS'>INOPTS      </a>DFB <span class='n'>0</span>           ; INPUT OPTIONS
+                    027 <a class='d' id='2A66' name='CUROPT'>CUROPT      </a>EQU *           ; CURRENT OPTIONS               ; /sarcasm So we <i>can</i> type CUR ... but too lazy to type CUR_VOL, CUR_DRV, CUR_SLT??
                                                                                     ; <span class='note'>Note</span>: OPTAB3 and CUROPT must be keep in size sync! 
-2A66:00 00          028 <a class="d" name="CV"    >CV          </a>DW <span class='n'>0</span>            ; VOLUME                        ; [0] normally <a class='mem' name='_2A67' coords='1'>wastes</a> 1 byte; all numbers 16-bit, See CMDSCAN, Line #<a class='line' href='#CMDSCAN.239'>239</a>
-2A68:00 00          029 <a class="d" name="CD"    >CD          </a>DW <span class='n'>0</span>            ; DRIVE                         ; [2] normally <a class='mem' name='_2A69' coords='1'>wastes</a> 1 byte, all numbers 16-bit, /sarcasm because <a class="x" href="#DBINIT">DBINIT</a>, <a class="x" href="#OPNSUP">OPNSUP</a>
-2A6A:00 00          030 <a class="d" name="CS"    >CS          </a>DW <span class='n'>0</span>            ; SLOT                          ; [4] normally <a class='mem' name='_2A6B' coords='1'>wastes</a> 1 byte, all numbers 16-bit,      need 2 bytes bytes, right?
-2A6C:01 00          031 <a class="d" name="CL"    >CL          </a>DW <span class='n'>1</span>            ; RECORD LENGTH                 ; [6]               
-2A6E:00 00          032 <a class="d" name="CR"    >CR          </a>DW <span class='n'>0</span>            ; RECORD NUMBER                 ; [8] Not Carriage Return, but Current Record. /sarcasm Obvious, right?
-2A70:00 00          033 <a class="d" name="CB"    >CB          </a>DW <span class='n'>0</span>            ; RECORD BYTE                   ; [A]
-2A72:00 00          034 <a class="d" name="CA"    >CA          </a>DW <span class='n'>0</span>            ; ADDRESS                       ; [C] $AA72:Address of last BLOAD
-2A74:00             035 <a class="d" name="IMBITS">IMBITS      </a>DFB <span class='n'>0</span>                                           ; <span class='todo'>TODO</span>: Input Monitor Bits??? Used in <a class='x' href='#EMON'>EMON</a>
+2A66:00 00          028 <a class='d' id='2A66' name='CV'    >CV          </a>DW <span class='n'>0</span>            ; VOLUME                        ; [0] normally <a class='mem' name='_2A67' coords='1'>wastes</a> 1 byte; all numbers 16-bit, See CMDSCAN, Line #<a class='line' href='#CMDSCAN.239'>239</a>
+2A68:00 00          029 <a class='d' id='2A68' name='CD'    >CD          </a>DW <span class='n'>0</span>            ; DRIVE                         ; [2] normally <a class='mem' name='_2A69' coords='1'>wastes</a> 1 byte, all numbers 16-bit, /sarcasm because <a class="x" href="#DBINIT">DBINIT</a>, <a class="x" href="#OPNSUP">OPNSUP</a>
+2A6A:00 00          030 <a class='d' id='2A6A' name='CS'    >CS          </a>DW <span class='n'>0</span>            ; SLOT                          ; [4] normally <a class='mem' name='_2A6B' coords='1'>wastes</a> 1 byte, all numbers 16-bit,      need 2 bytes bytes, right?
+2A6C:01 00          031 <a class='d' id='2A6C' name='CL'    >CL          </a>DW <span class='n'>1</span>            ; RECORD LENGTH                 ; [6]               
+2A6E:00 00          032 <a class='d' id='2A6E' name='CR'    >CR          </a>DW <span class='n'>0</span>            ; RECORD NUMBER                 ; [8] Not Carriage Return, but Current Record. /sarcasm Obvious, right?
+2A70:00 00          033 <a class='d' id='2A70' name='CB'    >CB          </a>DW <span class='n'>0</span>            ; RECORD BYTE                   ; [A]
+2A72:00 00          034 <a class='d' id='2A72' name='CA'    >CA          </a>DW <span class='n'>0</span>            ; ADDRESS                       ; [C] $AA72:Address of last BLOAD
+2A74:00             035 <a class='d' id='2A74' name='IMBITS'>IMBITS      </a>DFB <span class='n'>0</span>                                           ; <span class='todo'>TODO</span>: Input Monitor Bits??? Used in <a class='x' href='#EMON'>EMON</a>
                     036             MSB ON                                          ; We can't <span class="macro">DS 30-5,$A0</span> ???
-2A75:C8 C5 CC CC    037 <a class="d" name="FNAME1">FNAME1      </a>ASC "HELLO                         " ; FILENAME 1"
+2A75:C8 C5 CC CC    037 <a class='d' id='2A75' name='FNAME1'>FNAME1      </a>ASC "HELLO                         " ; FILENAME 1"
 2A79:CF A0 A0 A0
 2A7D:A0 A0 A0 A0
 2A81:A0 A0 A0 A0
