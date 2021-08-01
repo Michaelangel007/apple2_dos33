@@ -1442,8 +1442,8 @@ With that "legalese" out of the way ... enjoy the read!
 1D4A:79 25          050             DW <a class='x' href='#EAS'   >EAS</a>-<span class='n'>1</span>                                        ;[16]
 1D4C:9D 25          051             DW <a class='x' href='#EINT'  >EINT</a>-<span class='n'>1</span>                                       ;[17]
 1D4E:30 23          052             DW <a class='x' href='#EBSV'  >EBSV</a>-<span class='n'>1</span>                                       ;[18] *sigh* EBSAVE - I'm sorry, we blew our key budget for 'A'
-1D50:5C 23          053             DW <a class='x' href='#EBLD'  >EBLD</a>-<span class='n'>1</span>                                       ;[19] *sigh* EBLOAD - and also 'O'
-<hr>1D52:8D 23          054             DW <a class='x' href='#EBRUN'>EBRUN</a>-<span class='n'>1</span>                                      ;[1A] === Page <a class="page" name="page49">49</a> ===
+1D50:5C 23          053             DW <a class='x' href='#EBLD'  >EBLD</a>-<span class='n'>1</span>                                       ;[19] *sigh* EBLOAD - and also 'O'<hr class='page'>
+1D52:8D 23          054             DW <a class='x' href='#EBRUN'>EBRUN</a>-<span class='n'>1</span>                                      ;[1A] === Page <a class="page" name="page49">49</a> ===
 1D54:7C 22          055             DW <a class='x' href='#EVAR'  >EVAR</a>-<span class='n'>1</span>                                       ;[1B] last byte relocated in Entry [<a class='line' href='#RELOCTR.292'>0</a>] <a class='v' href='#ADRTAB'>ADRTAB</a>
                     056 <a class='d' id='1D56' name='EAT1'     >EAT1        </a>EQU *                                           ; End Address Table 1
                     057             PAGE
@@ -3420,8 +3420,8 @@ With that "legalese" out of the way ... enjoy the read!
                     048 ;                                                                   ; <b>Q</b>. Why we would encode the type of paramater such as 1st or 2nd in the name?
                     049 ; COMMAND SYNTAX OP EQUATES FOR SYNTAX BYTE TWO                     ; <b>A</b>. It helps us to <i>visually</i> catch typos:
                     050 ;                                                                   ;        LDA PARAM2
-                    051 <a class='e' name='V'      >V           </a>EQU $<span class='n'>40</span>         ; VOLUME ALLOWED                        ;        CMP PARAM1_CREATE  ; &larr; param 2 doesn&lsquo;t match param 1 above
-<hr>                    052 <a class='e' name='D'      >D           </a>EQU $<span class='n'>20</span>         ; DRIVE ALLOWED                 ; === Page <a class='page' name='page22'>22</a> ===
+                    051 <a class='e' name='V'      >V           </a>EQU $<span class='n'>40</span>         ; VOLUME ALLOWED                        ;        CMP PARAM1_CREATE  ; &larr; param 2 doesn&lsquo;t match param 1 above<hr class='page'>
+                    052 <a class='e' name='D'      >D           </a>EQU $<span class='n'>20</span>         ; DRIVE ALLOWED                 ; === Page <a class='page' name='page22'>22</a> ===
                     053 <a class='e' name='S'      >S           </a>EQU $<span class='n'>10</span>         ; SLOT ALLOWED
                     054 <a class='e' name='L'      >L           </a>EQU $<span class='n'>08</span>         ; LENGTH ALLOWED
                     055 <a class='e' name='R'      >R           </a>EQU $<span class='n'>04</span>         ; RECORD NUMBER ALLOWED
@@ -3532,8 +3532,8 @@ With that "legalese" out of the way ... enjoy the read!
 295B:02 00          111             DW <span class='n'>2</span>            ; DRIVE RANGE
 295D:01 00          112             DW <span class='n'>1</span>                                            ; [2]
 295F:07 01          113             DW <span class='n'>7</span>            ; SLOT RANGE
-2961:01 00          114             DW <span class='n'>1</span>                                            ; [3]             <span class='code'>BSAVE MEM.48K,A$0,L$C000</span> won't work without patching DOS
-<hr>2963:FF 7F          115             DW <span class='n'>32767</span>        ; LENGTH RANGE                  ; === Page <a class='page' name='page23'>23</a> === A963:FF BF to save &gt; 32KB (48KB)
+2961:01 00          114             DW <span class='n'>1</span>                                            ; [3]             <span class='code'>BSAVE MEM.48K,A$0,L$C000</span> won't work without patching DOS<hr class='page'>
+2963:FF 7F          115             DW <span class='n'>32767</span>        ; LENGTH RANGE                  ; === Page <a class='page' name='page23'>23</a> === A963:FF BF to save &gt; 32KB (48KB)
 2965:00 00          116             DW <span class='n'>0</span>                                            ; [4]
 2967:FF 7F          117             DW <span class='n'>32767</span>        ; REC NO RANGE
 2969:00 00          118             DW <span class='n'>0</span>                                            ; [5]
@@ -3678,8 +3678,8 @@ With that "legalese" out of the way ... enjoy the read!
     =09             049 <a class="e" id='0009' name="FASBL" >FASBL       </a>EQU *-<a class="v" href="#FASB"  >FASB</a>                                      ; Filename Length of Applesoft binary, copied in <a class="x" href="#EAS0">EAS0</a>
                     050             PAGE
                     051 ;
-                    052 ; DOS ADR TABLES (RELOCATED)
-<hr>                    053 ;                                                           ; === Page <a class='page' name='page61'>61</a>
+                    052 ; DOS ADR TABLES (RELOCATED)<hr class='page'>
+                    053 ;                                                           ; === Page <a class='page' name='page61'>61</a>
     =2AC1           054 <a class='d' id='2AC1' name='SAT2'  >SAT2        </a>EQU *                                           ; Start Address Table
                                                                                     ; Gee, we couldn't have put this at $1D00 to save 4 bytes in <a class='v' href='#ADRTAB'>ADRTAB</a> ?!
 2AC1:E8 37          055 <a class="d" id='2AC1' name='AIOB'  >AIOB        </a>DW <a class="v" href="#IOB"     >IOB</a>          ; 5-ADR IOB                     ; Also see <a class='v' href='#BAIOB'>BAIOB</a>; What happened to 1 .. 4 ??? At RVT, WVT ?
@@ -3749,8 +3749,8 @@ With that "legalese" out of the way ... enjoy the read!
 2B07:8E 9B 33       110             STX <a class='v' href='#ENTSTK'>ENTSTK</a>
 2B0A:20 6A 2E       111             JSR <a class='x' href='#CLCFCB'>CLCFCB</a>      ; GO CALCULATE FCB
 2B0D:AD BB 35       112             LDA <a class='v' href='#CCBREQ'>CCBREQ</a>      ; GET REQUEST
-2B10:C9 0D          113             CMP #CRQMAX     ; TTEST REQ RANGE               ; /sarcasm South Park: Jimmy
-<hr>2B12:B0 0B          114             BCS <a class='x' href='#ERR2'>ERR2</a>        ; BR OUT OF RANGE               ; === Page <a class='page' name='page62'>62</a> === <i>A-a-n-d you still have an of-of-of-off-by-one bug allocation in array <a class='v' href='#CMDVT'>CMDVT</a>!</i>
+2B10:C9 0D          113             CMP #CRQMAX     ; TTEST REQ RANGE               ; /sarcasm South Park: Jimmy<hr class='page'>
+2B12:B0 0B          114             BCS <a class='x' href='#ERR2'>ERR2</a>        ; BR OUT OF RANGE               ; === Page <a class='page' name='page62'>62</a> === <i>A-a-n-d you still have an of-of-of-off-by-one bug allocation in array <a class='v' href='#CMDVT'>CMDVT</a>!</i>
 2B14:0A             115             ASL A           ; REQ CODE *2
 2B15:AA             116             TAX
 2B16:BD CA 2A       117             LDA <a class='v' href='#CMDVT'>CMDVT</a>+<span class='n'>1</span>,X   ; PUSH ADR ONTO STACK
@@ -3814,8 +3814,8 @@ With that "legalese" out of the way ... enjoy the read!
 2B7A:8D D2 35       049             STA DCBFDS      ; PUT SECTOR AS 1ST FILE DIR
 2B7D:8D D4 35       050             STA DCBCDS      ; PUT SECTOR AS CURRENT FILE DIR
 2B80:AD F1 35       051 ;
-2B83:9D C6 34       052             LDA DCBATK      ; GET ALLOCATED TRACK
-<hr>2B86:8D D1 35       053             STA VDFILE,X    ; PUT INTO VDIR                 ; === Page <a class='page' name='page78'>78</page> === <a class='magic' name='_2B87'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
+2B83:9D C6 34       052             LDA DCBATK      ; GET ALLOCATED TRACK<hr class='page'>
+2B86:8D D1 35       053             STA VDFILE,X    ; PUT INTO VDIR                 ; === Page <a class='page' name='page78'>78</page> === <a class='magic' name='_2B87'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
                     054             STA DCBFDT      ; AND AS 1ST FILE DIR           ; More crappy variable names    : dcbFdt
                     055             STA DCBCDT      ; AND AS CURRENT FILE DIR       ; that differ by a single letter: dcbCdt
                     056;
@@ -3877,8 +3877,8 @@ With that "legalese" out of the way ... enjoy the read!
                     112             ASL A
 2BFC:AA             113             TAX
                     114 <a class='f' name='F01A'     >F01A        </a>EQU *
-2BFD:8E F7 FF       115             STX DCBSLT
-<hr>                                                                                    ; === Page <a class='page' name='page79'>79</a> ===
+2BFD:8E F7 FF       115             STX DCBSLT<hr class='page'>
+                                                                                    ; === Page <a class='page' name='page79'>79</a> ===
                                                                                     ; === <a class='ts' name='T1SB'>T1SB</a> ===
 2C00:A9 11          116             LDA #<span class='n'>17</span>                                         ;[.. <a class='mem' name='_2C00' coords='5'>wastes</a> 5 bytes; <a class='magic' name='_2C01'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
 2C02:8D FA 35       117             STA <a class='v' href='#DCBVTN'>DCBVTN</a>                                      ; ..] due to unitialized <a class='x' href='#DCBVTN'>DCBVTN</a> DS 1           Because this can change???
@@ -3973,8 +3973,8 @@ With that "legalese" out of the way ... enjoy the read!
 2C5F:0A             175             ASL A           ; CODE*2                        ;[.. <b>Data</b>*2 = Array of 16-bit Function Pointers
 2C60:AA             176             TAX                                             ; ..
 2C61:BD E6 2A       177             LDA <a class='v' href='#RVT'>RVT</a>+<span class='n'>1</span>,X     ; GET READ ROUTINE              ; ..
-2C64:48             178             PHA                                             ; .. old code
-<hr>2C65:BD E5 2A       179             LDA <a class='v' href='#RVT'>RVT</a>,X                                       ; .. === Page <a class='page' name='page80'>80</a> ===
+2C64:48             178             PHA                                             ; .. old code<hr class='page'>
+2C65:BD E5 2A       179             LDA <a class='v' href='#RVT'>RVT</a>,X                                       ; .. === Page <a class='page' name='page80'>80</a> ===
 2C68:48             180             PHA             ; AND                           ; ..
 2C69:60             181             RTS             ; GO TO IT                      ; ..]
                     182 ;
@@ -4070,8 +4070,8 @@ With that "legalese" out of the way ... enjoy the read!
 2CB0:20 5B 31       238             JSR INCRRB      ; INCR REC BYTE                 ; <b>What</b> is the difference between these two???
 2CB3:20 94 31       239             JSR INCSCB      ; INCR SEC BYTE                 ;
 2CB6:68             240             PLA             ; GET SAVED BYTE                ; Stop treating the reader like an idiot with redundant comments
-2CB7:60             241             RTS             ; RETURN                        ; All this does is just add <b>visual noise</b>
-<hr>                    242 ;                                                           ; === Page <a class='page' name='page81'>81</a> ===
+2CB7:60             241             RTS             ; RETURN                        ; All this does is just add <b>visual noise</b><hr class='page'>
+                    242 ;                                                           ; === Page <a class='page' name='page81'>81</a> ===
 2CB8:4C 6F 33       243 <a class='f' name='EOFIN'    >EOFIN       </a>JMP ERROR5      ; GOTO EOF RTN                  ; CREEOF &rarr; <a class='v' href='#EM5'>EM5</a>: "END OF DATA"
                     244             PAGE
                     245 ;
@@ -4172,8 +4172,8 @@ With that "legalese" out of the way ... enjoy the read!
 2D36:4C 7B 33       050             JMP ERROR10                                     ; <a class='mem' name='_2D36' coords='3'>wastes</a> 3 bytes with <span class='code'>JMP</span>, See <a class='x' href='#ER10'>ER10</a> optimization above
                     051 ;
                     052 FD3         EQU *
-2D39:AE 9C 33       053             LDX TEMP        ; GET SAVED INDEX
-<hr>                                                                                    ; === Page <a class='page' name='page56'>56</a> ===
+2D39:AE 9C 33       053             LDX TEMP        ; GET SAVED INDEX<hr class='page'>
+                                                                                    ; === Page <a class='page' name='page56'>56</a> ===
 2D3C:BD C6 34       054             LDA VDFILE,X    ; GET DIR TRACK                 ; <a class='magic' name='_2D3C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
 2D3F:8D D1 35       055             STA DCBFDT      ; SET AS 1ST FD TRACK           ; LC = last character
 2D42:9D E6 34       056             STA VDFILE+<span class='n'>32</span>,X ; SAVE IN LC OF FN              ; <a class='magic' name='_2D42'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NAME + MAX_FILENAME_LEN - 1</span>
@@ -4236,8 +4236,8 @@ With that "legalese" out of the way ... enjoy the read!
 2DAE:A2 0B          <a class='line' name='FDELCAT.113'>113</a>             LDX #VML        ; VOLUME MSG LENGTH
 2DB0:BD AF 33       114 RD0         LDA VOLMES,X    ; GET MSG CHAR                  ; \
 2DB3:20 ED FD       115             JSR PRINT       ; PRINT IT                      ;  &gt; More stupid commenting stating the obvious
-2DB6:CA             116             DEX             ; DECREMENT COUNT               ; /
-<hr>                    117             BPL RD0         ; BR IF MORE                    ; === Page <a class='page' name='page57'>57</a> ===
+2DB6:CA             116             DEX             ; DECREMENT COUNT               ; /<hr class='page'>
+                    117             BPL RD0         ; BR IF MORE                    ; === Page <a class='page' name='page57'>57</a> ===
                     118 ;
 2DB9:86 45          119             STX CNUM+1                                      ; X=0 &rarr; CNUM+1, clear high byte for printing
 2DBB:AD F6 37       120             LDA IBSMOD      ; MOVE VOL NO FOR
@@ -4301,8 +4301,8 @@ With that "legalese" out of the way ... enjoy the read!
                     178             BCC RD2         ; BR IF MORE IN DIR
                     179             BCS RD1         ; GO READ NEXT DIR
                     180 ;
-                    181 RD5         JMP GOODIO      ; DONE
-<hr>                    182 ;                                                           ; === Page <a class='page' name='page58'>58</a> ===
+                    181 RD5         JMP GOODIO      ; DONE<hr class='page'>
+                    182 ;                                                           ; === Page <a class='page' name='page58'>58</a> ===
                     183 <a class='f' name='PRCR'     >PRCR        </a>EQU *
                     184             LDA #$8D        ; CR
                     185             JSR PRINT       ; PRINTED
@@ -4362,8 +4362,8 @@ With that "legalese" out of the way ... enjoy the read!
                     239 ;
                     240 <a class='f' name='RTNFCB'   >RTNFCB      </a>EQU *
 2E7E:20 08 2F       241             JSR MVFCBP      ; MOVE FCB ADR TO ZPG
-                    242 ;
-<hr>2E81:A0 00          243             LDY #<span class='n'>0</span>                                          ; === Page <a class='page' name='page59'>59</a> ===
+                    242 ;<hr class='page'>
+2E81:A0 00          243             LDY #<span class='n'>0</span>                                          ; === Page <a class='page' name='page59'>59</a> ===
 2E83:B9 D1 35       244 RF1         LDA FCB,Y
 2E86:91 42          245             STA (ZPGFCB),Y
 2E88:C8             246             INY
@@ -5399,7 +5399,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     051 ;
                     052 ;VOLUME DIRECTORY AREA                                      ; 
                     053 ;                                                           ; [--] <a class='ts'>T11SF</a> offsets === <a class='section' name='CATALOG'>CATALOG</a> ===
-<hr>                    054 <a class="d" name="VOLDIR"   >VOLDIR      </a>EQU *           ;                               ; === Page <a class="page" name="page87">87</a> ===
+<hr>
+                    054 <a class="d" name="VOLDIR"   >VOLDIR      </a>EQU *           ;                               ; === Page <a class="page" name="page87">87</a> ===
 34BB:02             055 <a class="d" name="VDTCDE"   >VDTCDE      </a>DFB 2           ; VOLUME DIRECTORY TYPE CODE    ; [00] <a class='struct' name='_34BB'>wastes</a> 1 byte -- and not even used !?!?!
                                                                                     ; <a class='magic' name='_34BC'>magic number</a> /sarcasm If only <span class='code'>FILESYSTEM_TYPE_CATALOG EQU $02</span>
 34BC:FD             056 <a class="d" name="VDLTRK"   >VDLTRK      </a>DS 1            ; VD LINK TRACK                 ; [01] ($11)
