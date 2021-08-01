@@ -3677,7 +3677,7 @@ With that "legalese" out of the way ... enjoy the read!
                     051 ;
                     052 ; DOS ADR TABLES (RELOCATED)
 <hr>                    053 ;                                                           ; === Page <a class='page' name='page61'>61</a>
-    =2AC1           054 <a class='e' id='2AC1' name='SAT2'  >SAT2        </a>EQU *                                           ; Start Address Table
+    =2AC1           054 <a class='d' id='2AC1' name='SAT2'  >SAT2        </a>EQU *                                           ; Start Address Table
                                                                                     ; Gee, we couldn't have put this at $1D00 to save 4 bytes in <a class='v' href='#ADRTAB'>ADRTAB</a> ?!
 2AC1:E8 37          055 <a class="d" id='2AC1' name='AIOB'  >AIOB        </a>DW <a class="v" href="#IOB"     >IOB</a>          ; 5-ADR IOB                     ; Also see <a class='v' href='#BAIOB'>BAIOB</a>; What happened to 1 .. 4 ??? At RVT, WVT ?
 2AC3:BB 33          056 <a class="d" id='2AC3' name='AVTOC' >AVTOC       </a>DW <a class="v" href="#VTOC"    >VTOC</a>         ; 6-ADR VTOC
