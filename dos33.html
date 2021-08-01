@@ -5669,23 +5669,23 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 361C:8D FE 08       067             STA <a class='v' href='#LOADADDR'>LOADADDR</a>+<span class='n'>1</span>                                  ; ..
                     068 * READ IN ANOTHER BSECTR FROM                               ; ..
                     069 *  TRACK ZERO...                                            ; ..
-361F:AE FF 08       070 <a class='f' id='361F' name='READNEXT' >READNEXT    </a>LDX BGRPGC                                      ; ..
-3622:30 15          071             BMI GOLOADER    ;=&gt;ALL DONE...EXECUTE IT!       ; ..
-3624:BD 4D 08       072             LDA TABLE,X     ;GET PHYSICAL BSECTR NUMBER     ; .. /sarcasm Real original name there guys
-3627:85 3D          073             STA BSECTR      ; AND SET FOR BOOT PROM READ    ; ..          You couldn't call it <span class='code'>LOGSECTR</span> for Logical Sector??
-3629:CE FF 08       074             DEC BGRPGC      ;ONE LESS BELL TO ANSWER...     ; ..
-                    075             LDA LOADADDR+<span class='n'>1</span>  ;GET LOAD ADDRESS               ; ..
-                    076             STA POINTA+<span class='n'>1</span>    ; FOR BSECTR READ               ; ..
-                    077             DEC LOADADDR+<span class='n'>1</span>  ;MOVE LOAD ADDRESS DOWN A PAGE  ; ..
-                    078             LDX BSLO        ;RESTORE BSLOT NUMBER           ; ..
-                    079             JMP (BTEMP)     ;READ MORE OF TRACK 0           ; ..]
-                    080 <a class='f' name='GOLOADER' >GOLOADER    </a>INC LOADADDR+<span class='n'>1</span>  ;ENTRY AT SECOND PAGE
-                    081             INC LOADADDR+<span class='n'>1</span>
-                    082             JSR <a class='x' href='#SETKBD'>SETKBD</a>      ;CLEAR IN#X
-                    083             JSR <a class='x' href='#SETVID'>SETVID</a>      ; AND PR#X
-                    084             JSR <a class='x' href='#MONINIT'>MONINIT</a>     ;MONINIT THE SCREEN PARAMS
-                    085             LDX <a class='v' href='#BSLOT'>BSLOT</a>       ;PASS BSLOT NBR TO LOADER
-                    086             JMP (LOADADDR)  ;OFF TO LOOADER!                ; *spelling* Loader
+361F:AE FF 08       070 <a class='f' id='361F' name='READNEXT' >READNEXT    </a>LDX <a class='v' href='#BGRPGC'>BGRPGC</a>                                      ; ..
+3622:30 15          071             BMI <a class='x' href='#GOLOADER' >GOLOADER</a>    ;=&gt;ALL DONE...EXECUTE IT!       ; ..
+3624:BD 4D 08       072             LDA <a class='v' href='#TABLE'    >TABLE</a>,X     ;GET PHYSICAL BSECTR NUMBER     ; .. /sarcasm Real <i>original</i> name there guys. WTF does TABLE <b>refer to???</b>
+3627:85 3D          073             STA <a class='v' href='#BSECTR'   >BSECTR</a>      ; AND SET FOR BOOT PROM READ    ; ..          You couldn't call it <span class='code'>LOGSECTR</span> for LOGical SECToR??
+3629:CE FF 08       074             DEC <a class='v' href='#BGRPGC'   >BGRPGC</a>      ;ONE LESS BELL TO ANSWER...     ; ..
+362C:AD FE 08       075             LDA <a class='v' href='#LOADADDR' >LOADADDR</a>+<span class='n'>1</span>  ;GET LOAD ADDRESS               ; ..
+362F:85 27          076             STA <a class='v' href='#POINTA'   >POINTA</a>+<span class='n'>1</span>    ; FOR BSECTR READ               ; ..
+3631:CE FE 08       077             DEC <a class='v' href='#LOADADDR' >LOADADDR</a>+<span class='n'>1</span>  ;MOVE LOAD ADDRESS DOWN A PAGE  ; ..
+3634:A6 2B          078             LDX <a class='v' href='#BSLO'     >BSLO</a>        ;RESTORE BSLOT NUMBER           ; ..
+3636:6C 3E 00       079             JMP (<a class='v' href='#BTEMP'    >BTEMP</a>)     ;READ MORE OF TRACK 0           ; ..]
+3639:EE FE 08       080 <a class='f' id='3639' name='GOLOADER' >GOLOADER    </a>INC LOADADDR+<span class='n'>1</span>  ;ENTRY AT SECOND PAGE
+363C:EE FE 08       081             INC <a class='v' href='#LOADADDR' >LOADADDR</a>+<span class='n'>1</span>
+363F:20 89 FE       082             JSR <a class='x' href='#SETKBD'   >SETKBD</a>      ;CLEAR IN#X
+3642:20 93 FE       083             JSR <a class='x' href='#SETVID'   >SETVID</a>      ; AND PR#X
+3645:20 2F FB       084             JSR <a class='x' href='#MONINIT'  >MONINIT</a>     ;MONINIT THE SCREEN PARAMS
+3648:A6 2B          085             LDX <a class='v' href='#BSLOT'    >BSLOT</a>       ;PASS BSLOT NBR TO LOADER
+364A:6C FD 08       086             JMP (<a class='v' href='#LOADADDR'>LOADADDR</a>)  ;OFF TO LOOADER!                ; *spelling* Loader
                     087 * TABLE OF PHYSICAL BSECTR NUMBERS
                     088 *  WHICH CORRESPOND TO THE LOGICAL
                     089 *  BSECTRS 0-F ON TRACK ZERO...
