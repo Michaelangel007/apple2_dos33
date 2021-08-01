@@ -5219,7 +5219,7 @@ With that "legalese" out of the way ... enjoy the read!
 3387:8D C5 35       276             STA <a class='v' href='#CCBSTA'>CCBSTA</a>      ; SET STA
 338A:A9 00          277             LDA #<span class='n'>0</span>          ;(FIX FOR APPLE SYS MONITOR $48 USED BY RWTS)
 338C:85 48          278             STA $<span class='n'>48</span>         ;(THIS ADDED 11/1/78)           ; <a class='magic' href='_338D'>magic number</a> <b>NOT</b> <a class='x' href='#ALLDONE'>ALLDONE</a> <span class='code'>DFB $24 SEC</span>, but <span class='todo'>TODO</span>
-338E:20 7E 2E       279             JSR RTNFCB      ; GO RTN FCB
+338E:20 7E 2E       279             JSR <a class='x' href='#RTNFCB' >RTNFCB</a>      ; GO RTN FCB
 3391:28             280             PLP             ; GET STATUS
 3392:AE 9B 33       281             LDX <a class='v' href='#ENTSTK'>ENTSTK</a>      ; GET ENT STACK
 3395:9A             282             TXS             ; RESTORE STACK                 ; o7 Captain Obvious
