@@ -5591,7 +5591,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 35F9:FE             180 <a class="d" id='35F9' name="DCBVOL"     >DCBVOL      </a>DS 1            ; VOLUME DRIVER                 ; [28]
 35FA:FD             181 <a class="d" id='35FA' name="DCBVTN"     >DCBVTN      </a>DS 1            ; VTOC TRACK NUMBER             ; [29] Why isn't this <span class='code'>DFB 17</span>?? See <a class='x' href='#F01A'>F01A</a>
                     182 ;
-35FB:FC FD FC       183 <a class="d" name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; [2A] <a class='mem' name='_35fb' coords='3'>wastes</a> 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *unused*
+35FB:FC FD FC       183 <a class="d" id='35FB' name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; [2A] <a class='mem' name='_35fb' coords='3'>wastes</a> 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *unused*
                     184 ;
                     185 <a class="e" name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH                    ;=$2D
                     <a class='line' name='FVCBUFS.186'>186</a> <a class="e" name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH                    ; = $35FE - $35D1 = $2D
