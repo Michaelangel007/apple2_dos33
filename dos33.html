@@ -4634,18 +4634,18 @@ With that "legalese" out of the way ... enjoy the read!
                     023 ;
                     024 <a class="f" name="RDVDIR"   >RDVDIR      </a>EQU *
 3011:08             025             PHP             ; SAVE STATUS
-3012:20 45 30       026             JSR MVVDBA
+3012:20 45 30       026             JSR <a class='x' href='#MVVDBA' >MVVDBA</a>
                     027 ;
 3015:28             028             PLP             ; GET STATUS
-                    029             BCS RVDA        ; BR IF R0 NEXT
+3016:B0 08          029             BCS <a class='x' href='#RVDA'   >RVDA</a>        ; BR IF R0 NEXT
                     030 ;
-                    031 RVDC        LDY VDIRSC      ; READ 1ST SECTOR
-                    032             LDX VDIRTK      ; GET FIRST TRK
-                    033             BNE RVDGO       ; GO READ                       ; BUG: Catalog can't be on T0, FIX: <span class='code'>BPL RVDGO</span>
+3018:AC BD 33       031 <a class='f' id='3018' name='RVDC'     >RVDC        </a>LDY <a class='v' href='#VDIRSC' >VDIRSC</a>      ; READ 1ST SECTOR
+301B:AE B3 33       032             LDX <a class='v' href='#VDIRTK' >VDIRTK</a>      ; GET FIRST TRK
+301E:D0 0A          033             BNE <a class='x' href='#RVDGO'  >RVDGO</a>       ; GO READ                       ; BUG: Catalog can't be on T0, FIX: <span class='code'>BPL RVDGO</span>
                     034 ;
-                    035 RVDA        EQU *
-                    036             LDX VDLTRK      ; GET LINK TRACK
-                    037             BNE RDVC        ; BR IF A LINK                  ; BUG: Catalog can't be on T0, FIX: <span class='code'>BPL RDVC</span>
+    =3020           035 <a class='f' id='3020' name='RVDA'     >RVDA        </a>EQU *
+3020:AE BC 34       036             LDX <a class='v' href='#VDLTRK' >VDLTRK</a>      ; GET LINK TRACK
+3023:D0 02          037             BNE <a class='x' href='#RDVC'   >RDVC</a>        ; BR IF A LINK                  ; BUG: Catalog can't be on T0, FIX: <span class='code'>BPL RDVC</span>
 3025:38             038             SEC             ; SET END OF DIR
 3026:60             039             RTS
                     040 ;
