@@ -5593,8 +5593,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     182 ;
 35FB:FC FD FC       183 <a class="d" id='35FB' name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; [2A] <a class='mem' name='_35fb' coords='3'>wastes</a> 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *unused*
                     184 ;
-                    185 <a class="e" name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH                    ;=$2D
-                    <a class='line' name='FVCBUFS.186'>186</a> <a class="e" name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH                    ; = $35FE - $35D1 = $2D
+    =2D             185 <a class='e' id='002D' name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH                    ;=$2D
+    =2D             <a class='line' name='FVCBUFS.186'>186</a> <a class="e" id='002E' name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH                    ; = $35FE - $35D1 = $2D
                     187 ;
 </pre>
 
