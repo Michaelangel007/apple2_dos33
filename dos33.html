@@ -3877,7 +3877,7 @@ With that "legalese" out of the way ... enjoy the read!
 2BFD:8E F7 FF       115             STX DCBSLT
 <hr>                                                                                    ; === Page <a class='page' name='page79'>79</a> ===
                                                                                     ; === <a class='ts' name='T1SB'>T1SB</a> ===
-2C00:A9             116             LDA #<span class='n'>17</span>                                         ;[.. <a class='mem' name='_2C00' coords='5'>wastes</a> 5 bytes; <a class='magic' name='_2C01'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
+2C00:A9 11          116             LDA #<span class='n'>17</span>                                         ;[.. <a class='mem' name='_2C00' coords='5'>wastes</a> 5 bytes; <a class='magic' name='_2C01'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
 2C02:8D FA 35       117             STA <a class='v' href='#DCBVTN'>DCBVTN</a>                                      ; ..] due to unitialized <a class='x' href='#DCBVTN'>DCBVTN</a> DS 1           Because this can change???
 2C05:60             118             RTS
                     119             PAGE
