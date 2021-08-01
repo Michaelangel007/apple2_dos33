@@ -4685,13 +4685,13 @@ With that "legalese" out of the way ... enjoy the read!
     =3052           073 <a class='f' id='3052' name='DCBIO'    >DCBIO       </a>EQU *
 3052:8E EC 37       074             STX IBTRK       ; TRACK                         ; As this is called from Page 74 and 75
 3055:8C ED 37       075             STY IBSECT      ; SECTOR
-                    076 <a class='f' name='DCBIO2'   >DCBIO2      </a>EQU *
+                    076 <a class='f' id='3058' name='DCBIO2'   >DCBIO2      </a>EQU *
 3058:8D F4 37       077             STA <a  class='v' href='#IBCMD' >IBCMD</a>       ; COMMAND
 305B:C9 02          078             CMP #IBCWTS
 305D:D0 06          079             BNE DCBIO1                                      ; Read
 305F:0D D5 35       080             ORA DCBWRF
 3062:8D D5 35       081             STA DCBWRF
-                    082 <a class='f' name='DBIO1'    >DBIO1       </a>EQU *
+                    082 <a class='f' id='3065' name='DBIO1'    >DBIO1       </a>EQU *
 3065:AD F9 35       083             LDA DCBVOL      ; VOL                           ;[..<a class='mem' name='_3065' coords='2'>wastes</a> 2 bytes
 3068:49 FF          084             EOR #$FF        ; UNINVERT VOL BITS             ; ..  0. Why was it inverted in the first place???
 306A:8D EB 37       085             STA <a  class='v' href='#IBVOL' >IBVOL</a>                                       ; ..  1. More crappy names; Since DCB and IB are used all the time,
