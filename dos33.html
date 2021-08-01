@@ -5880,57 +5880,57 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 36F8:00 00 00 00                                                                    ; .. <span class='macro'>36E7:60                RTS          </span> instead of JMP
 36FC:00                                                                             ; ..]  === DOS 3.3 EASTER EGG ===
 
-                    238 * LOAD ADDRESS FOR CODE (PG BDY)
-                    239 * ENTRY AFTER BOOT IS AT LOADADDR+256 (SECOND PAGE LOADED)
-                    240 *
-                    241 <a class='f' id='36FD' name='BHERE4'>BHERE4      </a>EQU &gt;*
-<hr>                    242 <a class='d' id='36FD' name='LOADADDR'>LOADADDR    </a>EQU $<span class='n'>800</span>+BHERE4                                 ; === Page <a class="page" name="page12">12</a> ===
-36FD:00             243             DFB <span class='n'>0</span>
-36FE:36             244 <a class='d' id='36FE' name='GRSPG' >GRSPG       </a>DFB &lt;<a class='v' href='#TRK0LDR'>TRK0LDR</a>        ;CONTAINS PAGE#-1 OF TRK 0, SEC 1 LOAD ADDRESS
-                    245 * LAST LOGICAL BSECTOR TO READ STARTING AT $00
-                    246 <a class='f' id='36FF' name='BHERE5'>BHERE5      </a>EQU &gt;*
-                    247 <a class='d' id='0800' name='BGRPGC'>BGRPGC      </a>EQU $<span class='n'>800</span>+BHERE5
-36FF:09             248 <a class='d' id='36FF' name='GRPGC' >GRPGC       </a>DFB &lt;<a class='v' href='#ENDOFDOS'>ENDOFDOS</a>-<a class='v' href='#TRK0LDR'>TRK0LDR</a>-$<span class='n'>100</span>
-                    249 ********************
-                    250             PAGE
-                    251 DOSLODR     EQU *
-                    252             DO &gt;<a class='do' href='#DOSLODR'>DOSLODR</a><span class='macro'>
-                    253             ???             ;ERROR IF NOT ON PAGE BOUNDARY  </span>
-                    254             FIN
-                    255             REP 40
-                    256 * FAST BOOT AT 2:1 INTERLEAVE                               ; "<i>You keep using this word <b>fast</b>,</i>
-                    257 * FOR 16-SECTOR DISKETTES                                   ;  <i>it doesn't mean what you think it means.</i>"
-                    258             REP 40                                          ; Copy ][+ has a FAST boot via 4&amp;4 encoding, not 6&amp;2 encoding.
-3700:8E E9 37       259             STX IBSLOT      ; SET BOOT SLOT                 ; === <a class='ts' href='#T0S1'>T0S1</a> ===
-3703:8E F7 37       260             STX IBPSLT      ; SET PREVIOUS SLOT
-3706:A9 01          261             LDA #<span class='n'>1</span>          ; SET PREV DRIVE                ; <i>Assumes</i> boot was from drive 1; Sadly there is no hardware support to tell.
-3708:8D F8 37       262             STA IBPDRV                                      ; More crappy names differing by a single letter
-370B:8D EA 37       263             STA IBDRVN                                      ;     IBPDRV    IB_PRV_DRV
-                    264 ;                                                           ;     IBDRVN    IB_CUR_DRV
-370E:AD E0 37       265             LDA NDPGS       ; COPY NO PAGES TO GET
-3711:8D E1 37       266             STA BRWCNT
-3714:A9 02          267             LDA #<span class='n'>2</span>
-3716:8D EC 37       268             STA IBTRK       ; SET TRACK 0                   ; Uhm, T2S4, not T0S4
-3719:A9 04          269             LDA #<span class='n'>4</span>          ;ENDING SECTOR OF DOS IMAGE
-371B:8D ED 37       270             STA IBSECT      ;TO IOB
-371E:AC E7 37       271             LDY ADOSLD+<span class='n'>1</span>    ;END PAGE OF DOS IMAGE
-3721:88             272             DEY             ;IS ONE LESS THAN
-3722:8C F1 37       273             STY IBBUFP+<span class='n'>1</span>    ;START OF DOSLDR+BOOT
-                    274 ;
-3725:A9 01          275             LDA #IBCRTS     ; SET READ
-3727:8D F4 37       276             STA IBCMD
-                    277 ;
-372A:8A             278             TXA             ; SET PREV TRACK = 0
-372B:4A             279             LSR A
-372C:4A             280             LSR A
-372D:4A             281             LSR A
-372E:4A             282             LSR A
-372F:AA             283             TAX                                             <!--                -->; The 40x24 text screen has "memory holes" that are NOT displayed
-3730:A9 00          284             LDA #<span class='n'>0</span>                                          ; reserved for each Slot 1..7 as "scratchpad" or temp vars
-3732:9D F8 04       285             STA $<span class='n'>4F8</span>,X                                      ; <a class='magic' name='_3733'>magic number</a> /sarcasm <i>What,</i> <span class='code'><a class='x' href='#DRV2TRK'>DRV2TRK</a></span> <i>wasn't available???</i>
-3735:9D 78 04       286             STA $<span class='n'>478</span>,X                                      ; <a class='magic' name='_3736'>magic number</a> /sarcasm <i>What,</i> <span class='code'><a class='x' href='#DRV1TRK'>DRV1TRK</a></span> <i>wasn't available???</i>
-3738:20 93 27       287             JSR BOOTIO      ; GO READ DOS
-                    288 ;
+                    238 <meta                                 />* LOAD ADDRESS FOR CODE (PG BDY)
+                    239 <meta                                 />* ENTRY AFTER BOOT IS AT LOADADDR+256 (SECOND PAGE LOADED)
+                    240 <meta                                 />*
+                    241 <a class='d' id='36FD' name='BHERE4'   >BHERE4      </a>EQU &gt;*<hr class='page'>
+                    242 <a class='d' id='36FD' name='LOADADDR' >LOADADDR    </a>EQU $<span class='n'>800</span>+<a class='v' href='#BHERE4'>BHERE4</a>                                 ; === Page <a class="page" name="page12">12</a> ===
+36FD:00             243 <meta                                 />            DFB <span class='n'>0</span>
+36FE:36             244 <a class='d' id='36FE' name='GRSPG'    >GRSPG       </a>DFB &lt;<a class='v' href='#TRK0LDR'>TRK0LDR</a>        ;CONTAINS PAGE#-1 OF TRK 0, SEC 1 LOAD ADDRESS
+                    245 <meta                                 />* LAST LOGICAL BSECTOR TO READ STARTING AT $00
+                    246 <a class='f' id='36FF' name='BHERE5'   >BHERE5      </a>EQU &gt;*
+                    247 <a class='d' id='0800' name='BGRPGC'   >BGRPGC      </a>EQU $<span class='n'>800</span>+BHERE5
+36FF:09             248 <a class='d' id='36FF' name='GRPGC'    >GRPGC       </a>DFB &lt;<a class='v' href='#ENDOFDOS'>ENDOFDOS</a>-<a class='v' href='#TRK0LDR'>TRK0LDR</a>-$<span class='n'>100</span>
+                    249 <meta                                 />********************
+                    250 <meta                                 />            PAGE
+                    251 <meta                                 />DOSLODR     EQU *
+                    252 <meta                                 />            DO &gt;<a class='do' href='#DOSLODR'>DOSLODR</a><span class='macro'>
+                    253 <meta                                 />            ???             ;ERROR IF NOT ON PAGE BOUNDARY  </span>
+                    254 <meta                                 />            FIN
+                    255 <meta                                 />            REP 40
+                    256 <meta                                 />* FAST BOOT AT 2:1 INTERLEAVE                               ; "<i>You keep using this word <b>fast</b>,</i>
+                    257 <meta                                 />* FOR 16-SECTOR DISKETTES                                   ;  <i>it doesn't mean what you think it means.</i>"
+                    258 <meta                                 />            REP 40                                          ; Copy ][+ has a FAST boot via 4&amp;4 encoding, not 6&amp;2 encoding.
+3700:8E E9 37       259 <meta                                 />            STX <a  class='v' href='#IBSLOT'>IBSLOT</a>      ; SET BOOT SLOT                 ; === <a class='ts' href='#T0S1'>T0S1</a> ===
+3703:8E F7 37       260 <meta                                 />            STX <a  class='v' href='#IBPSLT'>IBPSLT</a>      ; SET PREVIOUS SLOT
+3706:A9 01          261 <meta                                 />            LDA #<span class='n'>1</span>          ; SET PREV DRIVE                ; <i>Assumes</i> boot was from drive 1; Sadly there is no hardware support to tell.
+3708:8D F8 37       262 <meta                                 />            STA <a  class='v' href='#IBPDRV'>IBPDRV</a>                                      ; More crappy names differing by a single letter:
+370B:8D EA 37       263 <meta                                 />            STA <a  class='v' href='#IBDRVN'>IBDRVN</a>                                      ;     <span class='code'>IBPDRV    IB_PRV_DRV</span>
+                    264 <meta                                 />;                                                           ;     <span class='code'>IBDRVN    IB_CUR_DRV</span>
+370E:AD E0 37       265 <meta                                 />            LDA <a  class='v' href='#NDPGS' >NDPGS</a>       ; COPY NO PAGES TO GET
+3711:8D E1 37       266 <meta                                 />            STA <a  class='v' href='#BRWCNT'>BRWCNT</a>
+3714:A9 02          267 <meta                                 />            LDA #<span class='n'>2</span>
+3716:8D EC 37       268 <meta                                 />            STA <a  class='v' href='#IBTRK' >IBTRK</a>       ; SET TRACK 0                   ; Uhm, T2S4, not T0S4
+3719:A9 04          269 <meta                                 />            LDA #<span class='n'>4</span>          ;ENDING SECTOR OF DOS IMAGE
+371B:8D ED 37       270 <meta                                 />            STA <a  class='v' href='#IBSECT'>IBSECT</a>      ;TO IOB
+371E:AC E7 37       271 <meta                                 />            LDY <a  class='v' href='#ADOSLD'>ADOSLD</a>+<span class='n'>1</span>    ;END PAGE OF DOS IMAGE
+3721:88             272 <meta                                 />            DEY             ;IS ONE LESS THAN
+3722:8C F1 37       273 <meta                                 />            STY <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>    ;START OF DOSLDR+BOOT
+                    274 <meta                                 />;
+3725:A9 01          275 <meta                                 />            LDA #<a class='v' href='#IBCRTS'>IBCRTS</a>     ; SET READ
+3727:8D F4 37       276 <meta                                 />            STA <a  class='v' href='#IBCMD' >IBCMD</a>                                       ; So it IS possible to use <i>symbolic names</i> instead of <i>magic numbers!</i> /s See Line #<a class='line' href='#BOOTLDR.313'>313</a>
+                    277 <meta                                 />;
+372A:8A             278 <meta                                 />            TXA             ; SET PREV TRACK = 0
+372B:4A             279 <meta                                 />            LSR A
+372C:4A             280 <meta                                 />            LSR A
+372D:4A             281 <meta                                 />            LSR A
+372E:4A             282 <meta                                 />            LSR A
+372F:AA             283 <meta                                 />            TAX                                             <meta                />; The 40x24 text screen has "memory holes" that are NOT displayed
+3730:A9 00          284 <meta                                 />            LDA #<span class='n'>0</span>                                          ; reserved for each Slot 1..7 as "scratchpad" or temp vars
+3732:9D F8 04       285 <meta                                 />            STA $<span class='n'>4F8</span>,X                                      ; <a class='magic' name='_3733'>magic number</a> /sarcasm <i>What,</i> <span class='code'><a class='x' href='#DRV2TRK'>DRV2TRK</a></span> <i>wasn't available???</i>
+3735:9D 78 04       286 <meta                                 />            STA $<span class='n'>478</span>,X                                      ; <a class='magic' name='_3736'>magic number</a> /sarcasm <i>What,</i> <span class='code'><a class='x' href='#DRV1TRK'>DRV1TRK</a></span> <i>wasn't available???</i>
+3738:20 93 37       287 <meta                                 />            JSR <a  class='x' href='#BOOTIO'>BOOTIO</a>       ; GO READ DOS
+                    288 <meta                                 />;
                     <a class='line' name='BOOTLDR.289'>289</a> ;DOSINT - INITIALIZE DOS                                    ; /sarcasm Couldn't afford extra 'i' in "dosinIt"
                     290 ;
                     291 <a class="f" name="DOSINT"   >DOSINT      </a>EQU *                                            ; Ironically in Boot Loader, not Dos Init
