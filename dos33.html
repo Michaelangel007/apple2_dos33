@@ -5644,28 +5644,28 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     042 *
     =FB2F           043 <a class="f" id='FB2F' name="MONINIT"  >MONINIT     </a>EQU $<span class='e'>FB2F</span>       ;MONINIT SCREEN
     =00             044 <a class='e' id='0000' name="BHERE3"   >BHERE3      </a>EQU &gt;*                                          ; unused, <a class="do" href="#TRK0LDR">TRK0LDR</a> already used to test page alignment.
-    =0800           045 <a class='d' id='0800' name="BOOTCNT"  >BOOTCNT     </a>EQU $800+BHERE3                                 ; unused but used as placeholder for P6 ROM
+    =0800           045 <a class='d' id='0800' name="BOOTCNT"  >BOOTCNT     </a>EQU $800+<a class='v' href="#BHERE3">BHERE3</a>                                 ; unused but used as placeholder for P6 ROM
 3600:01             046             DFB <span class='n'>01</span>                                          ; We <b>could</b> store $10 here to have the P6 PROM read <i>16 sectors</i> but nah,
                     047             PAGE                                            ; let's waste $839-$801 = $38 (56) bytes instead!
-3601:A5 27          048             LDA <a class="d" href="#POINTA">POINTA</a>+<span class='n'>1</span>    ;WHERE DID BSECTR GET LOADED?   ;[.. <a class='mem' name='_3601' coords='56'>wastes</a> 56 bytes; Get memory page of last load
+3601:A5 27          048             LDA <a class="v" href="#POINTA">POINTA</a>+<span class='n'>1</span>    ;WHERE DID BSECTR GET LOADED?   ;[.. <a class='mem' name='_3601' coords='56'>wastes</a> 56 bytes; Get memory page of last load
 3603:C9 09          049             CMP #<span class='n'>09</span>         ; (AT 0800)?                    ; ..
 3605:D0 18          050             BNE <a class="x" href="#READNEXT">READNEXT</a>    ;=&gt;NO. WE'RE LOADING SOMETHING  ; ..
                     051 * WE'VE BEEN BOOTED. SET UP                                 ; ..
                     052 * PARAMS FOR BOOT PROM SO                                   ; ..<hr class='page'>
                     053 * THAT WE'LL READ IN TRACK 0,                               ; .. === Page <a class="page" name="page9">9</a> ===
                     054 * BSECTRS 00-09.                                            ; ..
-3607:A5 2B          055             LDA <a class='d' href='#BSLOT'>BSLOT</a>       ;GET BOOT SLOT                  ; ..
+3607:A5 2B          055             LDA <a class='v' href='#BSLOT'>BSLOT</a>       ;GET BOOT SLOT                  ; ..
 3609:4A             056             LSR A           ;CONVERT TO CX00                ; ..
 360A:4A             057             LSR A                                           ; ..
 360B:4A             058             LSR A                                           ; ..
 360C:4A             059             LSR A                                           ; ..
 360D:09 C0          060             ORA #$<span class='n'>C0</span>                                        ; ..
-360F:85 3F          061             STA <a class='d' href='#BTEMP'>BTEMP</a>+<span class='n'>1</span>                                     ; ..
+360F:85 3F          061             STA <a class='v' href='#BTEMP'>BTEMP</a>+<span class='n'>1</span>                                     ; ..
 3611:A9 5C          062             LDA #<a class='v' href='#BRETRY'  >BRETRY</a>     ; PROM ROUTINE OFFSET           ; ..
-3613:85 3E          063             STA <a class='d' href='#BTEMP'>BTEMP</a>                                       ; ..
+3613:85 3E          063             STA <a class='v' href='#BTEMP'>BTEMP</a>                                       ; ..
 3615:18             064             CLC             ;BUMP LOAD ADDRESS UP TO        ; ..
 3616:AD FE 08       065             LDA <a class='v' href='#LOADADDR'>LOADADDR</a>+<span class='n'>1</span>  ; LAST PAGE SO WE               ; ..
-3619:6D FF 08       066             ADC <a class='d' href='#BGRPGC'>BGRPGC</a>      ;  CAN LOAD 'EM BACKWARDS       ; ..
+3619:6D FF 08       066             ADC <a class='v' href='#BGRPGC'>BGRPGC</a>      ;  CAN LOAD 'EM BACKWARDS       ; ..
 361C:8D FE 08       067             STA <a class='v' href='#LOADADDR'>LOADADDR</a>+<span class='n'>1</span>                                  ; ..
                     068 * READ IN ANOTHER BSECTR FROM                               ; ..
                     069 *  TRACK ZERO...                                            ; ..
