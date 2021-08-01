@@ -4685,7 +4685,7 @@ With that "legalese" out of the way ... enjoy the read!
 3052:8E EC 37       074             STX IBTRK       ; TRACK                         ; As this is called from Page 74 and 75
 3055:8C ED 37       075             STY IBSECT      ; SECTOR
                     076 <a class='f' name='DCBIO2'   >DCBIO2      </a>EQU *
-3058:8D F4 37       077             STA IBCMD       ; COMMAND
+3058:8D F4 37       077             STA <a  class='v' href='#IBCMD' >IBCMD</a>       ; COMMAND
 305B:C9 02          078             CMP #IBCWTS
 305D:D0 06          079             BNE DCBIO1                                      ; Read
 305F:0D D5 35       080             ORA DCBWRF
@@ -4693,7 +4693,7 @@ With that "legalese" out of the way ... enjoy the read!
                     082 <a class='f' name='DBIO1'    >DBIO1       </a>EQU *
 3065:AD F9 35       083             LDA DCBVOL      ; VOL                           ;[..<a class='mem' name='_3065' coords='2'>wastes</a> 2 bytes
 3068:49 FF          084             EOR #$FF        ; UNINVERT VOL BITS             ; ..  0. Why was it inverted in the first place???
-306A:8D EB 37       085             STA IBVOL                                       ; ..  1. More crappy names; Since DCB and IB are used all the time,
+306A:8D EB 37       085             STA <a  class='v' href='#IBVOL' >IBVOL</a>                                       ; ..  1. More crappy names; Since DCB and IB are used all the time,
 306D:AD F7 35       086             LDA DCBSLT      ; SLOT                          ; ..     a single letter prefix with an underscore '_' would
 3070:8D E9 37       087             STA IBSLOT                                      ; ..         a) improve readability significantly, and
 3073:AD F8 35       088             LDA DCBDRV      ; DRIVE                         ; ..         b) require less typing to boot
@@ -4750,17 +4750,17 @@ With that "legalese" out of the way ... enjoy the read!
 3087:8D E8 37       <a class='line' name='FLOCNXB.095'>095</a>             STA <a class='v' href='#IBTYPE'>IBTYPE</a>                                      ; ..] never referenced!
                     096 ;
 308A:AC C1 2A       097             LDY AIOB
-                    098             LDA AIOB+1
-                    099             JSR DISKIO
+308D:AD C2 2A       098             LDA AIOB+1
+3090:20 B5 37       099             JSR <a  class='x' href='#DISKIO'>DISKIO</a>
                     100 ;
-                    101             LDA IBSMOD                                      ; <b>Hack</b>
-                    102             STA CCBVOL
-                    103             LDA #$FF        ; RESET VOL
-                    104             STA IBVOL
-                    105             BCS BADIO       ; BR IF BAD
-                    106             RTS             ; RTN IF GOOD
+3093:AD F6 37       101             LDA <a  class='v' href='#IBSMOD'>IBSMOD</a>                                      ; <b>Hack</b>
+3096:8D BF 35       102             STA <a  class='v' href='#CCBCOL'>CCBVOL</a>
+3099:A9 FF          103             LDA #$FF        ; RESET VOL
+309B:8D EB 37       104             STA <a  class='v' href='#IBVOL' >IBVOL</a>
+309E:B0 01          105             BCS <a  class='x' href='#BADIO' >BADIO</a>       ; BR IF BAD
+30A0:60             106             RTS             ; RTN IF GOOD
                     107 ;
-30A1:AD F5 37       108 BADIO       LDA IBSTAT      ; GET STATUS
+30A1:AD F5 37       108 <a class='f' name='BADIO'    >BADIO       </a>LDA <a  class='v' href='#IBSTAT'>IBSTAT</a>      ; GET STATUS
                     109             LDY #CREVMM
                     110             CMP #IBVMME     ; WAS IT VOLUME MISMATCH
                     111             BEQ BD2         ; BR IF YES
