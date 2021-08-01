@@ -5689,8 +5689,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     087 * TABLE OF PHYSICAL BSECTR NUMBERS
                     088 *  WHICH CORRESPOND TO THE LOGICAL
                     089 *  BSECTRS 0-F ON TRACK ZERO...
-                    090 <a class='d' name='BHERE2'   >BHERE2      </a>EQU &gt;*                                          ; low byte (modern assemblers reverse this)
-                    091 <a class='d' name='TABLE'    coords='16'>TABLE       </a>EQU $800+BHERE2                                 ; Our native address is $3600 but also loaded at $0800
+    =4D             090 <a class='e' id='004D' name='BHERE2'   >BHERE2      </a>EQU &gt;*                                          ; low byte (modern assemblers reverse this)
+    =084D           091 <a class='d' id='084D' name='TABLE'    coords='16'>TABLE       </a>EQU $800+<a class='v' href='#BHERE2'  >BHERE2</a>                                 ; Our native address is $3600 but also loaded at $0800
                                                                                     ;
                                                                                     ; This is one time where you <b>don't</b> want to compact lines
                                                                                     ; <b>Problem</b>: Compare &amp; contrast this clusterfrak
