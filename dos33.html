@@ -1363,7 +1363,7 @@ With that "legalese" out of the way ... enjoy the read!
                     00375 002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>
 1C81:FC FD FD       00376 <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; <a class='disk' name='_1C81'>disk</a> wastes 127 bytes padding to end of sector
 1C84:FD FC FD FC                                                                    ; Technically only 82 bytes ($1CD3-$1C81 = $52) are wasted
-1C88:FC FC FE FE                                                                    ; but <span class="macro">FTAB DW *-45</span> is sloppy code
+1C88:FC FC FE FE                                                                    ; but <span class="macro">FTAB DW *-45</span> (below) is sloppy code
 1C8C:FC FE FC FC                                                                    ; Why isn't this "allocated" at run-time?
 1C90:FD FE FC FF                                                                    ; Meaning this should be placed <b>after</b> ALL the code.
 1C94:FC FD FC FC                                                                    ; See: <a class='dumb' href="#WastedDisk">Wasted Disk Space</a>
