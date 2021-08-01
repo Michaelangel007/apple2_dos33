@@ -4487,21 +4487,22 @@ With that "legalese" out of the way ... enjoy the read!
                     114 <a class='f' name='WRFDGO'   >WRFDGO      </a>EQU *
 2F3A:20 4B 2F       115             JSR MVFDBA                                      ; MoveFileDirectoryBufferAddress
                     116 ;
-<hr>                    117             LDA #IBCWTS     ; GET WRITE CMD                 ; === Page <a class='page' name='page75'>75</a> ===
-                    118             JSR DCBIO       ; GO FILL IN IOB AND DO I/O
+<hr>
+2F3D:A9 02          117             LDA #IBCWTS     ; GET WRITE CMD                 ; === Page <a class='page' name='page75'>75</a> ===
+2F3F:20 52 30       118             JSR DCBIO       ; GO FILL IN IOB AND DO I/O
                     119 ;
-                    120             LDA #$<span class='n'>7F</span>        ; TURN WRITE DIR REQD BIT OFF   ; <a class='magic' name='_'>magic number</a> $7F = 0111_1111 <span class='code'>FLAG_W_FIL_SECTOR EQU $80; LDA ~FLAG_W_FIL_SECTOR</span>
-                    121             AND DCBWRF
-                    122             STA DCBWRF
-                    123             RTS
+2F42:a9 7F          120             LDA #$<span class='n'>7F</span>        ; TURN WRITE DIR REQD BIT OFF   ; <a class='magic' name='_'>magic number</a> $7F = 0111_1111 <span class='code'>FLAG_W_FIL_SECTOR EQU $80; LDA ~FLAG_W_FIL_SECTOR</span>
+2F44:2D D5 35       121             AND DCBWRF
+2F47:8D D5 35       122             STA DCBWRF
+2F4A:60             123             RTS
                     124 ;
                     125 * MVFDBA - MOVE FILE DIRECTORY BUFF ASDR TO IOD
                     126 ;
                     127 <a class='f' name='MVFDBA'   >MVFDBA      </a>EQU *
-                    128             LDA CFCBDR      ; MOVE ADR
-                    129             STA IBBUFP
-                    130             LDA CFCBDR+1
-                    131             STA IBBUFP+1
+2F4B:AD C9 35       128             LDA CFCBDR      ; MOVE ADR
+2F4E:8D F0 37       129             STA <a  class='v' href='#IBBUFP'>IBBUFP</a>
+2F51:AD CA 35       130             LDA CFCBDR+1
+2F54:8D F1 37       131             STA <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>
 2F57:AE D3 35       132             LDX DCBCDT      ; GET TRACK                     
 2F5A:AC D4 35       133             LDY DCBCDS      ; GET SECTOR
 2F5D:60             134             RTS
