@@ -5636,15 +5636,15 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     034 *  DOS IMAGE INTO MEMORY. *
                     035 *                         *
                     036 ***************************
-                    037 <a class="d" name="POINTA"   >POINTA      </a>EQU $26         ;BUFFER POINTER
-                    038 <a class="d" name="BSLOT"    >BSLOT       </a>EQU $2B         ;BOOT BSLOT
-                    039 <a class="d" name="BSECTR"   >BSECTR      </a>EQU $3D         ;LAST BSECTR READ
-                    040 <a class="d" name="BTEMP"    >BTEMP       </a>EQU $3E         ;ADDRESS BTEMP
-                    041 <a class="d" name="BRETRY"   >BRETRY      </a>EQU $5C         ;OFFSET TO READER
+    =0026           037 <a class='d' id='0026' name="POINTA"   >POINTA      </a>EQU $26         ;BUFFER POINTER
+    =002B           038 <a class='d' id='002B' name="BSLOT"    >BSLOT       </a>EQU $2B         ;BOOT BSLOT
+    =003D           039 <a class='d' id='003D' name="BSECTR"   >BSECTR      </a>EQU $3D         ;LAST BSECTR READ
+    =003E           040 <a class='d' id='003E' name="BTEMP"    >BTEMP       </a>EQU $3E         ;ADDRESS BTEMP
+    =005C           041 <a class='d' id='005C' name="BRETRY"   >BRETRY      </a>EQU $5C         ;OFFSET TO READER
                     042 *
-                    043 <a class="f" name="MONINIT"  >MONINIT     </a>EQU $<span class='e'>FB2F</span>       ;MONINIT SCREEN
-                    044 <a class="d" name="BHERE3"   >BHERE3      </a>EQU &gt;*
-                    045 <a class="d" name="BOOTCNT"  >BOOTCNT     </a>EQU $800+BHERE3
+    =FB2F           043 <a class="f" id='FB2F' name="MONINIT"  >MONINIT     </a>EQU $<span class='e'>FB2F</span>       ;MONINIT SCREEN
+    =00             044 <a class='e' id='0000' name="BHERE3"   >BHERE3      </a>EQU &gt;*                                          ; unused, <a class="do" href="#TRK0LDR">TRK0LDR</a> already used to test page alignment.
+    =0800           045 <a class='d' id='0800' name="BOOTCNT"  >BOOTCNT     </a>EQU $800+BHERE3                                 ; unused but used as placeholder for P6 ROM
 3600:01             046             DFB <span class='n'>01</span>                                          ; We <b>could</b> store $10 here to have the P6 PROM read <i>16 sectors</i> but nah,
                     047             PAGE                                            ; let's waste $839-$801 = $38 (56) bytes instead!
 3601:A5 27          048             LDA <a class="d" href="#POINTA">POINTA</a>+<span class='n'>1</span>    ;WHERE DID BSECTR GET LOADED?   ;[.. <a class='mem' name='_3601' coords='56'>wastes</a> 56 bytes; Get memory page of last load
