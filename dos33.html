@@ -5662,7 +5662,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 360D:09 C0          060             ORA #$<span class='n'>C0</span>                                        ; ..
 360F:85 3F          061             STA <a class='d' href='#BTEMP'>BTEMP</a>+<span class='n'>1</span>                                     ; ..
 3611:A9 5C          062             LDA #BRETRY     ; PROM ROUTINE OFFSET           ; ..
-3613:85 3E          063             STA BTEMP                                       ; ..
+3613:85 3E          063             STA <a class='d' href='#BTEMP'>BTEMP</a>                                       ; ..
 3615:18             064             CLC             ;BUMP LOAD ADDRESS UP TO        ; ..
 3616:AD FE 08       065             LDA LOADADDR+<span class='n'>1</span>  ; LAST PAGE SO WE               ; ..
 3619:6D FF 08       066             ADC <a class='d' href='#BGRPGC'>BGRPGC</a>      ;  CAN LOAD 'EM BACKWARDS       ; ..
