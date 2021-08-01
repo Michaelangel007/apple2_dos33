@@ -1148,8 +1148,8 @@ With that "legalese" out of the way ... enjoy the read!
 1B73:8D 48 37       00209 173             STA <a class="x" href="#DI3">DI3</a>+<span class='n'>1</span>
                     00210 174 ;
                     00211 175 ;RELOCATE ADR TABLES
-                    00212 176 ;
-<hr>1B76:A2 00          00213 177             LDX #<span class='n'>0</span>                                          ; === Page <a class="page" name="page113">113</a> ===
+                    00212 176 ;<hr class='page'>
+1B76:A2 00          00213 177             LDX #<span class='n'>0</span>                                          ; === Page <a class="page" name="page113">113</a> ===
 1B78:86 40          00214 178             STX <a class='v' href='#ZPGWRK'>ZPGWRK</a>
                     00215 179 <a class="f" name="DR3"         >DR3         </a>EQU *
 1B7A:BD 29 1C       00216 180             LDA <a class='v' href='#ADRTAB'>ADRTAB</a>+<span class='n'>1</span>,X                                  ; [StartLo] If only we had an ($BC) LDY ADRTAB+1,X instruction ...
@@ -1211,8 +1211,8 @@ With that "legalese" out of the way ... enjoy the read!
 1BD7:6D 7F 1C       00272 236             ADC <a class="v" href="#DELTA">DELTA</a>       ; ELSE ADD DELTA
 1BDA:91 40          00273 237             STA (<a class="v" href="#ZPGWRK">ZPGWRK</a>),Y  ; TO RELOCATE
                     00274 238 ;
-1BDC:38             00275 239 <a class="f" name="DR9"         >DR9         </a>SEC
-<hr>1BDD:A5 2F          00276 240             LDA <a class="v" href="#LENGTH">LENGTH</a>      ; ADD LENGTH                    ; === Page <a class='page' name='page114'>114</a> ===
+1BDC:38             00275 239 <a class="f" name="DR9"         >DR9         </a>SEC<hr class='page'>
+1BDD:A5 2F          00276 240             LDA <a class="v" href="#LENGTH">LENGTH</a>      ; ADD LENGTH                    ; === Page <a class='page' name='page114'>114</a> ===
 1BDF:65 40          00277 241             ADC <a class="v" href="#ZPGWRK">ZPGWRK</a>      ; TO PC
 1BE1:95 40          00278 242             STA <a class="v" href="#ZPGWRK">ZPGWRK</a>
 1BE3:A9 00          00279 243             LDA #<span class='n'>0</span>
@@ -1513,8 +1513,8 @@ With that "legalese" out of the way ... enjoy the read!
 1DA7:D0 F7          113             BNE <a class='x' href='#IIB1'>IIB1</a>                                        ;
 1DA9:4C BC 1D       114             JMP <a class='x' href='#INITAA'>INITAA</a>                                      ; normally <a class='mem' name='#_1DA9' coords='1'>wastes</a> 1 byte, BEQ INITAA; but see bigger optimization on Line #<a class='line' href='#DOSINIT.109'>109</a>
                     115 ;
-                    116 <a class='f' name='IAS1'     >IAS1        </a>EQU *                                           ; IAS1 = Init Applesoft ROM; /cynical "<i>There will be a test</i>"
-<hr>1DAC:A9 40          117             LDA #$<span class='n'>40</span>        ; INDICATE ROM APPLESOFT        ; === Page <a class='page' name='page50'>50</a> === <a class='magic' name='_1DAD'>magic number</a> BASIC_TYPE_APPLESOFT_ROM = $40
+                    116 <a class='f' name='IAS1'     >IAS1        </a>EQU *                                           ; IAS1 = Init Applesoft ROM; /cynical "<i>There will be a test</i>"<hr class='page'>
+1DAC:A9 40          117             LDA #$<span class='n'>40</span>        ; INDICATE ROM APPLESOFT        ; === Page <a class='page' name='page50'>50</a> === <a class='magic' name='_1DAD'>magic number</a> BASIC_TYPE_APPLESOFT_ROM = $40
 1DAE:8D B6 2A       118             STA <a class='v' href='#ASIBSW'>ASIBSW</a>                                      ; <b><a class='section' name='DOSINIT.118.Solution'>Solution</a></b>:
                                                                                     ;   a) Lines 117-118 should be moved <i>after</i> Line #<a class='line' href='#DOSINIT.103'>103</a> to <b>anticipate the common case</b>,
                                                                                     ;   b) This is one of those <b>rare times</b> where we <b>padd IBVT</b>
@@ -5651,8 +5651,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3603:C9 09          049             CMP #<span class='n'>09</span>         ; (AT 0800)?                    ; ..
 3605:D0 18          050             BNE <a class="x" href="#READNEXT">READNEXT</a>    ;=&gt;NO. WE'RE LOADING SOMETHING  ; ..
                     051 * WE'VE BEEN BOOTED. SET UP                                 ; ..
-                    052 * PARAMS FOR BOOT PROM SO                                   ; ..
-<hr>                    053 * THAT WE'LL READ IN TRACK 0,                               ; .. === Page <a class="page" name="page9">9</a> ===
+                    052 * PARAMS FOR BOOT PROM SO                                   ; ..<hr class='page'>
+                    053 * THAT WE'LL READ IN TRACK 0,                               ; .. === Page <a class="page" name="page9">9</a> ===
                     054 * BSECTRS 00-09.                                            ; ..
 3607:A5 2B          055             LDA <a class='d' href='#BSLOT'>BSLOT</a>       ;GET BOOT SLOT                  ; ..
 3609:4A             056             LSR A           ;CONVERT TO CX00                ; ..
