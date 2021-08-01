@@ -3679,10 +3679,10 @@ With that "legalese" out of the way ... enjoy the read!
 <hr>                    053 ;                                                           ; === Page <a class='page' name='page61'>61</a>
     =2AC1           054 <a class='e' id='2AC1' name='SAT2'  >SAT2        </a>EQU *                                           ; Start Address Table
                                                                                     ; Gee, we couldn't have put this at $1D00 to save 4 bytes in <a class='v' href='#ADRTAB'>ADRTAB</a> ?!
-2AC1:E8 37          055 <a class="d" name="AIOB"  >AIOB        </a>DW <a class="v" href="#IOB"     >IOB</a>          ; 5-ADR IOB                     ; Also see <a class='v' href='#BAIOB'>BAIOB</a>; What happened to 1 .. 4 ??? At RVT, WVT ?
-2AC3:BB 33          056 <a class="d" name="AVTOC" >AVTOC       </a>DW <a class="v" href="#VTOC"    >VTOC</a>         ; 6-ADR VTOC
-2AC5:BB 34          057 <a class="d" name="AVOLDR">AVOLDR      </a>DW <a class="v" href="#VOLDIR"  >VOLDIR</a>       ; 7-ADR VOLDIR
-2AC7:00 40          058 <a class="d" name="AEND"  >AEND        </a>DW <a class="v" href="#ENDOFDOS">ENDOFDOS</a>     ;END OF DOS                     ; See <a class='v' href='#REPAGE'>REPAGE</a>
+2AC1:E8 37          055 <a class="d" id='2AC1' name='AIOB'  >AIOB        </a>DW <a class="v" href="#IOB"     >IOB</a>          ; 5-ADR IOB                     ; Also see <a class='v' href='#BAIOB'>BAIOB</a>; What happened to 1 .. 4 ??? At RVT, WVT ?
+2AC3:BB 33          056 <a class="d" id='2AC3' name='AVTOC' >AVTOC       </a>DW <a class="v" href="#VTOC"    >VTOC</a>         ; 6-ADR VTOC
+2AC5:BB 34          057 <a class="d" id='2AC5' name='AVOLDR'>AVOLDR      </a>DW <a class="v" href="#VOLDIR"  >VOLDIR</a>       ; 7-ADR VOLDIR
+2AC7:00 40          058 <a class="d" id='2aC7' name='AEND'  >AEND        </a>DW <a class="v" href="#ENDOFDOS">ENDOFDOS</a>     ;END OF DOS                     ; See <a class='v' href='#REPAGE'>REPAGE</a>
                     059 ;                                                           ; File Manager
 2AC9:7E 33          060 <a class='d' name='CMDVT'>CMDVT       </a>DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>     ; 0-NULL                        ; [0] <a class='mem' name='_2AC9' coords='2'>wastes</a> 2 bytes &rarr; $B37E
 2ACB:21 2B          061             DW <a class='x' href='#FOPEN' >FOPEN</a>-<span class='n'>1</span>      ; 1-OPEN FILE                   ; [1]
