@@ -4649,39 +4649,40 @@ With that "legalese" out of the way ... enjoy the read!
 3025:38             038             SEC             ; SET END OF DIR
 3026:60             039             RTS
                     040 ;
-                    041 <a class='f' name='RDVC'     >RDVC        </a>LDY VDLSEC      ; GET SECTOR                    ; Volume Directory Link Sector
-                    042 RDVDGO      EQU *
-                    043             STX CVDTRK      ; SET CUR TRACK
-                    044             STY CVDSEC      ; SET CUR SECTOR
-                    045             LDA #IBCRTS     ; GET CMD                       ; <i>No shit Sherlock</i> Q. <b>Which</b> command? A. ReadTrackSector
-                    046             JSR DCBIO       ; GO DO I/O
-3035:18             047             CLC
-3036:60             048             RTS
-                    049             PAGE
-                    050 ;
-                    051 ;WRVDIR - WRITE VOLUME DIRECTORY SECTOR
-                    052 ;
-                    053 <a class='f' id='3037'name='WRVDIR'   >WRVDIR      </a>EQU *
-<hr>3037:20 45 30       054             JSR MVVDBA                                      ; === <a class='page' name='page64'>64</a> ===
-                    055 ;
-303A:AE 97 33       056             LDX CVDTRK      ; CURRENT TRACK
-303D:AC 98 33       057             LDY CVDSEC      ; CURRENT SECTOR
-3040:A9 02          058             LDA #IBCWTS     ; WRITE COMMAND
-3042:4C 52 30       059             JMP DCBIO       ; GO DO I/O                     ; <a class='mem' name='_3042' coords='1'>wastes</a> 1 byte, <span class='code'>BNE DCBIO</span> &darr; (always)
-                    060 ;
-                    061 ; MVVDBA - MOVE VOL DIR BUF ADR TO IOB
-                    062 ;
-                    063 <a class='f' id='3045' name='MVVDBA'   >MVVDBA      </a>EQU *
-3045:AD C5 2A       064             LDA <a  class='v' href='#AVOLDR'>AVOLDR</a>
-3048:8D F0 37       065             STA <a  class='v' href='#IBBUFP'>IBBUFP</a>
-304B:AD C6 2A       066             LDA <a  class='v' href='#AVOLDR'>AVOLDR</a>+<span class='n'>1</span>
-304E:8D F1 37       067             STA <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>
-3051:60             068             RTS
-                    069             PAGE
-                    070 ;
-                    071 ;DCBIO - DO I/O FOR A DCB                                   ; Prologe should be:
-                    072 ;                                                           ;     <span class='code'>LDA #IBCWTS</span>
-                    073 <a class='f' name='DCBIO'    >DCBIO       </a>EQU *
+3027:AC BD 34       041 <a class='f' id='3027' name='RDVC'     >RDVC        </a>LDY <a class='v' href='#VDLSEC' >VDLSEC</a>      ; GET SECTOR                    ; Volume Directory Link Sector
+    =302A           042 <a class='f' id='302A' name='RDVDGO'   >RDVDGO      </a>EQU *
+302A:8E 97 33       043 <meta                                 />            STX <a class='v' href='#CVDTRK' >CVDTRK</a>      ; SET CUR TRACK
+302D:8C 98 33       044 <meta                                 />            STY <a class='v' href='#CVDSEC' >CVDSEC</a>      ; SET CUR SECTOR
+3030:A9 01          045 <meta                                 />            LDA #<a class='v' href='#IBCRTS' >IBCRTS</a>     ; GET CMD                       ; <i>No shit Sherlock</i> Q. <b>Which</b> command? A. ReadTrackSector
+3032:20 52 30       046 <meta                                 />            JSR <a class='x' href='#DCBIO'  >DCBIO</a>       ; GO DO I/O
+3035:18             047 <meta                                 />            CLC
+3036:60             048 <meta                                 />            RTS
+                    049 <meta                                 />            PAGE
+                    050 <meta                                 />;
+                    051 <meta                                 />;WRVDIR - WRITE VOLUME DIRECTORY SECTOR
+                    052 <meta                                 />;
+                    053 <a class='f' id='3037' name='WRVDIR'   >WRVDIR      </a>EQU *
+<hr>
+3037:20 45 30       054 <meta                                 />            JSR <a class='x' href='#MVVDBA' >MVVDBA</a>                                      ; === <a class='page' name='page64'>64</a> ===
+                    055 <meta                                 />;
+303A:AE 97 33       056 <meta                                 />            LDX <a class='v' href='#CVDTRK' >CVDTRK</a>      ; CURRENT TRACK
+303D:AC 98 33       057 <meta                                 />            LDY <a class='v' href='#CVDSEC' >CVDSEC</a>      ; CURRENT SECTOR
+3040:A9 02          058 <meta                                 />            LDA #<a  class='v' href='#IBCWTS'>IBCWTS</a>     ; WRITE COMMAND
+3042:4C 52 30       059 <meta                                 />            JMP <a class='x' href='#DCBIO'  >DCBIO</a>       ; GO DO I/O                     ; <a class='mem' name='_3042' coords='1'>wastes</a> 1 byte, <span class='code'>BNE DCBIO</span> &darr; (always)
+                    060 <meta                                 />;
+                    061 <meta                                 />; MVVDBA - MOVE VOL DIR BUF ADR TO IOB
+                    062 <meta                                 />;
+    =3045           063 <a class='f' id='3045' name='MVVDBA'   >MVVDBA      </a>EQU *
+3045:AD C5 2A       064 <meta                                 />            LDA <a  class='v' href='#AVOLDR'>AVOLDR</a>
+3048:8D F0 37       065 <meta                                 />            STA <a  class='v' href='#IBBUFP'>IBBUFP</a>
+304B:AD C6 2A       066 <meta                                 />            LDA <a  class='v' href='#AVOLDR'>AVOLDR</a>+<span class='n'>1</span>
+304E:8D F1 37       067 <meta                                 />            STA <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>
+3051:60             068 <meta                                 />            RTS
+                    069 <meta                                 />            PAGE
+                    070 <meta                                 />;
+                    071 <meta                                 />;DCBIO - DO I/O FOR A DCB                                   ; Prologe should be:
+                    072 <meta                                 />;                                                           ;     <span class='code'>LDA #IBCWTS</span>
+    =3052           073 <a class='f' id='3052' name='DCBIO'    >DCBIO       </a>EQU *
 3052:8E EC 37       074             STX IBTRK       ; TRACK                         ; As this is called from Page 74 and 75
 3055:8C ED 37       075             STY IBSECT      ; SECTOR
                     076 <a class='f' name='DCBIO2'   >DCBIO2      </a>EQU *
