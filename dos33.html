@@ -5734,16 +5734,15 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 366E:4C D2 26       111             JMP <a class='x' href='#ERROR'   >ERROR</a>       ;BACK TO ERROR HANDLER
                     112 ****************************
                     113 <a class='f' id='3671' name='BUMPER'   >BUMPER      </a>EQU *
-3671:Ad 5D 36       114             LDA EOFFLAG     ;SHOULD WE?
-3674:F0 08          115             BEQ GOBACK      ;=&gt; NO
-<hr>3676:EE BD 35       116             INC <a class="v" href="#CCBRRN">CCBRRN</a>      ;BUMP CCB RECORD NUMBER         ; === Page <a class="page" name="page10">10</a>
-3679:D0 03          117             BNE GOBACK
-367B:EE BE 35       118             INC CCBRRN+<span class='n'>1</span>    ;TO GET TO NEXT SECTOR
+3671:Ad 5D 36       114             LDA <a class='v' href='#EOFFLAG' >EOFFLAG</a>     ;SHOULD WE?
+3674:F0 08          115             BEQ <a class='v' href='#GOBACK'  >GOBACK</a>      ;=&gt; NO<hr class='page'>
+3676:EE BD 35       116             INC <a class="v" href="#CCBRRN">CCBRRN</a>      ;BUMP CCB RECORD NUMBER         ; === Page <a class="page" name="page10">10</a> ===
+3679:D0 03          117             BNE <a class='v' href='#GOBACK'  >GOBACK</a>
+367B:EE BE 35       118             INC <a class='v' href='#CCBRRN'  >CCBRRN</a>+<span class='n'>1</span>    ;TO GET TO NEXT SECTOR
 367E:A9 00          119 <a class='f' id='367E' name='GOBACK'>GOBACK      </a>LDA #<span class='n'>0</span>
-3680:8D 5D 36       120             STA EOFFLAG     ;TURN FLAG OFF
-<span class='macro'>
-3683:4C 46 25       121             JMP FIXIT2      ;Go to FIXIT2 as exit       </span>    ; Oh look, we have lowercase CapsLock on //e!<span class='patch'>
-3683:4C 84 3A       121             JMP FIXIT3                                  </span>    ; DOS 3.3 1983 -- see below -- WHICH version of DOS is this?
+3680:8D 5D 36       120             STA <a class='v' href='#EOFFLAG' >EOFFLAG</a>     ;TURN FLAG OFF<span class='macro'>
+3683:4C 46 25       121             JMP FIXIT2      ;Go to FIXIT2 as exit       </span>    ; WHICH version of DOS is this listing?  Oh look, we have lowercase CapsLock on //e!<span class='patch'>
+3683:4C 84 3A       121             JMP <a class='x' href='#FIXIT3'  >FIXIT3</a>                                  </span>    ; DOS 3.3 1983 -- see below -- 
                     122             REP 40
                     123 VPATCH      EQU *
 3686:8D BC 35       124             STA CCBRQM      ;ORIGINAL INSTRUCTION
