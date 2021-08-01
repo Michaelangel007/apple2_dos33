@@ -5600,14 +5600,14 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <a class="page" name="page8">8</a>, <a class='ts' href='#T0S0'>T0S0</a> - <a class='ts' href='#T0S1'>T0S1</a>, $<span class='n'>B5FE</span> .. $<span class='n'>B7FF</span> ===<hr class='join'><hr></div>
 <pre>
-                    001             SBTL '16-SECTOR DOS BOOT'
-                    002 <a class="d" name="HERE3L"     id="HERE3L"     >HERE3L      </a>EQU &gt;*                                          ; End of FVCBUFS = $35FD, * = $35FE
-                    003 <a class="d" name="REMDR3"     id="REMDR3"     >REMDR3      </a>EQU 256-HERE3L                                  ; Remainder 2
-35FE:FD FE          004             ORG *+<a class="v" href="#REMDR3">REMDR3</a>                                    ; <a class='mem' name='_35fe' coords='2'>wastes</a> 2 bytes to page align BOOTLDR
-                    005 <a class="d" name="TRK0LDR"    id="TRK0LDR"    >TRK0LDR     </a>EQU *
-                    006     DO &gt;<a class="do" href="#TRK0LDR">TRK0LDR</a><span class="macro">
-                    007         ???                 ;DELIBERATE ERROR IF NOT AT PAGE BOUNDARY</span>
-                    008     FIN
+                    001 <meta                                 />            SBTL '16-SECTOR DOS BOOT'
+    =FE             002 <a class='d' id='35FE' name='HERE3L'   >HERE3L      </a>EQU &gt;*                                          ; End of FVCBUFS = $35FD, * = $35FE
+    =02             003 <a class='d' id='0002' name='REMDR3'   >REMDR3      </a>EQU 256-HERE3L                                  ; Remainder 2 bytes for page alignment
+35FE:FD FE          004 <meta                                 />            ORG *+<a class="v" href="#REMDR3">REMDR3</a>                                    ; <a class='mem' name='_35fe' coords='2'>wastes</a> 2 bytes to page align BOOTLDR
+     =3600          005 <a class="d" id='3600' name='TRK0LDR'  >TRK0LDR     </a>EQU *
+                    006 <meta                                 />    DO &gt;<a class="do" href="#TRK0LDR">TRK0LDR</a><span class="macro">                    ; Low byte of address controls if macro is on/off
+                    007 <meta                                 />        ???                 ;DELIBERATE ERROR IF NOT AT PAGE BOUNDARY</span>
+                    008 <meta                                 />    FIN
                     009 ***************************
                     010 *                         *
                     011 * 16-SECTOR DOS BOOTSTRAP *
