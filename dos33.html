@@ -3684,20 +3684,20 @@ With that "legalese" out of the way ... enjoy the read!
 2AC5:BB 34          057 <a class="d" id='2AC5' name='AVOLDR'>AVOLDR      </a>DW <a class="v" href="#VOLDIR"  >VOLDIR</a>       ; 7-ADR VOLDIR
 2AC7:00 40          058 <a class="d" id='2aC7' name='AEND'  >AEND        </a>DW <a class="v" href="#ENDOFDOS">ENDOFDOS</a>     ;END OF DOS                     ; See <a class='v' href='#REPAGE'>REPAGE</a>
                     059 ;                                                           ; File Manager
-2AC9:7E 33          060 <a class='d' name='CMDVT'>CMDVT       </a>DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>     ; 0-NULL                        ; [0] <a class='mem' name='_2AC9' coords='2'>wastes</a> 2 bytes &rarr; $B37E
-2ACB:21 2B          061             DW <a class='x' href='#FOPEN' >FOPEN</a>-<span class='n'>1</span>      ; 1-OPEN FILE                   ; [1]
-2ACD:05 2C          062             DW <a class='x' href='#FCLOSE'>FCLOSE</a>-<span class='n'>1</span>     ; 2-CLOSE FILE                  ; [2]
-2ACF:57 2C          063             DW <a class='x' href='#FREAD' >FREAD</a>-<span class='n'>1</span>      ; 3-READ DATA                   ; [3]
-2AD1:6F 2C          064             DW <a class='x' href='#FWRITE'>FWRITE</a>-<span class='n'>1</span>     ; 4-WRITE DATA                  ; [4]
-2AD3:2A 2D          065             DW <a class='x' href='#FDEL'  >FDEL</a>-<span class='n'>1</span>       ; 5-DELETE FILE                 ; [5]
-2AD5:97 2D          066             DW <a class='x' href='#RDIR'  >RDIR</a>-<span class='n'>1</span>       ; 6-READ DIRECTORY              ; [6] /sarcasm Yay for consistent naming: FDIR
-2AD7:EE 2C          067             DW <a class='x' href='#FLOCK' >FLOCK</a>-<span class='n'>1</span>      ; 7-LOCK A FILE                 ; [7]
-2AD9:F5 2C          068             DW <a class='x' href='#FUNLCK'>FUNLCK</a>-<span class='n'>1</span>     ; 8-UNLOCK A FILE               ; [8]
-2ADB:39 2C          069             DW <a class='x' href='#FRNME' >FRNME</a>-<span class='n'>1</span>      ; 9-RENAME                      ; [9]
-2ADC:11 2D          070             DW <a class='x' href='#FPOSTN'>FPOSTN</a>-<span class='n'>1</span>     ; 10-POSITION A FILE            ; [A]
-2ADE:8D 2E          071             DW <a class='x' href='#FFMT'  >FFMT</a>-<span class='n'>1</span>       ; FORMAT                        ; [B]
-2AE1:17 2D          072             DW <a class='x' href='#FVAR'  >FVAR</a>-<span class='n'>1</span>       ; VARIFY                        ; [C] *spelling* VERIFY
-2AE3:7E 33          073             DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>     ; 11-SPARE                      ; [D] <a class='mem' name='_2AE3' coords='2'>wastes</a> 2 bytes due to fencepost error
+2AC9:7E 33          060 <a class='d' id='2AC9' name='CMDVT' >CMDVT       </a>DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>     ; 0-NULL                        ; [0] <a class='mem' name='_2AC9' coords='2'>wastes</a> 2 bytes &rarr; $B37E
+2ACB:21 2B          061 <meta                                 />            DW <a class='x' href='#FOPEN' >FOPEN</a>-<span class='n'>1</span>      ; 1-OPEN FILE                   ; [1]
+2ACD:05 2C          062 <meta                                 />            DW <a class='x' href='#FCLOSE'>FCLOSE</a>-<span class='n'>1</span>     ; 2-CLOSE FILE                  ; [2]
+2ACF:57 2C          063 <meta                                 />            DW <a class='x' href='#FREAD' >FREAD</a>-<span class='n'>1</span>      ; 3-READ DATA                   ; [3]
+2AD1:6F 2C          064 <meta                                 />            DW <a class='x' href='#FWRITE'>FWRITE</a>-<span class='n'>1</span>     ; 4-WRITE DATA                  ; [4]
+2AD3:2A 2D          065 <meta                                 />            DW <a class='x' href='#FDEL'  >FDEL</a>-<span class='n'>1</span>       ; 5-DELETE FILE                 ; [5]
+2AD5:97 2D          066 <meta                                 />            DW <a class='x' href='#RDIR'  >RDIR</a>-<span class='n'>1</span>       ; 6-READ DIRECTORY              ; [6] /sarcasm Yay for consistent naming: FDIR
+2AD7:EE 2C          067 <meta                                 />            DW <a class='x' href='#FLOCK' >FLOCK</a>-<span class='n'>1</span>      ; 7-LOCK A FILE                 ; [7]
+2AD9:F5 2C          068 <meta                                 />            DW <a class='x' href='#FUNLCK'>FUNLCK</a>-<span class='n'>1</span>     ; 8-UNLOCK A FILE               ; [8]
+2ADB:39 2C          069 <meta                                 />            DW <a class='x' href='#FRNME' >FRNME</a>-<span class='n'>1</span>      ; 9-RENAME                      ; [9]
+2ADC:11 2D          070 <meta                                 />            DW <a class='x' href='#FPOSTN'>FPOSTN</a>-<span class='n'>1</span>     ; 10-POSITION A FILE            ; [A]
+2ADE:8D 2E          071 <meta                                 />            DW <a class='x' href='#FFMT'  >FFMT</a>-<span class='n'>1</span>       ; FORMAT                        ; [B]
+2AE1:17 2D          072 <meta                                 />            DW <a class='x' href='#FVAR'  >FVAR</a>-<span class='n'>1</span>       ; VARIFY                        ; [C] *spelling* VERIFY
+2AE3:7E 33          073 <meta                                 />            DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>     ; 11-SPARE                      ; [D] <a class='mem' name='_2AE3' coords='2'>wastes</a> 2 bytes due to fencepost error
                                                                                     ;     Uh, calling 13 "eleven" doesn't make it so. 
                     074 ;                                                           ;     See <a class='x' href='#DOSENT'>DOSENT</a>: CCBREQ (FileManager.command) &gt;= <a class='v' href='#CRQMAX'>CRQMAX</a>
                                                                                     ;         AAE3:00 00                 ; (was 7E B3) to prove this is never called
