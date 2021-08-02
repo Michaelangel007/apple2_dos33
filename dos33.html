@@ -6060,12 +6060,12 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                                                                                     ;     DFB 0    ; Device Type, $0 = Disk II
                                                                                     ;     DFB 1    ; Phases per Track
                                                                                     ;     DW $D8EF ; Motor on time in 100 microseconds
-37FF:00             416             DS <span class='n'>1</span>,<span class='n'>0</span>          ; FILL IN 3700 PAGE             ; <a class='mem' name='_37FF' coords='1'>wastes</a> 1 byte
-                    417             PAGE
-                    418 ;
-                    419 ; FILE DIRECTORY DEFINITION                                 ; i-node; meta-data: array of sectors belonging to file
-                    420 ;
-                    421             DSECT
+37FF:00             416 <meta                              />            DS <span class='n'>1</span>,<span class='n'>0</span>          ; FILL IN 3700 PAGE             ; <a class='mem' name='_37FF' coords='1'>wastes</a> 1 byte
+                    417 <meta                              />            PAGE
+                    418 <meta                              />;
+                    419 <meta                              />; FILE DIRECTORY DEFINITION                                 ; i-node; meta-data: array of sectors belonging to file
+                    420 <meta                              />;
+                    421 <meta                              />            DSECT
                     422 <a class='d' name='FILDIR'   >FILDIR      </a>EQU *                                               ;T12SF <a class='dumb' name='HNTDAFS6'>HNTDAFS #6</a>
                     423 <a class='d' name='FDUCDE'   >FDUCDE      </a>DS  1           ; FILE USE CODE                     ; [00] <a class='struct' name='_3800'>wastes</a> 1 byte -- never referenced! I presume <span class='code'>FILESYSTEM_TYPE_FILE EQU $1</span>
                     424 <a class='d' name='FDLTRK'   >FDLTRK      </a>DS  1           ; LINK TO NEXT DIR TRACK            ; [01] e.g. $12 ($00 = none), see <a class='x' href='#RFDNXT'>RFDNXT</a>
