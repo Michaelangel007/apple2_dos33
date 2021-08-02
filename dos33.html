@@ -6985,13 +6985,13 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                                     JMP GOODIO                                      ;3A91:4C 7F 33 
                                                                                     ; === DOS 3.3B 1983 ===</span>
                     145             PAGE
-                    146 <a class='f' id='3A94' name='PEC1'        >PEC1        </a>EQU *           ;Tell relocater where to stop   ; See <a class="v" href="#CDETAB">CDETAB</a>, <a class="file" href="#RELOCTR">RELOCTR</a>, Page <a class="page" href="#page115">115</a>
-                    147 <a class='e' id='0094' name='PD1'         >PD1         </a>EQU &gt;*
-                    148 <a class='f' id='2'    name="PD2"         >PD2         </a>EQU $96-PD1
-                    149             DS  PD2,0       ;Must pad to $XX96              ; [.. <a class='mem' id='_3A84' coords='2'>*wastes*</a> 2 bytes
-                                                                                    ;  .. No, no, no!
-                                                                                    ;  .. Negative array index OFFSETS like the P6 PROM uses
-                                                                                    ;  ..
+    =3A84           146 <a class='d' id='3A94' name='PEC1'        >PEC1        </a>EQU *           ;Tell relocater where to stop   ; See <a class="v" href="#CDETAB">CDETAB</a>, <a class="file" href="#RELOCTR">RELOCTR</a>, Page <a class="page" href="#page115">115</a>
+    =84             147 <a class='e' id='0094' name='PD1'         >PD1         </a>EQU &gt;*
+    =12             148 <a class='d' id='2'    name="PD2"         >PD2         </a>EQU $96-PD1                                     ; $96 - $84
+3A84:00 00 00 00    149             DS  PD2,0       ;Must pad to $XX96              ; [.. <a class='mem' id='_3A84' coords='18'>*wastes*</a> 16 bytes
+3A88:00 00 00 00                                                                    ;  .. No, no, no!
+3A8C:00 00 00 00                                                                    ;  .. Negative array index OFFSETS like the P6 PROM uses
+3A90:00 00 00 00                                                                    ;  ..
 3A94:00 00                                                                          ;  ..]
 3A96:00 01 98       150             DFB $00,$01,$98                                 ; 96 97 --   *sigh* And the comment that this is the
 3A99:99 02 03       151             DFB $99,$02,$03                                 ; -- 9A 9B   64 disk nibbles of 6&amp;2 Read Table
