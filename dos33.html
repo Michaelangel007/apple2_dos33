@@ -5928,86 +5928,88 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3738:20 93 37       287 <meta                                 />            JSR <a  class='x' href='#BOOTIO'>BOOTIO</a>       ; GO READ DOS
                     288 <meta                                 />;
                     <a class='line' name='BOOTLDR.289'>289</a> ;DOSINT - INITIALIZE DOS                                    ; /sarcasm Couldn't afford extra 'i' in "dosinIt"
-                    290 ;
-                    291 <a class="f" name="DOSINT"   >DOSINT      </a>EQU *                                            ; Ironically in Boot Loader, not Dos Init
-373B:A2 FF          292             LDX #$<span class='n'>FF</span>
-373D:9A             293             TXS
-373E:8E EB 37       294             STX IBVOL
-3741:4C C8 3F       <a class='line' name='BOOTLDR.295'>295</a>             JMP <a class="x" href="#RCPATCH">RCPATCH</a>
-3744:20 89 FE       296 <a class="f" name="RCBACK"   >RCBACK      </a>JSR SETKBD
-                    297 ;
-3747:4C 84 1D       <a class='line' name='BOOTLDR.298'>298</a> <a class="f" name="DI3"      >DI3         </a>JMP <a class="x" href="#DOSREL">DOSREL</a>      ; GO TO POST INIT ROUTINE       ; Relocate DOS to high mem
-                    299             PAGE
-                    300 <a class='f' name='WBOOT'    >WBOOT       </a>EQU *                                           ; Write Boot; part of the INIT process
-374A:AD E7 37       301             LDA ADOSLD+<span class='n'>1</span>
-374D:38             302             SEC
-374E:ED F1 37       303             SBC IBBUFP+<span class='n'>1</span>
-<hr>3751:8D E1 37       304             STA BRWCNT      ;COMPUT PAGE COUNT              ; === Page <a class='page' name='page13'>13</a> === *spelling* Compute
-                    305             LDA ADOSLD+<span class='n'>1</span>
-                    306             STA IBBUFP+<span class='n'>1</span>    ;BUFFER=LAST PAGE OF RWTS
-                    307             DEC IBBUFP+<span class='n'>1</span>
-                    308             LDA #<span class='n'>2</span>                                          ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> sizeof( PROGRAM ) / 16
-                    309             STA IBTRK       ;ENDING TRACK
-                    310             LDA #<span class='n'>4</span>
-                    311             STA IBSECT      ;ENDING SECTOR
-3767:A9 02          312             LDA #<span class='n'>2</span>                                          ; <a class='magic' name='_????'>magic number</a> Why not <span class='code'>IBCWTS</span> ???
-3769:8D F4 37       313             STA IBCMD       ;COMMAND = WRITE
-376C:20 93 37       314             JSR BOOTIO      ;WRITE DOS IMAGE TRK 2, SEC 4
-                    315 *                           ;BACKWARDS TO TRK 0,SEC C
-                    316             LDA ADOSLD+<span class='n'>1</span>
-                    317             STA GRSPG       ;BOOTSTRAP LOAD ADDRESS
-                    318             CLC
-                    319             ADC #<span class='n'>9</span>
-                    320             STA IBBUFP+<span class='n'>1</span>    ;BUFFER ADDRESS OF END OF BOOT
-                    321             LDA #<span class='n'>10</span>
-                    322             STA BRWCNT      ;SECTOR COUNT TO WRITE          ; /sarcasm If only <span class='code'>NUM_SEC_WRITE</span>
-                    323             SEC
-                    324             SBC #<span class='n'>1</span>
-                    325             STA GRPGC       ;BOOT LAST SECTOR #
-                    326             STA IBSECT      ;START AT END OF RWTS&amp;BOOT
-                    327             JSR BOOTIO      ;AND WRITE DOWN TO ZERO
-378C:60             328             RTS
-378D:00 00 00 00    329             DS <span class='n'>6</span>,<span class='n'>0</span>          ;FILL WITH BRKS                 ; <a class='mem' name='378D' coords='6'>wastes</a> 6 bytes -- WHY ???
-3791:00 00          330             PAGE
-                    331 <a class='f' name='BOOTIO'   >BOOTIO      </a>EQU *
-3793:AD E5 37       332             LDA BAIOB+<span class='n'>1</span>                                     ; <a class='mem' name='3793' coords='3'>wastes</a> 3 bytes; <a class='v' href='#BAIOB'>BAIOB</a> &rarr; <a class='v' href='#IOB'>IOB</a>, <span class='code'>JSR <a class='x' href='#IOBLDR'>IOBLDR</a></span> loads <a class='v' href='#AIOB'>AIOB</a> &rarr; <a class='v' href='#IOB'>IOB</a>
-3796:AC E5 37       333             LDY BAIOB
-3799:20 B5 37       334             JSR DISKIO
-                    335 ;
-                    336             LDY IBSECT      ; GET SECTOR
-                    337             DEY             ; DECREMENT TO NEXT             ; Stupid Commenting - stop treating the reader as a moron
-                    338             BPL BIO1        ;AT END OF TRACK?               ; See now this is a useful comment in contradistinction to the one above
-                    339             LDY #<span class='n'>15</span>         ;SET TO SECTOR 15               ; as it tells us WHY we are branching
-37A4:EA             340             NOP                                             ; [.. <a class='mem' name='37A4' coords='2'>wastes</a> 2 bytes
-37A5:EA             341             NOP                                             ;  ..]
-                    342             DEC IBTRK
-                    343 BI01        STY IBSECT      ; SET NEXT SECTOR
-                    344 ;
-                    345             DEC IBBUFP+<span class='n'>1</span>    ; DECREMENT BUFFER POINTER
-                    346             DEC BRWCNT      ; DECREMENT PAGE COUNTER
-                    347             BNE BOOTIO      ; BR IF NOT DONE
-                    348             RTS
-                    349 ;
-                    350             PAGE
-                    351 DISKIO      PHP             ;SAVE INTERUPT STATUS           ; *spelling* Interrupt
-                    352             SEI             ;INHIBIT INTERUPT WHILE         ; *spelling* Interrupt
-                    353             JSR RWTS        ; ACCESSING DISK
-                    354             BCS DSKERR      ;MUST PASS BACK CARRY FLAG &amp; INTERUPT      ; *spelling* Interrupt
-                    355             PLP
-                    356             CLC
-                    357             RTS
-37BF:28             358 DISKERR     PLP             ;CARRY SET MEANS ERROR
-37C0:38             359             SEC
-37C1:60             360             RTS
-37C2:AD BC 35       361 DLDSUP      LDA CCBBSA      ;SET UP FOR DOS LOADER
-                    362             STA IBBUFP+<span class='n'>1</span>    ;START ADDRESS
-                    363             LDA #<span class='n'>0</span>
-                    364             STA IBBUFP
-                    365             LDA DCBVOL      ;INVERT VOLUME NUMBER
-<hr>37D0:49 FF          366             EOR #$<span class='n'>FF</span>                                        ; === Page <a class='page' name='page14'>14</a> ===
-                    367             STA IBVOL
-                    368             RTS
-                    369 ;
+                    290 <meta                                 />;
+                    291 <a class="f" name="DOSINT"             >DOSINT      </a>EQU *                                           ; Ironically in Boot Loader, not Dos Init
+373B:A2 FF          292 <meta                                 />            LDX #$<span class='n'>FF</span>
+373D:9A             293 <meta                                 />            TXS
+373E:8E EB 37       294 <meta                                 />            STX <a  class='v' href='#IBVOL' >IBVOL</a>
+3741:4C C8 3F       <a class='line' name='BOOTLDR.295'>295</a>             JMP <a class="x" href="#RCPATCH">RCPATCH</a>                                     ; Should be <span class='code'>JSR RCPATCH</span> to prevent stupid <span class='code'>JMP RCBACK</span>
+3744:20 89 FE       296 <a class="f" name='RCBACK'             >RCBACK      </a>JSR <a class="x" href="#SETKBD">SETKBD</a>
+                    297 <meta                                 />;
+3747:4C 84 1D       <a class='line' name='BOOTLDR.298'>298</a> <a class="f" name="DI3"      >DI3         </a>JMP <a class="x" href="#DOSREL">DOSREL</a>      ; GO TO POST INIT ROUTINE       ; Relocate DOS to high mem DOS 3.3 1980: JMP $1B03
+                    299 <meta                                 />            PAGE
+                    300 <a class='f' name='WBOOT'              >WBOOT       </a>EQU *                                           ; Write Boot; part of the INIT process
+374A:AD E7 37       301 <meta                                 />            LDA <a  class='v' href='#ADOSLD'>ADOSLD</a>+<span class='n'>1</span>
+374D:38             302 <meta                                 />            SEC
+374E:ED F1 37       303 <meta                                 />            SBC <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>
+<hr>
+3751:8D E1 37       304 <meta                                 />            STA BRWCNT      ;COMPUT PAGE COUNT              ; === Page <a class='page' name='page13'>13</a> === *spelling* Compute
+3754:AD E7 37       305 <meta                                 />            LDA <a  class='v' href='#ADOSLD'>ADOSLD</a>+<span class='n'>1</span>
+3757:8D F1 37       306 <meta                                 />            STA <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>    ;BUFFER=LAST PAGE OF RWTS
+375A:CE F1 37       307 <meta                                 />            DEC <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>
+375D:A9 02          308 <meta                                 />            LDA #<span class='n'>2</span>                                          ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> sizeof( PROGRAM ) / 16
+375F:8D EC 37       309 <meta                                 />            STA IBTRK       ;ENDING TRACK
+3762:A9 04          310 <meta                                 />            LDA #<span class='n'>4</span>
+3764:8D ED 37       311 <meta                                 />            STA IBSECT      ;ENDING SECTOR
+3767:A9 02          312 <meta                                 />            LDA #<span class='n'>2</span>                                          ; <a class='magic' name='_????'>magic number</a> Why not <span class='code'>IBCWTS</span> ???
+3769:8D F4 37       <a class='line' name='BOOTLDR.313'>313</a>             STA <a  class='v' href='#IBCMD' >IBCMD</a>       ;COMMAND = WRITE
+376C:20 93 37       314 <meta                                 />            JSR <a  class='x' href='#BOOTIO'>BOOTIO</a>      ;WRITE DOS IMAGE TRK 2, SEC 4
+                    315 <meta                                 />*                           ;BACKWARDS TO TRK 0,SEC C
+376F:AD E7 37       316 <meta                                 />            LDA <a  class='v' href='#ADOSLD'>ADOSLD</a>+<span class='n'>1</span>
+3772:8D FE 36       317 <meta                                 />            STA <a  class='v' href='#GRSPG' >GRSPG</a>       ;BOOTSTRAP LOAD ADDRESS
+3775:18             318 <meta                                 />            CLC
+3776:69 09          319 <meta                                 />            ADC #<span class='n'>9</span>
+3778:8D F1 37       320 <meta                                 />            STA <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>    ;BUFFER ADDRESS OF END OF BOOT
+377B:A9 0A          321 <meta                                 />            LDA #<span class='n'>10</span>
+377D:8D E1 37       322 <meta                                 />            STA BRWCNT      ;SECTOR COUNT TO WRITE          ; /sarcasm If only <span class='code'>NUM_SEC_WRITE</span>
+3780:38             323 <meta                                 />            SEC
+3781:E9 01          324 <meta                                 />            SBC #<span class='n'>1</span>
+3783:8D FF 36       325 <meta                                 />            STA <a  class='v' href='#GRPGC' >GRPGC</a>       ;BOOT LAST SECTOR #
+3786:8D ED 37       326 <meta                                 />            STA IBSECT      ;START AT END OF RWTS&amp;BOOT
+3789:20 93 37       327 <meta                                 />            JSR <a  class='x' href='#BOOTIO'>BOOTIO</a>      ;AND WRITE DOWN TO ZERO
+378C:60             328 <meta                                 />            RTS
+378D:00 00 00 00    329 <meta                                 />            DS <span class='n'>6</span>,<span class='n'>0</span>          ;FILL WITH BRKS                 ; <a class='mem' name='378D' coords='6'>wastes</a> 6 bytes -- WHY ???
+3791:00 00          330 <meta                                 />            PAGE
+                    331 <a class='f' name='BOOTIO'             >BOOTIO      </a>EQU *
+3793:AD E5 37       332 <meta                                 />            LDA BAIOB+<span class='n'>1</span>                                     ; <a class='mem' name='3793' coords='3'>wastes</a> 3 bytes; <a class='v' href='#BAIOB'>BAIOB</a> &rarr; <a class='v' href='#IOB'>IOB</a>, <span class='code'>JSR <a class='x' href='#IOBLDR'>IOBLDR</a></span> loads <a class='v' href='#AIOB'>AIOB</a> &rarr; <a class='v' href='#IOB'>IOB</a>
+3796:AC E5 37       333 <meta                                 />            LDY BAIOB
+3799:20 B5 37       334 <meta                                 />            JSR <a class='x' href='#DISKIO' >DISKIO</a>
+                    335 <meta                                 />;
+379C:AC ED 37       336 <meta                                 />            LDY IBSECT      ; GET SECTOR
+379F:88             337 <meta                                 />            DEY             ; DECREMENT TO NEXT             ; Stupid Commenting - stop treating the reader as a moron
+37A0:10 07          338 <meta                                 />            BPL BIO1        ;AT END OF TRACK?               ; See now this is a useful comment in contradistinction to the one above
+37A2:A0 0F          339 <meta                                 />            LDY #<span class='n'>15</span>         ;SET TO SECTOR 15               ; as it tells us WHY we are branching
+37A4:EA             340 <meta                                 />            NOP                                             ; [.. <a class='mem' name='37A4' coords='2'>wastes</a> 2 bytes
+37A5:EA             341 <meta                                 />            NOP                                             ;  ..]
+37A6:CE EC 37       342 <meta                                 />            DEC IBTRK
+37A9:8C ED 37       343 <a class='f' name='BI01'               >BI01        </a>STY IBSECT      ; SET NEXT SECTOR
+                    344 <meta                                 />;
+37AC:CE F1 37       345 <meta                                 />            DEC <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>    ; DECREMENT BUFFER POINTER
+37AF:CE E1 37       346 <meta                                 />            DEC <a  class='v' href='#BRWCNT'>BRWCNT</a>      ; DECREMENT PAGE COUNTER
+37B2:D0 DF          347 <meta                                 />            BNE <a  class='x' href='#BOOTIO'>BOOTIO</a>      ; BR IF NOT DONE
+37B4:60             348 <meta                                 />            RTS
+                    349 <meta                                 />;
+                    350 <meta                                 />            PAGE
+37B5:08             351 <a class='f' id='37B5' name='DISKIO'  >DISKIO      </a   >PHP <meta                      />    <meta/>        ;SAVE INTERUPT STATUS           ; *spelling* Interrupt
+37B6:78             352 <meta                                 />            <meta/>SEI <meta                      />    <meta/>        ;INHIBIT INTERUPT WHILE         ; *spelling* Interrupt
+37B7:20 00 3D       353 <meta                                 />            <meta/>JSR <a  class='x' href='#RWTS'  >RWTS</a   >        ; ACCESSING DISK
+37BA:B0 03          354 <meta                                 />            <meta/>BCS <a  class='x' href='#DSKERR'>DSKERR</a >      ;MUST PASS BACK CARRY FLAG &amp; INTERUPT      ; *spelling* Interrupt
+37BC:28             355 <meta                                 />            <meta/>PLP
+37BD:18             356 <meta                                 />            <meta/>CLC
+37BE:60             357 <meta                                 />            <meta/>RTS
+37BF:28             358 <a class='f' name='DISKERR'            >DISKERR     </a   >PLP             ;CARRY SET MEANS ERROR
+37C0:38             359 <meta                                 />            SEC
+37C1:60             360 <meta                                 />            RTS
+37C2:AD BC 35       361 <a class='f' name='DLDSUP'             >DLDSUP      </a>LDA CCBBSA      ;SET UP FOR DOS LOADER
+37C5:8D F1 37       362 <meta                                 />            STA <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>    ;START ADDRESS
+37C8:A9 00          363 <meta                                 />            LDA #<span class='n'>0</span>
+37CA:8D F0 37       364 <meta                                 />            STA <a  class='v' href='#IBBUFP'>IBBUFP</a>
+37CD:AD F9 35       365 <meta                                 />            LDA DCBVOL      ;INVERT VOLUME NUMBER
+<hr>
+37D0:49 FF          366 <meta                                 />            EOR #$<span class='n'>FF</span>                                        ; === Page <a class='page' name='page14'>14</a> ===
+37D2:8D EB 37       367 <meta                                 />            STA <a  class='v' href='#IBVOL' >IBVOL</a>
+37D5:60             368 <meta                                 />            RTS
+                    369 <meta                                 />;
 37D6:A9 00          370 CLRSEC      LDA #<span class='n'>0</span>          ;CLEAR SECTOR
 37D8:A8             371             TAY
 37D9:91 41          372 CS1         STA (ZPGFCB),Y
