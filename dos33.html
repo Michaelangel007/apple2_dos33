@@ -5740,9 +5740,12 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3679:D0 03          117             BNE <a class='v' href='#GOBACK'  >GOBACK</a>
 367B:EE BE 35       118             INC <a class='v' href='#CCBRRN'  >CCBRRN</a>+<span class='n'>1</span>    ;TO GET TO NEXT SECTOR
 367E:A9 00          119 <a class='f' id='367E' name='GOBACK'>GOBACK      </a>LDA #<span class='n'>0</span>
-3680:8D 5D 36       120             STA <a class='v' href='#EOFFLAG' >EOFFLAG</a>     ;TURN FLAG OFF<span class='macro'>
-3683:4C 46 25       121             JMP FIXIT2      ;Go to FIXIT2 as exit       </span>    ; WHICH version of DOS is this listing?  Oh look, we have lowercase CapsLock on //e!<span class='patch'>
-3683:4C 84 3A       121             JMP <a class='x' href='#FIXIT3'  >FIXIT3</a>                                  </span>    ; DOS 3.3 1983 -- see below -- 
+3680:8D 5D 36       120             STA <a class='v' href='#EOFFLAG' >EOFFLAG</a>     ;TURN FLAG OFF
+                                                                                    <meta                                />; <b>Note:</b> Code here can be used to tell the <b>version</b> of DOS 3.3: DOS 3.3A AUG 1980, DOS 3.3B JAN 1983, or DOS 3.3C 1983 !
+                                                                                    <meta                                />; Oh look, we have lowercase support for when CapsLock is on the Apple //e!                      <span style='background-color: #FCC'>
+     4C 46 25                       JMP FIXIT2                                      </span                                >;&nbsp; DOS 3.3A AUG 1980 <span class='code'>4C 46 25</span> &rarr; <span class='code'>JMP $A546</span><span style='background-color: #CCF'>
+     4C 84 3A                       JMP FIXIT2                                      </span                                >;&nbsp; DOS 3.3B JAN 1983 <span class='code'>4C 84 3A</span> &rarr; <span class='code'>JMP $BA84</span> -- see Line #<a class='line' href="#MSWAITR.144">144</a> in <a class='file' href='#MSWAITR'>MSWAITR</a> below--<span style='background-color: #CFC'>
+3683:4C B3 36       121             JMP <a class='x' href='#FIXIT2'>FIXIT2</a>      ;Go to FIXIT2 as exit           </span>;&darr; DOS 3.3C ??? 1983 <span class='code'>4C B3 36</span> &rarr; <span class='code'>JMP $B6B3</span> Page 36, D/001B80:8D 5D 36 4C B3 36
                     122             REP 40
                     123 VPATCH      EQU *
 3686:8D BC 35       124             STA CCBRQM      ;ORIGINAL INSTRUCTION
@@ -5764,7 +5767,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 36A5:C0 1D          140             CPY #$<span class='n'>1D</span>                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_NUM_SEC_ALLOC</span>
 36A7:D0 F6          141             BNE MOVE
 36A9:4C BC 26       142 BACK        JMP DOSGO2A     ;NOW LET APPEND CONTINUE
-                    143 FIXIT       EQU *
+                    143 <a class='f' id='36AC' name='FIXIT' >FIXIT       </a>EQU *
 36AC:A2 FF          144             LDX #$<span class='n'>FF</span>        ;SET FLAG SO APPEND WILL        ; <a class='magic' name='_'>magic number</a> <span class='code'>FLAG_EOF_SEC_BOUNDARY EQU $0</span>
 36AE:8E 5D 36       145             STX EOFFLAG     ;KNOW TO CROSS SECTOR BOUNDARY
 36B1:D0 F6          146             BNE BACK        ;ALWAYS TAKEN                   ; &uarr;
