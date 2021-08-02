@@ -5860,15 +5860,9 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     233             BNE LUP1        ;=&gt; always                      </span>; &uarr; No, not always, 256 times
                     234             FIN                                             ; Patch incomplete! Where is the <span class='code'>RTS</span>??? Called from <a class='x' href='#SCNCMD'>SCNCMD</a>
                     235             SKP 1
-                    236 <a class='d' id='36B3' coords='74' name='BHERE1'>BHERE1      </a>EQU &gt;*
-36B3:00             237             DS $FD-BHERE1,0                                 ;[.. <a class='mem' name='_36B3' coords='74'>wastes</a> 74 bytes ($36FD-$36B3=$4A)
-36B4:00 00 00 00                                                                    ; ..
-36B8:00 00 00 00                                                                    ; ..
-36BC:00 00 00 00                                                                    ; ..
-36C0:00 00 00 00                                                                    ; ..
-36C4:00 00 00 00                                                                    ; ..
-36C8:00 00 00 00                                                                    ; .. DOS 3.3B (Jan. 1980) has a secret message @ 36D0 ($B6D0): "B01-00"
-36CC:00 00 00 00                                                                    ; .. ; === DOS 3.3 <a class='f' id='36D0'>EASTER EGG</a> ===
+    =CF             236 <a class='d' id='36B3' coords='74' name='BHERE1'>BHERE1      </a>EQU &gt;*
+36CF:00             237             DS $FD-BHERE1,0                                 ;[.. <a class='mem' name='_36B3' coords='46'>wastes</a> 46 bytes ($36FD - $36CF = $2E)
+                                                                                    ; .. ; === DOS 3.3A JAN 1980 <a class='f' id='36D0'>EASTER EGG</a> === secret message @ 36D0 ($B6D0): "B01-00"
 36D0:00 00 00 00                                                                    ; .. <span class='macro'>               PRBYTE  EQU $FDDA    </span> Print A as 2 hex digits</span>
 36D4:00 00 00 00                                                                    ; .. <span class='macro'>36D0:20 58 FC          JSR HOME     </span>
 36D8:00 00 00 00                                                                    ; .. <span class='macro'>36D3:A9 C2             LDA #'B'+$80 </span>
@@ -5885,17 +5879,17 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     238 <meta                                 />* LOAD ADDRESS FOR CODE (PG BDY)
                     239 <meta                                 />* ENTRY AFTER BOOT IS AT LOADADDR+256 (SECOND PAGE LOADED)
                     240 <meta                                 />*
-                    241 <a class='d' id='36FD' name='BHERE4'   >BHERE4      </a>EQU &gt;*<hr class='page'>
-                    242 <a class='d' id='36FD' name='LOADADDR' >LOADADDR    </a>EQU $<span class='n'>800</span>+<a class='v' href='#BHERE4'>BHERE4</a>                                 ; === Page <a class="page" name="page12">12</a> ===
+    =FD             241 <a class='d' id='36FD' name='BHERE4'   >BHERE4      </a>EQU &gt;*<hr class='page'>
+    =08FD           242 <a class='d' id='36FD' name='LOADADDR' >LOADADDR    </a>EQU $<span class='n'>800</span>+<a class='v' href='#BHERE4'>BHERE4</a>                                 ; === Page <a class="page" name="page12">12</a> ===
 36FD:00             243 <meta                                 />            DFB <span class='n'>0</span>
 36FE:36             244 <a class='d' id='36FE' name='GRSPG'    >GRSPG       </a>DFB &lt;<a class='v' href='#TRK0LDR'>TRK0LDR</a>        ;CONTAINS PAGE#-1 OF TRK 0, SEC 1 LOAD ADDRESS
                     245 <meta                                 />* LAST LOGICAL BSECTOR TO READ STARTING AT $00
-                    246 <a class='f' id='36FF' name='BHERE5'   >BHERE5      </a>EQU &gt;*
-                    247 <a class='d' id='0800' name='BGRPGC'   >BGRPGC      </a>EQU $<span class='n'>800</span>+BHERE5
+    =FF             246 <a class='f' id='36FF' name='BHERE5'   >BHERE5      </a>EQU &gt;*
+    =08FF           247 <a class='d' id='0800' name='BGRPGC'   >BGRPGC      </a>EQU $<span class='n'>800</span>+BHERE5
 36FF:09             248 <a class='d' id='36FF' name='GRPGC'    >GRPGC       </a>DFB &lt;<a class='v' href='#ENDOFDOS'>ENDOFDOS</a>-<a class='v' href='#TRK0LDR'>TRK0LDR</a>-$<span class='n'>100</span>
                     249 <meta                                 />********************
                     250 <meta                                 />            PAGE
-                    251 <meta                                 />DOSLODR     EQU *
+    =3700           251 <a class='f' id='3700' name='DOSLODR'  >DOSLODR     EQU *
                     252 <meta                                 />            DO &gt;<a class='do' href='#DOSLODR'>DOSLODR</a><span class='macro'>
                     253 <meta                                 />            ???             ;ERROR IF NOT ON PAGE BOUNDARY  </span>
                     254 <meta                                 />            FIN
