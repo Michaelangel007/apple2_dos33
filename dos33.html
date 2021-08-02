@@ -2778,8 +2778,8 @@ With that "legalese" out of the way ... enjoy the read!
 2554:F0 05          050             BEQ <a class='x' href='#DFVOL'>DFVOL</a>       ;GO SET DEFAULT VOLUME=254
 2556:AD 66 2A       051             LDA <a class='v' href='#CV'>CV</a>          ;CAN'T SPECIFY VOL=0
 2559:D0 05          052             BNE <a class='x' href='#EINITA'>EINITA</a>
-255B:A9 FE          053 <a class='f' name='DFVOL'    >DFVOL</a>       LDA #$<span class='n'>FE</span>        ;SET DEFAULT VOLUME NUMBER      ; <a class='magic' name='_'>magic number</a> <span class='code'>DEFAULT_VOLUME</span>
-<hr>255D:8D 66 2A       054             STA <a class='v' href='#CV'>CV</a>                                          ; === Page <a class='page' name='page146'>146</a> ===
+255B:A9 FE          053 <a class='f' name='DFVOL'    >DFVOL</a>       LDA #$<span class='n'>FE</span>        ;SET DEFAULT VOLUME NUMBER      ; <a class='magic' name='_'>magic number</a> <span class='code'>DEFAULT_VOLUME</span><hr class='page'>
+255D:8D 66 2A       054             STA <a class='v' href='#CV'>CV</a>                                          ; === Page <a class='page' name='page146'>146</a> ===
 2560:AD 0D 1D       055 <a class='f' name='EINITA'   >EINITA</a>      LDA <a class='v' href='#ASTART'>ASTART</a>+<span class='n'>1</span>
 2563:8D B3 35       056             STA <a class='v' href='#CCBBSA'>CCBBSA</a>
 2566:A9 0B          057             LDA #<a class='v' href='#CRQFMT'>CRQFMT</a>
@@ -2841,8 +2841,8 @@ With that "legalese" out of the way ... enjoy the read!
 25BF:8D 81 C0       113             STA $<span class='n'>C081</span>       ; TRY SWITCH 2                  ; <a class='magic' name='_'>magic number</a>
 25C2:CD 00 E0       114             CMP <a class='v' href='#AITSTL'>AITSTL</a>      ; TEST AND
 25C5:60             115 <a class='f' name='SWTR'     >SWTR</a>        RTS             ; RETURN
-                    116 ;
-<hr>                    117             PAGE                                            ; === Page <a class='page' name='page147'>147</a> ===
+                    116 ;<hr class='page'>
+                    117             PAGE                                            ; === Page <a class='page' name='page147'>147</a> ===
                     118 ;
                     119 ; EEXEC - EXECUTE EXEC CMD
                     120 ;
@@ -2904,8 +2904,8 @@ With that "legalese" out of the way ... enjoy the read!
 2626:20 5E 26       176             JSR TSTRUN      ; GO TEST RUN
 2629:B0 4E          177             BCS ICFDB       ;BRANCH IF NOT RUN MODE
 262B:A9 06          178             LDA #6          ; SET OUT STE = 6               ; <a class='magic' name='_'>magic number</a>
-                    179 <a class='f' name='ICFD3'    >ICFD3       </a>EQU *
-<hr>262D:8D 52 2A       180             STA OSTATE      ; TO CATCH ECHO                 ; === Page <a class='page' name='page148'>148</a> ===
+                    179 <a class='f' name='ICFD3'    >ICFD3       </a>EQU *<hr class='page'>
+262D:8D 52 2A       180             STA OSTATE      ; TO CATCH ECHO                 ; === Page <a class='page' name='page148'>148</a> ===
 2630:20 8C 26       181             JSR RBYTE
 2633:D0 0F          182             BNE ICFD1       ; BR IF NOT ZERO CHAR
                     183 <a class='f' name='ICFD2'    >ICFD2       </a>EQU *
@@ -2966,8 +2966,8 @@ With that "legalese" out of the way ... enjoy the read!
                     238 ;
                     239 ; RBYTE - READ NEXT BYTE
                     240 ;
-                    241 <a class='f' name='RBYTE'    >RBYTE       </a>EQU *
-<hr>268C:A9 03          242             LDA #CRQRD      ; SET READ                      ; === Page <a class='page' name='page149'>149</a> ===
+                    241 <a class='f' name='RBYTE'    >RBYTE       </a>EQU *<hr class='page'>
+268C:A9 03          242             LDA #CRQRD      ; SET READ                      ; === Page <a class='page' name='page149'>149</a> ===
 268E:8D BB 35       243             STA CCBREQ
 2691:A9 01          244             LDA #CRMNBT     ; SET NEXT BYTE
 2693:8D BC 35       245             STA CCBRQM
@@ -3035,8 +3035,8 @@ With that "legalese" out of the way ... enjoy the read!
 26DD:A5 D8          049             LDA ASONERR     ;GET AS ERR FLAG
 26DF:30 0E          050             BMI ERRTN       ; BRT IF ON ERR IS GO
                     051 <a class='f' name='ERNAS'    >ERNAS       </a>EQU *
-26E1:A2 00          052             LDX #<span class='n'>0</span>
-<hr>26E3:20 02 27       053             JSR EMPR        ; GO OUTPUT                     ; === Page <a class='page' name='page41'>41</a> ===
+26E1:A2 00          052             LDX #<span class='n'>0</span><hr class='page'>
+26E3:20 02 27       053             JSR EMPR        ; GO OUTPUT                     ; === Page <a class='page' name='page41'>41</a> ===
 26E6:AE 5C 2A       054             LDX SVA         ; GET SAVE MSG
 26E9:20 02 27       055             JSR EMPR        ; GO OUTPUT MSG
 26EC:20 C8 1F       056             JSR PRCRIF      ;OUTPUT A CARRIAGE RETURN AFTER MESSAGE
@@ -3096,8 +3096,8 @@ With that "legalese" out of the way ... enjoy the read!
                     110 ; MVBUFP - MOVE BUFFER PTR TO CCB
                     111 ;
                     112 MVBUFP      EQU *
-274E:A0 1E          113             LDY #<span class='n'>30</span>                                         ; <a class='magic' name='_274F'>magic number</a> <span class='code'>MAX_FILENAME</span>
-<hr>2750:B1 40          114 MVBP1       LDA (ZPGWRK),Y                                  ; === Page <a class='page' name='page42'>42</a> ===
+274E:A0 1E          113             LDY #<span class='n'>30</span>                                         ; <a class='magic' name='_274F'>magic number</a> <span class='code'>MAX_FILENAME</span><hr class='page'>
+2750:B1 40          114 MVBP1       LDA (ZPGWRK),Y                                  ; === Page <a class='page' name='page42'>42</a> ===
 2752:99 A9 35       115             STA CCBFCB-<span class='n'>30</span>,Y                                 ; <a class='magic' name='_2752'>magic number</a> <span class='code'>MAX_FILENAME</span>
 2755:C8             116             INY
 2756:C0 26          117             CPY #<span class='n'>38</span>                                         ; <a class='magic' name='_2756'>magic number</a> <span class='code'>MAX_FILENAME + HEADER.SIZE</span> (See <a class='file' href='#BLDFTAB'>BLDFTAB</a>)
@@ -3159,8 +3159,8 @@ With that "legalese" out of the way ... enjoy the read!
                     173             BEQ TSR         ; BR IF NO LINK
                     174 ;
                     175             TAX
-                    176             DEY                                             ; HEADER.LINK+0
-<hr>                    177             LDA (ZPGWRK),Y                                  ; === Page <a class='page' name='page43'>43</a> ===
+                    176             DEY                                             ; HEADER.LINK+0<hr class='page'>
+                    177             LDA (ZPGWRK),Y                                  ; === Page <a class='page' name='page43'>43</a> ===
                     178 TSST        EQU *
                     179             STX ZPGWRK+1
                     180             STA ZPGWRK
@@ -3255,8 +3255,8 @@ With that "legalese" out of the way ... enjoy the read!
 27FE:48             050             PHA
 27FF:C8             051             INY
 2800:91 40          052             STA (ZPGWRK),Y  ; SET DIR BUF PTR               ; === <a class='ts' href='#T1S7'>T1S7</a> === [20] $9CD3 = $9BF3: $9BA6 buf #2 ptr
-2802:8A             053             TXA
-<hr>2803:C8             054             INY                                             ; === Page <a class="page" name="page5">5</a> ===
+2802:8A             053             TXA<hr class='page'>
+2803:C8             054             INY                                             ; === Page <a class="page" name="page5">5</a> ===
 2804:91 40          055             STA (ZPGWRK),Y                                  ; [21] = page
 2806:AA             056             TAX
 2807:CA             057             DEX             ; DIR BUFF - 256
@@ -3318,8 +3318,8 @@ With that "legalese" out of the way ... enjoy the read!
                     113 ; MVISW - MOVE INPUT SWITCH
                     114 ;
                     115 <a class="f" name="MVCSW"  >MVCSW       </a>EQU *
-2851:A5 39          116             LDA INSW+<span class='n'>1</span>
-<hr>2853:CD 03 1D       117             CMP CINA+<span class='n'>1</span>                                      ; === Page <a class="page" name="page6">6</a> ===
+2851:A5 39          116             LDA INSW+<span class='n'>1</span><hr class='page'>
+2853:CD 03 1D       117             CMP CINA+<span class='n'>1</span>                                      ; === Page <a class="page" name="page6">6</a> ===
 2856:F0 12          118             BEQ <a class="x" href="#MVOSW">MVOSW</a>
 2858:8D 56 2A       119             STA SVINS+<span class='n'>1</span>
 285B:A5 38          120             LDA INSW        ; SAVE CHAR IN SWITCH
@@ -4426,8 +4426,8 @@ With that "legalese" out of the way ... enjoy the read!
                     050             DEY                                             ; S14 CATALOG [1]
                     051             STA IBTRK       ; INTO IOB
                     052 NT6         STA VDLTRK      ; INTO LINK
-                    053 NT7         STY VDLSEC      ;
-<hr>2EEB:C8             054             INY                                             ; === Page <a class='page' name='page74'>74</a> ===
+                    053 NT7         STY VDLSEC      ; <hr class='page'>
+2EEB:C8             054             INY                                             ; === Page <a class='page' name='page74'>74</a> ===
 2EEC:8C ED 37       055             STY IBSECT
 2EEF:A9 02          056             LDA #IBCWTS
 2EF1:20 58 30       057             JSR DCBIO2
@@ -4489,8 +4489,7 @@ With that "legalese" out of the way ... enjoy the read!
                     113 ;
                     114 <a class='f' id='2F3A' name='WRFDGO'   >WRFDGO      </a>EQU *
 2F3A:20 4B 2F       115             JSR MVFDBA                                      ; Yet another crappy name.  Quick what is the difference between: <span class='code'>MVVDBA</span> or <span class='code'>MVFDBA</span> ?
-                    116 ;                                                           ; MoveFileDirectoryBufferAddress
-<hr>
+                    116 ;                                                           ; MoveFileDirectoryBufferAddress<hr class='page'>
 2F3D:A9 02          117             LDA #IBCWTS     ; GET WRITE CMD                 ; === Page <a class='page' name='page75'>75</a> ===
 2F3F:20 52 30       118             JSR DCBIO       ; GO FILL IN IOB AND DO I/O
                     119 ;
@@ -4553,8 +4552,8 @@ With that "legalese" out of the way ... enjoy the read!
                     176             PHA             ; SAVE TRACK
                     177             JSR WRFDGO      ; Go WRITE OLD DIR DEC
                     178 ;
-                    179             JSR CLRSEC      ; CLEAN OUT DIR
-<hr>                    180             LDY #FDFRS      ; SET NEW DIR SEC 1ST REL       ; === Page <a class='page' name='page76'>76</a> ===
+                    179             JSR CLRSEC      ; CLEAN OUT DIR<hr class='page'>
+                    180             LDY #FDFRS      ; SET NEW DIR SEC 1ST REL       ; === Page <a class='page' name='page76'>76</a> ===
                     181             LDA DCBDNF      ; FILE SECTOR
                     182             STA (ZPGFCB),Y
                     183             INY
@@ -4664,8 +4663,7 @@ With that "legalese" out of the way ... enjoy the read!
                     050 <meta                                 />;
                     051 <meta                                 />;WRVDIR - WRITE VOLUME DIRECTORY SECTOR
                     052 <meta                                 />;
-                    053 <a class='f' id='3037' name='WRVDIR'   >WRVDIR      </a>EQU *
-<hr>
+                    053 <a class='f' id='3037' name='WRVDIR'   >WRVDIR      </a>EQU *<hr class='page'>
 3037:20 45 30       054 <meta                                 />            JSR <a class='x' href='#MVVDBA' >MVVDBA</a>                                      ; === <a class='page' name='page64'>64</a> ===
                     055 <meta                                 />;
 303A:AE 97 33       056 <meta                                 />            LDX <a class='v' href='#CVDTRK' >CVDTRK</a>      ; CURRENT TRACK
@@ -4772,8 +4770,8 @@ With that "legalese" out of the way ... enjoy the read!
                     113             CMP #IBWPER
                     114             BEQ BD2
                     115             LDY #CREIOE
-                    116 BD2         TYA
-<hr>30B3:4C 85 33       117             JMP ERRROB                                      ; === <a class='page' name='page65'>65</a> ===
+                    116 BD2         TYA<hr class='page'>
+30B3:4C 85 33       117             JMP ERRROB                                      ; === <a class='page' name='page65'>65</a> ===
                     118             PAGE
                     119 ;
                     120 ;LOCNXB - LOCATE NEXT BYTE
@@ -4835,8 +4833,8 @@ With that "legalese" out of the way ... enjoy the read!
 3120:AD E4 35       176 <a class='f' name='LNBCON'   >LNBCON      </a>LDA DCBCRS      ; MOVE CUR REL SECTOR
                     177             STA DCBCMS
                     178             LDA DCBCRS+<span class='n'>1</span>    ; TO CUR MEM SECTOR
-                    179             STA DCBCMS+<span class='n'>1</span>
-<hr>                    180 ;                                                           ; === <a class='page' name='page66'>66</a> ===
+                    179             STA DCBCMS+<span class='n'>1</span><hr class='page'>
+                    180 ;                                                           ; === <a class='page' name='page66'>66</a> ===
                     181 <a class='f' name='LNB8'     >LNB8        </a>EQU *
 312C:20 10 2F       182             JSR MVFCBS      ; MOVE SECTOR BUFF ADR TO ZP
                     183             LDY DCBCSB      ; GET SECT BYTE
@@ -4898,8 +4896,8 @@ With that "legalese" out of the way ... enjoy the read!
 3193:60             239             RTS
                     240             PAGE
                     241 ;
-                    242 ;INCSCB - INCREMENT SECTOR BYTE
-<hr>                    243 ;                                                           ; === <a class='page' name='page67'>67</a> ===
+                    242 ;INCSCB - INCREMENT SECTOR BYTE<hr class='page'>
+                    243 ;                                                           ; === <a class='page' name='page67'>67</a> ===
                     244 <a class='f' name='INCSCB'   >INCSCB      </a>EQU *
 3194:EE E6 35       245             INC DCBCSB      ; INC SECTOR BYTE
                     246             BNE INCS2       ; BR IF NOT FULL
@@ -4993,8 +4991,8 @@ With that "legalese" out of the way ... enjoy the read!
                     050 ;
                     051 <a class='f' name='MVN'      >MVN         </a>EQU *
 321C:A0 00          052             LDY #<span class='n'>0</span>          ; HAVE NEW ENTRY
-321E:E8             053             INX
-<hr>321F:E8             054             INX                                             ; === <a class='page' name='page69'>69</a> ===
+321E:E8             053             INX<hr class='page'>
+321F:E8             054             INX                                             ; === <a class='page' name='page69'>69</a> ===
 3220:E8             055 <a class='f' name='FF8'      >FF8         </a>INX
 3221:B1 42          056             LDA (<a class='v' href='#ZPGFCB'>ZPGFCB</a>),Y  ; MOVE FILENAME
 3223:9D C6 34       057             STA <a class='v' href='#VDFILE'>VDFILE</a>,X
