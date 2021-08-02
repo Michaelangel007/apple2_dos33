@@ -5776,9 +5776,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     149 * END OF BOOT PAGE DATA SETUP
                     150             REP 40
                     151 *
-<span class='macro'>
-                    152 * FIXIT2 was developed to fix the wrap around           </span>    ; This is NOT _here_ DOS 3.3 1983<span class='macro'>
-                    153 * problem APPEND has when trying to APPEND to           </span>    ; It was relocated to $3A84 (see line 121 above) <span class='macro'>
+                    152 * FIXIT2 was developed to fix the wrap around               ; <b>Note:</b> This is NOT at this address in DOS 3.3A 1980 or DOSB 3.3B 1983
+                    153 * problem APPEND has when trying to APPEND to               ; In DOS 3.3B it was located at $3A84 (see line 121 above)
                     154 * a sequential file which is &gt; 255 sectors in length.   
                     155 *                                                       
                     156 *                  Fix by                               
@@ -5796,19 +5795,19 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     168 *                                                       
                     169             REP 30                                      
                     170             SKP 1                                       
-                    171 FIXIT2      EQU *                                       
-                    172             LDA CCBRLN      ;Current record length lo   
-                    173             STA DCBCSB      ;Current sector byte        
-                    174             STA DCBCRR      ;Current relative record    
-                    175             LDA CCBRLN+1    ;Do hi as well              
-                    176             STA DCBCSB+1                                
-                    177             STA DCBCRR+1                                
-                    178             STA DCBCRS      ;Set current relative sector</span>
-<hr><span class='macro'>                    179             TSX                                         </span>    ; === Page <a class="page" name="page11">11</a> ===<span class='macro'>
-                    180             STX ENTSTK                                  
-                    181             JMP GOODIO                                  
+                    171 <a class='f' id='36B3' name='FIXIT2'>FIXIT2      </a>EQU *                                       
+36B3:AD BD 35       172             LDA CCBRLN      ;Current record length lo   
+36B6:8D E6 35       173             STA DCBCSB      ;Current sector byte        
+36B9:8D EA 35       174             STA <a class='v' href='#DCBCRR'>DCBCRR</a>      ;Current relative record    
+36BC:AD Be 35       175             LDA CCBRLN+1    ;Do hi as well              
+36BF:8D E7 35       176             STA DCBCSB+1                                
+36C2:8D EB 35       177             STA <a class='v' href='#DCBCRR'>DCBCRR</a>+1                                
+36C5:8D E4 35       178             STA DCBCRS      ;Set current relative sector<hr class='page'>
+36C8:BA             179             TSX                                             ; === Page <a class="page" name="page11">11</a> ===
+36C9:8E 9B 33       180             STX <a class='v' href='#ENTSTK'>ENTSTK</a>                                  
+36CC:4C 7F 33       181             JMP <a class='x' href='#GOODIO'>GOODIO</a>                                  
                     182             SKP 2                                       
-                    183             REP 30                                      </span>
+                    183             REP 30                                      
                     184 *
                     185 *   Upper/Lower case patch
                     186 *   for DOS 3.3C and BASIC
