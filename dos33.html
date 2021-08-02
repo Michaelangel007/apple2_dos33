@@ -1359,40 +1359,40 @@ With that "legalese" out of the way ... enjoy the read!
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <a class='ts' href='#T0SB'>T0SB</a> - <a class='ts' href='#T0SD'>T0SD</a>, $<span class='n'>9C81</span> .. $<span class='n'>9E80</span> ===<hr class='join'><hr></div>
 <pre>
-                    00374 001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*                              ; === Page <a class='page' name='page48'>48</a> ===
-                    00375 002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>
-1C81:FC FD FD       00376 <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; <a class='disk' name='_1C81'>disk</a> wastes 127 bytes padding to end of sector
-1C84:FD FC FD FC                                                                    ; Technically only 82 bytes ($1CD3-$1C81 = $52) are wasted
-1C88:FC FC FE FE                                                                    ; but <span class="macro">FTAB DW *-45</span> (below) is sloppy code
-1C8C:FC FE FC FC                                                                    ; Why isn't this "allocated" at run-time?
-1C90:FD FE FC FF                                                                    ; Meaning this should be placed <b>after</b> ALL the code.
-1C94:FC FD FC FC                                                                    ; See: <a class='dumb' href="#WastedDisk">Wasted Disk Space</a>
-1C98:FC FF FC FF
-1C9C:FC FE FF FF
-1CA0:FF FF FD FE
-1CA4:FC FD FC FC
-1CA8:FC FC FD FC
-1CAC:FE FE FE FC
-1CB0:FD FF FC FC
-1CB4:FC FE FC FD
-1CB8:FC FC FC FE
-1CBC:FC FD FC FC
-1CC0:FC FD FC FD
-1CC4:FD FC FC FC
-1CC8:FD FD FC FE                                                                    ; ECLOSE, EDEL, EPOS, RWPOSN, CLOSFILE call 
-1CCC:FC FC FE FC                                                                    ;   <a class="x" href="#FILSRC">FILSRC</a> (File Search)
-1CD0:FC FD FD FC                                                                    ; [00] $1CD3 ($9CD3) Used by <a class="x" href="#TSINIT">TSINIT</a>, init @ Line #<a class='line' href='#BLDFTAB.036'>036</a>
-1CD4:FF FE FC FC
-1CD8:FC FC FD FC
-1CDC:FD FE FC FC
-1CE0:FD FC FF FC
-1CE4:FE FF FF FF
-1CE8:FD FC FE FE                                                                    ; See init @ <a class="x" href="#BFT1">BFT1</a>, Line #<a class='line' href='#BLDFTAB.041'>041</a>
-1CEC:FC FC FE FC                                                                    ; [1E] $1CF1 ($9CF1): $9CA6 (buf1 ptr)
-1CF0:FC FE FC FE                                                                    ; [20] $1CF3 ($9CF3): $9BA6 (buf2 ptr)
-1CF4:FC FE FE FC                                                                    : [22] $1CF5 ($9CF5): $9AA6 (buf3 ptr)
-1CF8:FE FE FC FC                                                                    ; $1CF8 Use by <a class="x" href="#TSNXT">TSNXT</a>
-1CFC:FE FC FD FD
+    =81             00374 001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*                              ; === Page <a class='page' name='page48'>48</a> ===
+    =7F             00375 002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>                       ; DOS 3.3B bytes   |
+1C81:FC FC FC       00376 <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; 1C81:   FC FD FD | <a class='disk' name='_1C81'>disk</a> wastes 127 bytes padding to end of sector
+1C84:FC FC FC FD                                                                          ; 1C84:FD FC FD FC | Technically only 82 bytes ($1CD3-$1C81 = $52) are wasted
+1C88:FC FC FF FC                                                                          ; 1C88:FC FC FE FE | but <span class="macro">FTAB DW *-45</span> (below) is sloppy code
+1C8C:FD FC FC FF                                                                          ; 1C8C:FC FE FC FC | Why isn't this "allocated" at run-time?
+1C90:FF FC FE FD                                                                          ; 1C90:FD FE FC FF | Meaning this should be placed <b>after</b> ALL the code.
+1C94:FE FD FD FE                                                                          ; 1C94:FC FD FC FC | See: <a class='dumb' href="#WastedDisk">Wasted Disk Space</a>
+1C98:FF FC FE FF                                                                          ; 1C98:FC FF FC FF |
+1C9C:FD FE FF FD                                                                          ; 1C9C:FC FE FF FF |
+1CA0:FC FD FD FC                                                                          ; 1CA0:FF FF FD FE |
+1CA4:FD FE FD FF                                                                          ; 1CA4:FC FD FC FC |
+1CA8:FC FE FC FC                                                                          ; 1CA8:FC FC FD FC |
+1CAC:FC FC FC FC                                                                          ; 1CAC:FE FE FE FC |
+1CB0:FD FC FC FE                                                                          ; 1CB0:FD FF FC FC |
+1CB4:FC FD FC FC                                                                          ; 1CB4:FC FE FC FD |
+1CB8:FF FC FC FE                                                                          ; 1CB8:FC FC FC FE |
+1CBC:FD FC FD FF                                                                          ; 1CBC:FC FD FC FC |
+1CC0:FC FF FD FE                                                                          ; 1CC0:FC FD FC FD |
+1CC4:FF FD FF FC                                                                          ; 1CC4:FD FC FC FC |
+1CC8:FC FD FE FF                                                                          ; 1CC8:FD FD FC FE | ECLOSE, EDEL, EPOS, RWPOSN, CLOSFILE call
+1CCC:FF FF FC FC                                                                          ; 1CCC:FC FC FE FC | <a class="x" href="#FILSRC">FILSRC</a> (File Search)
+1CD0:FF FF FC FE                                                                          ; 1CD0:FC FD FD FC | [00] $1CD3 ($9CD3) Used by <a class="x" href="#TSINIT">TSINIT</a>, init @ Line #<a class='line' href='#BLDFTAB.036'>036</a>
+1CD4:FD FC FD FD                                                                          ; 1CD4:FF FE FC FC |
+1CD8:FE FF FD FE                                                                          ; 1CD8:FC FC FD FC |
+1CDC:FF FC FE FE                                                                          ; 1CDC:FD FE FC FC |
+1CE0:FC FD FC FD                                                                          ; 1CE0:FD FC FF FC |
+1CE4:FE FD FD FC                                                                          ; 1CE4:FE FF FF FF |
+1CE8:FD FC FF FD                                                                          ; 1CE8:FD FC FE FE | See init @ <a class="x" href="#BFT1">BFT1</a>, Line #<a class='line' href='#BLDFTAB.041'>041</a>
+1CEC:FC FF FC FC                                                                          ; 1CEC:FC FC FE FC | [1E] $1CF1 ($9CF1): $9CA6 (buf1 ptr)
+1CF0:FE FD FC FC                                                                          ; 1CF0:FC FE FC FE | [20] $1CF3 ($9CF3): $9BA6 (buf2 ptr)
+1CF4:FD FC FE FC                                                                          : 1CF4:FC FE FE FC | [22] $1CF5 ($9CF5): $9AA6 (buf3 ptr)
+1CF8:FC FD FF FC                                                                          ; 1CF8:FE FE FC FC | $1CF8 Use by <a class="x" href="#TSNXT">TSNXT</a>
+1CFC:FC FD FC FC                                                                          ; 1CFC:FE FC FD FD |
                     004 ;
                     005 ;RELOCATION TABLES
                     006 ;
