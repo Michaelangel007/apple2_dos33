@@ -1393,70 +1393,70 @@ With that "legalese" out of the way ... enjoy the read!
 1CF4:FD FC FE FC                                                                          : 1CF4:FC FE FE FC | [22] $1CF5 ($9CF5): $9AA6 (buf3 ptr)
 1CF8:FC FD FF FC                                                                          ; 1CF8:FE FE FC FC | $1CF8 Use by <a class="x" href="#TSNXT">TSNXT</a>
 1CFC:FC FD FC FC                                                                          ; 1CFC:FE FC FD FD |
-                    004 ;
-                    005 ;RELOCATION TABLES
-                    006 ;
-                    007 <a class='d' id='1D00' name='START'      >START       </a>EQU *
-                    008 <a class='d' id='1D00' name='SAT1'       >SAT1        </a>EQU *                                           ; Start Address Table 1 of relocation
-1D00:D3 1C          009 <a class='d' id='1D00' name='FTAB'       >FTAB        </a>DW *-<span class='n'>45</span>                                         ; === <a class='ts' href='#T0SC'>T0SC</a> === $1CD3; Really?! Couldn't do <span class='code'>FTAB DS 45, 0</span>
-1D02:81 1E          010 <a class='d' id='1D02' name="CINA"       >CINA        </a>DW <a class='x' href='#CHRIN' >CHRIN </a>
-1D04:BD 1E          011 <a class='d' id='1D04' name="COUTA"      >COUTA       </a>DW <a class='x' href='#CHROUT'>CHROUT</a>
-1D06:75 2A          012 <a class='d' id='1D06' name="FN1ADR"     >FN1ADR      </a>DW <a class='v' href='#FNAME1'>FNAME1</a>
-1D08:93 2A          013 <a class='d' id='1D08' name="FN2ADR"     >FN2ADR      </a>DW <a class='v' href='#FNAME2'>FNAME2</a>
-1D0A:60 2A          014 <a class='d' id='1D0A' name="SVBLA"      >SVBLA       </a>DW <a class='v' href='#SVBL'  >SVBL  </a>
-1D0C:00 1B          015 <a class='d' id='1D0C' name="ASTART"     >ASTART      </a>DW <a class='x' href="#BEGIN" >BEGIN </a>
-1D0E:BB 35          016 <a class='d' id='1D0E' name="CCBADR"     >CCBADR      </a>DW <a class='v' href='#CCB'   >CCB   </a>
-                    017 ;
-                    018 <a class='d' name='OUTSVT'>OUTSVT      </a>EQU *           ; CHAR OUTPUT STATE VECTOR TABLE
-1D10:EA 1E          019             DW <a class='x' href='#COS0'>COS0</a>-<span class='n'>1</span>
-1D12:11 1F          020             DW <a class='x' href='#COS1'>COS1</a>-<span class='n'>1</span>
-1D14:22 1F          021             DW <a class='x' href='#COS2'>COS2</a>-<span class='n'>1</span>
-1D16:2E 1F          022             DW <a class='x' href='#COS3'>COS3</a>-<span class='n'>1</span>
-1D18:51 1F          023             DW <a class='x' href='#COS4'>COS4</a>-<span class='n'>1</span>
-1D1A:60 1F          024             DW <a class='x' href='#COS5'>COS5</a>-<span class='n'>1</span>
-1D1C:70 1F          025             DW <a class='x' href='#COS6'>COS6</a>-<span class='n'>1</span>
-                    026 ;COMMAND EXECUTION TABLE
-                    027 <a class='d' name='CMDETB'>CMDETB      </a>EQU *                                           ; /sarcasm Yay for shitty 5 &amp; 6 letter var names!
-1D1E:4E 25          028             DW <a class='x' href='#EINIT' >EINIT</a>-<span class='n'>1</span>                                      ; [0] Stupid 6502 design for RTS instruction forces <span class="macro">-1</span> for func jump table
-1D20:12 24          029             DW <a class='x' href='#ELOAD' >ELOAD</a>-<span class='n'>1</span>                                      ; [1]
-1D22:96 23          030             DW <a class='x' href='#ESAVE' >ESAVE</a>-<span class='n'>1</span>                                      ; [2]
-1D24:D0 24          031             DW <a class='x' href='#ERUN'  >ERUN</a>-<span class='n'>1</span>                                       ; [3]
-1D26:EF 24          032             DW <a class='x' href='#ECHAIN'>ECHAIN</a>-<span class='n'>1</span>                                     ; [4]
-1D28:62 22          033             DW <a class='x' href='#EDEL'  >EDEL</a>-<span class='n'>1</span>                                       ; [5]
-1D2A:70 22          034             DW <a class='x' href='#ELOCK' >ELOCK</a>-<span class='n'>1</span>                                      ; [6]
-1D2C:74 22          035             DW <a class='x' href='#EUNLK' >EUNLK</a>-<span class='n'>1</span>                                      ; [7] /sarcasm Oh, noes! That 'OC' in 'unl<b>OC</b>k' is too much work to type!
-1D2E:E9 22          036             DW <a class='x' href='#ECLOSE'>ECLOSE</a>-<span class='n'>1</span>                                     ; [8]
-1D30:1A 25          037             DW <a class='x' href='#EREAD' >EREAD</a>-<span class='n'>1</span>                                      ; [9]
-1D32:C5 25          038             DW <a class='x' href='#EEXEC' >EEXEC</a>-<span class='n'>1</span>                                      ; [A]
-1D34:0F 25          039             DW <a class='x' href='#EWRITE'>EWRITE</a>-<span class='n'>1</span>                                     ; [B]
-1D36:DC 25          040             DW <a class='x' href='#EPOS'  >EPOS</a>-<span class='n'>1</span>                                       ; [C]
-1D38:A2 22          041             DW <a class='x' href='#EOPEN' >EOPEN</a>-<span class='n'>1</span>                                      ; [D]
-1D3A:97 22          042             DW <a class='x' href='#EAPND' >EAPND</a>-<span class='n'>1</span>                                      ; [E]
-1D3C:80 22          043             DW <a class='x' href='#EREN'  >EREN</a>-<span class='n'>1</span>                                       ; [F]
-1D3E:6D 25          044             DW <a class='x' href='#ECAT'  >ECAT</a>-<span class='n'>1</span>                                       ;[10]
-1D40:32 22          045             DW <a class='x' href='#EMON'  >EMON</a>-<span class='n'>1</span>                                       ;[11]
-1D42:3C 22          046             DW <a class='x' href='#ENOMON'>ENOMON</a>-<span class='n'>1</span>                                     ;[12]
-1D44:28 22          047             DW <a class='x' href='#EPR'   >EPR</a>-<span class='n'>1</span>                                        ;[13]
-1D46:2D 22          048             DW <a class='x' href='#EIN'   >EIN</a>-<span class='n'>1</span>                                        ;[14]
-1D48:50 22          049             DW <a class='x' href='#EMAXF' >EMAXF</a>-<span class='n'>1</span>                                      ;[15]
-1D4A:79 25          050             DW <a class='x' href='#EAS'   >EAS</a>-<span class='n'>1</span>                                        ;[16]
-1D4C:9D 25          051             DW <a class='x' href='#EINT'  >EINT</a>-<span class='n'>1</span>                                       ;[17]
-1D4E:30 23          052             DW <a class='x' href='#EBSV'  >EBSV</a>-<span class='n'>1</span>                                       ;[18] *sigh* EBSAVE - I'm sorry, we blew our key budget for 'A'
-1D50:5C 23          053             DW <a class='x' href='#EBLD'  >EBLD</a>-<span class='n'>1</span>                                       ;[19] *sigh* EBLOAD - and also 'O'<hr class='page'>
-1D52:8D 23          054             DW <a class='x' href='#EBRUN'>EBRUN</a>-<span class='n'>1</span>                                      ;[1A] === Page <a class="page" name="page49">49</a> ===
-1D54:7C 22          055             DW <a class='x' href='#EVAR'  >EVAR</a>-<span class='n'>1</span>                                       ;[1B] last byte relocated in Entry [<a class='line' href='#RELOCTR.292'>0</a>] <a class='v' href='#ADRTAB'>ADRTAB</a>
-                    056 <a class='d' id='1D56' name='EAT1'     >EAT1        </a>EQU *                                           ; End Address Table 1
-                    057             PAGE
-                    058 ;                                                           ; *note* Annotating [-] to mean <i>addresss is not relocated</i> in <a class='v' href='#ADRTAB'>ADRTAB</a>
-                    059 ;NON-RELOCATING ADRS
-                    060 ;                                                           ; Using <b>a</b>,b,c,d,e,f for abbreviated field names in IBASVT
-                    061 <a class='d' id='1D56' name='IBASVT'   >IBASVT      </a>EQU *                                           ; <i>ACTIVE</i> table but <a class='mem' name='_1D56' coords='12'>waste</a> disk space (12 bytes @ $56) storing it!
-1D56:36 E8          062 <a class='d' id='1D56' name='CHAIN'    >CHAIN       </a>DW <a class='x' href='#IBCHN' >IBCHN </a>                                       ;<b>a</b>[-] Really? Forces <i>another</i> table entry [1] in <a class='v' href='#ADRTAB'>ADRTAB</a>
-1D58:E5 24          063 <a class='d' id='1D58' name='RUN'      >RUN         </a>DW <a class='x' href='#IBRUN' >IBRUN </a>                                       ;b[<a class='line' href='#RELOCTR.290'>1</a>] Repeat after me: You **group**
-1D5A:E3 E3          064 <a class='d' id='1D5A' name='BREAK'    >BREAK       </a>DW <a class='x' href='#IBBRK' >IBBRK </a>                                       ;c[-]     CONST data together THEN
-1D5C:00 E0          065 <a class='d' id='1D5C' name='GO'       >GO          </a>DW <a class='x' href='#IBGO'  >IBGO  </a>                                       ;d[-]     VARIABLE data together
-1D5E:03 E0          066 <a class='d' id='1D5E' name='CONT'     >CONT        </a>DW <a class='x' href='#IBCONT'>IBCONT</a>       ; BASIC CONT ENTRY POINT        ;e[-] You (almost) *never* interleave them
-1D60:00 00          067 <a class='d' id='1D60' name='ASEQ'     >ASEQ        </a>DW <span class='n'>0</span>                                            ;f    that just leads to data+code bloat
+                    00377 004 ;
+                    00378 005 ;RELOCATION TABLES
+                    00379 006 ;
+                    00380 007 <a class='d' id='1D00' name='START'      >START       </a>EQU *
+                    00381 008 <a class='d' id='1D00' name='SAT1'       >SAT1        </a>EQU *                                           ; Start Address Table 1 of relocation
+1D00:D3 1C          00382 009 <a class='d' id='1D00' name='FTAB'       >FTAB        </a>DW *-<span class='n'>45</span>                                         ; === <a class='ts' href='#T0SC'>T0SC</a> === $1CD3; Really?! Couldn't do <span class='code'>FTAB DS 45, 0</span>
+1D02:81 1E          00383 010 <a class='d' id='1D02' name="CINA"       >CINA        </a>DW <a class='x' href='#CHRIN' >CHRIN </a>
+1D04:BD 1E          00384 011 <a class='d' id='1D04' name="COUTA"      >COUTA       </a>DW <a class='x' href='#CHROUT'>CHROUT</a>
+1D06:75 2A          00385 012 <a class='d' id='1D06' name="FN1ADR"     >FN1ADR      </a>DW <a class='v' href='#FNAME1'>FNAME1</a>
+1D08:93 2A          00386 013 <a class='d' id='1D08' name="FN2ADR"     >FN2ADR      </a>DW <a class='v' href='#FNAME2'>FNAME2</a>
+1D0A:60 2A          00387 014 <a class='d' id='1D0A' name="SVBLA"      >SVBLA       </a>DW <a class='v' href='#SVBL'  >SVBL  </a>
+1D0C:00 1B          00388 015 <a class='d' id='1D0C' name="ASTART"     >ASTART      </a>DW <a class='x' href="#BEGIN" >BEGIN </a>
+1D0E:BB 35          00389 016 <a class='d' id='1D0E' name="CCBADR"     >CCBADR      </a>DW <a class='v' href='#CCB'   >CCB   </a>
+                    00390 017 ;
+                    00391 018 <a class='d' name='OUTSVT'>OUTSVT      </a>EQU *           ; CHAR OUTPUT STATE VECTOR TABLE
+1D10:EA 1E          00392 019             DW <a class='x' href='#COS0'>COS0</a>-<span class='n'>1</span>
+1D12:11 1F          00393 020             DW <a class='x' href='#COS1'>COS1</a>-<span class='n'>1</span>
+1D14:22 1F          00394 021             DW <a class='x' href='#COS2'>COS2</a>-<span class='n'>1</span>
+1D16:2E 1F          00395 022             DW <a class='x' href='#COS3'>COS3</a>-<span class='n'>1</span>
+1D18:51 1F          00396 023             DW <a class='x' href='#COS4'>COS4</a>-<span class='n'>1</span>
+1D1A:60 1F          00397 024             DW <a class='x' href='#COS5'>COS5</a>-<span class='n'>1</span>
+1D1C:70 1F          00398 025             DW <a class='x' href='#COS6'>COS6</a>-<span class='n'>1</span>
+                    00399 026 ;COMMAND EXECUTION TABLE
+                    00400 027 <a class='d' name='CMDETB'>CMDETB      </a>EQU *                                           ; /sarcasm Yay for shitty 5 &amp; 6 letter var names!
+1D1E:4E 25          00401 028             DW <a class='x' href='#EINIT' >EINIT</a>-<span class='n'>1</span>                                      ; [0] Stupid 6502 design for RTS instruction forces <span class="macro">-1</span> for func jump table
+1D20:12 24          00402 029             DW <a class='x' href='#ELOAD' >ELOAD</a>-<span class='n'>1</span>                                      ; [1]
+1D22:96 23          00403 030             DW <a class='x' href='#ESAVE' >ESAVE</a>-<span class='n'>1</span>                                      ; [2]
+1D24:D0 24          00404 031             DW <a class='x' href='#ERUN'  >ERUN</a>-<span class='n'>1</span>                                       ; [3]
+1D26:EF 24          00405 032             DW <a class='x' href='#ECHAIN'>ECHAIN</a>-<span class='n'>1</span>                                     ; [4]
+1D28:62 22          00406 033             DW <a class='x' href='#EDEL'  >EDEL</a>-<span class='n'>1</span>                                       ; [5]
+1D2A:70 22          00407 034             DW <a class='x' href='#ELOCK' >ELOCK</a>-<span class='n'>1</span>                                      ; [6]
+1D2C:74 22          00408 035             DW <a class='x' href='#EUNLK' >EUNLK</a>-<span class='n'>1</span>                                      ; [7] /sarcasm Oh, noes! That 'OC' in 'unl<b>OC</b>k' is too much work to type!
+1D2E:E9 22          00409 036             DW <a class='x' href='#ECLOSE'>ECLOSE</a>-<span class='n'>1</span>                                     ; [8]
+1D30:1A 25          00410 037             DW <a class='x' href='#EREAD' >EREAD</a>-<span class='n'>1</span>                                      ; [9]
+1D32:C5 25          00411 038             DW <a class='x' href='#EEXEC' >EEXEC</a>-<span class='n'>1</span>                                      ; [A]
+1D34:0F 25          00412 039             DW <a class='x' href='#EWRITE'>EWRITE</a>-<span class='n'>1</span>                                     ; [B]
+1D36:DC 25          00413 040             DW <a class='x' href='#EPOS'  >EPOS</a>-<span class='n'>1</span>                                       ; [C]
+1D38:A2 22          00414 041             DW <a class='x' href='#EOPEN' >EOPEN</a>-<span class='n'>1</span>                                      ; [D]
+1D3A:97 22          00415 042             DW <a class='x' href='#EAPND' >EAPND</a>-<span class='n'>1</span>                                      ; [E]
+1D3C:80 22          00416 043             DW <a class='x' href='#EREN'  >EREN</a>-<span class='n'>1</span>                                       ; [F]
+1D3E:6D 25          00417 044             DW <a class='x' href='#ECAT'  >ECAT</a>-<span class='n'>1</span>                                       ;[10]
+1D40:32 22          00418 045             DW <a class='x' href='#EMON'  >EMON</a>-<span class='n'>1</span>                                       ;[11]
+1D42:3C 22          00419 046             DW <a class='x' href='#ENOMON'>ENOMON</a>-<span class='n'>1</span>                                     ;[12]
+1D44:28 22          00420 047             DW <a class='x' href='#EPR'   >EPR</a>-<span class='n'>1</span>                                        ;[13]
+1D46:2D 22          00421 048             DW <a class='x' href='#EIN'   >EIN</a>-<span class='n'>1</span>                                        ;[14]
+1D48:50 22          00422 049             DW <a class='x' href='#EMAXF' >EMAXF</a>-<span class='n'>1</span>                                      ;[15]
+1D4A:79 25          00423 050             DW <a class='x' href='#EAS'   >EAS</a>-<span class='n'>1</span>                                        ;[16]
+1D4C:9D 25          00424 051             DW <a class='x' href='#EINT'  >EINT</a>-<span class='n'>1</span>                                       ;[17]
+1D4E:30 23          00425 052             DW <a class='x' href='#EBSV'  >EBSV</a>-<span class='n'>1</span>                                       ;[18] *sigh* EBSAVE - I'm sorry, we blew our key budget for 'A'
+1D50:5C 23          00426 053             DW <a class='x' href='#EBLD'  >EBLD</a>-<span class='n'>1</span>                                       ;[19] *sigh* EBLOAD - and also 'O'<hr class='page'>
+1D52:8D 23          00427 054             DW <a class='x' href='#EBRUN'>EBRUN</a>-<span class='n'>1</span>                                      ;[1A] === Page <a class="page" name="page49">49</a> ===
+1D54:7C 22          00428 055             DW <a class='x' href='#EVAR'  >EVAR</a>-<span class='n'>1</span>                                       ;[1B] last byte relocated in Entry [<a class='line' href='#RELOCTR.292'>0</a>] <a class='v' href='#ADRTAB'>ADRTAB</a>
+                    00429 056 <a class='d' id='1D56' name='EAT1'     >EAT1        </a>EQU *                                           ; End Address Table 1
+                    00430 057             PAGE
+                    00431 058 ;                                                           ; *note* Annotating [-] to mean <i>addresss is not relocated</i> in <a class='v' href='#ADRTAB'>ADRTAB</a>
+                    00432 059 ;NON-RELOCATING ADRS
+                    00433 060 ;                                                           ; Using <b>a</b>,b,c,d,e,f for abbreviated field names in IBASVT
+                    00434 061 <a class='d' id='1D56' name='IBASVT'   >IBASVT      </a>EQU *                                           ; <i>ACTIVE</i> table but <a class='mem' name='_1D56' coords='12'>waste</a> disk space (12 bytes @ $56) storing it!
+1D56:36 E8          00435 062 <a class='d' id='1D56' name='CHAIN'    >CHAIN       </a>DW <a class='x' href='#IBCHN' >IBCHN </a>                                       ;<b>a</b>[-] Really? Forces <i>another</i> table entry [1] in <a class='v' href='#ADRTAB'>ADRTAB</a>
+1D58:E5 24          00436 063 <a class='d' id='1D58' name='RUN'      >RUN         </a>DW <a class='x' href='#IBRUN' >IBRUN </a>                                       ;b[<a class='line' href='#RELOCTR.290'>1</a>] Repeat after me: You **group**
+1D5A:E3 E3          00437 064 <a class='d' id='1D5A' name='BREAK'    >BREAK       </a>DW <a class='x' href='#IBBRK' >IBBRK </a>                                       ;c[-]     CONST data together THEN
+1D5C:00 E0          00438 065 <a class='d' id='1D5C' name='GO'       >GO          </a>DW <a class='x' href='#IBGO'  >IBGO  </a>                                       ;d[-]     VARIABLE data together
+1D5E:03 E0          00439 066 <a class='d' id='1D5E' name='CONT'     >CONT        </a>DW <a class='x' href='#IBCONT'>IBCONT</a>       ; BASIC CONT ENTRY POINT        ;e[-] You (almost) *never* interleave them
+1D60:00 00          00440 067 <a class='d' id='1D60' name='ASEQ'     >ASEQ        </a>DW <span class='n'>0</span>                                            ;f    that just leads to data+code bloat
                                                                                     ; *sigh* Too lazy to add a single empty ';' line seperator before IBVT ???
                                                                                     ; Intentionally adding an empty line as a spacer to improve readability *<b>shock</b>*
                                                                                     ;
