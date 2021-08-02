@@ -6018,18 +6018,18 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 37DE:60             375 <meta                                 />            RTS
 37DF:00             376 <meta                                 />            BRK                                             ; <a class='mem' name='_37DF' coords='1'>wastes</a> 1 byte -- Why???
                     377 <a class='d' id='37E0' name='EC3'      >EC3         </a>EQU *
-37E0:1B             378 NDPGS       DFB &lt;<a class='v' href='#TRK0LDR'>TRK0LDR</a>-<a class='x' href='#BEGIN'>BEGIN</a> ;CALC #PAGES IN DOS WITHOUT RWTS
-37E1:00             379 BRWCNT      DFB <span class='n'>0</span>           ;WRK CTR FOR BOOTIO
-37E2:0A             380             DFB $<span class='n'>0A</span>                                         ;[.. <a class='mem' name='_37E2' coords='2'>wastes</a> 2 bytes -- never used!
-37E3:1B             381             DFB $<span class='n'>1B</span>                                         ; ..] 
-37E4:E8 37          382 <a class='d' name='BAIOB'    >BAIOB       </a>DW <a class='v' href='#IOB'>IOB</a>                                          ; <a class='v' href='#BAIOB'>BAIOB</a> and <a class='v' href='#AIOB'>AIOB</a> both point to <a class='v' href='#IOB'>IOB</a>
-37E6:00 36          383 ADOSLD      DW <a class='v' href='#TRK0LDR'>TRK0LDR</a>
-                    384             PAGE
-                    385 ;
-                    386 IOB - INPUT / OUTPUT CONTROL BLOCK
-                    387 ;THE IOB IS USED FOR THE INTERFACE
-                    388 ;BETWEEN DOS AND THE DISK I/O ROUTINES
-                    389 ;
+37E0:1B             378 <meta                                 />NDPGS       DFB &lt;<a class='v' href='#TRK0LDR'>TRK0LDR</a>-<a class='x' href='#BEGIN'>BEGIN</a> ;CALC #PAGES IN DOS WITHOUT RWTS
+37E1:00             379 <meta                                 />BRWCNT      DFB <span class='n'>0</span>           ;WRK CTR FOR BOOTIO
+37E2:0A             380 <meta                                 />            DFB $<span class='n'>0A</span>                                         ;[.. <a class='mem' name='_37E2' coords='2'>wastes</a> 2 bytes -- never used!
+37E3:1B             381 <meta                                 />            DFB $<span class='n'>1B</span>                                         ; ..]
+37E4:E8 37          382 <a class='d' name='BAIOB'              >BAIOB       </a>DW <a class='v' href='#IOB'>IOB</a>                                          ; <a class='v' href='#BAIOB'>BAIOB</a> and <a class='v' href='#AIOB'>AIOB</a> both point to <a class='v' href='#IOB'>IOB</a>
+37E6:00 36          383 <meta                                 />ADOSLD      DW <a class='v' href='#TRK0LDR'>TRK0LDR</a>
+                    384 <meta                                 />            PAGE
+                    385 <meta                                 />;
+                    386 <meta                                 />IOB - INPUT / OUTPUT CONTROL BLOCK
+                    387 <meta                                 />;THE IOB IS USED FOR THE INTERFACE
+                    388 <meta                                 />;BETWEEN DOS AND THE DISK I/O ROUTINES
+                    389 <meta                                 />;
                     390 <a class='e' id='37E8' name='IOB'      >IOB         </a>EQU *                                           ;    Descriptive Names
 37E8:01             391 <a class='d' id='37E8' name='IBTYPE'   >IBTYPE      </a>DFB <span class='n'>1</span>           ; IOB TYPE CODE                 ; [0] IOB_OFFSET_TYPE <a class='struct' name='_37e8'>wastes</a> 1 bytes, hard-coded to 1 in <a class='file' href='#FLOCNXB'>FLOCNXB</a>, Line #<a class='line' href='#FLOCNXB.095'>95</a> !
 37E9:60             392 <a class='d' id='37E9' name='IBSLOT'   >IBSLOT      </a>DFB <span class='n'>6</span>*<span class='n'>16</span>        ; CONTROLELR SLOT NO.           ; [1] IOB_OFFSET_SLOT
