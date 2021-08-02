@@ -6011,12 +6011,12 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 37D5:60             368 <meta                                 />            RTS
                     369 <meta                                 />;
 37D6:A9 00          370 CLRSEC      LDA #<span class='n'>0</span>          ;CLEAR SECTOR
-37D8:A8             371             TAY
+37D8:A8             371 <meta                                 />            TAY
 37D9:91 41          372 CS1         STA (ZPGFCB),Y
-37DB:C8             373             INY
-37DC:D0 FB          374             BNE CS1
-37DE:60             375             RTS
-37DF:00             376             BRK                                             ; <a class='mem' name='_37DF' coords='1'>wastes</a> 1 byte -- Why???
+37DB:C8             373 <meta                                 />            INY
+37DC:D0 FB          374 <meta                                 />            BNE CS1
+37DE:60             375 <meta                                 />            RTS
+37DF:00             376 <meta                                 />            BRK                                             ; <a class='mem' name='_37DF' coords='1'>wastes</a> 1 byte -- Why???
                     377 <a class='d' id='37E0' name='EC3'      >EC3         </a>EQU *
 37E0:1B             378 NDPGS       DFB &lt;<a class='v' href='#TRK0LDR'>TRK0LDR</a>-<a class='x' href='#BEGIN'>BEGIN</a> ;CALC #PAGES IN DOS WITHOUT RWTS
 37E1:00             379 BRWCNT      DFB <span class='n'>0</span>           ;WRK CTR FOR BOOTIO
