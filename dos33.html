@@ -2358,45 +2358,45 @@ With that "legalese" out of the way ... enjoy the read!
                     209             PAGE                                            ; b) <span class='code'>APPEND_FIX</span>.
                     210 ;
                     211 ; EOPEN - OPEN A FILE
-                    212 ;
-22A3:A9 00          213 <a class='f' name='EOPEN'    >EOPEN       </a>LDA #<span class='n'>0</span>          ;FIX TYPE MISMATCH DETECTION    ; <a class='v' href='#CMDETB'>CMDETB</a> [D]
+    =22A3           212 ;
+22A3:A9 00          213 <a class='f' id='22A3' name='EOPEN'    >EOPEN       </a>LDA #<span class='n'>0</span>          ;FIX TYPE MISMATCH DETECTION    ; <a class='v' href='#CMDETB'>CMDETB</a> [D]
 22A5:4C             214             JMP SV1         ;(CALLS EOPN1)                  ; Why not <span class='code'>JSR SV1</span>??? <a class='x' href='#EASAV'>EASAV</a>, <a class='x' href='#EBSV'>EBSV</a>, and <a class='x' href='#EBLD'>EBLD</a> all do <span class='code'>JSR SV1</span>
-22A8:A9             215 EOPN1       LDA #CRQOPN
-                    216 <a class='f' name='OPEN'     >OPEN</a>        EQU *                     ; Common entry point for EDEL, EUNLK, EBSV, EINIT, ECAT, and indirectly EOPEN, EPOS,
-22AA:8D             217             STA TEMP1A
-                    218             LDA CL          ; IF NO LENGTH ENTERED
-                    219             BNE EO1         ; THEN SET DEFAULT OF 1
-                    220             LDA CL+<span class='n'>1</span>
-                    221             BNE EO1
-                    222             LDA #<span class='n'>1</span>
-                    223             STA CL
-                    224 EO1         EQU *
-                    225             LDA CL          ; MOVE REC LENGTH
-                    226             STA CCBRLN
-                    227             LDA CL+<span class='n'>1</span>
-                    228             STA CCBRLN+<span class='n'>1</span>
-                    229 EO3         EQU *
-                    230             JSR ECLOSE      ; GO CLOSE IF OPEN
-                    231 EO4         EQU *
-                    232             LDA CNUM+<span class='n'>1</span>      ; GET AVALL ENTRY               ; *Spelling* Avail
-                    233             BNE EO5         ; BR IF ONE AVAIL
-                    234             JMP ENFA        ; DONE - NO FILES AVAIL
-                    235 EO5         EQU *
-                    236             STA ZPGWRK+<span class='n'>1</span>    ; MOVE AVAIL SLOT TO ZPG
-                    237             LDA CNUM
-                    238             STA ZPGWRK
-                    239 EO6         EQU *
-                    240             JSR MVFN1       ; GO MOVE FILE NAME
-                    241             JSR MVBUFP      ; GO MOVE BUF PTRS
-                    242             JSR OPNSUP      ; GO SET UP OPEN
-<hr>                    243             LDA TEMP1A      ; SET OPEN REQ                  ; === <a class='page' name='page154'>154</a> ===
-                    244             STA CCBREQ
-                    245             JMP DOSGO       ; GO OPEN
+22A8:A9 01          215 EOPN1       LDA #CRQOPN
+    =22AA           216 <a class='f' id='22AA' name='OPEN'     >OPEN</a>        EQU *                     ; Common entry point for EDEL, EUNLK, EBSV, EINIT, ECAT, and indirectly EOPEN, EPOS,
+22AA:8D 63 2A       217             STA TEMP1A
+22AD:AD 6C 2A       218             LDA CL          ; IF NO LENGTH ENTERED
+22B0:D0 0A          219             BNE EO1         ; THEN SET DEFAULT OF 1         ;&darr;
+22B2:AD 6D 2A       220             LDA CL+<span class='n'>1</span>
+22B5:D0 05          221             BNE EO1                                         ;&darr;
+22B7:A9 01          222             LDA #<span class='n'>1</span>
+22B9:8D 6C 2A       223             STA CL
+    =22BC           224 <a class='f' id='22BC' name='EO1'      >EO1</a>         EQU *
+22BC:AD 6C 2A       225             LDA CL          ; MOVE REC LENGTH
+22BF:8D BD 35       226             STA CCBRLN
+22C2:AD 6D 2A       227             LDA CL+<span class='n'>1</span>
+22C5:8D BE 35       228             STA CCBRLN+<span class='n'>1</span>
+    =22C8           229 <a class='f' id='22C8' name='EO3'      >EO3</a>         EQU *
+22C8:20 EA 22       230             JSR ECLOSE      ; GO CLOSE IF OPEN
+    =22CB           231 <a class='f' id='22CB' name='EO4'     >EO4</a>         EQU *
+22CB:A5 45          232             LDA CNUM+<span class='n'>1</span>      ; GET AVALL ENTRY               ; *Spelling* Avail
+22CD:D0 03          233             BNE EO5         ; BR IF ONE AVAIL
+22CF:4C C8 26       234             JMP ENFA        ; DONE - NO FILES AVAIL
+    =22D2           235 <a class='f' id='22C8' name='EO5'      >EO5</a>         EQU *
+22D2:85 41          236             STA ZPGWRK+<span class='n'>1</span>    ; MOVE AVAIL SLOT TO ZPG
+22D4:A5 44          237             LDA CNUM
+22D6:85 40          238             STA ZPGWRK
+    =22D8           239 <a class='f' id='22D8' name='EO6'      >EO6</a>         EQU *
+22D8:20 43 27       240             JSR MVFN1       ; GO MOVE FILE NAME
+22DB:20 4E 27       241             JSR MVBUFP      ; GO MOVE BUF PTRS
+22DE:20 1A 27       242             JSR OPNSUP      ; GO SET UP OPEN<hr class='page'>
+22E1:AD 63 2A       243             LDA TEMP1A      ; SET OPEN REQ                  ; === <a class='page' name='page154'>154</a> ===
+22E4:8D BB 35       244             STA CCBREQ
+22E7:4C A8 26       245             JMP DOSGO       ; GO OPEN
                     246             PAGE
                     247 ;
                     248 ; ECLOSE - EXECUTE CLOSE FILE COMMAND
                     249 ;
-                    250 <a class='f' name='ECLOSE'   >ECLOSE      </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [8]
+    =22EA           250 <a class='f' id='22EA' name='ECLOSE'   >ECLOSE      </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [8]
 22EA:AD 75 2A       251             LDA FNAME1
 22ED:C9 A0          252             CMP #$<span class='n'>A0</span>                                        ; #' '+$80 aka SPC_HI
 22EF:F0 25          253             BEQ CLALL
