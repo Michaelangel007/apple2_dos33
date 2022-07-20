@@ -2445,24 +2445,24 @@ With that "legalese" out of the way ... enjoy the read!
                     002 ;
                     003 ; EBSV - EXECUTE BINARY SAVE
                     004 ;
-                    005 <a class='f' name='EBSV'     >EBSV        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [18] "BSAVE"
-2331:A9 09          006             LDA #ADR+L      ; IF A&amp;L
-2333:2D 65 2A       007             AND INOPS       ; NOT GIVEN
-2336:C9 09          008             CMP #ADR+L
-2338:F0 03          009             BEQ EBSV1
-233A:4C 00 20       010             JMP CNF         ; THEN ERROR
-                    011 <a class='f' name='EBSV1'    >EBSV1       </a>EQU *
-233D:A9 04          012             LDA #<span class='n'>4</span>          ; SET BINARY FILE               ; <a class='magic' name='_233E'>magic number</a> <span class='code'>FILE_TYPE_BINARY EQU 4</span>
-                    013             JSR SV1         ; GO OPEN &amp; TEST
-                    014             LDA CA+1        ; OUTPUT ADR OF BLOCK
-                    015             LDY CA           
-                    016             JSR SV2         
-                    017             LDA CL+1        ; GO OPEN AND TEST
-                    018             LDY CL
-                    019             JSR SV2         ; OUTPUT LENGTH
-                    020             LDA CA+1        ; GET ADR GIVEN
-                    021             LDY CA
-                    022             JMP SV3         ; OUTPUT BLOCK
+                    005 <a class='f' id='2331' name='EBSV'       >EBSV        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [18] "BSAVE"
+2331:A9 09          006 <meta                                   />            LDA #ADR+L      ; IF A&amp;L
+2333:2D 65 2A       007 <meta                                   />            AND INOPS       ; NOT GIVEN
+2336:C9 09          008 <meta                                   />            CMP #ADR+L
+2338:F0 03          009 <meta                                   />            BEQ EBSV1
+233A:4C 00 20       010 <meta                                   />            JMP CNF         ; THEN ERROR
+                    011 <a class='f' id='233D' name='EBSV1'      >EBSV1       </a>EQU *
+233D:A9 04          012 <meta                                   />            LDA #<span class='n'>4</span>          ; SET BINARY FILE               ; <a class='magic' name='_233E'>magic number</a> <span class='code'>FILE_TYPE_BINARY EQU 4</span>
+233F:20 D5 23       013 <meta                                   />            JSR SV1         ; GO OPEN &amp; TEST
+2342:AD 73 2A       014 <meta                                   />            LDA CA+1        ; OUTPUT ADR OF BLOCK
+2345:AC 72 2A       015 <meta                                   />            LDY CA           
+2348:20 E0 23       016 <meta                                   />            JSR SV2         
+234B:AD 6D 2A       017 <meta                                   />            LDA CL+1        ; GO OPEN AND TEST
+234E:AC 6C 2A       018 <meta                                   />            LDY CL
+2351:20 E0 23       019 <meta                                   />            JSR SV2         ; OUTPUT LENGTH
+2354:AD 73 2A       020 <meta                                   />            LDA CA+1        ; GET ADR GIVEN
+2357:AC 72 2A       021 <meta                                   />            LDY CA
+235A:4C FF 23       022 <meta                                   />            JMP SV3         ; OUTPUT BLOCK
                     023 ;
                     024 ; EBLD - EXECUTE BINARY LOAD
                     025 ;
