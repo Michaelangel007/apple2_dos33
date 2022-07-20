@@ -2407,36 +2407,36 @@ With that "legalese" out of the way ... enjoy the read!
                     258 ;
                     259 ; CLOSE - CLOSE A FILE
                     260 ;
-                    261 <a class='f' name='CLOSE'    >CLOSE       </a>EQU *
+                    261 <a class='f' id='22FC' name='CLOSE'    >CLOSE       </a>EQU *
 22FC:20 AD 27       262             JSR TSTEXC
 22FF:D0 05          263             BNE CLX                                         ; === <a class='ts' name='T1S2'>T1S2</a> ===
 2301:A9 00          264             LDA #<span class='n'>0</span>
-2303:8D B3 2A       265             STA ESTATE
-                    266 CLX         EQU *
+2303:8D B3 2A       265             STA <a class='d' name='#ESTATE'>ESTATE</a>
+    =2306           266 <a class='f' id='2316' name='CLX'        >CLX         </a>EQU *
 2306:A0 00          267             LDY #<span class='n'>0</span>          ; CLEAR 1ST FN                  ; [.. <a class='mem' name='_2306' coords='2'>wastes</a> 2 bytes, see <a class='link' href='#ZEROFILE'>ZEROFILE</a> note
-                    268             TYA             ; CHAR TO ZERO                  ;  ..
-                    269             STA (ZPGWRK),Y                                  ;  ..]
-                    270             JSR MVBUFP      ; MOVE BUFFER PTRS
-                    271             LDA #CRQCLS     ; SET CLOSE
-                    272             STA CCBREQ
-                    273             JMP DOSGO
+2308:98             268             TYA             ; CHAR TO ZERO                  ;  ..
+2309:91 40          269             STA (ZPGWRK),Y                                  ;  ..]
+230B:20 4E 27       270             JSR MVBUFP      ; MOVE BUFFER PTRS
+230E:A9 02          271             LDA #CRQCLS     ; SET CLOSE
+2310:8D BB 35       272             STA CCBREQ
+2313:4C A8 26       273             JMP <a class='x' name='#DOSGO'  >DOSGO</a>
                     274 ;
                     275 ; CLALL - CLOSE ALL FILES
                     276 ;
-                    277 <a class='f' name='CLALL'    >CLALL       </a>EQU *
-                    278             JSR TSINIT      ; GO INIT FILE SEARCH
-                    279             BNE CL1 
-                    280 <a class='f' name='CL0'      >CL0         </a>EQU *
-                    281             JSR TXNXT       ; NEXT ENTRY
-                    282             BEQ CL2         ; BR IF NO MORE
-                    283 <a class='f' name='CL1'      >CL1         </a>EQU *
-                    284             JSR TXTEXC
-                    285             BEQ CL0
-                    286             JSR TSTOPEN     ; GO TEST OPEN
-                    287             BEQ CL0         ; BR NOT OPEN
-232A:20 FC A2       288             JSR CLOSE       ; GO CLOSE
-232D:4C 16 23       289             JMP CLALL       ; START OVER
-2330:60             290 <a class='f' name='CL2'      >CL2         </a>RTS             ; DONE
+    =2316           277 <a class='f' id='2316' name='CLALL'      >CLALL       </a>EQU *
+2316:20 92 27       278 <meta                                   />            JSR <a class='x' name='#TSTINIT'>TSINIT</a>      ; GO INIT FILE SEARCH
+2319:D0 05          279 <meta                                   />            BNE <a class='x' name='#CL1'    >CL1</a>                                         ;&darr;
+    =231B           280 <a class='f' id='231B' name='CL0'        >CL0         </a>EQU *
+231B:20 9A 27       281 <meta                                   />            JSR <a class='x' name='#TSTINIT'>TXNXT</a>       ; NEXT ENTRY
+231E:F0 10          282 <meta                                   />            BEQ <a class='x' name='#CL2'    >CL2</a>         ; BR IF NO MORE
+    =2320           283 <a class='f' id='2320' name='CL1'        >CL1         </a>EQU *
+2320:20 AF 27       284 <meta                                   />            JSR <a class='x' name='#TXTEXC' >TXTEXC</a>
+2323:F0 F6          285 <meta                                   />            BEQ <a class='x' name='#CL0'    >CL0</a>                                         ;&uarr;
+2325:20 AA 27       286 <meta                                   />            JSR <a class='x' name='#TSTOPEN'>TSTOPEN</a>     ; GO TEST OPEN
+2328:F0 F1          287 <meta                                   />            BEQ <a class='x' name='#CL0'    >CL0</a>         ; BR NOT OPEN
+232A:20 FC 22       288 <meta                                   />            JSR <a class='x' name='#CLOSE'  >CLOSE</a>       ; GO CLOSE
+232D:4C 16 23       289 <meta                                   />            JMP <a class='x' name='#CLALL'  >CLALL</a>       ; START OVER
+2330:60             290 <a class='f' id='2330' name='CL2'        >CL2         </a>RTS             ; DONE
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="XLODSAV">XLODSAV</a> - Execute Load / Save, Pages <a class='page' name='page140'>140</a> - 144, <a class='ts' href='#T1S2'>T1S2</a> - <a class='ts' href='#T1S4'>T1S4</a>, $<span class='n'>A331</span> .. $<span class='n'>A50F</span> ===<hr class='join'><hr></div>
