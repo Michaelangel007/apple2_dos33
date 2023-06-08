@@ -857,7 +857,7 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
     </tr>
     <tr>
         <td>## ## ##</td>
-        <td>Opcode(s)</td>
+        <td>Opcode(s) or raw hex bytes (may be unspecified)</td>
     </tr>
     <tr>
         <td><a class='line'>L##</a></td>
@@ -1592,8 +1592,8 @@ With that "legalese" out of the way ... enjoy the read!
 1E18:68             175             PLA
 1E19:A0 00          176             LDA #<span class='n'>0</span>
 1E1B:91 40          177             STA (<a class='v' href='#ZPGWRK'>ZPGWRK</a>),Y                                  ; Oh, we're still around?
-                    178 <a class='f' id='1E1D' name='INITZ'    >INITZ       </a>EQU *
-<hr>1E1D:20 5B 27       179             JSR <a class='x' href='#CLRSTS'>CLRSTS</a>      ; SET IN AND OUT STATES TO ZERO ; === Page <a class='page' name='page51'>51</a> === ClearStates
+                    178 <a class='f' id='1E1D' name='INITZ'    >INITZ       </a>EQU *<hr class='page'>
+1E1D:20 5B 27       179             JSR <a class='x' href='#CLRSTS'>CLRSTS</a>      ; SET IN AND OUT STATES TO ZERO ; === Page <a class='page' name='page51'>51</a> === ClearStates
 1E20:AD 5F 2A       180             LDA <a class='v' href='#CMDNO'>CMDNO</a>       ; IF NOT BOOT (DUPLICATED FROM LINES 4540, 4550)
 1E23:D0 20          181             BNE <a class='x' href='#INITF'>INITF</a>       ; THEN DONE
 1E25:A2 2F          182             LDX #<a class='v' href='#IFBL'>IFBL</a>
@@ -1700,8 +1700,8 @@ With that "legalese" out of the way ... enjoy the read!
                     049 ;SVREGS - SAVE REGS WHILE PROCESSING CHARS
                     050 ;
                     051 <a class='f' id='1ED1' name='SVREGS'   >SVREGS      </a>EQU *
-1ED1:8D 5C 2A       052             STA SVA         ; SAVE ACU                      ; Captain Obvious to the rescue!
-<hr>                    053 <a class='f' id='1ED4' name='SVRGSA'   >SVRGSA      </a>EQU *                                           ; === Page <a class='page' name='page45'>45</a> === SaveRegsA, uh, NO, SaveRegsXY, we _already_ saved A; this is why using <span class='code'>nameA</span> <span class='code'>nameB</span> are bad.
+1ED1:8D 5C 2A       052             STA SVA         ; SAVE ACU                      ; Captain Obvious to the rescue!<hr class='page'>
+                    053 <a class='f' id='1ED4' name='SVRGSA'   >SVRGSA      </a>EQU *                                           ; === Page <a class='page' name='page45'>45</a> === SaveRegsA, uh, NO, SaveRegsXY, we _already_ saved A; this is why using <span class='code'>nameA</span> <span class='code'>nameB</span> are bad.
 1ED4:8D 5A 2A       054             STX SVX         ; SAVE X                        ; More crap names. Good variable naming such as <span class='code'>SAVEX</span> and <span class='code'>SAVEY</span>
 1ED7:8C 5B 2A       055             STY SVY         ; SAVE Y                        ; negates the need for these <b>useless redundant</b> comments.
 1EDA:BA             056             TSX             ;SAVE STACK POINTER
@@ -1765,8 +1765,8 @@ With that "legalese" out of the way ... enjoy the read!
                     112 ;
                     113 ;COS3 - KEY IN ECHO PRINT
                     114 ;
-                    115 <a class='f' name='COS3'     >COS3        </a>EQU *
-<hr>1F2F:A2 00          116 <!--                       -->            LDX #<span class='n'>0</span>                                          ; === Page <a class='page' name='page46'>46</a> === <a class='magic' name='_1F30'>magic number</a> COS_STATE_0
+                    115 <a class='f' name='COS3'     >COS3        </a>EQU *<hr class='page'>
+1F2F:A2 00          116 <!--                       -->            LDX #<span class='n'>0</span>                                          ; === Page <a class='page' name='page46'>46</a> === <a class='magic' name='_1F30'>magic number</a> COS_STATE_0
 1F31:8E 52 2A       117 <!--                       -->            STX OSTATE      ; RESET OUT STATE
 1F34:C9 8D          118 <!--                       -->            CMP #$<span class='n'>8D</span>        ; IS IT CR
 1F36:F0 07          119 <!--                       -->            BEQ COS3A       ; IF CR THEN CMD CHECK
@@ -1922,8 +1922,8 @@ With that "legalese" out of the way ... enjoy the read!
 2012:20 5B 27       050             JSR CLRSTS      ; CLEAR THE STATES
 2015:4C 95 1F       051             JMP CMDRTN      ; CNTL-D ONLY
                     052 ;
-2018:4C C4 26       053 <a class='f' id='2018' name='CSERR'       >CSERR       </a>JMP ESYNTX
-<hr>                    054             PAGE                                            ; === Page <a class='page' name='page17'>17</a> ===
+2018:4C C4 26       053 <a class='f' id='2018' name='CSERR'       >CSERR       </a>JMP ESYNTX<hr class='page'>
+                    054             PAGE                                            ; === Page <a class='page' name='page17'>17</a> ===
                     055 ;
                     056 ; SYNTAX - FIGURE OUT WHAT WE GOT HERE
                     057 ;
@@ -2046,9 +2046,9 @@ With that "legalese" out of the way ... enjoy the read!
 20DC:8D 6C 1A       174             STA <a class='v' href='#CL'>CL</a>
 20DF:8D 6D 2A       175             STA <a class='v' href='#CL'>CL</a>+<span class='n'>1</span>
 20E2:20 DC 3F       <a class='line' name='CMDSCAN.176'>176</a>             JSR <a class='x' href='#CLRBYTE'>CLRBYTE</a>     ;PATCH FOR BYTE PARAMETER (WAS STA TEMP1A)
-20E5:AD 5D 2A       177             LDA <a class='v' href='#LBUFD'>LBUFD</a>       ; SET PASS 1
-<hr>                    178 ;                                                           ; === Page <a class='page' name='page19'>19</a> ===
-20E8:20 A4 21       179 <a class='f' name='SP1'    >SP1         </a>JSR GNBC        ; GO GET NON-BLANK CHAR
+20E5:AD 5D 2A       177             LDA <a class='v' href='#LBUFD'>LBUFD</a>       ; SET PASS 1<hr class='page'>
+                    178 ;                                                           ; === Page <a class='page' name='page19'>19</a> ===
+20E8:20 A4 21       179 <a class='f' id='20E8' name='SP1'>SP1         </a>JSR GNBC        ; GO GET NON-BLANK CHAR
 20EB:D0 1F          180             BNE SP2         ; BR IF NOT COMMA OR CR
 20ED:C9 8D          181             CMP #$<span class='n'>8D</span>        ; IF CHAR IS COMMA              ; <a class='magic' name='_20EE'>magic number</a> KEY_CR
 20EF:D0 F7          182             BNE SP1         ; THEN GO GET CHAR
@@ -2493,8 +2493,8 @@ With that "legalese" out of the way ... enjoy the read!
                     050 ; EBRUN - EXECUTE BINARY RUN
                     051 ;
 238E:20 5D 23       052 <a class='f' name='EBRUN'    >EBRUN       </a>JSR EBLD                                        ; <a class='v' href='#CMDETB'>CMDETB</a> [1A]
-2391:20 51 28       053             JSR MVCSW       ; GO RESTORE CHAR I/O SW
-<hr>2394:6C 72 2A       054             JMP (CA)        ; GO EXEC THE STUFF             ; === Page <a class="page" name="page141">141</a> ===
+2391:20 51 28       053             JSR MVCSW       ; GO RESTORE CHAR I/O SW<hr class='page'>
+2394:6C 72 2A       054             JMP (CA)        ; GO EXEC THE STUFF             ; === Page <a class="page" name="page141">141</a> ===
                                                                                     ; <a class='dumb'>How Not To Design an OS</a>
                                                                                     ; <b>Problem :</b> This (indirect) <span class='code'>JMP</span> is why Binary programs can't use <span class='code'>RTS</span> to return to DOS
                                                                                     ; <b>Solution:</b> The otherwise excellent 6502 has a short-Sighted design
@@ -2565,8 +2565,8 @@ With that "legalese" out of the way ... enjoy the read!
 23F0:8D BC 35       111             STA CCBRQM
 23F3:20 A8 26       112             JSR DOSGO       ; GO WRITE
 23F6:AD C2 35       113             LDA CCBBLN+<span class='n'>1</span>    ; OTHER BYTE TOO
-23F9:8D C3 35       114             STA CCBDAT
-<hr>23FC:4C A8 26       115             JMP DOSGO                                       ; === Page <a class='page' name='page142'>142</a> ===
+23F9:8D C3 35       114             STA CCBDAT<hr class='page'>
+23FC:4C A8 26       115             JMP DOSGO                                       ; === Page <a class='page' name='page142'>142</a> ===
                     116 ;
                     117 <a class='f' name='SV3'      >SV3         </a>STY CCBBBA      ; SET BLOCK ADR
                     118             STA CCBBBA+<span class='n'>1</span>
@@ -2628,8 +2628,8 @@ With that "legalese" out of the way ... enjoy the read!
                     174             SBC SVBL
                     175             TAX
                     176             LDA IBHMEM+<span class='n'>1</span>
-                    177             SBC SVBL+<span class='n'>1</span>
-<hr>                    178             BCC MFULL                                       ; === Page <a class='page' name='page143'>143</a> ===
+                    177             SBC SVBL+<span class='n'>1</span><hr class='page'>
+                    178             BCC MFULL                                       ; === Page <a class='page' name='page143'>143</a> ===
                     179             TAY
                     180 ;
                     181             CPY IBLMEM+<span class='n'>1</span>    ; IF NEW SOP &lt;= LMEM
