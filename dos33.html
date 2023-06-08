@@ -1828,38 +1828,38 @@ With that "legalese" out of the way ... enjoy the read!
                     175 <a class='f' name='CERTN'    >CERTN       </a>EQU *
 1F83:AD 00 02       176             LDA LBUFF       ; CHECK FOR PRINTED COMMAND
 1F86:CD B2 2A       177             CMP CCHAR
-1F89:F0 0A          178             BEQ CMDRTN      ; IF PC THEN NO RESET X REG
-<hr>1F8B:A9 8D          179             LDA #$<span class='n'>8D</span>        ; CARRAGE RETURN                ; === Page <a class='page' name='page47'>47</a> === <a class='magic' name='_1F8C'>magic number</a> KEY_CR
-                    180             STA <a class='v' href='#LBUFF'>LBUFF</a>       ; TO OUT BUFFER
-                    181             LDX #<span class='n'>0</span>          ; RESET TO SOL                  ; StartOfLine
-                    182             STX <a class='v' href='#SVX'>SVX</a>
-                    <a class='line' name='DOSHOOK.183'>183</a> <a class='f' name='CMDRTN'   >CMDRTN      </a>LDA #<a class='e' href='#MC'>MC</a>
-                    184             BNE <a class='x' href='#MODECK'>MODECK</a>                                      ; &darr; (always)
-                    <a class='line' name='DOSHOOK.185'>185</a> <a class='f' name='DRTNO'    >DRTNO       </a>LDA #<a class='e' href='#MO'>MO</a>                                         ; Data Return Out
-                    186             BNE <a class='x' href='#MODECK'>MODECK</a>                                      ; &darr; (always)
-                    <a class='line' name='DOSHOOK.187'>187</a> <a class='f' name='DRTNI'    >DRTNI       </a>LDA #<a class='e' href='#MI'>MI</a>                                         ; Data Return In
+1F89:F0 0A          178             BEQ CMDRTN      ; IF PC THEN NO RESET X REG<hr class='page'>
+1F8B:A9 8D          179             LDA #$<span class='n'>8D</span>        ; CARRAGE RETURN                ; === Page <a class='page' name='page47'>47</a> === <a class='magic' name='_1F8C'>magic number</a> KEY_CR
+1F8D:8D 00 02       180             STA <a class='v' href='#LBUFF'>LBUFF</a>       ; TO OUT BUFFER
+1F90:A2 00          181             LDX #<span class='n'>0</span>          ; RESET TO SOL                  ; StartOfLine
+1F92:8E 5A 2A       182             STX <a class='v' href='#SVX'>SVX</a>
+1F95:A9 40          <a class='line' name='DOSHOOK.183'>183</a> <a class='f' name='CMDRTN'   >CMDRTN      </a>LDA #<a class='e' href='#MC'>MC</a>
+1F97:D0 06          184             BNE <a class='x' href='#MODECK'>MODECK</a>                                      ; &darr; (always)
+1F99:A9 10          <a class='line' name='DOSHOOK.185'>185</a> <a class='f' name='DRTNO'    >DRTNO       </a>LDA #<a class='e' href='#MO'>MO</a>                                         ; Data Return Out
+1F9B:D0 02          186             BNE <a class='x' href='#MODECK'>MODECK</a>                                      ; &darr; (always)
+1F9D:A9 20          <a class='line' name='DOSHOOK.187'>187</a> <a class='f' name='DRTNI'    >DRTNI       </a>LDA #<a class='e' href='#MI'>MI</a>                                         ; Data Return In
                     188 ;
                     189 <a class='f' name='MODECK'   >MODECK      </a>EQU *                                           ; ModeCheck common entry
-                    190             AND <a class='v' href='#MONMOD'>MONMOD</a>      ; AND WITH MODE
-                    191             BEQ <a class='x' href='#ORTN'>ORTN</a>        ; BR IF NOT PRINT
-                    192 <a class='f' name='PRRTN'    >PRRNT       </a>JSR <a class='x' href='#LDREGS'>LDREGS</a>
-                    193             JSR <a class='x' href='#ORTN1'>ORTN1</a>
-                    194             STA <a class='v' href='#SVA'>SVA</a>         ;SAVE REGISTERS
-                    195             STY <a class='v' href='#SVY'>SVY</a>
-                    196             STX <a class='v' href='#SVX'>SVX</a>
+1F9F:2D 5E 2A       190             AND <a class='v' href='#MONMOD'>MONMOD</a>      ; AND WITH MODE
+1FA2:F0 0F          191             BEQ <a class='x' href='#ORTN'>ORTN</a>        ; BR IF NOT PRINT
+1FA4:20 BA 1F       192 <a class='f' name='PRRTN'    >PRRNT       </a>JSR <a class='x' href='#LDREGS'>LDREGS</a>
+1FA7:20 C5 1F       193             JSR <a class='x' href='#ORTN1'>ORTN1</a>
+1FAA:8D 5C 2A       194             STA <a class='v' href='#SVA'>SVA</a>         ;SAVE REGISTERS
+1FAD:8C 5B 2A       195             STY <a class='v' href='#SVY'>SVY</a>
+1FB0:8E 5A 2A       196             STX <a class='v' href='#SVX'>SVX</a>
                     197 ;
                     198 <a class='f' name='ORTN'     >ORTN        </a>EQU *
-                    199             JSR <a class='x' href='#MVCSW'>MVCSW</a>       ; GO MOVE CHAR I/O SWITCH
-                    200             LDX <a class='v' href='#SVSTK'>SVSTK</a>       ;RESTORE ORIGINAL STACK POINTER (YEEECH!)   ; /sarcasm And yet you're still futzing with the Stack Pointer
-                    201             TXS
+1FB3:20 51 28       199             JSR <a class='x' href='#MVCSW'>MVCSW</a>       ; GO MOVE CHAR I/O SWITCH
+1FB6:AE 59 2A       200             LDX <a class='v' href='#SVSTK'>SVSTK</a>       ;RESTORE ORIGINAL STACK POINTER (YEEECH!)   ; /sarcasm And yet you're still futzing with the Stack Pointer
+1FB9:9A             201             TXS
                     202 <a class='f' name='LDREGS'   >LDREGS      </a>EQU *
-                    203             LDA <a class='v' href='#SVA'>SVA</a>         ; ACU                           ; Captain Obvious  SAVE_A
-                    204             LDY <a class='v' href='#SVY'>SVY</a>         ; Y                             ; is working       SAVE_Y
-                    205             LDX <a class='v' href='#SVX'>SVX</a>         ; X                             ; overtime today   SAVE_X
-                    206             SEC             ;(FOR 'ESC' SCREEN FUNCTIONS)
-                    207             RTS             ; BY PASS PRINT
+1FBA:AD 5C 2A       203             LDA <a class='v' href='#SVA'>SVA</a>         ; ACU                           ; Captain Obvious  SAVE_A
+1FBD:AC 5B 2A       204             LDY <a class='v' href='#SVY'>SVY</a>         ; Y                             ; is working       SAVE_Y
+1FC0:AE 5A 2A       205             LDX <a class='v' href='#SVX'>SVX</a>         ; X                             ; overtime today   SAVE_X
+1FC3:38             206             SEC             ;(FOR 'ESC' SCREEN FUNCTIONS)
+1FC4:60             207             RTS             ; BY PASS PRINT
                     208 ;
-                    209 <a class='f' name='ORTN1'    >ORTN1       </a>JMP (<a class='v' href='#OUTSW'>OUTSW</a>)
+1FC5:6C 36 00       209 <a class='f' name='ORTN1'    >ORTN1       </a>JMP (<a class='v' href='#OUTSW'>OUTSW</a>)
                     210 ;
                     211 ; PRRIF - PRINT CR IF MON CMDS
                     212 ;
