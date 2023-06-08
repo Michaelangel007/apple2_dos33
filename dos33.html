@@ -1674,11 +1674,11 @@ With that "legalese" out of the way ... enjoy the read!
                     023 <a class='f' id='1EA6' name='CHIN2'    >CHIN2       </a>EQU *
 1EA6:A9 03          024             LDA #<span class='n'>3</span>          ; SET OUT CHAR                   ; <a class='magic' name='_1EA6'>magic number</a> COS_INPUT_ECHO = 3
 1EA8:8D 52 2A       025             STA OSTATE      ; STATE TO INPUT ECHO
-                    026             JSR LDREGS
-                    027             JSR GETIN
-                    028             STA SVA         ; SAVE CHAR &amp; INDEX
-                    029             STX SVX
-                    030             JMP ORTN
+1EAB:20 BA 1F       026             JSR LDREGS
+1EAE:20 BA 1E       027             JSR GETIN
+1EB1:8D 5C 2A       028             STA SVA         ; SAVE CHAR &amp; INDEX
+1EB4:8E 5A 2A       029             STX SVX
+1EB7:4C B3 1F       030             JMP ORTN
                     031 ;
 1EBA:6C 38 00       032 <a class='f' id='1EBA' name='GETIN'    >GETIN       </a>JMP (<a class='v' href='#INSW'>INSW</a>)
                     033 ;
@@ -1687,14 +1687,14 @@ With that "legalese" out of the way ... enjoy the read!
                     036 <a class='f' id='1EBD' name='CHROUT'   >CHROUT      </a>EQU *
 1EBD:20 D1 1E       037             JSR SVREGS      ; SAVE REGS
                     038 ;
-                    039             LDA OSTATE      ; GET OUT SPARE
-                    040             ASL A
-                    041             TAX
-                    042             LDA OUTSVT1+<span class='n'>1</span>,X ; GET ROUTINE ADR
-                    043             PHA
-                    044             LDA OUTSVT+<span class='n'>1</span>,X
-                    045             PHA
-                    046             LDA SVA
+1EC0:AD 52 2A       039             LDA OSTATE      ; GET OUT SPARE
+1EC3:0A             040             ASL A
+1EC4:0A             041             TAX
+1EC5:BD 11 1D       042             LDA OUTSVT1+<span class='n'>1</span>,X ; GET ROUTINE ADR
+1EC8:48             043             PHA
+1EC9:BD 10 1D       044             LDA OUTSVT+<span class='n'>1</span>,X
+1ECC:48             045             PHA
+1ECD:AD 5C 2A       046             LDA SVA
 1ED0:60             047             RTS             ; GO TO ROUTINE
                     048 ;
                     049 ;SVREGS - SAVE REGS WHILE PROCESSING CHARS
