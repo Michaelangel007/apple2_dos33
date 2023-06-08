@@ -2111,9 +2111,9 @@ With that "legalese" out of the way ... enjoy the read!
 2159:99 67 2A       <a class='line' name='CMDSCAN.239'>239</a>             STA <a class='v' href='#CUROPT'>CUROPT</a>+<span class='n'>1</span>,Y
 215C:A5 44          240             LDA <a class='v' href='#CNUM'>CNUM</a>
 <hr>215E:99 66 2A       241             STA <a class='v' href='#CUROPT'>CUROPT</a>,Y                                    ; === Page <a class='page' name='page20'>20</a> ===
-2161:4C E8 20       242 <a class='f' name='SP7'    >SP7         </a>JMP <a class='x' href='#SP1'>SP1</a>         ; GO FOR NEXT OPT
+2161:4C E8 20       242 <a class='f' id='2161' name='SP7'    >SP7         </a>JMP <a class='x' href='#SP1'>SP1</a>         ; GO FOR NEXT OPT
                     243 ;
-                    244 <a class='f' name='SP8'    >SP8         </a>EQU *           ; MONITOR REQ                   ; Have 'C', 'I', or 'O'
+                    244 <a class='f' id='2164' name='SP8'    >SP8         </a>EQU *           ; MONITOR REQ                   ; Have 'C', 'I', or 'O'
 2164:48             245             PHA             ; SAVE TYPE REQ
 2165:A9 80          246             LDA #<a class='e' href='#CIO'>CIO</a>        ; SET OPTION OF CIO
 2167:0D 65 2A       247             ORA <a class='v' href='#INOPTS'>INOPTS</a>
@@ -2268,7 +2268,7 @@ With that "legalese" out of the way ... enjoy the read!
                     121 ;
                     122 ; EMON - EXECUTE MONITOR CMD
                     123 ;
-                    124 <a class='f' name='EMON'     >EMON        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [11]
+                    124 <a class='f' id='2233' name='EMON'     >EMON        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [11]
 
 2233:AD 5E 2A       125             LDA <a  class='v' href='#MONMOD'>MONMOD</a>      ; GET CURRENT BITS
 2236:0D 74 2A       126             ORA <a  class='v' href='#IMBITS'>IMBITS</a>      ; OR IN NEW BITS
