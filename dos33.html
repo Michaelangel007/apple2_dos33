@@ -2568,142 +2568,142 @@ With that "legalese" out of the way ... enjoy the read!
 23F9:8D C3 35       114             STA CCBDAT<hr class='page'>
 23FC:4C A8 26       115             JMP DOSGO                                       ; === Page <a class='page' name='page142'>142</a> ===
                     116 ;
-                    117 <a class='f' name='SV3'      >SV3         </a>STY CCBBBA      ; SET BLOCK ADR
-                    118             STA CCBBBA+<span class='n'>1</span>
-                    119             LDA #CRMNBL     ; INDICATE BLOCK I/O
-                    120             JMP VPATCH      ;VERIFY AFTER SAVE
-                    121 <a class='f' name='GODOS'    >GODOS       </a>JSR DOSGO       ; GO DO IT
-                    122             JMP ECLOSE      ; CLOSE FILE
+23FF:8C C3 35       117 <a class='f' id='23FF' name='SV3'      >SV3         </a>STY CCBBBA      ; SET BLOCK ADR
+2402:8D C4 35       118             STA CCBBBA+<span class='n'>1</span>
+2405:A9 02          119             LDA #CRMNBL     ; INDICATE BLOCK I/O
+2407:4C 86 36       120             JMP VPATCH      ;VERIFY AFTER SAVE
+240A:20 A8 26       121 <a class='f' id='240A' name='GODOS'    >GODOS       </a>JSR DOSGO       ; GO DO IT
+240D:4C EA 22       122             JMP ECLOSE      ; CLOSE FILE
                     123             PAGE
-                    124 <a class='f' name='NBPER'    >NBPER       </a>NBPER       JMP ERNU1                           ; Not Basic Program Error called from ELD1
+2410:4C D0 26       124 <a class='f' name='NBPER'    >NBPER       </a>NBPER       JMP ERNU1                           ; Not Basic Program Error called from ELD1
                     125 ;
                     126 ; ELOAD - EXECUTE LOAD REQUEST
                     127 ;
-                    128 <a class='f' name='ELOAD'    >ELOAD       </a>EQU *
-                    129             JSR CLALL
-                    130 <a class='f' name='ELOAD0'   >ELOAD0      </a>JSR EOPN1
+                    128 <a class='f' id='2413' name='ELOAD'    >ELOAD       </a>EQU *
+2413:20 16 23       129             JSR CLALL
+2416:20 A8 22       130 <a class='f' id='2416' name='ELOAD0'   >ELOAD0      </a>JSR EOPN1
                     131 ;
-                    132 <a class='f' name='ELD1'     >ELD1        </a>EQU *                                           ; *sigh* Pick a bloody <i>consistent</i> naming schema: ELOAD# or ELD#
+                    132 <a class='f' id='2419' name='ELD1'     >ELD1        </a>EQU *                                           ; *sigh* Pick a bloody <i>consistent</i> naming schema: ELOAD# or ELD#
 2419:A9 23          133             LDA #$<span class='n'>23</span>        ; STRIP UNRELATED STUFF         ; <a class='magic' name='_241A'>magic number</a> <span class='todo'>TODO</span> WTF do these bits mean???
-                    134             AND CCBFUC      ; OUT OF FUC
-                    135             BEQ NBPER       ; BR IF ERROR
+241B:2D C2 35       134             AND CCBFUC      ; OUT OF FUC
+241E:F0 F0          135             BEQ NBPER       ; BR IF ERROR
                     136 ; ISOLATE IB &amp; AS
                     137 <a class='f' name='ELD2'     >ELD2        </a>EQU *
-                    138             STA CCBFUC      ; SAVE IB/AS ONLY
-                    139             LDA ASISBSW     ; IF IB THEN
-                    140             BEQ EIBL        ; GO TO IB LOAD
+2420:8D C2 35       138             STA CCBFUC      ; SAVE IB/AS ONLY
+2423:AD B6 2A       139             LDA ASISBSW     ; IF IB THEN
+2426:F0 28          140             BEQ EIBL        ; GO TO IB LOAD                 ; &darr;
 2428:A9 02          141             LDA #2                                          ; <a class='magic' name='_2429'>magic number</a> <span class='code'>FILE_TYPE_APPLESOFT EQU 2</span>
-                    142             JSR LD1         ; GO OPEN AND TEST
+242A:20 B1 24       142             JSR LD1         ; GO OPEN AND TEST
                     143 ;
 242D:20 7A 24       144             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_242D' coords='3'>wastes</a> 3 bytes, LD1 should fall into LD2
                     145 ;                                                           ; While EBLD2 (ExecBload2) calls LD2 by itself, LD1 is always followed by LD2
-                    146             CLC
-                    147             ADC ASSOP       ; ADD BLOCK LENGTH TO SOP
-                    148             TAX
-                    149             TYA
-                    150             ADC ASSOP+1
+2430:18             146             CLC
+2431:65 67          147             ADC ASSOP       ; ADD BLOCK LENGTH TO SOP
+2433:AA             148             TAX
+2434:98             149             TYA
+2435:65 68          150             ADC ASSOP+1
                     151 ;
-                    152             CMP ASHM1+1     ; IF BL+SOP &gt;= HMEM             ; If Block.Length + StartOfProgram &gt;= High Memory
-                    153             BCS MFULL       ; THEN WON'T FIT                ; Memory Full
+2437:C5 74          152             CMP ASHM1+1     ; IF BL+SOP &gt;= HMEM             ; If Block.Length + StartOfProgram &gt;= High Memory
+2439:B0 70          153             BCS MFULL       ; THEN WON'T FIT                ; Memory Full
                     154 ;
                     155 <a class='f' name='EASL1'    >EASL1       </a>EQU *
-                    156             STA ASEOP+<span class='n'>1</span>     ; SET NEW EOP ADR
-                    157             STA ASEOP2+<span class='n'>1</span>
-                    158             STX ASEOP
-                    159             STX ASEOP2
-                    160             LDX ASSOP       ; GET ADR WHERE TO LOAD
-                    161             LDY ASSOP+<span class='n'>1</span>
-                    162             JSR LD3         ; GO LOAD
-                    163             JSR MVCSW       ;RESTORE I/O                    ; <span class='todo'>TODO</span> Why??? Did something change CIN/COUT ???
-                    164             JMP (ASEQ)      ;RELOC FOR THIS VERSION OF APPLSOFT
+243B:85 B0          156             STA ASEOP+<span class='n'>1</span>     ; SET NEW EOP ADR
+243D:85 6A          157             STA ASEOP2+<span class='n'>1</span>
+243F:86 AF          158             STX ASEOP
+2441:86 69          159             STX ASEOP2
+2443:A6 67          160             LDX ASSOP       ; GET ADR WHERE TO LOAD
+2445:A4 68          161             LDY ASSOP+<span class='n'>1</span>
+2447:20 71 24       162             JSR LD3         ; GO LOAD
+244A:20 51 28       163             JSR MVCSW       ;RESTORE I/O                    ; <span class='todo'>TODO</span> Why??? Did something change CIN/COUT ???
+244D:6C 60 1D       164             JMP (ASEQ)      ;RELOC FOR THIS VERSION OF APPLSOFT
                     165 ;
                     166 <a class='f' name='EIBL'     >EIBL        </a>EQU *
-                    167             LDA #1          ; SET IB PGM                    ; Yup, almost 99% the same as ELD2
+2450:A9 01          167             LDA #1          ; SET IB PGM                    ; Yup, almost 99% the same as ELD2
 2452:20 B1 24       168             JSR LD1         ; GO OPEN AND TEST
                     169 ;
 2555:20 7A 24       170             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_2555' coords='3'>wastes</a> 3  bytes, see Line #141
                     171 ;
 2458:38             172             SEC             ; HMEM - BLOCK LENGTH
-                    173             LDA IBHMEM      ; IS NEW SOP
-                    174             SBC SVBL
-                    175             TAX
-                    176             LDA IBHMEM+<span class='n'>1</span>
-                    177             SBC SVBL+<span class='n'>1</span><hr class='page'>
-                    178             BCC MFULL                                       ; === Page <a class='page' name='page143'>143</a> ===
-                    179             TAY
+2459:A5 4C          173             LDA IBHMEM      ; IS NEW SOP
+245B:ED 60 2A       174             SBC SVBL
+245E:AA             175             TAX
+245F:A5 4D          176             LDA IBHMEM+<span class='n'>1</span>
+2461:ED 61 2A       177             SBC SVBL+<span class='n'>1</span><hr class='page'>
+2464:90 45          178             BCC MFULL                                       ; === Page <a class='page' name='page143'>143</a> ===
+2466:A8             179             TAY
                     180 ;
-                    181             CPY IBLMEM+<span class='n'>1</span>    ; IF NEW SOP &lt;= LMEM
-                    182             BCC MFULL
-                    183             BEQ MFULL
-                    184             STY IBSOP+<span class='n'>1</span>     ; SET NEW SOP
-                    185             STX IBSOP
+2467:C4 4B          181             CPY IBLMEM+<span class='n'>1</span>    ; IF NEW SOP &lt;= LMEM
+2469:90 40          182             BCC MFULL
+246B:F0 3E          183             BEQ MFULL
+246D:84 CB          184             STY IBSOP+<span class='n'>1</span>     ; SET NEW SOP
+246F:86 CA          185             STX IBSOP
                     186 <a class='f' name='LD3'      >LD3         </a>EQU *
-                    187             STX CCBBBA      ; SET BLOCK ADDR                ; Googoo, Gaga? A single underscore '_' would go a LONG way towards readability
-                    188             STY CCBBBA+<span class='n'>1</span>                                    ; CCB_BBA
-                    189             JMP GODOS
+2471:8E C3 35       187             STX CCBBBA      ; SET BLOCK ADDR                ; Googoo, Gaga? A single underscore '_' would go a LONG way towards readability
+2474:8C C4 35       188             STY CCBBBA+<span class='n'>1</span>                                    ; CCB_BBA
+2477:4C 0A 24       189             JMP GODOS
                     190 ;
                     191 <a class='f' name='LD2'      >LD2         </a>EQU *                                           ; By putting this before LD1 this forces 6 byes to be wasted, see Line #143
 247A:AD 0A 1D       192             LDA SVBLA       ; MOVE ADR OF WHERE
-                    193             STA CCBBA       ; TO PUT DATA TO
-                    194             LDA SVBLA+1     ; CCBN
-                    195             STA CCBBBA+1
-                    196             LDA #0
-                    197             STA CCBBLN+1    ; READ INTO
-                    198             LDA #2
-                    199             STA CCBBLN
-                    200             LDA #CRQRD      ; READ
-                    201             STA CCBREQ
-                    202             LDA #CRMNBL     ; BLOCK
-                    203             STA CCBRQM
+247D:8D C3 35       193             STA CCBBA       ; TO PUT DATA TO
+2480:AD 0B 1D       194             LDA SVBLA+1     ; CCBN
+2483:8D C4 35       195             STA CCBBBA+1
+2486:A9 00          196             LDA #0
+2488:8D C2 35       197             STA CCBBLN+1    ; READ INTO
+248B:A9 02          198             LDA #2
+248D:8D C1 35       199             STA CCBBLN
+2490:A9 03          200             LDA #CRQRD      ; READ
+2492:8D BB 35       201             STA CCBREQ
+2495:A9 02          202             LDA #CRMNBL     ; BLOCK
+2497:8D BC 35       203             STA CCBRQM
 249A:20 A8 26       204             JSR DOSGO
-                    205             LDA SVBL+1
-                    206             STA CCBBLN+1
-                    207             TAY
-                    208             LDA SVBL
-                    209             STA CCBBLN
-                    210             RTS
+249D:AD 61 2A       205             LDA SVBL+1
+24A0                206             STA CCBBLN+1
+24A3                207             TAY
+24A4                208             LDA SVBL
+24A7                209             STA CCBBLN
+24AA:60             210             RTS
                     211 ;
                     212 <a class='f' name='MFULL1'   >MFULL1      </a>EQU *
 24AB:20 EA 2A       213             JSR ECLOSE      ; GO CLOSE FILE
 24AE:4C CC 26       214             JMP MFERR       ; AND GIVE ERR MSG
                     215 LD1         EQU *
-                    216             CMP CCBFUC      ; TEST TYPE
-                    217             BEQ LD1C        ; BR IF MATCH
-                    218             LDX CMDNO
-                    219             STX SVCMD
-                    220             LSR A
-                    221             BEQ LD1A        ; BR IF PGM IS AS
-                    222             JMP EINT        ; GO FOR INTG BASIC
+24B1:CD C2 35       216             CMP CCBFUC      ; TEST TYPE
+24B4:F0 1A          217             BEQ LD1C        ; BR IF MATCH
+24B6:AE 5F 2A       218             LDX CMDNO
+24B9:8E 62 2A       219             STX SVCMD
+24BC:4A             220             LSR A
+24BD:F0 03          221             BEQ LD1A        ; BR IF PGM IS AS
+24BF:4C 9E 25       222             JMP EINT        ; GO FOR INTG BASIC
                     223 ;
                     224 LD1A        EQU *
 24C2:A2 1D          225             LDX #<span class='n'>29</span>         ; SAVE FILENAME                 ; <a class='magic' name='_24C3'>magic number</a> <span class='code'>FILENAME_MAX-1</span>
-                    226 LD1B        LDA FNAME1,X    ; INCASE IS RAM APPLESOFT
-                    227             STA FNAME2,X
-                    228             DEX
-                    229             BPL LD1B
-                    230             JMP EAS         ; GO FOR AS
+24C4:BD 75 2A       226 LD1B        LDA FNAME1,X    ; INCASE IS RAM APPLESOFT
+24C7:9D 93 2A       227             STA FNAME2,X
+24CA:CA             228             DEX
+24CB:10 F7          229             BPL LD1B
+24CD:4C 7A 25       230             JMP EAS         ; GO FOR AS
                     231 ;
-                    232 LD1C        RTS
+24D0:60             232 LD1C        RTS
                     233             PAGE
                     234 ;
                     235 ; ERUN - EXECUTE RUN REQUEST
                     236 ;
                     237 ERUN        EQU *
-                    238             LDA ASIBSW      ; IF APPLESOFT THEN RELOC FLAG SET
-                    239             BEQ ERUN0
-                    240             STA RSTATE      ; INDICATE APSFT RUN
-<hr>                    241 ERUN0       JSR ELOAD       ; LOAD PGM                      ; === <a class='page' name='page144'>144</a> ===
-                    242 ERUN1       JSR PRCRIF      ;REENTRY POINT FOR ASFT RELOC
-                    243             JSR MVCSW       ; GO RESTORE CHAR I/O SW        ; What keeps futzing with CIN / COUT ? <b>Guilty Party &rarr;</b> <a class='x' href='#SVREGS'>SVREGS</a>
-                    244             JMP (RUN)
+24D1:AD B6 2A       238             LDA ASIBSW      ; IF APPLESOFT THEN RELOC FLAG SET
+24D4:F0 03          239             BEQ ERUN0
+24D6:8D B7 2A       240             STA RSTATE      ; INDICATE APSFT RUN
+<hr>24D9:2- 13 24       241 ERUN0       JSR ELOAD       ; LOAD PGM                      ; === <a class='page' name='page144'>144</a> ===
+24DC:20 C8 1F       242 ERUN1       JSR PRCRIF      ;REENTRY POINT FOR ASFT RELOC
+24DF:20 51 28       243             JSR MVCSW       ; GO RESTORE CHAR I/O SW        ; What keeps futzing with CIN / COUT ? <b>Guilty Party &rarr;</b> <a class='x' href='#SVREGS'>SVREGS</a>
+24E2:6C 58 1D       244             JMP (RUN)
                     245 ;
                     246 ; IBRUN - INT BASIC RUN
                     247 ;
                     248 IBRUN       EQU *
-                    249             LDA IBLMEM      ; RESET START OF VARS
-                    250             STA IBSOV
-                    251             LDA IBLMEM+<span class='n'>1</span>
-                    252             STA IBSOV+<span class='n'>1</span>
+24E5:A5 4A          249             LDA IBLMEM      ; RESET START OF VARS
+24E7:85 CC          250             STA IBSOV
+24E9:A5 4B          251             LDA IBLMEM+<span class='n'>1</span>
+24EB:85 CD          252             STA IBSOV+<span class='n'>1</span>
 24ED:6D 56 1D       253             JMP (CHAIN)
                     254 ;
                     255 ; EHCAIN - EXECUTE CHAIN REQUEST                            ; *spelling* ECHAIN
