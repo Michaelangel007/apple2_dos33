@@ -2691,8 +2691,8 @@ With that "legalese" out of the way ... enjoy the read!
                     237 ERUN        EQU *
 24D1:AD B6 2A       238             LDA ASIBSW      ; IF APPLESOFT THEN RELOC FLAG SET
 24D4:F0 03          239             BEQ ERUN0
-24D6:8D B7 2A       240             STA RSTATE      ; INDICATE APSFT RUN
-<hr>24D9:2- 13 24       241 ERUN0       JSR ELOAD       ; LOAD PGM                      ; === <a class='page' name='page144'>144</a> ===
+24D6:8D B7 2A       240             STA RSTATE      ; INDICATE APSFT RUN<hr class='page'>
+24D9:2- 13 24       241 ERUN0       JSR ELOAD       ; LOAD PGM                      ; === <a class='page' name='page144'>144</a> ===
 24DC:20 C8 1F       242 ERUN1       JSR PRCRIF      ;REENTRY POINT FOR ASFT RELOC
 24DF:20 51 28       243             JSR MVCSW       ; GO RESTORE CHAR I/O SW        ; What keeps futzing with CIN / COUT ? <b>Guilty Party &rarr;</b> <a class='x' href='#SVREGS'>SVREGS</a>
 24E2:6C 58 1D       244             JMP (RUN)
