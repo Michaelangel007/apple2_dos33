@@ -2284,77 +2284,77 @@ With that "legalese" out of the way ... enjoy the read!
 2242:20             135             JSR <a  class='x' href='#PRCRIF'>PRCRIF</a>
                     136 <a class='f' name='ENM1'     >ENM1        </a>EQU *
 2245:A9 70          137             LDA #$<span class='n'>70</span>                                        ; <a class='magic' name='_2246'>magic number</a>
-                    138             EOR <a  class='v' href='#IMBITS'>IMBITS</a>      ; INVERT INPUT BITS
-                    139             AND <a  class='v' href='#MONMOD'>MONMOD</a>      ; AND WITH CURRENT
-                    140             STA <a  class='v' href='#MONMOD'>MONMOD</a>      ; SET NEW MODE
-                    141             RTS
+2247:4D 74 2A       138             EOR <a  class='v' href='#IMBITS'>IMBITS</a>      ; INVERT INPUT BITS
+224A:2D 5E 2A       139             AND <a  class='v' href='#MONMOD'>MONMOD</a>      ; AND WITH CURRENT
+224D:8D 5E 2A       140             STA <a  class='v' href='#MONMOD'>MONMOD</a>      ; SET NEW MODE
+2250:60             141             RTS
                     142             PAGE
                     143 ;
                     144 ; EMAXF - EXECUTE MAX FILES
                     145 ;
-                    146 <a class='f' name='EMAXF'    >EMAXF       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [15]
-2251:               147             LDA #<span class='n'>0</span>              ; RESET EXECUTE
-                    148             STA ESTATE
-                    149             LDA CNUM        ; SAVE NEW NO FILES
-                    150             PHA
-                    151             JSR CLALL       ; GO CLOSE ALL FILES
-                    152             PLA
-                    153             STA CNFTBS      ; SET NEW NO FILE TBLS
-                    154             JMP BLDFTB      ; GO BUILD NEW ONES
+                    146 <a class='f' id='2251' name='EMAXF'>EMAXF       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [15]
+2251:A9 00          147             LDA #<span class='n'>0</span>              ; RESET EXECUTE
+2253:8D B3 2A       148             STA ESTATE
+2256:A5 44          149             LDA CNUM        ; SAVE NEW NO FILES
+2258:48             150             PHA
+2259:20 16 23       151             JSR CLALL       ; GO CLOSE ALL FILES
+225C:68             152             PLA
+225D:8D 57 2A       153             STA CNFTBS      ; SET NEW NO FILE TBLS
+2260:4C D4 27       154             JMP BLDFTB      ; GO BUILD NEW ONES
                     155 ;
                     156 ; EDEL - DELETE A FILE
                     157 ;
-                    158 <a class='f' name='EDEL'     >EDEL        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [5]
-2263:               159             LDA #CRQDEL
+                    158 <a class='f' id='2263' name='EDEL'>EDEL        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [5]
+2263:A9 05          159             LDA #CRQDEL
 2265:20 AA 22       160             JSR OPEN
-                    161             JSR FILSRC
-                    162             LDY #<span class='n'>0</span>                                          ; <a class='dumb' name='_'>Common Code</a> WHY isn't this a common subroutine <a class='link code' name='ZEROFILE'>ZEROFILE</a> ??
-                    163             TYA                                             ; <a class='x' href='#BFT1'>BFT1</a>, <a class='x' href='#CLS'>CLS</a>, and the Append bug patch <a class='x' href='#CLOSFILE'>CLOSFILE</a> <i>all</i> do the same thing!
-                    164             STA (ZPGWRK),Y  ; RESET FN                      ; Sadly, <a class='x' href='#INITD'>INITD</a> can't be re-factored.
-                    165             RTS                                             ;
+2268:20 64 27       161             JSR FILSRC
+226B:A0 00          162             LDY #<span class='n'>0</span>                                          ; <a class='dumb' name='_'>Common Code</a> WHY isn't this a common subroutine <a class='link code' name='ZEROFILE'>ZEROFILE</a> ??
+226D:98             163             TYA                                             ; <a class='x' href='#BFT1'>BFT1</a>, <a class='x' href='#CLS'>CLS</a>, and the Append bug patch <a class='x' href='#CLOSFILE'>CLOSFILE</a> <i>all</i> do the same thing!
+226E:91 40          164             STA (ZPGWRK),Y  ; RESET FN                      ; Sadly, <a class='x' href='#INITD'>INITD</a> can't be re-factored.
+2270:60             165             RTS                                             ;
                     166 ;
                     167 ;  ELOCK - LOCK A FILE
                     168 ;
-                    169 <a class='f' name='ELOCK'    >ELOCK       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [6]
+                    169 <a class='f' id='2271' name='ELOCK'    >ELOCK       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [6]
 2271:A9 07          170             LDA #CRQLCK     ; SET LOCK
 2273:D0 02          171             BNE ELGO                                        ; <a class='mem' name='_2274' coords='1'>wastes</a> 1 byte, use <span class='code'>DFB $2C ; BIT $abs</span> to skip next instruction
                     172 ;
                     173 ; EUNLK - UNLOCK A FILE
                     174 ;
                     175 <a class='f' name='EUNLK'    >EUNLK       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [7]
-2275:               176             LDA #CRQUNL     ; SET UNLOCK
+2275:A9 08          176             LDA #CRQUNL     ; SET UNLOCK
                     177 ELGO        EQU *                                           ; Holy shit! Common Code for ELOCK, EUnlock, EVerify but not to rain on our parade ...
-                    178             JSR OPEN        ; OPEN FILE &amp; UNLOCK            ; ... <a class='dumb' name='CommonCodeELGO'>Common Code</a> Why is <a class='x' href='#ELGO'>ELGO</a> and <a class='x' href='#LCKGO'>LCKGO</a> different???
-                    179             JMP ECLOSE      ; CLOSE IT
+2277:20 AA 22       178             JSR OPEN        ; OPEN FILE &amp; UNLOCK            ; ... <a class='dumb' name='CommonCodeELGO'>Common Code</a> Why is <a class='x' href='#ELGO'>ELGO</a> and <a class='x' href='#LCKGO'>LCKGO</a> different???
+227A:4C EA 22       179             JMP ECLOSE      ; CLOSE IT
 <hr>                    180 ;                                                           ; === Page <a class='page' name='pagename153'>153</a>
                     181 ; EVAR - VERIFY A FILE
                     182 ;
-                    183 <a class='f' name='EVAR'     >EVAR        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [1B]
-227D:               184             LDA #CRQVAR     ; SET VARIFY                    ; *spelling* <i>Damnit, Jim, I wish you would VARIFY your spelling.</i>
-                    185             BNE ELGO
+                    183 <a class='f' id='227D' name='EVAR'     >EVAR        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [1B]
+227D:A9 0C          184             LDA #CRQVAR     ; SET VARIFY                    ; *spelling* <i>Damnit, Jim, I wish you would VARIFY your spelling.</i>
+227F:D0 F6          185             BNE ELGO
                     186             PAGE
                     187 ;
                     188 ; EREN - RENAME
                     189 ;
-                    190 <a class='f' name='EREN'     >EREN        </a>EQU *
-2281:               191             LDA <a class='v' href='#FN2ADR'>FN2ADR</a>      ; MOVE FILE NAME2
-                    192             STA <a class='v' href='#CCBFN2'>CCBFN2</a>
-                    193             LDA <a class='v' href='#FN2ADR'>FN2ADR</a>+<span class='n'>1</span>        
-                    194             STA <a class='v' href='#CCBFN2'>CCBFN2</a>+<span class='n'>1</span>        
-                    195             LDA <a class='v' href='#CRQRNM'>CRQRNM</a>
-                    196             STA <a class='v' href='#TEMP1A'>TEMP1A</a>      ; SET RENAME
-                    197             JSR <a class='x' href='#EO3'>EO3</a>         ; GO OPEN AND RENAME
-                    198             JMP <a class='x' href='#ECLOSE'>ECLOSE</a>      ; GO CLOSE
+                    190 <a class='f' id='2281' name='EREN'     >EREN        </a>EQU *
+2281:AD 08 1D       191             LDA <a class='v' href='#FN2ADR'>FN2ADR</a>      ; MOVE FILE NAME2
+2284:8D BD 35       192             STA <a class='v' href='#CCBFN2'>CCBFN2</a>
+2287:AD 09 1D       193             LDA <a class='v' href='#FN2ADR'>FN2ADR</a>+<span class='n'>1</span>
+228A:8D BE 35       194             STA <a class='v' href='#CCBFN2'>CCBFN2</a>+<span class='n'>1</span>
+228D:A9 09          195             LDA <a class='v' href='#CRQRNM'>CRQRNM</a>
+228F:8D 63 2A       196             STA <a class='v' href='#TEMP1A'>TEMP1A</a>      ; SET RENAME
+2292:20 C8 22       197             JSR <a class='x' href='#EO3'>EO3</a>         ; GO OPEN AND RENAME
+2295:4C EA 22       198             JMP <a class='x' href='#ECLOSE'>ECLOSE</a>      ; GO CLOSE
                     199 ;
                     200 ; EAPND - OPEN FILE FOR APPEND
                     201 ;
-                    202 <a class='f' name='EAPND'    >EAPND       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [E]
-2298:               203             JSR <a class='x' href='#EOPEN'>EOPEN</a>       ; GO OPEN
+                    202 <a class='f' id='2298' name='EAPND'    >EAPND       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [E]
+2298:20 A3 22       203             JSR <a class='x' href='#EOPEN'>EOPEN</a>       ; GO OPEN
                     204 <a class='f' name='AP1'      >AP1         </a>EQU *
-                    205             JSR <a class='x' href='#RBYTE'>RBYTE</a>       ; READ A BYTE
-                    206             BNE <a class='x' href='#AP1'>AP1</a>         ; BR IF NOT ZERO
+229B:20 8C 26       205             JSR <a class='x' href='#RBYTE'>RBYTE</a>       ; READ A BYTE
+229E:D0 FB          206             BNE <a class='x' href='#AP1'>AP1</a>         ; BR IF NOT ZERO
                     207 ;                                                           ; <b>Test Time!</b> Without looking at the code, give a summary of why 
-                    208             JMP <a class='x' href='#BUMPER'>BUMPER</a>      ; GO TO PATCH FOR APPEND FIX    ; a) <span class='code'>BUMPER</span> exists, and
+22A0:4C 71 36       208             JMP <a class='x' href='#BUMPER'>BUMPER</a>      ; GO TO PATCH FOR APPEND FIX    ; a) <span class='code'>BUMPER</span> exists, and
                     209             PAGE                                            ; b) <span class='code'>APPEND_FIX</span>.
                     210 ;
                     211 ; EOPEN - OPEN A FILE
