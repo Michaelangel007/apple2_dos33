@@ -5900,7 +5900,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     258 <meta                                 />            REP 40                                          ; Copy ][+ has a FAST boot via 4&amp;4 encoding, not 6&amp;2 encoding.
 3700:8E E9 37       259 <meta                                 />            STX <a  class='v' href='#IBSLOT'>IBSLOT</a>      ; SET BOOT SLOT                 ; === <a class='ts' href='#T0S1'>T0S1</a> ===
 3703:8E F7 37       260 <meta                                 />            STX <a  class='v' href='#IBPSLT'>IBPSLT</a>      ; SET PREVIOUS SLOT
-3706:A9 01          261 <meta                                 />            LDA #<span class='n'>1</span>          ; SET PREV DRIVE                ; <i>Assumes</i> boot was from drive 1; Sadly there is no hardware support to tell.
+3706:A9 01          261 <meta                                 />            LDA #<span class='n'>1</span>          ; SET PREV DRIVE                ; <i>Assumes</i> boot was from drive 1; Sadly there is no hardware support to tell which drive is currently active.
 3708:8D F8 37       262 <meta                                 />            STA <a  class='v' href='#IBPDRV'>IBPDRV</a>                                      ; More crappy names differing by a single letter:
 370B:8D EA 37       263 <meta                                 />            STA <a  class='v' href='#IBDRVN'>IBDRVN</a>                                      ;     <span class='code'>IBPDRV    IB_PRV_DRV</span>
                     264 <meta                                 />;                                                           ;     <span class='code'>IBDRVN    IB_CUR_DRV</span>
