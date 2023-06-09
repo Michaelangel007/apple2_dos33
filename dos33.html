@@ -160,6 +160,9 @@ a.ts { /* Track/Sector Definition -- link comes here */
     text-decoration: none; /* remove underlink from data link */
     font-weight    : bold; /* make bold */
 }
+.unused { /* unused */
+    background-color: #FFC; /* Was #FAF */
+}
 .warn {
     color: #F80; /* Orange */
 }
@@ -889,12 +892,13 @@ Addr:## ## ##       L## LABEL       MNEMONIC        COMMENT                     
         <td style='padding:0px;'>Modern commentary by me.<br>
 <br>
         <table width='100%'>
-            <tr class="rows"><td style='width:15%'><a    class='dumb' >dumb        </a>   </td><td> How NOT to Design a File System, or <br> How NOT to Design an Operating System</td></tr>
-            <tr class="rows"><td style='width:15%'><a    class='mem'  >wastes      </a>   </td><td># bytes wasted due to bad architecture or inefficient code</td></tr>
-            <tr class="rows"><td style='width:15%'><a    class='disk' >disk        </a>   </td><td> Unitialized data, wasted sector  </td></tr>
-            <tr class="rows"><td style='width:15%'><a    class='magic'>magic number</a>   </td><td> Hard-Coded constant that the reader is assumed to know what it means</td></tr>
-            <tr class="rows"><td style='width:15%'><span class='todo' >TODO        </span></td><td> Unanswered question(s)           </td></tr>
-            <tr class='rows'><td style='width:15%'><span class='code' >CODE        </span></td><td> Code snippet                     </td></tr>
+            <tr class="rows"><td style='width:15%'><a    class='dumb'  >dumb        </a>   </td><td> How NOT to Design a File System, or <br> How NOT to Design an Operating System</td></tr>
+            <tr class="rows"><td style='width:15%'><a    class='mem'   >wastes      </a>   </td><td># bytes wasted due to bad architecture or inefficient code</td></tr>
+            <tr class="rows"><td style='width:15%'><a    class='disk'  >disk        </a>   </td><td> Unitialized data, wasted sector  </td></tr>
+            <tr class="rows"><td style='width:15%'><a    class='magic' >magic number</a>   </td><td> Hard-Coded constant that the reader is assumed to know what it means</td></tr>
+            <tr class="rows"><td style='width:15%'><span class='todo'  >TODO        </span></td><td> Unanswered question(s)           </td></tr>
+            <tr class='rows'><td style='width:15%'><span class='code'  >CODE        </span></td><td> Code snippet                     </td></tr>
+            <tr class='rows'><td style='width:15%'><span class='unused'>unused      </span></td><td> Unused code or reference         </td></tr>
         </table>
         </td>
     </tr>
@@ -1025,7 +1029,7 @@ With that "legalese" out of the way ... enjoy the read!
                     00086 050 <a class='d' id='0040' name='ZPGWRK'     >ZPGWRK      </a>EQU $<span class='n'>40</span>         ; ZERO PAGE WORK CELL
                     00087 051 <a class='d' name='CNUM'       >CNUM        </a>EQU $<span class='n'>44</span>         ; CONVERTED NUMERIC             ; 16-bit input number
                     00088 052 <a class='d' id='0200' name='LBUFF'      >LBUFF       </a>EQU $<span class='n'>200</span>        ; LINE BUFFER                   ; Keyboard buffer of 255 chars
-                    00089 053 <a class='f' id='FB63' name='MULT'       >MULT        </a>EQU $<span class='e'>FB63</span>       ; MULT ROUTINE                  ; -- never referenced<hr class='page'>
+                    00089 053 <a class='f' id='FB63' name='MULT'       >MULT        </a>EQU $<span class='e'>FB63</span>       ; MULT ROUTINE                  ; -- <span class='unused'>unused</span>, never referenced --<hr class='page'>
                     00090 054 <a class='f' id='FE8B' name='INPRT'      >INPRT       </a>EQU $<span class='e'>FE8B</span>       ; SET IN PORT                   ; === Page <a class='page' name='page111'>111</a> === ; *sigh* Apple 2 ROM lists INPORT = $FE8B, <b>INPRT</b> = $<span class='n'>FE8D</span>
                     00091 055 <a class='f' name='OUTPTR'     >OUTPRT      </a>EQU $<span class='e'>FE95</span>       ; SET OUT PORT
                     00092 056 <a class='f' name='IBCHN'      >IBCHN       </a>EQU $<span class='e'>E836</span>       ; BASIC RUN                     ; Integer Basic
