@@ -7094,15 +7094,15 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     015 *                              *
                     016 *   ------- ON ENTRY -------   *
                     017 *                              *
-                    018 *  THE LOCATIONS VOLUME, TRK,  *
-                    019 *  AND NSECT MUST CONTAIN THE  *
-                    020 *  DESIRED VOLUME, TRACK, AND  *
-                    021 *  SECTOR VALUES DESIRED.      *
-                    022 *                              *
-                    023 *  THE PROPER DRIVE MUST BE    *
-                    024 *  ENABLED AND UP TO SPEED IN  *
-                    025 *  READ MODE (Q7L, Q6L).       *
-                    026 *                              *
+                    018 *  THE LOCATIONS VOLUME, TRK,  *                            ; Technically NVOL not VOLUME; See comments were out-of-date even back then! /s
+                    019 *  AND NSECT MUST CONTAIN THE  *                            ;   <span class='code'>NVOL</span>  @ $41 Volume
+                    020 *  DESIRED VOLUME, TRACK, AND  *                            ;   <span class='code'>TRK</span>   @ $44 Track
+                    021 *  SECTOR VALUES DESIRED.      *                            ;   <span class='code'>NSECT</span> @ $3F Sector
+                    022 *                              *                            ;
+                    023 *  THE PROPER DRIVE MUST BE    *                            ; <b>Not documented:</b> AA
+                    024 *  ENABLED AND UP TO SPEED IN  *                            ;
+                    025 *  READ MODE (Q7L, Q6L).       *                            ;   Zero-Page $3E *must* contain #$AA
+                    026 *                              *                            ;   for 3 cycle timing.
                     027 *  X-REG CONTAINS SLOTNUM      *
                     028 *                    TIMES 16. *
                     029 *                              *
