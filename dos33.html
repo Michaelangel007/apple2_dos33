@@ -1984,8 +1984,8 @@ With that "legalese" out of the way ... enjoy the read!
 2082:C9 A0          112             CMP #$<span class='n'>A0</span>        ; FN1 IS NOT BLANK
 2084:D0 4B          113             BNE SOPTS       ; THEN GO LOOK FOR OPTIONS
                     114 ;
-2086:AC 5F 2A       115             LDY CMDNO
-<hr>2089:A9 C0          116             LDA #NPB+NPE    ; IF CMD MUST HAVE FILENAME     ; === Page <a class='page' name='page18'>18</a> ===
+2086:AC 5F 2A       115             LDY CMDNO<hr class='page'>
+2089:A9 C0          116             LDA #NPB+NPE    ; IF CMD MUST HAVE FILENAME     ; === Page <a class='page' name='page18'>18</a> ===
 208B:39 09 29       117             AND CMDSTB,Y    ; THEN
 208E:F0 02          118             BEQ SERR1       ; THIS IS ERROR, ELSE
                     119 ;
@@ -2109,8 +2109,8 @@ With that "legalese" out of the way ... enjoy the read!
                     237 ;
 2157:A5 45          238             LDA <a class='v' href='#CNUM'>CNUM</a>+<span class='n'>1</span>      ; STORE THE RESULT
 2159:99 67 2A       <a class='line' name='CMDSCAN.239'>239</a>             STA <a class='v' href='#CUROPT'>CUROPT</a>+<span class='n'>1</span>,Y
-215C:A5 44          240             LDA <a class='v' href='#CNUM'>CNUM</a>
-<hr>215E:99 66 2A       241             STA <a class='v' href='#CUROPT'>CUROPT</a>,Y                                    ; === Page <a class='page' name='page20'>20</a> ===
+215C:A5 44          240             LDA <a class='v' href='#CNUM'>CNUM</a><hr class='page'>
+215E:99 66 2A       241             STA <a class='v' href='#CUROPT'>CUROPT</a>,Y                                    ; === Page <a class='page' name='page20'>20</a> ===
 2161:4C E8 20       242 <a class='f' id='2161' name='SP7'    >SP7         </a>JMP <a class='x' href='#SP1'>SP1</a>         ; GO FOR NEXT OPT
                     243 ;
                     244 <a class='f' id='2164' name='SP8'    >SP8         </a>EQU *           ; MONITOR REQ                   ; Have 'C', 'I', or 'O'
@@ -2196,8 +2196,8 @@ With that "legalese" out of the way ... enjoy the read!
 21CE:D0 06          050             BNE <a class='x' href='#GN3'>GN3</a>         ; BR NOT COMMA OR CR
 21D0:A6 44          051             LDX CNUM        ; X=RESULT LOW
 21D2:A5 45          052             LDA CNUM+<span class='n'>1</span>      ; Y=RESULT HI                   ; *sigh* *spelling* A=Result Hi as Y isn't even used!
-21D4:18             053             CLC
-<hr>21D5:60             054             RTS             ; DONE                          ; === Page <a class='page' name='page151'>151</a> === o7 Captain Obvious
+21D4:18             053             CLC<hr class='page'>
+21D5:60             054             RTS             ; DONE                          ; === Page <a class='page' name='page151'>151</a> === o7 Captain Obvious
                     055 ;
 21D6:38             056 <a class='f' name='GN3'      >GN3         </a>SEC                                             ; GetDigit
 21D7:E9 B0          057             SBC #$B0        ; SUBTRACT ASCII 0              ; <i>You keep using this word <b>ASCII</b>, it doesn't mean what you think it means.</i>, #'0'+$80
@@ -2259,8 +2259,8 @@ With that "legalese" out of the way ... enjoy the read!
 2229:A5 44          113             LDA CNUM        ; GET PORT                      ; Get *slot* #, not port
 222B:4C 95 FE       114             JMP OUTPRT      ; GO DO IT
                     115 ;
-                    116 ; EIN - EXECUTE IN#
-<hr>                    117 ;                                                           ; === <a class='page' name='page152'>152</a> ===
+                    116 ; EIN - EXECUTE IN#<hr class='page'>
+                    117 ;                                                           ; === <a class='page' name='page152'>152</a> ===
                     118 <a class='f' name='EIN'      >EIN         </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [14]
 
 222E:A5 44          119             LDA CNUM        ; GET PORT
@@ -2325,8 +2325,8 @@ With that "legalese" out of the way ... enjoy the read!
 2275:A9 08          176             LDA #CRQUNL     ; SET UNLOCK
                     177 ELGO        EQU *                                           ; Holy shit! Common Code for ELOCK, EUnlock, EVerify but not to rain on our parade ...
 2277:20 AA 22       178             JSR OPEN        ; OPEN FILE &amp; UNLOCK            ; ... <a class='dumb' name='CommonCodeELGO'>Common Code</a> Why is <a class='x' href='#ELGO'>ELGO</a> and <a class='x' href='#LCKGO'>LCKGO</a> different???
-227A:4C EA 22       179             JMP ECLOSE      ; CLOSE IT
-<hr>                    180 ;                                                           ; === Page <a class='page' name='pagename153'>153</a>
+227A:4C EA 22       179             JMP ECLOSE      ; CLOSE IT<hr class='page'>
+                    180 ;                                                           ; === Page <a class='page' name='pagename153'>153</a>
                     181 ; EVAR - VERIFY A FILE
                     182 ;
                     183 <a class='f' id='227D' name='EVAR'     >EVAR        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [1B]
