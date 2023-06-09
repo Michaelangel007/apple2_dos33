@@ -1622,7 +1622,7 @@ With that "legalese" out of the way ... enjoy the read!
                     201 <a class='f' id='1E50' name='INITG'    >INITG       </a>EQU *
 1E50:60             202 <meta                                 />            RTS
                     203 ;
-    =1E51           204 <a class='d' id='1E51' name='IFB'      >IFB         </a>EQU *                                           ; --- Copied to $3D0 ---
+                    204 <a class='d' id='1E51' name='IFB'      >IFB         </a>EQU *                                           ; --- Copied to $3D0 ---
 1E51:4C BF 1D       205 <a class='f' id='1E51' name='DBVECT'   >DBVECT      </a>JMP <a class='x' href='#DBRST'>DBRST</a>                                       ; $3D0: JMP $9DBF DOS Warm RESET -- <i>Really?? You couldn't put this in the SAME order</i>
 1E54:4C 84 1D       206 <meta                                 />            JMP <a class='x' href='#DBINIT' >DBINIT</a>                                      ; $3D3: JMP $9D84 DOS Cold RESET -- <i>as BASIC:</i> <b>Cold THEN Warm ???</b>
 1E57:4C FD 2A       207 <meta                                 />            JMP <a class='x' href='#USERENT'>USERENT</a> ;USER EXTERNAL ENTRY TO FILE MANAGER; $3D6: JMP $AAFD FM   (File Manager)
@@ -1647,7 +1647,7 @@ With that "legalese" out of the way ... enjoy the read!
 1E79:4C 65 FF       223             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3F8: JMP $FF65 Ctrl-Y handler
 1E7C:4C 65 FF       224             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3FB: JMP $FF65 NMI handler
 1E7F:65 FF          225             DW <a  class='e' href='#MONRST'>MONRST</a>                                       ; $3FE: dw  $FF65 IRQ vector
-    =2F             226 <a class='d' id='1E81' name='IFBL'     >IFBL        </a>EQU *-<a class='v' href='#IFB'>IFB</a>-<span class='n'>1</span>                                     ; IFB_Length = $1E81 - 1E51 = $2F
+                    226 <a class='d' id='1E81' name='IFBL'     >IFBL        </a>EQU *-<a class='v' href='#IFB'>IFB</a>-<span class='n'>1</span>                                     ; IFB_Length = $1E81 - 1E51 = $2F
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="DOSHOOK">DOSHOOK</a> - Input / Output Vector, Pages <a class="page" name="page44">44</a> - 47, <a class='ts' href='#T0SD'>T0SD</a> - <a class='ts' href='#T0SE'>T0SE</a>, $<span class='n'>9E81</span> .. $<span class='n'>9FCC</span> ===<hr class='join'><hr></div>
@@ -3982,8 +3982,8 @@ With that "legalese" out of the way ... enjoy the read!
 2C68:48             180             PHA             ; AND                           ; ..
 2C69:60             181             RTS             ; GO TO IT                      ; ..]
                     182 ;
-2C6A:4C 67 33       183 <a class='f' name='ERR3A'    >ERR3A       </a>JMP <a class='x' href='#ERROR3'>ERROR3</a>                                      ; <b>What</b> is   &rarr; CREMRE: <a class='v' href='#EM3'>EM3</a>  "RANGE ERROR"
-2C6D:4C 7B 33       184 <a class='f' name='ER10'     >ER10        </a>JMP <a class='x' href='#ERRR10'>ERRR10</a>                                      ; error#?   &rarr; CREFLK: <a class='v' href='#EM10'>EM10</a> "FILE LOCKED"
+2C6A:4C 67 33       183 <a class='f' id='2C6A' name='ERR3A'    >ERR3A       </a>JMP <a class='x' href='#ERROR3'>ERROR3</a>                                      ; <b>What</b> is   &rarr; CREMRE: <a class='v' href='#EM3'>EM3</a>  "RANGE ERROR"
+2C6D:4C 7B 33       184 <a class='f' id='2C6D' name='ER10'     >ER10        </a>JMP <a class='x' href='#ERRR10'>ERRR10</a>                                      ; error#?   &rarr; CREFLK: <a class='v' href='#EM10'>EM10</a> "FILE LOCKED"
                     185 ;                                                           ; /sarcasm Really?! Have to abbreviate 'o' in ERROR10 ???
                                                                                     ;
                                                                                     ; <b>Problem</b>:
@@ -4108,11 +4108,11 @@ With that "legalese" out of the way ... enjoy the read!
                     272 ;
                     273 * PUTBYT - PUT OUT ONE BYTE
                     274 ;
-                    275 <a class='f' name='PUTBYT'   >PUTBYT      </a>EQU *
+    =2CDA           275 <a class='f' id='2CDA' name='PUTBYT'   >PUTBYT      </a>EQU *
 2CDA:48             276             PHA             ; SAVE DATA BYTE
 2CDB:20 B6 30       277             JSR LOCNXB      ; GO LOCATE NEXT BYTE
                     278 ;
-2CDE:68             279 <a class='f' name='PB0'      >PB0         </a>PLA           ; GET SAVED BYTE
+2CDE:68             279 <a class='f' id='2CDE' name='PB0'      >PB0         </a>PLA           ; GET SAVED BYTE
 2CDF:91 42          280             STA (ZPGFCB),Y  ; PUT THE BYTE
 2CE1:A9 40          281             LDA #$<span class='n'>40</span>        ; SET WRITE SECTOR REQD         ; <a class='magic' name='_2CE2'>magic number</a> WRITE_FLAG_SECTOR, See <a class='x' href='#GNWSEC'>GNWSEC</a>
 2CE3:0D D3 35       282             ORA DCBWRF
@@ -4128,16 +4128,16 @@ With that "legalese" out of the way ... enjoy the read!
                     002 ;
                     003 * FLOCK - LOCK A FILE
                     004 ;
-2CEF:A9 80          005 <a class="f" name="FLOCK"      >FLOCK       </a>LDA #$<span class='n'>80</span>        ; REMEMBER LOCK                 ; <a class='magic' name='_2CF0'>magic number</a> LOCK_MASK = $80
-2CF1:8D 9E 33       006             STA <a class="v" href="#TEMP3">TEMP3</a>                                       ; <a class='mem' name='_2CF1' coords='3'>wastes</a> 3 bytes, BNE line #<a class='line' href='#FDELCAT.012'>12</a>
-2CF4:D0 05          007             BNE <a class="x" href="#LCKGO">LCKGO</a>                                       ; even better, change to BIT $abs ($00A9)
+2CEF:A9 80          005 <a class='f' id='2CEF' name='FLOCK'      >FLOCK       </a>LDA #$<span class='n'>80</span>        ; REMEMBER LOCK                 ; <a class='magic' name='_2CF0'>magic number</a> LOCK_MASK = $80
+2CF1:8D 9E 33       006             STA <a class="v" href="#TEMP3">TEMP3</a>                                       ; [.. <a class='mem' name='_2CF2' coords='4'>wastes</a> 3 bytes, BNE line #<a class='line' href='#FDELCAT.012'>12</a>
+2CF4:D0 05          007             BNE <a class="x" href="#LCKGO">LCKGO</a>                                       ;  ..] even better, change to <span class='code'>DB $2C</span> (BIT $abs) which causes to next instruction to be skipped &rarr; <span class='code'>BIT $00A9</span>
                     008 ;
                     009 * FUNLOCK - UNLOCK A FILE
                     010 ;
-2CF6:A9 00          011 <a class="f" name="FUNLCK"     >FUNLCK      </a>LDA #<span class='n'>00</span>         ; REMEMBER UNLOCK               ; <a class='magic' name='_2CF7'>magic number</a>
+2CF6:A9 00          011 <a class='f' id='2CF6' name='FUNLCK'     >FUNLCK      </a>LDA #<span class='n'>00</span>         ; REMEMBER UNLOCK               ; <a class='magic' name='_2CF7'>magic number</a>
 2CF8:8D 9E 33       <a class='line' name='FDELCAT.012'>012</a>             STA <a class="v" href="#TEMP3">TEMP3</a>
                     013 ;
-                    014 <a class="f" name="LCKGO"   >LCKGO       </a>EQU *
+                    014 <a class='f' id='2CFB' name='LCKGO'   >LCKGO       </a>EQU *
                     015 ;
 2CFB:20 28 2B       016             JSR <a class="x" href="#DOPEN" >DOPEN</a>       ; GO OPEN FILE
 2CFE:AE 9C 33       017             LDX <a class="v" href="#TEMP1" >TEMP1</a>                                       ; === <a class='ts' href='#T1SC'>T1SC</a> ===
@@ -4467,12 +4467,12 @@ With that "legalese" out of the way ... enjoy the read!
                     087 ;
                     088 * WRSECT - WRITE CURRENT SECTOR IF REQD
                     089 ;
-                    090 <a class='f' name='WRSECT'   >WRSECT      </a>EQU *
+                    090 <a class='f' id='2F1D' name='WRSECT'   >WRSECT      </a>EQU *
 2F1D:2C D5 35       091             BIT DCBWRF      ; GET WRITE REQD FLAG
 2F20:70 01          092             BVS WRSGO       ; BR IF WRITE SECTOR REQD       ;                               [.. Should be: <span class='code'>BVC WRFDIR-1</span>
 2F22:60             093             RTS             ; RTS                           ; o7 <i>Captain Obvious is Obvious</i>  ..] <a class='mem' name='_2F22' coords='1'>wastes</a> 1 byte with RTS
                     094 ;
-                    095 <a class='f' name='WRGO'     >WRGO        </a>EQU *
+                    095 <a class='f' id='2F23' name='WRGO'     >WRGO        </a>EQU *
 2F23:20 E4 2F       096             JSR MVSBA       ; GO MOVE SECT BUFF ADR         ; MoveSectorBufferAddress
                     097 ;
                     098             LDA #IBCWTS     ; GET COMMAND
@@ -4504,7 +4504,7 @@ With that "legalese" out of the way ... enjoy the read!
                     124 ;
                     125 * MVFDBA - MOVE FILE DIRECTORY BUFF ASDR TO IOD
                     126 ;
-                    127 <a class='f' name='MVFDBA'   >MVFDBA      </a>EQU *
+                    127 <a class='f' id='2F4B' name='MVFDBA'   >MVFDBA      </a>EQU *
 2F4B:AD C9 35       128             LDA CFCBDR      ; MOVE ADR
 2F4E:8D F0 37       129             STA <a  class='v' href='#IBBUFP'>IBBUFP</a>
 2F51:AD CA 35       130             LDA CFCBDR+1
@@ -4516,7 +4516,7 @@ With that "legalese" out of the way ... enjoy the read!
                     136 ;
                     137 * RDFDIR - READ FILE DIRECTORY
                     138 ;
-                    139 <a class='f' name='RDFDIR'   >RDFDIR      </a>EQU *
+                    139 <a class='f' id='2F5E' name='RDFDIR'   >RDFDIR      </a>EQU *
 2F5E:08             140             PHP             ; SAVE STATUS
                     141             JSR WRFDIR      ; GO WRITE CURRENT DIR IF REQD
                     142             JSR MVFDBA      ; GO MOVE DBUFF ADR TO IOB
@@ -4528,7 +4528,7 @@ With that "legalese" out of the way ... enjoy the read!
 2F6E:AE D2 35       148             LDY DCBFDS      ; GET SECTOR                    ;DCBFDS != DCBCDS Line #133
 2F71:4C B5 2F       149             JMP RFDIO1      ; GO READ
                     150 ;
-                    151 <a class='f' name='RFDNXT'   >RFDNXT      </a>EQU *
+                    151 <a class='f' id='2F74' name='RFDNXT'   >RFDNXT      </a>EQU *
 2F74:A0 01          152             LDY #FDLTRK     ; GET LINK TRACK
 2F76:B1 42          153             LDA (ZPGFCB),Y
 2F78:F0 08          154             BEQ RFDNL       ; NR NO LINK                    ; BUG: Can't have file on T0 <span class='code'>BPL RFDNL</span>
@@ -4538,7 +4538,7 @@ With that "legalese" out of the way ... enjoy the read!
 2F7E:A8             158             TAY             ; PUT SECTOR INTO Y
 2F7F:4C B5 2F       159             JMP RFDIO1      ; GO DO I/O
                     160 ;
-                    161 <a class='f' name='RFDNL'    >RFDNL       </a>EQU *                                           ; Read File Dir Next Link
+                    161 <a class='f' id='2F82' name='RFDNL'    >RFDNL       </a>EQU *                                           ; Read File Dir Next Link
 2F82:AD BB 35       162             LDA CCBREQ      ; THIS A WRITE
 2F85:C9 04          163             CMP #CRQWR
 2F87:F0 02          164             BEQ RFDNL1      ; BR IF WRITE                   ; &darr; <span class='todo'>TODO</span> Should be BNE ...
@@ -4595,7 +4595,7 @@ With that "legalese" out of the way ... enjoy the read!
                     215 ;
                     216 ;RDSECT - READ A SECTOR
                     217 ;
-                    218 <a class='f' name='RDSECT'   >RDSECT      </a>EQU *                                           ; X = Track, Y = Sector
+                    218 <a class='f' id='2FDC' name='RDSECT'   >RDSECT      </a>EQU *                                           ; X = Track, Y = Sector
 2FDC:20 E4 2F       219             JSR MVSBA       ; GO MOVE SECTOR BUFFER ADR
                     220 ;
 2FDF:A9 01          221             LDA #IBCRTS
@@ -4603,10 +4603,10 @@ With that "legalese" out of the way ... enjoy the read!
                     223 ;
                     224 ;MVSBA - MOVE SECTOR BUFFER ADR FOR I/O
                     225 ;
-                    226 <a class="f" name="MVSBA"    >MVSBA       </a>EQU *
+                    226 <a class='f' id='2FE4' name='MVSBA'    >MVSBA       </a>EQU *
 2FE4:AC CB 35       227             LDY CFCBSB      ; GET SECTOR BUFF ADR
 2FE7:AD CC 35       228             LDA CFCBSB+1
-2FEA:8C F0 37       229 <a class="f" name="MSB1"     >MSB1        </a>STY <a  class='v' href='#IBBUFP'>IBBUFP</a>      ; SET IOB SECTOR
+2FEA:8C F0 37       229 <a class='f' id='2FEA' name='MSB1'     >MSB1        </a>STY <a  class='v' href='#IBBUFP'>IBBUFP</a>      ; SET IOB SECTOR
 2FED:8D F1 37       230             STA <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>    ; BUFF PTR
 2FF0:AE D6 35       231             LDX DCBTRK      ; GET TRACK
 2FF3:AC D7 35       232             LDY DCBSEC      ; GET SECTOR
@@ -4620,10 +4620,10 @@ With that "legalese" out of the way ... enjoy the read!
                     003 ;RDVTOC - READ VTOC
                     004 ;WRVTOC - WRITE VTOC
                     005 ;
-                    006 <a class="f" name="RDVTOC"   >RDVTOC      </a>EQU *
+                    006 <a class='f' id='2FF7' name='RDVTOC'   >RDVTOC      </a>EQU *
 2FF7:A9 01          007             LDA #<a class="v" href="#IBCRTS">IBCRTS</a>     ; READ
 2FF9:D0 02          008             BNE <a class="x" href="#VTIO">VTIO</a>                                        ; <a class='mem' name='_2FF9' coords='1'>wastes</a> 1 byte, FIX: <span class='code'>HEX 2C</span> bit $abs
-                    009 <a class="f" name="WRVTOC"   >WRVTOC      </a>EQU *
+                    009 <a class='f' id='2FFB' name='WRVTOC'   >WRVTOC      </a>EQU *
 2FFB:A9 02          010             LDA #<a class="v" href="#IBCWTS">IBCWTS</a>     ; WRITE
                     011 ;
 2FFD:AC C3 2A       012 <a class="f" name="VTIO"     >VTIO        </a>LDY AVTOC       ; MOVE BUFF ADR
