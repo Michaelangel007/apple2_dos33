@@ -6997,10 +6997,10 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3AA8:A8 A9 AA       156             DFB $A8,$A9,$AA                                 ; -- -- !!   (!! Technically AA is a valid disk nibble)
 3AAB:09 0A 0B       157             DFB $09,$0A,$0B                                 ; AB AC AD   but it reserved for a 3 byte header id
 3AAE:0C 0D B0       158             DFB $0C,$0D,$B0                                 ; AE AF --   Typical DOS 3.3 B-L-O-A-T
-3AB1:B1 0E 0F       159             DFB $B1,$0E,$0F                                 ; -- B2 B3   One reserved byte D5 could be used for T/S  header
-3AB4:10 11 12       160             DFB $10,$11,$12                                 ; B4 B5 B6   One reserved byte AA could be used for Data header
-3AB7:13 B8 14       161             DFB $13,$B8,$14                                 ; B7 -- B9
-3ABA:15 16 17       162             DFB $15,$16,$17                                 ; BA BB BC
+3AB1:B1 0E 0F       159             DFB $B1,$0E,$0F                                 ; -- B2 B3   One reserved byte D5 could be used for T/S  header. HEAD = 8EAD i.e. D5 8E, or D5 8E AD
+3AB4:10 11 12       160             DFB $10,$11,$12                                 ; B4 B5 B6   One reserved byte D5 could be used for Data header. DATA = DA1A i.e. D5 DA, or D5 DA 1A
+3AB7:13 B8 14       161             DFB $13,$B8,$14                                 ; B7 -- B9   But since we have 66 valid disk nibbles reservering two for meta-data is OK.
+3ABA:15 16 17       162             DFB $15,$16,$17                                 ; BA BB BC   But we could pack more data on a track the more disk nibbles we use. i.e. 19 sectors/track.
 3ABD:18 19 1A       163             DFB $18,$19,$1A                                 ; BD BE BF
 3AC0:C0 C1 C2       164             DFB $C0,$C1,$C2                                 ; -- -- --   [.. <a class='mem' name='_3AC0' coords='11'>*wastes*</a> 11 bytes (unused)
 3AC3:C3 C4 C5       165             DFB $C3,$C4,$C5                                 ; -- -- --    .. /sarcasm But who cares, we have 48K right!?
