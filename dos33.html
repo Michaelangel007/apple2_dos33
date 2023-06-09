@@ -3902,7 +3902,7 @@ With that "legalese" out of the way ... enjoy the read!
 2C16:20 F7 2F       131             JSR RDVTOC
 2C19:A9 00          132             LDA #0
 2C1B:18             133             CLC
-                    134 <a class='f' name='FC1'      >FC1         </a>EQU *
+                    134 <a class='f' id='2C1C' name='FC1'      >FC1         </a>EQU *
 2C1C:20 11 30       135             JSR <a class='x' href='#RDVDIR'>RDVDIR</a>      ; READ VDIR                     ; <span class='todo'>TODO</span> A = ???
 2C1F:38             136             SEC
 2C20:CE D8 35       137             DEC <a class='v' href='#DCBVDR'>DCBVDR</a>                                      ; <span class='todo'>TODO</span> Why DEC ? -- Sector offset set in <a class='x' href='#FNDFIL'>FNDFIL</a>
@@ -3912,16 +3912,16 @@ With that "legalese" out of the way ... enjoy the read!
 2C2B:9D E7 34       141             STA VDFILE+33,X                                 ; <a class='magic' name='_2C2C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC</span>
 2C2E:AD EF 35       142             LDA DCBNSA+1
 2C31:9D E8 34       143             STA VDFILE+34,X                                 ; <a class='magic' name='_2C32'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC</span>
-2C34:20 37 30       144             JSR WRVDIR      ; WRITE VOL DIR REC
+2C34:20 37 30       144             JSR WRVDIR      ; WRITE VOL DIR REC             ; Should be common entry point; See "wastes 3 bytes" note below
                     145 ;
                     146 ;
-                    147 <a class='f' name='FC2'      >FC2         </a>EQU *
+                    147 <a class='f' id='2C37' name='FC2'        >FC2         </a>EQU *
 2C37:4C 7F 33       148             JMP GOODIO      ; DONE
                     149             PAGE
-                    150 ;
-                    151 * FRNAME - RENAME A FILE
-                    152 ;
-                    153 <a class='f' name='FRNME'    >FRNME       </a>EQU *
+                    150 <meta                                   />;
+                    151 <meta                                   />* FRNAME - RENAME A FILE
+                    152 <meta                                   />;
+                    153 <a class='f' id='2C3A' name='FRNME'      >FRNME       </a>EQU *
 2C3A:20 28 2B       154             JSR DOPEN       ; GO OPEN FILE
 2C3D:AD F6 35       155             LDA DCBFUC      ; GET USE CODE
 2C40:30 2B          156             BMI ER10        ; BR IF LOCKED
@@ -3931,18 +3931,18 @@ With that "legalese" out of the way ... enjoy the read!
 2C4A:85 43          160             STA ZPGFCB+1
 2C4C:AE 9C 33       161             LDX TEMP1       ; GET VDIR INDEX                ; <span class='todo'>TODO</span> Does DOPEN set this?
 2C4F:20 1C 32       162             JSR MVFN        ; MOVE FILE NAME
-2C52:20 37 30       163             JSR WRVDIR      ; GO WRITE VDIR
-2C55:4C 7F 33       164             JMP GOODIO      ; DONE RENAME                   ; mastes 1 bytes
+2C52:20 37 30       163             JSR WRVDIR      ; GO WRITE VDIR                 ; [.. <a class='mem' name='_2C55' coords='3'>wastes</a> 3 bytes: Should be <span class='code'>JMP FC2-3</span>
+2C55:4C 7F 33       164             JMP GOODIO      ; DONE RENAME                   ;  ..] and this <span class='code'>JMP GOODIO</span> can be removed entirely
                     165             PAGE
-                    166 ;
-                    167 * FREAD - READ A FILE
-                    168 ;
-                    169 <a class='f' name='FREAD'    >FREAD       </a>EQU *
-                    170 ;
+                    166 <meta                                   />;
+                    167 <meta                                   />* FREAD - READ A FILE
+                    168 <meta                                   />;
+                    169 <a class='f' id='2C58' name='FREAD'      >FREAD       </a>EQU *
+                    170 <meta                                   />;
 2C58:AD BC 35       171             LDA CCBRQM      ; GET REQ MOD
 2C5B:C9 05          172             CMP #<a class='e' href='#CRMMAX'>CRMMAX</a>     ; TEST LIMIT
 2C5D:B0 0B          173             BCS ERR3A       ; BR BAD
-                    174 ;
+                    174 <meta                                   />;
                                                                                     ; Current code uses: 32 bytes
                                                                                     ;   11 bytes  $2C5F..$2C69 <a class='x' href='#FREAD' >FREAD</a>
                                                                                     ;   11 bytes  $2C7C..$2C86 <a class='x' href='#FWRITE'>FWRITE</a>
@@ -4021,7 +4021,7 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                     ; can open up new opportunities for optimizing.
                     186 * FWRITE - WRITE A FILE
                     187 ;
-                    188 <a class='f' name='FWRITE'   >FWRITE      </a>EQU *
+                    188 <a class='f' id='2C70' name='FWRITE'   >FWRITE      </a>EQU *
 2C70:AD F6 35       189             LDA DCBFUC      ; IS FILE LOCKED
 2C73:30 F8          190             BMI ER10        ; BR IF LOCKED
 2C75:AD BC 35       191             LDA CCBRQM      ; GET REQ MOD
@@ -4039,22 +4039,22 @@ With that "legalese" out of the way ... enjoy the read!
                     203 ;
                     204 * RSPBYT - READ A SPECIFIC BYTE
                     205 ;
-                    206 <a class='f' name='RSPBYT'   >RSPBYT      </a>EQU *
+                    206 <a class='f' id='2C87' name='RSPBYT'   >RSPBYT      </a>EQU *
 2C87:20 00 33       207             JSR LOCSEC      ; GO GET REQD REL SECTOR
                     208 ;
                     209 * RNXBYT - READ NEXT BYTE
                     210 ;
-2C8A:20 A8 2C       211 <a class='f' name='RNXBYT'   >RNXBYT      </a>JSR GETBYT      ; GO GET BYTE
+2C8A:20 A8 2C       211 <a class='f' id='2C8A' name='RNXBYT'   >RNXBYT      </a>JSR GETBYT      ; GO GET BYTE
 2C8D:8D C3 35       212             STA CCBDAT      ; PUT IN CCB
 2C90:4C 7F 33       213             JMP GOODIO      ; DONE
                     214 ;
                     215 * RSPBLK - READ A SPECIFIC BLOCK
                     216 ;
-2C93:20 00 33       217 <a class='f' name='RSPBLK'   >RSPBLCK     </a>JSR LOCSEC      ; GO LOCATE REL SECTOR
+2C93:20 00 33       217 <a class='f' id='2C93' name='RSPBLK'   >RSPBLCK     </a>JSR LOCSEC      ; GO LOCATE REL SECTOR
                     218 ;
                     219 * RNXBLK - READ NEXT BLOCK
                     220 ;
-                    221 <a class='f' name='RNXBLK'   >RNXBLK      </a>EQU *
+                    221 <a class='f' id='2C96' name='RNXBLK'   >RNXBLK      </a>EQU *
 2C96:20 B5 31       222             JSR DTBLN       ; GO DECR LEN (NOT RTN IF=0)
 2C99:20 A8 2C       223             JSR GETBYT      ; GO GET BYTE
 2C9C:48             224             PHA
@@ -4066,7 +4066,7 @@ With that "legalese" out of the way ... enjoy the read!
                     230 ;
                     231 * GETBYT - GET A DATA BYTE
                     232 ;
-                    233 <a class='f' name='GETBYT'   >GETBYT      </a>EQU *
+                    233 <a class='f' id='2CA8' name='GETBYT'   >GETBYT      </a>EQU *
 2CA8:20 B6 30       234             JSR LOCNXB      ; LOCATE NEXT BYTE
 2CAB:B0 0B          235             BCS EOFIN       ; BR IF EOF
 2CAD:B1 42          236             LDA (ZPGFCB),Y  ; GET DAT BYTE
@@ -4076,29 +4076,29 @@ With that "legalese" out of the way ... enjoy the read!
 2CB6:68             240             PLA             ; GET SAVED BYTE                ; Stop treating the reader like an idiot with redundant comments
 2CB7:60             241             RTS             ; RETURN                        ; All this does is just add <b>visual noise</b><hr class='page'>
                     242 ;                                                           ; === Page <a class='page' name='page81'>81</a> ===
-2CB8:4C 6F 33       243 <a class='f' name='EOFIN'    >EOFIN       </a>JMP ERROR5      ; GOTO EOF RTN                  ; CREEOF &rarr; <a class='v' href='#EM5'>EM5</a>: "END OF DATA"
+2CB8:4C 6F 33       243 <a class='f' id='2CB8' name='EOFIN'    >EOFIN       </a>JMP <a class='x' href='#ERROR5'>ERROR5</a>      ; GOTO EOF RTN                  ; CREEOF &rarr; <a class='v' href='#EM5'>EM5</a>: "END OF DATA"
                     244             PAGE
                     245 ;
                     246 * WSPBYT - WRITE SPECIFIC BYTE
                     247 ;
-                    248 <a class='f' name='WSPBYT'   >WSPBYT      </a>EQU *
+                    248 <a class='f' id='2CBB' name='WSPBYT'   >WSPBYT      </a>EQU *
 2CBB:20 00 33       249             JSR LOCSEC      ; GO LOCATE SECTOR
                     250 ;
                     251 * WNXBYT - WRITE NEXT BYTE
                     252 ;
-                    253 <a class='f' name='WNXBYT'   >WNXBYT      </a>EQU *
+                    253 <a class='f' id='2CBE' name='WNXBYT'   >WNXBYT      </a>EQU *
 2CBE:AD C3 35       254             LDA CCBDAT      ; GET THE BYTE
 2CC1:20 DA 2C       255             JSR PUTBYT      ; GO WRITE BYTE
 2CC4:4C 7F 33       256             JMP GOODIO      ; DONE
                     257 ;
                     258 * WSPBLK - WRITE A SPECIFIC BLOCK
                     259 ;
-                    260  <a class='f' name='WSPBLK'   >WSPBLK     </a>EQU *
+                    260 <a class='f' id='2CC7' name='WSPBLK'   >WSPBLK     </a>EQU *
 2CC7:20 00 33       261             JSR LOCSEC      ; GO LOCATE SECTOR
                     262 ;
                     263 * WNXBLK - WRITE NEXT BLOCK
                     264 ;
-                    265  <a class='f' name='WNXBLK'   >WNXBLK     </a>EQU *
+                    265 <a class='f' id='2CCA' name='WNXBLK'   >WNXBLK     </a>EQU *
 2CCA:20 A2 31       266             JSR MIBDA       ; GO MOVE ADR TO ZPG AND DEC
 2CCD:A0 00          267             LDY #0
 2CCF:B1 42          268             LDA (ZPGFCB),Y  ; GET DATA BYTE
@@ -4108,7 +4108,7 @@ With that "legalese" out of the way ... enjoy the read!
                     272 ;
                     273 * PUTBYT - PUT OUT ONE BYTE
                     274 ;
-    =2CDA           275 <a class='f' id='2CDA' name='PUTBYT'   >PUTBYT      </a>EQU *
+                    275 <a class='f' id='2CDA' name='PUTBYT'   >PUTBYT      </a>EQU *
 2CDA:48             276             PHA             ; SAVE DATA BYTE
 2CDB:20 B6 30       277             JSR LOCNXB      ; GO LOCATE NEXT BYTE
                     278 ;
