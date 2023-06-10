@@ -545,6 +545,11 @@ var StickyHeaders = (function() {
 
 console.log( "Loading..." );
 
+        var aSPELL = document.getElementsByClassName( 'spell' );
+        var nSPELL = aSPELL.length;
+        var eSPELL = document.getElementsByName( 'statspell' )[0];
+            eSPELL.innerHTML = nSPELL;
+
         var aVars  = document.getElementsByClassName( 'd' );
         var nVars  = aVars.length;
         var eVars  = document.getElementsByName( 'stat_data' )[0];
@@ -1498,7 +1503,7 @@ With that "legalese" out of the way ... enjoy the read!
 1D88:4A             098             LSR A                                           ;          if we <b>used good variable names</b> such as CUR_SLOTx16
 1D89:4A             099             LSR A                                           ;          but who would want that? Isn't it <i>obvious</i> that
 1D8A:4A             100             LSR A                                           ;          CS means Current Slot * 16 !?
-1D8B:8D 6A 2A       101             STA <a class='v' href='#CS'>CS</a>          ; SET AS CUURENT SLOT           ; *spelling* CURRENT
+1D8B:8D 6A 2A       101             STA <a class='v' href='#CS'>CS</a>          ; SET AS CUURENT SLOT           ; *<span class='spell'>spelling</span>* CURRENT
 1D8E:AD EA 37       102             LDA <a class='v' href='#IBDRVN'>IBDRVN</a>      ; GET BOOT DRIVE NUMBER
 1D91:8D 68 2A       <a class='line' name='DOSINIT.103'>103</a>             STA <a class='v' href='#CD'>CD</a>          ; SET AS CURRENT DRIVE
 1D94:AD 00 E0       104             LDA <a class='v' href='#AITSTL'>AITSTL</a>      ; GET APPLESOFT/IB TEST         ; ATSTV= $4C, E000:4C = JMP $abs; Applesoft
@@ -1546,9 +1551,9 @@ With that "legalese" out of the way ... enjoy the read!
 1DBC:38             126             SEC             ; INDICATE INIT                 ;          I know, let's call it crappy "INITAA" instead of DoneCopyBasicVectors
 1DBD:B0 12          127             BCS <a class='x' href='#INITA'>INITA</a>                                       ; &darr; (always) (*note* Intentional next empty line spacer for readability)
                                                                                     ;
-1DBF:AD 62 2A       128 <a class='f' name='DBRST'>DBRST       </a>LDA <a class='v' href='#ASIBSW'>ASIBSW</a>      ;GET APPLESOFT/INITGER BASIC FLAG   ; *spelling* INTEGER; DBRST = DosBasicReset
-1DC2:D0 04          129             BNE <a class='x' href='#INITA1'>INITA1</a>      ;BRANCH IF NOT INITGER BASIC        ; *spelling* INTEGER
-1DC4:A9 20          130             LDA #<a class='v' href='#ITSTV'>ITSTV</a>      ;GET INTIGER TEST VALUE AND GO SET  ; *spelling* INTEGER
+1DBF:AD 62 2A       128 <a class='f' name='DBRST'>DBRST       </a>LDA <a class='v' href='#ASIBSW'>ASIBSW</a>      ;GET APPLESOFT/INITGER BASIC FLAG   ; *<span class='spell'>spelling</span>* INTEGER; DBRST = DosBasicReset
+1DC2:D0 04          129             BNE <a class='x' href='#INITA1'>INITA1</a>      ;BRANCH IF NOT INITGER BASIC        ; *<span class='spell'>spelling</span>* INTEGER
+1DC4:A9 20          130             LDA #<a class='v' href='#ITSTV'>ITSTV</a>      ;GET INTIGER TEST VALUE AND GO SET  ; *<span class='spell'>spelling</span>* INTEGER
 1DC6:D0 05          131             BNE <a class='x' href='#INITA2'>INITA2</a>      ; ROM SWITCH TO 'IB'. (BRANCH ALWAYS)
 1DC8:0A             132 <a class='f' name='INITA1'   >INITA1      </a>ASL A           ;TEST FOR ROM APPLESOFT         ; $40 = Applesoft RAM
 1DC9:10 05          133             BPL <a class='x' href='#INITA3'>INITA3</a>      ;BRANCH IF RAM VERSION          ; /cynical <b>Test time!</b> INITA3 referes to InitApplesoftRAM or InitApplesoftROM ?
@@ -1591,7 +1596,7 @@ With that "legalese" out of the way ... enjoy the read!
 1E0C:20 D4 27       170             JSR <a class='x' href='#BLDFTB'>BLDFTB</a>
 1E0F:AD B3 2A       171             LDA <a class='v' href='#ESTATE'>ESTATE</a>      ; GET EXEC STATE
 1E12:F0 09          172             BEQ <a class='x' href='#INITZ' >INITZ</a>       ; BR IF NOT EXECUTE
-1E14:48             173             PHA             ; SVE CHAR                      ; *spelling* SAVE
+1E14:48             173             PHA             ; SVE CHAR                      ; *<span class='spell'>spelling</span>* SAVE
 1E15:20 9D 26       174             JSR <a class='x' href='#MVEFTA'>MVEFTA</a>      ; GO MOVE EX FILE TAB ADR TO ZP
 1E18:68             175             PLA
 1E19:A0 00          176             LDA #<span class='n'>0</span>
@@ -1794,7 +1799,7 @@ With that "legalese" out of the way ... enjoy the read!
 1F54:D0 05          137             BNE COS4A       ; BR IF NOT CR
 1F56:A9 05          138             LDA #5          ; SET STATE FOR CNTL-D
 1F58:8D 52 2A       139             STA OSTATE      ; EXAMINE
-1F5B:20 0E 26       140 <a class='f' name='COS4A'    >COS4A       </a>JSR OCTD        ; GO OUTPUT CJHAR TO DISK       ; *spelling* Char
+1F5B:20 0E 26       140 <a class='f' name='COS4A'    >COS4A       </a>JSR OCTD        ; GO OUTPUT CJHAR TO DISK       ; *<span class='spell'>spelling</span>* Char
 1F5E:4C 99 1F       141             JMP DRTNO       ; GO TO DATA RETURN (OUT)
                     142 ;
                     143 ;COS5 - DISK OUTPUT MODE - 1ST CHAR
@@ -1915,7 +1920,7 @@ With that "legalese" out of the way ... enjoy the read!
 1FFB:B9 84 A8       039             LDA CMDNTB,Y    ; IF NEXT TABLE CHAR NOT ZERO
 1FFE:D0 D6          040             BNE SC0         ; THENSCANTHE NEXT TABLE ENTRY  ; /sarcasm whoneedsspacesanyways
                     041 <a class='f' id='2000' name='CNF'         >CNF         </a>EQU *           ; COMMAND NOT FOUND
-2000:AD 00 02       042             LDA LBUFF       ; LINE IS A CNOTROL-D           ; *spelling* Control-D
+2000:AD 00 02       042             LDA LBUFF       ; LINE IS A CNOTROL-D           ; *<span class='spell'>spelling</span>* Control-D
 2003:CD B2 2A       043             CMP CCHAR       ; THEN THIS IS A
 2006:F0 03          044             BEQ CNF1        ; POSSIBLE SYNTAX ERROR, ELSE 
 2008:4C A4 1F       045             JMP PRRTN       ; ITS A BASIC INPUT LINE
@@ -1993,7 +1998,7 @@ With that "legalese" out of the way ... enjoy the read!
 208B:39 09 29       117             AND CMDSTB,Y    ; THEN
 208E:F0 02          118             BEQ SERR1       ; THIS IS ERROR, ELSE
                     119 ;
-2090:10 3F          120             BPL SOPTS       ; ITS EXCUTABLE WITHOUT         ; *spelling* Executable
+2090:10 3F          120             BPL SOPTS       ; ITS EXCUTABLE WITHOUT         ; *<span class='spell'>spelling</span>* Executable
                     121 ;
 2092:4C 00 20       122 <a class='f' id='2092' name='SERR1'>SERR1       </a>JMP CNF
                     123 ;
@@ -2199,7 +2204,7 @@ With that "legalese" out of the way ... enjoy the read!
                     049 <a class='f' name='GN2A'     >GN2A        </a>EQU *
 21CE:D0 06          050             BNE <a class='x' href='#GN3'>GN3</a>         ; BR NOT COMMA OR CR
 21D0:A6 44          051             LDX CNUM        ; X=RESULT LOW
-21D2:A5 45          052             LDA CNUM+<span class='n'>1</span>      ; Y=RESULT HI                   ; *sigh* *spelling* A=Result Hi as Y isn't even used!
+21D2:A5 45          052             LDA CNUM+<span class='n'>1</span>      ; Y=RESULT HI                   ; *sigh* *<span class='spell'>spelling<span class='spell'>* A=Result Hi as Y isn't even used!
 21D4:18             053             CLC<hr class='page'>
 21D5:60             054             RTS             ; DONE                          ; === Page <a class='page' name='page151'>151</a> === o7 Captain Obvious
                     055 ;
@@ -2334,7 +2339,7 @@ With that "legalese" out of the way ... enjoy the read!
                     181 ; EVAR - VERIFY A FILE
                     182 ;
                     183 <a class='f' id='227D' name='EVAR'     >EVAR        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [1B]
-227D:A9 0C          184             LDA #CRQVAR     ; SET VARIFY                    ; *spelling* <i>Damnit, Jim, I wish you would VARIFY your spelling.</i>
+227D:A9 0C          184             LDA #CRQVAR     ; SET VARIFY                    ; *<span class='spell'>spelling</span>* <i>Damnit Jim, I wish you would VARIFY your spelling.</i>
 227F:D0 F6          185             BNE ELGO
                     186             PAGE
                     187 ;
@@ -2710,7 +2715,7 @@ With that "legalese" out of the way ... enjoy the read!
 24EB:85 CD          252             STA IBSOV+<span class='n'>1</span>
 24ED:6D 56 1D       253             JMP (CHAIN)
                     254 ;
-                    255 ; EHCAIN - EXECUTE CHAIN REQUEST                            ; *spelling* ECHAIN
+                    255 ; EHCAIN - EXECUTE CHAIN REQUEST                            ; *<span class='spell'>spelling</span>* ECHAIN
                     256 ;
                     257 <a class='f' id='24F0' name='ECHAIN'     >ECHAIN      </a>EQU *
 24F0:20 16 24       258             JSR ELOAD0      ; LOAD PGM WITHOUT CLOSING READ FILES
@@ -2735,43 +2740,43 @@ With that "legalese" out of the way ... enjoy the read!
                     004 ;
                     005 <a class='f' name='EWRITE'   >EWRITE      </a>EQU *
 2510:20 26 25       006             JSR <a class='x' href='#RWPOSN'>RWPOSN</a>      ; GO POSITION FILE IF REQD
-2513:A9 05          007             LDA #<span class='n'>5</span>                                          ; WTF is state 5 ?? OK, <a class='x' href='#COS5'>COS5</a> And the state table transition is where again?
+2513:A9 05          007             LDA #<span class='n'>5</span>                                          ; WTF is state 5 ?? OK, <a class='x' href='#COS5'>COS5</a> And the state table transition is <i>where</i> again?
 2515:8D 52 2A       008             STA <a class='v' href='#OSTATE'>OSTATE</a>      ; SET OSTATE=5                  ; /sarcasm <i>No Shit, Sherlock</i>
 <img src="char_output_state.png">
 2518:4C 83 1F       009             JMP <a class='x' href='#CERTN'>CERTN</a>
-                    010 ;
-                    011 ; EREAD - READ COMD EXECUTE
-                    012 ;
-                    013 <a class='f' name='EREAD'    >EREAD       </a>EQU *
-251B:20 26 25       014             JSR <a class='x' href='#RWPOSN'>RWPOSN</a>      ; GO POSITION FILE IF REQD
-251E:A9 01          015             LDA #<span class='n'>1</span>    
-2520:8D 51 2A       016             STA <a class='v' href='#ISTATE'>ISTATE</a>      ; SET I STATE = DISK INPUT      ; /voice="Nick Burns" <i>See, that wasn't so hard!</i>
-2523:4C 83 1F       017             JMP <a class='x' href='#CERTN'>CERTN</a>                                       ; <a class='mem' name='_2523' coords='1'>wastes</a> 1 bytes, <span class='code'>BNE EREAD-3</span>
-                    018 ;
-                    019 ; RWPOSN - POSTION FOR READ/ WRITE
-                    020 ;
-                    021 <a class='f' name='RWPOSN'   >RWPOSN      </a>EQU *
-2526:20 64 27       022 <!--                           -->            JSR <a class='x' href='#FILSRC'>FILSRC</a>      ; FIND THE FILE
-2529:90 06          023 <!--                           -->            BCC <a class='x' href='#RWP1'  >RWP1</a>        ; BR IF FILE FOUND
-252B:20 A3 22       024 <!--                           -->            JSR <a class='x' href='#EOPEN' >EOPEN</a>       ; GO OPEN FOR KLUTZ             ; ??? if file doesn't exist, open it ???
-252E:4C 34 25       025 <!--                           -->            JMP <a class='x' href='#RWP2'  >RWP2</a>        ; THEN SKIP NEXT LINE           ; <a class='mem' name='_252E' coords='1'>wastes</a> 1 byte
-                    026 <a class='f' name='RWP1'     >RWP1        </a>EQU *
-2531:20 4E 27       027 <!--                           -->            JSR <a class='x' href='#MVBUFP'>MVBUFP</a>      ; MOVE BUFF POINTERS
-                    028 <a class='f' name='RWP2'     >RWP2        </a>EQU *
-2534:AD 65 2A       029 <!--                           -->            LDA <a class='v' href='#INOPTS'>INOPTS</a>      ; GET IN OPTIONS
-2537:29 06          030 <!--                           -->            AND #<a class='v' href='#R'>R</a>+<a class='v' href='#B'>B</a>        ; WAS IT B OR R
-2539:F0 13          031 <!--                           -->            BEQ <a class='x' href='#RWPR'  >RWPR</a>        ; BR IF NOT                     ; wastes one byte, <span class='code'>BEQ LD1C</span>
-253B:A2 03          032 <!--                           -->            LDX #<span class='n'>3</span>
-253D:BD 6E 2A       033 <a class='f' name='RWP2A'    >RWP2A       </a>LDA <a class='v' href='#CR'    >CR</a>,X        ; MOVE REL REC
-2540:9D BD 35       034 <!--                           -->            STA <a class='v' href='#CCBRRN'>CCBRRN</a>,X    ; AND REL BYTE
-2543:CA             035 <!--                           -->            DEX
-2544:10 F7          036 <!--                           -->            BPL <a class='x' href='#RWP2A' >RWP2A</a>
-                    037 <a class='f' name='RWP3'     >RWP3        </a>EQU *
-2546:A9 0A          038 <!--                           -->            LDA #<a class='v' href='#CRQPOS'>CRQPOS</a>     ; INDICATE POISTION REQUEST     ; *spelling* Position
-2548:8D BB 35       039 <!--                           -->            STA <a class='v' href='#CCBREQ'>CCBREQ</a>
-254B:20 A8 26       040 <!--                           -->            JSR <a class='x' href='#DOSGO' >DOSGO</a>                                       ; wastes 1 byte next instruction RTS, should be <span class='code'>JMP</span>
-254E:60             041 <a class='f' name='RWPR'     >RWPR        </a>RTS
-                    042 <!--                           -->            PAGE
+                    010 <meta                                />;       <meta/>                    <meta                                                        />                                        <meta/>
+                    011 <meta                                />; EREAD <meta/>- READ COMD EXECUTE <meta                                                        />                                        <meta/>
+                    012 <meta                                />;       <meta/>                    <meta                                                        />                                        <meta/>
+                    013 <a class='f' id='251B' name='EREAD'   >EREAD   </a   >    EQU *           <meta                                                        />                                        <meta/>
+251B:20 26 25       014 <meta                                />        <meta/>    JSR <a class='x' href='#RWPOSN'>RWPOSN</a>      <meta                        />; GO POSITION FILE IF REQD              <meta/>;&darr;
+251E:A9 01          015 <meta                                />        <meta/>    LDA #<span class='n'>1</span>          <meta                                 />                                        <meta/>
+2520:8D 51 2A       016 <meta                                />        <meta/>    STA <a class='v' href='#ISTATE'>ISTATE</a>      <meta                        />; SET I STATE = DISK INPUT              <meta/>; /voice="Nick Burns" <i>See, that wasn't so hard!</i>
+2523:4C 83 1F       017 <meta                                />        <meta/>    JMP <a class='x' href='#CERTN'>CERTN</a>       <meta                         />                                        <meta/>;&uarr; <a class='mem' name='_2523' coords='1'>wastes</a> 1 bytes, <span class='code'>BNE EREAD-3</span>
+                    018 <meta                                />;       <meta/>                    <meta                                                        />                                        <meta/>
+                    019 <meta                                />; RWPOSN<meta/> - POSTION FOR READ/<meta                                                        />WRITE                                   <meta/>
+                    020 <meta                                />;       <meta/>                    <meta                                                        />                                        <meta/>
+                    021 <a class='f' id='2526' name='RWPOSN'  >RWPOSN  </a   >    EQU *           <meta                                                        />                                        <meta/>
+2526:20 64 27       022 <meta                                />        <meta/>    JSR <a  class='x' href='#FILSRC'  >FILSRC</a>      <meta                     />; FIND THE FILE                         <meta/>;&darr;
+2529:90 06          023 <meta                                />        <meta/>    BCC <a  class='x' href='#RWP1'    >RWP1</a>        <meta                     />; BR IF FILE FOUND                      <meta/>;&darr;
+252B:20 A3 22       024 <meta                                />        <meta/>    JSR <a  class='x' href='#EOPEN'   >EOPEN</a>       <meta                     />; GO OPEN FOR KLUTZ                     <meta/>;&darr; ??? if file doesn't exist, open it ???
+252E:4C 34 25       025 <meta                                />        <meta/>    JMP <a  class='x' href='#RWP2'    >RWP2</a>        <meta                     />; THEN SKIP NEXT LINE                   <meta/>;&darr; <a class='mem' name='_252E' coords='1'>wastes</a> 1 byte, should be <span class='todo'>TODO</span>
+                    026 <a class='f' id='2531' name='RWP1'    >RWP1    </a   >    EQU *           <meta                                                        />                                        <meta/>
+2531:20 4E 27       027 <meta                                />        <meta/>    JSR <a  class='x' href='#MVBUFP'  >MVBUFP</a>      <meta                     />; MOVE BUFF POINTERS                    <meta/>;&darr; /sarcasm <i>WHICH way Einstein?</i>
+                    028 <a class='f' id='2534' name='RWP2'    >RWP2    </a   >    EQU *           <meta                                                        />                                        <meta/>
+2534:AD 65 2A       029 <meta                                />        <meta/>    LDA <a  class='v' href='#INOPTS' >INOPTS</a>      <meta                      />; GET IN OPTIONS                        <meta/>
+2537:29 06          030 <meta                                />        <meta/>    AND #<a class='v' href='#R'>R</a>+<a class='v' href='#B'>B</a>        <meta  />; WAS IT B OR R                         <meta/>
+2539:F0 13          031 <meta                                />        <meta/>    BEQ <a  class='x' href='#RWPR'   >RWPR</a>        <meta                      />; BR IF NOT                             <meta/>;&darr; Should be <span class='code'>BEQ LD1C ;&uarr;</span>
+253B:A2 03          032 <meta                                />        <meta/>    LDX #<span class='n'>3</span><meta                                           />                                        <meta/>
+253D:BD 6E 2A       033 <a class='f' id='253D' name='RWP2A'   >RWP2A   </a   >    LDA <a class='v' href='#CR'    >CR</a>,X        <meta                        />; MOVE REL REC                          <meta/>
+2540:9D BD 35       034 <meta                                />        <meta/>    STA <a  class='v' href='#CCBRRN' >CCBRRN</a>,X    <meta                      />; AND REL BYTE                          <meta/>
+2543:CA             035 <meta                                />        <meta/>    DEX             <meta                                                        />                                        <meta/>
+2544:10 F7          036 <meta                                />        <meta/>    BPL <a  class='x' href='#RWP2A'  >RWP2A</a>       <meta                      />                                        <meta/>;&uarr;
+                    037 <a class='f' id='2546' name='RWP3'    >RWP3    </a   >    EQU *           <meta                                                        />                                        <meta/>
+2546:A9 0A          038 <meta                                />        <meta/>    LDA #<a class='v' href='#CRQPOS' >CRQPOS</a>     <meta                       />; INDICATE POISTION REQUEST             <meta/>; *<span class='spell'>spelling</span>* Position
+2548:8D BB 35       039 <meta                                />        <meta/>    STA <a  class='v' href='#CCBREQ' >CCBREQ</a>      <meta                      />                                        <meta/>
+254B:20 A8 26       040 <meta                                />        <meta/>    JSR <a  class='x' href='#DOSGO'  >DOSGO</a>       <meta                      />                                        <meta/>;&darr; [.. <a class='mem' name='_254E' coords='1'>wastes</a> 1 byte next instruction <span class='code'>RTS</span>, should be <span class='code'>JMP</span>
+254E:60             041 <a class='f' id='254E' name='RWPR'    >RWPR    </a   >    RTS             <meta                                                        />                                        <meta/>;   ..]
+                    042 <meta                                />        <meta/>    PAGE            <meta                                                        />                                        <meta/>
                     043 ;
                     044 ;
                     045 ; EINIT - EXECUTE INIT COMMAND
@@ -2829,8 +2834,8 @@ With that "legalese" out of the way ... enjoy the read!
                     097 <a class='f' name='EINT'     >EINT</a>        EQU *
 259E:A9 20          098             LDA #<a class='v' href='#ITSTV'>ITSTV</a>      ; GET IB TEST VALUE
 25A0:20 B2 25       099             JSR <a class='x' href='#SWTST'>SWTST</a>       ; GO SWITCH AND TEST
-25A3:F0 05          100             BEQ <a class='x' href='#GOINT'>GOINT</a>       ;BR IF INTIGER BASIC                ; *spelling* Integer
-25A5:A9 01          101             LDA #<span class='n'>1</span>          ;LANGUAGE NOT AVIALABLE, TOO BAD... ; *spelling* Available <a class='magic' name='_'>magic number</a>
+25A3:F0 05          100             BEQ <a class='x' href='#GOINT'>GOINT</a>       ;BR IF INTIGER BASIC                ; *<span class='spell'>spelling</span>* Integer
+25A5:A9 01          101             LDA #<span class='n'>1</span>          ;LANGUAGE NOT AVIALABLE, TOO BAD... ; *<span class='spell'>spelling</span>* Available <a class='magic' name='_'>magic number</a>
 25A7:4C D2 26       102             JMP <a class='x' href='#ERROR'>ERROR</a>
 25AA:A9 00          103 <a class='f' name='GOINT'    >GOINT</a>       LDA #<span class='n'>0</span>          ;RESET RSTATE                   ; <a class='magic' name='_'>magic number</a>
 25AC:8D B7 2A       104             STA <a class='v' href='#RSTATE'>RSTATE</a>      ; FOR NON APPLESOFT PROG.
@@ -2856,7 +2861,7 @@ With that "legalese" out of the way ... enjoy the read!
 25CC:8D B4 2A       124             STA <a class='v' href='#EFTABA'>EFTABA</a>
 25CF:AD 50 2A       125             LDA <a class='v' href='#CFTABA'>CFTABA</a>+<span class='n'>1</span>
 25D2:8D B5 2A       126             STA <a class='v' href='#EFTABA'>EFTABA</a>+<span class='n'>1</span>
-25D5:AD 75 2A       127             LDA <a class='v' href='#FNAME1'>FNAME1</a>      ; USE FILNAME                   ; *spelling* Filename
+25D5:AD 75 2A       127             LDA <a class='v' href='#FNAME1'>FNAME1</a>      ; USE FILNAME                   ; *<span class='spell'>spelling</span>* Filename
 25D8:8D B3 2A       128             STA <a class='v' href='#ESTATE'>ESTATE</a>      ; SET EXSTATE NON ZERO
 25DB:D0 0E          129             BNE <a class='x' href='#EXP2'>EXP2</a>
                     130 ;
@@ -3628,7 +3633,7 @@ With that "legalese" out of the way ... enjoy the read!
 2A57:00             010 <a class='d' id='2A57' name="CNFTBS">CNFTBS      </a>DFB <span class='n'>0</span>           ; CURRENT NO FILE TABLES        ; "NO" == Number
 2A58:03             011 <a class='d' id='2A58' name="DFNFB" >DFNFB       </a>DFB <span class='n'>3</span>           ; DEFAULT NO FILE TABLES        ; Does anyone actually use &gt; 2 ?
 2A59:00             012 <a class='d' id='2A59' name="SVSTK" >SVSTK       </a>DFB <span class='n'>0</span>           ; SAVED STACK PTR
-2A5A:00             013 <a class='d' id='2A5A' name="SVX"   >SVX         </a>DFB <span class='n'>0</span>           ; DSAVED X REG                  ; *spelling* Saved
+2A5A:00             013 <a class='d' id='2A5A' name="SVX"   >SVX         </a>DFB <span class='n'>0</span>           ; DSAVED X REG                  ; *<span class='spell'>spelling</span>* Saved
 2A5B:00             014 <a class='d' id='2A5B' name="SVY"   >SVY         </a>DFB <span class='n'>0</span>           : SAVED Y REG
 2A5C:00             015 <a class='d' id='2A5C' name="SVA"   >SVA         </a>DFB <span class='n'>0</span>           ; SAVED ACU
 2A5D:00             016 <a class='d' id='2A5D' name="LBUFD" >LBUFD       </a>DFB <span class='n'>0</span>           ; LINE BUFF DISPL
@@ -3703,7 +3708,7 @@ With that "legalese" out of the way ... enjoy the read!
 2ADB:39 2C          069 <meta                                 />            DW <a class='x' href='#FRNME' >FRNME</a>-<span class='n'>1</span>      ; 9-RENAME                      ; [9]
 2ADC:11 2D          070 <meta                                 />            DW <a class='x' href='#FPOSTN'>FPOSTN</a>-<span class='n'>1</span>     ; 10-POSITION A FILE            ; [A]
 2ADE:8D 2E          071 <meta                                 />            DW <a class='x' href='#FFMT'  >FFMT</a>-<span class='n'>1</span>       ; FORMAT                        ; [B]
-2AE1:17 2D          072 <meta                                 />            DW <a class='x' href='#FVAR'  >FVAR</a>-<span class='n'>1</span>       ; VARIFY                        ; [C] *spelling* VERIFY
+2AE1:17 2D          072 <meta                                 />            DW <a class='x' href='#FVAR'  >FVAR</a>-<span class='n'>1</span>       ; VARIFY                        ; [C] *<span class='spell'>spelling</span>* VERIFY
 2AE3:7E 33          073 <meta                                 />            DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>     ; 11-SPARE                      ; [D] <a class='mem' name='_2AE3' coords='2'>wastes</a> 2 bytes due to fencepost error
                                                                                     ;     Uh, calling 13 "eleven" doesn't make it so. 
                     074 ;                                                           ;     See <a class='x' href='#DOSENT'>DOSENT</a>: CCBREQ (FileManager.command) &gt;= <a class='v' href='#CRQMAX'>CRQMAX</a>
@@ -3747,7 +3752,7 @@ With that "legalese" out of the way ... enjoy the read!
 2AFD:E0 00          104 <a class='f' id='2AFD' name='USERENT'>USERENT     </a>CPX #<span class='n'>0</span>          ;IF X=0 THEN FILE CREATED IF NOT
 2AFF:F0 02          105             BEQ <a class='x' href='#USRCR'>USRCR</a>       ; FOUND. NOTE: FILE NOT FOUND ERROR STILL IS RETURNED ; === <a class='ts' href='#T1SA'>T1SA</a> ===
 2B01:A2 02          106             LDX #<span class='n'>2</span>          ;INDICATE NO CREATE ALLOWED
-2B03:8E 5F 2A       107 <a class='f' id='2B03' name='USRCR'  >USRCR       </a>STX <a class='v' href='#CMDNO'>CMDNO</a>       ;SET UP FOR CREATE CAPIBILITY   ; *spelling* CAPABILITY
+2B03:8E 5F 2A       107 <a class='f' id='2B03' name='USRCR'  >USRCR       </a>STX <a class='v' href='#CMDNO'>CMDNO</a>       ;SET UP FOR CREATE CAPIBILITY   ; *<span class='spell'>spelling</span>* CAPABILITY
                     108 <a class='f' id='2B06' name='DOSENT' >DOSENT      </a>EQU *                                           ; /sarcasm Is that like our potential to be cap'd or knock'd off :-)
 2B06:BA             109             TSX
 2B07:8E 9B 33       110             STX <a class='v' href='#ENTSTK'>ENTSTK</a>
@@ -3841,7 +3846,7 @@ With that "legalese" out of the way ... enjoy the read!
 2BA9:               072             STA DCBFDT
 2BAC:BD C7 34       073             LDA VDFILE+<span class='n'>1</span>,X  ; MOVE FILE DIR SECTOR          ; <a class='magic' name='_2BAD'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
 2BAF:               074             STA DCBFDS
-2BB2:BD C8 34       075             LDA VDFILE+<span class='n'>2</span>,X  ; 7OVE FILE USE CODE            ; *spelling* Move; <a class='magic' name='_2BB3'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
+2BB2:BD C8 34       075             LDA VDFILE+<span class='n'>2</span>,X  ; 7OVE FILE USE CODE            ; *<span class='spell'>spelling</span>* Move; <a class='magic' name='_2BB3'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
 2BB5:               076             STA CCBFUC
 2BB8:               077             STA DCBFUC
 2BBB:BD E7 34       078             LDA VDFILE+<span class='n'>33</span>,X                                 ; <a class='magic' name='_2BBC'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC</span>
@@ -4153,7 +4158,7 @@ With that "legalese" out of the way ... enjoy the read!
 2D15:4C 7F 33       027             JMP GOODIO      ; DONE
                     028 ;
                     029 ;
-                    030 * FVAR - VARIFY A FILE                                      ; *spelling* VERIFY
+                    030 * FVAR - VARIFY A FILE                                      ; *<span class='spell'>spelling<span>* VERIFY
                     031 ;
                     032 <a class="f" name="FVAR"       >FVAR        </a>EQU *
 2D18:20 28 2B       033             JSR <a class="x" href="#DOPEN" >DOPEN</a>       ; OPEN FILE
@@ -4192,7 +4197,7 @@ With that "legalese" out of the way ... enjoy the read!
 2D59:20 0C 2F       065             JSR MVFCBD      ; MOVE DIR TO ZPG
 2D5C:A0 0C          066             LDY #FDENT      ; POINT Y TO 1ST SEC ENT
 2D5E:8C 9C 33       067 FD5         STY TEMP1       ; SAVE Y                        ; School of Commenting on Useless Observations
-2D61:B1 42          068             LDA (ZPGFCB),Y  ; GET REACK                     ; *spelling* Track
+2D61:B1 42          068             LDA (ZPGFCB),Y  ; GET REACK                     ; *<span class='spell'>spelling</span>* Track
 2D63:30 0B          069             BMI FD6         ; BR IF NONE
 2D65:F0 09          070             BEQ FD6         ; BR IF END OF FILE
 2D67:48             071             PHA             ; SAVE TRK
@@ -4390,7 +4395,7 @@ With that "legalese" out of the way ... enjoy the read!
                     010             EOR #$FF                                        ; <span class='todo'>TODO</span> Is this the reason why not possible to format with Volume=0
                     011             STA VVOLNO
 2E9E:A9 11          012             LDA #17                                         ; <a class='magic' name='_2E9F' coords='1'>magic number</a> <span class='code'>LDA VDIRTK</span>; <span class='code'>FILESYSTEM_VTOC_CAT_TRACK</span>
-                    013             STA VALCA1      ; ALOCATE BYTE 1                ; *spelling* Allocate; Crappy name, should be: <span class='code'>ALLOC_TRK</span>
+                    013             STA VALCA1      ; ALOCATE BYTE 1                ; *<span class='spell'>spelling</span>* Allocate; Crappy name, should be: <span class='code'>ALLOC_TRK</span>
                     014             LDA #1                                          ; +$01 inwards to T22
                     015             STA VALCA2      ; ADD BYTE 2                    ; Crappy name, should be: <span class='code'>ALLOC_DIR</span>
                     016 ;
@@ -4484,7 +4489,7 @@ With that "legalese" out of the way ... enjoy the read!
                     104             RTS             ; DONE
                     105             PAGE
                     106 ;
-                    107 * WRFDIR - WRITE FILE DIRECTRY IF REQD                      ; *spelling* Directory
+                    107 * WRFDIR - WRITE FILE DIRECTRY IF REQD                      ; *<span class='spell'>spelling</span>* Directory
                     108 ;
                     109 <a class='f' id='2F34' name='WRFDIR'   >WRFDIR      </a>EQU *
 2F34:AD D5 35       110             LDA DCBWRF      ; GET WRITE REQD FLAG
@@ -4947,7 +4952,7 @@ With that "legalese" out of the way ... enjoy the read!
 <pre>
                     001             PAGE
                     002 ;
-                    003 ;FNDFIL - FIND FILE NAME IN VOLUUME DIR                     ; *spelling* VOLUME
+                    003 ;FNDFIL - FIND FILE NAME IN VOLUUME DIR                     ; *<span class='spell'>spelling</span>* VOLUME
                     004 ;
                     005 <a class='f' name='FNDFIL'   >FNDFIL      </a>EQU *
 31C9:20 F7 2F       006             JSR <a class='x' href='#RDVTOC'>RDVTOC</a>      ; GO GET VTOC
@@ -5161,7 +5166,7 @@ With that "legalese" out of the way ... enjoy the read!
 3320:8A             214             TXA
                     215             BCC LS2
 3323:18             216 <a class='f' name='LS1A'   >LS1A        </a>CLC
-3324:AD E5 35       217             LDA DCBCRS+1    ; FPORM PARTIAL PROD            ; *spelling* FORM
+3324:AD E5 35       217             LDA DCBCRS+1    ; FPORM PARTIAL PROD            ; *<span class='spell'>spelling</span>* FORM
 3327:6D E8 35       218             ADC DCBRCL
 332A:8D E5 35       219             STA DCBCRS+1
 332D:8A             220             TXA
@@ -5298,7 +5303,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     022 <a class='d' id='33BB' name='VTOC'  >VTOC        </a>EQU *                                           ; <a class='ts'>T11S0</a> [offset], Right side = normal snarky commentary
 33BB:04             <a class="line" name="FVCBUFS.023">023</a> <a class="d" id='33BB' name="VDOST" >VDOST       </a>DFB 4           ; DOS TYPE                      ; [00] <a class='struct' name='_33BB'>wastes</a> 1 byte -- never referenced !
                                                                                     ;      <a class='magic' name='#_33BC'>magic number</a> /sarcasm If only <span class='code'>FILESYSTEM_TYPE_VTOC EQU $4</span>
-33BC:11             024 <a class='d' id='33BC' name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <b>TRACK</b> not <i>sector</i> -- <b>read</b> the bloody variable name!
+33BC:11             024 <a class='d' id='33BC' name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *<span class='spell'>spelling</span>* VOLUME, *sigh* <b>TRACK</b> not <i>sector</i> -- <b>read</b> the bloody variable name!
                                                                                     ;      Used by <a class='x' href='#VTIO'>VTIO</a>
                                                                                     ;      *note* This is only a copy.  To change DOS while running
                                                                                     ;             <a class='x' href='#F01A'>F01A</a>+4:11 &rarr; <a class='v' href='#DCBVTN'>DCBVTN</a> 
@@ -5506,7 +5511,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     092 <a class='e' name='CRQMAX'     >CRQMAX      </a>EQU 13           ;                              ; You couldn't be <i>consistent</i> with first 11?
                     093 ;
                     094 <a class='d' name='CCBBSA'     >CCBBSA      </a>EQU *           ; FORMAT - BOOT START ADR PAG
-35BC:FD             095 <a class='d' name='CCBRQM'     >CCBRQM      </a>DS 1            ; RREQUEST MODIFIER BYTE        ; [1] FM_RequestMod = 1 (SubCommand) *spelling* RREQUEST. RRReally??
+35BC:FD             095 <a class='d' name='CCBRQM'     >CCBRQM      </a>DS 1            ; RREQUEST MODIFIER BYTE        ; [1] FM_RequestMod = 1 (SubCommand) *<span class='spell'>spelling</span>* RREQUEST. RRReally??
                     096 <a class='e' name='CRMNUL'     >CRMNUL      </a>EQU 0           ; NO MODIFIER                   ; <b>And this serves <i>what</i> purpose again</b> ???
                     097 <a class='e' name='CRMNBT'     >CRMNBT      </a>EQU 1           ; R/W - 1 - NEXTBYTE
                     098 <a class='e' name='CRMNBL'     >CRMNBL      </a>EQU 2           ; R/W - 2 - NEXTBLOCK
@@ -5527,7 +5532,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 35C2:FD             113 <a class='d' name='CCBFUC'     >CCBFUC      </a>DS 1            ; OPEN - FILE USE CODE          ; [7] FM_FileUseCode (File Type), See <a class='x' href='#TSTFUC'>TSTFUC</a>, <a class='x' href='#FRNME'>FRNME</a>
                     114 ;
                     115 <a class='d' name='CCBFN1'     >CCBFN1      </a>EQU *           ; OPEN, DELETE, LOCK, UNLOCK, RENAME - FILENAME<hr class='page'>
-                    116 <a class='d' name='CCBBBA'     >CCBBBA      </a>EQU *           ; BLOCKK I/O - BLOCK BUFFER PTR ; === Page <a class='page' name='page88'>88</a> === *spelling* BLOCK, OKKK
+                    116 <a class='d' name='CCBBBA'     >CCBBBA      </a>EQU *           ; BLOCKK I/O - BLOCK BUFFER PTR ; === Page <a class='page' name='page88'>88</a> === *<span class='spell'>spelling</span>* BLOCK, OKKK
 35C3:FC FD          117 <a class='d' name='CCBDAT'     >CCBDAT      </a>DS 2            ; BYTE I/O - DATA BYTE          ; [8]
                     118 ;
 35C5:FD             119 <a class='d' name='CCBSTA'     >CCBSTA      </a>DS 1            ; RESULT STATUS                 ; [A] Return Code
@@ -5945,7 +5950,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 374A:AD E7 37       301 <meta                                 />            LDA <a  class='v' href='#ADOSLD'>ADOSLD</a>+<span class='n'>1</span>
 374D:38             302 <meta                                 />            SEC
 374E:ED F1 37       303 <meta                                 />            SBC <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span><hr class='page'>
-3751:8D E1 37       304 <meta                                 />            STA BRWCNT      ;COMPUT PAGE COUNT              ; === Page <a class='page' name='page13'>13</a> === *spelling* Compute
+3751:8D E1 37       304 <meta                                 />            STA BRWCNT      ;COMPUT PAGE COUNT              ; === Page <a class='page' name='page13'>13</a> === *<span class='spell'>spelling</span>* Compute
 3754:AD E7 37       305 <meta                                 />            LDA <a  class='v' href='#ADOSLD'>ADOSLD</a>+<span class='n'>1</span>
 3757:8D F1 37       306 <meta                                 />            STA <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>    ;BUFFER=LAST PAGE OF RWTS
 375A:CE F1 37       307 <meta                                 />            DEC <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>
@@ -5992,10 +5997,10 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 37B4:60             348 <meta                                 />            RTS
                     349 <meta                                 />;
                     350 <meta                                 />            PAGE
-37B5:08             351 <a class='f' id='37B5' name='DISKIO'  >DISKIO      </a   >PHP <meta                      />    <meta/>        ;SAVE INTERUPT STATUS           ; *spelling* Interrupt
-37B6:78             352 <meta                                 />            <meta/>SEI <meta                      />    <meta/>        ;INHIBIT INTERUPT WHILE         ; *spelling* Interrupt
+37B5:08             351 <a class='f' id='37B5' name='DISKIO'  >DISKIO      </a   >PHP <meta                      />    <meta/>        ;SAVE INTERUPT STATUS           ; *<span class='spell'>spelling</span>* Interrupt
+37B6:78             352 <meta                                 />            <meta/>SEI <meta                      />    <meta/>        ;INHIBIT INTERUPT WHILE         ; *<span class='spell'>spelling</span>* Interrupt
 37B7:20 00 3D       353 <meta                                 />            <meta/>JSR <a  class='x' href='#RWTS'  >RWTS</a   >        ; ACCESSING DISK
-37BA:B0 03          354 <meta                                 />            <meta/>BCS <a  class='x' href='#DSKERR'>DSKERR</a >      ;MUST PASS BACK CARRY FLAG &amp; INTERUPT      ; *spelling* Interrupt
+37BA:B0 03          354 <meta                                 />            <meta/>BCS <a  class='x' href='#DSKERR'>DSKERR</a >      ;MUST PASS BACK CARRY FLAG &amp; INTERUPT      ; *<span class='spell'>spelling</span>* Interrupt
 37BC:28             355 <meta                                 />            <meta/>PLP
 37BD:18             356 <meta                                 />            <meta/>CLC
 37BE:60             357 <meta                                 />            <meta/>RTS
@@ -7164,7 +7169,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3C99:45 55          082 <meta                                       />            EOR TRK         (3) FORM ADR FIELD CHECKSUM.    ;
 3C9B:45 3F          083 <meta                                       />            EOR NSECT       (3)                             ;
 3C9D:48             084 <meta                                       />            PHA             (3) SAVE FOR EVEN BITS.         ;
-3C9E:4A             085 <meta                                       />            LSR A           (2) ALIGHN ODD BITS.            ; *spelling* <span class='spell' id='3C9E'>"ALIGN"</span> Poorly written assemblers explicitly need the implicit A register
+3C9E:4A             085 <meta                                       />            LSR A           (2) ALIGHN ODD BITS.            ; *<span class='spell'>spelling</span>* <span class='spell' id='3C9E'>"ALIGN"</span> Poorly written assemblers explicitly need the implicit A register
 3C9F:05 3E          086 <meta                                       />            ORA AA          (3) SET CLOCK BITS.             ; This is a shitty variable name: <span class='code'>AA</span>; call it WRITE_NIB_AA, see <a class='x' href='#DSKFORM'>DSKFORM</a>, Line #020,
                     087 <meta                                       /> *                          (PRECISE TIMING, 32 CYCLES PER NIBL)
 3CA1:9D 8D C0       088 <meta                                       />            STA Q6H,X       (5) WRITE CHECKSUM ODD BITS.    ;
@@ -7594,7 +7599,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     050         STA TL4                                             </span>
                     051     FIN
                     052     LST ON
-3DC9:CE 78 05       053 <a class="f" name="TRYADR2"     >TRYADR2     </a>DEC RETRYCNT    ;ANOTHER MISTAEK!!              ; *spelling* **irony**<hr class='page'>
+3DC9:CE 78 05       053 <a class="f" name="TRYADR2"     >TRYADR2     </a>DEC RETRYCNT    ;ANOTHER MISTAEK!!              ; *<span class='spell'>spelling</span>* Oh, the **irony**<hr class='page'>
 3DCC:10 F3          054             BPL <a class="x" href="#TRYADR">TRYADR</a>      ; WELL, LET IT GO THIS TIME..   ; === page <span class="page">123</span> ===
                     055 *
                     056 * RRRRRECALIBRATE !!!!
@@ -8102,7 +8107,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     032     FIN
                     033 *****************************
 3FDC:8D 63 2A       034 <a class='f' name='CLRBYTE'    >CLRBYTE     </a>STA <a class='v' href='#TEMP1A'>TEMP1A</a>                                      ; Called from <a class="x" href="#SOPTS">SOPTS</a>, Page <a class="page" hre="#page18">18</a>, Line <a class='line' href='#CMDSCAN.176'>176</a>
-3FDF:8D 70 2A       035             STA <a class='v' href='#CB'>CB</a>          ;SET TYPE PARAM DEFAUTL=0       ; *spelling* DEFAULT
+3FDF:8D 70 2A       035             STA <a class='v' href='#CB'>CB</a>          ;SET TYPE PARAM DEFAUTL=0       ; *<span class='spell'>spelling</span>* DEFAULT
 3FE2:8D 71 2A       036             STA <a class='v' href='#CB'>CB</a>+<span class='n'>1</span>
 3FE5:60             037             RTS
                     038             SKP 4
@@ -8155,7 +8160,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
     <tr><td>Total LOC (Lines of Code):           </td><td                 >6,442</td></tr>
     <tr><td>Number of Source assembly files:     </td><td                 >   29</td></tr>
     <tr><td>Average LOC per source file:         </td><td                 >  222</td></tr>
-    <tr><td>Total Spelling mistakes:             </td><td name='statspell'>   36</td></tr> <!-- :%s/\*spelling\*//gn -->
+    <tr><td>Total Spelling mistakes:             </td><td name='statspell'>    ?</td></tr> <!-- :%s/\*spelling\*//gn-->
     <tr><td>Total Equates:                       </td><td name='stat_equ' >    ?</td></tr>
     <tr><td>Total Functions:                     </td><td name='stat_func'>    ?</td></tr> <!-- :%s/class='f'//gn -->
     <tr><td>Total Variables:                     </td><td name='stat_data'>    ?</td></tr> <!-- :%s/class='d'//gn -->
