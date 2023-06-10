@@ -2470,7 +2470,7 @@ With that "legalese" out of the way ... enjoy the read!
                     023 ;
                     024 ; EBLD - EXECUTE BINARY LOAD
                     025 ;
-                    026 <a class='f' name='EBLD'     >EBLD        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [19]
+                    026 <a class='f' name='EBLD'     >EBLD        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [19] "BLOAD"
 235D:20 A8 22       027             JSR EOPN1       ;(CHANGED 11/1/78 FOR TYPE MISMATCH)
                     028 <a class='f' name='EBLD2'    >EBLD2       </a>EQU *                                           ; *sigh* If only the local labels were in alphabetical order ...
 2360:A9 7F          029             LDA #$<span class='n'>7F</span>                                        ; <a class='magic' name='_2361'>magic number</a> ~FILE_LOCK
@@ -2496,7 +2496,7 @@ With that "legalese" out of the way ... enjoy the read!
                     049 ;
                     050 ; EBRUN - EXECUTE BINARY RUN
                     051 ;
-238E:20 5D 23       052 <a class='f' name='EBRUN'    >EBRUN       </a>JSR EBLD                                        ; <a class='v' href='#CMDETB'>CMDETB</a> [1A]
+238E:20 5D 23       052 <a class='f' name='EBRUN'    >EBRUN       </a>JSR EBLD                                        ; <a class='v' href='#CMDETB'>CMDETB</a> [1A] "BRUN"
 2391:20 51 28       053             JSR MVCSW       ; GO RESTORE CHAR I/O SW<hr class='page'>
 2394:6C 72 2A       054             JMP (CA)        ; GO EXEC THE STUFF             ; === Page <a class="page" name="page141">141</a> ===
                                                                                     ; <a class='dumb'>How Not To Design an OS</a>
