@@ -3689,7 +3689,7 @@ With that "legalese" out of the way ... enjoy the read!
 2AC1:E8 37          055 <a class="d" id='2AC1' name='AIOB'  >AIOB        </a>DW <a class="v" href="#IOB"     >IOB</a>          ; 5-ADR IOB                     ; Also see <a class='v' href='#BAIOB'>BAIOB</a>; What happened to 1 .. 4 ??? At RVT, WVT ?
 2AC3:BB 33          056 <a class="d" id='2AC3' name='AVTOC' >AVTOC       </a>DW <a class="v" href="#VTOC"    >VTOC</a>         ; 6-ADR VTOC
 2AC5:BB 34          057 <a class='d' id='2AC5' name='AVOLDR'>AVOLDR      </a>DW <a class="v" href="#VOLDIR"  >VOLDIR</a>       ; 7-ADR VOLDIR
-2AC7:00 40          058 <a class="d" id='2aC7' name='AEND'  >AEND        </a>DW <a class="v" href="#ENDOFDOS">ENDOFDOS</a>     ;END OF DOS                     ; See <a class='v' href='#REPAGE'>REPAGE</a>
+2AC7:00 40          058 <a class="d" id='2AC7' name='AEND'  >AEND        </a>DW <a class="v" href="#ENDOFDOS">ENDOFDOS</a>     ;END OF DOS                     ; See <a class='v' href='#REPAGE'>REPAGE</a>
                     059 ;                                                           ; File Manager
 2AC9:7E 33          060 <a class='d' id='2AC9' name='CMDVT' >CMDVT       </a>DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>     ; 0-NULL                        ; [0] <a class='mem' name='_2AC9' coords='2'>wastes</a> 2 bytes &rarr; $B37E
 2ACB:21 2B          061 <meta                                 />            DW <a class='x' href='#FOPEN' >FOPEN</a>-<span class='n'>1</span>      ; 1-OPEN FILE                   ; [1]
@@ -5027,7 +5027,7 @@ With that "legalese" out of the way ... enjoy the read!
                     080 ;
                     081 <a class='f' name='GETSEC' >GETSEC      </a>EQU *
 3244:AD 51 35       082             LDA <a class='v' href='#DCBATK'>DCBATK</a>      ; GET ALLOCATED TRK
-3247:F0 21          <a class='line' name="FLOCSEC.83">083</a>             BEQ <a class="x" href="#GSS1"  >GSS1</a>        ; BR IF NONE                    ; DESIGN FLAW: Can't store file on track 0 !
+3247:F0 21          <a class='line' name="FLOCSEC.83">083</a>             BEQ <a class="x" href="#GSS1"  >GSS1</a>        ; BR IF NONE                    ; <span class='bug'>DESIGN FLAW:</span> Can't store file on track 0 !
                     084 ;
                     085 <a class='f' name='GS0'    >GS0         </a>EQU *
 3249:CD F0 35       086             DEC <a class='v' href='#DCBALS'>DCBALS</a>      ; DECREMENT SECTOR NO
@@ -5295,7 +5295,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     019 <a class="d" name="VML"   >VML         </a>EQU *-<a class="v" href="#VOLMES">VOLMES</a>-1                                  ; Used by File <a class="file" href="#FDELCAT">FDELCAT</a>, Func <a class="x" href="#RDIR">RDIR</a>, Line <a class='line' href='#FDELCAT.113'>113</a>
                     020             PAGE                                            ;
                     021 ;VTOC RECORD AREA                                           ; === VTOC ===
-                    022 <a class="d" id=33BB' name="VTOC"  >VTOC        </a>EQU *                                           ; <a class='ts'>T11S0</a> [offset], Right side = normal snarky commentary
+                    022 <a class='d' id='33BB' name='VTOC'  >VTOC        </a>EQU *                                           ; <a class='ts'>T11S0</a> [offset], Right side = normal snarky commentary
 33BB:04             <a class="line" name="FVCBUFS.023">023</a> <a class="d" id='33BB' name="VDOST" >VDOST       </a>DFB 4           ; DOS TYPE                      ; [00] <a class='struct' name='_33BB'>wastes</a> 1 byte -- never referenced !
                                                                                     ;      <a class='magic' name='#_33BC'>magic number</a> /sarcasm If only <span class='code'>FILESYSTEM_TYPE_VTOC EQU $4</span>
 33BC:11             024 <a class='d' id='33BC' name="VDIRTK">VDIRTK      </a>DFB 17          ; COLUME DIRECTORY SECTOR       ; [01] *spelling* VOLUME, *sigh* <b>TRACK</b> not <i>sector</i> -- <b>read</b> the bloody variable name!
@@ -5403,15 +5403,15 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     051 ;
                     052 ;VOLUME DIRECTORY AREA                                      ; 
                     053 ;                                                           ; [--] <a class='ts'>T11SF</a> offsets === <a class='section' name='CATALOG'>CATALOG</a> ===<hr class='page'>
-                    054 <a class="d" name="VOLDIR"   >VOLDIR      </a>EQU *           ;                               ; === Page <a class="page" name="page87">87</a> ===
-34BB:02             055 <a class="d" name="VDTCDE"   >VDTCDE      </a>DFB 2           ; VOLUME DIRECTORY TYPE CODE    ; [00] <a class='struct' name='_34BB'>wastes</a> 1 byte -- and not even used !?!?!
+                    054 <a class="d" id='34BB' name="VOLDIR"   >VOLDIR      </a>EQU *           ;                               ; === Page <a class="page" name="page87">87</a> ===
+34BB:02             055 <a class="d" id='34BB' name="VDTCDE"   >VDTCDE      </a>DFB 2           ; VOLUME DIRECTORY TYPE CODE    ; [00] <a class='struct' name='_34BB'>wastes</a> 1 byte -- and not even used !?!?!
                                                                                     ; <a class='magic' name='_34BC'>magic number</a> /sarcasm If only <span class='code'>FILESYSTEM_TYPE_CATALOG EQU $02</span>
-34BC:FD             056 <a class="d" name="VDLTRK"   >VDLTRK      </a>DS 1            ; VD LINK TRACK                 ; [01] ($11)
-34BD:FC             057 <a class="d" name="VDLSEC"   >VDLSEC      </a>DS 1            ; VD LINK SECTOR                ; [02] ($0E)
-34BE:FC             058 <a class="d" name="VDNF"     >VDNF        </a>DS 1            ; VD NUMBER FILES THIS SECTOR   ; [03] <a class='struct' name='#_34BE'>wastes</a> 1 byte -- never referenced
-34BF:FC FD FC FD    059 <a class="d" name="VDSPAR"   >VDSPAR      </a>DS 7            ; SPARES                        ; [04] <a class='struct' name='#_34BF'>wastes</a> 7 bytes -- never referenced
+34BC:FD             056 <a class="d" id='34BC' name="VDLTRK"   >VDLTRK      </a>DS 1            ; VD LINK TRACK                 ; [01] ($11)
+34BD:FC             057 <a class="d" id='34BD' name="VDLSEC"   >VDLSEC      </a>DS 1            ; VD LINK SECTOR                ; [02] ($0E)
+34BE:FC             058 <a class="d" id='34BE' name="VDNF"     >VDNF        </a>DS 1            ; VD NUMBER FILES THIS SECTOR   ; [03] <a class='struct' name='#_34BE'>wastes</a> 1 byte -- never referenced
+34BF:FC FD FC FD    059 <a class="d" id='34BF' name="VDSPAR"   >VDSPAR      </a>DS 7            ; SPARES                        ; [04] <a class='struct' name='#_34BF'>wastes</a> 7 bytes -- never referenced
 34C3:FD FC FC       060 ;                                                           ;      /sarcasm Glad to see this was put to <i>good</i> use ... NOT!
-                    061 <a class="d" name="VDFILE"   >VDFILE      </a>EQU *           ; FILE ALLOCATION AREA (7 FILES); [0B] NO, this is the _not_ the allocation; this is the *meta* data
+                    061 <a class="d" id='34C6' name="VDFILE"   >VDFILE      </a>EQU *           ; FILE ALLOCATION AREA (7 FILES); [0B] NO, this is the _not_ the allocation; this is the *meta* data
                     062 ;EACH FILE:                                                 ; What can't do <span class='code'>DSECT VDFILE</span> *note* indented "struct FileEntry" for readability
                     063 ;  FILE DIR TRK                                             ;     DFB CAT_FILE_TRACK    ;[00] (0) inode (FILDIR) track
                     064 ;  FILE DIR SECTOR                                          ;     DFB CAT_FILE_SECTOR   ;[01] (1) inode (FILDIR) sector
@@ -5556,16 +5556,16 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     142 ;FILE CONTROL BLOCK (FCB) DEFINITION
                     143 ;DCB - FILE DATA CONTROL BLOCK
                     144 ;
-                    145 <a class='f' name='FCB'      >FCB         </a>EQU *
+                    145 <a class='d' id='35D1' name='FCB'      >FCB         </a>EQU *
                     146 ;
                     147 ;DATA CONTROL BLOCK
                     148 ;
-                    149 FCBDCB      EQU *
-35D1:FC             150 <a class='d' name='DCBFDT'     >DCBFDT      </a>DS 1            ; 1ST FILE DIRECTORY TRACK      ; [00]
-35D2:FC             151 <a class='d' name='DCBFDS'     >DCBFDS      </a>DS 1            ; 1ST FILE DIRECTORY SECTOR     ; [01]
-35D3:FF             152 <a class='d' name='DCBCDT'     >DCBCDT      </a>DS 1            ; CURRENT FILE DIRECTORY TRACK  ; [02]
-35D4:FC             153 <a class='d' name='DCBCDS'     >DCBCDS      </a>DS 1            ; CURRENT FILE DIRECTORY SECTOR ; [03]
-35D5:FC             154 <a class='d' name='DCBWRF'     >DCBWRF      </a>DS 1            ; WRITE REQD FLAG               ; [04]
+                    149 <a class='d' id='35D1' name='FCBDCB'   >FCBDCB      </a>EQU *
+35D1:FC             150 <a class='d' id='35D1' name='DCBFDT'   >DCBFDT      </a>DS 1            ; 1ST FILE DIRECTORY TRACK      ; [00]
+35D2:FC             151 <a class='d' id='35D2' name='DCBFDS'   >DCBFDS      </a>DS 1            ; 1ST FILE DIRECTORY SECTOR     ; [01]
+35D3:FF             152 <a class='d' id='35D3' name='DCBCDT'   >DCBCDT      </a>DS 1            ; CURRENT FILE DIRECTORY TRACK  ; [02]
+35D4:FC             153 <a class='d' id='35D4' name='DCBCDS'   >DCBCDS      </a>DS 1            ; CURRENT FILE DIRECTORY SECTOR ; [03]
+35D5:FC             154 <a class='d' id='35D5' name='DCBWRF'   >DCBWRF      </a>DS 1            ; WRITE REQD FLAG               ; [04]
                     155 ;$80=WRITE FILE DIR
                     156 ;$40=WRITE SECTOR DIR
 35D6:FF             157 <a class='d' name='DCBTRK'     >DCBTRK      </a>DS 1            ; SECTOR TRACK ADR              ; [05]
@@ -5582,7 +5582,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 35E8:FC FF          168 <a class="d" name="DCBRCL"     >DCBRCL      </a>DS 2            ; RECORD LENGTH                 ; [17]
 35EA:FC FC          169 <a class="d" name="DCBCRR"     >DCBCRR      </a>DS 2            ; CURRENT RELATIVE REC          ; [19]
 35EC:FC FF          170 <a class="d" name="DCBCRB"     >DCBCRB      </a>DS 2            ; CURRENT RELATIVE BYTE         ; [1B]
-35EE:FC FC          171 <a class="d" name="DCBNSA"     >DCBNSA      </a>DS 2            ; NO SECTORS ALLOCATED          ; [1D]
+35EE:FC FC          171 <a class="d" name="DCBNSA"     >DCBNSA      </a>DS 2            ; NO SECTORS ALLOCATED          ; [1D] Number of Sectors Allocated
                     172 ;
 35F0:FD             173 <a class="d" id='35F0' name="DCBALS"     >DCBALS      </a>DS 1            ; ALLOCATION SECTOR BYTE        ; [1F]
 35F1:FC             174 <a class="d" id='35F1' name="DCBATK"     >DCBATK      </a>DS 1            ; ALLOCATION TRACK              ; [20]
@@ -5594,21 +5594,21 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 35F9:FE             180 <a class="d" id='35F9' name="DCBVOL"     >DCBVOL      </a>DS 1            ; VOLUME DRIVER                 ; [28]
 35FA:FD             181 <a class="d" id='35FA' name="DCBVTN"     >DCBVTN      </a>DS 1            ; VTOC TRACK NUMBER             ; [29] Why isn't this <span class='code'>DFB 17</span>?? See <a class='x' href='#F01A'>F01A</a>
                     182 ;
-35FB:FC FD FC       183 <a class="d" id='35FB' name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; [2A] <a class='mem' name='_35fb' coords='3'>wastes</a> 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *unused*
+35FB:FC FD FC       183 <a class="d" id='35FB' name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; [2A] <a class='mem' name='_35fb' coords='3'>wastes</a> 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *<span class='unused'>unused</span>*
                     184 ;
-    =2D             185 <a class='e' id='002D' name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH                    ;=$2D
-    =2D             <a class='line' name='FVCBUFS.186'>186</a> <a class="e" id='002E' name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH                    ; = $35FE - $35D1 = $2D
+                    185 <a class='e' id='002D' name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH                    ; $2D = $35FE - $35D1 = $002D, used in exactly 1 place <a class='x' href='#DCBSUP'>DCBSUP</a>
+                    <a class='line' name='FVCBUFS.186'>186</a> <a class="e" id='002E' name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH                    ; $2D = $35FE - $35D1 = $002D
                     187 ;
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="BOOTLDR">BOOTLDR</a> - Boot loader, Page <a class="page" name="page8">8</a>, <a class='ts' href='#T0S0'>T0S0</a> - <a class='ts' href='#T0S1'>T0S1</a>, $<span class='n'>B5FE</span> .. $<span class='n'>B7FF</span> ===<hr class='join'><hr></div>
 <pre>
                     001 <meta                                 />            SBTL '16-SECTOR DOS BOOT'
-    =FE             002 <a class='d' id='35FE' name='HERE3L'   >HERE3L      </a>EQU &gt;*                                          ; End of FVCBUFS = $35FD, * = $35FE
-    =02             003 <a class='d' id='0002' name='REMDR3'   >REMDR3      </a>EQU 256-HERE3L                                  ; Remainder 2 bytes for page alignment
-35FE:FD FE          004 <meta                                 />            ORG *+<a class="v" href="#REMDR3">REMDR3</a>                                    ; <a class='mem' name='_35fe' coords='2'>wastes</a> 2 bytes to page align BOOTLDR
-     =3600          005 <a class="d" id='3600' name='TRK0LDR'  >TRK0LDR     </a>EQU *
-                    006 <meta                                 />    DO &gt;<a class="do" href="#TRK0LDR">TRK0LDR</a><span class="macro">                    ; Low byte of address controls if macro is on/off
+                    002 <a class='d' id='35FE' name='HERE3L'   >HERE3L      </a>EQU &gt;*                                          ;   $FE End of FVCBUFS = $35FD, * = $35FE
+                    003 <a class='d' id='0002' name='REMDR3'   >REMDR3      </a>EQU 256-HERE3L                                  ;   $02 Remainder 2 bytes for page alignment
+35FE:FD FE          004 <meta                                 />            ORG *+<a class="v" href="#REMDR3">REMDR3</a>                                    ; $3600 <a class='mem' name='_35fe' coords='2'>wastes</a> 2 bytes to page align BOOTLDR
+                    005 <a class="d" id='3600' name='TRK0LDR'  >TRK0LDR     </a>EQU *
+                    006 <meta                                 />    DO &gt;<a class="do" href="#TRK0LDR">TRK0LDR</a>                                             ; Low byte of address controls if macro is on/off<span class='macro'>
                     007 <meta                                 />        ???                 ;DELIBERATE ERROR IF NOT AT PAGE BOUNDARY</span>
                     008 <meta                                 />    FIN
                     009 ***************************
@@ -5639,15 +5639,15 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     034 *  DOS IMAGE INTO MEMORY. *
                     035 *                         *
                     036 ***************************
-    =0026           037 <a class='d' id='0026' name="POINTA"   >POINTA      </a>EQU $26         ;BUFFER POINTER
-    =002B           038 <a class='d' id='002B' name="BSLOT"    >BSLOT       </a>EQU $2B         ;BOOT BSLOT
-    =003D           039 <a class='d' id='003D' name="BSECTR"   >BSECTR      </a>EQU $3D         ;LAST BSECTR READ
-    =003E           040 <a class='d' id='003E' name="BTEMP"    >BTEMP       </a>EQU $3E         ;ADDRESS BTEMP
-    =005C           041 <a class='d' id='005C' name="BRETRY"   >BRETRY      </a>EQU $5C         ;OFFSET TO READER
+                    037 <a class='d' id='0026' name="POINTA"   >POINTA      </a>EQU $26         ;BUFFER POINTER
+                    038 <a class='d' id='002B' name="BSLOT"    >BSLOT       </a>EQU $2B         ;BOOT BSLOT
+                    039 <a class='d' id='003D' name="BSECTR"   >BSECTR      </a>EQU $3D         ;LAST BSECTR READ
+                    040 <a class='d' id='003E' name="BTEMP"    >BTEMP       </a>EQU $3E         ;ADDRESS BTEMP
+                    041 <a class='d' id='005C' name="BRETRY"   >BRETRY      </a>EQU $5C         ;OFFSET TO READER
                     042 *
-    =FB2F           043 <a class="f" id='FB2F' name="MONINIT"  >MONINIT     </a>EQU $<span class='e'>FB2F</span>       ;MONINIT SCREEN
-    =00             044 <a class='e' id='0000' name="BHERE3"   >BHERE3      </a>EQU &gt;*                                          ; unused, <a class="do" href="#TRK0LDR">TRK0LDR</a> already used to test page alignment.
-    =0800           045 <a class='d' id='0800' name="BOOTCNT"  >BOOTCNT     </a>EQU $800+<a class='v' href="#BHERE3">BHERE3</a>                                 ; unused but used as placeholder for P6 ROM
+                    043 <a class="f" id='FB2F' name="MONINIT"  >MONINIT     </a>EQU $<span class='e'>FB2F</span>       ;MONINIT SCREEN
+                    044 <a class='e' id='0000' name="BHERE3"   >BHERE3      </a>EQU &gt;*                                          ; <span class='unused'>unused</span> $00, <a class="do" href="#TRK0LDR">TRK0LDR</a> already used to test page alignment.
+                    045 <a class='d' id='0800' name="BOOTCNT"  >BOOTCNT     </a>EQU $800+<a class='v' href="#BHERE3">BHERE3</a>                                 ; <span class='unused'>unused</span> but used as placeholder for P6 ROM
 3600:01             046             DFB <span class='n'>01</span>                                          ; We <b>could</b> store $10 here to have the P6 PROM read <i>16 sectors</i> but nah,
                     047             PAGE                                            ; let's waste $839-$801 = $38 (56) bytes instead!
 3601:A5 27          048             LDA <a class="v" href="#POINTA">POINTA</a>+<span class='n'>1</span>    ;WHERE DID BSECTR GET LOADED?   ;[.. <a class='mem' name='_3601' coords='56'>wastes</a> 56 bytes; Get memory page of last load
@@ -5663,7 +5663,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 360B:4A             058             LSR A                                           ; ..
 360C:4A             059             LSR A                                           ; ..
 360D:09 C0          060             ORA #$<span class='n'>C0</span>                                        ; ..
-360F:85 3F          061             STA <a class='v' href='#BTEMP'>BTEMP</a>+<span class='n'>1</span>                                     ; ..
+360F:85 3F          061             STA <a class='v' href='#BTEMP'>BTEMP</a>+<span class='n'>1</span>                                     ; .. <a class='magic' name='_3610'>magic number</a> <span class='code'>IO_SLOT_PAGE EQU $C0</span>
 3611:A9 5C          062             LDA #<a class='v' href='#BRETRY'  >BRETRY</a>     ; PROM ROUTINE OFFSET           ; ..
 3613:85 3E          063             STA <a class='v' href='#BTEMP'>BTEMP</a>                                       ; ..
 3615:18             064             CLC             ;BUMP LOAD ADDRESS UP TO        ; ..
@@ -5688,20 +5688,20 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3642:20 93 FE       083             JSR <a class='x' href='#SETVID'   >SETVID</a>      ; AND PR#X
 3645:20 2F FB       084             JSR <a class='x' href='#MONINIT'  >MONINIT</a>     ;MONINIT THE SCREEN PARAMS
 3648:A6 2B          085             LDX <a class='v' href='#BSLOT'    >BSLOT</a>       ;PASS BSLOT NBR TO LOADER
-364A:6C FD 08       086             JMP (<a class='v' href='#LOADADDR'>LOADADDR</a>)  ;OFF TO LOOADER!                ; *spelling* Loader
+364A:6C FD 08       086             JMP (<a class='v' href='#LOADADDR'>LOADADDR</a>)  ;OFF TO LOOADER!                ; *<span class='spell'>spelling</span>* Loader
                     087 * TABLE OF PHYSICAL BSECTR NUMBERS
                     088 *  WHICH CORRESPOND TO THE LOGICAL
                     089 *  BSECTRS 0-F ON TRACK ZERO...
-    =4D             090 <a class='e' id='004D' name='BHERE2'   >BHERE2      </a>EQU &gt;*                                          ; low byte (modern assemblers reverse this)
-    =084D           091 <a class='d' id='084D' name='TABLE'    coords='16'>TABLE       </a>EQU $800+<a class='v' href='#BHERE2'  >BHERE2</a>                                 ; Our native address is $3600 but also loaded at $0800
+                    090 <a class='e' id='004D' name='BHERE2'   >BHERE2      </a>EQU &gt;*                                          ; $4D low byte (modern assemblers use <span class='code'>&gt;</span> as high byte meaning)
+                    091 <a class='d' id='084D' name='TABLE'    coords='16'>TABLE       </a>EQU $800+<a class='v' href='#BHERE2'  >BHERE2</a>                                 ; $084D Our native address is $3600 but also loaded at $0800
                                                                                     ;
                                                                                     ; This is one time where you <b>don't</b> want to compact lines
                                                                                     ; <b>Problem</b>: Compare &amp; contrast this clusterfrak
-364D:00 0D 0B       092             DFB $<span class='n'>00</span>,<span class='n'>13</span>,<span class='n'>11</span>   ;00-&gt;00,01-&gt;13,02-&gt;11           ;    <i>WHY</i> is this grouped in triplets???    *sigh* inconsistent <span class='code'>$00</span> code
-3650:09 07 05       093             DFB <span class='n'>09</span>,<span class='n'>07</span>,<span class='n'>05</span>    ;03-&gt;09,04-&gt;07;05-&gt;05           ;    We have a sector interleave of <b>two</b>!   *sigh* inconsistent: <span class='code'>;</span> comment
+364D:00 0D 0B       092             DFB $<span class='n'>00</span>,<span class='n'>13</span>,<span class='n'>11</span>   ;00-&gt;00,01-&gt;13,02-&gt;11           ;    <i>WHY</i> is this grouped in triplets???    *<i>sigh</i>* inconsistent <span class='code'>$00</span> code
+3650:09 07 05       093             DFB <span class='n'>09</span>,<span class='n'>07</span>,<span class='n'>05</span>    ;03-&gt;09,04-&gt;07;05-&gt;05           ;    We have a sector interleave of <b>two</b>!   *<i>sigh</i>* inconsistent: <span class='code'>;</span> comment
 3653:03 01 0E       094             DFB <span class='n'>03</span>,<span class='n'>01</span>,<span class='n'>14</span>    ;06-&gt;03,07-&gt;01,08-&gt;14           ;    The last line having an even number
 3656:0C 0A 08       095             DFB <span class='n'>12</span>,<span class='n'>10</span>,<span class='n'>08</span>    ;09-&gt;12,10-&gt;10,11-&gt;08           ;    of terms wasn't your first clue!?!
-3659:06 04 02 0F    096             DFB <span class='n'>06</span>,<span class='n'>04</span>,<span class='n'>02</span>,<span class='n'>15</span> ;12-&gt;6,13-&gt;04,14-&gt;02,15-&gt;15     ;                                          *sigh* inconsistent <span class='code'>6</span> comment
+3659:06 04 02 0F    096             DFB <span class='n'>06</span>,<span class='n'>04</span>,<span class='n'>02</span>,<span class='n'>15</span> ;12-&gt;6,13-&gt;04,14-&gt;02,15-&gt;15     ;                                          *<i>sigh</i>* inconsistent <span class='code'>6</span> comment
                                                                                     ; <b>Solution</b>:
                                                                                     ;     LOG_TO_PHYS EQU *
                                                                                     ;                 DFB $0  ; [0]  0
@@ -5721,7 +5721,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                                                                                     ;                 DFB $2  ; [E]  2
                                                                                     ;                 DFB $F  ; [F] 15
                     097             PAGE
-                    098             REP 40                                          ; alias ****************************************
+                    098             REP 40                                          ; alias for <span class='code'>****************************************</span>
                     099 * APPEND BUG PATCHES
                     100 ****************************
                     101 <a class='d' id='365D' name='SC3'      >SC3         </a>EQU *
