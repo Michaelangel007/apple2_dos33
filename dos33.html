@@ -7789,32 +7789,32 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     246         STA TL3                                             </span>
                     247     FIN
                     248     LST ON
-                    249             LDY #$<span class='n'>01</span>        ;IS THIS A TWO-PHASE DISC?      ; <a class='magic' id='????'>magic number</a> <span class='todo'>TODO</span>
-                    250             LDA (DEVCTBL),Y
-                    251             ROR A           ;GET # OF PHASES INTO CARRY
-                    252             PLA
-                    253             BCC MYSEEK2     ;IF ONE PHASE PER TRACK
-                    254             ASL A
-                    255             JSR MYSEEK2
-                    256             LDA CURTRK      ;DIVIDE BACK DOWN
+3E5B:A0 01          249             LDY #$<span class='n'>01</span>        ;IS THIS A TWO-PHASE DISC?      ; <a class='magic' id='????'>magic number</a> <span class='todo'>TODO</span>
+3E5D:B1 3C          250             LDA (DEVCTBL),Y
+3E5F:6A             251             ROR A           ;GET # OF PHASES INTO CARRY
+3E60:68             252             PLA
+3E61:90 08          253             BCC MYSEEK2     ;IF ONE PHASE PER TRACK
+3E63:0A             254             ASL A
+3E64:20 6B 3E       255             JSR MYSEEK2
+3E67:4E 78 04       256             LDA CURTRK      ;DIVIDE BACK DOWN
                     257     LST OFF
                     258     DO <a class='do' href='#DIAGMOD'>DIAGMOD</a><span class='macro'>
                     259         LDA #SP                                             
                     260         STA TL3             ;SEEK DONE                      </span>
                     261     FIN
                     262     LST ON
-                    263             RTS
-                    264 <a class='f' id='????' name='MYSEEK2'     >MYSEEK2     </a>STA TRK         ;SAVE DESTINATION TRACK(*2)     ;
-                    265             JSR XTOY        ;SET Y=SLOT#
-                    266             LDA DRV1TRK,Y
-                    267             BIT DRIVNO
-                    268             BMI WASD0       ;IS MINUS, ON DRIVE ZERO
-                    269             LDA DRV2TRK,Y
-                    270 <a class='f' id='????' name='WASD0'       >WASD0       </a>STA CURTRK      ;THIS IS WHERE I AM             ; <i>Going to resist cheap shot here</i>
-                    271             LDA TRKN        ;AND WHERE I'M GOING TO         ; But I <b>will</b> point out crappy var names and better ones:
-                    272             BIT DRIVNO      ;NOW UPDATE SLOT DEPENDENT      ;   <span class='code'>SRC_TRK</span>
-                    273             BMI ISDRV1      ;LOCATIONS WITH TRACK           ;   <span class='code'>DST_TRK</span>
-                    274             STA DRV2TRK,Y   ;INFORMATION
+3E6A:60             263             RTS
+3E6B:85 2A          264 <a class='f' id='3E6B' name='MYSEEK2'     >MYSEEK2     </a>STA TRK         ;SAVE DESTINATION TRACK(*2)     ;
+3E6D:20 8E 3E       265             JSR XTOY        ;SET Y=SLOT#
+3E70:B9 78 04       266             LDA DRV1TRK,Y
+3E73:24 35          267             BIT DRIVNO
+3E75:30 03          268             BMI WASD0       ;IS MINUS, ON DRIVE ZERO
+3E77:B9 F8 04       269             LDA DRV2TRK,Y
+3E7A:8D 78 04       270 <a class='f' id='3E7A' name='WASD0'       >WASD0       </a>STA CURTRK      ;THIS IS WHERE I AM             ; <i>Going to resist cheap shot here</i>
+3E7D:A5 2A          271             LDA TRKN        ;AND WHERE I'M GOING TO         ; But I <b>will</b> point out crappy var names and better ones:
+3E7F:24 35          272             BIT DRIVNO      ;NOW UPDATE SLOT DEPENDENT      ;   <span class='code'>SRC_TRK</span>
+3E81:30 05          273             BMI ISDRV1      ;LOCATIONS WITH TRACK           ;   <span class='code'>DST_TRK</span>
+3E83:99 F8 04       274             STA DRV2TRK,Y   ;INFORMATION
 3E86:10 03          275             BPL <a class="x" href="#GOSEEK">GOSEEK</a>      ;ALWAYS TAKEN
 3E88:99 78 04       276 <a class='f' id='3E88' name='ISDRV1'      >ISDRV1      </a>STA DRV1TRK,Y
 3E8B:4C A0 B9       277 <a class='f' id='3E8B' name='GOSEEK'      >GOSEEK      </a>JMP <a class="x" href="#SEEK">SEEK</a>        ;GO THERE!
@@ -7967,67 +7967,67 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3F2B:84 3F          118             STY NSECT       SET 16 BYTES OF
 3F2D:A9 30          119             LDA #$30        SECTOR FOUND TABLE
 3F2F:8D 78 05       120             STA RETRYCNT    TO $30 (MARK THEM).             ; TEXT HOLE <span class='todo'>TODO</span> XREF with other screen holes
-                    121 CLRFOUND    STA FOUND,Y
-                    122             DEY
-                    123             BPl CLRFOUND
-                    124             LDY NSYNC
-                    125 S0DELAY     JSR WEXIT2
-                    126             JSR WEXIT2      (12) EXPECTED TO INSURE
-                    127             JSR WEXIT2      (12) PROPER GAP PRIOR SECTOR 0.
-                    128             PHA             (3)
-                    129             PLA             (4)
-                    130             NOP             (2)
-                    131             NOP             (2)
-                    132             DEY S0DELAY     (3)
-                    133             JSR RDADR16     ;READ NEXT ADDRESS FIELD.
-                    134             BCS S15LOC      ERR, LOCATE SECT 15 AND REWRITE TRK.
-                    135             LDA SECT        WAS IT SECTOR 0?
-                    136             BEQ VDATA       YES, NOW VERIFY DATA FIELD.
-                    137             LDA #$10                                        ; <a class='magic' id='????'>magic number</a> <span class='todo'>TODO</span>
-                    138             CMP NSYNC       DECR NSYNC BY 1 IF LESS THAN
-                    139             LDA NSYNC       16, BY 2 IF NOT LESS.
-                    140             SBC #1
-                    141             STA NSYNC
-                    142             CMP #5          IF LESS THAN 5, UNRECOVERABLE
-                    143             BCS S15LOC      ERR, ELSE REWRITE AFTER DATA FLD 15.
-                    144 VERR        SEC             DRIVE EXTREMELY FAST OR
-                    145             RTS             OTHER SEVERE ERROR.
-                    146 VSECT       JSR RDADR16     ;READ AN ADDRESS FIELD.
-                    147             BCS VERR1       RETRY IF ERR.
-                    148 VDATA       JSR READ16      ;READ DATA FIELD.
-                    149             BCC SECTOK      (GOOD)
-                    150 VERR1       DEC RETRYCNT    NEXT OF 48 SECTOR TRIES.
-                    151             BNE VSECT       (KEEP TRYING)
-                    152 S15LOC      JSR RDADR16     ;READ ADDRESS FIELD.
-                    153             BCS NOTS15      ERR, TRY UP TO 128 TIMES.
-                    154             LDA SECT        SECTOR THAT WAS READ.
-                    155             CMP #$F         SECTOR 15?                      ; <a class='magic' id='????'>magic number </a>VERIFY_REREAD_LAST_SEC
-                    156             BNE NOTS15      NO, CONTINUE SEARCHING.
-                    157             JSR READ16      ;READ DATA FIELD.               ; Why isn't this called READDATAHDR ???
-                    158             BCC WRITE TRACK FROM HERE IF NO ERR.            ; <i>Read 16 what?</i> <b>Oh, Read 16 Sector Data Field</b>
-                    159 NOTS15      DEC RETRYCNT    $FF TO $7F, 128 TRIES.
-                    160             BNE S15LOC      TRY FOR SECT 15 AGAIN.
-                    161             SEC             SET CARRY TO INDICATE VERIFY ERR.
-                    162 WEXIT2      RTS             AND RETURN TO FORMATTER.
-                    163 SECTOK      LDY SECT        THIS IS SECTOR READ.
-                    164             LDA FOUND,Y     ALREADY FOUND?
-                    165             BMI VERR1       YES, IGNORE IT.
-                    166             LDA #$FF                                        ; <a class='magic' id='????'>magic number</a> <span class='code'>FLAG_SECTOR_FOUND = 1</span>
-                    167             STA FOUND,Y     INDICATE THIS SECT NOW FOUND.
-                    168             DEC NSECT       FOUND 16 SECTORS?
-                    169             BPL VSECT       NO, LOOK FOR NEXT.
-                    170             LDA TRK
-                    171             BNE WEXIT1      IF TRACK 0 AND NSYNC &gt; 16       ;
-                    172             LDA NSYNC       (NUM GAP SYNC NIBLS)
-                    173             CMP #$10        THEN SUBTRACT 2 FROM NSYNC
-                    174             BCC WEXIT2      TO AVOID RETRIES ON LATER TRKS.
-                    175             DEC NSYNC
-                    176             DEC NSYNC
+3F32:99 A8 3F       121 CLRFOUND    STA FOUND,Y
+3F35:88             122             DEY
+3F36:10 FA          123             BPl CLRFOUND
+3F38:A4 45          124             LDY NSYNC
+3F3A:20 87 3F       125 S0DELAY     JSR WEXIT2
+3F3D:20 87 3F       126             JSR WEXIT2      (12) EXPECTED TO INSURE
+3F40:20 87 3F       127             JSR WEXIT2      (12) PROPER GAP PRIOR SECTOR 0.
+3F43:48             128             PHA             (3)
+3F44:68             129             PLA             (4)
+3F45:EA             130             NOP             (2)
+3F46:88             131             DEY             (2)
+3F47:D0 F1          132             DEY S0DELAY     (3)
+3F49:20 44 39       133             JSR RDADR16     ;READ NEXT ADDRESS FIELD.
+3F4C:B0 23          134             BCS S15LOC      ERR, LOCATE SECT 15 AND REWRITE TRK.
+3F4E:A5 2D          135             LDA SECT        WAS IT SECTOR 0?
+3F50:F0 15          136             BEQ VDATA       YES, NOW VERIFY DATA FIELD.
+3F52:A9 10          137             LDA #$10                                        ;&darr; <a class='magic' id='????'>magic number</a> <span class='todo'>TODO</span>
+3F54:C5 45          138             CMP NSYNC       DECR NSYNC BY 1 IF LESS THAN
+3F56:A5 45          139             LDA NSYNC       16, BY 2 IF NOT LESS.
+3F58:E9 01          140             SBC #1
+3F5A:85 45          141             STA NSYNC
+3F5C:C9 05          142             CMP #5          IF LESS THAN 5, UNRECOVERABLE
+3F5E:B0 11          143             BCS S15LOC      ERR, ELSE REWRITE AFTER DATA FLD 15.
+3F60:38             144 VERR        SEC             DRIVE EXTREMELY FAST OR
+3F61:60             145             RTS             OTHER SEVERE ERROR.
+3F62:20 44 39       146 VSECT       JSR RDADR16     ;READ AN ADDRESS FIELD.
+3F65:B0 05          147             BCS VERR1       RETRY IF ERR.                   ;&darr;
+3F67:20 DC 38       148 VDATA       JSR READ16      ;READ DATA FIELD.
+3F6A:90 1C          149             BCC SECTOK      (GOOD)                          ;&darr;
+3F6C:CE 78 05       150 VERR1       DEC RETRYCNT    NEXT OF 48 SECTOR TRIES.
+3F6F:D0 F1          151             BNE VSECT       (KEEP TRYING)                   ;&uarr;
+3F71:20 44 39       152 S15LOC      JSR RDADR16     ;READ ADDRESS FIELD.            ;&uarr;
+3F74:B0 0B          153             BCS NOTS15      ERR, TRY UP TO 128 TIMES.       ;&darr;
+3F76:A5 2D          154             LDA SECT        SECTOR THAT WAS READ.
+3F78:C9 0F          155             CMP #$F         SECTOR 15?                      ; <a class='magic' id='????'>magic number </a>VERIFY_REREAD_LAST_SEC
+3F7A:D0 05          156             BNE NOTS15      NO, CONTINUE SEARCHING.         ;&darr;
+3F7C:20 DC 38       157             JSR READ16      ;READ DATA FIELD.               ;<meta/>  Why isn't this called READDATAHDR ???
+3F7F:90 8C          158             BCC WRITE TRACK FROM HERE IF NO ERR.            ;&uarr; <i>Read 16 what?</i> <b>Oh, Read 16 Sector Data Field</b>
+3F81:CE 78 05       159 NOTS15      DEC RETRYCNT    $FF TO $7F, 128 TRIES.
+3F84:D0 EB          160             BNE S15LOC      TRY FOR SECT 15 AGAIN.          ;&uarr;
+3F86:38             161             SEC             SET CARRY TO INDICATE VERIFY ERR.
+3F87:60             162 WEXIT2      RTS             AND RETURN TO FORMATTER.
+3F88:A4 2D          163 SECTOK      LDY SECT        THIS IS SECTOR READ.
+3F8A:B9 A8 2F       164             LDA FOUND,Y     ALREADY FOUND?
+3F8D:30 DD          165             BMI VERR1       YES, IGNORE IT.
+3F8F:A9 FF          166             LDA #$FF                                        ; <a class='magic' id='????'>magic number</a> <span class='code'>FLAG_SECTOR_FOUND = 1</span>
+3F91:99 A8 3F       167             STA FOUND,Y     INDICATE THIS SECT NOW FOUND.
+3F94:C6 3F          168             DEC NSECT       FOUND 16 SECTORS?
+3F96:10 CA          169             BPL VSECT       NO, LOOK FOR NEXT.
+3F98:A5 44          170             LDA TRK
+3F9A:D0 0A          171             BNE WEXIT1      IF TRACK 0 AND NSYNC &gt; 16       ;
+3F9C:A5 45          172             LDA NSYNC       (NUM GAP SYNC NIBLS)
+3F9E:C9 10          173             CMP #$10        THEN SUBTRACT 2 FROM NSYNC
+3FA0:90 E5          174             BCC WEXIT2      TO AVOID RETRIES ON LATER TRKS.
+3FA2:C6 45          175             DEC NSYNC
+3FA4:C6 45          176             DEC NSYNC
 3FA6:18             177 WEXIT1      CLC             INDICATE NO ERROR.
 3FA7:60             178             RTS             RETURN.<hr class='page'>
-                    179 ******************************                              ; === Page <a class='page' name='page85'>85</a> ===
-                    180 <a class='d' id='3FA8' name='AEC2'     >AEC2        </a>EQU *           ;TELL RELOCTR WHERE RWTS ENDS
-                    181 ******************************
+                    179 <meta                                 />******************************                              ; === Page <a class='page' name='page85'>85</a> ===
+                    180 <a class='d' id='3FA8' name='AEC2'     >AEC2        </a>EQU              * ;TELL RELOCTR WHERE RWTS ENDS
+                    181 <meta                                 />******************************
 3FA8:00 00 00 00    182 <a class='d' id='3FA8' name='FOUND'    >FOUND       </a>DFB 0,0,0,0     'SECTOR FOUND' TABLE            ;[.. <a class='disk' coords='16'>wastes</a> 16 bytes -- these are always cleared before used <a class='x' href='#CLRFOUND'>CLRFOUND</a>, See: <a class='x' href='#SECTOK'>SECTOK</a>
 3FAC:00 00 00 00    183             DFB 0,0,0,0                                     ; .. <span class='todo'>TODO</span> DOS 3.3 1980 has these as $FF
 3FB0:00 00 00 00    184             DFB 0,0,0,0                                     ; ..
