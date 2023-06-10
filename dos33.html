@@ -7859,7 +7859,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     010 <a class="d" name="NSYNC"      >NSYNC       </a>EQU $45         ;NUM GAP SELF-SYNC NIBLS        ; No, not the 90's band
                     011 *
                     012             REP 40
-                    013 <a class="f" name="DSKFORM"    >DSKFORM     </a>EQU *
+                    013 <a class='f' id='3EAF' name='DSKFORM'    >DSKFORM     </a>EQU *
                     <a class='line' name='FORMATR.014'>014</a>     DO <a class="do" href="#DIAGMOD">DIAGMOD</a>              ;ELIMINATE FMTR FROM DIAG ASSEMBLY<span class="macro">
                     015         LST OFF                                             </span>
                     016     ELSE
@@ -7871,43 +7871,43 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3EB9:A0 56          022             LDY #$<span class='n'>56</span>                                        ; <a class='magic' name='_????'>magic number</a>
 3EBB:A9 00          023             LDA #<span class='n'>0</span>
 3EBD:85 44          024             STA TRK         TRACK NUMBER, 0 TO 34
-3EBF:99 FF BB       025 <a class='f' name='CLRNBUF2' >CLRNBUF2    </a>STA NBUF2-1,Y   CLEAR NBUFS TO WRITE
+3EBF:99 FF BB       025 <a class='f' id='3EBF' name='CLRNBUF2' >CLRNBUF2    </a>STA NBUF2-1,Y   CLEAR NBUFS TO WRITE
 3EC2:88             026             DEY             ZERO SECTORS
-                    027             BNE CLRNBUF2
-                    028 <a class='f' name='CLRNBUF1' >CLRNBUF1    </a>STA NBUF1,Y
-                    029             DEY
-                    030             BNE CLRNBUF1                                    ;
-                    031             LDA #$50                                        ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> <span class='code'>FORMAT_LAST_TRACK EQU 40*2   ; *2 = 2 phases/track</span>
-                    032             JSR SETTRK      FAKE LIKE ON TRACK 80.
-                    033             LDA #$28                                        ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> <span class='code'>FORMAT_SECTOR_GAP EQU 40</span>
-                    034             STA NSYNC       BEGIN WITH 40 SELF-SYNC NIBLS.
-                    035 <a class='f' name='FORMTRK'  >FORMTRK     </a>LDA TRK
-                    036             JSR MYSEEK      GOTO NEXT TRACK.
-                    037             JSR WTRACK16    WRITE AND VERIFY TRACK.
-                    038 <a class='f' name='FORMERR1' >FORMERR1    </a>LDA #8          'UNABLE TO FORMAT' ERR CODE.    ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span>
-                    039             BCS FORMERR     CONTINUE IF NO ERROR.
-                    040             LDA #$30        UP TO 48 SECTOR RETRIES         ; *sigh* <i>Why</i> _this_ value? <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> <span class='code'>FORMAT_MAX_RETRY EQU 48</span>
-                    041             STA RETRYCNT    TO FIND SECTOR 0.               ;        Also, why not in <i>decimal</i>??
-                    042 <a class='f' name='FINDS0'   >FINDS0      </a>SEC             ANTICIPATE 'UNABLE TO FORMAT'
-                    043             DEC RETRYCNT    DONE 48 RETRIES?
-                    044             BEQ FORMERR     IF SO, 'UNABLE TO FORMAT' ERR.
-                    045             JSR RDADR16     ;READ ADR FIELD.                ; *sigh* Inconsistent comment meta character
-                    046             BCS FINDS0      RETRY IF ERR.
-                    047             LDA SECT        CHECK SECTOR THAT WAS READ.
-                    048             BNE FINDS0      CONTINUE SEARCHING IF NOT SECT 0.
-                    049             JSR READ16      ;NOW READ DATA FIELD.           ; *sigh* Make up your mother falcon mind! <b>Always</b> use <span class='code'>;</span> or not!
-                    050             BCS FINDS0      CONTINUE SEARCH IF ERR.
+3EC3:D0 FA          027             BNE CLRNBUF2
+3EC5:99 00 3B       028 <a class='f' id='3EC5' name='CLRNBUF1' >CLRNBUF1    </a>STA NBUF1,Y
+3EC8:88             029             DEY
+3EC9:D0 FA          030             BNE CLRNBUF1                                    ;
+3ECB:A9 50          031             LDA #$50                                        ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> <span class='code'>FORMAT_LAST_TRACK EQU 40*2   ; *2 = 2 phases/track</span>
+3ECD:20 95 3E       032             JSR SETTRK      FAKE LIKE ON TRACK 80.
+3ED0:A9 28          033             LDA #$28                                        ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> <span class='code'>FORMAT_SECTOR_GAP EQU 40</span>
+3ED2:85 45          034             STA NSYNC       BEGIN WITH 40 SELF-SYNC NIBLS.
+3ED4:A5 44          035 <a class='f' id='3ED4' name='FORMTRK'  >FORMTRK     </a>LDA TRK
+3ED6:20 5A 3E       036             JSR MYSEEK      GOTO NEXT TRACK.
+3ED9:20 0D 3F       037             JSR WTRACK16    WRITE AND VERIFY TRACK.
+3EDC:A9 08          038 <a class='f' id='3EDC' name='FORMERR1' >FORMERR1    </a>LDA #8          'UNABLE TO FORMAT' ERR CODE.    ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span>
+3EDE:B0 24          039             BCS FORMERR     CONTINUE IF NO ERROR.
+3EE0:A9 30          040             LDA #$30        UP TO 48 SECTOR RETRIES         ; *sigh* <i>Why</i> _this_ value? <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> <span class='code'>FORMAT_MAX_RETRY EQU 48</span>
+3EE2:8D 78 05       041             STA RETRYCNT    TO FIND SECTOR 0.               ;        Also, why not in <i>decimal</i>??
+3EE5:38             042 <a class='f' id='3EE5' name='FINDS0'   >FINDS0      </a>SEC             ANTICIPATE 'UNABLE TO FORMAT'
+3EE6:CE 78 05       043             DEC RETRYCNT    DONE 48 RETRIES?
+3EE9:F0 19          044             BEQ FORMERR     IF SO, 'UNABLE TO FORMAT' ERR.
+3EEB:20 44 39       045             JSR RDADR16     ;READ ADR FIELD.                ; *sigh* Inconsistent comment meta character
+3EEE:B0 F5          046             BCS FINDS0      RETRY IF ERR.
+3EF0:A5 2D          047             LDA SECT        CHECK SECTOR THAT WAS READ.
+3EF2:D0 F1          048             BNE FINDS0      CONTINUE SEARCHING IF NOT SECT 0.
+3EF4:20 DC 38       049             JSR READ16      ;NOW READ DATA FIELD.           ; *sigh* Make up your mother falcon mind! <b>Always</b> use <span class='code'>;</span> or not!
+3EF7:B0 EC          050             BCS FINDS0      CONTINUE SEARCH IF ERR.
                     051 * (NOW POSITIONED PROPERLY FOR NEXT TRACK)                  ; Unknown if leading space after '*' should be 1 space, 1 tab, etc??
-                    052             INC TRK         INCREMENT TRACK NUMBER.         ; /sarcasm <i>Gee, George what does this do?</i>
-                    053             LDA TRK<hr class='page'>
-3EFD:C9 23          <a class='line' name='FORMATR.054'>054</a>             CMP #$23        CONTINUE IF LESS THEN 35        ; === Page <a class='page' name='page83'>83</a> === <a class='magic' name='_3EFE'>magic number</a> DISK_MAX_TRACK or at least <a class="v" href="#VNOTRK">VNOTRK</a>
+3EF9:E6 44          052             INC TRK         INCREMENT TRACK NUMBER.         ; /sarcasm <i>Gee, George what does this do?</i>
+3EFB:A5 44          053             LDA TRK                                         ; Code documents WHAT, <b>Comments document WHY</b><hr class='page'>
+3EFD:C9 23          <a class='line' id='3EFD' name='FORMATR.054'>054</a>             CMP #$23        CONTINUE IF LESS THEN 35        ; === Page <a class='page' name='page83'>83</a> === <a class='magic' name='_3EFE'>magic number</a> DISK_MAX_TRACK or at least <a class="v" href="#VNOTRK">VNOTRK</a>
 3EFF:90 D3          055             BCC <a class="x" href="#FORMTRK">FORMTRK</a>                                     ; === <a class='ts' href='#T0S9'>T0S9</a> ===
 3F01:18             056             CLC             CLEAR CARRY TO INDICATE 'NO ERR'<!--                                                               -->;[.. <span class='code'>JMP <a class='x' href='#ALLDONE'>ALLDONE</a></span>
 3F02:90 05          057             BCC <a class="x" href="#FORMDONE">FORMDONE</a>    ELSE TURN OFF MOTOR AND RETURN <!--                             --> ; ..
-3F04:A0 0D          058 <a class="f" name="FORMERR"    >FORMERR     </a>LDY #$0D                                       <!--                           --> ; .. <span class='code'>JMP <a class='x' href='#HNDLERR'>HNDLERR</a></span> <a class='magic' name='_3F05'>magic number</a> IOB_OFFSET_ERR = $D
+3F04:A0 0D          058 <a class='f' id='3F04' name='FORMERR'    >FORMERR     </a>LDY #$0D                                       <!--                           --> ; .. <span class='code'>JMP <a class='x' href='#HNDLERR'>HNDLERR</a></span> <a class='magic' name='_3F05'>magic number</a> IOB_OFFSET_ERR = $D
 3F06:91 48          059             STA (IOBPL),Y   RETURN ERROR CODE.             <!--                                                               --> ; .. <a class='mem' name='_3F0C' coords='6'>wastes</a> remaining 6 bytes.
 3F08:38             060             SEC             SET CARRY TO INDICATE ERR.     <!--                                                               --> ; .. We could invert the return value,
-3F09:AD 88 C0       061 <a class="f" name="FORMDONE"   >FORMDONE    </a>LDA <a class="v" href="#MOTOROFF">MOTOROFF</a>,X  ; TURN MOTOR OFF.               ; .. but there is a better optimization
+3F09:AD 88 C0       061 <a class='f' id='3F09' name='FORMDONE'   >FORMDONE    </a>LDA <a class="v" href="#MOTOROFF">MOTOROFF</a>,X  ; TURN MOTOR OFF.               ; .. but there is a better optimization
 3F0C:60             062             RTS             ; AND RETURN.                  <!--                                                               --> ; .. using the two JMPs above to reach common code in <a class='file' href='#RWTSTWO'>RWTSTWO</a> ]
                     063             PAGE
                     064 ******************************
@@ -7915,20 +7915,20 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     066 *   WRITE TRACK SUBROUTINE   *
                     067 *                            *
                     068 ******************************
-3F0D:A9 00          069 <a class="f" name="WTRACK16"    >WTRACK16    </a>LDA #0
+3F0D:A9 00          069 <a class='f' id='3F0D' name='WTRACK16'    >WTRACK16    </a>LDA #0
 3F0F:85 3F          070             STA NSECT       SECTOR NUMBER, 0 to 15.
 3F11:A0 80          071             LDY #128        ;128 NIBS PRIOR SECTOR 0
 3F13:D0 02          072             BNE WSECT0      ; TO INSURE NO BLANK SPOT BETW 15 &amp; 0
-3F15:A4 45          073 <a class="f" name="WSECT"       >WSECT       </a>LDY NSYNC       CURRENT NUM OF GAP SELF-SYNC NIBLS.
-                    074 <a class="f" name="WSET0"       >WSECT0      </a>EQU *
+3F15:A4 45          073 <a class='f' id='3F15' name='WSECT'       >WSECT       </a>LDY NSYNC       CURRENT NUM OF GAP SELF-SYNC NIBLS.
+                    074 <a class='f' id='3F17' name='WSECT0'      >WSECT0      </a>EQU *
 3F17:20 56 3C       075             JSR WADR16      WRITE GAP AND ADR FIELD.
 3F1A:B0 6B          076             BCS WEXIT2      ERR IF WRITE PROTECTED.
-                    077             JSR WRITE16     ;WRITE SECTOR FROM NBUF1, NBUF2
-                    078             BCS WEXIT2      ERR IF WRITE PROTECTED.
-                    079             INC NSECT       NEXT OF 16 SECTORS.
-                    080             LDA NSECT
-                    081             CMP #$<span class='n'>10</span>                                        ; What's the point of <a class="v" href="#VNOSEC">VNOSEC</a> in VTOC then?!?!
-                    082             BCC WSECT       CONTINUE IF NOT DONE.
+3F1C:20 2A 38       077             JSR WRITE16     ;WRITE SECTOR FROM NBUF1, NBUF2
+3F1F:B0 66          078             BCS WEXIT2      ERR IF WRITE PROTECTED.
+3F21:E6 3F          079             INC NSECT       NEXT OF 16 SECTORS.
+3F23:A5 3F          080             LDA NSECT
+3F25:C9 10          081             CMP #$<span class='n'>10</span>                                        ; What's the point of <a class="v" href="#VNOSEC">VNOSEC</a> in VTOC then?!?!
+3F27:90 EC          082             BCC WSECT       CONTINUE IF NOT DONE.
                     083             PAGE
                     084 *****************************
                     085 *                           *
@@ -7963,15 +7963,15 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     114 *                           *
                     115 *****************************<hr class='page'>
                     116             PAGE                                            ; === Page <a class="page" name="page84">84</a> ===
-3F29:A0 0F          117 VTRACK      LDY #$F                                         ; <a class='magic' id='3F2A'>magic number</a> <span class='todo'>TODO</span>
+3F29:A0 0F          117 <a class='f' id='3F29' name='VTRACK'   >VTRACK      </a>LDY #$F                                         ; <a class='magic' id='3F2A'>magic number</a> <span class='todo'>TODO</span>
 3F2B:84 3F          118             STY NSECT       SET 16 BYTES OF
 3F2D:A9 30          119             LDA #$30        SECTOR FOUND TABLE
 3F2F:8D 78 05       120             STA RETRYCNT    TO $30 (MARK THEM).             ; TEXT HOLE <span class='todo'>TODO</span> XREF with other screen holes
-3F32:99 A8 3F       121 CLRFOUND    STA FOUND,Y
+3F32:99 A8 3F       121 <a class='f' id='3F32' name='CLRFOUND' >CLRFOUND    </a>STA FOUND,Y
 3F35:88             122             DEY
 3F36:10 FA          123             BPl CLRFOUND
 3F38:A4 45          124             LDY NSYNC
-3F3A:20 87 3F       125 S0DELAY     JSR WEXIT2
+3F3A:20 87 3F       125 <a class='f' id='3F3A' name='S0DELAY'  >S0DELAY     </a>JSR WEXIT2
 3F3D:20 87 3F       126             JSR WEXIT2      (12) EXPECTED TO INSURE
 3F40:20 87 3F       127             JSR WEXIT2      (12) PROPER GAP PRIOR SECTOR 0.
 3F43:48             128             PHA             (3)
@@ -7990,26 +7990,26 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3F5A:85 45          141             STA NSYNC
 3F5C:C9 05          142             CMP #5          IF LESS THAN 5, UNRECOVERABLE
 3F5E:B0 11          143             BCS S15LOC      ERR, ELSE REWRITE AFTER DATA FLD 15.
-3F60:38             144 VERR        SEC             DRIVE EXTREMELY FAST OR
+3F60:38             144 <a class='f' id='3F60' name='VERR'     >VERR        </a>SEC             DRIVE EXTREMELY FAST OR
 3F61:60             145             RTS             OTHER SEVERE ERROR.
-3F62:20 44 39       146 VSECT       JSR RDADR16     ;READ AN ADDRESS FIELD.
+3F62:20 44 39       146 <a class='f' id='3F62' name='VSECT'    >VSECT       </a>JSR RDADR16     ;READ AN ADDRESS FIELD.
 3F65:B0 05          147             BCS VERR1       RETRY IF ERR.                   ;&darr;
-3F67:20 DC 38       148 VDATA       JSR READ16      ;READ DATA FIELD.
+3F67:20 DC 38       148 <a class='f' id='3F67' name='VDATA'    >VDATA       </a>JSR READ16      ;READ DATA FIELD.
 3F6A:90 1C          149             BCC SECTOK      (GOOD)                          ;&darr;
-3F6C:CE 78 05       150 VERR1       DEC RETRYCNT    NEXT OF 48 SECTOR TRIES.
+3F6C:CE 78 05       150 <a class='f' id='3F6C' name='VERR1'    >VERR1       </a>DEC RETRYCNT    NEXT OF 48 SECTOR TRIES.
 3F6F:D0 F1          151             BNE VSECT       (KEEP TRYING)                   ;&uarr;
-3F71:20 44 39       152 S15LOC      JSR RDADR16     ;READ ADDRESS FIELD.            ;&uarr;
+3F71:20 44 39       152 <a class='f' id='3F71' name='S15LOC'   >S15LOC      </a>JSR RDADR16     ;READ ADDRESS FIELD.            ;&uarr;
 3F74:B0 0B          153             BCS NOTS15      ERR, TRY UP TO 128 TIMES.       ;&darr;
 3F76:A5 2D          154             LDA SECT        SECTOR THAT WAS READ.
 3F78:C9 0F          155             CMP #$F         SECTOR 15?                      ; <a class='magic' id='????'>magic number </a>VERIFY_REREAD_LAST_SEC
 3F7A:D0 05          156             BNE NOTS15      NO, CONTINUE SEARCHING.         ;&darr;
 3F7C:20 DC 38       157             JSR READ16      ;READ DATA FIELD.               ;<meta/>  Why isn't this called READDATAHDR ???
 3F7F:90 8C          158             BCC WRITE TRACK FROM HERE IF NO ERR.            ;&uarr; <i>Read 16 what?</i> <b>Oh, Read 16 Sector Data Field</b>
-3F81:CE 78 05       159 NOTS15      DEC RETRYCNT    $FF TO $7F, 128 TRIES.
+3F81:CE 78 05       159 <a class='f' id='3F81' name='NOTS15'   >NOTS15      </a>DEC RETRYCNT    $FF TO $7F, 128 TRIES.
 3F84:D0 EB          160             BNE S15LOC      TRY FOR SECT 15 AGAIN.          ;&uarr;
 3F86:38             161             SEC             SET CARRY TO INDICATE VERIFY ERR.
-3F87:60             162 WEXIT2      RTS             AND RETURN TO FORMATTER.
-3F88:A4 2D          163 SECTOK      LDY SECT        THIS IS SECTOR READ.
+3F87:60             162 <a class='f' id='3F87' name='WEXIT2'   >WEXIT2      </a>RTS             AND RETURN TO FORMATTER.
+3F88:A4 2D          163 <a class='f' id='3F88' name='SECTOK'   >SECTOK      </a>LDY SECT        THIS IS SECTOR READ.
 3F8A:B9 A8 2F       164             LDA FOUND,Y     ALREADY FOUND?
 3F8D:30 DD          165             BMI VERR1       YES, IGNORE IT.
 3F8F:A9 FF          166             LDA #$FF                                        ; <a class='magic' id='????'>magic number</a> <span class='code'>FLAG_SECTOR_FOUND = 1</span>
@@ -8023,7 +8023,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3FA0:90 E5          174             BCC WEXIT2      TO AVOID RETRIES ON LATER TRKS.
 3FA2:C6 45          175             DEC NSYNC
 3FA4:C6 45          176             DEC NSYNC
-3FA6:18             177 WEXIT1      CLC             INDICATE NO ERROR.
+3FA6:18             177 <a class='f' id='3FA6' name='WEXIT1   '>WEXIT1      </a>CLC             INDICATE NO ERROR.
 3FA7:60             178             RTS             RETURN.<hr class='page'>
                     179 <meta                                 />******************************                              ; === Page <a class='page' name='page85'>85</a> ===
                     180 <a class='d' id='3FA8' name='AEC2'     >AEC2        </a>EQU              * ;TELL RELOCTR WHERE RWTS ENDS
@@ -8057,7 +8057,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     208 *  WRITING OF BOOT DURING 'INIT'
                     209 *  IS CORRECT FOR SECTOR ZERO.
                     210 *
-                    211 <a class="d" name="INRLEAV"    >INTRLEAV    </a>EQU *                                           ; *sigh*
+                    211 <a class="d" id='3FB8' name="INRLEAV"    >INTRLEAV    </a>EQU *                                           ; *sigh*
 3FB8:00 0D 0B 09    212             DFB $00,$0D,$0B,$09                             ; /sarcasm Here's a novel concept ...
 3FBC:07 05 03 01    213             DFB $07,$05,$03,$01                             ; How about *formatting* the sectors in the correct
 3FC0:0E 0C 0A 08    214             DFB $0E,$0C,$0A,$08                             ; order on the disk in the first place so we don't even
