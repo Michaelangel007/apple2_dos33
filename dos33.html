@@ -7617,7 +7617,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     075 *
 3DED:A4 2E          076 <a class="f" name="RDRIGHT"     >RDRIGHT     </a>LDY TRACK       ;ON THE RIGHT TRACK?
 3DEF:CC 78 04       077             CPY CURTRK
-3DF2:F0 1C          078             BEQ <a class="x" href="#RTTRK">RTTRK</a>       ;IF SO, GOOD                    ; v
+3DF2:F0 1C          078             BEQ <a class='x' href='#RTTRK'>RTTRK</a>       ;IF SO, GOOD                    ;&darr;
                     079 * NO, DRIVE WAS ON A DIFFERENT TRACK. TRY
                     080 * RESEEKING/RECALIBRATING FROM THIS TRACK
 3DF4:AD 78 04       081             LDA CURTRK      ;PRESERVE DESTINATION TRACK
@@ -7626,49 +7626,49 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3DF9:20 95 3E       084             JSR <a class="x" href="#SETTRK">SETTRK</a>
 3DFC:68             085             PLA
 3DFD:CE F8 04       086             DEC <a class="v" href="#SEKCNT">SEKCNT</a>      ;SHOULD WE RESEEK?
-3E00:D0 E5          087             BNE <a class="x" href="#RESEEK">RESEEK</a>      ;=&gt;YES, RESEEK                  ; ^ === <a class='ts' href='#T0S8'>T0S8</a> ===
-3E02:F0 CA          088             BEQ <a class="x" href="#RECAL" >RECAL</a>       ;=&gt;NO, RECALIBRATE!             ; ^
+3E00:D0 E5          087             BNE <a class="x" href="#RESEEK">RESEEK</a>      ;=&gt;YES, RESEEK                  ;&uarr; === <a class='ts' href='#T0S8'>T0S8</a> ===
+3E02:F0 CA          088             BEQ <a class="x" href="#RECAL" >RECAL</a>       ;=&gt;NO, RECALIBRATE!             ;&uarr;
                     089 ****
-3E04:68             090 <a class="f" name="DRVERR"      >DRVERR      </a>PLA             ;REMOVE CURTRK
-3E05:A9 40          091             LDA #<a class="v" href="#IBDERR">IBDERR</a>     ;BAD DRIVE ERROR
-3E07:28             092 <a class="f" name="JMPTO1"      >JMPTO1      </a>PLP
-3E08:4C 48 3E       093             JMP <a class="x" href="#HNDLERR">HNDLERR</a>
-3E0B:F0 39          094 <a class="f" name="GALLDONE"    >GALLDONE    </a>BEQ <a class="x" href="#ALLDONE">ALLDONE</a>                                     ; v
-3E0D:4C AF 3E       095 <a class="f" name="FORMDSK"     >FORMDSK     </a>JMP <a class="x" href="#DSKFORM">DSKFORM</a>     ;=&gt;GO TO IT!                    ; v
+3E04:68             090 <a class='f' id='3E04' name='DRVERR'      >DRVERR      </a>PLA             ;REMOVE CURTRK
+3E05:A9 40          091             LDA #<a class='v' href='#IBDERR'>IBDERR</a>     ;BAD DRIVE ERROR
+3E07:28             092 <a class='f' id='3E07' name='JMPTO1'      >JMPTO1      </a>PLP
+3E08:4C 48 3E       093             JMP <a class='x' href='#HNDLERR'>HNDLERR</a>
+3E0B:F0 39          094 <a class='f' id='3E0B' name='GALLDONE'    >GALLDONE    </a>BEQ <a class='x' href='#ALLDONE'>ALLDONE</a>                                     ;&darr;
+3E0D:4C AF 3E       095 <a class='f' id='3E0D' name='FORMDSK'     >FORMDSK     </a>JMP <a class='x' href='#DSKFORM'>DSKFORM</a>     ;=&gt;GO TO IT!                    ;&darr;
                     096 *
                     097 * DRIVE IS ON RIGHT TRACK, CHECK VOLUME MISMATCH
                     098 *
-3E10:A0 03          099 <a class="f" name="RTTRK"       >RTTRK       </a>LDY #3          ;IS THE RIGHT DISK IN?
-3E12:B1 48          100             LDA (<a class="v" href="#IOBPL"     >IOBPL</a>),Y   ;GET DESIRED VOLUM
+3E10:A0 03          099 <a class='f' id='3E10' name='RTTRK'       >RTTRK       </a>LDY #3          ;IS THE RIGHT DISK IN?
+3E12:B1 48          100             LDA (<a class="v" href='#IOBPL'     >IOBPL</a>),Y   ;GET DESIRED VOLUM
 3E14:48             101             PHA             ;PRESERVE DESIRED VOLUME#
-3E15:A5 2F          102             LDA <a class="v"  href="#VOLUME"    >VOLUME</a>      ;GET ACTUAL VOLUME HERE
+3E15:A5 2F          102             LDA <a class="v"  href='#VOLUME'    >VOLUME</a>      ;GET ACTUAL VOLUME HERE
 3E17:A0 0E          103             LDY #$<span class='n'>0E</span>        ;TELL OPSYS WHAT VOLUME WAS THERE ; <a class='magic' name='_3E17'>magic number</a> IOB_OFFSET_VOL = $E
-3E19:91 48          104             STA (<a class="v" href="#IOBPL"     >IOBPL</a>),Y
+3E19:91 48          104             STA (<a class='v' href='#IOBPL'     >IOBPL</a>),Y
 3E1B:68             105             PLA             ;GET DESIRED VOLUME BACK
-3E1C:F0 08          106             BEQ <a class="x"  href="#CORRECTVOL">CORRECTVOL</a>  ;DESIRED VOLUME 00 MATCHES ALL. ; v
-3E1E:C5 2F          107             CMP <a class="v"  href="#VOLUME"    >VOLUME</a>
-3E20:F0 04          108             BEQ <a class="x"  href="#CORRECTVOL">CORRECTVOL</a>  ;YUP, IT WAS RIGHT!             ; v
-3E22:A9 20          109             LDA #<a class="v" href="#IBVMME"    >IBVMME</a>     ;HE SWITCHED DISCS!
-3E24:D0 E1          110             BNE <a class="x"  href="#JMPTO1"    >JMPTO1</a>      ;ALWAYS TAKEN                   ; ^
-                    111 <a class=="f" name="CORRECTVOL" >CORRECTVOL  </a>EQU *
+3E1C:F0 08          106             BEQ <a class='x'  href='#CORRECTVOL'>CORRECTVOL</a>  ;DESIRED VOLUME 00 MATCHES ALL. ;&darr;
+3E1E:C5 2F          107             CMP <a class='v'  href='#VOLUME'    >VOLUME</a>
+3E20:F0 04          108             BEQ <a class='x'  href='#CORRECTVOL'>CORRECTVOL</a>  ;YUP, IT WAS RIGHT!             ;&darr;
+3E22:A9 20          109             LDA #<a class='v' href='#IBVMME'    >IBVMME</a>     ;HE SWITCHED DISCS!
+3E24:D0 E1          110             BNE <a class='x'  href='#JMPTO1'    >JMPTO1</a>      ;ALWAYS TAKEN                   ;&uarr;
+                    111 <a class='f' id='3E26' name='CORRECTVOL'  >CORRECTVOL  </a>EQU *
 3E26:A0 05          112             LDY #<span class='n'>5</span>                                          ; <a class='magic' name='_3E26'>magic number</a> IOB_OFFSET_SECTOR = $5
-3E28:B1 48          113             LDA (<a class="v" href="#IOBPL">IOBPL</a>),Y   ; TO ALLOW FOR INTERLEAVE
+3E28:B1 48          113             LDA (<a class='v' href='#IOBPL'>IOBPL</a>),Y   ; TO ALLOW FOR INTERLEAVE
 3E2A:A8             114             TAY
-3E2B:B9 B8 3F       115             LDA <a class="v" href="#INTRLEAV"   >INTRLEAV</a>,Y  ;COMPUTE PHYSICAL SECTOR        ; DOS Sector Interleave/Skew Mapping<hr class='page'>
-3E2E:C5 2D          116             CMP <a class="v" href="#SECT"   >SECT</a>        ;DID WE GET THE SECTOR?         ; === Page <a class="page" name="page124">124</a> ===
+3E2B:B9 B8 3F       115             LDA <a class='v' href="#INTRLEAV"   >INTRLEAV</a>,Y  ;COMPUTE PHYSICAL SECTOR        ; DOS Sector Interleave/Skew Mapping<hr class='page'>
+3E2E:C5 2D          116             CMP <a class='v' href='#SECT'   >SECT</a>        ;DID WE GET THE SECTOR?         ; === Page <a class="page" name="page124">124</a> ===
                     117     LST OFF
-                    118     DO <a class="do" href="#DIAGMOD">DIAGMOD</a><span class="macro">
+                    118     DO <a class='do' href='#DIAGMOD'>DIAGMOD</a><span class='macro'>
                     119         BEQ GOTSECT         ;=&gt;WE FOUND IT!                         
                     120         LDA #TC5            ;SAY 'LATENCY'                          
                     121         STA TL5                                                     
                     122         LDA SCOUNT          ;ARE WE WAITING FOR FIRST SECTOR?       
                     123         BEQ NOLAT           ;=&gt;YES, LATENCY UNPREDICTABLE ANYWAY    
                     124         INC LCOUNT          ;NO, COUNT SECTORS MISSED               
-                    125 <a class="f" name="NOLAT"       >NOLAT   </a>EQU *                                                       
+                    125 <a class='name' name='NOLAT'>NOLAT   </a>EQU *                                                       
                     126         JMP TRYADR2         ;NOW..GET CORRECT SECTOR..              </span>
                     127     ELSE
                     128     LST ON
-3E30:D0 97          129             BNE <a class="x" href="#TRYADR2">TRYADR2</a>     ;NO, KEEP TRYING.               ; ^
+3E30:D0 97          129             BNE <a class="x" href="#TRYADR2">TRYADR2</a>     ;NO, KEEP TRYING.               ;&uarr;
                     130     FIN
                     131 *
                     132 * HOORAY! WE GOT THE RIGHT SECTOR!
@@ -7682,7 +7682,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     140     FIN
                     141     LST ON
 3E32:28             142             PLP
-3E33:90 1C          143             BCC <a class="x" href="#WRIT">WRIT</a>        ;CARRY WAS SET FOR READ OPERATION. ; v
+3E33:90 1C          143             BCC <a class="x" href="#WRIT">WRIT</a>        ;CARRY WAS SET FOR READ OPERATION. ;&darr;
                     144     LST OFF
                     145     DO <a class="do" href="#DIAGMOD">DIAGMOD</a><span class="macro">
                     146         LDA #TC9            ;SAY 'READING'                  
@@ -7704,12 +7704,12 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     162         BCC <a class="name" href="#GOODREAD">GOODREAD</a>        ;NO ERROR                       
                     163         LDA #TC10           ;SAY 'READ ERROR'               
                     164         STA TL10                                            
-                    165         JMP <a class="x" href="#TRYADR2">TRYADR2</a>         ;RETRY ON ERROR                 
+                    165         JMP <a class='x' href='#TRYADR2'>TRYADR2</a>         ;RETRY ON ERROR                 
                     166 *                                                           
-                    167 <a class="name" name="GOODREAD">GOODREAD </a>EQU *                                              </span>
+                    167 <a class='name' name='GOODREAD'>GOODREAD </a>EQU *                                              </span>
                     168     ELSE
                     169     LST ON
-3E39:B0 8E          170             BCS <a class="x" href="#TRYADR2">TRYADR2</a>     ;CARRY SET UPON RETURN IF BAD READ ;  ^
+3E39:B0 8E          170             BCS <a class="x" href="#TRYADR2">TRYADR2</a>     ;CARRY SET UPON RETURN IF BAD READ ;&uarr;
                     171     FIN
 3E3B:28             172             PLP             ;CAREFUL OF STACK
 3E3C:A2 00          173             LDX #0          ;SET TO POSTNIBLIZE
