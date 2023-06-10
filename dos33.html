@@ -5887,17 +5887,17 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     238 <meta                                 />* LOAD ADDRESS FOR CODE (PG BDY)
                     239 <meta                                 />* ENTRY AFTER BOOT IS AT LOADADDR+256 (SECOND PAGE LOADED)
                     240 <meta                                 />*
-    =FD             241 <a class='d' id='36FD' name='BHERE4'   >BHERE4      </a>EQU &gt;*<hr class='page'>
-    =08FD           242 <a class='d' id='36FD' name='LOADADDR' >LOADADDR    </a>EQU $<span class='n'>800</span>+<a class='v' href='#BHERE4'>BHERE4</a>                                 ; === Page <a class="page" name="page12">12</a> ===
+                    241 <a class='d' id='36FD' name='BHERE4'   >BHERE4      </a>EQU &gt;*                                          ;   $FD<hr class='page'>
+                    242 <a class='d' id='36FD' name='LOADADDR' >LOADADDR    </a>EQU $<span class='n'>800</span>+<a class='v' href='#BHERE4'>BHERE4</a>                                 ; $08FD === Page <a class="page" name="page12">12</a> ===
 36FD:00             243 <meta                                 />            DFB <span class='n'>0</span>
 36FE:36             244 <a class='d' id='36FE' name='GRSPG'    >GRSPG       </a>DFB &lt;<a class='v' href='#TRK0LDR'>TRK0LDR</a>        ;CONTAINS PAGE#-1 OF TRK 0, SEC 1 LOAD ADDRESS
                     245 <meta                                 />* LAST LOGICAL BSECTOR TO READ STARTING AT $00
-    =FF             246 <a class='f' id='36FF' name='BHERE5'   >BHERE5      </a>EQU &gt;*
-    =08FF           247 <a class='d' id='0800' name='BGRPGC'   >BGRPGC      </a>EQU $<span class='n'>800</span>+BHERE5
+                    246 <a class='f' id='36FF' name='BHERE5'   >BHERE5      </a>EQU &gt;*                                          ;   $FF
+                    247 <a class='d' id='0800' name='BGRPGC'   >BGRPGC      </a>EQU $<span class='n'>800</span>+BHERE5                                 ; $08FF
 36FF:09             248 <a class='d' id='36FF' name='GRPGC'    >GRPGC       </a>DFB &lt;<a class='v' href='#ENDOFDOS'>ENDOFDOS</a>-<a class='v' href='#TRK0LDR'>TRK0LDR</a>-$<span class='n'>100</span>
                     249 <meta                                 />********************
                     250 <meta                                 />            PAGE
-    =3700           251 <a class='f' id='3700' name='DOSLODR'  >DOSLODR     EQU *
+                    251 <a class='f' id='3700' name='DOSLODR'  >DOSLODR     </a>EQU *                                           ; $3700
                     252 <meta                                 />            DO &gt;<a class='do' href='#DOSLODR'>DOSLODR</a><span class='macro'>
                     253 <meta                                 />            ???             ;ERROR IF NOT ON PAGE BOUNDARY  </span>
                     254 <meta                                 />            FIN
@@ -5937,16 +5937,16 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     288 <meta                                 />;
                     <a class='line' name='BOOTLDR.289'>289</a> ;DOSINT - INITIALIZE DOS                                    ; /sarcasm Couldn't afford extra 'i' in "dosinIt"
                     290 <meta                                 />;
-                    291 <a class="f" name="DOSINT"             >DOSINT      </a>EQU *                                           ; Ironically in Boot Loader, not Dos Init
+                    291 <a class='f' id='373B' name='DOSINT'   >DOSINT      </a>EQU *                                           ; Ironically in Boot Loader, not Dos Init
 373B:A2 FF          292 <meta                                 />            LDX #$<span class='n'>FF</span>
 373D:9A             293 <meta                                 />            TXS
 373E:8E EB 37       294 <meta                                 />            STX <a  class='v' href='#IBVOL' >IBVOL</a>
 3741:4C C8 3F       <a class='line' name='BOOTLDR.295'>295</a>             JMP <a class="x" href="#RCPATCH">RCPATCH</a>                                     ; Should be <span class='code'>JSR RCPATCH</span> to prevent stupid <span class='code'>JMP RCBACK</span>
-3744:20 89 FE       296 <a class="f" name='RCBACK'             >RCBACK      </a>JSR <a class="x" href="#SETKBD">SETKBD</a>
+3744:20 89 FE       296 <a class='f' id='3744' name='RCBACK'   >RCBACK      </a>JSR <a class="x" href="#SETKBD">SETKBD</a>
                     297 <meta                                 />;
 3747:4C 84 1D       <a class='line' name='BOOTLDR.298'>298</a> <a class="f" name="DI3"      >DI3         </a>JMP <a class="x" href="#DOSREL">DOSREL</a>      ; GO TO POST INIT ROUTINE       ; Relocate DOS to high mem DOS 3.3 1980: JMP $1B03
                     299 <meta                                 />            PAGE
-                    300 <a class='f' name='WBOOT'              >WBOOT       </a>EQU *                                           ; Write Boot; part of the INIT process
+                    300 <a class='f' id='374A' name='WBOOT'    >WBOOT       </a>EQU *                                           ; Write Boot; part of the INIT process
 374A:AD E7 37       301 <meta                                 />            LDA <a  class='v' href='#ADOSLD'>ADOSLD</a>+<span class='n'>1</span>
 374D:38             302 <meta                                 />            SEC
 374E:ED F1 37       303 <meta                                 />            SBC <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span><hr class='page'>
@@ -5977,7 +5977,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 378C:60             328 <meta                                 />            RTS
 378D:00 00 00 00    329 <meta                                 />            DS <span class='n'>6</span>,<span class='n'>0</span>          ;FILL WITH BRKS                 ; <a class='mem' name='378D' coords='6'>wastes</a> 6 bytes -- WHY ???
 3791:00 00          330 <meta                                 />            PAGE
-                    331 <a class='f' name='BOOTIO'             >BOOTIO      </a>EQU *
+                    331 <a class='f'id='3793' name='BOOTIO'    >BOOTIO      </a>EQU *
 3793:AD E5 37       332 <meta                                 />            LDA BAIOB+<span class='n'>1</span>                                     ; <a class='mem' name='3793' coords='3'>wastes</a> 3 bytes; <a class='v' href='#BAIOB'>BAIOB</a> &rarr; <a class='v' href='#IOB'>IOB</a>, <span class='code'>JSR <a class='x' href='#IOBLDR'>IOBLDR</a></span> loads <a class='v' href='#AIOB'>AIOB</a> &rarr; <a class='v' href='#IOB'>IOB</a>
 3796:AC E4 37       333 <meta                                 />            LDY BAIOB
 3799:20 B5 37       334 <meta                                 />            JSR <a class='x' href='#DISKIO' >DISKIO</a>
@@ -5989,7 +5989,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 37A4:EA             340 <meta                                 />            NOP                                             ; [.. <a class='mem' name='37A4' coords='2'>wastes</a> 2 bytes
 37A5:EA             341 <meta                                 />            NOP                                             ;  ..]
 37A6:CE EC 37       342 <meta                                 />            DEC IBTRK
-37A9:8C ED 37       343 <a class='f' name='BI01'               >BI01        </a>STY IBSECT      ; SET NEXT SECTOR
+37A9:8C ED 37       343 <a class='f' id='37A9' name='BI01'     >BI01        </a>STY IBSECT      ; SET NEXT SECTOR
                     344 <meta                                 />;
 37AC:CE F1 37       345 <meta                                 />            DEC <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>    ; DECREMENT BUFFER POINTER
 37AF:CE E1 37       346 <meta                                 />            DEC <a  class='v' href='#BRWCNT'>BRWCNT</a>      ; DECREMENT PAGE COUNTER
@@ -6004,10 +6004,10 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 37BC:28             355 <meta                                 />            <meta/>PLP
 37BD:18             356 <meta                                 />            <meta/>CLC
 37BE:60             357 <meta                                 />            <meta/>RTS
-37BF:28             358 <a class='f' name='DISKERR'            >DISKERR     </a   >PLP             ;CARRY SET MEANS ERROR
+37BF:28             358 <a class='f' id='37BF' name='DISKERR'  >DISKERR     </a   >PLP             ;CARRY SET MEANS ERROR
 37C0:38             359 <meta                                 />            SEC
 37C1:60             360 <meta                                 />            RTS
-37C2:AD BC 35       361 <a class='f' name='DLDSUP'             >DLDSUP      </a>LDA CCBBSA      ;SET UP FOR DOS LOADER
+37C2:AD BC 35       361 <a class='f' id='37C2' name='DLDSUP'   >DLDSUP      </a>LDA CCBBSA      ;SET UP FOR DOS LOADER
 37C5:8D F1 37       362 <meta                                 />            STA <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>    ;START ADDRESS
 37C8:A9 00          363 <meta                                 />            LDA #<span class='n'>0</span>
 37CA:8D F0 37       364 <meta                                 />            STA <a  class='v' href='#IBBUFP'>IBBUFP</a>
@@ -6028,7 +6028,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 37E1:00             379 <meta                                 />BRWCNT      DFB <span class='n'>0</span>           ;WRK CTR FOR BOOTIO
 37E2:0A             380 <meta                                 />            DFB $<span class='n'>0A</span>                                         ;[.. <a class='mem' name='_37E2' coords='2'>wastes</a> 2 bytes -- never used!
 37E3:1B             381 <meta                                 />            DFB $<span class='n'>1B</span>                                         ; ..]
-37E4:E8 37          382 <a class='d' name='BAIOB'              >BAIOB       </a>DW <a class='v' href='#IOB'>IOB</a>                                          ; <a class='v' href='#BAIOB'>BAIOB</a> and <a class='v' href='#AIOB'>AIOB</a> both point to <a class='v' href='#IOB'>IOB</a>
+37E4:E8 37          382 <a class='d' id='37E4' name='BAIOB'    >BAIOB       </a>DW <a class='v' href='#IOB'>IOB</a>                                          ; <a class='v' href='#BAIOB'>BAIOB</a> and <a class='v' href='#AIOB'>AIOB</a> both point to <a class='v' href='#IOB'>IOB</a>
 37E6:00 36          383 <meta                                 />ADOSLD      DW <a class='v' href='#TRK0LDR'>TRK0LDR</a>
                     384 <meta                                 />            PAGE
                     385 <meta                                 />;
