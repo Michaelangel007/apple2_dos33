@@ -3671,7 +3671,7 @@ With that "legalese" out of the way ... enjoy the read!
 2AAB:A0 A0 A0 A0
 2AAF:A0 A0
 2AB1:03             040 <a class='d' id='2AB1' name="DFNFTS">DFNFTS      </a>DFB <span class='n'>3</span>           ; DEFAULT FILE TABLES = 3       ; <a class="x" href="#INITD">INITD</a> copies to <a class="v" href="#CNFTBS">CNFTBS</a>
-2AB2:84             041 <a class='d' id='2AB2' name="CCHAR" >CCHAR       </a>DFB $<span class='n'>84</span>         ; CONTROL CHAR                  ; Control-D actives DOS for next ASCII command <a class='magic'>magic number</a> KEY_CTRL_D
+2AB2:84             041 <a class='d' id='2AB2' name="CCHAR" >CCHAR       </a>DFB $<span class='n'>84</span>         ; CONTROL CHAR                  ; Control-D actives DOS for next ASCII command <a class='magic' id='_2AB2'>magic number</a> KEY_CTRL_D
 2AB3:00             042 <a class='d' id='2AB3' name="ESTATE">ESTATE      </a>DFB <span class='n'>0</span>           ; EXECUTE STATE
 2AB4:00 00          043 <a class='d' id='2AB4' name="EFTABA">EFTABA      </a>DFB <span class='n'>0</span>,<span class='n'>0</span>         ; EXECUTE FILE TABLE POINTER
 2AB6:00             044 <a class='d' id='2AB6' name="ASIBSW">ASIBSW      </a>DFB <span class='n'>0</span>           ; APPLESOFT, IB SWITCH          ; <a class="x" href="#TSTRUN">00=Integer</a>, <a class="x" href="#IAS1">40=Applesoft ROM</a>, 80=Applesoft RAM
@@ -4337,8 +4337,8 @@ With that "legalese" out of the way ... enjoy the read!
 2E5D:4C 47 2E       210             JMP PRN2        ; TRY AGAIN                     ; <a class='mem' name='_2E5D' coords='1'>wastes</a> 1 byte, A is &gt; 0, A &lt; $80, <span class='code'>BNE PRN2</span>
                     211 ;
                     212 PRN3        EQU *
-                    213             PLA             ; GET DIGIT
-                    214             ORA #$B0        ; ADD ASCII 0                   ; <a class='magic'>magic number</a> <span class='code'>#'0'+$80</span> or <span class='code'>KEY_0</span>
+2E60:               213             PLA             ; GET DIGIT
+2E61:               214             ORA #$B0        ; ADD ASCII 0                   ; <a class='magic' name='_2E62'>magic number</a> <span class='code'>#'0'+$80</span> or <span class='code'>KEY_0</span>
 2E63:20 ED FD       215             JSR PRINT       ; PRINT IT                      ; Gee I wonder what PRINT does ...
                     216             DEY             ; DECREMENT DIGIT COUNT
                     217             BPL PRN1        ; BR IF MORE DIGIT
@@ -4389,7 +4389,7 @@ With that "legalese" out of the way ... enjoy the read!
 2E96:AD F9 35       009             LDA DCBVOL
                     010             EOR #$FF                                        ; <span class='todo'>TODO</span> Is this the reason why not possible to format with Volume=0
                     011             STA VVOLNO
-2E9E:A9 11          012             LDA #17                                         ; <a class='magic' name='_2E9F' coords='1'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK</span>;
+2E9E:A9 11          012             LDA #17                                         ; <a class='magic' name='_2E9F' coords='1'>magic number</a> <span class='code'>LDA VDIRTK</span>; <span class='code'>FILESYSTEM_VTOC_CAT_TRACK</span>
                     013             STA VALCA1      ; ALOCATE BYTE 1                ; *spelling* Allocate; Crappy name, should be: <span class='code'>ALLOC_TRK</span>
                     014             LDA #1                                          ; +$01 inwards to T22
                     015             STA VALCA2      ; ADD BYTE 2                    ; Crappy name, should be: <span class='code'>ALLOC_DIR</span>
@@ -4416,16 +4416,16 @@ With that "legalese" out of the way ... enjoy the read!
                     036 ;
 2ECC:20 FB 2F       037 NT4         JSR WRVTOC      ; WRITE NEW VTOC
                     038 ;
-                    039             LDX #0
-                    040             TXA
-                    041 NT5         STA VOLDIR,X    ; CLEAR VOLDIR
-                    042             INX
-                    043             BNE NT5
+2ECF:A2 00          039             LDX #0
+2ED1:8A             040             TXA
+2ED2:9D BB 34       041 NT5         STA VOLDIR,X    ; CLEAR VOLDIR
+2ED5:E8             042             INX
+2ED6:D0 FA          043             BNE NT5
                     044 ;
 2ED8:20 45 30       045             JSR MVVDBA      ; MOVE BUF PTRS
                     046 ;
-                    047             LDA #17         ; TRACK 17                      ; <a class='magic' name='_'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
-2ED8:AC F0 33       048             LDY VNOSEC                                      ; S16
+2EDB:A9 17          047             LDA #17         ; TRACK 17                      ; <a class='magic' name='_2EDC'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
+2EDD:AC F0 33       048             LDY VNOSEC                                      ; S16
                     049             DEY                                             ; S15 CATALOG [0]
                     050             DEY                                             ; S14 CATALOG [1]
                     051             STA IBTRK       ; INTO IOB
@@ -4450,11 +4450,11 @@ With that "legalese" out of the way ... enjoy the read!
                     070 ;
                     071 * MVFCBX - MOVE FCB ADRS TO ZPGFCB
                     072 ;
-2F08:A2 00          073 <a class='f' name='MVFCBP'   >MVFCBP      </a>LDX #<span class='n'>0</span>          ; MOVE FCB ADR                  ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span>
+2F08:A2 00          073 <a class='f' name='MVFCBP'   >MVFCBP      </a>LDX #<span class='n'>0</span>          ; MOVE FCB ADR                  ; <a class='magic' name='_2F09'>magic number</a> <span class='todo'>TODO</span>
 2F0A:F0 06          074             BEQ MVF1
-2F0C:A2 02          075 <a class='f' name='MVFCBD'   >MVFCBD      </a>LDX #<span class='n'>2</span>          ; MOVE FCB DIR BUFF             ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span>
+2F0C:A2 02          075 <a class='f' name='MVFCBD'   >MVFCBD      </a>LDX #<span class='n'>2</span>          ; MOVE FCB DIR BUFF             ; <a class='magic' name='_2F0D'>magic number</a> <span class='todo'>TODO</span>
 2F0E:D0 02          076             BNE MVF1                                        ; <a class='mem' name='_2F0F' coords='1'>wastes</a> 1 byte, $2C bit $abs
-2F10:A2 04          077 <a class='f' name='MVFCBS'   >MVFCBS      </a>LDX #<span class='n'>4</span>          ; MOVE FCB SECTOR BUFF          ; <a class='magic' name='_'>magic number</a> <span class='todo'>TODO</span>
+2F10:A2 04          077 <a class='f' name='MVFCBS'   >MVFCBS      </a>LDX #<span class='n'>4</span>          ; MOVE FCB SECTOR BUFF          ; <a class='magic' name='_2F11'>magic number</a> <span class='todo'>TODO</span>
                     078 ;
                     079 <a class='f' name='MVF1'     >MVF1        </a>EQU *
                     080             LDA CFCBAD,X    ; DO THE MOVE
@@ -4754,7 +4754,7 @@ With that "legalese" out of the way ... enjoy the read!
                                                                                     ;            <span class='code'>        DEX              </span>
                                                                                     ;            <span class='code'>        BPL DCB2IOB      </span>
                                                                                     ;
-3085:A9 01          094             LDA #1          ; IOB TYPE                      ;[..  <a class='mem' name='_3085' coords='5'>wastes</a> 5 bytes, <a class='magic' name='_'>magic number</a>
+3085:A9 01          094             LDA #1          ; IOB TYPE                      ;[..  <a class='mem' name='_3085' coords='5'>wastes</a> 5 bytes, <a class='magic' name='_3086'>magic number</a> <a class='v' href='#IOB_OFFSET_TYPE '>IOB_OFFSET_TYPE</a>
 3087:8D E8 37       <a class='line' name='FLOCNXB.095'>095</a>             STA <a class='v' href='#IBTYPE'>IBTYPE</a>                                      ; ..] never referenced!
                     096 ;
 308A:AC C1 2A       097             LDY AIOB
@@ -5077,7 +5077,7 @@ With that "legalese" out of the way ... enjoy the read!
 329B:0A             130             ASL A           ; TIME 4                        ; HARD-CODED 4 bytes/VTOC
 329C:0A             131             ASL A
 329D:A8             132             TAY                                             ; See <a class="dumb" href='#HNTDAFS3'>HNTDAFS #3</a> Wastes 4 bytes/track for free sector bitmap, sizeof( DCBABM )
-329E:A2 04          133             LDX #<span class='n'>4</span>                                          ; <a class='magic' name='_???'>magic number</a> VTOC_BITMAP_BYTES_PER_TRACK = sizeof(DCBABM),  See: <a class='v' href='#ALC10S'>ALC10S</a>
+329E:A2 04          133             LDX #<span class='n'>4</span>                                          ; <a class='magic' name='_329F'>magic number</a> VTOC_BITMAP_BYTES_PER_TRACK = sizeof(DCBABM),  See: <a class='v' href='#ALC10S'>ALC10S</a>
 32A0:18             134             CLC
 32A1:B9 F6 33       135 <a class='f' name='GS6'    >GS6         </a>LDA VSECAL+3,Y  ; MOVE BIT MAP BYTE
 32A4:9D F1 35       136             STA DCBABM-1,X
@@ -5116,7 +5116,7 @@ With that "legalese" out of the way ... enjoy the read!
                     169 ;A=TRK, Y=SECTOR, C=ON/OFF
                     170 ;
                     171 <a class='f' name='FRESEC' >FRESEC      </a>EQU *
-32DD:A2 FC          172 <a class='f' name='FS1'    >FS1         </a>LDX #<span class='n'>252</span>        ; 4 BYTE SHIFT                  ; <a class='magic' name='#_32dd'>magic number</a> 256 - sizeof(<a class='v' href='#DCBABM'>DCBABM</a>), See: <a class='v' href='#ALC10S'>ALC10S</a>
+32DD:A2 FC          172 <a class='f' name='FS1'    >FS1         </a>LDX #<span class='n'>252</span>        ; 4 BYTE SHIFT                  ; <a class='magic' name='#_32DE'>magic number</a> 256 - sizeof(<a class='v' href='#DCBABM'>DCBABM</a>), See: <a class='v' href='#ALC10S'>ALC10S</a>
 32DF:7E F6 34       173 <a class='f' name='FS2'    >FS2         </a>ROR <a class='v' href='#DCBABM'>DCBABM</a>-<span class='n'>252</span>  ; SHIFT IN CARRY
 32E2:E8             174             INX             ; NEXT BYTE
 32E3:D0 FA          175             BNE <a class='x' href='#FS2'>FS2</a>         ; BR IF NOT DONE
@@ -5225,7 +5225,7 @@ With that "legalese" out of the way ... enjoy the read!
 3386:08             275             PHP
 3387:8D C5 35       276             STA <a class='v' href='#CCBSTA'>CCBSTA</a>      ; SET STA
 338A:A9 00          277             LDA #<span class='n'>0</span>          ;(FIX FOR APPLE SYS MONITOR $48 USED BY RWTS)
-338C:85 48          278             STA $<span class='n'>48</span>         ;(THIS ADDED 11/1/78)           ; <a class='magic' href='_338D'>magic number</a> <b>NOT</b> <a class='x' href='#ALLDONE'>ALLDONE</a> <span class='code'>DFB $24 SEC</span>, but <span class='todo'>TODO</span>
+338C:85 48          278             STA $<span class='n'>48</span>         ;(THIS ADDED 11/1/78)           ; <a class='magic' name='_338D'>magic number</a> <b>NOT</b> <a class='x' href='#ALLDONE'>ALLDONE</a> <span class='code'>DFB $24 SEC</span>, but <span class='todo'>TODO</span>
 338E:20 7E 2E       279             JSR <a class='x' href='#RTNFCB' >RTNFCB</a>      ; GO RTN FCB
 3391:28             280             PLP             ; GET STATUS
 3392:AE 9B 33       281             LDX <a class='v' href='#ENTSTK'>ENTSTK</a>      ; GET ENT STACK
@@ -5757,21 +5757,21 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 368F:4C 7D 22       127             JMP EVAR        ;GO VERIFY IT AFTER SAVE
                     128 ****************************
                     129 EOFFIX      EQU *
-3692:A0 13          130             LDY #$<span class='n'>13</span>        ;PEEK INTO THE FCB: IF          ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_SEC</span>
+3692:A0 13          130             LDY #$<span class='n'>13</span>        ;PEEK INTO THE FCB: IF          ; <a class='magic' name='_3693'>magic number</a> <span class='code'>FCB_CUR_REL_SEC</span>
 3694:B1 42          131 CHKFILE     LDA (ZPGFCB),Y  ;DCBCRS,DCBCSB ARE ZEROS,
 3696:D0 14          132             BNE FIXIT       ; THEN WE HAVE EMPTY FILE
 3698:C8             133             INY
-3699:C0 17          134             CPY #$<span class='n'>17</span>                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_REC_LEN</span>
+3699:C0 17          134             CPY #$<span class='n'>17</span>                                        ; <a class='magic' name='_369A'>magic number</a> <span class='code'>FCB_REC_LEN</span>
 369B:D0 F7          135             BNE CHKFILE
-369D:A0 19          136             LDY #$<span class='n'>19</span>                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
+369D:A0 19          136             LDY #$<span class='n'>19</span>                                        ; <a class='magic' name='_369E'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
 369F:B1 42          137 MOVE        LDA (ZPGFB),Y   ; DCBCRR,DCBCRB
-36A1:99 A4 35       138             STA CCBRRN-$<span class='n'>19</span>,Y;INTO CCBRRN,CCBBYT             ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
+36A1:99 A4 35       138             STA CCBRRN-$<span class='n'>19</span>,Y;INTO CCBRRN,CCBBYT             ; <a class='magic' name='_36A1'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
 36A4:C8             139             INY
-36A5:C0 1D          140             CPY #$<span class='n'>1D</span>                                        ; <a class='magic' name='_'>magic number</a> <span class='code'>FCB_NUM_SEC_ALLOC</span>
+36A5:C0 1D          140             CPY #$<span class='n'>1D</span>                                        ; <a class='magic' name='_36A6'>magic number</a> <span class='code'>FCB_NUM_SEC_ALLOC</span>
 36A7:D0 F6          141             BNE MOVE
 36A9:4C BC 26       142 BACK        JMP DOSGO2A     ;NOW LET APPEND CONTINUE
                     143 <a class='f' id='36AC' name='FIXIT' >FIXIT       </a>EQU *
-36AC:A2 FF          144             LDX #$<span class='n'>FF</span>        ;SET FLAG SO APPEND WILL        ; <a class='magic' name='_'>magic number</a> <span class='code'>FLAG_EOF_SEC_BOUNDARY EQU $0</span>
+36AC:A2 FF          144             LDX #$<span class='n'>FF</span>        ;SET FLAG SO APPEND WILL        ; <a class='magic' name='_36AD'>magic number</a> <span class='code'>FLAG_EOF_SEC_BOUNDARY EQU $0</span>
 36AE:8E 5D 36       145             STX EOFFLAG     ;KNOW TO CROSS SECTOR BOUNDARY
 36B1:D0 F6          146             BNE BACK        ;ALWAYS TAKEN                   ; &uarr;
                     147             PAGE
@@ -5949,11 +5949,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3754:AD E7 37       305 <meta                                 />            LDA <a  class='v' href='#ADOSLD'>ADOSLD</a>+<span class='n'>1</span>
 3757:8D F1 37       306 <meta                                 />            STA <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>    ;BUFFER=LAST PAGE OF RWTS
 375A:CE F1 37       307 <meta                                 />            DEC <a  class='v' href='#IBBUFP'>IBBUFP</a>+<span class='n'>1</span>
-375D:A9 02          308 <meta                                 />            LDA #<span class='n'>2</span>                                          ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> sizeof( PROGRAM ) / 16
+375D:A9 02          308 <meta                                 />            LDA #<span class='n'>2</span>                                          ; <a class='magic' name='_375E'>magic number</a> <span class='todo'>TODO</span> sizeof( PROGRAM ) / 16
 375F:8D EC 37       309 <meta                                 />            STA IBTRK       ;ENDING TRACK
 3762:A9 04          310 <meta                                 />            LDA #<span class='n'>4</span>
 3764:8D ED 37       311 <meta                                 />            STA IBSECT      ;ENDING SECTOR
-3767:A9 02          312 <meta                                 />            LDA #<span class='n'>2</span>                                          ; <a class='magic' name='_????'>magic number</a> Why not <a class='v' href='#IBCWTS'>IBCWTS</a> ???
+3767:A9 02          312 <meta                                 />            LDA #<span class='n'>2</span>                                          ; <a class='magic' name='_3768'>magic number</a> Why not <a class='v' href='#IBCWTS'>IBCWTS</a> ???
 3769:8D F4 37       <a class='line' name='BOOTLDR.313'>313</a>             STA <a  class='v' href='#IBCMD' >IBCMD</a>       ;COMMAND = WRITE
 376C:20 93 37       314 <meta                                 />            JSR <a  class='x' href='#BOOTIO'>BOOTIO</a>      ;WRITE DOS IMAGE TRK 2, SEC 4
                     315 <meta                                 />*                           ;BACKWARDS TO TRK 0,SEC C
@@ -6425,7 +6425,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3895:BD 29 3A       101             LDA <a class="v" href="#NIBL"   >NIBL</a>,X      ;(4)  INDEX TO 7-BIT NIBL
 3898:A6 27          102             LDX <a class="v" href="#SLOTZ"  >SLOTZ</a>       ;(3)
 389A:20 BB 38       103             JSR <a class="x" href="#WNIBL"  >WNIBL</a>       ;(6,9,6)  WRITE CHKSUM
-389D:A9 DE          104             LDA #$<span class='n'>DE</span>        ;(2)  DM4, BIT SLIP MARK.       ; <a class='magic' id='????'>magic number</a> <span class='todo'>TODO</span>
+389D:A9 DE          104             LDA #$<span class='n'>DE</span>        ;(2)  DM4, BIT SLIP MARK.       ; <a class='magic' name='_389E'>magic number</a> <span class='todo'>TODO</span>
 389F:20 B8 38       105             JSR <a class="x" href="#WNIBL9" >WNIBL9</a>      ;(15,9,6)    WRITE IT.
 38A2:A9 AA          106             LDA #$<span class='n'>AA</span>        ;(2)  DM5, BIT SLIP MARK.
 38A4:20 B8 38       107             JSR <a class="x" href="#WNIBL9" >WNIBL9</a>      ;(15,9,6)    WRITE IT.
@@ -6580,7 +6580,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 38EE:10 FB          124 <!--                           -->            BPL READ2       *** NO PAGE CROSS! ***
 38F0:C9 AA          125 <!--                           -->            CMP #$AA        DATA MARK 2?
 38F2:D0 F2          126 <!--                           -->            BNE RSYNC1      (IF NOT, IS IT DM1?)            ;              <span class='code'>NUM_6N2_NIBBLES = 342</span>
-38F4:A0 56          127 <!--                           -->            LDY #$<span class='n'>56</span>        INIT NBUF2 INDEX                ; <a class='magic' name='#_38F5'>magic number</a> <span class='code'>NUM_6N2_NIBBLES - 256</span>
+38F4:A0 56          127 <!--                           -->            LDY #$<span class='n'>56</span>        INIT NBUF2 INDEX                ; <a class='magic' name='_38F5'>magic number</a> <span class='code'>NUM_6N2_NIBBLES - 256</span>
                     128 <!--                           -->*                           (ADDED NIBL DELAY)
 38F6:BD 8C C0       129 <a class="f" name="READ3"    >READ3       </a>LDA Q6L,X
 38F9:10 FB          130 <!--                           -->            BPL READ3       *** NO PAGE CROSS! ***
@@ -6686,18 +6686,18 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 394D:F0 F3          061 <!--                                     -->            BEQ RDERR       (ADR MARK, ELSE ERR)
 394F:BD 8C C0       062 <a class='f' id='394F' name='RDA1'     >RDA1        </a>LDA Q6L,X       READ NIBL.
 3952:10 FB          063 <!--                                     -->            BPL RDA1        *** NO PAGE CROSS! ***
-3954:C9 D5          064 <a class='f' id='3954' name='RDASN1'   >RDASN1      </a>CMP #$<span class='n'>D5</span>        ADR MARK 1?                     ; <a class='magic' name='#_3955'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_1 EQU #$D5</span>
+3954:C9 D5          064 <a class='f' id='3954' name='RDASN1'   >RDASN1      </a>CMP #$<span class='n'>D5</span>        ADR MARK 1?                     ; <a class='magic' name='_3955'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_1 EQU #$D5</span>
 3956:D0 F0          065 <!--                                     -->            BNE RDASYN      (LOOP IF NOT)
 3958:EA             066 <!--                                     -->            NOP             ADDED NIBL DELAY.
 3959:BD 8C C0       067 <a class='f' id='39F9' name='RDA2'     >RDA2        </a>LDA Q6L,X
 395C:10 FB          068 <!--                                     -->            BPL RDA2        *** NO PAGE CROSS! ***
-395E:C9 AA          069 <!--                                     -->            CMP #$<span class='n'>AA</span>        ADR MARK 2?                     ; <a class='magic' name='#_395F'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_2 EQU #$AA</span>
+395E:C9 AA          069 <!--                                     -->            CMP #$<span class='n'>AA</span>        ADR MARK 2?                     ; <a class='magic' name='_395F'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_2 EQU #$AA</span>
 3960:D0 F2          070 <!--                                     -->            BNE RDASN1      (IF NOT, IS IT AM1?)
 3962:A0 03          071 <!--                                     -->            LDY #$3         INDEX FOR 4-BYTE READ.          ; Technically, we read 8 disk nibbles &rarrow; 4 memory bytes
                     072 <!--                                     -->*                           (ADDED NIBL DELAY)
 3964:BD 8C C0       073 <a class='f' id='3964' name='RDA3'     >RDA3        </a>LDA Q6L,X
 3967:10 FB          074 <!--                                     -->            BPL RDA3        *** NO PAGE CROSS! ***
-3969:C9 96          075 <!--                                     -->            CMP #$<span class='n'>96</span>        ADR MARK 3?                     ; <a class='magic' name='#_396A'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_3 EQU #$96</span>
+3969:C9 96          075 <!--                                     -->            CMP #$<span class='n'>96</span>        ADR MARK 3?                     ; <a class='magic' name='_396A'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_3 EQU #$96</span>
 396B:D0 E7          076 <!--                                     -->            BNE RDASN1      (IF NOT, IS IT AM1?)
                     077 <!--                                     -->*                           (LEAVES CARRY SET!)             ; C=1, <i>And this important WHY?</i> Carry becomes Bit 0 of 4&4 Checksum odd nibble, Line #<a class='line' href='#RDADSEK.082'>082</a>
 396D:A9 00          078 <!--                                     -->            LDA #$<span class='n'>0</span>         INIT CHECKSUM.
@@ -6717,12 +6717,12 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3989:D0 B7          092 <!--                                     -->            BNE RDERR       NONZERO, THEN ERROR.
 398B:BD 8C C0       093 <a class="f" name="RDA6"     >RDA6        </a>LDA Q6L,X       FIRST BIT-SLIP NIBL.
 398E:10 FB          094 <!--                           -->            BPL RDA6        *** NO PAGE CROSS! ***
-3990:C9 DE          095 <!--                           -->            CMP #$<span class='n'>DE</span>                                        ; <a class='magic' name='#_3991'>magic number</a> <span class='macro'>DISK_ADR_EPILOG_1 EQU #$DE</span>
+3990:C9 DE          095 <!--                           -->            CMP #$<span class='n'>DE</span>                                        ; <a class='magic' name='_3991'>magic number</a> <span class='macro'>DISK_ADR_EPILOG_1 EQU #$DE</span>
 3992:D0 AE          096 <!--                           -->            BNE RDERR       ERROR IF NONMATCH.
 3994:EA             097 <!--                           -->            NOP             DELAY BETWEEN NIBLS.
 3995:BD 8C C0       098 <a class="f" name="RDA7"     >RDA7        </a>LDA Q6L,X       SECOND BIT-SLIP NIBL.
 3998:10 FB          099 <!--                           -->            BPL RDA7        *** NO PAGE CROSS! ***
-399A:C9 AA          100 <!--                           -->            CMP #$<span class='n'>AA</span>                                        ; <a class='magic' name='#_399B'>magic number</a> <span class='macro'>DISK_ADR_EPILOG_2 EQU #$AA</span>
+399A:C9 AA          100 <!--                           -->            CMP #$<span class='n'>AA</span>                                        ; <a class='magic' name='_399B'>magic number</a> <span class='macro'>DISK_ADR_EPILOG_2 EQU #$AA</span>
 399C:D0 A4          101 <!--                           -->            BNE RDERR       ERROR IF NONMATCH.              ; <b>Uh, what happened to checking the last disk nibble!?!?!</b> <span class='macro'>DISK_ADR_EPILOG_3 EQU #$EB</span>
 399E:18             102 <a class="f" name="RDEXIT"   >RDEXIT      </a>CLC             CLEAR CARRY ON                  ; This probably deserves a "<i>No shit, Sherlock</i>"
 399F:60             103 <!--                           -->            RTS             NORMAL READ EXITS.              ; Brilliant <i>hardware</i> engineers tend to clutter up code with useless trivial comments. :-/
@@ -6793,7 +6793,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 39C7:C5 26          168 <a class="f" name="MINTST"   >MINTST      </a>CMP TRKCNT                                      ; crappy abbreviation: <i>Min Test</i>
 39C7:90 02          169 <!--                           -->            BCC MAXTST      AND 'TRKS MOVED'.
 39C9:A5 26          170 <!--                           -->            LDA TRKCNT                                      ; crappy abbreviation: <i>Max Test</i>
-39CB:C9 0C          171 <a class="f" name="MAXTST"   >MAXTST      </a>CMP #$<span class='n'>C</span>                                         ; <a class='magic' name='#_39CC'>magic number</a> <span class='code'>ON_TIME_SIZE EQU $C</span>, or even <span class='code'>OFFTABLE - ONTABLE</span>
+39CB:C9 0C          171 <a class="f" name="MAXTST"   >MAXTST      </a>CMP #$<span class='n'>C</span>                                         ; <a class='magic' name='_39CC'>magic number</a> <span class='code'>ON_TIME_SIZE EQU $C</span>, or even <span class='code'>OFFTABLE - ONTABLE</span>
 39CD:BB 01          172 <!--                           -->            BCS STEP2       ;IF TRKCNT&gt;$B LEAVE Y ALONE (Y=$B).
 39CF:A8             173 <a class="f" name="STEP"     >STEP        </a>TAY             ;ELSE SET ACCELERATION INDEX IN Y
                     174 <a class="f" name="STEP2"    >STEP2       </a>EQU *
@@ -6956,7 +6956,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     124 <a class='f'    name='PSC1'       >PSC1        </a>EQU *           ;Tell relocater where to start
                     125 <a class='f'    name='MOVEOF'     >MOVEOF      </a>EQU *                                           ; Called from <a class='x' href='#DOSGO2A'>DOSGO2A</a>
 3A69:AE 5F 2A       126             LDX <a class='v' href='#CMDNO'>CMDNO</a>       ; GET CMD NUMBER
-3A6C:E0 1C          127             CPX #$<span class='n'>1C</span>        ; APPEND COMMAND?               ; <a class='magic' name='#_3A6D'>magic number</a> <span class='todo'>TODO</span>
+3A6C:E0 1C          127             CPX #$<span class='n'>1C</span>        ; APPEND COMMAND?               ; <a class='magic' name='_3A6D'>magic number</a> <span class='todo'>TODO</span>
 3A6E:F0 05          128             BEQ <a class='x' href='#GOON'>GOON</a>        ; YES, RETURN TO CALLING ROUTINE
 3A70:A2 00          129             LDX #$<span class='n'>00</span>        ; NO, THEN CLEAR X              ; <i>Aye, Aye, Captain Obvious</i>
 3A72:8E 5D 36       130             STX <a class='v' href='#EOFFLAG'>EOFFLAG</a>     ; CLEAR EOF FLAG
@@ -6970,7 +6970,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     138 ***********************************************
                     139 <a class='f'    name='OFF80'      >OFF80       </a>EQU *
 3A76:A9 FF          140             LDA #$<span class='n'>FF</span>
-3A78:8D FB 04       141             STA $<span class='n'>4FB</span>        ; CLEARS FUNNY 80 COL STUFF     ; <a class='magic' id='_3A79'>magic number</a> TEXT screen hole <span class='todo'>TODO</span>
+3A78:8D FB 04       141             STA $<span class='n'>4FB</span>        ; CLEARS FUNNY 80 COL STUFF     ; <a class='magic' name='_3A79'>magic number</a> TEXT screen hole <span class='todo'>TODO</span>
 3A7B:8D 0C C0       142             STA $<span class='n'>C00C</span>       ; TURNS 80 COL OFF
 3A7E:8D 0E C0       143             STA $<span class='n'>C00E</span>       ; TURN OFF  ALT CHAR SET        ; /sarcasm <i>If only we could define symbols ...</i>
 3A81:4C 2F FB       <a class='line' name='MSWAITR.144'>144</a>             JMP $<span class='n'>FB2F</span>       ; MONITOR INIT ROUTINE          ;          <i>Oh wait!</i> <b>We already have</b> <a class='x' href='#MONINIT'>MONINIT</a> in <a class='file' href='#BOOTLDR'>BOOTLDR</a><span class="patch">
@@ -7148,11 +7148,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3C76:88             067             DEY             (2) NEXT OF 'N' NIBLS.          ;                  + 2 [ 8]         |
 3C77:D0 F0          068             BNE <a class='x' href='#WSYNC1' >WSYNC1</a>      (3) *** NO PAGE CROSS! ***      ; + 2 [10] BEQ &lt;== + 3 [11] --&gt; BNE ^
                                                                                     ; 32 &micro; seconds write DATA nibble
-3C79:A9 D5          069             LDA #$<span class='n'>D5</span>        (2) ADR MARK 1.                 ; + 2 [12] <a class='magic'>magic number</a> <span class='todo'>TODO</span>
+3C79:A9 D5          069             LDA #$<span class='n'>D5</span>        (2) ADR MARK 1.                 ; + 2 [12] <a class='magic' name='_3C7A'>magic number</a> <span class='todo'>TODO</span>
 3C7B:20 D5 3C       070             JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) WRITE IT.              ; +24 [10] &lt;-- JSR=6, WNIBLB2=9, WRNIBL=15
-3C7E:A9 AA          071             LDA #$<span class='n'>AA</span>        (2) ADR MARK 2.                 ; + 2 [12] <a class='magic'>magic number</a> <span class='todo'>TODO</span>
+3C7E:A9 AA          071             LDA #$<span class='n'>AA</span>        (2) ADR MARK 2.                 ; + 2 [12] <a class='magic' name='_3C7F'>magic number</a> <span class='todo'>TODO</span>
 3C80:20 D5 3C       072             JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) WRITE IT.              ; +24 [10]
-3C83:A9 96          073             LDA #$<span class='n'>96</span>        (2) 16-SECTOR ADR MARK 3.       ; + 2 [10] <a class='magic'>magic number</a> <span class='todo'>TODO</span>
+3C83:A9 96          073             LDA #$<span class='n'>96</span>        (2) 16-SECTOR ADR MARK 3.       ; + 2 [10] <a class='magic' name='_3C84'>magic number</a> <span class='todo'>TODO</span>
 3C85:20 D5 3C       074             JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) WRITE IT.              ; +24 [10]
 3C88:A5 41          075             LDA NVOL        (3)                             ; + 3 [13]
 3C8A:20 C4 3C       076             JSR <a class='x' href='#WBYTE'>WBYTE</a>       (14,9,6) WRITE NVOL (ODD, THEN EVEN, BITS.) ; JSR=6
@@ -7172,11 +7172,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3CA7:68             090 <meta                                       />            PLA             (4) RECOVER FOR EVEN BITS.      ;
 3CA8:09 AA          091 <meta                                       />            ORA #$<span class='n'>AA</span>        (2) SET CLOCK BITS.             ;
 3CAA:20 D4 3C       092 <meta                                       />            JSR WNIBLA      (17,9,6) WRITE THEM.            ;
-3CAD:A9 DE          093 <meta                                       />            LDA #$<span class='n'>DE</span>        (2) END MARK 1.                 ; <a class='magic'>magic number</a> <span class='todo'>TODO</span>
+3CAD:A9 DE          093 <meta                                       />            LDA #$<span class='n'>DE</span>        (2) END MARK 1.                 ; <a class='magic' name='_3CAE'>magic number</a> <span class='todo'>TODO</span>
 3CAF:20 D5 3C       094 <meta                                       />            JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) WRITE IT.              ;
-3CB2:A9 AA          095 <meta                                       />            LDA #$<span class='n'>AA</span>        (2) END MARK 2.                 ; <a class='magic'>magic number</a> <span class='todo'>TODO</span>
+3CB2:A9 AA          095 <meta                                       />            LDA #$<span class='n'>AA</span>        (2) END MARK 2.                 ; <a class='magic' name='_3CB3'>magic number</a> <span class='todo'>TODO</span>
 3CB4:20 D5 3C       096 <meta                                       />            JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) WRITE IT.              ;
-3CB7:A9 EB          097 <meta                                       />            LDA #$<span class='n'>EB</span>        (2) END MARK 3.                 ; <a class='magic'>magic number</a> <span class='todo'>TODO</span>
+3CB7:A9 EB          097 <meta                                       />            LDA #$<span class='n'>EB</span>        (2) END MARK 3.                 ; <a class='magic' name='_3CB8'>magic number</a> <span class='todo'>TODO</span>
 3CB9:20 D5 3C       098 <meta                                       />            JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) 'WRITE TURN-OFF'       ;
 3CBC:18             099 <meta                                       />            CLC             INDICATE NO WR PROT ERR.
 3CBD:BD 8E C0       100 <a class='f' id='3CBD' name='WADRTS'     >WADRTS      </a>LDA Q7L,X       OUT OF WRITE MODE.              ; TODO: used elsewhere?
