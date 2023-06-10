@@ -7082,31 +7082,31 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     001             SBTL '16-SECTOR WRITE ADDRESS'
                     002 ********************************
                     003 *                              *
-                    004 *  WRITE ADR FIELD SUBROUTINE  *
-                    005 *      (16-SECTOR FORMAT)      *
-                    006 *  WRITES SPECIFIED NUMBER OF  *
-                    007 *  40-USEC (10-BIT) SELF-SYNC  *
-                    008 *  NIBLS, ADR FIELDS 16-SECTOR *
-                    009 *  START MARKS ($D5,$AA,$96),  *
-                    010 *  BODY (VOLUME, TRACK, SECTOR,*
-                    011 *  CHECKSUM), END FIELD MARKS, *
+                    004 *  WRITE ADR FIELD SUBROUTINE  *                            ; Writes Disk Nibbles:
+                    005 *      (16-SECTOR FORMAT)      *                            ;     FF  FF  FF .. FF      (Y sync bytes)
+                    006 *  WRITES SPECIFIED NUMBER OF  *                            ;     D5  AA  96
+                    007 *  40-USEC (10-BIT) SELF-SYNC  *                            ;         VOL VOL           4&4
+                    008 *  NIBLS, ADR FIELDS 16-SECTOR *                            ;         TRK TRK           4&4
+                    009 *  START MARKS ($D5,$AA,$96),  *                            ;         SEC SEC           4&4
+                    010 *  BODY (VOLUME, TRACK, SECTOR,*                            ;         CRC CRC           4&4
+                    011 *  CHECKSUM), END FIELD MARKS, *                            ;     DE  EA  EB
                     012 *  AND THE WRITE TURN-OFF NIBL.*
                     013 *                              *
                     014 ********************************
                     015 *                              *
                     016 *   ------- ON ENTRY -------   *
                     017 *                              *
-                    018 *  THE LOCATIONS VOLUME, TRK,  *                            ; Technically NVOL not VOLUME; See comments were out-of-date even back then! /s
-                    019 *  AND NSECT MUST CONTAIN THE  *                            ;   <span class='code'>NVOL</span>  @ $41 Volume
-                    020 *  DESIRED VOLUME, TRACK, AND  *                            ;   <span class='code'>TRK</span>   @ $44 Track
-                    021 *  SECTOR VALUES DESIRED.      *                            ;   <span class='code'>NSECT</span> @ $3F Sector
-                    022 *                              *                            ;
-                    023 *  THE PROPER DRIVE MUST BE    *                            ; <b>Not documented:</b> AA
+                    018 *  THE LOCATIONS VOLUME, TRK,  *                            ; Technically <a class'x' href='#NVOL'>NVOL</a> not VOLUME
+                    019 *  AND NSECT MUST CONTAIN THE  *                            ; See, programmers wrote out-of-date comments even back then! /s
+                    020 *  DESIRED VOLUME, TRACK, AND  *                            ;
+                    021 *  SECTOR VALUES DESIRED.      *                            ;   <span class='code'>NVOL</span>  @ $41 Volume
+                    022 *                              *                            ;   <span class='code'>TRK</span>   @ $44 Track
+                    023 *  THE PROPER DRIVE MUST BE    *                            ;   <span class='code'>NSECT</span> @ $3F Sector
                     024 *  ENABLED AND UP TO SPEED IN  *                            ;
-                    025 *  READ MODE (Q7L, Q6L).       *                            ;   Zero-Page $3E *must* contain #$AA
-                    026 *                              *                            ;   for 3 cycle timing.
-                    027 *  X-REG CONTAINS SLOTNUM      *
-                    028 *                    TIMES 16. *
+                    025 *  READ MODE (Q7L, Q6L).       *                            ; <b>Not documented:</b> AA
+                    026 *                              *                            ;
+                    027 *  X-REG CONTAINS SLOTNUM      *                            ;   Zero-Page $3E *must* contain #$AA
+                    028 *                    TIMES 16. *                            ;   for 3 cycle timing. See Line #086
                     029 *                              *
                     030 *  Y-REG CONTAINS NUMBER OF    *
                     031 *    SELF SYNC NIBLS DESIRED   *
@@ -7132,51 +7132,51 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     051 <a class='f' id='3C56' name='SWADR1'     >SWADR1      </a>EQU *           ;TELL RELOCATOR WHERE TO BEGIN
                     052 *******************************
 3C56:38             053 <a class='f' id='3C56' name='WADR16'     >WADR16      </a>SEC             ANTICIPATE WR PROT ERR.<hr class='page'>
-3C57:BD 8D C0       054             LDA <a class='v' href='#Q6H'   >Q6H</a>,X       INTO 'WR PROT SENSE' MODE.      ; === Page <a class='page' name='page135'>135</a> ===
-3C5A:BD 8E C0       055             LDA <a class='v' href='#Q7L'    >Q7L</a>,X       SENSE IT (NEG=PROTECTED)
-3C5D:30 5E          056             BMI <a class='x' href='#WADRTS' >WADRTS</a>      ERR EXIT IF PROTECTED.
-3C5F:A9 FF          057             LDA #$<span class='n'>FF</span>        SELF-SYNC NIBL.                 ; 40 &micro; seconds to write any SYNC nibble
-3C61:9D 8F C0       058             STA <a class='v' href='#Q7H'    >Q7H</a>,X       WRITE FRIST NIBL.               ; = 0 [ 0]
-3C64:DD 8C C0       059             CMP <a class='v' href='#Q6L'    >Q6L</a>,X       (4) BACK TO WRITE MODE.         ; + 4 [ 4]
-3C67:48             060             PHA             (3) FOR DELAY                   ; + 3 [ 7]
-3C68:68             061             PLA             (4)                             ; + 4 [11]
-3C69:20 C3 3C       062 WSYNC1      JSR <a class='x' href='#WADRTS1'>WADRTS1</a>     (12) FOR 40-USEC NIBLS.         ; +12 [23] JSR=+6, &lt;----------------+
-3C6C:20 C3 3C       063             JSR <a class='x' href='#WADRTS1'>WADRTS1</a>     (12)                            ; +12 [35] RTS=+6                   |
-3C6F:9D 8D C0       064             STA <a class='v' href='#Q6H'    >Q6H</a>,X       (5) WRITE NIBL.                 ; + 5 [40] ========&gt; 0 [ 0]         |
-3C72:DD 8C C0       065             CMP <a class='v' href='#Q6L'    >Q6L</a>,X       (4) (BACK TO WRITE MODE)        ;                  + 4 [ 4]         |
-3C75:EA             066             NOP             (2) FOR DELAY.                  ;                  + 2 [ 6]         |
-3C76:88             067             DEY             (2) NEXT OF 'N' NIBLS.          ;                  + 2 [ 8]         |
-3C77:D0 F0          068             BNE <a class='x' href='#WSYNC1' >WSYNC1</a>      (3) *** NO PAGE CROSS! ***      ; + 2 [10] BEQ &lt;== + 3 [11] --&gt; BNE ^
+3C57:BD 8D C0       054 <meta                                       />            LDA <a class='v' href='#Q6H'   >Q6H</a>,X       INTO 'WR PROT SENSE' MODE.      ; === Page <a class='page' name='page135'>135</a> ===
+3C5A:BD 8E C0       055 <meta                                       />            LDA <a class='v' href='#Q7L'    >Q7L</a>,X       SENSE IT (NEG=PROTECTED)
+3C5D:30 5E          056 <meta                                       />            BMI <a class='x' href='#WADRTS' >WADRTS</a>      ERR EXIT IF PROTECTED.
+3C5F:A9 FF          057 <meta                                       />            LDA #$<span class='n'>FF</span>        SELF-SYNC NIBL.                 ; 40 &micro; seconds to write any SYNC nibble
+3C61:9D 8F C0       058 <meta                                       />            STA <a class='v' href='#Q7H'    >Q7H</a>,X       WRITE FRIST NIBL.               ; = 0 [ 0]
+3C64:DD 8C C0       059 <meta                                       />            CMP <a class='v' href='#Q6L'    >Q6L</a>,X       (4) BACK TO WRITE MODE.         ; + 4 [ 4]
+3C67:48             060 <meta                                       />            PHA             (3) FOR DELAY                   ; + 3 [ 7]
+3C68:68             061 <meta                                       />            PLA             (4)                             ; + 4 [11]
+3C69:20 C3 3C       062 <a class='f' id='3C69' name='WSYNC1'     >WSYNC1      </a>JSR <a class='x' href='#WADRTS1'>WADRTS1</a>     (12) FOR 40-USEC NIBLS.         ; +12 [23] JSR=+6, &lt;----------------+
+3C6C:20 C3 3C       063 <meta                                       />            JSR <a class='x' href='#WADRTS1'>WADRTS1</a>     (12)                            ; +12 [35] RTS=+6                   |
+3C6F:9D 8D C0       064 <meta                                       />            STA <a class='v' href='#Q6H'    >Q6H</a>,X       (5) WRITE NIBL.                 ; + 5 [40] ========&gt; 0 [ 0]         |
+3C72:DD 8C C0       065 <meta                                       />            CMP <a class='v' href='#Q6L'    >Q6L</a>,X       (4) (BACK TO WRITE MODE)        ;                  + 4 [ 4]         |
+3C75:EA             066 <meta                                       />            NOP             (2) FOR DELAY.                  ;                  + 2 [ 6]         |
+3C76:88             067 <meta                                       />            DEY             (2) NEXT OF 'N' NIBLS.          ;                  + 2 [ 8]         |
+3C77:D0 F0          068 <meta                                       />            BNE <a class='x' href='#WSYNC1' >WSYNC1</a>      (3) *** NO PAGE CROSS! ***      ; + 2 [10] BEQ &lt;== + 3 [11] --&gt; BNE ^
                                                                                     ; 32 &micro; seconds write DATA nibble
-3C79:A9 D5          069             LDA #$<span class='n'>D5</span>        (2) ADR MARK 1.                 ; + 2 [12] <a class='magic' name='_3C7A'>magic number</a> <span class='todo'>TODO</span>
-3C7B:20 D5 3C       070             JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) WRITE IT.              ; +24 [10] &lt;-- JSR=6, WNIBLB2=9, WRNIBL=15
-3C7E:A9 AA          071             LDA #$<span class='n'>AA</span>        (2) ADR MARK 2.                 ; + 2 [12] <a class='magic' name='_3C7F'>magic number</a> <span class='todo'>TODO</span>
-3C80:20 D5 3C       072             JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) WRITE IT.              ; +24 [10]
-3C83:A9 96          073             LDA #$<span class='n'>96</span>        (2) 16-SECTOR ADR MARK 3.       ; + 2 [10] <a class='magic' name='_3C84'>magic number</a> <span class='todo'>TODO</span>
-3C85:20 D5 3C       074             JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) WRITE IT.              ; +24 [10]
-3C88:A5 41          075             LDA NVOL        (3)                             ; + 3 [13]
-3C8A:20 C4 3C       076             JSR <a class='x' href='#WBYTE'>WBYTE</a>       (14,9,6) WRITE NVOL (ODD, THEN EVEN, BITS.) ; JSR=6
-3C8D:A5 44          077             LDA TRK         (3) WRITE TRACK NUMBER.         ;
-3C8F:20 C4 3C       078             JSR <a class='x' href='#WBYTE'>WBYTE</a>       (14,9,6) ODD, THEN EVEN, BITS)  ;
-3C92:A5 3F          079             LDA NSECT       (3) WRITE SECTOR NUMBER.        ;
-3C94:20 C4 3C       080             JSR <a class='x' href='#WBYTE'>WBYTE</a>       (14,9,6) (ODD, THEN EVEN, BITS) ;
-3C97:A5 41          081             LDA NVOL        (3)                             ;
-3C99:45 55          082             EOR TRK         (3) FORM ADR FIELD CHECKSUM.    ;
-3C9B:45 3F          083             EOR NSECT       (3)                             ;
-3C9D:48             084             PHA             (3) SAVE FOR EVEN BITS.         ;
-3C9E:4A             085             LSR A           (2) ALIGHN ODD BITS.            ; *spelling* <span class='spell' id='3C9E'>"ALIGN"</span> Poorly written assemblers explicitly need the implicit A register
-3C9F:05 3E          086             ORA AA          (3) SET CLOCK BITS.             ; This is a shitty variable name: <span class='code'>AA</span>; call it WRITE_NIB_AA, see <a class='x' href='#DSKFORM'>DSKFORM</a>, Line #020,
+3C79:A9 D5          069 <meta                                       />            LDA #$<span class='n'>D5</span>        (2) ADR MARK 1.                 ; + 2 [12] <a class='magic' name='_3C7A'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_1 EQU #$D5</span>
+3C7B:20 D5 3C       070 <meta                                       />            JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) WRITE IT.              ; +24 [10] &lt;-- JSR=6, WNIBLB2=9, WRNIBL=15
+3C7E:A9 AA          071 <meta                                       />            LDA #$<span class='n'>AA</span>        (2) ADR MARK 2.                 ; + 2 [12] <a class='magic' name='_3C7F'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_2 EQU #$AA</span>
+3C80:20 D5 3C       072 <meta                                       />            JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) WRITE IT.              ; +24 [10]
+3C83:A9 96          073 <meta                                       />            LDA #$<span class='n'>96</span>        (2) 16-SECTOR ADR MARK 3.       ; + 2 [10] <a class='magic' name='_3C84'>magic number</a> <span class='macro'>DISK_ADR_PROLOG_3 EQU #$96</span>
+3C85:20 D5 3C       074 <meta                                       />            JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) WRITE IT.              ; +24 [10]
+3C88:A5 41          075 <meta                                       />            LDA NVOL        (3)                             ; + 3 [13]
+3C8A:20 C4 3C       076 <meta                                       />            JSR <a class='x' href='#WBYTE'>WBYTE</a>       (14,9,6) WRITE NVOL (ODD, THEN EVEN, BITS.) ; JSR=6
+3C8D:A5 44          077 <meta                                       />            LDA TRK         (3) WRITE TRACK NUMBER.         ;
+3C8F:20 C4 3C       078 <meta                                       />            JSR <a class='x' href='#WBYTE'>WBYTE</a>       (14,9,6) ODD, THEN EVEN, BITS)  ;
+3C92:A5 3F          079 <meta                                       />            LDA NSECT       (3) WRITE SECTOR NUMBER.        ;
+3C94:20 C4 3C       080 <meta                                       />            JSR <a class='x' href='#WBYTE'>WBYTE</a>       (14,9,6) (ODD, THEN EVEN, BITS) ;
+3C97:A5 41          081 <meta                                       />            LDA NVOL        (3)                             ;
+3C99:45 55          082 <meta                                       />            EOR TRK         (3) FORM ADR FIELD CHECKSUM.    ;
+3C9B:45 3F          083 <meta                                       />            EOR NSECT       (3)                             ;
+3C9D:48             084 <meta                                       />            PHA             (3) SAVE FOR EVEN BITS.         ;
+3C9E:4A             085 <meta                                       />            LSR A           (2) ALIGHN ODD BITS.            ; *spelling* <span class='spell' id='3C9E'>"ALIGN"</span> Poorly written assemblers explicitly need the implicit A register
+3C9F:05 3E          086 <meta                                       />            ORA AA          (3) SET CLOCK BITS.             ; This is a shitty variable name: <span class='code'>AA</span>; call it WRITE_NIB_AA, see <a class='x' href='#DSKFORM'>DSKFORM</a>, Line #020,
                     087 <meta                                       /> *                          (PRECISE TIMING, 32 CYCLES PER NIBL)
 3CA1:9D 8D C0       088 <meta                                       />            STA Q6H,X       (5) WRITE CHECKSUM ODD BITS.    ;
 3CA4:BD 8C C0       089 <meta                                       />            LDA Q6L,X       (4) BACK TO WRITE MODE.         ;
 3CA7:68             090 <meta                                       />            PLA             (4) RECOVER FOR EVEN BITS.      ;
 3CA8:09 AA          091 <meta                                       />            ORA #$<span class='n'>AA</span>        (2) SET CLOCK BITS.             ;
 3CAA:20 D4 3C       092 <meta                                       />            JSR WNIBLA      (17,9,6) WRITE THEM.            ;
-3CAD:A9 DE          093 <meta                                       />            LDA #$<span class='n'>DE</span>        (2) END MARK 1.                 ; <a class='magic' name='_3CAE'>magic number</a> <span class='todo'>TODO</span>
+3CAD:A9 DE          093 <meta                                       />            LDA #$<span class='n'>DE</span>        (2) END MARK 1.                 ; <a class='magic' name='_3CAE'>magic number</a> <span class='macro'>DISK_ADR_EPILOG_1 EQU #$DE</span>
 3CAF:20 D5 3C       094 <meta                                       />            JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) WRITE IT.              ;
-3CB2:A9 AA          095 <meta                                       />            LDA #$<span class='n'>AA</span>        (2) END MARK 2.                 ; <a class='magic' name='_3CB3'>magic number</a> <span class='todo'>TODO</span>
+3CB2:A9 AA          095 <meta                                       />            LDA #$<span class='n'>AA</span>        (2) END MARK 2.                 ; <a class='magic' name='_3CB3'>magic number</a> <span class='macro'>DISK_ADR_EPILOG_2 EQU #$AA</span>
 3CB4:20 D5 3C       096 <meta                                       />            JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) WRITE IT.              ;
-3CB7:A9 EB          097 <meta                                       />            LDA #$<span class='n'>EB</span>        (2) END MARK 3.                 ; <a class='magic' name='_3CB8'>magic number</a> <span class='todo'>TODO</span>
+3CB7:A9 EB          097 <meta                                       />            LDA #$<span class='n'>EB</span>        (2) END MARK 3.                 ; <a class='magic' name='_3CB8'>magic number</a> <span class='macro'>DISK_ADR_EPILOG_3 EQU #$EB</span>
 3CB9:20 D5 3C       098 <meta                                       />            JSR <a class='x' href='#WNIBLB2'>WNIBLB2</a>     (15,9,6) 'WRITE TURN-OFF'       ;
 3CBC:18             099 <meta                                       />            CLC             INDICATE NO WR PROT ERR.
 3CBD:BD 8E C0       100 <a class='f' id='3CBD' name='WADRTS'     >WADRTS      </a>LDA Q7L,X       OUT OF WRITE MODE.              ; TODO: used elsewhere?
