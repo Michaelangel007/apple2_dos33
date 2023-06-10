@@ -5263,14 +5263,14 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 339E:00             010 <a class='d' id='339E' name="TEMP3" >TEMP3       </a>DFB 0           ; TEMP BYTE 3                   ; Used by <a class="x" href="#FLOCK">FLOCK</a>, <a class="x" href="#FUNLCK">FUNLCK</a> and <a class="x" href="#GSS1">GSS1</a>
 339F:00             011 <a class='d' id='339F' name="ENTSLT">ENTSLT      </a>DFB 0           ; BOOT SLOT SAVE
 33A0:00 00 FF FF    012 <a class='d' id='33A0' name="ALC10S">ALC10S      </a>DFB 0,0,$FF,$FF ; ALLOCATION TRACK BIT MAP      ; <a class='mem' name='_33A0' coords='2'>wastes</a> 2 bytes/track free sector bitmap mask, used in <a class='x' href='#NT3'>NT3</a>; See <a class='v' href='#DCBABM'>DCBABM</a>,
-                                                                                    ; The thinking was probably:
+                                                                                    ; The thinking (if there even was <i>any</i>) was probably:
                                                                                     ;     DOS 3.2 = 13 sector
                                                                                     ;     DOS 3.3 = 16 sector
                                                                                     ;     DOS 3.4 &gt; 16 sector -- See <a class="v" href="#VNOSEC">VNOSEC</a>
                                                                                     ; === <a class="dumb" name="HNTDAFS1">HNTDAFS #1</a> ===
                                                                                     ; Anytime you see the word <b>reserved</b> or <b>unused</b> in a (file) format
                                                                                     ; your spidey sense should be tingling.
-                                                                                    ; Translation: <i>I pulled this out of my ass -- </i>
+                                                                                    ; <b>Translation:</b> <i>I pulled this out of my ass -- </i>
                                                                                     ;              <i>because I didn't actually <b>measure</b> what is <b>needed</b>!"</i>
 33A4:01 0A 64       013 <a class='d' id='33A4' coords='3' name="CVTAB" >CVTAB       </a>DFB 1,10,100    ; CONVERSION TABLE              ; Powers of 10; sadly Applesoft's DECTBL @ $<span class='n'>EE6C</span> is useless :-/
                     014             MSC ON                                          ; Switch ASCII to Apple Text (high bit set)
