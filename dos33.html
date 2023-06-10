@@ -5314,14 +5314,14 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 33BF:00             027             DFB 0           ; SPARE                         ; [04] <a class='struct' name='_33BF'>wastes</a> 1 byte /sarcasm "<i>Because <b>someday</b> these <b>might</b> be used ... ?</i>"
 33C0:00             028             DFB 0           ; SPARE                         ; [05] <a class='struct' name='_33C0'>wastes</a> 1 byte &#x0CA0;_&#x0CA0;       Uh-huh.
 33C1:FE             029 <a class="d" name="VVOLNO">VVOLNO      </a>DFB $FE         ; VOLUME NUMBER                 ; [06]                         <b>Design for today</b>, not <i>someday</i>
-33C2:00 00 00 00    030             DS 32           ; SPARE                         ; [07] <a class='struct' name='_33C2'>wastes</a> 32 bytes, <b>WTF !</b>
-33C6:00 00 00 00                                                                    ;      Gee, here's an idea:
-33CA:00 00 00 00                                                                    ;      Instead of <i>wasting space</i> in the VTOC
-33CE:00 00 00 00                                                                    ;        1) <b>Pack our data</b> by removing all the <i>unused crap:</i>
-33D2:00 00 00 00                                                                    ;           Total 1+1+32+8 = <b>42 bytes!</b>
-33D6:00 00 00 00                                                                    ;        2) Put VTOC data as first XX bytes in the <a class='ts'>T11SF</a> CATALOG
-33DA:00 00 00 00                                                                    ;      
-33DE:00 00 00 00                                                                    ;      
+33C2:FC FD FF FC    030             DS 32           ; SPARE                         ; [07] <a class='struct' name='_33C2'>wastes</a> 32 bytes, <b>WTF !</b>
+33C6:FF FC FC FE                                                                    ;      Gee, here's an idea:
+33CA:FF FC FD FF                                                                    ;      Instead of <i>wasting space</i> in the VTOC
+33CE:FE FF FD FE                                                                    ;        1) <b>Pack our data</b> by removing all the <i>unused crap:</i>
+33D2:FF FD FD FD                                                                    ;           Total 1+1+32+8 = <b>42 bytes!</b>
+33D6:FF FE FD FF                                                                    ;        2) Put VTOC data as first XX bytes in the <a class='ts'>T11SF</a> CATALOG
+33DA:FC FF FF FD                                                                    ;
+33DE:FD FC FE FE                                                                    ;
 33E2:7A             031 <a class="d" name="VTDMS" >VTDMS       </a>DFB 122         ; MAX SECTORS IN A FILE DIR     ; [27] *sigh* not 128 so we can BMI (Branch on Minus) ??? (Copied to <a class='v' href='#DCBDMS'>DCBDMS</a>)
 33E3:00 00 00 00    032 <a class="d" name="VSPARE">VSPARE      </a>DS 8            ; SPARES                        ; [28] <a class='struct' name='_33E3'>wastes</a> 8 bytes, <i>Oh FFS already ...</i>
 33E7:00 00 00 00    033 ;                                                           ;      Who 1) <i>designed</i>, and 2) <b>implemented</b> this crap?!?!
