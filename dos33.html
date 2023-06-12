@@ -7476,31 +7476,31 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3D66:B1 48          254             LDA (IOBPL),Y   ;DETERMINE DRIVE ONE OR TWO
 3D68:A0 10          255             LDY #$<span class='n'>10</span>        ;SAME DRIVE USED BEFORE?        ; <a class='magic' name='_3D69'>magic number</a> <span class='code'>IOB_OFFSET_PREV_DRV</span>
 3D6A:D1 48          256             CMP (IOBPL),Y
-                    257             BEQ OK          ;IF SO, DON'T NECESSARILY WAIT FOR
-                    258 MOTOR
-                    259             STA (IOBPL),Y   ;NOW USING THIS DRIVE
-3D70:28             260             PLP             ;TELL HIM MOTOR WAS OFF
-3D71:A0 00          261             LDY #$<span class='n'>00</span>        ;SET ZERO FLAG                  ; 6502 doesn't have a <span class='code'>CLZ</span> or <span class='code'>SEZ</span> instruction
-3D73:08             262             PHP
-3D74:6A             263 OK          ROR A           ;BY GOING INTO THE CARRY
-                    264             BCC SD1         ;SELECT DRIVE 2 !
-                    265             LDA DRV1EN,X    ;ASSUME DRIVE 1 TO HIT
-                    266             BCS DRVSEL      ;IF WRONG, ENABLE DRIVE 2 INSTEAD
-                    267 SD1         LDA DRV2EN,X
-                    268 DRVSEL      EQU *
-                    269             ROR DRIVNO      ;SAVE SELECTED DRIVE
-                    270 *
-                    271 * DRIVE SELECTED. IF MOTORING-UP,
-                    272 *  WAIT BEFORE SEEKING...
-                    273 *
-                    274             PLP             ;WAS THE MOTOR
-                    275             PHP             ; PREVIOUSLY OFF?
-                    276             BNE NOWAIT      ;=&gt;NO, FORGET WAITING.
-                    277             LDY #7          ;YES, DELAY 150 MS
-                    278 SEEKW       JSR MSWAIT
-                    279             DEY
-                    280             BNE SEEKW
-                    281             LDX SLOT        ;RESTORE SLOT NUMBER
+3D6C:F0 06          257             BEQ OK          ;IF SO, DON'T NECESSARILY WAIT FOR MOTOR
+3D6E:91 48          258             STA (IOBPL),Y   ;NOW USING THIS DRIVE
+3D70:28             259             PLP             ;TELL HIM MOTOR WAS OFF
+3D71:A0 00          260             LDY #$<span class='n'>00</span>        ;SET ZERO FLAG                  ; 6502 doesn't have a <span class='code'>CLZ</span> or <span class='code'>SEZ</span> instruction
+3D73:08             261             PHP
+3D74:6A             262 OK          ROR A           ;BY GOING INTO THE CARRY
+3D75:90 05          263             BCC SD1         ;SELECT DRIVE 2 !
+3D77:BD 8A C0       264             LDA DRV1EN,X    ;ASSUME DRIVE 1 TO HIT
+3D7A:B0 03          265             BCS DRVSEL      ;IF WRONG, ENABLE DRIVE 2 INSTEAD
+3D7C:BD 8B C0       266 SD1         LDA DRV2EN,X
+                    267 DRVSEL      EQU *
+3D7F:66 35          268             ROR DRIVNO      ;SAVE SELECTED DRIVE
+                    269 *
+                    270 * DRIVE SELECTED. IF MOTORING-UP,
+                    271 *  WAIT BEFORE SEEKING...
+                    272 *
+3D81:28             273             PLP             ;WAS THE MOTOR
+3D82:08             274             PHP             ; PREVIOUSLY OFF?
+3D83:D0 0B          275             BNE NOWAIT      ;=&gt;NO, FORGET WAITING.
+3D85:A0 07          276             LDY #7          ;YES, DELAY 150 MS
+3D87:20 00 3A       277 SEEKW       JSR MSWAIT
+3D8A:88             278             DEY
+3D8B:D0 FA          279             BNE SEEKW
+3D8D:AE F8 05       280             LDX SLOT        ;RESTORE SLOT NUMBER
+                    281 *
                     282 NOWAIT      EQU *
                     283 *
                     284 * SEEK TO DESIRED TRACK...
@@ -7530,9 +7530,9 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3D9A:A4 47          308             LDY MONTIME+1   ;IF MOTORTIME IS POSITIVE,
 3D9C:10 0D          309             BPL MOTORUP     ; THEN SEEK WASTED ENUFF TIME FOR US
 3D9E:A0 12          310 MOTOF       LDY #$<span class='n'>12</span>        ;DELAY 100 USEC PER COUNT
-                    311 CONWAIT     DEY
-                    312             BNE CONWAIT
-                    313             INC MONTIME
+3DA0:88             311 CONWAIT     DEY
+3DA1:D0 FD          312             BNE CONWAIT
+3DA3:E6 46          313             INC MONTIME                                     ; NOTE: MONTIME is never written to so this is a full 256 counter
 3DA5:D0 F7          314             BNE MOTOF
 3DA7:E6 47          315             INC MONTIME+1
 3DA9:D0 F3          316             BNE MOTOF       ;COUNT UP TO $0000
@@ -7556,7 +7556,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3DAB:A0 0C          007             LDY #$<span class='n'>0C</span>                                        ; <a class='magic' name='_3DAB'>magic number</a> <span class='code'>IOB_OFFSET_CMD = $C</span>
 3DAD:B1 48          008             LDA (<a class="d" href="#IOBPL">IOBPL</a>),Y   ;GET COMMAND CODE #
 3DAF:F0 5A          009             BEQ <a class="x" href="#GALLDONE">GALLDONE</a>    ;IF NULL COMMAND, GO HOME TO BED.           ; v
-3DB1:C9 04          010             CMP #$<span class='n'>04</span>        ;FORMAT THE DISK?               ; *sigh* <a class='magic' name='_3DB2'>magic number</a> <span class='code'>RWTS_CMD_FORMAT = $4</span>
+3DB1:C9 04          010             CMP #$<span class='n'>04</span>        ;FORMAT THE DISK?               ; <a class='magic' name='_3DB2'>magic number</a> <span class='code'>RWTS_CMD_FORMAT = $4</span> *sigh*
 3DB3:F0 58          011             BEQ <a class="x" href="#FORMDSK">FORMDSK</a>     ;ALLRIGHT,ALLRIGHT, I WILL...
 3DB5:6A             012             ROR A           ;SET CARRY=1 FOR READ, 0 FOR WRITE
 3DB6:08             013             PHP             ;AND SAVE THAT
