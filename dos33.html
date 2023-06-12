@@ -7408,7 +7408,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     186             STY TL1                                         </span>
                     187         FIN
                     188         LST ON
-3D04:A0 02          189             LDY #<span class='n'>2</span>          ;SET RECALIBRATE                ; <a class='magic' name='_3D05'>magic number</a> <span class='todo'>TODO</span>
+3D04:A0 02          189             LDY #<span class='n'>2</span>          ;SET RECALIBRATE                ; <a class='magic' name='_3D05'>magic number</a> <span class='code'>RWTS_RECALIBRATE = $2</span>
 3D06:8C F8 06       190             STY <a class='v' href='#RECALCNT'>RECALCNT</a>    ; COUNT                         ; Text screen hole!
 3D09:A0 04          191             LDY #<a class='v' href='#MAXSEEKS'>MAXSEEKS</a>   ;SET RESEEK
 3D0B:8C F4 04       192             STY <a class='v' href='#SEEKCNT'>SEEKCNT</a>     ; COUNT                          ; <b>Another</b> text screen hole. WTF! 33 bytes above on page $3C / $BC!
@@ -7447,7 +7447,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     225 *
 3D34:BD 8E C0       226 SAMESLOT    LDA Q7L,X       ;MAKE SURE IN READ MODE
 3D37:BD 8C C0       227             LDA Q6L,X
-3D3A:A0 08          228             LDY #<span class='n'>8</span>          ;WE MAY HAFTA CHECK SEVERAL TIMES TO BE SURE
+3D3A:A0 08          228             LDY #<span class='n'>8</span>          ;WE MAY HAFTA CHECK SEVERAL TIMES TO BE SURE ; <a class='magic' name='_3D3B'>magic number</a> <span class='code'>RWTS_MIN_NIBBLES_DELTA = $8</span>
                     229 CHKIFON     EQU *
 3D3C:BD 8C C0       230             LDA Q6L,X       ;GET THE DATA
 3D3F:48             231             PHA             ;DELAY FOR DISK DATA TO CHANGE
