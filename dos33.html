@@ -7467,22 +7467,22 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3D54:B1 48          245 PTRMOV      LDA (IOBPL),Y                                        ;                             [6] 37EE..37EF -&gt; $ [0] 003C <a class='v' href='#IOB_DCT'>IOB_DCT</a>
 3D56:99 36 00       246             STA PTRSDEST-6,Y                                     ; <a class='magic' name='_3D57'>magic number</a> <a class='v' href='#IOB_OFFSET_DCT'>IOB_OFFSET_DCT</a> [8] 37F0..37F1 -&gt; $ [2] 003D <a class='v' href='#IOB_BUF'>IOB_BUF</a>
 3D59:C8             247             INY
-                    248             CPY #$<span class='n'>0A</span>        ;MOVED ALL POINTERS?            ; <a class='magic' name='IOB_OFFSET_LEN'>magic number</a>
-                    249             BNE PTRMOV
-                    250             LDY #<span class='n'>3</span>          ;SET UP THE                     ; <a class='magic' id='0003' name='DEV_MOTOR_ON1'>magic number</a>
-                    251             LDA (<a class='v' href='#DEVCTBL'>DEVCTBL</a>),Y ; MOTOR-ON TIME                 ;
-                    252             STA MONTIME+1                                   ; <span class='bug'>BUG:</span> Motor On Time Low is never stored to MONTIME!
-                    253             LDY #<span class='n'>2</span>          ;NOW GET PARAMS
-                    254             LDA (IOBPL),Y   ;DETERMINE DRIVE ONE OR TWO
-                    255             LDY #$<span class='n'>10</span>        ;SAME DRIVE USED BEFORE?        ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span> IOB_
-                    256             CMP (IOBPL),Y
+3D5A:C0 0A          248             CPY #$<span class='n'>0A</span>        ;MOVED ALL POINTERS?            ; <a class='magic' name='_3D5B'>magic number</a> <span class='code'>IOB_OFFSET_LEN</span>
+3D5C:D0 F6          249             BNE PTRMOV
+3D5E:A0 03          250             LDY #<span class='n'>3</span>          ;SET UP THE                     ; <a class='magic' id='0003' name='_3D5F'>magic number</a> <span class='code'>DCT_MOTOR+1</span>
+3D60:B1 3C          251             LDA (<a class='v' href='#DEVCTBL'>DEVCTBL</a>),Y ; MOTOR-ON TIME                 ;
+3D62:85 47          252             STA MONTIME+1                                   ; <span class='bug'>BUG:</span> Motor On Time Low is never stored to MONTIME!
+3D64:A0 02          253             LDY #<span class='n'>2</span>          ;NOW GET PARAMS                 ; <a class='magic' name='_3D65'>magic number</a> <span class='code'>IOB_OFFSET_DRV_NUM</span>
+3D66:B1 48          254             LDA (IOBPL),Y   ;DETERMINE DRIVE ONE OR TWO
+3D68:A0 10          255             LDY #$<span class='n'>10</span>        ;SAME DRIVE USED BEFORE?        ; <a class='magic' name='_3D69'>magic number</a> <span class='code'>IOB_OFFSET_PREV_DRV</span>
+3D6A:D1 48          256             CMP (IOBPL),Y
                     257             BEQ OK          ;IF SO, DON'T NECESSARILY WAIT FOR
                     258 MOTOR
                     259             STA (IOBPL),Y   ;NOW USING THIS DRIVE
 3D70:28             260             PLP             ;TELL HIM MOTOR WAS OFF
 3D71:A0 00          261             LDY #$<span class='n'>00</span>        ;SET ZERO FLAG                  ; 6502 doesn't have a <span class='code'>CLZ</span> or <span class='code'>SEZ</span> instruction
 3D73:08             262             PHP
-                    263 OK          ROR A           ;BY GOING INTO THE CARRY
+3D74:6A             263 OK          ROR A           ;BY GOING INTO THE CARRY
                     264             BCC SD1         ;SELECT DRIVE 2 !
                     265             LDA DRV1EN,X    ;ASSUME DRIVE 1 TO HIT
                     266             BCS DRVSEL      ;IF WRONG, ENABLE DRIVE 2 INSTEAD
@@ -7505,7 +7505,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     283 *
                     284 * SEEK TO DESIRED TRACK...
                     285 *
-3D90:A0 04          286             LDY #<span class='n'>4</span>          ;SET TO IOBTRK                  ; <a class='magic' name='_????'>magic number</a> <span class='todo'>TODO</span>
+3D90:A0 04          286             LDY #<span class='n'>4</span>          ;SET TO IOBTRK                  ; <a class='magic' name='_3D91'>magic number</a> <span class='code'>IOB_OFFSET_TRK</span>
 3D92:B1 48          287             LDA (IOBPL),Y   ;GET DESIRED TRACK
 3D94:20 5A 3E       288             JSR MYSEEK      ;SEEK!
                     289 *
@@ -7553,10 +7553,10 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     004 * LOCATE THE CORRECT SECTOR FOR THIS OPERATION.
                     005 *
                     006 <a class="f"    name="TRYTRK"     >TRYTRK      </a>EQU *
-3DAB:A0 0C          007             LDY #$<span class='n'>0C</span>                                        ; <a class='magic' name='_3DAB'>magic number</a> IOB_OFFSET_CMD = $C
+3DAB:A0 0C          007             LDY #$<span class='n'>0C</span>                                        ; <a class='magic' name='_3DAB'>magic number</a> <span class='code'>IOB_OFFSET_CMD = $C</span>
 3DAD:B1 48          008             LDA (<a class="d" href="#IOBPL">IOBPL</a>),Y   ;GET COMMAND CODE #
 3DAF:F0 5A          009             BEQ <a class="x" href="#GALLDONE">GALLDONE</a>    ;IF NULL COMMAND, GO HOME TO BED.           ; v
-3DB1:C9 04          010             CMP #$<span class='n'>04</span>        ;FORMAT THE DISK?               ; *sigh* RWTS_CMD_FORMAT = 4
+3DB1:C9 04          010             CMP #$<span class='n'>04</span>        ;FORMAT THE DISK?               ; *sigh* <a class='magic' name='_3DB2'>magic number</a> <span class='code'>RWTS_CMD_FORMAT = $4</span>
 3DB3:F0 58          011             BEQ <a class="x" href="#FORMDSK">FORMDSK</a>     ;ALLRIGHT,ALLRIGHT, I WILL...
 3DB5:6A             012             ROR A           ;SET CARRY=1 FOR READ, 0 FOR WRITE
 3DB6:08             013             PHP             ;AND SAVE THAT
