@@ -3096,11 +3096,11 @@ With that "legalese" out of the way ... enjoy the read!
                     101 ;
                     102 MVFN1       EQU *
 2743:A0 1D          103             LDY #<span class='n'>29</span>                                         ; <a class='magic' name='_'>magic number</a> <span class='code'>MAX_FILENAME-1</span>
-                    104 MVFN1A      LDA FNAME1,Y
-                    105             STA (ZPGWRK),Y
-                    106             DEY
-                    107             BPL MVFN1A
-                    108             RTS
+2745:B9 75 2A       104 MVFN1A      LDA FNAME1,Y
+2748:91 40          105             STA (ZPGWRK),Y
+274A:88             106             DEY
+274B:10 F8          107             BPL MVFN1A
+274D:60             108             RTS
                     109 ;
                     110 ; MVBUFP - MOVE BUFFER PTR TO CCB
                     111 ;
@@ -3117,9 +3117,9 @@ With that "legalese" out of the way ... enjoy the read!
                     122 ;
                     123 <a class='f' name='CLRSTS'   >CLRSTS      </a>EQU *
 275B:A0 00          124             LDY #<span class='n'>0</span>
-                    125             STY ISTATE
-                    126             STY OSTATE
-                    <a class='line' name='DOSGOER.127'>127</a>             RTS                                             ; Should be <span class='code'>FLS4 SEC, RTS</span> for <a class='x' href='#FILSRC'>FILSRC</a> not found exit optimization
+275D:8C 51 2A       125             STY ISTATE
+2760:8C 52 2A       126             STY OSTATE
+2763:60             <a class='line' name='DOSGOER.127'>127</a>             RTS                                             ; Should be <span class='code'>FLS4 SEC, RTS</span> for <a class='x' href='#FILSRC'>FILSRC</a> not found exit optimization
                     128             PAGE                                            ; Callers: <a class='x' href='#CMDGO1'>CMDGO1</a>, <a class='x' href='#CNF1'>CNF1</a>, <a class='x' href='#ERROR'>ERROR</a>, <a class='x' href='#INITZ'>INITZ</a>, don't use carry.
                     129 ;
                     130 ; FILSRC - SEARCH FOR FILE NAME1
@@ -3174,7 +3174,7 @@ With that "legalese" out of the way ... enjoy the read!
                     179             STX ZPGWRK+1
                     180             STA ZPGWRK
                     181             TXA             ; SET NE CC
-                    182 TSR         RTS             ; RTN
+27A9:60             182 TSR         RTS             ; RTN
                     183 ;
                     184 ; TSTOPN - TST FOR OPEN FILE                                ; TST? Really?? You have to abbreviate the <i>description</i> too ?!
                     185 ;
