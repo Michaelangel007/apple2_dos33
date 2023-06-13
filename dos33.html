@@ -3778,26 +3778,26 @@ With that "legalese" out of the way ... enjoy the read!
                     004 ;
                     005 <a class="f" name="FOPEN"      id="FOPEN"      >FOPEN       </a>EQU *
 2B22:20 28 2B       006             JSR <a class='x' href='#DOPEN'>DOPEN</a>                    ; &darr;
-2B24:4C 7F 33       007             JMP GOODIO
+2B25:4C 7F 33       007             JMP GOODIO
                     008 ;
                     009 <a class='f' name='DOPEN'    >DOPEN       </a>EQU *
                     010 ;
-                    011             JSR DCBSUP
+2B28:20 DC 2B       011             JSR DCBSUP
                     012 ;
                     013 ;
-                    014             LDA #1
-                    015             STA DCBSDL+1
-                    016             LDX CCBRLN+1    ; MOVE RECORD LENGTH
-                    017             LDA CCBRLN
-                    018             BNE F01
-                    019             CPX 0
-                    020             BNE F02
-                    021             INX             ; SET RL=256
-                    022 <a class='f' name='F02'      >F02         </a>STA DCBRCL
-                    023             STX DFBRCL+1
+2B2B:A9 01          014             LDA #1
+2B2D:8D E3 35       015             STA DCBSDL+1
+2B30:AE BE 35       016             LDX CCBRLN+1    ; MOVE RECORD LENGTH
+2B33:AD BD 35       017             LDA CCBRLN
+2B36:D0 05          018             BNE F01
+2B38:E0 00          019             CPX #0
+2B3A:D0 01          020             BNE F02
+2B3C:E8             021             INX             ; SET RL=256
+2B3D:8D E8 35       022 <a class='f' name='F02'      >F02         </a>STA DCBRCL
+2B40:8E E9 35       023             STX DFBRCL+1
                     024 ;
-                    025             JSR FNDFIL      ; GO FIND FILE
-                    026             BCC F03         ; BR IF FOUND
+2B43:20 C9 31       025             JSR FNDFIL      ; GO FIND FILE
+2B46:90 5E          026             BCC F03         ; BR IF FOUND
                     027 ;
                     028 * CREATE FILE IF COMMAND IS SAVE, OPEN, BSAVE
                     029 ;
