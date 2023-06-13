@@ -6303,7 +6303,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     032 ****************************
 3800:A2 00          033 <a class='f' id='3800' name='PRENIB16'  >PRENIB16    </a>LDX #$<span class='n'>0</span>         ;START NBUF2 INDEX. CHANGED BY WOZ
 3802:A0 02          034             LDY #<span class='n'>2</span>          ;START USER BUF INDEX. CHANGED BY WOZ.
-3803:88             035 <a class='f' id='3803' name='PRENIB1'   >PRENIB1     </a>DEY             ;NEXT USER BYTE.
+3804:88             035 <a class='f' id='3804' name='PRENIB1'   >PRENIB1     </a>DEY             ;NEXT USER BYTE.
 3805:B1 3E          036             LDA (<a class="v" hre="#BUF">BUF</a>),Y
 3807:4A             037             LSR A           ;SHIFT TWO BITS OF
 3808:3E 00 3C       038             ROL <a class="v" hre="#NBUF2">NBUF2</a>,X     ;CURRENT USER BYTE
