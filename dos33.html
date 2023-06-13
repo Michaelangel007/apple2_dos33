@@ -3070,7 +3070,7 @@ With that "legalese" out of the way ... enjoy the read!
 2715:E8             075             INX             ; INCREMENT IT
 2716:68             076             PLA             ; RE-LOAD CHAR
 2717:10 ED          077             BPL EMPR1       ; BR IF MORE CHARS
-2718:60             078             RTS             ; DONE
+2719:60             078             RTS             ; DONE
                     079             PAGE
                     080 ;
                     081 ; OPNSUP - OPEN SET UP
@@ -3078,19 +3078,19 @@ With that "legalese" out of the way ... enjoy the read!
                     083 OPNSUP      EQU *                                           ; If only these were contiguous
 271A:AD 66 2A       084             LDA CV          ; VOLUME
 271D:8D BF 35       085             STA CCBVOL      ;
-                    086             LDA CD          ; DRIVE
-                    087             STA CCBDRV
-                    088             LDA CS          ; SLOT
-                    089             STA CCBSLT
-                    090             LDA FN1ADR      ; FILENAME 1 ADR
-                    091             STA CCBFN1
-                    092             LDA FN1ADR+<span class='n'>1</span>
-                    093             STA CCBFN1+<span class='n'>1</span>
-                    094             LDA ZPGWRK
-                    095             STA CFTABA
-                    096             LDA ZPGWRK+<span class='n'>1</span>
-                    097             STA CFTABA+<span class='n'>1</span>
-                    098             RTS
+2720:AD 68 2A       086             LDA CD          ; DRIVE
+2723:8D C0 35       087             STA CCBDRV
+2726:AD 6A 2A       088             LDA CS          ; SLOT
+2729:8D C1 35       089             STA CCBSLT
+272C:AD 06 1D       090             LDA FN1ADR      ; FILENAME 1 ADR
+272F:8D C3 35       091             STA CCBFN1
+2732:AD 07 1D       092             LDA FN1ADR+<span class='n'>1</span>
+2735:8D C4 35       093             STA CCBFN1+<span class='n'>1</span>
+2738:A5 40          094             LDA ZPGWRK
+273A:8D 4F 2A       095             STA CFTABA
+273D:A5 41          096             LDA ZPGWRK+<span class='n'>1</span>
+273F:8D 50 2A       097             STA CFTABA+<span class='n'>1</span>
+2742:60             098             RTS
                     099 ;
                     100 ; MVFN1 - MOVE FILE NAME 1 TO FILE PTR
                     101 ;
