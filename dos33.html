@@ -3126,7 +3126,7 @@ With that "legalese" out of the way ... enjoy the read!
                     131 ;
                     132 <a class='f' name='FILSRC'   >FILSRC      </a>EQU *
 2764:A9 00          133             LDA #<span class='n'>0</span>          ; CLEAR SV AVAIL
-2765:85 45          134             STA CNUM+1
+2766:85 45          134             STA CNUM+1
                     135 ;
 2768:20 92 27       136             JSR <a class='x' href='#TSINIT'>TSINIT</a>      ; GO INIT SEARCH                ; &darr;
 276B:4C 73 27       137             JMP FLS1A                                       ; <a class='mem' name='_276B' coords='1'>wastes</a> 1 byte, <a class='x' href='#CLALL'>CLALL</a> has <span class='code'>JSR TSINIT, BNE SKIPNEXT</span> so why JMP ???
@@ -3136,20 +3136,20 @@ With that "legalese" out of the way ... enjoy the read!
 2773:20 AA 27       141 <a class='f' name='FLS1A'    >FLS1A       </a>JSR TSTOPN      ; GO TEST OPEN
 2776:D0 0A          142             BNE FLS2        ; BR IF OPEN
                     143 ;
-                    144             LDA ZPGWRK      ; SAVE AVAIL ENTRY ADR
-                    145             STA CNUM
-                    146             LDA ZPGWRK+<span class='n'>1</span>
-                    147             STA CNUM+<span class='n'>1</span>
-                    148             BNE FLS1        ; GO LOOK SOME MORE
+2778:A5 40          144             LDA ZPGWRK      ; SAVE AVAIL ENTRY ADR
+277A:85 44          145             STA CNUM
+277C:A5 41          146             LDA ZPGWRK+<span class='n'>1</span>
+277E:85 45          147             STA CNUM+<span class='n'>1</span>
+2780:D0 EC          148             BNE FLS1        ; GO LOOK SOME MORE
                     149 ;
 2782:A0 1D          150 FLS2        LDY #<span class='n'>29</span>         ; FILE HAD 30 CHARS             ; <a class='magic' name='_2782'>magic number</a> <span class='code'>MAX_FILENAME-1</span>
-                    151 FLS3        LDA (ZPGWRK),Y  ; GET CHAR
-                    152             CMP FNAME1,Y    TEST CHAR                       ; Missing <span class='code'>;</span> for comment
-                    153             BNE FLS1        ; BR NOT
-                    154             DEY
-                    155             BPL FLS3        ; LOOK AT 30 CHARS
-                    156             CLC             ; FOUND
-                    157             RTS
+2784:B1 40          151 FLS3        LDA (ZPGWRK),Y  ; GET CHAR
+2786:D9 75 2A       152             CMP FNAME1,Y    TEST CHAR                       ; Missing <span class='code'>;</span> for comment
+2789:D0 E3          153             BNE FLS1        ; BR NOT
+278B:88             154             DEY
+278C:10 F6          155             BPL FLS3        ; LOOK AT 30 CHARS
+278E:18             156             CLC             ; FOUND
+278F:60             157             RTS
                     158 ;
 2790:38             159 FLS4        SEC             ; NOT FOUND                     ;[.. <a class='mem' name='_2790' coords='1'>wastes</a> 1 byte, these 2 bytes should be moved to Line #<a class='line' href='#DOSGOER.127'>127</a>
 2791:60             160             RTS             ; DONE                          ; ..]
@@ -3164,16 +3164,16 @@ With that "legalese" out of the way ... enjoy the read!
 2798:D0 0A          169             BNE TSST
                     170 <a class='f' name='TSNXT'    >TSNXT       </a>EQU *
 279A:A0 25          171             LDY #37         ; GET LINK                      ; <a class='magic' name='_279B'>magic number</a> HEADER.LINK+1 (See <a class='file' href='#BLDFTB'>BLDFTB</a>)
-                    172             LDA (ZPGWRK),Y
-                    173             BEQ TSR         ; BR IF NO LINK
+279C:B1 40          172             LDA (ZPGWRK),Y
+279E:F0 09          173             BEQ TSR         ; BR IF NO LINK
                     174 ;
-                    175             TAX
-                    176             DEY                                             ; HEADER.LINK+0<hr class='page'>
-                    177             LDA (ZPGWRK),Y                                  ; === Page <a class='page' name='page43'>43</a> ===
+27A0:AA             175             TAX
+27A1:88             176             DEY                                             ; HEADER.LINK+0<hr class='page'>
+27A2:B1 40          177             LDA (ZPGWRK),Y                                  ; === Page <a class='page' name='page43'>43</a> ===
                     178 TSST        EQU *
-                    179             STX ZPGWRK+1
-                    180             STA ZPGWRK
-                    181             TXA             ; SET NE CC
+27A4:86 41          179             STX ZPGWRK+1
+27A6:85 40          180             STA ZPGWRK
+27A8:8A             181             TXA             ; SET NE CC
 27A9:60             182 TSR         RTS             ; RTN
                     183 ;
                     184 ; TSTOPN - TST FOR OPEN FILE                                ; TST? Really?? You have to abbreviate the <i>description</i> too ?!
