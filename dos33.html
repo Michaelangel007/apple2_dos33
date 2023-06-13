@@ -3059,18 +3059,18 @@ With that "legalese" out of the way ... enjoy the read!
                     064 ;
                     065 EMPR        EQU *
 2702:BD 3F 2A       066             LDA EMDTB,X     ; GET ITS DISPL
-                    067             TAX             ; INTO X
+2705:AA             067             TAX             ; INTO X
                     068 EMPR1       EQU *
-                    069             STX TEMP1A      ; SAVE DISPL
-                    070             LDA EMSG,X      ; GET MSG CHAR
-                    071             PHA             ; SAVE CHAR
-                    072             ORA #$<span class='n'>80</span>        ; SET MSB ON
-                    073             JSR ORTN1       ; OUTPUT CHAR
-                    074             LDX TEMP1A      ; GET INDEX
-                    075             INX             ; INCREMENT IT
-                    076             PLA             ; RE-LOAD CHAR
-                    077             BPL EMPR1       ; BR IF MORE CHARS
-                    078             RTS             ; DONE
+2706:8E 63 2A       069             STX TEMP1A      ; SAVE DISPL
+2709:BD 71 29       070             LDA EMSG,X      ; GET MSG CHAR
+270C:48             071             PHA             ; SAVE CHAR
+270D:09 80          072             ORA #$<span class='n'>80</span>        ; SET MSB ON
+270F:20 CF 1F       073             JSR ORTN1       ; OUTPUT CHAR
+2712:AE 63 2A       074             LDX TEMP1A      ; GET INDEX
+2715:E8             075             INX             ; INCREMENT IT
+2716:68             076             PLA             ; RE-LOAD CHAR
+2717:10 ED          077             BPL EMPR1       ; BR IF MORE CHARS
+2718:60             078             RTS             ; DONE
                     079             PAGE
                     080 ;
                     081 ; OPNSUP - OPEN SET UP
