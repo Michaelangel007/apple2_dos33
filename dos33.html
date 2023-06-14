@@ -4880,72 +4880,72 @@ With that "legalese" out of the way ... enjoy the read!
                     212 ;
                     213 <a class='f' id='315B' name='INCRRB'   >INCRRB      </a>EQU *
 315B:AE EA 35       214             LDX DCBCRR      ; MOVE BYTE JUST READ OR WRITTEN
-                    215             STX CCBRRN
-                    216             LDX DCBCRR+1
-                    217             STX CCBRRN+1
-                    218             LDX DCBCRB      ; X=REL BYTE (LOW)
-                    219             LDY DCBCRB+1    ; Y=REL BYTE HI
-                    220             STX CCBBYT
-                    221             STY CCBBYT+1
-                    222             INX             ; INC REL BYTE (LOW)
-                    223             BNE INCR1       ; BR IF NO CARRY
-                    224             INY
+315E:8E BD 35       215             STX CCBRRN
+3161:AE EB 35       216             LDX DCBCRR+1
+3164:8E BE 35       217             STX CCBRRN+1
+3167:AE EC 35       218             LDX DCBCRB      ; X=REL BYTE (LOW)
+316A:AC ED 35       219             LDY DCBCRB+1    ; Y=REL BYTE HI
+316D:8E BF 35       220             STX CCBBYT
+3170:8C C0 35       221             STY CCBBYT+1
+3173:E8             222             INX             ; INC REL BYTE (LOW)
+3174:D0 01          223             BNE INCR1       ; BR IF NO CARRY
+3176:C8             224             INY
                     225 ;
-                    226 <a class='f' name='INCR1'    >INCR1       </a>CPY DCBRCL+<span class='n'>1</span>    ; REL BYTE=REC LENGTH
-                    227             BNE INCR2       ; BR IF NOT
-                    228             CPX DCBRCL
-                    229             BNE INCR2
-                    230             LDX #0
-                    231             LDY #0          ; RESET REL BYTE TO ZERO
-                    232             INC DCBCRR      ; AND INCR
-                    233             BNE INCR2       ; RELATIVE RECORD
-                    234             INC DCBCRR+1
+3177:CC E9 35       226 <a class='f' id='3177' name='INCR1'    >INCR1       </a>CPY DCBRCL+<span class='n'>1</span>    ; REL BYTE=REC LENGTH
+317A:D0 11          227             BNE INCR2       ; BR IF NOT
+317C:EC E8 35       228             CPX DCBRCL
+317F:D0 0C          229             BNE INCR2
+3181:A2 00          230             LDX #0
+3183:A0 00          231             LDY #0          ; RESET REL BYTE TO ZERO
+3185:EE EA 35       232             INC DCBCRR      ; AND INCR
+3188:D0 03          233             BNE INCR2       ; RELATIVE RECORD
+318A:EE EB 35       234             INC DCBCRR+1
                     235 ;
-                    236 <a class='f' name='INCR2'    >INCR2       </a>STX DCBCRB      ; SAVE NEW RELATIVE BYTE
-                    237             STY DCBCRB+1
+318D:8E EC 35       236 <a class='f' id='318D' name='INCR2'    >INCR2       </a>STX DCBCRB      ; SAVE NEW RELATIVE BYTE
+8190:8C ED 35       237             STY DCBCRB+1
                     238 ;
 3193:60             239             RTS
                     240             PAGE
                     241 ;
                     242 ;INCSCB - INCREMENT SECTOR BYTE<hr class='page'>
                     243 ;                                                           ; === <a class='page' name='page67'>67</a> ===
-                    244 <a class='f' name='INCSCB'   >INCSCB      </a>EQU *
+                    244 <a class='f' id='3194' name='INCSCB'   >INCSCB      </a>EQU *
 3194:EE E6 35       245             INC DCBCSB      ; INC SECTOR BYTE
-                    246             BNE INCS2       ; BR IF NOT FULL
-                    247             INC DCBCRS      ; AND INCR
-                    248             BNE INCS2       ; RELATIVE SECTOR
-                    249             INC DCBCRS+<span class='n'>1</span>
+3197:D0 08          246             BNE INCS2       ; BR IF NOT FULL
+3199:EE E4 35       247             INC DCBCRS      ; AND INCR
+319C:D0 03          248             BNE INCS2       ; RELATIVE SECTOR
+319E:EE E5 35       249             INC DCBCRS+<span class='n'>1</span>
                     250 ;
                     251 ;
-                    252 <a class='f' name='INCS2'    >INCS2       </a>EQU *
-                    253             RTS
+                    252 <a class='f' id='31A1' name='INCS2'    >INCS2       </a>EQU *
+31A1:60             253             RTS
                     254             PAGE
                     255 ;
                     256 ;MIBDA - MOVE AND INCREMENT CCBDAT
                     257 ;
-                    258 <a class='f' name='MIBDA'    >MIBDA       </a>EQU *
-                    259             LDY CCBBBA      ; Y=ADR LOW
-                    260             LDX CCBBBA+<span class='n'>1</span>    ; X=ADR HI
-                    261             STY ZPGFCB      ; PUT ADR INTO ZPG
-                    262             STX ZPGFCB+<span class='n'>1</span>
+                    258 <a class='f' id='31A2' name='MIBDA'    >MIBDA       </a>EQU *
+31A2:AC C3 35       259             LDY CCBBBA      ; Y=ADR LOW
+31A5:AE C4 35       260             LDX CCBBBA+<span class='n'>1</span>    ; X=ADR HI
+31A8:84 42          261             STY ZPGFCB      ; PUT ADR INTO ZPG
+31AA:86 43          262             STX ZPGFCB+<span class='n'>1</span>
                     263 ;
-                    264             INC CCBBA       ; INC ADR LOW
-                    265             BNE MIB1        ; BR IF NOT ZERO
-                    266             INC CCBBA+<span class='n'>1</span>     ; DONE
-                    267 <a class='f' name='MIB1'     >MIB1        </a>RTS             ; DONE
+31AC:EE C3 35       264             INC CCBBA       ; INC ADR LOW
+31AF:D0 03          265             BNE MIB1        ; BR IF NOT ZERO
+31B1:EE C4 35       266             INC CCBBA+<span class='n'>1</span>     ; DONE
+31B4:60             267 <a class='f' id='31B4' name='MIB1'     >MIB1        </a>RTS             ; DONE
                     268 ;
                     269 ;DTBLN - DECREMENT BLONG LENGTH AND TEST ZERO
                     270 ;
-                    271 <a class='f' name='DTB2'     >DTBLN       </a>EQU *
-                    272             LDY CCBBLN      ; GET LEN LOW
-                    273             BNE DTB1        ; BR IF NOT ZERO                ; <i>No shit Caption Obvious!</i>
-                    274             LDX CCBBLN+<span class='n'>1</span>    ; GET LEN HI
-                    275             BEQ DTB2        ; BR IF LEN=0
-                    276             DEC CCBBLN+<span class='n'>1</span>    ; DEC LEN (HIGH)
-                    277 <a class='f' name='DTB1'     >DTB1        </a>DEC CCBBLN      ; DEC LEN (LOW)
-                    278             RTS             ; DONE
+                    271 <a class='f' id='31B5' name='DTBLN'    >DTBLN       </a>EQU *
+31B5:AC C1 35       272             LDY CCBBLN      ; GET LEN LOW
+31B8:D0 08          273             BNE DTB1        ; BR IF NOT ZERO                ; <i>No shit Caption Obvious!</i>
+31BA:AE C2 35       274             LDX CCBBLN+<span class='n'>1</span>    ; GET LEN HI
+31BD:F0 07          275             BEQ DTB2        ; BR IF LEN=0
+31BF:CE C2 35       276             DEC CCBBLN+<span class='n'>1</span>    ; DEC LEN (HIGH)
+31C2:CE C1 35       277 <a class='f' id='31C2' name='DTB1'     >DTB1        </a>DEC CCBBLN      ; DEC LEN (LOW)
+31C5:60             278             RTS             ; DONE
                     279 ;
-                    280 <a class='f' name='DTB2'     >DTB2        </a>JMP <a class='x' href='#GOOIO'>GOODIO</a>      ; FINISHED BLOCK
+31C6:4C 7F 33       280 <a class='f' id='31C6' name='DTB2'     >DTB2        </a>JMP <a class='x' href='#GOOIO'>GOODIO</a>      ; FINISHED BLOCK
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="FLOCSEC">FLOCSEC</a> - Locate Sector, Page <a class="page" name="page68">68</a>, <a class='ts' href='#T2S0'>T2S0</a> - <a class='ts' href='#T2S2'>T2S2</a>, $<span class='n'>B1C9</span> .. $<span class='n'>B396</span>  ===<hr class='join'><hr></div>
