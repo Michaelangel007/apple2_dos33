@@ -2997,7 +2997,7 @@ With that "legalese" out of the way ... enjoy the read!
                     002 ;
                     003 ; DOSGO - GOTO DOS
                     004 ;
-                    005 <a class="f" name="DOSGO"       >DOSGO       </a>EQU *
+                    005 <a class='f' id='26A8' name='DOSGO'       >DOSGO       </a>EQU *
 26A8:20 06 2B       006             JSR DOSENT      ; GO TO DOS
 26AB:90 16          007             BCC DG3         ; BR IF NOT ERROR
                     008 ;
@@ -3005,7 +3005,7 @@ With that "legalese" out of the way ... enjoy the read!
 26B0:C9 05          010             CMP #<span class='n'>5</span>                                          ; <a class='magic' name='_26B1'>magic number</a> <span class='todo'>TODO</span>
 26B2:F0 03          011             BEQ YESEOF
 26B4:4C 5E 36       012             JMP CLOSFILE    ;NO. CLOSE &amp; COMPLAIN
-26B7:4C 92 36       013 <a class='f' name='YESEOF'   >YESEOF      </a>JMP EOFFIX      ;MAYBE FIX IT UP?
+26B7:4C 92 36       013 <a class='f' id='26B7' name='YESEOF'   >YESEOF      </a>JMP EOFFIX      ;MAYBE FIX IT UP?
 26BA:EA             014             NOP                                             ; <a class='mem' name='_26BA' coords='1'>wastes</a> 1 byte
                     015 ***************************
                     016 *
@@ -3013,7 +3013,7 @@ With that "legalese" out of the way ... enjoy the read!
                     018 *
                     019 ***************************
                     020             DO <a class='e' href='#DOS33B'>DOS33B</a>
-26BB:20 69 3A       021 <a class='f' name='DOSGO2A'  >DOSGO2A     </a>JSR <a class='x' href='#MOVEOF'>MOVEOF</a>      ; MOVE END OF FILE PATCH        ; Called from <a class='x' href='#BACK'>BACK</a>
+26BB:20 69 3A       021 <a class='f' id='26BB' name='DOSGO2A'  >DOSGO2A     </a>JSR <a class='x' href='#MOVEOF'>MOVEOF</a>      ; MOVE END OF FILE PATCH        ; Called from <a class='x' href='#BACK'>BACK</a>
                     022             ELSE<span class='macro'>
                     023             NOP                                             
                     024 DOSGO2A     NOP                                             </span>Why isn't this label on the previous line???<span class='macro'>
@@ -3021,46 +3021,46 @@ With that "legalese" out of the way ... enjoy the read!
                     026             FIN
 26BE:A2 00          027             LDX #<span class='n'>0</span>          ; SET OTHER EIF
 26C0:8E C3 35       028             STX CCBDATA
-26C3:60             029 <a class='f' name='DG3'      >DG3         </a>RTS
+26C3:60             029 <a class='f' id='26C3' name='DG3'      >DG3         </a>RTS
                     030 ;
                     031             PAGE
                     032 ;
                     033 ; ERROR ROUTINE
                     034 ;
-26C4:A9 0B          035 <a class='f' name='ESYNTX'   >ESYNTX      </a>LDA #CREFLK+<span class='n'>1</span>                                   ; <i>I'd like to buy a vowel, 'A'.</i> 
+26C4:A9 0B          035 <a class='f' id='26C4' name='ESYNTX'   >ESYNTX      </a>LDA #CREFLK+<span class='n'>1</span>                                   ; <i>I'd like to buy a vowel, 'A'.</i> 
 26C6:D0 0A          036 <!--                           -->            BNE ERROR                                       ; Sorry, we're fresh out.
-26C8:A9 0C          037 <a class='f' name='ENFA'     >ENFA        </a>LDA #CREFLK+<span class='n'>2</span>
+26C8:A9 0C          037 <a class='f' id='26C8' name='ENFA'     >ENFA        </a>LDA #CREFLK+<span class='n'>2</span>
 26CA:D0 06          038 <!--                           -->            BNE ERROR                                       ; &darr; (always)
-26CC:A9 0E          039 <a class='f' name='MFERR'    >MFERR       </a>LDA #CREFLK+<span class='n'>4</span>
+26CC:A9 0E          039 <a class='f' id='26CC' name='MFERR'    >MFERR       </a>LDA #CREFLK+<span class='n'>4</span>
 26CE:D0 02          040 <!--                           -->            BNE ERROR                                       ; &darr; (always) <a class='mem' name='_26CE' coords='1'>wastes</a> 1 byte, $2C bit $abs to skip next instruction
-                    041 <a class='f' name='ETYP'     >ETYP        </a>EQU *
-26D0:A9 0D          042 <a class='f' name='ERNU1'    >ERNU1       </a>LDA #CREFLK+<span class='n'>3</span>
+                    041 <a class='f' id='26D0' name='ETYP'     >ETYP        </a>EQU *
+26D0:A9 0D          042 <a class='f' id='26D0' name='ERNU1'    >ERNU1       </a>LDA #CREFLK+<span class='n'>3</span>
                     043 ;                                                           ; Intentional fall into ERROR
-                    044 <a class='f' name='ERROR'    >ERROR       </a>EQU *
+                    044 <a class='f' id='26D2' name='ERROR'    >ERROR       </a>EQU *
 26D2:8D 5C 2A       045             STA SVA         ; SAVE MSG NUMBER
 26D5:20 E6 3F       046             JSR CLRSTS1     ;PATCH TO CLR RSTATE TOO (WAS JSR CLRSTS)
 26D8:AD B6 2A       047             LDA ASIBSW      ; GET AS/IN BASIC SWITCH
 26DB:F0 04          048             BEQ ERNAS       ; BR IF NOT APPLESOFT
 26DD:A5 D8          049             LDA ASONERR     ;GET AS ERR FLAG
 26DF:30 0E          050             BMI ERRTN       ; BRT IF ON ERR IS GO
-                    051 <a class='f' name='ERNAS'    >ERNAS       </a>EQU *
+                    051 <a class='f' id='26E1' name='ERNAS'    >ERNAS       </a>EQU *
 26E1:A2 00          052             LDX #<span class='n'>0</span><hr class='page'>
 26E3:20 02 27       053             JSR EMPR        ; GO OUTPUT                     ; === Page <a class='page' name='page41'>41</a> ===
 26E6:AE 5C 2A       054             LDX SVA         ; GET SAVE MSG
 26E9:20 02 27       055             JSR EMPR        ; GO OUTPUT MSG
 26EC:20 C8 1F       056             JSR PRCRIF      ;OUTPUT A CARRIAGE RETURN AFTER MESSAGE
-26EF:20 51 28       057 ERRNT       JSR MVCSW       ; GO MOVE CHAR I/ SW
+26EF:20 51 28       057 <a class='f' id='26EF' name='ERRNT'    >ERRNT       </a>JSR MVCSW       ; GO MOVE CHAR I/ SW
 26F2:20 5E 26       058             JSR TSTRUN
 26F5:AE 5C 2A       059             LDX SVA
 26F8:A9 03          060             LDA #<span class='n'>03</span>                                         ; <a class='magic' name='_'>magic number</a>
 26FA:B0 03          061             BCS ERRTN1      ;DON'T GOTO BREAK HANDLER IF NOT RUNNING
 26FC:6C 5A 1D       062             JMP (BREAK)
-26FF:6C 5E 1D       063 ERRTN1      JMP (CONT)      ;REENTER CONT IF NOT RUN        ; === <a class='ts' href='#T1S6'>T1S6</a> ===
+26FF:6C 5E 1D       063 <a class='f' id='26FF' name='ERRTN1'   >ERRTN1      </a>JMP (CONT)      ;REENTER CONT IF NOT RUN        ; === <a class='ts' href='#T1S6'>T1S6</a> ===
                     064 ;
-                    065 EMPR        EQU *
+                    065 <a class='f' id='2702' name='EMPR'     >EMPR        </a>EQU *
 2702:BD 3F 2A       066             LDA EMDTB,X     ; GET ITS DISPL
 2705:AA             067             TAX             ; INTO X
-                    068 EMPR1       EQU *
+                    068 <a class='f' id='26E1' name='EMPR1'    >EMPR1       </a>EQU *
 2706:8E 63 2A       069             STX TEMP1A      ; SAVE DISPL
 2709:BD 71 29       070             LDA EMSG,X      ; GET MSG CHAR
 270C:48             071             PHA             ; SAVE CHAR
@@ -3115,7 +3115,7 @@ With that "legalese" out of the way ... enjoy the read!
                     120 ;
                     121 ; CLRSTS - CLEAR STATES                                     ; <b>Which</b> states?? Input and Ouput
                     122 ;
-                    123 <a class='f' name='CLRSTS'   >CLRSTS      </a>EQU *
+                    123 <a class='f' id='275B' name='CLRSTS'   >CLRSTS      </a>EQU *
 275B:A0 00          124             LDY #<span class='n'>0</span>
 275D:8C 51 2A       125             STY ISTATE
 2760:8C 52 2A       126             STY OSTATE
@@ -3124,16 +3124,16 @@ With that "legalese" out of the way ... enjoy the read!
                     129 ;
                     130 ; FILSRC - SEARCH FOR FILE NAME1
                     131 ;
-                    132 <a class='f' name='FILSRC'   >FILSRC      </a>EQU *
+                    132 <a class='f' id='2764' name='FILSRC'   >FILSRC      </a>EQU *
 2764:A9 00          133             LDA #<span class='n'>0</span>          ; CLEAR SV AVAIL
 2766:85 45          134             STA CNUM+1
                     135 ;
 2768:20 92 27       136             JSR <a class='x' href='#TSINIT'>TSINIT</a>      ; GO INIT SEARCH                ; &darr;
 276B:4C 73 27       137             JMP FLS1A                                       ; <a class='mem' name='_276B' coords='1'>wastes</a> 1 byte, <a class='x' href='#CLALL'>CLALL</a> has <span class='code'>JSR TSINIT, BNE SKIPNEXT</span> so why JMP ???
-276E:20 9A 27       138 <a class='f' name='FLS1'     >FLS1        </a>JSR TSNXT       ; LOOK AT NEXT
+276E:20 9A 27       138 <a class='f' id='276E' name='FLS1'     >FLS1        </a>JSR TSNXT       ; LOOK AT NEXT
 2771:F0 1D          139             BEQ FLS4        ; BR IF NO NET
                     140 ;
-2773:20 AA 27       141 <a class='f' name='FLS1A'    >FLS1A       </a>JSR TSTOPN      ; GO TEST OPEN
+2773:20 AA 27       141 <a class='f' id='2773' name='FLS1A'    >FLS1A       </a>JSR TSTOPN      ; GO TEST OPEN
 2776:D0 0A          142             BNE FLS2        ; BR IF OPEN
                     143 ;
 2778:A5 40          144             LDA ZPGWRK      ; SAVE AVAIL ENTRY ADR
