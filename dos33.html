@@ -4773,53 +4773,53 @@ With that "legalese" out of the way ... enjoy the read!
 309E:B0 01          105             BCS <a  class='x' href='#BADIO' >BADIO</a>       ; BR IF BAD
 30A0:60             106             RTS             ; RTN IF GOOD
                     107 ;
-30A1:AD F5 37       108 <a class='f' name='BADIO'    >BADIO       </a>LDA <a  class='v' href='#IBSTAT'>IBSTAT</a>      ; GET STATUS
-                    109             LDY #CREVMM
-                    110             CMP #IBVMME     ; WAS IT VOLUME MISMATCH
-                    111             BEQ BD2         ; BR IF YES
-                    112             LDY #CREPRO
-                    113             CMP #IBWPER
-                    114             BEQ BD2
-                    115             LDY #CREIOE
-                    116 BD2         TYA<hr class='page'>
+30A1:AD F5 37       108 <a class='f' id='30A1' name='BADIO'    >BADIO       </a>LDA <a  class='v' href='#IBSTAT'>IBSTAT</a>      ; GET STATUS
+30A4:A0 07          109             LDY #CREVMM
+30A6:C9 20          110             CMP #IBVMME     ; WAS IT VOLUME MISMATCH
+30A8:F0 08          111             BEQ BD2         ; BR IF YES
+30AA:A0 04          112             LDY #CREPRO
+30AC:C9 10          113             CMP #IBWPER
+30AE:F0 02          114             BEQ BD2
+30B0:A0 08          115             LDY #CREIOE
+30B2:98             116 <a class='f' id='30B2' name='BD2'      >BD2         </a>TYA<hr class='page'>
 30B3:4C 85 33       117             JMP ERRROB                                      ; === <a class='page' name='page65'>65</a> ===
                     118             PAGE
                     119 ;
                     120 ;LOCNXB - LOCATE NEXT BYTE
                     121 ;
-                    122 <a class='f' name='LOCNXB'   >LOCNXB      </a>EQU *
+                    122 <a class='f' id='30B6' name='LOCNXB'   >LOCNXB      </a>EQU *
 30B6:AD E4 35       123             LDA DCBCRS      ; IS THE CURRENT RELATIVE SECTOR
-                    124             CMP DCBCMS      ; EQUAL TO THE CURRENT MEM SECTOR
-                    125             BNE LNB1        ; BR IF NOT EQ
-                    126             LDA DCBCRS+1
-                    127             CMP DCBCMS+1
-                    128             BEQ LNB8        ; BR IF REQD SECTOR IN MEM
+30B9:CD E0 35       124             CMP DCBCMS      ; EQUAL TO THE CURRENT MEM SECTOR
+30BC:D0 08          125             BNE LNB1        ; BR IF NOT EQ
+30BE:AD E5 35       126             LDA DCBCRS+1
+30C1:CD D1 35       127             CMP DCBCMS+1
+30C4:F0 66          128             BEQ LNB8        ; BR IF REQD SECTOR IN MEM
                     129 ;
-                    130 <a class='f' name='LNB1'     >LNB1        </a>EQU *           ; NEED A DIFFERENT SECTOR IN MEM
+                    130 <a class='f' id='30C6' name='LNB1'     >LNB1        </a>EQU *           ; NEED A DIFFERENT SECTOR IN MEM
 30C6:20 1D 2F       131             JSR WRSECT      ; GO WRITE SECTOR (IF REQD)
                     132 ;
-                    133 <a class='f' name='LNB2'     >LNB2        </a>LDA DCBCRS+<span class='n'>1</span>    ; IS CURRENT REL SECTORY
-                    134             CMP DCBDFS+1    ; IN CURRENT DIRECTORY (LOW LIMIT)
-                    135             BCC LNB4        ; BR IF IN A PREVIOUS DIR
-                    136             BNE LNB3        ; BR IF MAYBE IN THIS ONE
-                    137             LDA DCBCRS      ; TEST LOW BYTES
-                    138             CMP DCBDFS
-                    139             BCC LNB4        ; BR IF IN PREVIOUS DIR
+30C9:AD E5 35       133 <a class='f' id='30C9' name='LNB2'     >LNB2        </a>LDA DCBCRS+<span class='n'>1</span>    ; IS CURRENT REL SECTORY
+30CC:CD DD 35       134             CMP DCBDFS+1    ; IN CURRENT DIRECTORY (LOW LIMIT)
+30CF:90 1C          135             BCC LNB4        ; BR IF IN A PREVIOUS DIR
+30D1:D0 08          136             BNE LNB3        ; BR IF MAYBE IN THIS ONE
+30D3:AD E4 35       137             LDA DCBCRS      ; TEST LOW BYTES
+30D6:CD DC 35       138             CMP DCBDFS
+30D9:90 12          139             BCC LNB4        ; BR IF IN PREVIOUS DIR
                     140 ;
-                    141 <a class='f' name='LNB3'     >LNB3        </a>LDA DCBCRS+1    ; CURRENT REL SECTOR
-                    142             CMP DCBDNF+1    ; IN CURRENT DIRECTOR (HI LIMIT)
-                    143             BCC LNB6        ; BR IF IN THIS ONE
-                    144             BNE LNB4
-                    145             LDA DCBCRS
-                    146             CMP DCBDNF
-                    147             BCC LNB6
+30DB:AD E5 35       141 <a class='f' id='30DB' name='LNB3'     >LNB3        </a>LDA DCBCRS+1    ; CURRENT REL SECTOR
+30DE:CD DF 35       142             CMP DCBDNF+1    ; IN CURRENT DIRECTOR (HI LIMIT)
+30E1:90 10          143             BCC LNB6        ; BR IF IN THIS ONE
+30E3:D0 08          144             BNE LNB4
+30E5:AD E4 35       145             LDA DCBCRS
+30E8:CD DE 35       146             CMP DCBDNF
+30EB:90 06          147             BCC LNB6
                     148 ;REQD SECTOR IN A NEXT DIRECTORY
-30ED:20 5E 2F       149 LNB4        JSR RDFDIR
+30ED:20 5E 2F       149 <a class='f' id='30ED' name='LNB4'     >LNB4        </a>JSR RDFDIR
 30F0:90 D7          150             BCC LNB2
 30F2:60             151             RTS
                     152 ;
                     153 ;
-                    154 <a class='f' name='LNB6'     >LNB6        </a>EQU *           ; CALCULATE DISPL INTO DIR
+                    154 <a class='f' id='30F3' name='LNB6'     >LNB6        </a>EQU *           ; CALCULATE DISPL INTO DIR
 30F3:38             155             SEC
                     156             LDA DCBCRS      ;
                     157             SBC DCBDFS
@@ -4834,19 +4834,19 @@ With that "legalese" out of the way ... enjoy the read!
                     166             BEQ LNB7A
                     167             SEC
 310D:60             168             RTS
-310E:20 34 31       169 LNB7A       JSR <a class='x' href='#GNWSEC'>GNWSEC</a>      ; GO GET A NEW SECTOR           ; A=C0
+310E:20 34 31       169 <a class='f' id='310E' name='LNB7A'    >LNB7A       </a>JSR <a class='x' href='#GNWSEC'>GNWSEC</a>      ; GO GET A NEW SECTOR           ; A=C0
 3111:4C 20 31       170             JMP <a class='x' href='#LNBCON'>LNBCON</a>                                      ;&darr; <a class='mem' name='_3111' coords='1'>wastes</a> 1 byte 1 byte, BNE LNBCON
-                    171 <a class='f' name='LNB7'     >LNB7        </a>STA DCBTRK      ; SET TRK INTO DCB
+                    171 <a class='f' id='3114' name='LNB7'     >LNB7        </a>STA DCBTRK      ; SET TRK INTO DCB
                     172             INY
                     173             LDA (ZPGFCB),Y  ; GET SECTOR
                     174             STA DCBSEC      ; PUT INTO DCB
 311D:20 DC 2F       175             JSR RDSEC       ; GO READ SECTOR
-3120:AD E4 35       176 <a class='f' name='LNBCON'   >LNBCON      </a>LDA DCBCRS      ; MOVE CUR REL SECTOR
+3120:AD E4 35       176 <a class='f' id='3120' name='LNBCON'   >LNBCON      </a>LDA DCBCRS      ; MOVE CUR REL SECTOR
                     177             STA DCBCMS
                     178             LDA DCBCRS+<span class='n'>1</span>    ; TO CUR MEM SECTOR
                     179             STA DCBCMS+<span class='n'>1</span><hr class='page'>
                     180 ;                                                           ; === <a class='page' name='page66'>66</a> ===
-                    181 <a class='f' name='LNB8'     >LNB8        </a>EQU *
+                    181 <a class='f' id='312C' name='LNB8'     >LNB8        </a>EQU *
 312C:20 10 2F       182             JSR MVFCBS      ; MOVE SECTOR BUFF ADR TO ZP
                     183             LDY DCBCSB      ; GET SECT BYTE
                     184             CLC             ; CARRY CLEAR = ALL OK
