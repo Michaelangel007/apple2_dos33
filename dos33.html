@@ -2597,7 +2597,7 @@ With that "legalese" out of the way ... enjoy the read!
 241B:2D C2 35       134             AND CCBFUC      ; OUT OF FUC
 241E:F0 F0          135             BEQ NBPER       ; BR IF ERROR
                     136 ; ISOLATE IB &amp; AS
-                    137 <a class='f' name='ELD2'     >ELD2        </a>EQU *
+                    137 <a class='f' id='2420' name='ELD2'     >ELD2        </a>EQU *
 2420:8D C2 35       138             STA CCBFUC      ; SAVE IB/AS ONLY
 2423:AD B6 2A       139             LDA ASISBSW     ; IF IB THEN
 2426:F0 28          140             BEQ EIBL        ; GO TO IB LOAD                 ; &darr;
@@ -2615,7 +2615,7 @@ With that "legalese" out of the way ... enjoy the read!
 2437:C5 74          152             CMP ASHM1+1     ; IF BL+SOP &gt;= HMEM             ; If Block.Length + StartOfProgram &gt;= High Memory
 2439:B0 70          153             BCS MFULL       ; THEN WON'T FIT                ; Memory Full
                     154 ;
-                    155 <a class='f' name='EASL1'    >EASL1       </a>EQU *
+                    155 <a class='f' id='243B' name='EASL1'    >EASL1       </a>EQU *
 243B:85 B0          156             STA ASEOP+<span class='n'>1</span>     ; SET NEW EOP ADR
 243D:85 6A          157             STA ASEOP2+<span class='n'>1</span>
 243F:86 AF          158             STX ASEOP
@@ -2626,7 +2626,7 @@ With that "legalese" out of the way ... enjoy the read!
 244A:20 51 28       163             JSR MVCSW       ;RESTORE I/O                    ; <span class='todo'>TODO</span> Why??? Did something change CIN/COUT ???
 244D:6C 60 1D       164             JMP (ASEQ)      ;RELOC FOR THIS VERSION OF APPLSOFT
                     165 ;
-                    166 <a class='f' name='EIBL'     >EIBL        </a>EQU *
+                    166 <a class='f' id='2450' name='EIBL'     >EIBL        </a>EQU *
 2450:A9 01          167             LDA #1          ; SET IB PGM                    ; Yup, almost 99% the same as ELD2
 2452:20 B1 24       168             JSR LD1         ; GO OPEN AND TEST
                     169 ;
@@ -2646,12 +2646,12 @@ With that "legalese" out of the way ... enjoy the read!
 246B:F0 3E          183             BEQ MFULL
 246D:84 CB          184             STY IBSOP+<span class='n'>1</span>     ; SET NEW SOP
 246F:86 CA          185             STX IBSOP
-                    186 <a class='f' name='LD3'      >LD3         </a>EQU *
+                    186 <a class='f' id='2471' name='LD3'      >LD3         </a>EQU *
 2471:8E C3 35       187             STX CCBBBA      ; SET BLOCK ADDR                ; Googoo, Gaga? A single underscore '_' would go a LONG way towards readability
 2474:8C C4 35       188             STY CCBBBA+<span class='n'>1</span>                                    ; CCB_BBA
 2477:4C 0A 24       189             JMP GODOS
                     190 ;
-                    191 <a class='f' name='LD2'      >LD2         </a>EQU *                                           ; By putting this before LD1 this forces 6 byes to be wasted, see Line #143
+                    191 <a class='f' id='247A' name='LD2'      >LD2         </a>EQU *                                           ; By putting this before LD1 this forces 6 byes to be wasted, see Line #143
 247A:AD 0A 1D       192             LDA SVBLA       ; MOVE ADR OF WHERE
 247D:8D C3 35       193             STA CCBBA       ; TO PUT DATA TO
 2480:AD 0B 1D       194             LDA SVBLA+1     ; CCBN
@@ -2666,16 +2666,16 @@ With that "legalese" out of the way ... enjoy the read!
 2497:8D BC 35       203             STA CCBRQM
 249A:20 A8 26       204             JSR DOSGO
 249D:AD 61 2A       205             LDA SVBL+1
-24A0                206             STA CCBBLN+1
-24A3                207             TAY
-24A4                208             LDA SVBL
-24A7                209             STA CCBBLN
+24A0:8D C2 35       206             STA CCBBLN+1
+24A3:A8             207             TAY
+24A4:AD 60 2A       208             LDA SVBL
+24A7:8D C1 35       209             STA CCBBLN
 24AA:60             210             RTS
                     211 ;
-                    212 <a class='f' name='MFULL1'   >MFULL1      </a>EQU *
+                    212 <a class='f' id='24AB' name='MFULL1'   >MFULL1      </a>EQU *
 24AB:20 EA 2A       213             JSR ECLOSE      ; GO CLOSE FILE
 24AE:4C CC 26       214             JMP MFERR       ; AND GIVE ERR MSG
-                    215 LD1         EQU *
+                    215 <a class='f' id='24B1' name='LD1'      >LD1         </a>EQU *
 24B1:CD C2 35       216             CMP CCBFUC      ; TEST TYPE
 24B4:F0 1A          217             BEQ LD1C        ; BR IF MATCH
 24B6:AE 5F 2A       218             LDX CMDNO
@@ -2684,31 +2684,31 @@ With that "legalese" out of the way ... enjoy the read!
 24BD:F0 03          221             BEQ LD1A        ; BR IF PGM IS AS
 24BF:4C 9E 25       222             JMP EINT        ; GO FOR INTG BASIC
                     223 ;
-                    224 LD1A        EQU *
+                    224 <a class='f' id='24C2' name='LD1A'     >LD1A        </a>EQU *
 24C2:A2 1D          225             LDX #<span class='n'>29</span>         ; SAVE FILENAME                 ; <a class='magic' name='_24C3'>magic number</a> <span class='code'>FILENAME_MAX-1</span>
-24C4:BD 75 2A       226 LD1B        LDA FNAME1,X    ; INCASE IS RAM APPLESOFT
+24C4:BD 75 2A       226 <a class='f' id='24C4' name='LD1B'     >LD1B        </a>LDA FNAME1,X    ; INCASE IS RAM APPLESOFT
 24C7:9D 93 2A       227             STA FNAME2,X
 24CA:CA             228             DEX
 24CB:10 F7          229             BPL LD1B
 24CD:4C 7A 25       230             JMP EAS         ; GO FOR AS
                     231 ;
-24D0:60             232 LD1C        RTS
+24D0:60             232 <a class='f' id='24D0' name='LD1C'     >LD1C        </a>RTS
                     233             PAGE
                     234 ;
                     235 ; ERUN - EXECUTE RUN REQUEST
                     236 ;
-                    237 ERUN        EQU *
+                    237 <a class='f' id='24D1' name='ERUN'     >ERUN        </a>EQU *
 24D1:AD B6 2A       238             LDA ASIBSW      ; IF APPLESOFT THEN RELOC FLAG SET
 24D4:F0 03          239             BEQ ERUN0
 24D6:8D B7 2A       240             STA RSTATE      ; INDICATE APSFT RUN<hr class='page'>
-24D9:2- 13 24       241 ERUN0       JSR ELOAD       ; LOAD PGM                      ; === <a class='page' name='page144'>144</a> ===
-24DC:20 C8 1F       242 ERUN1       JSR PRCRIF      ;REENTRY POINT FOR ASFT RELOC
+24D9:2- 13 24       241 <a class='f' id='24D9' name='ERUN0'    >ERUN0       </a>JSR ELOAD       ; LOAD PGM                      ; === <a class='page' name='page144'>144</a> ===
+24DC:20 C8 1F       242 <a class='f' id='24DC' name='ERUN1'    >ERUN1       </a>JSR PRCRIF      ;REENTRY POINT FOR ASFT RELOC
 24DF:20 51 28       243             JSR MVCSW       ; GO RESTORE CHAR I/O SW        ; What keeps futzing with CIN / COUT ? <b>Guilty Party &rarr;</b> <a class='x' href='#SVREGS'>SVREGS</a>
 24E2:6C 58 1D       244             JMP (RUN)
                     245 ;
                     246 ; IBRUN - INT BASIC RUN
                     247 ;
-                    248 IBRUN       EQU *
+                    248 <a class='f' id='24E5' name='IBRUN'    >IBRUN       </a>EQU *
 24E5:A5 4A          249             LDA IBLMEM      ; RESET START OF VARS
 24E7:85 CC          250             STA IBSOV
 24E9:A5 4B          251             LDA IBLMEM+<span class='n'>1</span>
@@ -2726,7 +2726,7 @@ With that "legalese" out of the way ... enjoy the read!
 24FF:85 33          263             STA PROMPT      ;INSURES APPLESOFT RUN DETECT (A=0)     ; === <a class='ts' name=T1S4'>T1S4</a> ===
 2501:85 D8          264             STA ASONERR     ;RESET APPLESOFT ONERR FLAG
 2503:4C D2 D7       265             JMP $<span class='rom'>D7D2</span>                                       ; <a class='magic' name='_2503'>magic number</a>
-2506:20 65 0E       266 <a class="f" name="ASRUN2"  >ASRUN2      </a>JSR $<span class='n'>E65</span>        ; RAM                           ; <a class='magic' name='_2506'>magic number</a> <a class="d" href="#AS2VT">AS2VT</a> has pointer to us
+2506:20 65 0E       266 <a class="f" id='2506' name='ASRUN2'  >ASRUN2      </a>JSR $<span class='n'>E65</span>        ; RAM                           ; <a class='magic' name='_2506'>magic number</a> <a class="d" href="#AS2VT">AS2VT</a> has pointer to us
 2509:85 33          267             STA <a class="d" href="#PROMPT">PROMPT</a>      ;INSURES APPLESOFT RUN DETECT (A=0)     ; (dead code) <a class='mem' name='_2506' coords='10'>wastes</a> 10 bytes on Apple ][+ or later
 250B:85 D8          268             STA <a class="d" href="#ASONER">ASONER</a>      ;RESET APPLESOFT ONERR FLAG     ;
 250D:4C D4 0F       269             JMP $<span class='n'>FD4</span>                                        ; <a class='magic' name='_250D'>magic number</a>
@@ -2738,7 +2738,7 @@ With that "legalese" out of the way ... enjoy the read!
                     002 ;
                     003 ; EWRITE - WRITE CMD EXECUTE
                     004 ;
-                    005 <a class='f' name='EWRITE'   >EWRITE      </a>EQU *
+                    005 <a class='f' id='2510' name='EWRITE'   >EWRITE      </a>EQU *
 2510:20 26 25       006             JSR <a class='x' href='#RWPOSN'>RWPOSN</a>      ; GO POSITION FILE IF REQD
 2513:A9 05          007             LDA #<span class='n'>5</span>                                          ; WTF is state 5 ?? OK, <a class='x' href='#COS5'>COS5</a> And the state table transition is <i>where</i> again?
 2515:8D 52 2A       008             STA <a class='v' href='#OSTATE'>OSTATE</a>      ; SET OSTATE=5                  ; /sarcasm <i>No Shit, Sherlock</i>
