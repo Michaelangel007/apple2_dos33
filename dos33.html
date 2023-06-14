@@ -3766,8 +3766,8 @@ With that "legalese" out of the way ... enjoy the read!
 2B19:48             118             PHA
 2B1A:BD C9 2A       119             LDA <a class='v' href='#CMDVT'>CMDVT</a>,X
 2B1D:48             120             PHA
-2B1E:60             121 <a class='f' name='DENRTS'>DENRTS      </a>RTS
-2B1F:4C 63 33       122 <a class='f' name='ERR2'  >ERR2        </a>JMP <a class='x' href='#ERROR2'>ERROR2</a>
+2B1E:60             121 <a class='f' id='2B1E' name='DENRTS'>DENRTS      </a>RTS
+2B1F:4C 63 33       122 <a class='f' id='2B1F' name='ERR2'  >ERR2        </a>JMP <a class='x' href='#ERROR2'>ERROR2</a>
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="FOPCLRW">FOPCLRW</a> - Open; Close; Rename; Read, Page <a class="page" name="page77">77</a>, <a class='ts' href='#T1SA'>T1SA</a> - <a class='ts' href='#T1SB'>T1SB</a>, $<span class='n'>2B22</span> ($AB22) ===<hr class='join'><hr></div>
@@ -3776,11 +3776,11 @@ With that "legalese" out of the way ... enjoy the read!
                     002 ;
                     003 ; FOPEN - OPEN A FILE
                     004 ;
-                    005 <a class="f" name="FOPEN"      id="FOPEN"      >FOPEN       </a>EQU *
+                    005 <a class='f' id='2B22' name='FOPEN'    >FOPEN       </a>EQU *
 2B22:20 28 2B       006             JSR <a class='x' href='#DOPEN'>DOPEN</a>                    ; &darr;
 2B25:4C 7F 33       007             JMP GOODIO
                     008 ;
-                    009 <a class='f' name='DOPEN'    >DOPEN       </a>EQU *
+                    009 <a class='f' id='2B28' name='DOPEN'    >DOPEN       </a>EQU *
                     010 ;
 2B28:20 DC 2B       011             JSR DCBSUP
                     012 ;
@@ -3793,7 +3793,7 @@ With that "legalese" out of the way ... enjoy the read!
 2B38:E0 00          019             CPX #0
 2B3A:D0 01          020             BNE F02
 2B3C:E8             021             INX             ; SET RL=256
-2B3D:8D E8 35       022 <a class='f' name='F02'      >F02         </a>STA DCBRCL
+2B3D:8D E8 35       022 <a class='f' id='2B3D' name='F02'      >F02         </a>STA DCBRCL
 2B40:8E E9 35       023             STX DFBRCL+1
                     024 ;
 2B43:20 C9 31       025             JSR FNDFIL      ; GO FIND FILE
@@ -3801,18 +3801,18 @@ With that "legalese" out of the way ... enjoy the read!
                     027 ;
                     028 * CREATE FILE IF COMMAND IS SAVE, OPEN, BSAVE
                     029 ;
-                    <a class='line' name='FOPCLRW.30'>030</a>             STX TEMP1       ; SAVE DIR. INDEX
-                    031             LDX CMDNO       ;TEST COMMAND FOR CREATE FLAG
-                    032             LDA CMDSTB,X    ; (BIT 0 MUST=1)
-                    033             LDX TEMP1       ;RESTORE DIR INDEX
-                    034             LSR A           ;SHIFT CREFLAG BIT TO CARRY
-                    035             BCS F02B        ;BRANCH ON VALID INSTR.
-                    036             LDA ISTATE      ;FIND OUT IF TRYING TO LOAD APPLESOFT
+2B48:8E 9C 33       <a class='line' name='FOPCLRW.30'>030</a>             STX TEMP1       ; SAVE DIR. INDEX
+2B4B:AE 5F 2A       031             LDX CMDNO       ;TEST COMMAND FOR CREATE FLAG
+2B4E:BD 09 29       032             LDA CMDSTB,X    ; (BIT 0 MUST=1)
+2B51:AE 9C 33       033             LDX TEMP1       ;RESTORE DIR INDEX
+2B54:4A             034             LSR A           ;SHIFT CREFLAG BIT TO CARRY
+2B55:B0 0D          035             BCS F02B        ;BRANCH ON VALID INSTR.
+2B57:AD 51 2A       036             LDA ISTATE      ;FIND OUT IF TRYING TO LOAD APPLESOFT
 2B5A:C9 C0          037             CMP #$C0                                        ; <a class='magic' name='_2B5A'>magic number</a>
 2B5C:D0 03          038             BNE F02A        ; NO GO
 2B5E:4C 5F 33       039             JMP ERROR1                                      ; Which error message?? "LANGUAGE NOT AVAILABLE"
-2B61:4C 73 33       040 <a class='f' name='F02A'     >F02A        </a>JMP ERROR6      ; PRINT "FILE NOT FOUND" MESSAGE.
-2B64:A9 00          041 <a class='f' name='F02B'     >F02B        </a>LDA #<span class='n'>0</span>                                          ; 0001 Little Endian
+2B61:4C 73 33       040 <a class='f' id='2B61' name='F02A'     >F02A        </a>JMP ERROR6      ; PRINT "FILE NOT FOUND" MESSAGE.
+2B64:A9 00          041 <a class='f' id='2B64' name='F02B'     >F02B        </a>LDA #<span class='n'>0</span>                                          ; 0001 Little Endian
 2B66:9D E8 34       042             STA VDFILE+<span class='n'>34</span>,X                                 ; <a class='magic' name='_2B67'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+0</span> (See <a class='v' href='#VDFILE'>VDFILE</a>)
 2B69:A9 01          043             LDA #<span class='n'>1</span>
 2B6B:9D E7 34       044             STA VDFILE+<span class='n'>33</span>,X                                 ; <a class='magic' name='_2B6C'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+1</span>
@@ -3822,46 +3822,46 @@ With that "legalese" out of the way ... enjoy the read!
 2B77:9D C7 34       048             STA VDFILE+<span class='n'>1</span>,X  ; PUT SECTOR INTO VDIR          ; <a class='magic' name='_2B78'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
 2B7A:8D D2 35       049             STA DCBFDS      ; PUT SECTOR AS 1ST FILE DIR
 2B7D:8D D4 35       050             STA DCBCDS      ; PUT SECTOR AS CURRENT FILE DIR
-2B80:AD F1 35       051 ;
-2B83:9D C6 34       052             LDA DCBATK      ; GET ALLOCATED TRACK<hr class='page'>
-2B86:8D D1 35       053             STA VDFILE,X    ; PUT INTO VDIR                 ; === Page <a class='page' name='page78'>78</page> === <a class='magic' name='_2B87'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
-                    054             STA DCBFDT      ; AND AS 1ST FILE DIR           ; More crappy variable names    : dcbFdt
-                    055             STA DCBCDT      ; AND AS CURRENT FILE DIR       ; that differ by a single letter: dcbCdt
+                    051 ;
+2B80:AD F1 35       052             LDA DCBATK      ; GET ALLOCATED TRACK<hr class='page'>
+2B83:9D C6 34       053             STA VDFILE,X    ; PUT INTO VDIR                 ; === Page <a class='page' name='page78'>78</page> === <a class='magic' name='_2B87'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
+2B86:8D D1 35       054             STA DCBFDT      ; AND AS 1ST FILE DIR           ; More crappy variable names    : dcbFdt
+2B89:8D D3 35       055             STA DCBCDT      ; AND AS CURRENT FILE DIR       ; that differ by a single letter: dcbCdt
                     056;
-                    057             LDA CCBFUC      ; SET USE CODE
+2B8C:AD C2 35       057             LDA CCBFUC      ; SET USE CODE
 2B8F:9D C8 34       058             STA VDFILE+<span class='n'>2</span>,X  ; INTO DIRECTORY                ; <a class='magic' name='_2B90'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
                     059 ;
-                    060             JSR WRVDIR      ; GO WRITE VOL DIRECTORY
+2B92:20 37 30       060             JSR WRVDIR      ; GO WRITE VOL DIRECTORY
                     061 ;
-                    062             JSR MVFCBD      ; MOVE FILE DIR ADR TO ZP
-                    063             JSR CLRSEC      ; GO CLEAR IT
-                    064             JSR WRFDGO      ; GO WRITE FILE DIRECTORY
+2B95:20 0C 2F       062             JSR MVFCBD      ; MOVE FILE DIR ADR TO ZP
+2B98:20 D6 37       063             JSR CLRSEC      ; GO CLEAR IT
+2B9B:20 3A 2F       064             JSR WRFDGO      ; GO WRITE FILE DIRECTORY
                     065 ; DONE CREATION
-                    066             LDX TEMP1       ; RE-GET INDEX                  ; <b>Which</b> index?? VDFILE offset
-                    067             LDA #CREFNF
-                    068             STA CREFNF
+2B9E:AE 9C 33       066             LDX TEMP1       ; RE-GET INDEX                  ; <b>Which</b> index?? VDFILE offset
+2BA1:A9 06          067             LDA #CREFNF
+2BA3:8D C5 35       068             STA CREFNF
                     069 ;
                     070 <a class='f' name='F03'      >F03         </a>EQU *
 2BA6:BD C6 34       071             LDA VDFILE,X    ; MOVE FILE DIR TRACK           ; <a class='magic' name='_2BA7'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TRACK</span>
-2BA9:               072             STA DCBFDT
+2BA9:8D D1 35       072             STA DCBFDT
 2BAC:BD C7 34       073             LDA VDFILE+<span class='n'>1</span>,X  ; MOVE FILE DIR SECTOR          ; <a class='magic' name='_2BAD'>magic number</a> <span class='code'>VDFILE + CAT_FILE_SECTOR</span>
-2BAF:               074             STA DCBFDS
+2BAF:8D D2 35       074             STA DCBFDS
 2BB2:BD C8 34       075             LDA VDFILE+<span class='n'>2</span>,X  ; 7OVE FILE USE CODE            ; *<span class='spell'>spelling</span>* Move; <a class='magic' name='_2BB3'>magic number</a> <span class='code'>VDFILE + CAT_FILE_TYPE</span>
-2BB5:               076             STA CCBFUC
-2BB8:               077             STA DCBFUC
+2BB5:8D C2 35       076             STA CCBFUC
+2BB8:8D F6 35       077             STA DCBFUC
 2BBB:BD E7 34       078             LDA VDFILE+<span class='n'>33</span>,X                                 ; <a class='magic' name='_2BBC'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC</span>
-2BBE:               079             STA DCBNSA
+2BBE:8D EE 35       079             STA DCBNSA
 2BC1:BD E8 34       080             LDA VDFILE+<span class='n'>34</span>,X                                 ; <a class='magic' name='_2BC2'>magic number</a> <span class='code'>VDFILE + CAT_FILE_NUM_SEC+1</span>
-                    081             STA DCBNSA+<span class='n'>1</span>
-                    082             STX DCBVDI      ;SAVE DIRECTORY INDEX
+2BC4:8D EF 35       081             STA DCBNSA+<span class='n'>1</span>
+2BC7:8E D9 35       082             STX DCBVDI      ;SAVE DIRECTORY INDEX
                     083 ;
-                    084             LDA #255        ; INDICATE NO SECTOR
-                    085             STA DCBCMS      ; IN MEMORY                     ; More crappy variable names    : dcbCms
-                    086             STA DCBCMS+<span class='n'>1</span>
-                    087             LDA VTDMS       ; MOVE MAX FD SECTS
-                    088             STA DCBDMS      ; TODCB                         ; that differ by a single letter: dcbDms
-                    089             CLC
-                    090             JMP RDFDIR      ; READ 1ST DIRECTORY RECORD     ; Read inode
+2BCA:A9 FF          084             LDA #255        ; INDICATE NO SECTOR
+2BCC:8D E0 35       085             STA DCBCMS      ; IN MEMORY                     ; More crappy variable names    : <span class='code'>dcbCms</span>
+2BCF:8D E1 35       086             STA DCBCMS+<span class='n'>1</span>
+2BD2:AD E2 33       087             LDA VTDMS       ; MOVE MAX FD SECTS
+2BD5:8D DA 35       088             STA DCBDMS      ; TODCB                         ; that differ by a single letter: span class='code'>dcbDms</span>
+2BD8:18             089             CLC
+2BD9:4C             090             JMP RDFDIR      ; READ 1ST DIRECTORY RECORD     ; Read inode
                     091 ;
                     092 ;
                     093 ;
@@ -3872,18 +3872,18 @@ With that "legalese" out of the way ... enjoy the read!
 2BDF:9D D1 35       098 <a class='f' name='F01'      >F01         </a>STA FCBDCB,X    ; CLEAR DCB
 2BE2:E8             099             INX
 2BE3:E0 2D          100             CPX #<a class='e' href='#DCBLEN'>DCBLEN</a>                                     ; Over-writes unused memory <a class='v' href='#DCBSPR'>DCBSPR</a>
-                    101             BNE F01
+2BE5:D0 F8          101             BNE F01
                     102 ;
-                    103             LDA CCBVOL      ; MOVE VOL
-                    104             EOR #$FF        ; INVERT VOL BITS               ; Why??
-                    105             STA DCBVOL
-                    106             LDA CCBDRV      ; MOVE DRIVE
-                    107             STA DCBDRV
-                    108             LDA CCBSLT      ; GET USER SPEC SLOT
-                    109             ASL A           ; SLOT*16
-                    110             ASL A
-                    111             ASL A
-                    112             ASL A
+2BE7:AD BF 35       103             LDA CCBVOL      ; MOVE VOL
+2BEA:49 FF          104             EOR #$FF        ; INVERT VOL BITS               ; Why??
+2BEC:8D F9 35       105             STA DCBVOL
+2BEF:AD C0 35       106             LDA CCBDRV      ; MOVE DRIVE
+2BF2:8D F8 35       107             STA DCBDRV
+2BF5:AD C1 35       108             LDA CCBSLT      ; GET USER SPEC SLOT
+2BF8:0A             109             ASL A           ; SLOT*16
+2BF8:0A             110             ASL A
+2BF8:0A             111             ASL A
+2BF8:0A             112             ASL A
 2BFC:AA             113             TAX
                     114 <a class='f' name='F01A'     >F01A        </a>EQU *
 2BFD:8E F7 FF       115             STX DCBSLT<hr class='page'>
