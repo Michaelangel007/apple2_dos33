@@ -4821,64 +4821,64 @@ With that "legalese" out of the way ... enjoy the read!
                     153 ;
                     154 <a class='f' id='30F3' name='LNB6'     >LNB6        </a>EQU *           ; CALCULATE DISPL INTO DIR
 30F3:38             155             SEC
-                    156             LDA DCBCRS      ;
-                    157             SBC DCBDFS
-                    158             ASL A           ; TIMES 2
-                    159             ADC #FDENT      ; PLUS DISPL TO 1ST
-                    160             TAY
-                    161             JSR MVFCBD      ; MOVE DIR ADR TO ZPG
-                    162             LDA (ZPGFCB),Y  ; GET TRACK
-                    163             BNE LNB7        ; BR IF NOT ZERO                ; should be <b>BPL</b>, Filesystem Design FLAW: Can't store data on Track 0
-                    164             LDA CCBREQ
-                    165             CMP #CRQWR      ; WRITE!
-                    166             BEQ LNB7A
-                    167             SEC
+30F4:AD E4 35       156             LDA DCBCRS      ;
+30F7:ED DC 35       157             SBC DCBDFS
+30FA:0A             158             ASL A           ; TIMES 2
+30FB:69 0C          159             ADC #FDENT      ; PLUS DISPL TO 1ST
+30FD:A8             160             TAY
+30FE:20 0C 2F       161             JSR MVFCBD      ; MOVE DIR ADR TO ZPG
+3101:B1 42          162             LDA (ZPGFCB),Y  ; GET TRACK
+3103:D0 0F          163             BNE LNB7        ; BR IF NOT ZERO                ; should be <b>BPL</b>, Filesystem Design FLAW: Can't store data on Track 0
+3105:AD BB 35       164             LDA CCBREQ
+3108:C9 04          165             CMP #CRQWR      ; WRITE!
+310A:F0 02          166             BEQ LNB7A
+310C:38             167             SEC
 310D:60             168             RTS
 310E:20 34 31       169 <a class='f' id='310E' name='LNB7A'    >LNB7A       </a>JSR <a class='x' href='#GNWSEC'>GNWSEC</a>      ; GO GET A NEW SECTOR           ; A=C0
 3111:4C 20 31       170             JMP <a class='x' href='#LNBCON'>LNBCON</a>                                      ;&darr; <a class='mem' name='_3111' coords='1'>wastes</a> 1 byte 1 byte, BNE LNBCON
-                    171 <a class='f' id='3114' name='LNB7'     >LNB7        </a>STA DCBTRK      ; SET TRK INTO DCB
-                    172             INY
-                    173             LDA (ZPGFCB),Y  ; GET SECTOR
-                    174             STA DCBSEC      ; PUT INTO DCB
+3114:8D D6 35       171 <a class='f' id='3114' name='LNB7'     >LNB7        </a>STA DCBTRK      ; SET TRK INTO DCB
+3117:C8             172             INY
+3118:B1 42          173             LDA (ZPGFCB),Y  ; GET SECTOR
+311A:8D D7 35       174             STA DCBSEC      ; PUT INTO DCB
 311D:20 DC 2F       175             JSR RDSEC       ; GO READ SECTOR
 3120:AD E4 35       176 <a class='f' id='3120' name='LNBCON'   >LNBCON      </a>LDA DCBCRS      ; MOVE CUR REL SECTOR
-                    177             STA DCBCMS
-                    178             LDA DCBCRS+<span class='n'>1</span>    ; TO CUR MEM SECTOR
-                    179             STA DCBCMS+<span class='n'>1</span><hr class='page'>
+3123:8D E0 35       177             STA DCBCMS
+3126:AD E5 35       178             LDA DCBCRS+<span class='n'>1</span>    ; TO CUR MEM SECTOR
+3129:8D E1 35       179             STA DCBCMS+<span class='n'>1</span><hr class='page'>
                     180 ;                                                           ; === <a class='page' name='page66'>66</a> ===
                     181 <a class='f' id='312C' name='LNB8'     >LNB8        </a>EQU *
 312C:20 10 2F       182             JSR MVFCBS      ; MOVE SECTOR BUFF ADR TO ZP
-                    183             LDY DCBCSB      ; GET SECT BYTE
-                    184             CLC             ; CARRY CLEAR = ALL OK
+312F:AC E6 35       183             LDY DCBCSB      ; GET SECT BYTE
+3132:18             184             CLC             ; CARRY CLEAR = ALL OK
 3133:60             185             RTS             ; DONE
                     186             PAGE
                     187 ;
                     188 ;
-                    189 <a class='f' name='GNWSEC'   >GNWSEC      </a>EQU *           ; NEED NEW SECTOR
+                    189 <a class='f' id='3134' name='GNWSEC'   >GNWSEC      </a>EQU *           ; NEED NEW SECTOR
 3134:8C 9D 33       190             STY TEMP2       ; SAVE DIR INDEX
 3137:20 44 32       191             JSR GETSEC      ; GET A SECTOR
 313A:AC 9D 33       192             LDY TEMP2
 313D:C8             193             INY
 313E:91 42          194             STA (ZPGFCB),Y  ; SET NEW SECTOR
 3140:8D D7 35       195             STA DCBSEC
-                    196             DEY
-                    197             LDA DCBATK                                      ; Allocated track?
-                    198             STA (ZPGFCB),Y  ; SET NEW TRACK
-                    199             STA DCBTRK
+3143:88             196             DEY
+3144:AD F1 35       197             LDA DCBATK                                      ; Allocated track?
+3147:91 42          198             STA (ZPGFCB),Y  ; SET NEW TRACK
+3149:8D D6 35       199             STA DCBTRK
                     200 ;
-                    201             JSR MVFCBS
-                    202             JSR CLRSEC      ; GO CLEAR SECTOR
+314C:20 10 2F       201             JSR MVFCBS
+314F:20 D6 37       202             JSR CLRSEC      ; GO CLEAR SECTOR
                     203 ;
                     204 ;
 3152:A9 C0          205             LDA #$C0        ; INDICATE BOTH                 ; <a class='magic' name='_3153'>magic number</a> WRITE_FLAG_SECTOR | WRITE_FLAG_DIR
-                    206             ORA DCBWRF      ; DIR AND SECTOR                ; <span class='todo'>TODO</span> DIRECTORY or DIRECTION ???
-                    207             STA DCBWRF      ; MUST BE WRITTEN
+3154:0D D5 35       206             ORA DCBWRF      ; DIR AND SECTOR                ; <span class='todo'>TODO</span> DIRECTORY or DIRECTION ???
+3157:8D D5 35       207             STA DCBWRF      ; MUST BE WRITTEN
 315A:60             208             RTS             ; DONE                          ; For the love of god, WHY do you keep stating the obvious???
                     209             PAGE
                     210 ;
                     211 ;INCRRB - INCREMENT RELATIVE RECORD BYTE
                     212 ;
-                    213 <a class='f' name='INCRRB'   >INCRRB      </a>EQU *
+                    213 <a class='f' id='315B' name='INCRRB'   >INCRRB      </a>EQU *
 315B:AE EA 35       214             LDX DCBCRR      ; MOVE BYTE JUST READ OR WRITTEN
                     215             STX CCBRRN
                     216             LDX DCBCRR+1
