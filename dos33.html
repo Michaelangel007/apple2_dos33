@@ -4480,13 +4480,13 @@ With that "legalese" out of the way ... enjoy the read!
                     095 <a class='f' id='2F23' name='WRGO'     >WRGO        </a>EQU *
 2F23:20 E4 2F       096             JSR MVSBA       ; GO MOVE SECT BUFF ADR         ; MoveSectorBufferAddress
                     097 ;
-                    098             LDA #IBCWTS     ; GET COMMAND
-                    099             JSR DCBIO       ; GO FILL IN IOB AND DO IO
+2F26:A9 02          098             LDA #IBCWTS     ; GET COMMAND
+2F28:20 52 30       099             JSR DCBIO       ; GO FILL IN IOB AND DO IO
                     100 ;
-                    101             LDA #$<span class='n'>BF</span>        ; SET WRITE SECTOR REQD BIT OFF ; <a class='magic' name='_'>magic number</a> $BF = 1011_1111 <span class='code'>FLAG_W_CUR_SECTOR EQU $40; LDA ~FLAG_W_CUR_SECTOR</span>
-                    102             AND DCBWRF
-                    103             STA DCBWRF
-                    104             RTS             ; DONE
+2F2B:A9 BF          101             LDA #$<span class='n'>BF</span>        ; SET WRITE SECTOR REQD BIT OFF ; <a class='magic' name='_'>magic number</a> $BF = 1011_1111 <span class='code'>FLAG_W_CUR_SECTOR EQU $40; LDA ~FLAG_W_CUR_SECTOR</span>
+2F2D:2D D5 35       102             AND DCBWRF
+2F30:8D D5 35       103             STA DCBWRF
+2F33:60             104             RTS             ; DONE
                     105             PAGE
                     106 ;
                     107 * WRFDIR - WRITE FILE DIRECTRY IF REQD                      ; *<span class='spell'>spelling</span>* Directory
@@ -4547,52 +4547,52 @@ With that "legalese" out of the way ... enjoy the read!
 2F82:AD BB 35       162             LDA CCBREQ      ; THIS A WRITE
 2F85:C9 04          163             CMP #CRQWR
 2F87:F0 02          164             BEQ RFDNL1      ; BR IF WRITE                   ; &darr; <span class='todo'>TODO</span> Should be BNE ...
-                    165             SEC             ; SET EOF
-                    166             RTS             ; RETURN                        ; o7 Captain Obvious
+2F89:38             165             SEC             ; SET EOF
+2F8A:60             166             RTS             ; RETURN                        ; o7 Captain Obvious
                     167 ;
-                    168 <a class='f' name='RFDNL1'   >RFDNL1      </a>EQU *
-                    169             JSR GETSEC      ; GET A SECTOR
-                    170             LDY #FDLSEC                                     ;
-                    171             STA (ZPGFCB),Y  ; PUT IN LINK
-                    172             PHA             ; SAVE SECTOR
-                    173             DEY
-                    174             LDA DCBATK      ; GET TRACK
-                    175             STA (ZPGFCB),Y  ; PUT IN LINK
-                    176             PHA             ; SAVE TRACK
-                    177             JSR WRFDGO      ; Go WRITE OLD DIR DEC
+                    168 <a class='f' id='2F8B' name='RFDNL1'   >RFDNL1      </a>EQU *
+2F8B:20 44 32       169             JSR GETSEC      ; GET A SECTOR
+2F8E:A0 02          170             LDY #FDLSEC                                     ;
+2F90:91 42          171             STA (ZPGFCB),Y  ; PUT IN LINK
+2F92:48             172             PHA             ; SAVE SECTOR
+2F93:88             173             DEY
+2F94:AD F1 35       174             LDA DCBATK      ; GET TRACK
+2F97:91 42          175             STA (ZPGFCB),Y  ; PUT IN LINK
+2F99:48             176             PHA             ; SAVE TRACK
+2F9A:20 3A 2F       177             JSR WRFDGO      ; Go WRITE OLD DIR DEC
                     178 ;
-                    179             JSR CLRSEC      ; CLEAN OUT DIR<hr class='page'>
-                    180             LDY #FDFRS      ; SET NEW DIR SEC 1ST REL       ; === Page <a class='page' name='page76'>76</a> ===
-                    181             LDA DCBDNF      ; FILE SECTOR
-                    182             STA (ZPGFCB),Y
-                    183             INY
-                    184             LDA DCBDNF+1
-                    185             STA (ZPGFCB),Y
+2F9D:20 D6 37       179             JSR CLRSEC      ; CLEAN OUT DIR<hr class='page'>
+2FA0:A0 05          180             LDY #FDFRS      ; SET NEW DIR SEC 1ST REL       ; === Page <a class='page' name='page76'>76</a> ===
+2FA2:Ad DE 35       181             LDA DCBDNF      ; FILE SECTOR
+2FA5:91 42          182             STA (ZPGFCB),Y
+2FA7:C8             183             INY
+2FA8:AD DF 35       184             LDA DCBDNF+1
+2FAB:91 42          185             STA (ZPGFCB),Y
                     186 ;
-                    187             PLA             ; GET SAVED TRACK
-                    188             TAX             ; INFO X
-                    189             PLA             ; GET SAVED TRACK
-                    190             TAY             ; INFO Y
-                    191             LDA #IBCWTS     ; SET WRITE CMD
-                    192             BNE RFDIO2      ; GO DO I/O
+2FAD:68             187             PLA             ; GET SAVED TRACK
+2FAE:AA             188             TAX             ; INFO X
+2FAF:68             189             PLA             ; GET SAVED TRACK
+2FB0:A8             190             TAY             ; INFO Y
+2FB1:A9 02          191             LDA #IBCWTS     ; SET WRITE CMD
+2FB3:D0 02          192             BNE RFDIO2      ; GO DO I/O
                     193 ;
-                    194 <a class='f' name='RFDIO1'   >RFDIO1      </a>LDA #IBCRTS     ; SET READ CMD
-                    195 <a class='f' name='RFDIO2'   >RFDIO2      </a>STX DCBCDT      ; SET CURR TRACK
-                    196             STY DCBCDS      ; SET CUR SECTOR
-                    197             JSR DCBIO       ; GO I/O
+2FB5:A9 01          194 <a class='f' id='2FB5' name='RFDIO1'   >RFDIO1      </a>LDA #IBCRTS     ; SET READ CMD
+2FB7:8E D3 35       195 <a class='f' id='2FB7' name='RFDIO2'   >RFDIO2      </a>STX DCBCDT      ; SET CURR TRACK
+2FBA:8C D4 35       196             STY DCBCDS      ; SET CUR SECTOR
+2FBD:20 52 30       197             JSR DCBIO       ; GO I/O
                     198 ;
-                    199 <a class='f' name='RDFDC'    >RDFDC       </a>LDY #FDFRS      ; GET POINTER TO FIRST REL SECTOR
-                    200             LDA (ZPGFCB),Y  ; GET FRS                       ; <b>F</b>irst <b>R</b>elative <b>S</b>ector
-                    201             STA DCBDFS      ; SET INTO DCB
+2FC0:A0 05          199 <a class='f' id='2FC0' name='RDFDC'    >RDFDC       </a>LDY #FDFRS      ; GET POINTER TO FIRST REL SECTOR
+2FC2:B1 42          200             LDA (ZPGFCB),Y  ; GET FRS                       ; <b>F</b>irst <b>R</b>elative <b>S</b>ector
+2FC4:8D DC 35       201             STA DCBDFS      ; SET INTO DCB
 2FC7:18             202             CLC
 2FC8:6D DA 35       203             ADC DCBDMS      ; ADD MAX SECTORS
-2FCB:8D De 35       204             STA DCBDNF      ; PUT INTO DCB
+2FCB:8D DE 35       204             STA DCBDNF      ; PUT INTO DCB
                     205 ;
-                    206             INY             ; DO SAME FOR HI BYTE
-                    207             LDA (ZPGFCB),Y
-                    208             STA DCBDFS+1
-                    209             ADC DCBDMS+1
-                    210             STA DCBDNF+1
+2CCE:C8             206             INY             ; DO SAME FOR HI BYTE
+2CCF:B1 42          207             LDA (ZPGFCB),Y
+2CD1:8D DD 35       208             STA DCBDFS+1
+2CD4:6D DB 35       209             ADC DCBDMS+1
+2CD7:8D DF 35       210             STA DCBDNF+1
                     211 ;
 2FDA:18             212             CLC
 2FDB:60             213             RTS             ; DONE
