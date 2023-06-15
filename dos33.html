@@ -2790,7 +2790,7 @@ With that "legalese" out of the way ... enjoy the read!
 255B:A9 FE          053 <a class='f' name='DFVOL'    >DFVOL</a>       LDA #$<span class='n'>FE</span>        ;SET DEFAULT VOLUME NUMBER      ; <a class='magic' name='_'>magic number</a> <span class='code'>DEFAULT_VOLUME</span><hr class='page'>
 255D:8D 66 2A       054             STA <a class='v' href='#CV'>CV</a>                                          ; === Page <a class='page' name='page146'>146</a> ===
 2560:AD 0D 1D       055 <a class='f' name='EINITA'   >EINITA</a>      LDA <a class='v' href='#ASTART'>ASTART</a>+<span class='n'>1</span>
-2563:8D B3 35       056             STA <a class='v' href='#CCBBSA'>CCBBSA</a>
+2563:8D BC 35       056             STA <a class='v' href='#CCBBSA'>CCBBSA</a>
 2566:A9 0B          057             LDA #<a class='v' href='#CRQFMT'>CRQFMT</a>
 2568:20 AA 22       058             JSR <a class='x' href="#OPEN">OPEN</a>
 256B:4C 97 23       059             JMP <a class='x' href="#ESAVE">ESAVE</a>
@@ -2876,7 +2876,7 @@ With that "legalese" out of the way ... enjoy the read!
 25E8:20 4E 27       139 <a class='f' name='EXP1'     >EXP1        </a>JSR <a class='x' href='#MVBUFP'>MVBUFP</a>
                     140 <a class='f' name='EXP2'     >EXP2        </a>EQU *
 25EB:AD 65 2A       141             LDA <a class='v' href='#INOPTS'>INOPTS</a>      ; GET OPTIONS
-25FE:29 04          142             AND #<a class='v' href='#R'>R</a>          ; TEST R
+25EE:29 04          142             AND #<a class='v' href='#R'>R</a>          ; TEST R
 25F0:F0 1B          143             BEQ <a class='x' href='#EX2'>EX2</a>         ; BR NOT R
                     144 ;
 25F2:AD 6E 2A       145 <a class='f' name='EX0'      >EX0         </a>LDA <a class='v' href='#CR'>CR</a>          ; IF CR NOT ZERO
@@ -3065,7 +3065,7 @@ With that "legalese" out of the way ... enjoy the read!
 2709:BD 71 29       070             LDA EMSG,X      ; GET MSG CHAR
 270C:48             071             PHA             ; SAVE CHAR
 270D:09 80          072             ORA #$<span class='n'>80</span>        ; SET MSB ON
-270F:20 CF 1F       073             JSR ORTN1       ; OUTPUT CHAR
+270F:20 C5 1F       073             JSR ORTN1       ; OUTPUT CHAR
 2712:AE 63 2A       074             LDX TEMP1A      ; GET INDEX
 2715:E8             075             INX             ; INCREMENT IT
 2716:68             076             PLA             ; RE-LOAD CHAR
@@ -3160,7 +3160,7 @@ With that "legalese" out of the way ... enjoy the read!
                     165 ;
                     166 <a class='f' name='TSINIT'   >TSINIT      </a>EQU *
 2792:AD 00 1D       167             LDA FTAB        ; GET 1ST PTR ADR
-2795:AD 01 1D       168             LDX FTAB+1
+2795:AE 01 1D       168             LDX FTAB+1
 2798:D0 0A          169             BNE TSST
                     170 <a class='f' name='TSNXT'    >TSNXT       </a>EQU *
 279A:A0 25          171             LDY #37         ; GET LINK                      ; <a class='magic' name='_279B'>magic number</a> HEADER.LINK+1 (See <a class='file' href='#BLDFTB'>BLDFTB</a>)
@@ -3255,7 +3255,7 @@ With that "legalese" out of the way ... enjoy the read!
 27F1:91 40          <a class='line' name='BLDFTAB.041'>041</a>             STA (ZPGWRK),Y  ; IS START OF FTB               ; Init [1E] $9CD3 = $9CF1: $9CA6 buf #1 ptr
 27F3:48             042             PHA             ; SAVE LOW ADR BYTE
 27F4:A5 41          043             LDA ZPGWKR+1
-27F6:48             044             SBC #<span class='n'>0</span>
+27F6:E9 00          044             SBC #<span class='n'>0</span>
 27F8:C8             045             INY
 27F9:91 40          046             STA (ZPGWKR),Y                                  ; [1F] = page
 27FB:AA             047             TAX
@@ -3303,7 +3303,7 @@ With that "legalese" out of the way ... enjoy the read!
 2833:C8             089             INY
 2834:91 40          090             STA (ZPGWRK),Y
                     091 ;
-2836:AD B6 AA       092             LDA ASIBSW      ; IF IB THEN GO                 ; Integer Basic
+2836:AD B6 2A       092             LDA ASIBSW      ; IF IB THEN GO                 ; Integer Basic
 2839:F0 0B          093             BEQ <a class="x" href="#BFTIB">BFTIB</a>
                     094 ;
 283B:68             095             PLA
@@ -3370,19 +3370,22 @@ With that "legalese" out of the way ... enjoy the read!
 2888:4C 4F 41 C4    008             DCI "LOAD"                                      ; Either sort these by:
 288C:53 41 56 C5    009             DCI "SAVE"                                      ;   a) frequency of use, (best)
 2890:52 55 CE       010             DCI "RUN"                                       ;   b) alphabetical (better)
-2893:43 48 41 49 CE 011             DCI "CHAIN"                                     ; i.e. "Power Users" are more likely to use BRUN, BLOAD, BSAVE before they use DELETE
+2893:43 48 41 49    011             DCI "CHAIN"                                     ; i.e. "Power Users" are more likely to use BRUN, BLOAD, BSAVE before they use DELETE
+2897:CE
 2898:44 45 4C 45    012             DCI "DELETE"
 289C:54 C5
 289E:4C 4F 43 CB    013             DCI "LOCK"
 28A2:55 4E 4C 4F    014             DCI "UNLOCK"
 28A6:43 CB
-28A8:43 4C 4F 53 C5 015             DCI "CLOSE"
+28A8:43 4C 4F 53    015             DCI "CLOSE"
+28AC:C5
 28AD:52 45 41 C4    016             DCI "READ"
 28B1:45 58 45 C3    017             DCI "EXEC"                                      ; inconsistent abbreviation: EXECUTE
-28B5:57 52 49 54 C5 018             DCI "WRITE"
+28B5:57 52 49 54    018             DCI "WRITE"
+28B9:C5
 28BA:50 4F 53 49    019             DCI "POSITION"
-2854:54 49 4F CE
-28C2:45 50 45 CE    020             DCI "OPEN"                                      ; Calls EOPEN
+28BE:54 49 4F CE
+28C2:4F 50 45 CE    020             DCI "OPEN"                                      ; Calls EOPEN
 28C6:41 50 50 45    021             DCI "APPEND"
 28CA:4E C4
 28CC:52 45 4E 41    022             DCI "RENAME"
@@ -3390,15 +3393,18 @@ With that "legalese" out of the way ... enjoy the read!
 28D2:43 41 54 41    023             DCI "CATALOG"                                   ; <a class='dumb' name='HNTODAOS2'>HNTODAOS: #2</a> Let's slow users down forcing them type 7 characters
 28D6:4C 4F C7                                                                       ; Which has a higher error rate of typos?
 28D9:4D 4F CE       024             DCI "MON"                                       ; easier to type 3 characters CAT or DIR or 7 character CATALOG ?
-28DC:4E 4F 4D 4F CE 025             DCI "NOMON"                                     ; /sarcasm Oh I see, we abbreviate the <i>uncomon</i> MONITOR but not the <b>common</b> CATALOG
+28DC:4E 4F 4D 4F    025             DCI "NOMON"                                     ; /sarcasm Oh I see, we abbreviate the <i>uncomon</i> MONITOR but not the <b>common</b> CATALOG
+28E0:CE
 28E1:50 52 A3       026             DCI "PR#"
 28E4:49 4E A3       027             DCI "IN#"
 28E7:4D 41 58 46    028             DCI "MAXFILES"
 28EB:49 4C 45 D3
 28EF:46 D0          029             DCI "FP"
 28F1:49 4E D4       030             DCI "INT"
-28F4:42 53 41 56 C5 031             DCI "BSAVE"
-28F9:42 4C 4F 41 C4 032             DCI "BLOAD"
+28F4:42 53 41 56    031             DCI "BSAVE"
+28F8:C5
+28F9:42 4C 4F 41    032             DCI "BLOAD"
+28FD:C4
 28FE:42 52 55 CE    033             DCI "BRUN"                                      ; === <a class='ts' name='T1S8'>T1S8</a> ===
 2902:56 45 52 49    034             DCI "VERIFY"
 2906:46 D9
@@ -3482,7 +3488,7 @@ With that "legalese" out of the way ... enjoy the read!
 2909:21 70          064             DFB FN1+CREFLG,V+D+S          ; INIT
 290B:A0 70          065             DFB NPB+FN1,V+D+S             ; LOAD
 290D:A1 70          066             DFB NPB+FN1+CREFLG,V+D+S      ; SAVE
-290E:A0 70          067             DFB NPB+FN1,V+D+S             ; RUN
+290F:A0 70          067             DFB NPB+FN1,V+D+S             ; RUN
 2911:20 70          068             DFB FN1,V+D+S                 ; CHAIN
 2913:20 70          069             DFB FN1,V+D+S                 ; DELETE
 2915:20 70          070             DFB FN1,V+D+S                 ; LOCK
@@ -3540,7 +3546,7 @@ With that "legalese" out of the way ... enjoy the read!
 2959:01 00          110             DW <span class='n'>1</span>                                            ; [1]
 295B:02 00          111             DW <span class='n'>2</span>            ; DRIVE RANGE
 295D:01 00          112             DW <span class='n'>1</span>                                            ; [2]
-295F:07 01          113             DW <span class='n'>7</span>            ; SLOT RANGE
+295F:07 00          113             DW <span class='n'>7</span>            ; SLOT RANGE
 2961:01 00          114             DW <span class='n'>1</span>                                            ; [3]             <span class='code'>BSAVE MEM.48K,A$0,L$C000</span> won't work without patching DOS<hr class='page'>
 2963:FF 7F          115             DW <span class='n'>32767</span>        ; LENGTH RANGE                  ; === Page <a class='page' name='page23'>23</a> === A963:FF BF to save &gt; 32KB (48KB)
 2965:00 00          116             DW <span class='n'>0</span>                                            ; [4]
@@ -3581,13 +3587,15 @@ With that "legalese" out of the way ... enjoy the read!
 29C5:49 53 4D 41
 29C9:54 43 C8       141 <a class='d' name='EM8'      >EM8         </a>EQU *-EMSG
 29CC:49 2F 4F 20    142             DCI "I/O ERROR"
-29D0:45 52 52 4F D2 143 <a class='d' name='EM9'      >EM9         </a>EQU *-EMSG
+29D0:45 52 52 4F    143 <a class='d' name='EM9'      >EM9         </a>EQU *-EMSG
+29D4:D2
 29D5:44 49 53 4B    144             DCI "DISK FULL"
-29D9:20 46 55 4C CC 145 <a class='d' name='EM10'     >EM10        </a>EQU *-EMSG
+29D9:20 46 55 4C    145 <a class='d' name='EM10'     >EM10        </a>EQU *-EMSG
+29DD:CC
 29DE:46 49 4C 45    146             DCI "FILE LOCKED"
 29E2:20 4C 4F 43    147 <a class='d' name='EM11'     >EM11        </a>EQU *-EMSG
 29E6:4B 45 C4
-29E9:53 59 4E 5E    148             DCI "SYNTAX ERROR"
+29E9:53 59 4E 54    148             DCI "SYNTAX ERROR"
 29ED:41 58 20 45
 29F1:52 52 4F D2    149 <a class='d' name='EM12'     >EM12        </a>EQU *-EMSG
 29F5:4E 4F 20 42    150             DCI "NO BUFFERS AVAILABLE"
@@ -3603,7 +3611,8 @@ With that "legalese" out of the way ... enjoy the read!
 2A1B:50 52 4F 47    154             DCI "PROGRAM TOO LARGE"
 2A1F:52 41 4D 20
 2A23:54 4F 4F 20
-2A27:4C 41 52 47 C5 155 ;
+2A27:4C 41 52 47    155 ;
+2A2B:C5
                     156 <a class='d' name='EM15'     >EM15        </a>EQU *-EMSG
 2A2C:4E 4F 54 20    157             DCI "NOT DIRECT COMMAND"
 2A30:44 49 52 45
@@ -3706,8 +3715,8 @@ With that "legalese" out of the way ... enjoy the read!
 2AD7:EE 2C          067 <meta                                 />            DW <a class='x' href='#FLOCK' >FLOCK</a>-<span class='n'>1</span>      ; 7-LOCK A FILE                 ; [7]
 2AD9:F5 2C          068 <meta                                 />            DW <a class='x' href='#FUNLCK'>FUNLCK</a>-<span class='n'>1</span>     ; 8-UNLOCK A FILE               ; [8]
 2ADB:39 2C          069 <meta                                 />            DW <a class='x' href='#FRNME' >FRNME</a>-<span class='n'>1</span>      ; 9-RENAME                      ; [9]
-2ADC:11 2D          070 <meta                                 />            DW <a class='x' href='#FPOSTN'>FPOSTN</a>-<span class='n'>1</span>     ; 10-POSITION A FILE            ; [A]
-2ADE:8D 2E          071 <meta                                 />            DW <a class='x' href='#FFMT'  >FFMT</a>-<span class='n'>1</span>       ; FORMAT                        ; [B]
+2ADD:11 2D          070 <meta                                 />            DW <a class='x' href='#FPOSTN'>FPOSTN</a>-<span class='n'>1</span>     ; 10-POSITION A FILE            ; [A]
+2ADF:8D 2E          071 <meta                                 />            DW <a class='x' href='#FFMT'  >FFMT</a>-<span class='n'>1</span>       ; FORMAT                        ; [B]
 2AE1:17 2D          072 <meta                                 />            DW <a class='x' href='#FVAR'  >FVAR</a>-<span class='n'>1</span>       ; VARIFY                        ; [C] *<span class='spell'>spelling</span>* VERIFY
 2AE3:7E 33          073 <meta                                 />            DW <a class='x' href='#GOODIO'>GOODIO</a>-<span class='n'>1</span>     ; 11-SPARE                      ; [D] <a class='mem' name='_2AE3' coords='2'>wastes</a> 2 bytes due to fencepost error
                                                                                     ;     Uh, calling 13 "eleven" doesn't make it so. 
@@ -3861,7 +3870,7 @@ With that "legalese" out of the way ... enjoy the read!
 2BD2:AD E2 33       087             LDA VTDMS       ; MOVE MAX FD SECTS
 2BD5:8D DA 35       088             STA DCBDMS      ; TODCB                         ; that differ by a single letter: span class='code'>dcbDms</span>
 2BD8:18             089             CLC
-2BD9:4C             090             JMP RDFDIR      ; READ 1ST DIRECTORY RECORD     ; Read inode
+2BD9:4C 5E 2F       090             JMP RDFDIR      ; READ 1ST DIRECTORY RECORD     ; Read inode
                     091 ;
                     092 ;
                     093 ;
@@ -3881,12 +3890,12 @@ With that "legalese" out of the way ... enjoy the read!
 2BF2:8D F8 35       107             STA DCBDRV
 2BF5:AD C1 35       108             LDA CCBSLT      ; GET USER SPEC SLOT
 2BF8:0A             109             ASL A           ; SLOT*16
-2BF8:0A             110             ASL A
-2BF8:0A             111             ASL A
-2BF8:0A             112             ASL A
+2BF9:0A             110             ASL A
+2BFA:0A             111             ASL A
+2BFB:0A             112             ASL A
 2BFC:AA             113             TAX
                     114 <a class='f' name='F01A'     >F01A        </a>EQU *
-2BFD:8E F7 FF       115             STX DCBSLT<hr class='page'>
+2BFD:8E F7 35       115             STX DCBSLT<hr class='page'>
                                                                                     ; === Page <a class='page' name='page79'>79</a> ===
                                                                                     ; === <a class='ts' name='T1SB'>T1SB</a> ===
 2C00:A9 11          116             LDA #<span class='n'>17</span>                                         ;[.. <a class='mem' name='_2C00' coords='5'>wastes</a> 5 bytes; <a class='magic' name='_2C01'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
@@ -4066,7 +4075,7 @@ With that "legalese" out of the way ... enjoy the read!
 2C9D:20 A2 31       225             JSR MIBDA       ; GO MOVE BLOCK ADR AND INCR
 2CA0:A0 00          226             LDY #0
 2CA2:68             227             PLA
-2CA3:91 41          228             STA (ZPGFCB),Y  ; SET DATA BYTE
+2CA3:91 42          228             STA (ZPGFCB),Y  ; SET DATA BYTE
 2CA5:4C 96 2C       229             JMP RNXBLK      ; GO FOR NEXT BYTE
                     230 ;
                     231 * GETBYT - GET A DATA BYTE
@@ -4120,7 +4129,7 @@ With that "legalese" out of the way ... enjoy the read!
 2CDE:68             279 <a class='f' id='2CDE' name='PB0'      >PB0         </a>PLA           ; GET SAVED BYTE
 2CDF:91 42          280             STA (ZPGFCB),Y  ; PUT THE BYTE
 2CE1:A9 40          281             LDA #$<span class='n'>40</span>        ; SET WRITE SECTOR REQD         ; <a class='magic' name='_2CE2'>magic number</a> WRITE_FLAG_SECTOR, See <a class='x' href='#GNWSEC'>GNWSEC</a>
-2CE3:0D D3 35       282             ORA DCBWRF
+2CE3:0D D5 35       282             ORA DCBWRF
 2CE6:8D D5 35       283             STA DCBWRF
                     284 ;
 2CE9:20 5B 31       285             JSR <a class='x' href='#INCRRB'>INCRRB</a>      ; INCR REL REC BYTE             ;[.. <a class='mem' name='_2CE9' coords='3'>wastes</a> 3 bytes
@@ -4246,7 +4255,7 @@ With that "legalese" out of the way ... enjoy the read!
 2DB0:BD AF 33       114 <a class='f' id='2DB0' name='RD0'      >RD0         </a>LDA VOLMES,X    ; GET MSG CHAR                  ; \
 2DB3:20 ED FD       115             JSR PRINT       ; PRINT IT                      ;  &gt; More stupid commenting stating the obvious
 2DB6:CA             116             DEX             ; DECREMENT COUNT               ; /<hr class='page'>
-                    117             BPL RD0         ; BR IF MORE                    ; === Page <a class='page' name='page57'>57</a> ===
+2DB7:10 F7          117             BPL RD0         ; BR IF MORE                    ; === Page <a class='page' name='page57'>57</a> ===
                     118 ;
 2DB9:86 45          119             STX CNUM+1                                      ; X=0 &rarr; CNUM+1, clear high byte for printing
 2DBB:AD F6 37       120             LDA IBSMOD      ; MOVE VOL NO FOR
@@ -4416,7 +4425,7 @@ With that "legalese" out of the way ... enjoy the read!
 2EC2:10 F6          031             BPL NT3
 2EC4:E0 44          032             CPX #17*4       ; AT TRACK 17                   ; <a class='magic' name='_2EC5'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK * ALLOC_BYTE_PER_TRACK</span>;
 2EC6:D0 EC          033             BNE NT2
-2EC8:A2 38          034             LDX #18*4       ; SKIP TO 18
+2EC8:A2 48          034             LDX #18*4       ; SKIP TO 18
 2ECA:D0 E8          035             BNE NT2                                         ; &uarr; (always)
                     036 ;
 2ECC:20 FB 2F       037 <a class='f' id='2ECC' name='NT4'      >NT4         </a>JSR WRVTOC      ; WRITE NEW VTOC
@@ -4429,7 +4438,7 @@ With that "legalese" out of the way ... enjoy the read!
                     044 ;
 2ED8:20 45 30       045             JSR MVVDBA      ; MOVE BUF PTRS
                     046 ;
-2EDB:A9 17          047             LDA #17         ; TRACK 17                      ; <a class='magic' name='_2EDC'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
+2EDB:A9 11          047             LDA #17         ; TRACK 17                      ; <a class='magic' name='_2EDC'>magic number</a> <span class='code'>FILESYSTEM_VTOC_CAT_TRACK = $11</span>
 2EDD:AC F0 33       048             LDY VNOSEC                                      ; S16
 2EE0:88             049             DEY                                             ; S15 CATALOG [0]
 2EE1:88             050             DEY                                             ; S14 CATALOG [1]
@@ -4523,14 +4532,14 @@ With that "legalese" out of the way ... enjoy the read!
                     138 ;
                     139 <a class='f' id='2F5E' name='RDFDIR'   >RDFDIR      </a>EQU *
 2F5E:08             140             PHP             ; SAVE STATUS
-                    141             JSR WRFDIR      ; GO WRITE CURRENT DIR IF REQD
-                    142             JSR MVFDBA      ; GO MOVE DBUFF ADR TO IOB
-                    143             JSR MVFCBD      ; MOVE DBUFF ADR TO ZPG
+2F5F:20 34 2F       141             JSR WRFDIR      ; GO WRITE CURRENT DIR IF REQD
+2F62:20 4B 2F       142             JSR MVFDBA      ; GO MOVE DBUFF ADR TO IOB
+2F65:20 0C 2F       143             JSR MVFCBD      ; MOVE DBUFF ADR TO ZPG
 2F68:28             144             PLP             ; GET SAVED STATUS
 2F69:B0 09          145             BCS RFDNXT      ; BR IF RD NEXT
                     146 ;
 2F6B:AE D1 35       147             LDX DCBFDT      ; GET TRACK                     ;DCBFDT != DCBCDT Line #132
-2F6E:AE D2 35       148             LDY DCBFDS      ; GET SECTOR                    ;DCBFDS != DCBCDS Line #133
+2F6E:AC D2 35       148             LDY DCBFDS      ; GET SECTOR                    ;DCBFDS != DCBCDS Line #133
 2F71:4C B5 2F       149             JMP RFDIO1      ; GO READ
                     150 ;
                     151 <a class='f' id='2F74' name='RFDNXT'   >RFDNXT      </a>EQU *
@@ -4588,11 +4597,11 @@ With that "legalese" out of the way ... enjoy the read!
 2FC8:6D DA 35       203             ADC DCBDMS      ; ADD MAX SECTORS
 2FCB:8D DE 35       204             STA DCBDNF      ; PUT INTO DCB
                     205 ;
-2CCE:C8             206             INY             ; DO SAME FOR HI BYTE
-2CCF:B1 42          207             LDA (ZPGFCB),Y
-2CD1:8D DD 35       208             STA DCBDFS+1
-2CD4:6D DB 35       209             ADC DCBDMS+1
-2CD7:8D DF 35       210             STA DCBDNF+1
+2FCE:C8             206             INY             ; DO SAME FOR HI BYTE
+2FCF:B1 42          207             LDA (ZPGFCB),Y
+2FD1:8D DD 35       208             STA DCBDFS+1
+2FD4:6D DB 35       209             ADC DCBDMS+1
+2FD7:8D DF 35       210             STA DCBDNF+1
                     211 ;
 2FDA:18             212             CLC
 2FDB:60             213             RTS             ; DONE
@@ -4604,7 +4613,7 @@ With that "legalese" out of the way ... enjoy the read!
 2FDC:20 E4 2F       219             JSR MVSBA       ; GO MOVE SECTOR BUFFER ADR
                     220 ;
 2FDF:A9 01          221             LDA #IBCRTS
-2FE1:3C 52 30       222             JMP DCBIO       ; GO DO I/O                     ; <a class='mem' name='_2FE1'>wastes</a> 1 byte, <span class='code'>BNE DCBIO</span> ($3052 - $2FE3 = $6F &lt; $80)
+2FE1:4C 52 30       222             JMP DCBIO       ; GO DO I/O                     ; <a class='mem' name='_2FE1'>wastes</a> 1 byte, <span class='code'>BNE DCBIO</span> ($3052 - $2FE3 = $6F &lt; $80)
                     223 ;
                     224 ;MVSBA - MOVE SECTOR BUFFER ADR FOR I/O
                     225 ;
@@ -4651,7 +4660,7 @@ With that "legalese" out of the way ... enjoy the read!
 3016:B0 08          029             BCS <a class='x' href='#RVDA'   >RVDA</a>        ; BR IF R0 NEXT
                     030 ;
 3018:AC BD 33       031 <a class='f' id='3018' name='RVDC'     >RVDC        </a>LDY <a class='v' href='#VDIRSC' >VDIRSC</a>      ; READ 1ST SECTOR
-301B:AE B3 33       032             LDX <a class='v' href='#VDIRTK' >VDIRTK</a>      ; GET FIRST TRK
+301B:AE BC 33       032             LDX <a class='v' href='#VDIRTK' >VDIRTK</a>      ; GET FIRST TRK
 301E:D0 0A          033             BNE <a class='x' href='#RVDGO'  >RVDGO</a>       ; GO READ                       ; BUG: Catalog can't be on T0, FIX: <span class='code'>BPL RVDGO</span>
                     034 ;
                     035 <a class='f' id='3020' name='RVDA'     >RVDA        </a>EQU *
@@ -4713,7 +4722,7 @@ With that "legalese" out of the way ... enjoy the read!
 3076:8D EA 37       089             STA IBDRVN                                      ; ..     Compare and constrast the two:
 3079:AD E2 35       090             LDA DCBSDL      ; LENGTH                        ; ..         D_SLOT         DCBSLT
 307C:8D F2 37       091             STA IBDLEN                                      ; ..         I_SLOT         IBSLOT
-307F:AD E3 37       092             LDA DCBSDL+1                                    ; ..  2. Note: Length is 16-bit
+307F:AD E3 35       092             LDA DCBSDL+1                                    ; ..  2. Note: Length is 16-bit
 3082:8D F3 37       093             STA IBDLEN+1                                    ; ..] 3. <b>Over-engineered memcpy()</b> to marshall DCB to/from IOB
                                                                                     ;        Due to the <b>contiguous</b> <i>layout</i> (/saracasm Who knew!)
                                                                                     ;
@@ -4792,7 +4801,7 @@ With that "legalese" out of the way ... enjoy the read!
 30B9:CD E0 35       124             CMP DCBCMS      ; EQUAL TO THE CURRENT MEM SECTOR
 30BC:D0 08          125             BNE LNB1        ; BR IF NOT EQ
 30BE:AD E5 35       126             LDA DCBCRS+1
-30C1:CD D1 35       127             CMP DCBCMS+1
+30C1:CD E1 35       127             CMP DCBCMS+1
 30C4:F0 66          128             BEQ LNB8        ; BR IF REQD SECTOR IN MEM
                     129 ;
                     130 <a class='f' id='30C6' name='LNB1'     >LNB1        </a>EQU *           ; NEED A DIFFERENT SECTOR IN MEM
@@ -4957,9 +4966,9 @@ With that "legalese" out of the way ... enjoy the read!
                     005 <a class='f' name='FNDFIL'   >FNDFIL      </a>EQU *
 31C9:20 F7 2F       006             JSR <a class='x' href='#RDVTOC'>RDVTOC</a>      ; GO GET VTOC
 31CC:AD C3 35       007             LDA <a class='v' href='#CCBFN'>CCBFN</a>       ; MOVE FN PTR
-31CD:85 42          008             STA <a class='v' href='#ZPGFCB'>ZPGFCB</a>      ; TO ZERO PAGE
+31CF:85 42          008             STA <a class='v' href='#ZPGFCB'>ZPGFCB</a>      ; TO ZERO PAGE
 31D1:AD C4 35       009             LDA <a class='v' href='#CCBFN'>CCBFN</a>+<span class='n'>1</span>
-31D5:85 43          010             STA <a class='v' href='#ZPGFCB'>ZPGFCB</a>+<span class='n'>1</span>
+31D4:85 43          010             STA <a class='v' href='#ZPGFCB'>ZPGFCB</a>+<span class='n'>1</span>
 31D6:A9 01          011             LDA #<span class='n'>1</span>                                          ; *sigh* <a class='magic' name='_31D7'>magic number</a> <span class='todo'>TODO</span>
 31D8:8D 9D 33       012 <a class='f' name='FF1'      >FF1         </a>STA <a class='v' href='#TEMP2'>TEMP2</a>
 31DB:A9 00          013             LDA #<span class='n'>0</span>
@@ -4976,11 +4985,11 @@ With that "legalese" out of the way ... enjoy the read!
 31F1:F0 1F          024             BEQ <a class='x' href='#FF6'>FF6</a>         ; BR IF LAST ENTRY              ;&darr; <span class='todo'>TODO</span> NTODAFS can't store data on track 0; Should be <span class='code'>NOP NOP</span>
 31F3:30 22          025             BMI <a class='x' href='#FF7'>FF7</a>         ; BR IF DELETED ENTRY           ;&darr;
 31F5:A0 00          026             LDY #<span class='n'>0</span>          ; X=X+3
-31F6:E8             027             INX
-31F7:E8             028             INX
-31F8:E8             029 <a class='f' name='FF4'      >FF4         </a>INX
+31F7:E8             027             INX
+31F8:E8             028             INX
+31F9:E8             029 <a class='f' name='FF4'      >FF4         </a>INX
 31FA:B1 42          030             LDA (<a class='v' href='#ZPGFCB'>ZPGFCB</a>),Y  ; GET FN CHAR
-31FC:DD C6 B4       031             CMP <a class='v' href='#VDFILE'>VDFILE</a>,X    ; COMPARE TO ENTRY CHAR
+31FC:DD C6 34       031             CMP <a class='v' href='#VDFILE'>VDFILE</a>,X    ; COMPARE TO ENTRY CHAR
 31FF:D0 0A          032             BNE <a class='x' href='#FF5'>FF5</a>         ; BR IF NOT SAME                ;&darr;
 3201:C8             033             INY
 3202:C0 1E          034             CPY #<span class='n'>30</span>         ; ALL 30 CHARS                  ;  <a class='magic' name='_3203'>magic number</a> <span class='code'>FILENAME_MAX</span>
@@ -5019,7 +5028,7 @@ With that "legalese" out of the way ... enjoy the read!
 3231:AD 9C 33       067             LDA <a class='v' href='#TEMP1'>TEMP1</a>                                       ; pCatalog++;
 3234:69 23          068             ADC #<span class='n'>35</span>                                         ;  <a class='magic' name='_3228'>magic number</a> <span class='code'>FILENAME_ENTRY_SIZE</span>
 3236:AA             069             TAX
-2337:E0 F5          070             CPX #<a class='v' href='#VDFLEN'>VDFLEN</a>
+3237:E0 F5          070             CPX #<a class='v' href='#VDFLEN'>VDFLEN</a>
 3239:60             071             RTS
                     072 <a class='f' name='FF4A'     >FF4A        </a>EQU *
 323A:A9 00          073             LDA #<span class='n'>0</span>
@@ -5031,11 +5040,11 @@ With that "legalese" out of the way ... enjoy the read!
                     079 ;GETSEC - GET A SECTOR
                     080 ;
                     081 <a class='f' name='GETSEC' >GETSEC      </a>EQU *
-3244:AD 51 35       082             LDA <a class='v' href='#DCBATK'>DCBATK</a>      ; GET ALLOCATED TRK
+3244:AD F1 35       082             LDA <a class='v' href='#DCBATK'>DCBATK</a>      ; GET ALLOCATED TRK
 3247:F0 21          <a class='line' name="FLOCSEC.83">083</a>             BEQ <a class="x" href="#GSS1"  >GSS1</a>        ; BR IF NONE                    ; <span class='bug'>DESIGN FLAW:</span> Can't store file on track 0 !
                     084 ;
                     085 <a class='f' name='GS0'    >GS0         </a>EQU *
-3249:CD F0 35       086             DEC <a class='v' href='#DCBALS'>DCBALS</a>      ; DECREMENT SECTOR NO
+3249:CE F0 35       086             DEC <a class='v' href='#DCBALS'>DCBALS</a>      ; DECREMENT SECTOR NO
 324C:30 17          087             BMI <a class='x' href='#CS2'>CS2</a>         ; BR IF NO SECTORS REM
                     088 ;
 324E:18             089             CLC
@@ -5164,13 +5173,13 @@ With that "legalese" out of the way ... enjoy the read!
 331D:4A             212             LSR A           ; IF NO CARRY THEN NO PART PROD
 331E:B0 03          213             BCS LS1A
 3320:8A             214             TXA
-                    215             BCC LS2
+3321:90 0E          215             BCC LS2
 3323:18             216 <a class='f' name='LS1A'   >LS1A        </a>CLC
 3324:AD E5 35       217             LDA DCBCRS+1    ; FPORM PARTIAL PROD            ; *<span class='spell'>spelling</span>* FORM
 3327:6D E8 35       218             ADC DCBRCL
 332A:8D E5 35       219             STA DCBCRS+1
 332D:8A             220             TXA
-332E:6D E9 B5       221             ADC DCBRCL+1
+332E:6D E9 35       221             ADC DCBRCL+1
                     222 ;
 3331:6A             223 <a class='f' name='LS2'    >LS2         </a>ROR A           ; MULT BY 2
 3332:6E E5 35       224             ROR DCBCRS+1
@@ -5210,7 +5219,7 @@ With that "legalese" out of the way ... enjoy the read!
 3369:D0 1A          258             BNE ERRORA                                      ;&darr; <a class='mem' name='_3369' coords='2'>wastes</a> 2 bytes, above should be located at ERR3A: <span class='code'>LDA #CREMRE, JMP ERRORA</span>
 336B:A9 04          259 <a class='f' name='ERROR4' >ERROR4      </a>LDA #<a class='e' href='#CREPRO'>CREPRO</a>                                     ; "WRITE PROTECT"       - [.. <a class='mem' name='_336B' coords='4'>wastes</a> 4 bytes -- never referenced!
 336D:D0 16          260             BNE ERRORA                                      ;&darr;                         ..]
-336D:A9 05          261 <a class='f' name='ERROR5' >ERROR5      </a>LDA #<a class='e' href='#CREEOF'>CREEOF</a>                                     ; "END OF FILE ON READ" - JMP'd from exactly ONE spot: <a class='x' href='#EOFIN'>EOFIN</a>
+336F:A9 05          261 <a class='f' name='ERROR5' >ERROR5      </a>LDA #<a class='e' href='#CREEOF'>CREEOF</a>                                     ; "END OF FILE ON READ" - JMP'd from exactly ONE spot: <a class='x' href='#EOFIN'>EOFIN</a>
 3371:D0 12          262             BNE ERRORA                                      ;&darr; <a class='mem' name='_3371' coords='2'>wastes</a> 2 bytes, above should be located at EOFIN: <span class='code'>LDA #CREEOF, JMP ERRORA</span>
 3373:A9 06          263 <a class='f' name='ERROR6' >ERROR6      </a>LDA #<a class='e' href='#CREFNF'>CREFNF</a>                                     ; "FILE NOT FOUND"      - JMP'd from exactly ONE spot: <a class='x' href='#F02A'>F02A</a>
 3375:D0 0E          264             BNE ERRORA                                      ;&darr; <a class='mem' name='_3375' coords='2'>wastes</a> 2 bytes, above should be located at F02A: <span class='code'>LDA #CREFNF, JMP ERRORA</span>
@@ -5774,7 +5783,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 36A4:C8             139             INY
 36A5:C0 1D          140             CPY #$<span class='n'>1D</span>                                        ; <a class='magic' name='_36A6'>magic number</a> <span class='code'>FCB_NUM_SEC_ALLOC</span>
 36A7:D0 F6          141             BNE MOVE
-36A9:4C BC 26       142 BACK        JMP DOSGO2A     ;NOW LET APPEND CONTINUE
+36A9:4C BB 26       142 BACK        JMP DOSGO2A     ;NOW LET APPEND CONTINUE
                     143 <a class='f' id='36AC' name='FIXIT' >FIXIT       </a>EQU *
 36AC:A2 FF          144             LDX #$<span class='n'>FF</span>        ;SET FLAG SO APPEND WILL        ; <a class='magic' name='_36AD'>magic number</a> <span class='code'>FLAG_EOF_SEC_BOUNDARY EQU $0</span>
 36AE:8E 5D 36       145             STX EOFFLAG     ;KNOW TO CROSS SECTOR BOUNDARY
@@ -6018,7 +6027,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     369 <meta                                 />;
 37D6:A9 00          370 CLRSEC      LDA #<span class='n'>0</span>          ;CLEAR SECTOR
 37D8:A8             371 <meta                                 />            TAY
-37D9:91 41          372 CS1         STA (ZPGFCB),Y
+37D9:91 42          372 CS1         STA (ZPGFCB),Y
 37DB:C8             373 <meta                                 />            INY
 37DC:D0 FB          374 <meta                                 />            BNE CS1
 37DE:60             375 <meta                                 />            RTS
@@ -6406,7 +6415,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3862:A0 56          077             LDY #$56        ;(2) NBUF2 INDEX.
 3864:D0 03          078             BNE <a class="x" href="#WDATA1">WDATA1</a>      ;(3)  ALWAYS.  NO PAGE CROSS!!  ; v
 3866:B9 00 3C       079 <a class="f"    name="WDATA0"       >WDATA0      </a>LDA <a class="v" href="#NBUF2">NBUF2</a>,Y     ;(4)  PRIOR 6-BIT NIBL.
-3869:58 FF 3B       <a class='line' name='WRITRTN.080'>080</a> <a class="f"    name="WDATA1"       >WDATA1      </a>EOR <a class="v" href="#NBUF2">NBUF2</a>-1,Y   ;(5)  XOR WITH CURRENT.
+3869:59 FF 3B       <a class='line' name='WRITRTN.080'>080</a> <a class="f"    name="WDATA1"       >WDATA1      </a>EOR <a class="v" href="#NBUF2">NBUF2</a>-1,Y   ;(5)  XOR WITH CURRENT.
                     081 *   (NBUF2 MUST BE ON PAGE BOUNDARY FOR TIMING!!)
 386C:AA             082             TAX             ;(2)  INDEX To 7-BIT NIBL
 386D:BD 29 3A       083             LDA <a class="v" href="#NIBL" >NIBL</a>,X      ;(4)  MUST NOT CROSS PAGE!
@@ -6606,7 +6615,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3918:10 FB          145 <!--                           -->            BPL READ5       *** NO PAGE CROSS! ***
 391A:59 00 3A       146 <!--                           -->            EOR DNIBL,Y     XOR 6-BIT NIBL.
 391D:A4 26          147 <!--                           -->            LDY IDX
-391F:99 00 BB       148 <!--                           -->            STA NBUF1,Y     STORE IN NBUF1 PAGE.
+391F:99 00 3B       148 <!--                           -->            STA NBUF1,Y     STORE IN NBUF1 PAGE.
 3922:C8             149 <!--                           -->            INY
 3923:D0 EE          150 <!--                           -->            BNE RDATA2
 3925:BC 8C C0       151 <a class="f" name="READ6"    >READ6       </a>LDY Q6L,X       READ 7-BIT CSUM NIBL.
@@ -6799,7 +6808,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 39C7:90 02          169 <!--                           -->            BCC MAXTST      AND 'TRKS MOVED'.
 39C9:A5 26          170 <!--                           -->            LDA TRKCNT                                      ; crappy abbreviation: <i>Max Test</i>
 39CB:C9 0C          171 <a class="f" name="MAXTST"   >MAXTST      </a>CMP #$<span class='n'>C</span>                                         ; <a class='magic' name='_39CC'>magic number</a> <span class='code'>ON_TIME_SIZE EQU $C</span>, or even <span class='code'>OFFTABLE - ONTABLE</span>
-39CD:BB 01          172 <!--                           -->            BCS STEP2       ;IF TRKCNT&gt;$B LEAVE Y ALONE (Y=$B).
+39CD:B0 01          172 <!--                           -->            BCS STEP2       ;IF TRKCNT&gt;$B LEAVE Y ALONE (Y=$B).
 39CF:A8             173 <a class="f" name="STEP"     >STEP        </a>TAY             ;ELSE SET ACCELERATION INDEX IN Y
                     174 <a class="f" name="STEP2"    >STEP2       </a>EQU *
 39D0:38             175 <!--                           -->            SEC             ;CARRY SET=PHASE ON
@@ -6810,7 +6819,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 39DA:A5 27          180             LDA <a class="v" href="#PRIOR"    >PRIOR</a>                                       ; === Page <a class='page' name='page109'>109</a> ===
 39DC:18             181             CLC             ;CARRY CLEAR=PHASE OFF
 39DD:20 F1 39       182             JSR <a class="x" href="#CLRPHASE">CLRPHASE</a>    ;PHASE OFF
-39E0:BD 1D 3A       <a class='line' name='RDADSEEK.183'>183</a>             LDA <a class="v" href="#OFFTABLE">OFFTABLE</a>,Y  THEN WAIT 'OFFTIME'.
+39E0:B9 1D 3A       <a class='line' name='RDADSEEK.183'>183</a>             LDA <a class="v" href="#OFFTABLE">OFFTABLE</a>,Y  THEN WAIT 'OFFTIME'.
 39E3:20 00 3A       184             JSR <a class="x" href="#MSWAIT"  >MSWAIT</a>      (100 USEC INTERVALS)
 39E6:E6 26          185             INC <a class="v" href="#TRKCNT"  >TRKCNT</a>      'TRACKS MOVED' COUNT.
 39E8:D0 C3          186             BNE <a class="x" href="#SEEK2"   >SEEK2</a>       (ALWAYS TAKEN)
@@ -7044,41 +7053,96 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     192 *  BE ALIGNED ON A PAGE   *
                     193 *  BOUNDARY.              *
                     194 *                         *
-                    195 * NBUF2 (86 BYTES) MUST   *                                 ; Incorrect: It must _not_ CROSS
-                    196 *  BE ALIGNED ON A PAGE   *                                 ; a page boundary. Technically, It can be
-                    197 *  BOUNDARY.              *                                 ; anywhere *within* the page. But then the
-                    198 *                         *                                 ; code at <a class="file" href="#WRITRTN">WRITRTN</a>, Line #<a class='line' href='WRITRTN.080'>>80</a> needs fixing up.
+                    195 * NBUF2 (86 BYTES) MUST   *                                 ; Incorrect: <b>NBUF2</b> must _not_ cross
+                    196 *  BE ALIGNED ON A PAGE   *                                 ; a page boundary. Technically, it can be
+                    197 *  BOUNDARY.              *                                 ; anywhere *within* the page as long as the
+                    198 *                         *                                 ; code at <a class="file" href="#WRITRTN">WRITRTN</a>, Line #<a class='line' href='WRITRTN.080'>>80</a> is fixed up.
                     199 ***************************                                 ;
                     200 *                                                           ;
 3B00:00 00 00 00    201 <a class='d' id='3B00' name='NBUF1'       >NBUF1       </a>DS 256,0        ;NBUF1                          ; === <a class='ts' href='#T0S5'>T0S5</a> === <a class='disk' coords='256'>disk</a> sector wasted with zeroes
 3B04:00 00 00 00                                                                    ; *sigh* Let's waste an *entire* sector
 3B08:00 00 00 00                                                                    ; with 342 disk nibbles of raw $96 nibbles
 3B0C:00 00 00 00                                                                    ; PLUS the time decoding it
-3B10:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ; when _9 bytes_ would do
-3B20:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ; the job
-3B30:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ;
-3B40:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ;    LDA #0
-3B50:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ;    TAY
-3B60:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ;.1  STA NBUF1,Y
-3B70:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ;    INY
-3B80:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ;    BNE .1
-3B90:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                :
-3BA0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ; This data should at $3F00 ($BF00)
-3BB0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-3BC0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-3BD0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-3BE0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-3BF0:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-;     0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
-
+3B10:00 00 00 00                                                                    ; when _9 bytes_ would do
+3B14:00 00 00 00                                                                    ; the job
+3B18:00 00 00 00                                                                    ;
+3B1C:00 00 00 00                                                                    ;    LDA #0
+3B20:00 00 00 00                                                                    ;    TAY
+3B24:00 00 00 00                                                                    ;.1  STA NBUF1,Y
+3B28:00 00 00 00                                                                    ;    INY
+3B2C:00 00 00 00                                                                    ;    BNE .1
+3B30:00 00 00 00                                                                    ;
+3B34:00 00 00 00                                                                    ; This data should at $3F00 ($BF00)
+3B38:00 00 00 00
+3B3C:00 00 00 00
+3B40:00 00 00 00
+3B44:00 00 00 00
+3B48:00 00 00 00
+3B4C:00 00 00 00
+3B50:00 00 00 00
+3B54:00 00 00 00
+3B58:00 00 00 00
+3B5C:00 00 00 00
+3B60:00 00 00 00
+3B64:00 00 00 00
+3B68:00 00 00 00
+3B6C:00 00 00 00
+3B70:00 00 00 00
+3B74:00 00 00 00
+3B78:00 00 00 00
+3B7C:00 00 00 00
+3B80:00 00 00 00
+3B84:00 00 00 00
+3B88:00 00 00 00
+3B8C:00 00 00 00
+3B90:00 00 00 00
+3B94:00 00 00 00
+3B98:00 00 00 00
+3B9C:00 00 00 00
+3BA0:00 00 00 00
+3BA4:00 00 00 00
+3BA8:00 00 00 00
+3BAC:00 00 00 00
+3BB0:00 00 00 00
+3BB4:00 00 00 00
+3BB8:00 00 00 00
+3BBC:00 00 00 00
+3BC0:00 00 00 00
+3BC4:00 00 00 00
+3BC8:00 00 00 00
+3BCC:00 00 00 00
+3BD0:00 00 00 00
+3BD4:00 00 00 00
+3BD8:00 00 00 00
+3BDC:00 00 00 00
+3BE0:00 00 00 00
+3BE4:00 00 00 00
+3BE8:00 00 00 00
+3BEC:00 00 00 00
+3BF0:00 00 00 00
+3BF4:00 00 00 00
+3BF8:00 00 00 00
+3BFC:00 00 00 00
 3C00:00 00 00 00    202 <a class="d" name="NBUF2"       >NBUF2       </a>DS  86,0        ;NBUF2                          ;  === <a class='ts' href='#T0S6'>T0S6</a> === <a class='disk' coords='86'>disk</a> sector wasted bytes
 3C04:00 00 00 00                                                                    ; *sigh* more wasted disk space
 3C08:00 00 00 00                                                                    ; pack code THEN data
 3C0C:00 00 00 00                                                                    ; as interleaving it just
-3C10:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00                                ; wastes memory
-3C20:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-3C30:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-3C40:00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3C10:00 00 00 00                                                                    ; wastes memory
+3C14:00 00 00 00
+3C18:00 00 00 00
+3C1C:00 00 00 00
+3C20:00 00 00 00
+3C24:00 00 00 00
+3C28:00 00 00 00
+3C2C:00 00 00 00
+3C30:00 00 00 00
+3C34:00 00 00 00
+3C38:00 00 00 00
+3C3C:00 00 00 00
+3C40:00 00 00 00
+3C44:00 00 00 00
+3C48:00 00 00 00
+3C4C:00 00 00 00
 3C50:00 00 00 00
 3C54:00 00
 </pre>
@@ -7167,7 +7231,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3C92:A5 3F          079 <meta                                       />            LDA NSECT       (3) WRITE SECTOR NUMBER.        ;
 3C94:20 C4 3C       080 <meta                                       />            JSR <a class='x' href='#WBYTE'>WBYTE</a>       (14,9,6) (ODD, THEN EVEN, BITS) ;
 3C97:A5 41          081 <meta                                       />            LDA NVOL        (3)                             ;
-3C99:45 55          082 <meta                                       />            EOR TRK         (3) FORM ADR FIELD CHECKSUM.    ;
+3C99:45 44          082 <meta                                       />            EOR TRK         (3) FORM ADR FIELD CHECKSUM.    ;
 3C9B:45 3F          083 <meta                                       />            EOR NSECT       (3)                             ;
 3C9D:48             084 <meta                                       />            PHA             (3) SAVE FOR EVEN BITS.         ;
 3C9E:4A             085 <meta                                       />            LSR A           (2) ALIGHN ODD BITS.            ; *<span class='spell'>spelling</span>* <span class='spell' id='3C9E'>"ALIGN"</span> Poorly written assemblers explicitly need the implicit A register
@@ -7412,7 +7476,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3D04:A0 02          189             LDY #<span class='n'>2</span>          ;SET RECALIBRATE                ; <a class='magic' name='_3D05'>magic number</a> <span class='code'>RWTS_RECALIBRATE = $2</span>
 3D06:8C F8 06       190             STY <a class='v' href='#RECALCNT'>RECALCNT</a>    ; COUNT                         ; Text screen hole!
 3D09:A0 04          191             LDY #<a class='v' href='#MAXSEEKS'>MAXSEEKS</a>   ;SET RESEEK
-3D0B:8C F4 04       192             STY <a class='v' href='#SEEKCNT'>SEEKCNT</a>     ; COUNT                          ; <b>Another</b> text screen hole. WTF! 33 bytes above on page $3C / $BC!
+3D0B:8C F8 04       192             STY <a class='v' href='#SEEKCNT'>SEEKCNT</a>     ; COUNT                          ; <b>Another</b> text screen hole. WTF! 33 bytes above on page $3C / $BC!
 3D0E:A0 01          193             LDY #<span class='n'>1</span>          ;GET SLOT # FOR THIS OPERATION  ; <a class='magic' name='_3D0F'>magic number</a> <a class='v' href='#IOB_OFFSET_SLOT'>IOB_OFFSET_SLOT</a>
 3D10:B1 48          194             LDA (<a class='v' href='#IOBPL'>IOBPL</a>),Y
 3D12:AA             195             TAX
@@ -7825,7 +7889,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3E83:99 F8 04       274             STA DRV2TRK,Y   ;INFORMATION
 3E86:10 03          275             BPL <a class="x" href="#GOSEEK">GOSEEK</a>      ;ALWAYS TAKEN
 3E88:99 78 04       276 <a class='f' id='3E88' name='ISDRV1'      >ISDRV1      </a>STA DRV1TRK,Y
-3E8B:4C A0 B9       277 <a class='f' id='3E8B' name='GOSEEK'      >GOSEEK      </a>JMP <a class="x" href="#SEEK">SEEK</a>        ;GO THERE!
+3E8B:4C A0 39       277 <a class='f' id='3E8B' name='GOSEEK'      >GOSEEK      </a>JMP <a class="x" href="#SEEK">SEEK</a>        ;GO THERE!
 3E8E:8A             278 <a class='f' id='3E8E' name='XTOY'        >XTOY        </a>TXA
 3E8F:4A             279             LSR A
 3E90:4A             280             LSR A
@@ -7879,7 +7943,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3EB9:A0 56          022             LDY #$<span class='n'>56</span>                                        ; <a class='magic' name='_????'>magic number</a>
 3EBB:A9 00          023             LDA #<span class='n'>0</span>
 3EBD:85 44          024             STA TRK         TRACK NUMBER, 0 TO 34
-3EBF:99 FF BB       025 <a class='f' id='3EBF' name='CLRNBUF2' >CLRNBUF2    </a>STA NBUF2-1,Y   CLEAR NBUFS TO WRITE
+3EBF:99 FF 3B       025 <a class='f' id='3EBF' name='CLRNBUF2' >CLRNBUF2    </a>STA NBUF2-1,Y   CLEAR NBUFS TO WRITE
 3EC2:88             026             DEY             ZERO SECTORS
 3EC3:D0 FA          027             BNE CLRNBUF2
 3EC5:99 00 3B       028 <a class='f' id='3EC5' name='CLRNBUF1' >CLRNBUF1    </a>STA NBUF1,Y
@@ -7915,7 +7979,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3F04:A0 0D          058 <a class='f' id='3F04' name='FORMERR'    >FORMERR     </a>LDY #$0D                                       <!--                           --> ; .. <span class='code'>JMP <a class='x' href='#HNDLERR'>HNDLERR</a></span> <a class='magic' name='_3F05'>magic number</a> IOB_OFFSET_ERR = $D
 3F06:91 48          059             STA (IOBPL),Y   RETURN ERROR CODE.             <!--                                                               --> ; .. <a class='mem' name='_3F0C' coords='6'>wastes</a> remaining 6 bytes.
 3F08:38             060             SEC             SET CARRY TO INDICATE ERR.     <!--                                                               --> ; .. We could invert the return value,
-3F09:AD 88 C0       061 <a class='f' id='3F09' name='FORMDONE'   >FORMDONE    </a>LDA <a class="v" href="#MOTOROFF">MOTOROFF</a>,X  ; TURN MOTOR OFF.               ; .. but there is a better optimization
+3F09:BD 88 C0       061 <a class='f' id='3F09' name='FORMDONE'   >FORMDONE    </a>LDA <a class="v" href="#MOTOROFF">MOTOROFF</a>,X  ; TURN MOTOR OFF.               ; .. but there is a better optimization
 3F0C:60             062             RTS             ; AND RETURN.                  <!--                                                               --> ; .. using the two JMPs above to reach common code in <a class='file' href='#RWTSTWO'>RWTSTWO</a> ]
                     063             PAGE
                     064 ******************************
@@ -8018,7 +8082,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3F86:38             161             SEC             SET CARRY TO INDICATE VERIFY ERR.
 3F87:60             162 <a class='f' id='3F87' name='WEXIT2'   >WEXIT2      </a>RTS             AND RETURN TO FORMATTER.
 3F88:A4 2D          163 <a class='f' id='3F88' name='SECTOK'   >SECTOK      </a>LDY SECT        THIS IS SECTOR READ.
-3F8A:B9 A8 2F       164             LDA FOUND,Y     ALREADY FOUND?
+3F8A:B9 A8 3F       164             LDA FOUND,Y     ALREADY FOUND?
 3F8D:30 DD          165             BMI VERR1       YES, IGNORE IT.
 3F8F:A9 FF          166             LDA #$FF                                        ; <a class='magic' id='????'>magic number</a> <span class='code'>FLAG_SECTOR_FOUND = 1</span>
 3F91:99 A8 3F       167             STA FOUND,Y     INDICATE THIS SECT NOW FOUND.
