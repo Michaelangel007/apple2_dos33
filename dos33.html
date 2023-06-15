@@ -5332,8 +5332,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 33DA:FC FF FF FD                                                                    ;
 33DE:FD FC FE FE                                                                    ;
 33E2:7A             031 <a class="d" name="VTDMS" >VTDMS       </a>DFB 122         ; MAX SECTORS IN A FILE DIR     ; [27] *sigh* not 128 so we can BMI (Branch on Minus) ??? (Copied to <a class='v' href='#DCBDMS'>DCBDMS</a>)
-33E3:00 00 00 00    032 <a class="d" name="VSPARE">VSPARE      </a>DS 8            ; SPARES                        ; [28] <a class='struct' name='_33E3'>wastes</a> 8 bytes, <i>Oh FFS already ...</i>
-33E7:00 00 00 00    033 ;                                                           ;      Who 1) <i>designed</i>, and 2) <b>implemented</b> this crap?!?!
+33E3:FE FD FF FD    032 <a class="d" name="VSPARE">VSPARE      </a>DS 8            ; SPARES                        ; [28] <a class='struct' name='_33E3'>wastes</a> 8 bytes, <i>Oh FFS already ...</i>
+33E7:FE FE FF FC    033 ;                                                           ;      Who 1) <i>designed</i>, and 2) <b>implemented</b> this crap?!?!
 33EB:11             034 <a class="d" name="VALCA1">VALCA1      </a>DFB 17          ; ALOCATION ALGORITHM BYTE 1    ; [30] ALLOC_TRK Last allocated track <span class="todo">TODO</span> Cross-Ref
 33EC:01             035 <a class="d" name="VALCA2">VALCA2      </a>DFB 1           ; AA BYTE2                      ; [31] ALLOC_DIR Direction of last track allocation --  Used by <a class="x" href="#GS4">GS4</a>
                                                                                     ;       +1 = $01 inwards  to <a class='ts'>T22</a>,
@@ -5364,12 +5364,12 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                                                                                     ;As Mike Acton says: "<i>Solve the <b>actual</b> problem,</i>
                                                                                     ;                     <i>NOT the one you <b>think</b> you have.</i>"
                     049            PAGE                                             ;<span class='n'>B3F3</span> =T00
-33F3:00 00 FF FF    050            ORG VTOC+256                                     ; [38]=T00 See <a class="dumb" href="#HNTDAFS3">HNTDAFS #3</a>; Why not simply <span class="macro">DS 256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>,0</span> ???
-33F7:00 00 FF FF                                                                    ; [3C]=T01                 Uninitialized memory is <b>never</b> a good idea
-33FB:00 00 FF FF                                                                    ; [40]=T02 See <a class="dumb" href="#HNTDAFS4">HNTDAFS #4</a>
-33FF:FF FF FF FF                                                                    ; [44]=T03 === <a class='ts' href='#T2S3'>T2S3</a> === <a class='disk' name='_3400'>disk</a> wastes <i>an <b>entire</b> sector for a <b>single</b> byte!?</i>
-3403:FF FF FF FF                                                                    ; [48]=T04 The real kicker? <a class="d" href="#VDTCDE">VDTCDE</a> <i>isn't even <b>bloody</b> used!</i> *<a class="dumb" href="http://i.imgur.com/iWKad22.jpg">facepalm</a>*
-3407:FF FF FF FF                                                                    ; [4C]=T05
+33F3:FF FC FC FD    050            ORG VTOC+256                                     ; [38]=T00 00,00,FF,FF See <a class="dumb" href="#HNTDAFS3">HNTDAFS #3</a>; Why not simply <span class="macro">DS 256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>,0</span> ???
+33F7:FC FE FC FC                                                                    ; [3C]=T01 00,00,FF,FF                Uninitialized memory is <b>never</b> a good idea
+33FB:FD FD FE FC                                                                    ; [40]=T02 00,00,FF,FF See <a class="dumb" href="#HNTDAFS4">HNTDAFS #4</a>
+33FF:FC FF FC FC                                                                    ; [44]=T03 === <a class='ts' href='#T2S3'>T2S3</a> === <a class='disk' name='_3400'>disk</a> wastes <i>an <b>entire</b> sector for a <b>single</b> byte!?</i>
+3403:FD FC FD FD                                                                    ; [48]=T04 The real kicker? <a class="d" href="#VDTCDE">VDTCDE</a> <i>isn't even <b>bloody</b> used!</i> *<a class="dumb" href="http://i.imgur.com/iWKad22.jpg">facepalm</a>*
+3407:FC FF FF FF                                                                    ; [4C]=T05
 340B:FF FF FF FF                                                                    ; [50]=T06 We then proceed to waste $C8 bytes (256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>)
 340F:FF FF FF FF                                                                    ; [54]=T07 to <b>force us to span 2 sectors</b> with this dumb shit
 3413:FF FF FF FF                                                                    ; [58]=T08 instead of copying the VTOC header ($38 byte)
