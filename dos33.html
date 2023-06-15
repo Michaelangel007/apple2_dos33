@@ -5364,67 +5364,68 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                                                                                     ;As Mike Acton says: "<i>Solve the <b>actual</b> problem,</i>
                                                                                     ;                     <i>NOT the one you <b>think</b> you have.</i>"
                     049            PAGE                                             ;<span class='n'>B3F3</span> =T00
-33F3:FF FC FC FD    050            ORG VTOC+256                                     ; [38]=T00 00,00,FF,FF See <a class="dumb" href="#HNTDAFS3">HNTDAFS #3</a>; Why not simply <span class="macro">DS 256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>,0</span> ???
-33F7:FC FE FC FC                                                                    ; [3C]=T01 00,00,FF,FF                Uninitialized memory is <b>never</b> a good idea
-33FB:FD FD FE FC                                                                    ; [40]=T02 00,00,FF,FF See <a class="dumb" href="#HNTDAFS4">HNTDAFS #4</a>
-33FF:FC FF FC FC                                                                    ; [44]=T03 === <a class='ts' href='#T2S3'>T2S3</a> === <a class='disk' name='_3400'>disk</a> wastes <i>an <b>entire</b> sector for a <b>single</b> byte!?</i>
-3403:FD FC FD FD                                                                    ; [48]=T04 The real kicker? <a class="d" href="#VDTCDE">VDTCDE</a> <i>isn't even <b>bloody</b> used!</i> *<a class="dumb" href="http://i.imgur.com/iWKad22.jpg">facepalm</a>*
-3407:FC FF FF FF                                                                    ; [4C]=T05
-340B:FF FF FF FF                                                                    ; [50]=T06 We then proceed to waste $C8 bytes (256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>)
-340F:FF FF FF FF                                                                    ; [54]=T07 to <b>force us to span 2 sectors</b> with this dumb shit
-3413:FF FF FF FF                                                                    ; [58]=T08 instead of copying the VTOC header ($38 byte)
-3417:FF FF FF FF                                                                    ; [5C]=T09 into a new temporary page on init!
-341B:FF FF FF FF                                                                    ; [60]=T0A 
-341F:FF FF FF FF                                                                    ; [64]=T0B === <a class="dumb" name="HNTDAFS4">HNTDAFS #4</a> ===
-3423:FF FF FF FF                                                                    ; [68]=T0C DOS reserves the <b>entire</b> Track 2 even though it only uses <b>T2S0 - T2S4</b> !?
-3427:FF FF FF FF                                                                    ; [6C]=T0D 
-342B:FF FF FF FF                                                                    ; [70]=T0E Instead of wasting <i>yet another track</i> <a class='ts'>T11</a> for meta data
-342F:FF FF FF FF                                                                    ; [74]=T0F 
-3433:FF FF FF FF                                                                    ; [78]=T10    <a class='ts'>S0</a> = VTOC, <a class='ts'>S1</a>-<a class='ts'>SF</a> = CATALOG
-3437:00 00 FF FF                                                                    ; [7C]=T11 
-343B:FF FF FF FF                                                                    ; [80]=T12 if we <i>weren't dumb</i> then both the
-343F:FF FF FF FF                                                                    ; [84]=T13 VTOC &amp; CATALOG would reside on <a class='ts'>T2S5</a> - <a class='ts'>T2SF</a>
-3443:FF FF FF FF                                                                    ; [88]=T14 
-3447:FF FF FF FF                                                                    ; [8C]=T15 === <a class="dumb" name="HNTDAFS3">HNTDAFS #3</a> ===
-344B:FF FF FF FF                                                                    ; [90]=T16 DOS is <b>unable</b> to use Track 0 to store user files.
-344F:FF FF FF FF                                                                    ; [94]=T17 This means a non-bootable <i>data disk</i> is robbed of an <i>additional</i> 15 sectors!
-3453:FF FF FF FF                                                                    ; [98]=T18 (Boot sector would display non-bootable message)
-3457:FF FF FF FF                                                                    ; [9C]=T19 See File <a class="file" href="#FLOCSEC">FLOCSEC</a>, Func <a class="x" href="#GETSEC">GETSEC</a>, Line #<a class='line' href='#FLOCSEC.83'>83</a>; Trk Free <a class='x' href='#FRESEC'>FRESEC</a>, Line #<a class='line' href='#FLOCSEC.183'>183</a>; Trk Allocation <span class="todo">todo</span>
-345B:FF FF FF FF                                                                    ; [A0]=T1A The <b>smart</b> thing to have done would be to
-345F:FF FF FF FF                                                                    ; [A4]=T1B put the VTOC and CATALOG on <a class='ts'>T0SF</a> or <a class='ts' href='#T0S1'>T0S1</a>
-3463:FF FF FF FF                                                                    ; [A8]=T1C That way <b>both</b> a bootable and data disk would
-3467:FF FF FF FF                                                                    ; [AC]=T1D get an extra 16 sectors of free disk space.
-346B:FF FF FF FF                                                                    ; [B0]=T1E 
-346F:FF FF FF FF                                                                    ; [B4]=T1F The <a class="file" href="#BOOTLDR">BOOTLDR</a> would just need to move the
-3473:FF FF FF FF                                                                    ; [B8]=T20 disk head to track <a class='ts'>T1</a> and continue loading as normal.
-3477:FF FF FF FF                                                                    ; [BC]=T21 
-347B:FF FF FF FF                                                                    ; [C0]=T22 (Normal last 35th accessible track)
-347F:FF FF FF FF                                                                    ; [C4]=T23 (Extra 36th track)
-3483:FF FF FF FF                                                                    ; [C8]=T24 (Extra 37th track)
-3487:FF FF FF FF                                                                    ; [CC]=T25 (Extra 38th track)
-348B:FF FF FF FF                                                                    ; [D0]=T26 (Extra 39th track)
-348F:FF FF FF FF                                                                    ; [D4]=T27 (Extra 40th track)
-3493:FF FF FF FF                                                                    ; [D8]=T28
-3497:FF FF FF FF                                                                    ; [DC]=T29 <a class='mem' name='_3497' coords='40'>wastes</a> 40 bytes [$D8..$FF] = $28
-349B:FF FF FF FF                                                                    ; [E0]=T2A          *note* Tracks 41+ are not accessible
-349F:FF FF FF FF                                                                    ; [E4]=T2B                 on any drive that I know of.
-34A3:FF FF FF FF                                                                    ; [E8]=T2C                 That's not to say that they <i>don't</i>
-34A7:FF FF FF FF                                                                    ; [EC]=T2D                 exist but basic engineering and repair
-34AB:FF FF FF FF                                                                    ; [F0]=T2E                 should tell us that accessing
-34AF:FF FF FF FF                                                                    ; [F4]=T2F                 more then 40 tracks is not possible.
-34B3:FF FF FF FF                                                                    ; [F8]=T30
-34B7:FF FF FF FF                                                                    ; [FC]=T31 (Extra 50th track)
+33F3:FF     050            ORG VTOC+256                                             ; [38]=T00 00,00,FF,FF See <a class="dumb" href="#HNTDAFS3">HNTDAFS #3</a>; Why not simply <span class="macro">DS 256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>,0</span> ???
+33F4:FC FC FD FC                                                                    ; [3C]=T01 00,00,FF,FF                Uninitialized memory is <b>never</b> a good idea
+33F8:FE FC FC FD                                                                    ; [40]=T02 00,00,FF,FF See <a class="dumb" href="#HNTDAFS4">HNTDAFS #4</a>
+33FC:FD FE FC FC                                                                    ; [44]=T03 === <a class='ts' href='#T2S3'>T2S3</a> === <a class='disk' name='_3400'>disk</a> wastes <i>an <b>entire</b> sector for a <b>single</b> byte!?</i>
+3400:FF FC FC FD                                                                    ; [48]=T04 The real kicker? <a class="d" href="#VDTCDE">VDTCDE</a> <i>isn't even <b>bloody</b> used!</i> *<a class="dumb" href="http://i.imgur.com/iWKad22.jpg">facepalm</a>*
+3404:FC FD FD FC                                                                    ; [4C]=T05
+3408:FF FE FC FC                                                                    ; [50]=T06 We then proceed to waste $C8 bytes (256-<a class="v" href=#"VSECAL">VSECAL</a>-<a class="v" href="#VTOC">VTOC</a>)
+340C:FC FC FE FE                                                                    ; [54]=T07 to <b>force us to span 2 sectors</b> with this dumb shit
+3410:FC FD FC FC                                                                    ; [58]=T08 instead of copying the VTOC header ($38 byte)
+3414:FC FE FC FD                                                                    ; [5C]=T09 into a new temporary page on init!
+3418:FC FC FE FC                                                                    ; [60]=T0A
+341C:FC FC FE FC                                                                    ; [64]=T0B === <a class="dumb" name="HNTDAFS4">HNTDAFS #4</a> ===
+3420:FC FF FC FC                                                                    ; [68]=T0C DOS reserves the <b>entire</b> Track 2 even though it only uses <b>T2S0 - T2S4</b> !?
+3424:FC FC FD FD                                                                    ; [6C]=T0D
+3428:FC FF FF FC                                                                    ; [70]=T0E Instead of wasting <i>yet another track</i> <a class='ts'>T11</a> for meta data
+342C:FE FD FE FD                                                                    ; [74]=T0F
+3430:FE FC FF FC                                                                    ; [78]=T10    <a class='ts'>S0</a> = VTOC, <a class='ts'>S1</a>-<a class='ts'>SF</a> = CATALOG
+3434:FE FF FD FC                                                                    ; [7C]=T11 00,00,FF,FF
+3438:FF FC FC FC                                                                    ; [80]=T12 if we <i>weren't dumb</i> then both the
+343C:FD FE FD FE                                                                    ; [84]=T13 VTOC &amp; CATALOG would reside on <a class='ts'>T2S5</a> - <a class='ts'>T2SF</a>
+3440:FC FC FC FF                                                                    ; [88]=T14
+3444:FE FC FC FD                                                                    ; [8C]=T15 === <a class="dumb" name="HNTDAFS3">HNTDAFS #3</a> ===
+3448:FC FD FF FC                                                                    ; [90]=T16 DOS is <b>unable</b> to use Track 0 to store user files.
+344C:FC FC FC FE                                                                    ; [94]=T17 This means a non-bootable <i>data disk</i> is robbed of an <i>additional</i> 15 sectors!
+3450:FD FC FD FC                                                                    ; [98]=T18 (Boot sector would display non-bootable message)
+3454:FC FC FD FC                                                                    ; [9C]=T19 See File <a class="file" href="#FLOCSEC">FLOCSEC</a>, Func <a class="x" href="#GETSEC">GETSEC</a>, Line #<a class='line' href='#FLOCSEC.83'>83</a>; Trk Free <a class='x' href='#FRESEC'>FRESEC</a>, Line #<a class='line' href='#FLOCSEC.183'>183</a>; Trk Allocation <span class="todo">todo</span>
+3458:FD FF FC FE                                                                    ; [A0]=T1A The <b>smart</b> thing to have done would be to
+345C:FD FC FC FD                                                                    ; [A4]=T1B put the VTOC and CATALOG on <a class='ts'>T0SF</a> or <a class='ts' href='#T0S1'>T0S1</a>
+3460:FC FC FC FC                                                                    ; [A8]=T1C That way <b>both</b> a bootable and data disk would
+3464:FC FC FF FF                                                                    ; [AC]=T1D get an extra 16 sectors of free disk space.
+3468:FE FC FF FC                                                                    ; [B0]=T1E
+346C:FD FF FE FF                                                                    ; [B4]=T1F The <a class="file" href="#BOOTLDR">BOOTLDR</a> would just need to move the
+3470:FE FE FC FC                                                                    ; [B8]=T20 disk head to track <a class='ts'>T1</a> and continue loading as normal.
+3474:FD FC FC FC                                                                    ; [BC]=T21
+3478:FE FE FE FD                                                                    ; [C0]=T22 (Normal last 35th accessible track)
+347C:FE FD FC FE                                                                    ; [C4]=T23 (Extra 36th track)
+3480:FD FD FC FC                                                                    ; [C8]=T24 (Extra 37th track)
+3484:FE FE FC FC                                                                    ; [CC]=T25 (Extra 38th track)
+3488:FD FC FC FE                                                                    ; [D0]=T26 (Extra 39th track)
+348C:FC FC FD FC                                                                    ; [D4]=T27 (Extra 40th track)
+3490:FE FE FC FD                                                                    ; [D8]=T28
+3494:FC FC FC FC                                                                    ; [DC]=T29 <a class='mem' name='_3497' coords='40'>wastes</a> 40 bytes [$D8..$FF] = $28
+3498:FC FD FD FC                                                                    ; [E0]=T2A          *note* Tracks 41+ are not accessible
+349C:FE FD FC FC                                                                    ; [E4]=T2B                 on any drive that I know of.
+34A0:FE FC FC FC                                                                    ; [E8]=T2C                 That's not to say that they <i>don't</i>
+34A4:FC FC FE FC                                                                    ; [EC]=T2D                 exist but <b>>basic engineering</b> and repair
+34A8:FD FD FC FF                                                                    ; [F0]=T2E                 should tell us that accessing
+34AC:FD FC FE FE                                                                    ; [F4]=T2F                 more then 40 tracks is not possible.
+34B0:FC FD FD FE                                                                    ; [F8]=T30 Write for today, not "someday"
+34B4:FF FD FE FF                                                                    ; [FC]=T31 (Extra 50th track)
+34B8:FE FF FC                                                                       ;
                     051 ;
                     052 ;VOLUME DIRECTORY AREA                                      ; 
                     053 ;                                                           ; [--] <a class='ts'>T11SF</a> offsets === <a class='section' name='CATALOG'>CATALOG</a> ===<hr class='page'>
                     054 <a class="d" id='34BB' name="VOLDIR"   >VOLDIR      </a>EQU *           ;                               ; === Page <a class="page" name="page87">87</a> ===
 34BB:02             055 <a class="d" id='34BB' name="VDTCDE"   >VDTCDE      </a>DFB 2           ; VOLUME DIRECTORY TYPE CODE    ; [00] <a class='struct' name='_34BB'>wastes</a> 1 byte -- and not even used !?!?!
                                                                                     ; <a class='magic' name='_34BC'>magic number</a> /sarcasm If only <span class='code'>FILESYSTEM_TYPE_CATALOG EQU $02</span>
-34BC:FD             056 <a class="d" id='34BC' name="VDLTRK"   >VDLTRK      </a>DS 1            ; VD LINK TRACK                 ; [01] ($11)
-34BD:FC             057 <a class="d" id='34BD' name="VDLSEC"   >VDLSEC      </a>DS 1            ; VD LINK SECTOR                ; [02] ($0E)
+34BC:FC             056 <a class="d" id='34BC' name="VDLTRK"   >VDLTRK      </a>DS 1            ; VD LINK TRACK                 ; [01] ($11)
+34BD:FD             057 <a class="d" id='34BD' name="VDLSEC"   >VDLSEC      </a>DS 1            ; VD LINK SECTOR                ; [02] ($0E)
 34BE:FC             058 <a class="d" id='34BE' name="VDNF"     >VDNF        </a>DS 1            ; VD NUMBER FILES THIS SECTOR   ; [03] <a class='struct' name='#_34BE'>wastes</a> 1 byte -- never referenced
-34BF:FC FD FC FD    059 <a class="d" id='34BF' name="VDSPAR"   >VDSPAR      </a>DS 7            ; SPARES                        ; [04] <a class='struct' name='#_34BF'>wastes</a> 7 bytes -- never referenced
-34C3:FD FC FC       060 ;                                                           ;      /sarcasm Glad to see this was put to <i>good</i> use ... NOT!
+34BF:FC FC FE FE    059 <a class="d" id='34BF' name="VDSPAR"   >VDSPAR      </a>DS 7            ; SPARES                        ; [04] <a class='struct' name='#_34BF'>wastes</a> 7 bytes -- never referenced
+34C3:FE FD FE       060 ;                                                           ;      /sarcasm Glad to see this was put to <i>good</i> use ... NOT!
                     061 <a class="d" id='34C6' name="VDFILE"   >VDFILE      </a>EQU *           ; FILE ALLOCATION AREA (7 FILES); [0B] NO, this is the _not_ the allocation; this is the *meta* data
                     062 ;EACH FILE:                                                 ; What can't do <span class='code'>DSECT VDFILE</span> *note* indented "struct FileEntry" for readability
                     063 ;  FILE DIR TRK                                             ;     DFB CAT_FILE_TRACK    ;[00] (0) inode (FILDIR) track
@@ -5432,26 +5433,26 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     065 ;  FILE USE CODE                                            ;     DFB CAT_FILE_TYPE     ;[02] (2)
                     066 ;  FILE NAME         (30)                                   ;     DS  CAT_FILE_NAME     ;[03] (3) <b>WTF</b> -- sizeof( FileEntry ) == 35 bytes; make it 27
                     067 ;  FILE SECTOR COUNT (2)                                    ;     DW  CAT_FILE_NUM_SEC  ;[21] (33) so entire struct is 32 bytes
-34C6:FC FF          068             ORG VOLDIR+256                                  ; <a class='mem' name='_34BC' coords='256'>wastes</a> 256 bytes of disk space <b>spanning two sectors</b> *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>*
-34C8:FC FC FD FC
-34CC:FC FC FE FC
-34D0:FF FC FC FF
-34D4:FF FD FF FF
-34D8:FE FF FD FC
-34DC:FE FC FC FC
-34E0:FC FE FE FE
-34E4:FC FD FC FE
-34E8:FC FE FC FC
-34EC:FF FC FC FC
-34F0:FD FC FD FD
-34F4:FC FC FF FC
-34F8:FD FD FF FD
-34FC:FE FC FD FD
-3500:FC FE FF FC                                                                    ; === <a class='ts' href='#T2S4'>T2S4</a> ===
-3504:FC FF FC FF
-3508:FE FD FE FC                                                                    ; /sarcasm Who cares, we have 140KB, right!
-350C:FC FD FC FD
-3510:FE FC FC FC
+34C6:FF FE          068             ORG VOLDIR+256                                  ; <a class='mem' name='_34BC' coords='256'>wastes</a> 256 bytes of disk space <b>spanning two sectors</b> *<a class="dumb" href="https://c1.staticflickr.com/3/2536/3904932487_54cce78f13.jpg">double facepalm</a>*
+34C8:FC FC FC FC
+34CC:FC FE FC FD
+34D0:FC FC FF FD
+34D4:FC FE FC FC
+34D8:FD FE FE FF
+34DC:FC FE FF FD
+34E0:FF FE FC FC
+34E4:FE FE FD FF
+34E8:FE FF FF FD
+34EC:FC FE FF FC
+34F0:FE FD FE FC
+34F4:FE FC FF FE
+34F8:FE FE FC FD
+34FC:FD FE FF FC
+3500:FC FC FC FC                                                                    ; === <a class='ts' href='#T2S4'>T2S4</a> ===
+3504:FC FE FC FD
+3508:FD FC FF FD                                                                    ; /sarcasm Who cares, we have 140KB, right!
+350C:FC FE FE FC
+3510:00 00 00 00
 3514:FC FF FD FC
 3518:FF FC FC FC
 351C:FC FF FC FC
