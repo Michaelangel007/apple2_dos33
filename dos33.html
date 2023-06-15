@@ -2289,8 +2289,8 @@ With that "legalese" out of the way ... enjoy the read!
                     132 <a class='f' id='233D' name='ENOMON'>ENOMON      </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [12]
 
 223D:2C 74 2A       133             BIT <a  class='v' href='#IMBITS'>IMBITS</a>
-2240:               134             BVC <a  class='x' href='#ENM1'  >ENM1</a>
-2242:20             135             JSR <a  class='x' href='#PRCRIF'>PRCRIF</a>
+2240:50 03          134             BVC <a  class='x' href='#ENM1'  >ENM1</a>
+2242:20 C8 1F       135             JSR <a  class='x' href='#PRCRIF'>PRCRIF</a>
                     136 <a class='f' name='ENM1'     >ENM1        </a>EQU *
 2245:A9 70          137             LDA #$<span class='n'>70</span>                                        ; <a class='magic' name='_2246'>magic number</a>
 2247:4D 74 2A       138             EOR <a  class='v' href='#IMBITS'>IMBITS</a>      ; INVERT INPUT BITS
@@ -2369,7 +2369,7 @@ With that "legalese" out of the way ... enjoy the read!
                     211 ; EOPEN - OPEN A FILE
                     212 ;
 22A3:A9 00          213 <a class='f' id='22A3' name='EOPEN'    >EOPEN       </a>LDA #<span class='n'>0</span>          ;FIX TYPE MISMATCH DETECTION    ; <a class='v' href='#CMDETB'>CMDETB</a> [D]
-22A5:4C             214             JMP SV1         ;(CALLS EOPN1)                  ; Why not <span class='code'>JSR SV1</span>??? <a class='x' href='#EASAV'>EASAV</a>, <a class='x' href='#EBSV'>EBSV</a>, and <a class='x' href='#EBLD'>EBLD</a> all do <span class='code'>JSR SV1</span>
+22A5:4C D5 23       214             JMP SV1         ;(CALLS EOPN1)                  ; Why not <span class='code'>JSR SV1</span>??? <a class='x' href='#EASAV'>EASAV</a>, <a class='x' href='#EBSV'>EBSV</a>, and <a class='x' href='#EBLD'>EBLD</a> all do <span class='code'>JSR SV1</span>
 22A8:A9 01          215 EOPN1       LDA #CRQOPN
                     216 <a class='f' id='22AA' name='OPEN'     >OPEN</a>        EQU *                     ; Common entry point for EDEL, EUNLK, EBSV, EINIT, ECAT, and indirectly EOPEN, EPOS,
 22AA:8D 63 2A       217             STA TEMP1A
@@ -2417,7 +2417,7 @@ With that "legalese" out of the way ... enjoy the read!
                     259 ; CLOSE - CLOSE A FILE
                     260 ;
                     261 <a class='f' id='22FC' name='CLOSE'    >CLOSE       </a>EQU *
-22FC:20 AD 27       262             JSR TSTEXC
+22FC:20 AF 27       262             JSR TSTEXC
 22FF:D0 05          263             BNE CLX                                         ; === <a class='ts' name='T1S2'>T1S2</a> ===
 2301:A9 00          264             LDA #<span class='n'>0</span>
 2303:8D B3 2A       265             STA <a class='d' name='#ESTATE'>ESTATE</a>
@@ -2630,7 +2630,7 @@ With that "legalese" out of the way ... enjoy the read!
 2450:A9 01          167             LDA #1          ; SET IB PGM                    ; Yup, almost 99% the same as ELD2
 2452:20 B1 24       168             JSR LD1         ; GO OPEN AND TEST
                     169 ;
-2555:20 7A 24       170             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_2555' coords='3'>wastes</a> 3  bytes, see Line #141
+2455:20 7A 24       170             JSR LD2         ; GO GET BLOCK LENGTH           ; <a class='mem' name='_2555' coords='3'>wastes</a> 3  bytes, see Line #141
                     171 ;
 2458:38             172             SEC             ; HMEM - BLOCK LENGTH
 2459:A5 4C          173             LDA IBHMEM      ; IS NEW SOP
@@ -2673,7 +2673,7 @@ With that "legalese" out of the way ... enjoy the read!
 24AA:60             210             RTS
                     211 ;
                     212 <a class='f' id='24AB' name='MFULL1'   >MFULL1      </a>EQU *
-24AB:20 EA 2A       213             JSR ECLOSE      ; GO CLOSE FILE
+24AB:20 EA 22       213             JSR ECLOSE      ; GO CLOSE FILE
 24AE:4C CC 26       214             JMP MFERR       ; AND GIVE ERR MSG
                     215 <a class='f' id='24B1' name='LD1'      >LD1         </a>EQU *
 24B1:CD C2 35       216             CMP CCBFUC      ; TEST TYPE
@@ -2713,7 +2713,7 @@ With that "legalese" out of the way ... enjoy the read!
 24E7:85 CC          250             STA IBSOV
 24E9:A5 4B          251             LDA IBLMEM+<span class='n'>1</span>
 24EB:85 CD          252             STA IBSOV+<span class='n'>1</span>
-24ED:6D 56 1D       253             JMP (CHAIN)
+24ED:6C 56 1D       253             JMP (CHAIN)
                     254 ;
                     255 ; EHCAIN - EXECUTE CHAIN REQUEST                            ; *<span class='spell'>spelling</span>* ECHAIN
                     256 ;
@@ -2721,7 +2721,7 @@ With that "legalese" out of the way ... enjoy the read!
 24F0:20 16 24       258             JSR ELOAD0      ; LOAD PGM WITHOUT CLOSING READ FILES
 24F3:20 C8 1F       259             JSR PRCRIF
 24F6:20 51 28       260             JSR MVCSW       ; GO RESTORE CHAR I/O SW
-24D9:6C 56 1D       261             JMP (CHAIN)
+24F9:6C 56 1D       261             JMP (CHAIN)
 24FC:20 65 D6       262 <a class='f' id='24FC' name='ASRUN1'     >ASRUN1      </a>JSR $<span class='rom'>D665</span>       ; ROM                           ; <a class='magic' name='_24FD'>magic number</a>
 24FF:85 33          263             STA PROMPT      ;INSURES APPLESOFT RUN DETECT (A=0)     ; === <a class='ts' name=T1S4'>T1S4</a> ===
 2501:85 D8          264             STA ASONERR     ;RESET APPLESOFT ONERR FLAG
