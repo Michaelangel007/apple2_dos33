@@ -1368,8 +1368,8 @@ With that "legalese" out of the way ... enjoy the read!
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="DOSINIT">DOSINIT</a> - Command Tables and Interpreter, Page <a class="page" name="page48">48</a>, <a class='ts' href='#T0SB'>T0SB</a> - <a class='ts' href='#T0SD'>T0SD</a>, $<span class='n'>9C81</span> .. $<span class='n'>9E80</span> ===<hr class='join'><hr></div>
 <pre>
-    =81             00374 001 <a class="d" name="HEREL"    >HEREL       </a>HEREL       EQU &gt;*                              ; === Page <a class='page' name='page48'>48</a> ===
-    =7F             00375 002 <a class="d" name="REMDR"    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>                       ; DOS 3.3B bytes   |
+                    00374 001 <a class='d' id='0081' name='HEREL'    >HEREL       </a>HEREL       EQU &gt;*                              ; === Page <a class='page' name='page48'>48</a> ===    $81
+                    00375 002 <a class='d' id='007f' name='REMDR'    >REMDR       </a>REMDR       EQU 256-<a class="v" href="#HEREL">HEREL</a>                       ; DOS 3.3B bytes   | $7F
 1C81:FC FC FC       00376 <a class='line' name='DOSINIT.103'>003</a>             ORG *+<a class="v" href="#REMDR">REMDR</a>                                     ; 1C81:   FC FD FD | <a class='disk' name='_1C81'>disk</a> wastes 127 bytes padding to end of sector
 1C84:FC FC FC FD                                                                          ; 1C84:FD FC FD FC | Technically only 82 bytes ($1CD3-$1C81 = $52) are wasted
 1C88:FC FC FF FC                                                                          ; 1C88:FC FC FE FE | but <span class="macro">FTAB DW *-45</span> (below) is sloppy code
