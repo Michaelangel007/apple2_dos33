@@ -5452,49 +5452,49 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3504:FC FE FC FD
 3508:FD FC FF FD                                                                    ; /sarcasm Who cares, we have 140KB, right!
 350C:FC FE FE FC
-3510:00 00 00 00
-3514:FC FF FD FC
-3518:FF FC FC FC
-351C:FC FF FC FC
-3520:FC FD FC FC
-3524:FD FC FE FF
-3528:FE FC FC FC
-352C:FF FC FC FC
-3530:FC FD FC FC
-3534:FC FC FC FD
-3538:FE FE FD FE
-353C:FD FF FC FE
-3540:FE FC FE FD
-3544:FC FD FD FE
-3548:FF FE FC FF
-354C:FC FF FC FC
-3550:FD FC FC FF
-3554:FC FF FF FC
-3558:FC FC FD FC
-355C:FE FC FC FD
-3560:FC FE FC FE
-3564:FC FD FC FC
-3568:FD FC FE FD
-356C:FD FC FC FC
-3570:FC FC FD FF
-3574:FF FC FD FD
-3578:FC FC FE FC
-357C:FC FF FC FC
-3580:FE FD FC FE
-3584:FE FC FD FC
-3588:FC FF FD FD
-358C:FF FC FC FF
-3590:FC FD FE FC
-3594:FC FF FC FF
-3598:FC FC FF FC
-359C:FC FD FC FE
-35A0:FD FC FC FC
-35A4:FC FC FD FC
-35A8:FE FE FE FD
-35AC:FE FF FE FC
-35B0:FC FC FC FD
-35B4:FC FC FC FD
-35B8:FC FD FE
+3510:FE FD FC FF
+3514:FF FC FC FE
+3518:FE FD FE FD
+351C:FE FE FC FC
+3520:FE FD FD FC
+3524:FE FD FC FC
+3528:FE FC FC FE
+352C:FC FC FD FC
+3530:FD FD FC FF
+3534:FD FC FE FD
+3538:FC FD FF FC
+353C:FE FC FC FC
+3540:FC FC FC FD
+3544:FC FC FE FC
+3548:FD FC FC FF
+354C:FC FC FE FD
+3550:FC FD FF FC
+3554:FF FD FE FF
+3558:FD FF FE FC
+355C:FD FF FF FF
+3560:FC FC FE FC
+3564:FC FF FF FC
+3568:FC FD FC FE
+356C:FC FC FC FC
+3570:FC FE FC FC
+3574:FD FD FC FC
+3578:FE FC FD FC
+357C:FC FE FE FC
+3580:FC FC FC FC
+3584:FF FC FC FC
+3588:FC FD FD FC
+358C:FF FC FC FE
+3590:FF FC FD FF
+3594:FC FF FD FE
+3598:FF FD FD FD
+359C:FF FE FD FF
+35A0:FC FF FD FD
+35A4:FD FC FE FC
+35A8:FC FF FE FC
+35AC:FC FE FC FC
+35B0:FE FC FD FD
+35B4:FC FF FD FC
+35B8:FE FC FC
                     069 <a class='d' name='VDEND'      >VDEND       </a>EQU *
                     070 <a class='d' name='VDLEN'      >VDLEN       </a>EQU *-VOLDIR                                   ; VDEND - VOLDIR = $35BB - $34BB = 256
                     071 <a class='d' name='VDFLEN'     >VDFLEN      </a>EQU *-VDFIL                                    ; VDEND - VDFIL  = $35BB - $34C6 = $F5
@@ -5504,7 +5504,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     075 ;COMMAND CONTROL BLOCK (CCB)
                     076 ;
                     077 <a class='d' name='CCB'        >CCB         </a>EQU *                                           ;$B5BB CCB Buffer; FM = File Manager
-35BB:FD             078 <a class='d' name='CCBREQ'     >CCBREQ      </a>DS 1             ; USER REQUEST BYTE            ; [0] FM_Command = 0, See GetCCBAdr aka <a class='x' href='#CCBLDR'>CCBLDR</a>
+35BB:FF             078 <a class='d' name='CCBREQ'     >CCBREQ      </a>DS 1             ; USER REQUEST BYTE            ; [0] FM_Command = 0, See GetCCBAdr aka <a class='x' href='#CCBLDR'>CCBLDR</a>
                     079 <a class='e' name='CRQNUL'     >CRQNUL      </a>EQU 0            ; 0-NO REQUEST                 ; WTF!!! <b>NO ONE</b> will <i>ever</i> call DOS's NOP!!!
                     080 <a class='e' name='CRQOPN'     >CRQOPN      </a>EQU 1            ; 1-OPEN FILE                  ; <b>Crap abbreviations:</b> <span class='code'>CMD_FILE_OPEN</span>
                     081 <a class='e' name='CRQCLS'     >CRQCLS      </a>EQU 2            ; 2-CLOSE FILE                 ;                     <span class='code'>CMD_FILE_CLOSE</span>
@@ -5521,7 +5521,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     092 <a class='e' name='CRQMAX'     >CRQMAX      </a>EQU 13           ;                              ; You couldn't be <i>consistent</i> with first 11?
                     093 ;
                     094 <a class='d' name='CCBBSA'     >CCBBSA      </a>EQU *           ; FORMAT - BOOT START ADR PAG
-35BC:FD             095 <a class='d' name='CCBRQM'     >CCBRQM      </a>DS 1            ; RREQUEST MODIFIER BYTE        ; [1] FM_RequestMod = 1 (SubCommand) *<span class='spell'>spelling</span>* RREQUEST. RRReally??
+35BC:FF             095 <a class='d' name='CCBRQM'     >CCBRQM      </a>DS 1            ; RREQUEST MODIFIER BYTE        ; [1] FM_RequestMod = 1 (SubCommand) *<span class='spell'>spelling</span>* RREQUEST. RRReally??
                     096 <a class='e' name='CRMNUL'     >CRMNUL      </a>EQU 0           ; NO MODIFIER                   ; <b>And this serves <i>what</i> purpose again</b> ???
                     097 <a class='e' name='CRMNBT'     >CRMNBT      </a>EQU 1           ; R/W - 1 - NEXTBYTE
                     098 <a class='e' name='CRMNBL'     >CRMNBL      </a>EQU 2           ; R/W - 2 - NEXTBLOCK
@@ -5531,21 +5531,21 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     102 ;
                     103 <a class='d' name='CCBBYT'     >CCBRRN      </a>EQU *           ; I/O - RELATIVE RECORD NUMBER  ; Relative Record Number, see <a class='x' href='#LOCSEC'>LOCSEC</a>
                     104 <a class='d' name='CCBBYT'     >CCBFN2      </a>EQU *           ; RENAME - FILE NAME 2 PTR      ; Address of FileNameDst
-35BD:FD FC          105 <a class='d' name='CCBBYT'     >CCBRLN      </a>DS 2            ; OPEN - RECORD LENGTH          ; [2] FM_RelRecordNum
+35BD:FC FC          105 <a class='d' name='CCBBYT'     >CCBRLN      </a>DS 2            ; OPEN - RECORD LENGTH          ; [2] FM_RelRecordNum
                     106 ;
                     107 <a class='d' name='CCBBYT'     >CCBBYT      </a>EQU *           ; I/O - RELATIVE BYTE NO (2 BYTES)
-35BF:FC             108 <a class='d' name='CCBVOL'     >CCBVOL      </a>DS 1            ; OPEN - VOL NO.                ; [4] FM_Volume
-35C0:FD             109 <a class='d' name='CCBDRV'     >CCBDRV      </a>DS 1            ; OPEN - DRIVE                  ; [5] FM_Drive
+35BF:FD             108 <a class='d' name='CCBVOL'     >CCBVOL      </a>DS 1            ; OPEN - VOL NO.                ; [4] FM_Volume
+35C0:FC             109 <a class='d' name='CCBDRV'     >CCBDRV      </a>DS 1            ; OPEN - DRIVE                  ; [5] FM_Drive
                     110 ;
                     111 <a class='d' name='CCBBLN'     >CCBBLN      </a>EQU *           ; I/O - BLOCK LENGTH (2 BYTES)  ; FM_BLockLength
-35C1:FF             112 <a class='d' name='CCBSLT'     >CCBSLT      </a>DS 1            ; OPEN - SLOT NO                ; [6] FM_Slot
-35C2:FD             113 <a class='d' name='CCBFUC'     >CCBFUC      </a>DS 1            ; OPEN - FILE USE CODE          ; [7] FM_FileUseCode (File Type), See <a class='x' href='#TSTFUC'>TSTFUC</a>, <a class='x' href='#FRNME'>FRNME</a>
+35C1:FE             112 <a class='d' name='CCBSLT'     >CCBSLT      </a>DS 1            ; OPEN - SLOT NO                ; [6] FM_Slot
+35C2:FE             113 <a class='d' name='CCBFUC'     >CCBFUC      </a>DS 1            ; OPEN - FILE USE CODE          ; [7] FM_FileUseCode (File Type), See <a class='x' href='#TSTFUC'>TSTFUC</a>, <a class='x' href='#FRNME'>FRNME</a>
                     114 ;
                     115 <a class='d' name='CCBFN1'     >CCBFN1      </a>EQU *           ; OPEN, DELETE, LOCK, UNLOCK, RENAME - FILENAME<hr class='page'>
                     116 <a class='d' name='CCBBBA'     >CCBBBA      </a>EQU *           ; BLOCKK I/O - BLOCK BUFFER PTR ; === Page <a class='page' name='page88'>88</a> === *<span class='spell'>spelling</span>* BLOCK, OKKK
-35C3:FC FD          117 <a class='d' name='CCBDAT'     >CCBDAT      </a>DS 2            ; BYTE I/O - DATA BYTE          ; [8]
+35C3:FE FC          117 <a class='d' name='CCBDAT'     >CCBDAT      </a>DS 2            ; BYTE I/O - DATA BYTE          ; [8]
                     118 ;
-35C5:FD             119 <a class='d' name='CCBSTA'     >CCBSTA      </a>DS 1            ; RESULT STATUS                 ; [A] Return Code
+35C5:FF             119 <a class='d' name='CCBSTA'     >CCBSTA      </a>DS 1            ; RESULT STATUS                 ; [A] Return Code
                     120 <a class='e' name='CREFUN'     >CREFUN      </a>EQU 1           ; FCB UNALLOCATED               ; See: <a class='x' href='#ERROR1'>ERROR1</a>
                     121 <a class='e' name='CRERR'      >CRERR       </a>EQU 2           ; CCB REQ RANGE ERR             ; See: <a class='x' href='#ERROR2'>ERROR2</a>
                     122 <a class='e' name='CREMRE'     >CREMRE      </a>EQU 3           ; REQ MOD RANGE ERR             ; See: <a class='x' href='#ERROR3'>ERROR3</a>
@@ -5557,11 +5557,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     128 <a class='e' name='CRENSA'     >CRENSA      </a>EQU 9           ; NO SECTORS AVAILABLE          ; See: <a class='x' href='#ERROR9'>ERROR9</a>
                     129 <a class='e' name='CREFLK'     >CREFLK      </a>EQU 10          ; FILE LOCKED                   ; See: <a class='x' href='#ERROR10'>ERROR10</a>
                     130 ;
-35C6:FD             131 <a class='d' name='CCBSM'      >CCBSM       </a>DDS 1           ; STATUS MODIFIER               ; [B] FM_WASTED1 <a class='mem' name='_35C6' coords='1'>wastes</a> 1 byte; never used! Can't remove since middle of struct.
+35C6:FC             131 <a class='d' name='CCBSM'      >CCBSM       </a>DDS 1           ; STATUS MODIFIER               ; [B] FM_WASTED1 <a class='mem' name='_35C6' coords='1'>wastes</a> 1 byte; never used! Can't remove since middle of struct.
 35C7:FF FC          132 <a class='d' name='CCBFCB'     >CCBFCB      </a>DDS 2           ; FCB PTR                       ; [C] FM_FCB_PTR
-35C9:FC FC          133 <a class='d' name='CCBDBP'     >CCBDBP      </a>DDS 2           ; DIR BUF PTR                   ; [E] FM_DIR_PTR
-35CB:FC FC          134 <a class='d' name='CCBSBP'     >CCBSBP      </a>DDS 2           ; SECTOR BUF PTR                ;[10] FM_SEC_PTR
-35CD:FF FC FC FC    135 <a class='d' name='CCBSPR'     >CCBSPR      </a>DDS 4           ; SPARE                         ;[12] FM_WASTED2 <a class='mem' name='_35CD' coords='4'>wastes</a> 4 bytes /sarcasm Someday, someday.
+35C9:FF FF          133 <a class='d' name='CCBDBP'     >CCBDBP      </a>DDS 2           ; DIR BUF PTR                   ; [E] FM_DIR_PTR
+35CB:FE FC          134 <a class='d' name='CCBSBP'     >CCBSBP      </a>DDS 2           ; SECTOR BUF PTR                ;[10] FM_SEC_PTR
+35CD:FE FC FD FF    135 <a class='d' name='CCBSPR'     >CCBSPR      </a>DDS 4           ; SPARE                         ;[12] FM_WASTED2 <a class='mem' name='_35CD' coords='4'>wastes</a> 4 bytes /sarcasm Someday, someday.
                     136 <a class='d' name='CCBLEN'     >CCBLEN      </a>EQU *-CCB       ; CCB LENGTH                    ;$16
                     137 <a class='d' name='CFCBAD'     >CFCBAD      </a>EQU CCBFCB
                     138 <a class='d' name='CFCBDR'     >CFCBDR      </a>EQU CCBDBP
@@ -5576,40 +5576,40 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     147 ;DATA CONTROL BLOCK
                     148 ;
                     149 <a class='d' id='35D1' name='FCBDCB'   >FCBDCB      </a>EQU *
-35D1:FC             150 <a class='d' id='35D1' name='DCBFDT'   >DCBFDT      </a>DS 1            ; 1ST FILE DIRECTORY TRACK      ; [00]
-35D2:FC             151 <a class='d' id='35D2' name='DCBFDS'   >DCBFDS      </a>DS 1            ; 1ST FILE DIRECTORY SECTOR     ; [01]
-35D3:FF             152 <a class='d' id='35D3' name='DCBCDT'   >DCBCDT      </a>DS 1            ; CURRENT FILE DIRECTORY TRACK  ; [02]
-35D4:FC             153 <a class='d' id='35D4' name='DCBCDS'   >DCBCDS      </a>DS 1            ; CURRENT FILE DIRECTORY SECTOR ; [03]
+35D1:FF             150 <a class='d' id='35D1' name='DCBFDT'   >DCBFDT      </a>DS 1            ; 1ST FILE DIRECTORY TRACK      ; [00]
+35D2:FD             151 <a class='d' id='35D2' name='DCBFDS'   >DCBFDS      </a>DS 1            ; 1ST FILE DIRECTORY SECTOR     ; [01]
+35D3:FD             152 <a class='d' id='35D3' name='DCBCDT'   >DCBCDT      </a>DS 1            ; CURRENT FILE DIRECTORY TRACK  ; [02]
+35D4:FE             153 <a class='d' id='35D4' name='DCBCDS'   >DCBCDS      </a>DS 1            ; CURRENT FILE DIRECTORY SECTOR ; [03]
 35D5:FC             154 <a class='d' id='35D5' name='DCBWRF'   >DCBWRF      </a>DS 1            ; WRITE REQD FLAG               ; [04]
                     155 ;$80=WRITE FILE DIR
                     156 ;$40=WRITE SECTOR DIR
-35D6:FF             157 <a class='d' name='DCBTRK'     >DCBTRK      </a>DS 1            ; SECTOR TRACK ADR              ; [05]
-35D7:FF             158 <a class='d' name='DCBSEC'     >DCBSEC      </a>DS 1            ; SECTOR ADR                    ; [06]
-35D8:FE             159 <a class='d' name='DCBVDR'     >DCBVDR      </a>DS 1            ; VOL DIR REC                   ; [07] DEC by <a class='x' href='#FC1'>FC1</a>
+35D6:FC             157 <a class='d' name='DCBTRK'     >DCBTRK      </a>DS 1            ; SECTOR TRACK ADR              ; [05]
+35D7:FC             158 <a class='d' name='DCBSEC'     >DCBSEC      </a>DS 1            ; SECTOR ADR                    ; [06]
+35D8:FC             159 <a class='d' name='DCBVDR'     >DCBVDR      </a>DS 1            ; VOL DIR REC                   ; [07] DEC by <a class='x' href='#FC1'>FC1</a>
 35D9:FC             160 <a class='d' name='DCBVDI'     >DCBVDI      </a>DS 1            ; VOL DIR INDEX                 ; [08] <a class='x' href='#FNDFIL'>FNDFIL</a>: X = File entry offset in CATALOG sector, <a class='x' href='#FOPEN'>FOPEN</a>, <a class='x' href='#FCLOSE'>FCLOSE</a>
-35DA:FC FE          161 <a class='d' name='DCBDMS'     >DCBDMS      </a>DS 2            ; MAX NO DIRECTORY SECTORS      ; [09]
-35DC:FC FC          162 <a class='d' name='DCBDFS'     >DCBDFS      </a>DS 2            ; CURRENT DIR 1ST REL SECTOR    ; [0B]
-35DE:FF FC          163 <a class='d' name='DCBDNF'     >DCBDNF      </a>DS 2            ; REL SECTOR OF NXT DIR         ; [0D]
+35DA:FE FD          161 <a class='d' name='DCBDMS'     >DCBDMS      </a>DS 2            ; MAX NO DIRECTORY SECTORS      ; [09]
+35DC:FD FF          162 <a class='d' name='DCBDFS'     >DCBDFS      </a>DS 2            ; CURRENT DIR 1ST REL SECTOR    ; [0B]
+35DE:FE FC          163 <a class='d' name='DCBDNF'     >DCBDNF      </a>DS 2            ; REL SECTOR OF NXT DIR         ; [0D]
 35E0:FE FC          164 <a class='d' name='DCBCMS'     >DCBCMS      </a>DS 2            ; SECTOR CURRENTLY IN MEMORY    ; [0F]
-35E2:FE FC          165 <a class='d' name='DCBSDL'     >DCBSDL      </a>DS 2            ; SECTOR DATA LENGTH            ; [11] 
-35E4:FC FC          166 <a class="d" name="DCBCRS"     >DCBCRS      </a>DS 2            ; CURRENT RELATIVE SECTOR       ; [13] See <a class="x" href="#FVAR">FVAR</a>
-35E6:FC FD          167 <a class="d" name="DCBCSB"     >DCBCSB      </a>DS 2            ; CURRENT SECTOR BYTE           ; [15] 
-35E8:FC FF          168 <a class="d" name="DCBRCL"     >DCBRCL      </a>DS 2            ; RECORD LENGTH                 ; [17]
-35EA:FC FC          169 <a class="d" name="DCBCRR"     >DCBCRR      </a>DS 2            ; CURRENT RELATIVE REC          ; [19]
-35EC:FC FF          170 <a class="d" name="DCBCRB"     >DCBCRB      </a>DS 2            ; CURRENT RELATIVE BYTE         ; [1B]
-35EE:FC FC          171 <a class="d" name="DCBNSA"     >DCBNSA      </a>DS 2            ; NO SECTORS ALLOCATED          ; [1D] Number of Sectors Allocated
+35E2:FC FC          165 <a class='d' name='DCBSDL'     >DCBSDL      </a>DS 2            ; SECTOR DATA LENGTH            ; [11] 
+35E4:FF FC          166 <a class="d" name="DCBCRS"     >DCBCRS      </a>DS 2            ; CURRENT RELATIVE SECTOR       ; [13] See <a class="x" href="#FVAR">FVAR</a>
+35E6:FC FE          167 <a class="d" name="DCBCSB"     >DCBCSB      </a>DS 2            ; CURRENT SECTOR BYTE           ; [15] 
+35E8:FE FC          168 <a class="d" name="DCBRCL"     >DCBRCL      </a>DS 2            ; RECORD LENGTH                 ; [17]
+35EA:FE FC          169 <a class="d" name="DCBCRR"     >DCBCRR      </a>DS 2            ; CURRENT RELATIVE REC          ; [19]
+35EC:FC FC          170 <a class="d" name="DCBCRB"     >DCBCRB      </a>DS 2            ; CURRENT RELATIVE BYTE         ; [1B]
+35EE:FF FC          171 <a class="d" name="DCBNSA"     >DCBNSA      </a>DS 2            ; NO SECTORS ALLOCATED          ; [1D] Number of Sectors Allocated
                     172 ;
-35F0:FD             173 <a class="d" id='35F0' name="DCBALS"     >DCBALS      </a>DS 1            ; ALLOCATION SECTOR BYTE        ; [1F]
+35F0:FC             173 <a class="d" id='35F0' name="DCBALS"     >DCBALS      </a>DS 1            ; ALLOCATION SECTOR BYTE        ; [1F]
 35F1:FC             174 <a class="d" id='35F1' name="DCBATK"     >DCBATK      </a>DS 1            ; ALLOCATION TRACK              ; [20]
-35F2:FE FE FF FC    175 <a class="d" id='35F2' name="DCBABM"     >DCBABM      </a>DS 4            ; ALLOCATION TRACK SECTOR BIT MAP;[21] <a class='struct' name='_35F2'>wastes</a> 2 bytes, See <a class="x" href="#FS3">FS3</a> and Line #<a class='line' href='#FLOCSEC.184'>184</a>
+35F2:FE FC FC FF    175 <a class="d" id='35F2' name="DCBABM"     >DCBABM      </a>DS 4            ; ALLOCATION TRACK SECTOR BIT MAP;[21] <a class='struct' name='_35F2'>wastes</a> 2 bytes, See <a class="x" href="#FS3">FS3</a> and Line #<a class='line' href='#FLOCSEC.184'>184</a>
                     176 ;
 35F6:FD             177 <a class="d" name="DCBFUC"     >DCBFUC      </a>DS 1            ; FILE USE CODE                 ; [25]
-35F7:FF             178 <a class="d" name="DCBSLT"     >DCBSLT      </a>DS 1            ; SLOT NUMBER                   ; [26]<hr class='page'>
+35F7:FE             178 <a class="d" name="DCBSLT"     >DCBSLT      </a>DS 1            ; SLOT NUMBER                   ; [26]<hr class='page'>
 35F8:FC             179 <a class="d" name="DCBDRV"     >DCBDRV      </a>DS 1            ; DRIVE NUMBER                  ; [27] === Page <a class="page" name="page89">89</a> ===
-35F9:FE             180 <a class="d" id='35F9' name="DCBVOL"     >DCBVOL      </a>DS 1            ; VOLUME DRIVER                 ; [28]
+35F9:FC             180 <a class="d" id='35F9' name="DCBVOL"     >DCBVOL      </a>DS 1            ; VOLUME DRIVER                 ; [28]
 35FA:FD             181 <a class="d" id='35FA' name="DCBVTN"     >DCBVTN      </a>DS 1            ; VTOC TRACK NUMBER             ; [29] Why isn't this <span class='code'>DFB 17</span>?? See <a class='x' href='#F01A'>F01A</a>
                     182 ;
-35FB:FC FD FC       183 <a class="d" id='35FB' name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; [2A] <a class='mem' name='_35fb' coords='3'>wastes</a> 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *<span class='unused'>unused</span>*
+35FB:FC FC FF       183 <a class="d" id='35FB' name="DCBSPR"     >DCBSPR      </a>DS 3            ; SPARES                        ; [2A] <a class='mem' name='_35fb' coords='3'>wastes</a> 3 bytes, Zeroed via <a class="x" href="#DCBSUP">DCBSUP</a>, *<span class='unused'>unused</span>*
                     184 ;
                     185 <a class='e' id='002D' name="DCBLEN"     >DCBLEN      </a>EQU *-<a class="v" href="#FCBDCB">FCBDCB</a>    ; DCB LENGTH                    ; $2D = $35FE - $35D1 = $002D, used in exactly 1 place <a class='x' href='#DCBSUP'>DCBSUP</a>
                     <a class='line' name='FVCBUFS.186'>186</a> <a class="e" id='002E' name="FCBLEN"     >FCBLEN      </a>EQU *-<a class="v" href="#FCB"   >FCB</a>       ; FCB LENGTH                    ; $2D = $35FE - $35D1 = $002D
@@ -5621,7 +5621,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     001 <meta                                 />            SBTL '16-SECTOR DOS BOOT'
                     002 <a class='d' id='35FE' name='HERE3L'   >HERE3L      </a>EQU &gt;*                                          ;   $FE End of FVCBUFS = $35FD, * = $35FE
                     003 <a class='d' id='0002' name='REMDR3'   >REMDR3      </a>EQU 256-HERE3L                                  ;   $02 Remainder 2 bytes for page alignment
-35FE:FD FE          004 <meta                                 />            ORG *+<a class="v" href="#REMDR3">REMDR3</a>                                    ; $3600 <a class='mem' name='_35fe' coords='2'>wastes</a> 2 bytes to page align BOOTLDR
+35FE:FD FC          004 <meta                                 />            ORG *+<a class="v" href="#REMDR3">REMDR3</a>                                    ; $3600 <a class='mem' name='_35fe' coords='2'>wastes</a> 2 bytes to page align BOOTLDR
                     005 <a class="d" id='3600' name='TRK0LDR'  >TRK0LDR     </a>EQU *
                     006 <meta                                 />    DO &gt;<a class="do" href="#TRK0LDR">TRK0LDR</a>                                             ; Low byte of address controls if macro is on/off<span class='macro'>
                     007 <meta                                 />        ???                 ;DELIBERATE ERROR IF NOT AT PAGE BOUNDARY</span>
