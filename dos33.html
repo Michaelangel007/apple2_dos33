@@ -5779,7 +5779,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3699:C0 17          134             CPY #$<span class='n'>17</span>                                        ; <a class='magic' name='_369A'>magic number</a> <span class='code'>FCB_REC_LEN</span>
 369B:D0 F7          135             BNE CHKFILE
 369D:A0 19          136             LDY #$<span class='n'>19</span>                                        ; <a class='magic' name='_369E'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
-369F:B1 42          137 MOVE        LDA (ZPGFB),Y   ; DCBCRR,DCBCRB
+369F:B1 42          137 MOVE        LDA (ZPGFCB),Y  ; DCBCRR,DCBCRB
 36A1:99 A4 35       138             STA CCBRRN-$<span class='n'>19</span>,Y;INTO CCBRRN,CCBBYT             ; <a class='magic' name='_36A1'>magic number</a> <span class='code'>FCB_CUR_REL_REC</span>
 36A4:C8             139             INY
 36A5:C0 1D          140             CPY #$<span class='n'>1D</span>                                        ; <a class='magic' name='_36A6'>magic number</a> <span class='code'>FCB_NUM_SEC_ALLOC</span>
