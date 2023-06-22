@@ -7289,11 +7289,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     001             STBL '16-SECTOR RWTS'
                     002 ****************************
                     003 *         DISK II          *
-                    004 * READ/WRITE TRACK-SECTOR  *
-                    005 *                          *
-                    006 *   COPYRIGHT 1978 BY      *
-                    007 *  APPLE COMPUTER, INC.    *
-                    008 *                          *
+                    004 * READ/WRITE TRACK-SECTOR  *                                  ; The famous RWTS
+                    005 *                          *                                  ; Technically it should be called RWSWT since it only supports:
+                    006 *   COPYRIGHT 1978 BY      *                                  ;    Read  Sector (RS)
+                    007 *  APPLE COMPUTER, INC.    *                                  ;    Write Sector (WS)
+                    008 *                          *                                  ;    Write Track  (WT)
                     009 *  ALL RIGHTS RESERVED     *
                     010 *                          *
                     011 *      R. WIGGINTON        *
@@ -7423,10 +7423,10 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     135 *       PROCESSED.       *
                     136 *                        *
                     137 * IBCMD: COMMAND CODE:   *
-                    138 *      0-&gt; NULL COMMAND  *                                  ; And this serves what purpose???
-                    139 *      1-&gt; READ SECTOR   *
-                    140 *      2-&gt; WRITE SECTOR  *
-                    141 *      4-&gt; FORMAT DISK   *
+                    138 *      0-&gt; NULL COMMAND  *                                  ; And this null command serves what purpose???
+                    139 *      1-&gt; READ SECTOR   *                                  ; <span class='code'>RWTS_CMD_READ_SEC   = 1</span>
+                    140 *      2-&gt; WRITE SECTOR  *                                  ; <span class='code'>RWTS_CMD_WRITE_SEC  = 2</span>
+                    141 *      4-&gt; FORMAT DISK   *                                  ; <span class='code'>RWTS_CMD_FORMAT     = 4</span>
                     142 *
                     143 * IBSTAT: ERROR CODE:    *
                     144 *     0-&gt; NO ERROR       *
@@ -7477,7 +7477,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3D04:A0 02          189             LDY #<span class='n'>2</span>          ;SET RECALIBRATE                ; <a class='magic' name='_3D05'>magic number</a> <span class='code'>RWTS_RECALIBRATE = $2</span>
 3D06:8C F8 06       190             STY <a class='v' href='#RECALCNT'>RECALCNT</a>    ; COUNT                         ; Text screen hole!
 3D09:A0 04          191             LDY #<a class='v' href='#MAXSEEKS'>MAXSEEKS</a>   ;SET RESEEK
-3D0B:8C F8 04       192             STY <a class='v' href='#SEEKCNT'>SEEKCNT</a>     ; COUNT                          ; <b>Another</b> text screen hole. WTF! 33 bytes above on page $3C / $BC!
+3D0B:8C F8 04       192             STY <a class='v' href='#SEEKCNT'>SEEKCNT</a>     ; COUNT                         ; <b>Another</b> text screen hole. WTF! 33 bytes above on page $3C / $BC!
 3D0E:A0 01          193             LDY #<span class='n'>1</span>          ;GET SLOT # FOR THIS OPERATION  ; <a class='magic' name='_3D0F'>magic number</a> <a class='v' href='#IOB_OFFSET_SLOT'>IOB_OFFSET_SLOT</a>
 3D10:B1 48          194             LDA (<a class='v' href='#IOBPL'>IOBPL</a>),Y
 3D12:AA             195             TAX
@@ -7621,9 +7621,9 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     006 <a class="f"    name="TRYTRK"     >TRYTRK      </a>EQU *
 3DAB:A0 0C          007             LDY #$<span class='n'>0C</span>                                        ; <a class='magic' name='_3DAB'>magic number</a> <span class='code'>IOB_OFFSET_CMD = $C</span>
 3DAD:B1 48          008             LDA (<a class="d" href="#IOBPL">IOBPL</a>),Y   ;GET COMMAND CODE #
-3DAF:F0 5A          009             BEQ <a class="x" href="#GALLDONE">GALLDONE</a>    ;IF NULL COMMAND, GO HOME TO BED.           ; v
-3DB1:C9 04          010             CMP #$<span class='n'>04</span>        ;FORMAT THE DISK?               ; <a class='magic' name='_3DB2'>magic number</a> <span class='code'>RWTS_CMD_FORMAT = $4</span> *sigh*
-3DB3:F0 58          011             BEQ <a class="x" href="#FORMDSK">FORMDSK</a>     ;ALLRIGHT,ALLRIGHT, I WILL...
+3DAF:F0 5A          009             BEQ <a class="x" href="#GALLDONE">GALLDONE</a>    ;IF NULL COMMAND, GO HOME TO BED.   ;&darr;
+3DB1:C9 04          010             CMP #$<span class='n'>04</span>        ;FORMAT THE DISK?                   ; <a class='magic' name='_3DB2'>magic number</a> <span class='code'>RWTS_CMD_FORMAT = $4</span> *sigh*
+3DB3:F0 58          011             BEQ <a class="x" href="#FORMDSK">FORMDSK</a>     ;ALLRIGHT,ALLRIGHT, I WILL...       ; If only the IBCMD commands were an enum instead of a dumb bitmask, see RWTS_CMD_*
 3DB5:6A             012             ROR A           ;SET CARRY=1 FOR READ, 0 FOR WRITE
 3DB6:08             013             PHP             ;AND SAVE THAT
 3DB7:B0 03          014             BCS <a class="x" href="#TRYTRK2">TRYTRK2</a>     ;MUST PRENIBBLE FOR WRITE.
@@ -7707,15 +7707,15 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3E07:28             092 <a class='f' id='3E07' name='JMPTO1'      >JMPTO1      </a>PLP
 3E08:4C 48 3E       093             JMP <a class='x' href='#HNDLERR'>HNDLERR</a>
 3E0B:F0 39          094 <a class='f' id='3E0B' name='GALLDONE'    >GALLDONE    </a>BEQ <a class='x' href='#ALLDONE'>ALLDONE</a>                                     ;&darr;
-3E0D:4C AF 3E       095 <a class='f' id='3E0D' name='FORMDSK'     >FORMDSK     </a>JMP <a class='x' href='#DSKFORM'>DSKFORM</a>     ;=&gt;GO TO IT!                    ;&darr;
+3E0D:4C AF 3E       095 <a class='f' id='3E0D' name='FORMDSK'     >FORMDSK     </a>JMP <a class='x' href='#DSKFORM'>DSKFORM</a>     ;=&gt;GO TO IT!                    ;&darr; WhyTF is FormatDisk in the middle here???
                     096 *
                     097 * DRIVE IS ON RIGHT TRACK, CHECK VOLUME MISMATCH
                     098 *
-3E10:A0 03          099 <a class='f' id='3E10' name='RTTRK'       >RTTRK       </a>LDY #3          ;IS THE RIGHT DISK IN?
+3E10:A0 03          099 <a class='f' id='3E10' name='RTTRK'       >RTTRK       </a>LDY #3          ;IS THE RIGHT DISK IN?            ; <a class='magic' name='_3E11'>magic number</a> <span class='code'>IOB_OFFSET_VOL = $03</span>
 3E12:B1 48          100             LDA (<a class="v" href='#IOBPL'     >IOBPL</a>),Y   ;GET DESIRED VOLUM
 3E14:48             101             PHA             ;PRESERVE DESIRED VOLUME#
 3E15:A5 2F          102             LDA <a class="v"  href='#VOLUME'    >VOLUME</a>      ;GET ACTUAL VOLUME HERE
-3E17:A0 0E          103             LDY #$<span class='n'>0E</span>        ;TELL OPSYS WHAT VOLUME WAS THERE ; <a class='magic' name='_3E17'>magic number</a> IOB_OFFSET_VOL = $E
+3E17:A0 0E          103             LDY #$<span class='n'>0E</span>        ;TELL OPSYS WHAT VOLUME WAS THERE ; <a class='magic' name='_3E18'>magic number</a> IOB_OFFSET_MOD = $E
 3E19:91 48          104             STA (<a class='v' href='#IOBPL'     >IOBPL</a>),Y
 3E1B:68             105             PLA             ;GET DESIRED VOLUME BACK
 3E1C:F0 08          106             BEQ <a class='x'  href='#CORRECTVOL'>CORRECTVOL</a>  ;DESIRED VOLUME 00 MATCHES ALL. ;&darr;
