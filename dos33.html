@@ -6521,7 +6521,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 38C9:B9 00 3B       050             LDA <a class="v" href="#NBUF1">NBUF1</a>,Y
 38CC:5E 00 3C       051             LSR <a class="v" href="#NBUF2">NBUF2</a>,X     ; SHIFT 2 BITS FROM
 38CF:2A             052             ROL A           ; CURRENT NBUF2 NIBL
-38D0:5E 00 3C       053             LSR             ; INTO CURRENT NBUF1<hr class='page'>
+38D0:5E 00 3C       053             LSR <a class="v" href="#NBUF2">NBUF2</a>,X     ; INTO CURRENT NBUF1<hr class='page'>
 38D3:2A             054             ROL A           NIBL.                           ; === Page <a class="page" name="page102">102</a> ===
 38D4:91 3E          055             STA (<a class="v" href="#">BUF</a>),Y     BYTE OF USER DATA.
 38D6:C8             056             INY             NEXT USER BYTE.
