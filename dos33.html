@@ -7862,7 +7862,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     246         STA TL3                                             </span>
                     247     FIN
                     248     LST ON
-3E5B:A0 01          249             LDY #$<span class='n'>01</span>        ;IS THIS A TWO-PHASE DISC?      ; <a class='magic' id='????'>magic number</a> <span class='todo'>TODO</span>
+3E5B:A0 01          249             LDY #$<span class='n'>01</span>        ;IS THIS A TWO-PHASE DISC?      ; <a class='magic' id='3E5C'>magic number</a> <span class='code'>DCT_OFFSET_TYPE = $1</span>
 3E5D:B1 3C          250             LDA (DEVCTBL),Y
 3E5F:6A             251             ROR A           ;GET # OF PHASES INTO CARRY
 3E60:68             252             PLA
