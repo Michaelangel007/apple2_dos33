@@ -1476,10 +1476,10 @@ With that "legalese" out of the way ... enjoy the read!
 1D5C:00 E0          00438 065 <a class='d' id='1D5C' name='GO'         >GO          </a>DW <a class='x' href='#IBGO'  >IBGO  </a>                                       ;d[-]     VARIABLE data together
 1D5E:03 E0          00439 066 <a class='d' id='1D5E' name='CONT'       >CONT        </a>DW <a class='x' href='#IBCONT'>IBCONT</a>       ; BASIC CONT ENTRY POINT        ;e[-] You (almost) *never* interleave them
 1D60:00 00          00440 067 <a class='d' id='1D60' name='ASEQ'       >ASEQ        </a>DW <span class='n'>0</span>                                            ;f    that just leads to data+code bloat
-                                                                                    ; *sigh* Too lazy to add a single empty ';' line seperator before IBVT ???
-                                                                                    ; Intentionally adding an empty line as a spacer to improve readability *<b>shock</b>*
-                                                                                    ;
-                                                                                    ; *<span class='note'>note</span>* IBVT, AS1VT, and AS2VT are Read-Only (after being relocated to high mem.)
+                                                                                          ; *sigh* Too lazy to add a single empty ';' line seperator before IBVT ???
+                                                                                          ; Intentionally adding an empty line as a spacer to improve readability *<b>shock</b>*
+                                                                                          ;
+                                                                                          ; *<span class='note'>note</span>* IBVT, AS1VT, and AS2VT are Read-Only (after being relocated to high mem.)
 1D62:36 E8          00441 068 <a class='d' id='1D62' name='IBVT'       >IBVT        </a>DW <a class='x' href='#IBCHN'>IBCHN</a>                                        ;<b>a</b>[-] Integer Basic Vector Table
 1D64:E5 24          00442 069             DW <a class='x' href='#IBRUN' >IBRUN </a>                                       ;b[<a class='line' href='#RELOCTR.292'>2</a>]
 1D66:E3 E3          00443 070             DW <a class='x' href='#IBBRK' >IBBRK </a>                                       ;c[-]
@@ -1521,10 +1521,10 @@ With that "legalese" out of the way ... enjoy the read!
 1D99:D0 11          00479 106             BNE <a class='x' href='#IAS1'>IAS1</a>        ; GO TO AS INIT                 ;
                     00480 107 ;                           ; ELSE INIT FOR IB
 1D9B:8D B6 2A       00481 108             STA <a class='v' href='#ASIBSW'>ASIBSW</a>      ; SET SW FOR IB                 ; <a class='magic' name='_1D9C'>magic number</a> BASIC_TYPE_INTEGER = $00
-                                                                                    ;        30 = $1D9E .. $1DBB
-                                                                                    ;        -5 = Don't count opcodes at Lines #117,118
-                                                                                    ;       -18 = Replacement code at Line <a class='link' href='#DOSINIT.118.Solution'>118 Solution</a>
-                                                                                    ;       ===
+                                                                                          ;        30 = $1D9E .. $1DBB
+                                                                                          ;        -5 = Don't count opcodes at Lines #117,118
+                                                                                          ;       -18 = Replacement code at Line <a class='link' href='#DOSINIT.118.Solution'>118 Solution</a>
+                                                                                          ;       ===
 1D9E:A2 0A          00482 <a class='line' name='DOSINIT.109'>109</a>             LDX #<a class='v' href='#IBVTL'>IBVTL</a>      ; GET IB VT LENGTH              ; <a class='mem' name='_1D9E' coords='7'>wastes</a>  7 bytes
 1DA0:BD 61 1D       00483 110 <a class='f' name='IIB1'     >IIB1        </a>LDA <a class='v' href='#IBVT'>IBVT</a>-<span class='n'>1</span>,X    ; MOVE IB ADDR                  ; <b>Problem</b>: *sigh* due to IBVTL=$A != AS1VTL=$C
 1DA3:9D 55 1D       00484 111             STA <a class='v' href='#IBASVT'>IBASVT</a>-<span class='n'>1</span>,X                                  ;           we end up with <i>duplicate code</i> (**9 times**, er, 3 times!) to
@@ -1535,27 +1535,27 @@ With that "legalese" out of the way ... enjoy the read!
                     00489 116 <a class='f' name='IAS1'     >IAS1        </a>EQU *                                           ; IAS1 = Init Applesoft ROM; /cynical "<i>There will be a test</i>"<hr class='page'>
 1DAC:A9 40          00490 117             LDA #$<span class='n'>40</span>        ; INDICATE ROM APPLESOFT        ; === Page <a class='page' name='page50'>50</a> === <a class='magic' name='_1DAD'>magic number</a> BASIC_TYPE_APPLESOFT_ROM = $40
 1DAE:8D B6 2A       00491 118             STA <a class='v' href='#ASIBSW'>ASIBSW</a>                                      ; <b><a class='section' name='DOSINIT.118.Solution'>Solution</a></b>:
-                                                                                    ;   a) Lines 117-118 should be moved <i>after</i> Line #<a class='line' href='#DOSINIT.103'>103</a> to <b>anticipate the common case</b>,
-                                                                                    ;   b) This is one of those <b>rare times</b> where we <b>padd IBVT</b>
-                                                                                    ;      (with 2 bytes data on the end)
-                                                                                    ;      to make IBVT, AS1VT, and AS2VT all the <b>same length</b>
-                                                                                    ;
-                                                                                    ;                  Table  SourceOffset  Instructios
-                                                                                    ;                  IBVT   #$00          #IBVT -IBVT
-                                                                                    ;                  AS1VT  #$0C          #AS1VT-IBVT
-                                                                                    ;                  AS2VT  #$1E          #AS2VT-IBVT
-                                                                                    ;
-                                                                                    ; AA       109     TAX                  ; X = SourceOffset #$00 = IBVT
-                                                                                    ; 2C               DB  $2C              ; BIT $abs to skip next instruction
-                                                                                    ;
-                                                                                    ; A2 0C    IAS1    LDX #AS1VT-IBVTL     ;     SourceOffset $C = AS1VT 
+                                                                                          ;   a) Lines 117-118 should be moved <i>after</i> Line #<a class='line' href='#DOSINIT.103'>103</a> to <b>anticipate the common case</b>,
+                                                                                          ;   b) This is one of those <b>rare times</b> where we <b>padd IBVT</b>
+                                                                                          ;      (with 2 bytes data on the end)
+                                                                                          ;      to make IBVT, AS1VT, and AS2VT all the <b>same length</b>
+                                                                                          ;
+                                                                                          ;                  Table  SourceOffset  Instructios
+                                                                                          ;                  IBVT   #$00          #IBVT -IBVT
+                                                                                          ;                  AS1VT  #$0C          #AS1VT-IBVT
+                                                                                          ;                  AS2VT  #$1E          #AS2VT-IBVT
+                                                                                          ;
+                                                                                          ; AA       109     TAX                  ; X = SourceOffset #$00 = IBVT
+                                                                                          ; 2C               DB  $2C              ; BIT $abs to skip next instruction
+                                                                                          ;
+                                                                                          ; A2 0C    IAS1    LDX #AS1VT-IBVTL     ;     SourceOffset $C = AS1VT 
 1DB1:A2 0C          00492 119             LDX #<a class='v' href='#AS1VTL'>AS1VTL</a>                                     ; A0 00            LDY #0               ; Y = DestOffset = BytesCopied
 1DB3:BD 6B 1D       00493 120 <a class='f' name='IAS1A'    >IAS1A       </a>LDA <a class='v' href='#AS1VT'>AS1VT</a>-<span class='n'>1</span>,X   ; MOVE ROM AS ADRS              ; BD 62 1D 1AS1A   LDA IBVT,X           ; X = $0, $C, or $18 to start 
 1DB6:9D 55 1D       00494 121             STA <a class='v' href='#IBASVT'>IBASVT</a>-<span class='n'>1</span>,X                                  ; 99 56 1D         STA IBASVT,Y                                       
 1DB9:CA             00495 122             DEX                                             ; E8               INX                                                
 1DBA:D0 F7          00496 123             BNE <a class='x' href='#IAS1A'>IAS1A</a>                                       ; C8               INY                                                
-                                                                                    ; C0 0C            CPY #C                                             
-                                                                                    ; D0 F4            BNE copy                                           
+                                                                                          ; C0 0C            CPY #C                                             
+                                                                                          ; D0 F4            BNE copy                                           
                     00497 124 ;
                     00498 125 <a class='f' name='INITAA'   >INITAA      </a>EQU                                             ; /sarcasm Hey, we need a new label inbetween INITA, and INITB
 1DBC:38             00499 126             SEC             ; INDICATE INIT                 ;          I know, let's call it crappy "INITAA" instead of DoneCopyBasicVectors
