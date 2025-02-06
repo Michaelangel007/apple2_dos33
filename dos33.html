@@ -942,97 +942,97 @@ With that "legalese" out of the way ... enjoy the read!
 <h1><a class='section' name='Listing'>2.0 Assembly Source Code Listing</a></h1>
 <div class='sticky'><hr><hr class='join'>=== <a class='file' name='DOS33C'>DOS33C</a> - Master Source File, Page <a class="page" name="page39">39</a> ===<hr class='join'><hr></div>
 <pre>
-                    00001 001             SBTL "DOS3.3C w/APPEND fix, U/L case"
-                    00002 002             LST  ON,VSYM
-                    00003 003             MSB  OFF
-                    00004 004 <a class='f'  id='1B00' name='ORIGIN' >ORIGIN      </a>EQU  $1B00
-                    00005 005 <a class='do' id='0'    name='DIAGMOD'>DIAGMOD     </a>EQU  0
-                    00006 006 <a class='do' id='1'    name='DOS33B' >DOS33B      </a>EQU  1
-                    00007 007 <a class='do' id='0'    name='ULC'    >ULC         </a>EQU  0          ;1=ASM with lower case patch    ;Address .. Addr, Track/Sector(s)
-                    00008 008             INCLUDE <a class="_c00 file" href="#RELOCTR">RELOCTR</a>,,2                              ; $1B00 .. $1C80, T0SA - T0SB
-                    00009 009             INCLUDE <a class="_c01 file" href="#DOSINIT">DOSINIT</a>,,2                              ; $1C81 .. $1E80, T0SB - T0SD
-                    00010 010             INCLUDE <a class="_c02 file" href="#DOSHOOK">DOSHOOK</a>,,2                              ; $1E81 .. $1FCC, T0SD - T0SE
-                    00011 011             INCLUDE <a class="_c03 file" href="#CMDSCAN">CMDSCAN</a>,,2                              ; $1FCD .. $2192, T0SE - T1S0
-                    00012 012             INCLUDE <a class="_c04 file" href="#XOPNCLS">XOPNCLS</a>,,2                              ; $2193 .. $2330, T1S0 - T1S2
-                    00013 013             INCLUDE <a class="_c05 file" href="#XLODSAV">XLODSAV</a>,,2                              ; $2331 .. $250F, T1S2 - T1S4
-                    00014 014             INCLUDE <a class="_c06 file" href="#XMISCMD">XMISCMD</a>,,2                              ; $2510 .. $26A7, T1S4 - T1S5
-                    00015 015             INCLUDE <a class="_c07 file" href="#DOSGOER">DOSGOER</a>,,2                              ; $26A8 .. $27D3, T1S5 - T1S6
-                    00016 016             INCLUDE <a class="_c08 file" href="#BLDFTAB">BLDFTAB</a>,,2                              ; $27D4 .. $2883, T1S6 - T1S7
-                    00017 017             INCLUDE <a class="_c09 file" href="#CMDTBLS">CMDTBLS</a>,,2                              ; $2884 .. $2A4E, T1S7 - T1S9
-                    00018 018             INCLUDE <a class="_c10 file" href="#FDOSENT">FDOSENT</a>,,2                              ; $2A4F .. $2B21, T1S9 - T1SA
-                    00019 019             INCLUDE <a class="_c11 file" href="#FOPCLRW">FOPCLRW</a>,,2                              ; $2B22 .. $2CEE, T1SA - T1SB
-                    00020 020             INCLUDE <a class="_c20 file" href="#FDELCAT">FDELCAT</a>,,2                              ; $2CEF .. $2E8D, T1SB - T1SD
-                    00021 021             INCLUDE <a class="_c21 file" href="#FMTRWIO">FMTRWIO</a>,,2                              ; $2E8E .. $2FF6, T1SD - T1SE
-                    00022 022             INCLUDE <a class="_c22 file" href="#FLOCNXB">FLOCNXB</a>,,2                              ; $2FF7 .. $31C8, T1SE - T2S0
-                    00023 023             INCLUDE <a class="_c23 file" href="#FLOCSEC">FLOCSEC</a>,,2                              ; $31C9 .. $3396, T2S0 - T2S2
-                    00024 024             INCLUDE <a class="_c24 file" href="#FVCBUFS">FVCBUFS</a>,,2                              ; $3397 .. $35FD, T2S2 - T2S4
-                    00025 025             INLUCDE <a class="_c25 file" href="#BOOTLDR">BOOTLDR</a>,,2                              ; $35FE .. $37FF, T0S0 - T0S1
-                    00026 026             INCLUDE <a class="_c26 file" href="#COREQUS">COREQUS</a>,,1                              ; n/a
-                    00027 027             INCLUDE <a class="_c27 file" href="#PRENIBL">PRENIBL</a>,,1                              ; $3800 .. $3829, T0S2
-                    00028 028             INCLUDE <a class="_c28 file" href="#WRITRTN">WRITRTN</a>,,1                              ; $382A .. $38C1, T0S2
-                    00029 029             INCLUDE <a class="_c29 file" href="#POSTNRD">POSTNRD</a>,,1                              ; $38C2 .. $3943, T0S2 - T0S3
-                    00030 030             INCLDUE <a class="_c30 file" href="#RDADSEK">RDADSEK</a>,,1                              ; $3944 .. $39FC, T0S3
-                    00031 031             INCLUDE <a class="_c31 file" href="#MSWAITR">MSWAITR</a>,,1                              ; $39FD .. $3C55, T0S3 - T0S6
-                    00032 032             INCLUDE <a class="_c40 file" href="#WRITADR">WRITADR</a>,,1                              ; $3C56 .. $3CFF, T0S6
-                    00033 033             INCLUDE <a class="_c41 file" href="#RWTSONE">RWTSONE</a>,,1                              ; $3D00 .. $3DAA, T0S7
-                    00034 034             INCLUDE <a class="_c42 file" href="#RWTSTWO">RWTSTWO</a>,,1                              ; $3DAB .. $3EAE, T0S7 - T0S8
-                    00035 035             INCLUDE <a class="_c43 file" href="#FORMATR">FORMATR</a>,,1                              ; $3EAF .. $3FC7, T0S8 - T0S9
-                    00036 036             INCLUDE <a class="_c44 file" href="#DOSPTCH">DOSPTCH</a>,,1                              ; $3FC8 .. $3FFF, T0S9
+                    00001 <meta                            />001 <meta                                />        <meta/>    SBTL    "DOS3.3C w/APPEND fix, U/L case"
+                    00002 <meta                            />002 <meta                                />        <meta/>    LST     ON,VSYM <meta                       />                                        <meta           />
+                    00003 <meta                            />003 <meta                                />        <meta/>    MSB     OFF     <meta                       />                                        <meta           />
+                    00004 <meta                            />004 <a class='f'  id='1B00' name='ORIGIN' >ORIGIN  </a   >    EQU  $<span class='n'>1B00</span>      <meta/>                                        <meta           />
+                    00005 <meta                            />005 <a class='do' id='0'    name='DIAGMOD'>DIAGMOD </a   >    EQU  <span class='n'>0</span>          <meta/>                                        <meta           />
+                    00006 <meta                            />006 <a class='do' id='1'    name='DOS33B' >DOS33B  </a   >    EQU  <span class='n'>1</span>          <meta/>                                        <meta           />
+                    00007 <meta                            />007 <a class='do' id='0'    name='ULC'    >ULC     </a   >    EQU  <span class='n'>0 </span>         <meta/>;1=ASM with lower case patch            <meta           />;Address .. Addr, Track/Sector(s)
+                    00008 <meta                            />008 <meta                                />        <meta/>    INCLUDE <a class="_c00 file" href="#RELOCTR">RELOCTR</a>,,2                                      <meta/>; $1B00 .. $1C80, T0SA - T0SB
+                    00009 <meta                            />009 <meta                                />        <meta/>    INCLUDE <a class="_c01 file" href="#DOSINIT">DOSINIT</a>,,2                                      <meta/>; $1C81 .. $1E80, T0SB - T0SD
+                    00010 <meta                            />010 <meta                                />        <meta/>    INCLUDE <a class="_c02 file" href="#DOSHOOK">DOSHOOK</a>,,2                                      <meta/>; $1E81 .. $1FCC, T0SD - T0SE
+                    00011 <meta                            />011 <meta                                />        <meta/>    INCLUDE <a class="_c03 file" href="#CMDSCAN">CMDSCAN</a>,,2                                      <meta/>; $1FCD .. $2192, T0SE - T1S0
+                    00012 <meta                            />012 <meta                                />        <meta/>    INCLUDE <a class="_c04 file" href="#XOPNCLS">XOPNCLS</a>,,2                                      <meta/>; $2193 .. $2330, T1S0 - T1S2
+                    00013 <meta                            />013 <meta                                />        <meta/>    INCLUDE <a class="_c05 file" href="#XLODSAV">XLODSAV</a>,,2                                      <meta/>; $2331 .. $250F, T1S2 - T1S4
+                    00014 <meta                            />014 <meta                                />        <meta/>    INCLUDE <a class="_c06 file" href="#XMISCMD">XMISCMD</a>,,2                                      <meta/>; $2510 .. $26A7, T1S4 - T1S5
+                    00015 <meta                            />015 <meta                                />        <meta/>    INCLUDE <a class="_c07 file" href="#DOSGOER">DOSGOER</a>,,2                                      <meta/>; $26A8 .. $27D3, T1S5 - T1S6
+                    00016 <meta                            />016 <meta                                />        <meta/>    INCLUDE <a class="_c08 file" href="#BLDFTAB">BLDFTAB</a>,,2                                      <meta/>; $27D4 .. $2883, T1S6 - T1S7
+                    00017 <meta                            />017 <meta                                />        <meta/>    INCLUDE <a class="_c09 file" href="#CMDTBLS">CMDTBLS</a>,,2                                      <meta/>; $2884 .. $2A4E, T1S7 - T1S9
+                    00018 <meta                            />018 <meta                                />        <meta/>    INCLUDE <a class="_c10 file" href="#FDOSENT">FDOSENT</a>,,2                                      <meta/>; $2A4F .. $2B21, T1S9 - T1SA
+                    00019 <meta                            />019 <meta                                />        <meta/>    INCLUDE <a class="_c11 file" href="#FOPCLRW">FOPCLRW</a>,,2                                      <meta/>; $2B22 .. $2CEE, T1SA - T1SB
+                    00020 <meta                            />020 <meta                                />        <meta/>    INCLUDE <a class="_c20 file" href="#FDELCAT">FDELCAT</a>,,2                                      <meta/>; $2CEF .. $2E8D, T1SB - T1SD
+                    00021 <meta                            />021 <meta                                />        <meta/>    INCLUDE <a class="_c21 file" href="#FMTRWIO">FMTRWIO</a>,,2                                      <meta/>; $2E8E .. $2FF6, T1SD - T1SE
+                    00022 <meta                            />022 <meta                                />        <meta/>    INCLUDE <a class="_c22 file" href="#FLOCNXB">FLOCNXB</a>,,2                                      <meta/>; $2FF7 .. $31C8, T1SE - T2S0
+                    00023 <meta                            />023 <meta                                />        <meta/>    INCLUDE <a class="_c23 file" href="#FLOCSEC">FLOCSEC</a>,,2                                      <meta/>; $31C9 .. $3396, T2S0 - T2S2
+                    00024 <meta                            />024 <meta                                />        <meta/>    INCLUDE <a class="_c24 file" href="#FVCBUFS">FVCBUFS</a>,,2                                      <meta/>; $3397 .. $35FD, T2S2 - T2S4
+                    00025 <meta                            />025 <meta                                />        <meta/>    INCLUDE <a class="_c25 file" href="#BOOTLDR">BOOTLDR</a>,,2                                      <meta/>; $35FE .. $37FF, T0S0 - T0S1
+                    00026 <meta                            />026 <meta                                />        <meta/>    INCLUDE <a class="_c26 file" href="#COREQUS">COREQUS</a>,,1                                      <meta/>; n/a
+                    00027 <meta                            />027 <meta                                />        <meta/>    INCLUDE <a class="_c27 file" href="#PRENIBL">PRENIBL</a>,,1                                      <meta/>; $3800 .. $3829, T0S2
+                    00028 <meta                            />028 <meta                                />        <meta/>    INCLUDE <a class="_c28 file" href="#WRITRTN">WRITRTN</a>,,1                                      <meta/>; $382A .. $38C1, T0S2
+                    00029 <meta                            />029 <meta                                />        <meta/>    INCLUDE <a class="_c29 file" href="#POSTNRD">POSTNRD</a>,,1                                      <meta/>; $38C2 .. $3943, T0S2 - T0S3
+                    00030 <meta                            />030 <meta                                />        <meta/>    INCLUDE <a class="_c30 file" href="#RDADSEK">RDADSEK</a>,,1                                      <meta/>; $3944 .. $39FC, T0S3
+                    00031 <meta                            />031 <meta                                />        <meta/>    INCLUDE <a class="_c31 file" href="#MSWAITR">MSWAITR</a>,,1                                      <meta/>; $39FD .. $3C55, T0S3 - T0S6
+                    00032 <meta                            />032 <meta                                />        <meta/>    INCLUDE <a class="_c40 file" href="#WRITADR">WRITADR</a>,,1                                      <meta/>; $3C56 .. $3CFF, T0S6
+                    00033 <meta                            />033 <meta                                />        <meta/>    INCLUDE <a class="_c41 file" href="#RWTSONE">RWTSONE</a>,,1                                      <meta/>; $3D00 .. $3DAA, T0S7
+                    00034 <meta                            />034 <meta                                />        <meta/>    INCLUDE <a class="_c42 file" href="#RWTSTWO">RWTSTWO</a>,,1                                      <meta/>; $3DAB .. $3EAE, T0S7 - T0S8
+                    00035 <meta                            />035 <meta                                />        <meta/>    INCLUDE <a class="_c43 file" href="#FORMATR">FORMATR</a>,,1                                      <meta/>; $3EAF .. $3FC7, T0S8 - T0S9
+                    00036 <meta                            />036 <meta                                />        <meta/>    INCLUDE <a class="_c44 file" href="#DOSPTCH">DOSPTCH</a>,,1                                      <meta/>; $3FC8 .. $3FFF, T0S9
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="RELOCTR">RELOCTR</a> - Relocate DOS to high (48K) memory, Page <a class="page" name="page110">110</a>, <a class='ts' href='#T0SA'>T0SA</a>-<a class='ts' href='#T0SB'>T0SB</a>, $<span class='n'>1B00</span> .. $<span class='n'>1C80</span> (n/a) ===<hr class='join'><hr></div>
 <pre>
-                    00037 001             PAGE                                            ; === Page <a class='page' name='page110'>110</a> ===
-                    00038 002 *****************************************************
-                    00039 003 *                                                   *
-                    00040 004 * (C) COPYRIGHT 1978,1980,1982 APPLE COMPUTER, INC. *
-                    00041 005 *                                                   *
-                    00042 006 *****************************************************
-                    00043 007             SKP 2
-                    00044 008 *********************************
-                    00045 009 *                               *
-                    00046 010 *  ADAPTED FOR MACRO EDASM BY   *
-                    00047 011 *        JOHN ARKLEY            *
-                    00048 012 *         DEC 1980              *
-                    00049 013 *                               *
-                    00050 014 *********************************
-                    00051 015             SKP 2
-                    00052 016 *********************************
-                    00053 017 *                               *
-                    00054 018 *  DOS 3.3 REVISION B PATCHES   *
-                    00055 019 *   INSTALLED BY MARK HOUDE     *
-                    00056 020 *          JUL 1982             *
-                    00057 021 *                               *
-                    00058 022 *********************************
-                    00059 023             SKP 2
-                    00060 024 *********************************
-                    00061 025 *                               *
-                    00062 026 *  DOS 3.3 REV B PATCHES VER 2  *
-                    00063 027 *   INSTALLED BY FERN BACHMAN   *
-                    00064 028 *          SEP 1982             *
-                    00065 029 *                               *
-                    00066 030 *********************************
-                    00067 031             SKP 2
-                    00068 032 *********************************
-                    00069 033 *                               *
-                    00070 034 *    DOS33C PATCHES (APPEND &amp;   *
-                    00071 035 *     UPPER/LOWER CASE CHECK)   *
-                    00072 036 *                               *
-                    00073 037 *            BY                 *
-                    00074 038 *        GUIL  BANKS            *
-                    00075 039 *         1983                  *                           ; Note: Fixed EOL formatting in PDF
-                    00076 040 *                               *
-                    00077 041 *********************************
-                    00078 042 ;
-                    00079 043 ;EQUATES REQD TO FIND THINGS IN APPLE II
-                    00080 044 ;
-                    00081 045 <a class='f' id='FE93' name='SETVID'     >SETVID      </a>EQU $<span class='e'>FE93</span>                                       ; Monitor: 0 Ctrl-P
-                    00082 046 <a class='f' id='FE89' name='SETKBD'     >SETKBD      </a>EQU $<span class='e'>FE89</span>                                       ; Monitor: 0 Ctrl-K
-                    00083 047 <a class='d' id='0033' name='PROMPT'     >PROMPT      </a>EQU $<span class='n'>33</span>         ; PROMPT CHAR
-                    00084 048 <a class='d' id='0036' name='OUTSW'      >OUTSW       </a>EQU $<span class='n'>36</span>         ; OUTPUT VECTOR SWITCH
-                    00085 049 <a class='d' id='0038' name='INSW'       >INSW        </a>EQU $<span class='n'>38</span>         ; INPUT VECTOR SWITCH
-                    00086 050 <a class='d' id='0040' name='ZPGWRK'     >ZPGWRK      </a>EQU $<span class='n'>40</span>         ; ZERO PAGE WORK CELL
-                    00087 051 <a class='d' name='CNUM'       >CNUM        </a>EQU $<span class='n'>44</span>         ; CONVERTED NUMERIC             ; 16-bit input number
+                    00037 <meta                            />001 <meta                                />        <meta/>    PAGE            <meta                                                          />                                        <meta/>; === Page <a class='page' name='page110'>110</a> ===
+                    00038 <meta                            />002 <meta                                />********<meta/>********************<meta                                                          />*************************               <meta/>
+                    00039 <meta                            />003 <meta                                />*       <meta/>                    <meta                                                          />                        *               <meta/>
+                    00040 <meta                            />004 <meta                                />* (C) CO<meta/>PYRIGHT 1978,1980,19<meta                                                          />82 APPLE COMPUTER, INC. *               <meta/>
+                    00041 <meta                            />005 <meta                                />*       <meta/>                    <meta                                                          />                        *               <meta/>
+                    00042 <meta                            />006 <meta                                />********<meta/>********************<meta                                                          />*************************               <meta/>
+                    00043 <meta                            />007 <meta                                />        <meta/>    SKP 2           <meta                                                          />                                        <meta/>
+                    00044 <meta                            />008 <meta                                />********<meta/>********************<meta                                                          />*****                                   <meta/>
+                    00045 <meta                            />009 <meta                                />*       <meta/>                    <meta                                                          />    *                                   <meta/>
+                    00046 <meta                            />010 <meta                                />*  ADAPT<meta/>ED FOR MACRO EDASM B<meta                                                          />Y   *                                   <meta/>
+                    00047 <meta                            />011 <meta                                />*       <meta/> JOHN ARKLEY        <meta                                                          />    *                                   <meta/>
+                    00048 <meta                            />012 <meta                                />*       <meta/>  DEC 1980          <meta                                                          />    *                                   <meta/>
+                    00049 <meta                            />013 <meta                                />*       <meta/>                    <meta                                                          />    *                                   <meta/>
+                    00050 <meta                            />014 <meta                                />********<meta/>********************<meta                                                          />*****                                   <meta/>
+                    00051 <meta                            />015 <meta                                />        <meta/>    SKP 2           <meta                                                          />                                        <meta/>
+                    00052 <meta                            />016 <meta                                />********<meta/>********************<meta                                                          />*****                                   <meta/>
+                    00053 <meta                            />017 <meta                                />*       <meta/>                    <meta                                                          />    *                                   <meta/>
+                    00054 <meta                            />018 <meta                                />*  DOS 3<meta/>.3 REVISION B PATCHE<meta                                                          />S   *                                   <meta/>
+                    00055 <meta                            />019 <meta                                />*   INST<meta/>ALLED BY MARK HOUDE <meta                                                          />    *                                   <meta/>
+                    00056 <meta                            />020 <meta                                />*       <meta/>   JUL 1982         <meta                                                          />    *                                   <meta/>
+                    00057 <meta                            />021 <meta                                />*       <meta/>                    <meta                                                          />    *                                   <meta/>
+                    00058 <meta                            />022 <meta                                />********<meta/>********************<meta                                                          />*****                                   <meta/>
+                    00059 <meta                            />023 <meta                                />        <meta/>    SKP 2           <meta                                                          />                                        <meta/>
+                    00060 <meta                            />024 <meta                                />********<meta/>********************<meta                                                          />*****                                   <meta/>
+                    00061 <meta                            />025 <meta                                />*       <meta/>                    <meta                                                          />    *                                   <meta/>
+                    00062 <meta                            />026 <meta                                />*  DOS 3<meta/>.3 REV B PATCHES VER<meta                                                          /> 2  *                                   <meta/>
+                    00063 <meta                            />027 <meta                                />*   INST<meta/>ALLED BY FERN BACHMA<meta                                                          />N   *                                   <meta/>
+                    00064 <meta                            />028 <meta                                />*       <meta/>   SEP 1982         <meta                                                          />    *                                   <meta/>
+                    00065 <meta                            />029 <meta                                />*       <meta/>                    <meta                                                          />    *                                   <meta/>
+                    00066 <meta                            />030 <meta                                />********<meta/>********************<meta                                                          />*****                                   <meta/>
+                    00067 <meta                            />031 <meta                                />        <meta/>    SKP 2           <meta                                                          />                                        <meta/>
+                    00068 <meta                            />032 <meta                                />********<meta/>********************<meta                                                          />*****                                   <meta/>
+                    00069 <meta                            />033 <meta                                />*       <meta/>                    <meta                                                          />    *                                   <meta/>
+                    00070 <meta                            />034 <meta                                />*    DOS<meta/>33C PATCHES (APPEND <meta                                                          />&amp;   *                                    <meta/>
+                    00071 <meta                            />035 <meta                                />*     UP<meta/>PER/LOWER CASE CHECK<meta                                                          />)   *                                   <meta/>
+                    00072 <meta                            />036 <meta                                />*       <meta/>                    <meta                                                          />    *                                   <meta/>
+                    00073 <meta                            />037 <meta                                />*       <meta/>     BY             <meta                                                          />    *                                   <meta/>
+                    00074 <meta                            />038 <meta                                />*       <meta/> GUIL  BANKS        <meta                                                          />    *                                   <meta/>
+                    00075 <meta                            />039 <meta                                />*       <meta/>  1983              <meta                                                          />    *                                   <meta/>; Note: Fixed bad EOL formatting from PDF
+                    00076 <meta                            />040 <meta                                />*       <meta/>                    <meta                                                          />    *                                   <meta/>
+                    00077 <meta                            />041 <meta                                />********<meta/>********************<meta                                                          />*****                                   <meta/>
+                    00078 <meta                            />042 <meta                                />;       <meta/>                    <meta                                                          />                                        <meta/>
+                    00079 <meta                            />043 <meta                                />;EQUATES<meta/> REQD TO FIND THINGS<meta                                                          /> IN APPLE II                            <meta/>
+                    00080 <meta                            />044 <meta                                />;       <meta/>                    <meta                                                          />
+                    00081 <meta                            />045 <a class='f' id='FE93' name='SETVID'  >SETVID  </a   >    EQU <meta />$<span class='e'>FE93</span>       <meta                           />                                        <meta/>; Monitor: 0 Ctrl-P
+                    00082 <meta                            />046 <a class='f' id='FE89' name='SETKBD'  >SETKBD  </a   >    EQU <meta />$<span class='e'>FE89</span>       <meta                           />                                        <meta/>; Monitor: 0 Ctrl-K
+                    00083 <meta                            />047 <a class='d' id='0033' name='PROMPT'  >PROMPT  </a   >    EQU <meta />$<span class='n'>33</span>         <meta                           />; PROMPT CHAR                           <meta/>
+                    00084 <meta                            />048 <a class='d' id='0036' name='OUTSW'   >OUTSW   </a   >    EQU <meta />$<span class='n'>36</span>         <meta                           />; OUTPUT VECTOR SWITCH                  <meta/>
+                    00085 <meta                            />049 <a class='d' id='0038' name='INSW'    >INSW    </a   >    EQU <meta />$<span class='n'>38</span>         <meta                           />; INPUT VECTOR SWITCH                   <meta/>
+                    00086 <meta                            />050 <a class='d' id='0040' name='ZPGWRK'  >ZPGWRK  </a   >    EQU <meta />$<span class='n'>40</span>         <meta                           />; ZERO PAGE WORK CELL                   <meta/>
+                    00087 <meta                            />051 <a class='d' id='0044' name='CNUM'    >CNUM    </a   >    EQU <meta />$<span class='n'>44</span>         <meta                           />; CONVERTED NUMERIC                     <meta/>; 16-bit input number
                     00088 052 <a class='d' id='0200' name='LBUFF'      >LBUFF       </a>EQU $<span class='n'>200</span>        ; LINE BUFFER                   ; Keyboard buffer of 255 chars
                     00089 053 <a class='f' id='FB63' name='MULT'       >MULT        </a>EQU $<span class='e'>FB63</span>       ; MULT ROUTINE                  ; -- <span class='unused'>unused</span>, never referenced --<hr class='page'>
                     00090 054 <a class='f' id='FE8B' name='INPRT'      >INPRT       </a>EQU $<span class='e'>FE8B</span>       ; SET IN PORT                   ; === Page <a class='page' name='page111'>111</a> === ; *sigh* Apple 2 ROM lists INPORT = $FE8B, <b>INPRT</b> = $<span class='n'>FE8D</span>
