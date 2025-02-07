@@ -2567,7 +2567,7 @@ With that "legalese" out of the way ... enjoy the read!
 23D2:4C FF 23       094             JMP SV3         ; GO OUTPUT BLOCK
                     095 ;
                     096 <a class='f' id='23D5' name='SV1'      >SV1         </a>EQU *
-                    097 <a class='f'           name='SV1A'     >SV1A        </a>EQU *                                           ;  Label not used
+                    097 <a class='f'           name='SV1A'     >SV1A        </a>EQU *                                           ;  <span class='unused'>unused</span> label SV1A
 23D5:8D C2 35       098             STA CCBFUC      ; SET PGM TYPE
 23D8:48             099             PHA             ; SAVE PGM TYPE
 23D9:20 A8 22       100             JSR EOPN1       ; GO OPEN FILE  (CHGED 11/1/78)
@@ -2791,13 +2791,13 @@ With that "legalese" out of the way ... enjoy the read!
                     044 ;
                     045 ; EINIT - EXECUTE INIT COMMAND
                     046 ;
-                    047 <a class='f' name='EINIT'    >EINIT</a>       EQU *                                           ; "INIT" -- also see FFMT
+                    047 <a class='f' id='254F' name='EINIT'    >EINIT</a>       EQU *                                           ; "INIT" -- also see FFMT
 254F:A9 40          048             LDA #<a class='v' href='#V'>V</a>          ; MUST HAVE
 2551:2D 65 2A       049             AND <a class='v' href='#INOPTS'>INOPTS</a>      ; VOL OPTION
 2554:F0 05          050             BEQ <a class='x' href='#DFVOL'>DFVOL</a>       ;GO SET DEFAULT VOLUME=254
 2556:AD 66 2A       051             LDA <a class='v' href='#CV'>CV</a>          ;CAN'T SPECIFY VOL=0
 2559:D0 05          052             BNE <a class='x' href='#EINITA'>EINITA</a>
-255B:A9 FE          053 <a class='f' name='DFVOL'    >DFVOL</a>       LDA #$<span class='n'>FE</span>        ;SET DEFAULT VOLUME NUMBER      ; <a class='magic' name='_'>magic number</a> <span class='code'>DEFAULT_VOLUME</span><hr class='page'>
+255B:A9 FE          053 <a class='f' id='255B' name='DFVOL'    >DFVOL</a>       LDA #$<span class='n'>FE</span>        ;SET DEFAULT VOLUME NUMBER      ; <a class='magic' name='_'>magic number</a> <span class='code'>DEFAULT_VOLUME</span><hr class='page'>
 255D:8D 66 2A       054             STA <a class='v' href='#CV'>CV</a>                                          ; === Page <a class='page' name='page146'>146</a> ===
 2560:AD 0D 1D       055 <a class='f' name='EINITA'   >EINITA</a>      LDA <a class='v' href='#ASTART'>ASTART</a>+<span class='n'>1</span>
 2563:8D BC 35       056             STA <a class='v' href='#CCBBSA'>CCBBSA</a>
@@ -2808,7 +2808,7 @@ With that "legalese" out of the way ... enjoy the read!
                     061 ;
                     062 ; ECAT - PRINT CATALOG
                     063 ;
-                    064 <a class='f' name='ECAT'     >ECAT        </a>EQU *
+                    064 <a class='f' id='256E' name='ECAT'     >ECAT        </a>EQU *
 256E:A9 06          065             LDA #<a class='e' href='#CRQDIR'>CRQDIR</a>
 2570:20 AA 22       066             JSR <a class='x' href='#OPEN'>OPEN</a>        ; GO PRETEND OPEN
 2573:AD BF 35       067             LDA <a class='v' href='#CCBVOL'>CCBVOL</a>
@@ -2818,40 +2818,40 @@ With that "legalese" out of the way ... enjoy the read!
                     071 ;
                     072 ; EAS - EXECUTE APPLESOFT REQUEST
                     073 ;
-                    074 <a class='f' name='EAS'      >EAS</a>         EQU *
+                    074 <a class='f' id='257A' name='EAS'      >EAS</a>         EQU *
 257A:A9 4C          075             LDA #<a class='v' href='#ATSTV'>ATSTV</a>      ; GET APPLESOFT TEST VALUE
 257C:20 B2 25       076             JSR <a class='x' href='SWTST'>SWTST</a>       ; GO SWITCH AND TEST
 257F:F0 2E          077             BEQ <a class='x' href='#GOINIT'>GOINIT</a>      ; BR IF APPLESOFT
 2581:A9 00          078             LDA #<span class='n'>0</span>                                          ; <a class='magic' name='_'>magic number</a> LANGUAGE_APPLESOFT
 2583:8D B6 2A       079             STA <a class='v' href='#ASIBSW'>ASIBSW</a>
                     080 ;
-                    081 <a class='f' name='EAS0'     >EAS0</a>        EQU *
+                    081 <a class='f' id='2586' name='EAS0'     >EAS0</a>        EQU *
 2586:A0 1E          082             LDY #<span class='n'>30</span>                                         ; <a class='magic' name='_'>magic number</a> MAX_FILENAME_LEN-1
 2588:20 97 20       083             JSR <a class='x' href='#CLRFNA'>CLRFNA</a>                                      ; ClearFileName1
 258B:A2 09          084             LDX #<a class='v' href='#FASBL'>FASBL</a>
-258D:BD B7 2A       085 <a class='f' name='EAS1'     >EAS1</a>        LDA <a class='v' href='#FASB'>FASB</a>-<span class='n'>1</span>,X    ; MOVE SYSTEM FILENAME          ; No, <i>copy</i>
+258D:BD B7 2A       085 <a class='f' id='258D' name='EAS1'     >EAS1</a>        LDA <a class='v' href='#FASB'>FASB</a>-<span class='n'>1</span>,X    ; MOVE SYSTEM FILENAME          ; No, <i>copy</i>
 2590:9D 74 2A       086             STA <a class='v' href='#FNAME1'>FNAME1</a>-<span class='n'>1</span>,X
 2593:CA             087             DEX
 2594:D0 F7          088             BNE <a class='x' href='EAS1'>EAS1</a>
                     089 ;
-                    090 <a class='f' name='EAS2'     >EAS2</a>        EQU *
+                    090 <a class='f' id='2596' name='EAS2'     >EAS2</a>        EQU *
 2596:A9 C0          091             LDA #$<span class='n'>C0</span>                                        ; <a class='magic' name='_'>magic number</a> $80 + $40
 2598:8D 51 2A       092             STA <a class='v' href='#ISTATE'>ISTATE</a>      ; FOR RAM APPLESOFT
 259B:4C D1 24       093             JMP <a class='x' name='ERUN'>ERUN</a>
                     094 ;
                     095 ; EINT - EXECUTE INTEGER REQUEST
                     096 ;
-                    097 <a class='f' name='EINT'     >EINT</a>        EQU *
+                    097 <a class='f' id='259E' name='EINT'     >EINT</a>        EQU *
 259E:A9 20          098             LDA #<a class='v' href='#ITSTV'>ITSTV</a>      ; GET IB TEST VALUE
 25A0:20 B2 25       099             JSR <a class='x' href='#SWTST'>SWTST</a>       ; GO SWITCH AND TEST
 25A3:F0 05          100             BEQ <a class='x' href='#GOINT'>GOINT</a>       ;BR IF INTIGER BASIC                ; *<span class='spell'>spelling</span>* Integer
 25A5:A9 01          101             LDA #<span class='n'>1</span>          ;LANGUAGE NOT AVIALABLE, TOO BAD... ; *<span class='spell'>spelling</span>* Available <a class='magic' name='_'>magic number</a>
 25A7:4C D2 26       102             JMP <a class='x' href='#ERROR'>ERROR</a>
-25AA:A9 00          103 <a class='f' name='GOINT'    >GOINT</a>       LDA #<span class='n'>0</span>          ;RESET RSTATE                   ; <a class='magic' name='_'>magic number</a>
+25AA:A9 00          103 <a class='f' id='25AA' name='GOINT'    >GOINT</a>       LDA #<span class='n'>0</span>          ;RESET RSTATE                   ; <a class='magic' name='_'>magic number</a>
 25AC:8D B7 2A       104             STA <a class='v' href='#RSTATE'>RSTATE</a>      ; FOR NON APPLESOFT PROG.
-                    105 <a class='f' name='GOINIT'   >GOINIT</a>      EQU *
+                    105 <a class='f' id='25AF' name='GOINIT'   >GOINIT</a>      EQU *
 25AF:4C 84 1D       106             JMP <a class='f' href='#DBINIT'>DBINIT</a>      ; GO INIT DOS
-                    107 <a class='f' name='SWTST'    >SWTST       </a>EQU *
+                    107 <a class='f' id='25B2' name='SWTST'    >SWTST       </a>EQU *
 25B2:CD 00 E0       108             CMP <a class='v' href='#'>AITSTL</a>      ; TEST CURRENT VALUE
 25B5:F0 0E          109             BEQ <a class='x' href='#'>SWTR</a>
 25B7:8D 80 C0       110             STA $<span class='n'>C080</span>       ; TRY SWITCH 1                  ; <a class='magic' name='_'>magic number</a>
@@ -2859,13 +2859,13 @@ With that "legalese" out of the way ... enjoy the read!
 25BD:F0 06          112             BEQ <a class='x' href='#SWTR'>SWTR</a>        ; BR IF NOW SAME
 25BF:8D 81 C0       113             STA $<span class='n'>C081</span>       ; TRY SWITCH 2                  ; <a class='magic' name='_'>magic number</a>
 25C2:CD 00 E0       114             CMP <a class='v' href='#AITSTL'>AITSTL</a>      ; TEST AND
-25C5:60             115 <a class='f' name='SWTR'     >SWTR</a>        RTS             ; RETURN
+25C5:60             115 <a class='f' id='25C5' name='SWTR'     >SWTR</a>        RTS             ; RETURN
                     116 ;<hr class='page'>
                     117             PAGE                                            ; === Page <a class='page' name='page147'>147</a> ===
                     118 ;
                     119 ; EEXEC - EXECUTE EXEC CMD
                     120 ;
-                    121 <a class='f' name='EEXEC'    >EEXEC       </a>EQU *                                           ; "EXEC"
+                    121 <a class='f' id='25C6' name='EEXEC'    >EEXEC       </a>EQU *                                           ; "EXEC"
 25C6:20 A3 22       122             JSR <a class='x' href='#EOPEN'>EOPEN</a>       ; OPEN FILE
 25C9:AD 4F 2A       123             LDA <a class='v' href='#CFTABA'>CFTABA</a>      ; MOVE TABLE POINTERS
 25CC:8D B4 2A       124             STA <a class='v' href='#EFTABA'>EFTABA</a>
@@ -2878,35 +2878,35 @@ With that "legalese" out of the way ... enjoy the read!
                     131 ;
                     132 ; EPOS - EXECUTE POSITION
                     133 ;
-                    134 <a class='f' name='EPOS'     >EPOS        </a>EQU *                                           ; "POSITION"
+                    134 <a class='f' id='25DD' name='EPOS'     >EPOS        </a>EQU *                                           ; "POSITION"
 25DD:20 64 27       135             JSR <a class='x' href='#FILSRC'>FILSRC</a>
 25E0:90 06          136             BCC <a class='x' href='#EXP1'>EXP1</a>
 25E2:20 A3 22       137             JSR <a class='x' href='#EOPEN'>EOPEN</a>
 25E5:4C EB 25       138             JMP <a class='x' href='#EXP2'>EXP2</a>
-25E8:20 4E 27       139 <a class='f' name='EXP1'     >EXP1        </a>JSR <a class='x' href='#MVBUFP'>MVBUFP</a>
-                    140 <a class='f' name='EXP2'     >EXP2        </a>EQU *
+25E8:20 4E 27       139 <a class='f' id='25E8' name='EXP1'     >EXP1        </a>JSR <a class='x' href='#MVBUFP'>MVBUFP</a>
+                    140 <a class='f' id='25EB' name='EXP2'     >EXP2        </a>EQU *
 25EB:AD 65 2A       141             LDA <a class='v' href='#INOPTS'>INOPTS</a>      ; GET OPTIONS
 25EE:29 04          142             AND #<a class='v' href='#R'>R</a>          ; TEST R
 25F0:F0 1B          143             BEQ <a class='x' href='#EX2'>EX2</a>         ; BR NOT R
                     144 ;
-25F2:AD 6E 2A       145 <a class='f' name='EX0'      >EX0         </a>LDA <a class='v' href='#CR'>CR</a>          ; IF CR NOT ZERO
+25F2:AD 6E 2A       145 <a class='f' id='25F2' name='EX0'      >EX0         </a>LDA <a class='v' href='#CR'>CR</a>          ; IF CR NOT ZERO
 25F5:D0 08          146             BNE <a class='x' href='#EX1A'>EX1A</a>        ; THEN DECREMENT
 25F7:AE 6F 2A       147             LDX <a class='v' href='#CR'>CR</a>+<span class='n'>1</span>
 25FA:F0 11          148             BEQ <a class='x' href='#EX2'>EX2</a>
 25FC:CE 6F 2A       149             DEC <a class='v' href='#CR'>CR</a>+<span class='n'>1</span>
-25FF:CE 6E 2A       150 <a class='f' name='EX1A'     >EX1A        </a>DEC <a class='v' href='#CR'>CR</a>
-2602:20 8C 26       151 <a class='f' name='EX1'      >EX1         </a>JSR <a class='x' href='#RBYTE'>RBYTE</a>       ; AND READ A RECORD
+25FF:CE 6E 2A       150 <a class='f' id='25FF' name='EX1A'     >EX1A        </a>DEC <a class='v' href='#CR'>CR</a>
+2602:20 8C 26       151 <a class='f' id='2602' name='EX1'      >EX1         </a>JSR <a class='x' href='#RBYTE'>RBYTE</a>       ; AND READ A RECORD
 2605:F0 38          152             BEQ <a class='x' href='#ICFD4'>ICFD4</a>
 2607:C9 8D          153             CMP #$<span class='n'>8D</span>        ; UNTIL CR                      ; <a class='magic' name='_'>magic number</a> KEY_CR
 2609:D0 F7          154             BNE <a class='x' href='#EX1'>EX1</a>
 260B:F0 E5          155             BEQ <a class='x' href='#EX0'>EX0</a>         ; THEN TEST CR AGAIN
                     156 ;
-260D:60             157 <a class='f' name='EX2'      >EX2         </a>RTS
+260D:60             157 <a class='f' id='260D' name='EX2'      >EX2         </a>RTS
                     158             PAGE
                     159 ;
                     160 ; OCTD - OUTPUT A CHAR TO DISK
                     161 ;
-                    162 <a class='f' name='OCTD'     >OCTD        </a>EQU *
+                    162 <a class='f' id='260E' name='OCTD'     >OCTD        </a>EQU *
 260E:20 5E 26       163             JSR <a  class='x' href='#TSTRUN'>TSTRUN</a>      ; GO TEST RUN
 2611:B0 66          164             BCS <a  class='x' href='#ICFDB' >ICFDB</a>       ;BRANCH IF NOT RUN MODE
 2613:AD 5C 2A       165             LDA <a  class='v' href='#SVA'   >SVA</a>         ; CHAR IN SAVED ACU
@@ -2919,27 +2919,27 @@ With that "legalese" out of the way ... enjoy the read!
                     172 ;
                     173 ; INCFD - INPUT A CHAR FROM DISK
                     174 ;
-                    175 <a class='f' name='ICFD'     >ICFD        </a>EQU *
+                    175 <a class='f' id='2626' name='ICFD'     >ICFD        </a>EQU *
 2626:20 5E 26       176             JSR TSTRUN      ; GO TEST RUN
 2629:B0 4E          177             BCS ICFDB       ;BRANCH IF NOT RUN MODE
 262B:A9 06          178             LDA #6          ; SET OUT STE = 6               ; <a class='magic' name='_'>magic number</a>
-                    179 <a class='f' name='ICFD3'    >ICFD3       </a>EQU *<hr class='page'>
+                    179 <a class='f' id='262D' name='ICFD3'    >ICFD3       </a>EQU *<hr class='page'>
 262D:8D 52 2A       180             STA OSTATE      ; TO CATCH ECHO                 ; === Page <a class='page' name='page148'>148</a> ===
 2630:20 8C 26       181             JSR RBYTE
 2633:D0 0F          182             BNE ICFD1       ; BR IF NOT ZERO CHAR
-                    183 <a class='f' name='ICFD2'    >ICFD2       </a>EQU *
+                    183 <a class='f' id='2635' name='ICFD2'    >ICFD2       </a>EQU *
 2635:20 FC 22       184             JSR CLOSE
 2638:A9 03          185             LDA #3                                          ; <a class='magic' name='_'>magic number</a>
 263A:CD 52 2A       186             CMP OSTATE
 263D:F0 CE          187             BEQ EX2
-                    188 <a class='f' name='ICFD4'    >ICFD4       </a>EQU *
+                    188 <a class='f' id='263F' name='ICFD4'    >ICFD4       </a>EQU *
 263F:A9 05          189             LDA #CREEOF
 2641:4C D2 26       190             JMP ERROR       ; GO TO ERROR                   ; /sarcasm No shit, Sherlock -- HOW did we get here?
-                    191 <a class='f' name='ICFD1'    >ICFD1       </a>EQU *
+                    191 <a class='f' id='2644' name='ICFD1'    >ICFD1       </a>EQU *
 2644:C9 E0          192             CMP #$E0        ;CHECK FOR LOWER CASE
 2646:90 02          193             BCC ICFNLC      ;BRANCH IF NOT LOWER-CASE
 2648:29 7F          194             AND #$<span class='n'>7F</span>        ;STRIP HI BIT TO FOOL GETLINE
-                    195 <a class='f' name='ICFNLC'   >ICFNLC      </a>EQU *
+                    195 <a class='f' id='264A' name='ICFNLC'   >ICFNLC      </a>EQU *
 264A:8D 5C 2A       196             STA SVA         ; PUT INTO SAVED ACU
 264D:AE 5A 2A       197             LDX SVX         ; MUST CHECK LAST FOR LOWER CASE
 2650:F0 09          198             BEQ ICFD0       ;IGNORE IF FIRST CHAR.
@@ -2947,10 +2947,10 @@ With that "legalese" out of the way ... enjoy the read!
 2653:BD 00 02       200             LDA LBUFF,X
 2656:09 80          201             ORA #$<span class='n'>80</span>        ;RESET HI BIT
 2658:9D 00 02       202             STA LBUFF,X     ; EVEN THOUGH IT MAY NOT NEED IT
-                    203 <a class='f' name='ICFD0'    >ICFD0       </a>EQU *
+                    203 <a class='f' id='265B' name='ICFD0'    >ICFD0       </a>EQU *
 265B:4C B3 1F       204             JMP ORTN        ; GO RESTORE REGS AND RTS
                     205 ;
-265E:48             206 <a class='f' name='TSTRUN'   >TSTRUN      </a>PHA
+265E:48             206 <a class='f' id='265E' name='TSTRUN'   >TSTRUN      </a>PHA
 265F:AD B6 2A       207             LDA ASIBSW      ; GET AS/INT BASIC SWITCH
 2662:F0 0E          208             BEQ TR1         ; BR IF INT
 2664:A6 76          209             LDX $<span class='n'>76</span>         ;CHECK APPLESOFT RUN FLAG       ; <a class='magic' name='_'>magic number</a>
@@ -2959,17 +2959,17 @@ With that "legalese" out of the way ... enjoy the read!
 2669:A6 33          212             LDX PROMPT      ;TEST APPLESOFT RUNNING.
 266B:E0 DD          213             CPX #']'+$<span class='n'>80</span>
 266D:F0 07          214             BEQ NOTRUN      ; BR IF NOT RUN
-266F:68             215 <a class='f' name='TR0'      >TR0         </a>PLA
+266F:68             215 <a class='f' id='266F' name='TR0'      >TR0         </a>PLA
 2670:18             216             CLC             ;INDICATE PROGRAM RUNNING
 2671:60             217             RTS
-                    218 <a class='f' name='TR1'      >TR1         </a>EQU *
+                    218 <a class='f' id='2672' name='TR1'      >TR1         </a>EQU *
 2672:A5 D9          219             LDA $<span class='n'>D9</span>         ; GET INT RUN FLAG              ; <a class='magic' name='_'>magic number</a>
 2674:30 F9          220             BMI TR0         ; BR IF RUN
-2676:68             221 <a class='f' name='NOTRUN'   >NOTRUN      </a>PLA             ;INDICATE PROGRAM NOT RUNNING
+2676:68             221 <a class='f' id='2676' name='NOTRUN'   >NOTRUN      </a>PLA             ;INDICATE PROGRAM NOT RUNNING
 2677:38             222             SEC             ; WITH CARRY SET.
 2678:60             223             RTS
                     224 ;
-                    225 <a class='f' name='ICFDB'    >ICFDB       </a>EQU *           ; NOT RUN MODE
+                    225 <a class='f' id='2679' name='ICFDB'    >ICFDB       </a>EQU *           ; NOT RUN MODE
 2679:20 FC 22       226             JSR CLOSE       ; GO CLOSE FILE
 267C:20 5B 27       227             JSR CLRSTS      ; GO CLEAR STATES
 267F:4C B3 1F       228             JMP <a class='x' href='#ORTN'>ORTN</a>                                        ;
@@ -2977,7 +2977,7 @@ With that "legalese" out of the way ... enjoy the read!
                     230 ;
                     231 ; NXTEXC - NEXT EXECUTE CHAR
                     232 ;
-                    233 <a class='f' name='NXTEXC'   >NXTEXC      </a>EQU *
+                    233 <a class='f' id='2682' name='NXTEXC'   >NXTEXC      </a>EQU *
 2682:20 9D 26       234             JSR MVEFTA
 2685:20 4E 27       235             JSR MVBUFP      ; GO MOVE PTRS
 2688:A9 03          236             LDA #<span class='n'>3</span>
@@ -2985,7 +2985,7 @@ With that "legalese" out of the way ... enjoy the read!
                     238 ;
                     239 ; RBYTE - READ NEXT BYTE
                     240 ;
-                    241 <a class='f' name='RBYTE'    >RBYTE       </a>EQU *<hr class='page'>
+                    241 <a class='f' id='268C' name='RBYTE'    >RBYTE       </a>EQU *<hr class='page'>
 268C:A9 03          242             LDA #CRQRD      ; SET READ                      ; === Page <a class='page' name='page149'>149</a> ===
 268E:8D BB 35       243             STA CCBREQ
 2691:A9 01          244             LDA #CRMNBT     ; SET NEXT BYTE
@@ -2993,7 +2993,7 @@ With that "legalese" out of the way ... enjoy the read!
 2696:20 A8 26       246             JSR DOSGO       ; GO TO DOS
 2699:AD C3 35       247             LDA CCBDAT      ; GET THE DATA BYTE
 269C:60             248             RTS
-                    249 <a class='f' name='MVEFTA'   >MVEFTA      </a>EQU *
+                    249 <a class='f' id='269D' name='MVEFTA'   >MVEFTA      </a>EQU *
 269D:AD B5 2A       250             LDA EFTABA+<span class='n'>1</span>    ; MOVE TABLE ADR
 26A0:85 41          251             STA ZPGWRK+<span class='n'>1</span>    ; NO ZPG
 26A2:AD B4 2A       252             LDA EFTABA
@@ -3085,7 +3085,7 @@ With that "legalese" out of the way ... enjoy the read!
                     080 ;
                     081 ; OPNSUP - OPEN SET UP
                     082 ;
-                    083 OPNSUP      EQU *                                           ; If only these were contiguous
+                    083 <a class='f' id='271A' name='OPNSUP'>OPNSUP      </a>EQU *                                           ; If only these were contiguous
 271A:AD 66 2A       084             LDA CV          ; VOLUME
 271D:8D BF 35       085             STA CCBVOL      ;
 2720:AD 68 2A       086             LDA CD          ; DRIVE
@@ -3104,9 +3104,9 @@ With that "legalese" out of the way ... enjoy the read!
                     099 ;
                     100 ; MVFN1 - MOVE FILE NAME 1 TO FILE PTR
                     101 ;
-                    102 MVFN1       EQU *
+                    102 <a class='f' id='2743' name='MVFN1'>MVFN1       </a>EQU *
 2743:A0 1D          103             LDY #<span class='n'>29</span>                                         ; <a class='magic' name='_'>magic number</a> <span class='code'>MAX_FILENAME-1</span>
-2745:B9 75 2A       104 MVFN1A      LDA FNAME1,Y
+2745:B9 75 2A       104 <a class='f' id='2745' name='MVFN1A'>MVFN1A      </a>LDA FNAME1,Y
 2748:91 40          105             STA (ZPGWRK),Y
 274A:88             106             DEY
 274B:10 F8          107             BPL MVFN1A
@@ -3114,9 +3114,9 @@ With that "legalese" out of the way ... enjoy the read!
                     109 ;
                     110 ; MVBUFP - MOVE BUFFER PTR TO CCB
                     111 ;
-                    112 MVBUFP      EQU *
+                    112 <a class='f' id='274E' name='MVBUFP'>MVBUFP      </a>EQU *
 274E:A0 1E          113             LDY #<span class='n'>30</span>                                         ; <a class='magic' name='_274F'>magic number</a> <span class='code'>MAX_FILENAME</span><hr class='page'>
-2750:B1 40          114 MVBP1       LDA (ZPGWRK),Y                                  ; === Page <a class='page' name='page42'>42</a> ===
+2750:B1 40          114 <a class='f' id='2750' name='MVBP1'>MVBP1       </a>LDA (ZPGWRK),Y                                  ; === Page <a class='page' name='page42'>42</a> ===
 2752:99 A9 35       115             STA CCBFCB-<span class='n'>30</span>,Y                                 ; <a class='magic' name='_2752'>magic number</a> <span class='code'>MAX_FILENAME</span>
 2755:C8             116             INY
 2756:C0 26          117             CPY #<span class='n'>38</span>                                         ; <a class='magic' name='_2756'>magic number</a> <span class='code'>MAX_FILENAME + HEADER.SIZE</span> (See <a class='file' href='#BLDFTAB'>BLDFTAB</a>)
@@ -3152,8 +3152,8 @@ With that "legalese" out of the way ... enjoy the read!
 277E:85 45          147             STA CNUM+<span class='n'>1</span>
 2780:D0 EC          148             BNE FLS1        ; GO LOOK SOME MORE
                     149 ;
-2782:A0 1D          150 FLS2        LDY #<span class='n'>29</span>         ; FILE HAD 30 CHARS             ; <a class='magic' name='_2782'>magic number</a> <span class='code'>MAX_FILENAME-1</span>
-2784:B1 40          151 FLS3        LDA (ZPGWRK),Y  ; GET CHAR
+2782:A0 1D          150 <a class='f' id='2782' name='FLS2'>FLS2        </a>LDY #<span class='n'>29</span>         ; FILE HAD 30 CHARS             ; <a class='magic' name='_2782'>magic number</a> <span class='code'>MAX_FILENAME-1</span>
+2784:B1 40          151 <a class='f' id='2784' name='FLS3'>FLS3        </a>LDA (ZPGWRK),Y  ; GET CHAR
 2786:D9 75 2A       152             CMP FNAME1,Y    TEST CHAR                       ; Missing <span class='code'>;</span> for comment
 2789:D0 E3          153             BNE FLS1        ; BR NOT
 278B:88             154             DEY
@@ -3161,7 +3161,7 @@ With that "legalese" out of the way ... enjoy the read!
 278E:18             156             CLC             ; FOUND
 278F:60             157             RTS
                     158 ;
-2790:38             159 FLS4        SEC             ; NOT FOUND                     ;[.. <a class='mem' name='_2790' coords='1'>wastes</a> 1 byte, these 2 bytes should be moved to Line #<a class='line' href='#DOSGOER.127'>127</a>
+2790:38             159 <a class='f' id='2790' name='FLS4'>FLS4        </a>SEC             ; NOT FOUND                     ;[.. <a class='mem' name='_2790' coords='1'>wastes</a> 1 byte, these 2 bytes should be moved to Line #<a class='line' href='#DOSGOER.127'>127</a>
 2791:60             160             RTS             ; DONE                          ; ..]
                     161             PAGE
                     162 ;
@@ -3527,17 +3527,17 @@ With that "legalese" out of the way ... enjoy the read!
                     093 ;                                                           
                     094 ; OPTAB - OPTIONAL PARMS SYNTAX TABLES                      
                     095 ;                                                           
-                    096 <a class='d' name='OPTAB1'   >OPTAB1      </a>EQU *                                           ; <b>Problem</b>:  Keeping 2 tables in sync can lead to subtle bugs.
+                    096 <a class='d' id='2941' name='OPTAB1'   >OPTAB1      </a>EQU *                                           ; <b>Problem</b>:  Keeping 2 tables in sync can lead to subtle bugs.
                                                                                     ; <b>Solution</b>: It would be better to <i>interleave</i> OPTAB1 and OPTAB2 
                                                                                     ;           to prevent synchronization mistakes:
                                                                                     ;    MSB ON
 2941:D6 C4 D3 CC    097             DFB 'V'+$80,'D'+$80,'S'+$80,'L'+$80'            ;    DFB 'V', V         ; /sarcasm Apparently <span class='code'>MSB ON</span> was broken
 2945:D2 C2 C1 C3    098             DFB 'R'+$80,'B'+$80,'A'+$80,'C'+$80'            ;    DFB 'D', D
 2949:C9 CF          099             DFB 'I'+$80,'O'+$80'                            ;    DFB 'S', S         ; What's the point of compacting the lines???
-                    100 <a class='d' name='OPT1L'    >OPT1L       </a>EQU *-OPTAB1                                    ;    DFB 'L', L         ; You write code for HUMANS not computers.
-                    101 <a class='e' name='MI'       >MI          </a>EQU $<span class='n'>20</span>                                         ;    DFB 'R', R         ; <span class='todo'>TODO</span> does MI alias FN1? See <a class='x' href='#DRTNI'>DRTNI</a>
-                    102 <a class='e' name='MO'       >MO          </a>EQU $<span class='n'>10</span>                                         ;    DFB 'B', B         ; <span class='todo'>TODO</span> does MO alias FN2? See <a class='x' href='#DRTNO'>DRTNO</a>
-                    103 <a class='d' name='OPTAB2'   >OPTAB2      </a>EQU *                                           ;    DFB 'A', ADR
+                    100 <a class='d' id='000A' name='OPT1L'    >OPT1L       </a>EQU *-OPTAB1                                    ;    DFB 'L', L         ; You write code for HUMANS not computers.
+                    101 <a class='e' id='0020' name='MI'       >MI          </a>EQU $<span class='n'>20</span>                                         ;    DFB 'R', R         ; <span class='todo'>TODO</span> does MI alias FN1? See <a class='x' href='#DRTNI'>DRTNI</a>
+                    102 <a class='e' id='0010' name='MO'       >MO          </a>EQU $<span class='n'>10</span>                                         ;    DFB 'B', B         ; <span class='todo'>TODO</span> does MO alias FN2? See <a class='x' href='#DRTNO'>DRTNO</a>
+                    103 <a class='d' id='294B' name='OPTAB2'   >OPTAB2      </a>EQU *                                           ;    DFB 'A', ADR
 294B:40 20 10 08    104             DFB V,D,S,L                                     ;    DFB 'C', CIO+MC    ; MC was defined in <a class='file' href='#FDOSENT'>FDOSENT</a>, <a class='e' href='#MC'>MC</a>
 294F:04 02 01 C0    105             DFB R,B,ADR,CIO+MC                              ;    DFB 'I', CIO+MI    ; CIO = FLAG_CIO = $80 = minus
 2953:A0 90          106             DFB CIO+MI,CIO+MO                               ;    DFB 'O', CIO+MO    ; See <a class='e' href='#CIO'>CIO</a>, <a class='file' href='#CMDSCAN'>CMDSCAN</a>, Line #<a class='line' href='#CMDSCAN.204'>204</a>, and <a class='v' href='#OPTAB2'>OPTAB2</a>
@@ -3569,7 +3569,7 @@ With that "legalese" out of the way ... enjoy the read!
                     123 ;
                     124 ; ERROR MESSAGE TABLES
                     125 ;
-                    126 <a class='d' name='EMSG'     >EMSG        </a>EQU *
+                    126 <a class='d' id='2971' name='EMSG'     >EMSG        </a>EQU *
 2971:0D 07 8D       127             DFB $<span class='n'>0D</span>, $<span class='n'>07</span>, $<span class='n'>8D</span>                               ; <a class='magic' name='_2971'>magic number</a> CR, BELL, CR + #$80
                     128 <a class='d' name='EM1'      >EM1         </a>EQU *-<a class='v' name='EMSG'>EMSG</a>
 2974:4C 41 4E 47    129             DCI "LANGUAGE NOT AVAILABLE"
