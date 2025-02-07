@@ -1728,7 +1728,7 @@ With that "legalese" out of the way ... enjoy the read!
 1EDC:E8             058             INX             ;ADJUST IT TO ORIGINAL
 1EDD:8E 59 2A       059             STX <a class='v' href='#SVSTK'>SVSTK</a>
 1EE0:A2 03          060             LDX #<span class='n'>3</span>          ; SET FOR FOUR BYTE MOVE        ; /sarcasm If only we could read assembly ...
-1EE2:BD 53 2A       061 <a class='f' id='1EE2' name='SVRB'     >SVRB        </a>LDA SVOUTS,X    ; MOVE SAVED OUT AND IN SW      ; SVRB = <b class='f'>S</b>a<b class='f'>V</b>e <b class='f'>R</b>egs <b class='f'>B</b>, /sarcasm <i>What,</i> <span class='code'>SVRGSB</span> <i>wasn't available???</i> (A. It is.)
+1EE2:BD 53 2A       061 <a class='f' id='1EE2' name='SVRB'     >SVRB        </a>LDA <a class='v' href='#SVOUTS'>SVOUTS</a>,X    ; MOVE SAVED OUT AND IN SW      ; SVRB = <b class='f'>S</b>a<b class='f'>V</b>e <b class='f'>R</b>egs <b class='f'>B</b>, /sarcasm <i>What,</i> <span class='code'>SVRGSB</span> <i>wasn't available???</i> (A. It is.)
 1EE5:95 36          062             STA <a class='v' href='#OUTSW'>OUTSW</a>,X     ; TO APPLE OUT/IN SW
 1EE7:CA             063             DEX
 1EE8:10 F8          064             BPL <a class='x' href='#SVRB'>SVRB</a>
@@ -1739,47 +1739,47 @@ With that "legalese" out of the way ... enjoy the read!
                     069 ;CHECK FOR  CNTL-D                                          ; "<i>You say CNTL-D, I say CTRL-D</i>"
                     070 ;                                                           ; We're <b>both</b> inconsistently dropping <i>a consonant</i>: CoNTRoL
                     071 <a class='f' id='1EEB' name='COS0'     >COS0        </a>EQU *
-1EEB:AE B7 2A       072             LDX RSTATE      ;FIRST CHECK FOR 'AFTER APSFT RELOC'
+1EEB:AE B7 2A       072             LDX <a class='v' href='#RSTATE'>RSTATE</a>      ;FIRST CHECK FOR 'AFTER APSFT RELOC'
 1EEE:F0 03          073             BEQ <a class='x' href='#COS00'>COS00</a>       ;BRANCH IF NOT                  ; <b>Really?!</b> You couldn't use COS0A and COS0B like you do for the <i>other</i> states??
                                                                                     ; COS0 &amp; COS00 are <b>crap function names</b>; they are WAY too easy to mis-read/type
-1EF0:4C 78 1F       074             JMP COS7                                        ; <a class='mem' name='_1EF0' coords='3'>wastes</a> 3 bytes, but since $1F78-$1EF0 &gt; $80
+1EF0:4C 78 1F       074             JMP <a class='x' href='#C0S7'>COS7</a>                                        ; <a class='mem' name='_1EF0' coords='3'>wastes</a> 3 bytes, but since $1F78-$1EF0 &gt; $80
                                                                                     ; <span clas='todo'>TODO</span> We need to move <a class='x' href='#COS5'>COS5</a>..<a class='x' href='#COS7'>COS7</a> <b>before</b> <a class='x' href='#COS0'>COS0</a>; change Line #<a class='line' href='#DOSHOOK.074'>74</a> to BNE COS7
 1EF3:AE 51 2A       075 <a class='f' id='1EF3' name='COS00'    >COS00       </a>LDX ISTATE      ;IS IN STATE NOT ZERO           ; I'm serious, someone <i>please</i> shoot Captain Obvious
-1EF6:F0 08          076             BEQ COS01                                       ; 
+1EF6:F0 08          076             BEQ <a class='x' href='#COS01'>COS01</a>                                       ; 
 1EF8:C9 BF          077             CMP #'?'+$<span class='n'>80</span>    ; THEN IS THIS ?
-1EFA:F0 75          078             BEQ COS6        ; THEN PRINT ONLY IF MONITOR
-1EFC:C5 33          079             CMP PROMPT
-1EFE:F0 27          080             BEQ COS2A
+1EFA:F0 75          078             BEQ <a class='x' href='#COS6'>COS6</a>        ; THEN PRINT ONLY IF MONITOR
+1EFC:C5 33          079             CMP <a class='v' href='#PROMPT'>PROMPT</a>
+1EFE:F0 27          080             BEQ <a class='x' href='#COS2A'>COS2A</a>
                     081 <a class='f' id='1F00' name='COS01'    >COS01       </a>EQU *                                           ; === <a class='ts' href='#T0SE'>T0SE</a> ===
 1F00:A2 02          082             LDX #<span class='n'>2</span>                                          ; <a class='magic' name='_1F01'>magic number</a>
-1F02:8E 52 2A       083             STX OSTATE
-1F05:CD B2 2A       084             CMP CCHAR       ; IF NOT CNTL-D
-1F08:D0 19          085             BNE COS2        ; THEN GO TO STATE 2
+1F02:8E 52 2A       083             STX <a class='v' href='#OSTATE'>OSTATE</a>
+1F05:CD B2 2A       084             CMP <a class='v' href='#CCHAR'>CCHAR</a>       ; IF NOT CNTL-D
+1F08:D0 19          085             BNE <a class='x' href='#COS2'>COS2</a>        ; THEN GO TO STATE 2
 1F0A:CA             086             DEX
-1F0B:8E 52 2A       087             STX OSTATE      ; ELSE STATE=1
+1F0B:8E 52 2A       087             STX <a class='v' href='#OSTATE'>OSTATE</a>      ; ELSE STATE=1
 1F0E:CA             088             DEX
-1F0F:8E 5D 2A       089             STX LBUFD       ; AND LBUFD=0
+1F0F:8E 5D 2A       089             STX <a class='v' href='#LBUFD'>LBUFD</a>       ; AND LBUFD=0
                     090 ;
                     091 ;COS1 - ACCUMULATE CMD FROM PRINTED OUTPUT
                     092 ;
                     093 <a class='f' id='1F12' name='COS1'     >COS1        </a>EQU *
-1F12:AE 5D 2A       094             LDX LBUFD       ; GET LINE BUFF DISPL
+1F12:AE 5D 2A       094             LDX <a class='v' href='#LBUFD'>LBUFD</a>       ; GET LINE BUFF DISPL
 1F15:9D 00 02       095 <a class='f' id='1F15' name='COS1A'    >COS1A       </a>STA LBUFF,X     ; PUT CHAR IN BUFF
 1F18:E8             096             INX             ; INCR PTR
-1F19:8E FD 2A       097             STX LBUFD       ; SAVE PTR
+1F19:8E FD 2A       097             STX <a class='v' href='#LBUFD'>LBUFD</a>       ; SAVE PTR
 1F1C:C9 8D          098             CMP #$<span class='n'>8D</span>        ; WAS THIS A CR                 ; <a class='magic' name='_1F1D'>magic number</a>
-1F1E:D0 75          099             BNE CMDRTN      ; IF NOT THEN PR CHAR
+1F1E:D0 75          099             BNE <a class='x' href='#CMDRTN'>CMDRTN</a>      ; IF NOT THEN PR CHAR
                     100 ;
-1F20:4C CD 1F       101             JMP SCNCMD      ; GO SCAN COMMAND
+1F20:4C CD 1F       101             JMP <a class='x' href='#SCNCMD'>SCNCMD</a>      ; GO SCAN COMMAND
                     102 ;
                     103 ;COS2 - PRINTED OUTPUT, NOT FIRST CHAR
                     104 ;
                     105 <a class='f' name='COS2'     >COS2        </a>EQU *
 1F23:C9 8D          106             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; <a class='magic' name='_1F24'>magic number</a>
-1F25:D0 7D          107             BNE PRRTN       ; BR IF NOT
+1F25:D0 7D          107             BNE <a class='x' href='#PRRTN'>PRRTN</a>       ; BR IF NOT
 1F27:A2 00          108 <a class='f' name='COS2A'    >COS2A       </a>LDX #<span class='n'>0</span>          ; SET FOR POSSIBLE C-D NEXT     ; C-D = Control-D <a class='magic' name='_1F28'>magic number</a> COS_STATE_FIRST_CONTROL_D = 0
-1F29:8E 52 2A       109             STX OSTATE      ; NEXT STATE
-1F2C:4C A4 1F       110             JMP PRRTN       ; GO PRINT CHAR                 ; <a class='mem' name='_1F2C' coords='1'>wastes</a> 1 byte, $1F83 - $1F2C = $57, <span class='code'>BEQ PRRTN</span>
+1F29:8E 52 2A       109             STX <a class='v' href='#OSTATE'>OSTATE</a>      ; NEXT STATE
+1F2C:4C A4 1F       110             JMP <a class='x' href='#PRRTN'>PRRTN</a>       ; GO PRINT CHAR                 ; <a class='mem' name='_1F2C' coords='1'>wastes</a> 1 byte, $1F83 - $1F2C = $57, <span class='code'>BEQ PRRTN</span>
                     111             PAGE
                     112 ;
                     113 ;COS3 - KEY IN ECHO PRINT
@@ -1844,7 +1844,7 @@ With that "legalese" out of the way ... enjoy the read!
                     172 ; DRTNO - PRINT CHAR IF MONITOR DATA OUT
                     173 ; DRTNI - PRINT CHAR IF MONITOR DATA IN
                     174 ;
-                    175 <a class='f' name='CERTN'    >CERTN       </a>EQU *
+                    175 <a class='f' id='1F83' name='CERTN'    >CERTN       </a>EQU *
 1F83:AD 00 02       176             LDA LBUFF       ; CHECK FOR PRINTED COMMAND
 1F86:CD B2 2A       177             CMP CCHAR
 1F89:F0 0A          178             BEQ CMDRTN      ; IF PC THEN NO RESET X REG<hr class='page'>
@@ -1852,39 +1852,39 @@ With that "legalese" out of the way ... enjoy the read!
 1F8D:8D 00 02       180             STA <a class='v' href='#LBUFF'>LBUFF</a>       ; TO OUT BUFFER
 1F90:A2 00          181             LDX #<span class='n'>0</span>          ; RESET TO SOL                  ; StartOfLine
 1F92:8E 5A 2A       182             STX <a class='v' href='#SVX'>SVX</a>
-1F95:A9 40          <a class='line' name='DOSHOOK.183'>183</a> <a class='f' name='CMDRTN'   >CMDRTN      </a>LDA #<a class='e' href='#MC'>MC</a>
+1F95:A9 40          <a class='line' name='DOSHOOK.183'>183</a> <a class='f' id='1F95' name='CMDRTN'   >CMDRTN      </a>LDA #<a class='e' href='#MC'>MC</a>
 1F97:D0 06          184             BNE <a class='x' href='#MODECK'>MODECK</a>                                      ; &darr; (always)
-1F99:A9 10          <a class='line' name='DOSHOOK.185'>185</a> <a class='f' name='DRTNO'    >DRTNO       </a>LDA #<a class='e' href='#MO'>MO</a>                                         ; Data Return Out
+1F99:A9 10          <a class='line' name='DOSHOOK.185'>185</a> <a class='f' id='1F99' name='DRTNO'    >DRTNO       </a>LDA #<a class='e' href='#MO'>MO</a>                                         ; Data Return Out
 1F9B:D0 02          186             BNE <a class='x' href='#MODECK'>MODECK</a>                                      ; &darr; (always)
-1F9D:A9 20          <a class='line' name='DOSHOOK.187'>187</a> <a class='f' name='DRTNI'    >DRTNI       </a>LDA #<a class='e' href='#MI'>MI</a>                                         ; Data Return In
+1F9D:A9 20          <a class='line' name='DOSHOOK.187'>187</a> <a class='f' id='1F9D' name='DRTNI'    >DRTNI       </a>LDA #<a class='e' href='#MI'>MI</a>                                         ; Data Return In
                     188 ;
-                    189 <a class='f' name='MODECK'   >MODECK      </a>EQU *                                           ; ModeCheck common entry
+                    189 <a class='f' id='1F9F' name='MODECK'   >MODECK      </a>EQU *                                           ; ModeCheck common entry
 1F9F:2D 5E 2A       190             AND <a class='v' href='#MONMOD'>MONMOD</a>      ; AND WITH MODE
 1FA2:F0 0F          191             BEQ <a class='x' href='#ORTN'>ORTN</a>        ; BR IF NOT PRINT
-1FA4:20 BA 1F       192 <a class='f' name='PRRTN'    >PRRNT       </a>JSR <a class='x' href='#LDREGS'>LDREGS</a>
+1FA4:20 BA 1F       192 <a class='f' id='1FA4' name='PRRTN'    >PRRNT       </a>JSR <a class='x' href='#LDREGS'>LDREGS</a>
 1FA7:20 C5 1F       193             JSR <a class='x' href='#ORTN1'>ORTN1</a>
 1FAA:8D 5C 2A       194             STA <a class='v' href='#SVA'>SVA</a>         ;SAVE REGISTERS
 1FAD:8C 5B 2A       195             STY <a class='v' href='#SVY'>SVY</a>
 1FB0:8E 5A 2A       196             STX <a class='v' href='#SVX'>SVX</a>
                     197 ;
-                    198 <a class='f' name='ORTN'     >ORTN        </a>EQU *
+                    198 <a class='f' id='1FB3' name='ORTN'     >ORTN        </a>EQU *
 1FB3:20 51 28       199             JSR <a class='x' href='#MVCSW'>MVCSW</a>       ; GO MOVE CHAR I/O SWITCH
 1FB6:AE 59 2A       200             LDX <a class='v' href='#SVSTK'>SVSTK</a>       ;RESTORE ORIGINAL STACK POINTER (YEEECH!)   ; /sarcasm And yet you're still futzing with the Stack Pointer
 1FB9:9A             201             TXS
-                    202 <a class='f' name='LDREGS'   >LDREGS      </a>EQU *
+                    202 <a class='f' id='1FBA' name='LDREGS'   >LDREGS      </a>EQU *
 1FBA:AD 5C 2A       203             LDA <a class='v' href='#SVA'>SVA</a>         ; ACU                           ; Captain Obvious  SAVE_A
 1FBD:AC 5B 2A       204             LDY <a class='v' href='#SVY'>SVY</a>         ; Y                             ; is working       SAVE_Y
 1FC0:AE 5A 2A       205             LDX <a class='v' href='#SVX'>SVX</a>         ; X                             ; overtime today   SAVE_X
 1FC3:38             206             SEC             ;(FOR 'ESC' SCREEN FUNCTIONS)
 1FC4:60             207             RTS             ; BY PASS PRINT
                     208 ;
-1FC5:6C 36 00       209 <a class='f' name='ORTN1'    >ORTN1       </a>JMP (<a class='v' href='#OUTSW'>OUTSW</a>)
+1FC5:6C 36 00       209 <a class='f' id='1FC5' name='ORTN1'    >ORTN1       </a>JMP (<a class='v' href='#OUTSW'>OUTSW</a>)
                     210 ;
                     211 ; PRRIF - PRINT CR IF MON CMDS
                     212 ;
-                    213 <a class='f' name='PRCRIF'   >PRCRIF      </a>EQU *
+                    213 <a class='f' id='1FC8' name='PRCRIF'   >PRCRIF      </a>EQU *
 1FC8:A9 8D          214             LDA #$<span class='n'>8D</span>        ; ELSE PRINT CR                 ; <a class='magic' name='_1FC9'>magic number</a> KEY_CR
-1FCA:4C C5 1F       215             JMP ORTN1                                       ; <a class='mem' href='_1FCA' coords='1'>wastes</a> 1 byte; BNE ORTN1
+1FCA:4C C5 1F       215             JMP <a class='x' href='#ORTN1'>ORTN1</a>                                       ; <a class='mem' href='_1FCA' coords='1'>wastes</a> 1 byte; BNE ORTN1
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="CMDSCAN">CMDSCAN</a> - Scan for commands, Page <a class="page" page="page16">16</a>, <a class='ts' href='#T0SE'>T0SE</a> - <a class='ts' href='#T1S0'>T1S0</a>, $<span class='n'>9FCD</span> .. $<span class='n'>A192</span> ===<hr class='join'><hr></div>
@@ -2045,19 +2045,19 @@ With that "legalese" out of the way ... enjoy the read!
 20C2:B0 CE          154             BCS SERR1       ; THEN ERROR, ELSE
 20C4:90 0B          155             BCC SOPTS       ; GO SCAN OPTIONS
                     156 ;
-                    157 SN11        EQU *
+                    157 <a class='f' id='20C6' name='SN11'>SN11        </a>EQU *
 20C6:8A             158             TXA             ; IF NUM1=0
 20C7:D0 08          159             BNE SOPTS       ; THEN ERROR, ELSE GET OPTIONS
                     160 ;
-20C9:A9 02          161 SERR3       LDA #<span class='n'>2</span>          ;RANGE ERROR!                   ; <a class='magic' name='_20CA'>magic number</a>
+20C9:A9 02          161 <a class='f' id='20C9' name='SERR3'>SERR3       </a>LDA #<span class='n'>2</span>          ;RANGE ERROR!                   ; <a class='magic' name='_20CA'>magic number</a>
 20CB:4C D2 26       162             JMP ERROR
-20CE:4C C4 26       163 SERR2       JMP ESYNTX      ;DISK CMD SYNTAX ERROR
+20CE:4C C4 26       163 <a class='f' id='20CE' name='SERR2'>SERR2       </a>JMP ESYNTX      ;DISK CMD SYNTAX ERROR
                     164 ;
                     165 PAGE
                     166 ;
                     167 ; SOPTS - LOOK FOR SYNTAX OPTIONS
                     168 ;
-                    169 SOPTS       EQU *
+                    169 <a class='f' id='20D1' name='SOPTS'>SOPTS       </a>EQU *
 20D1:A9 00          170             LDA #<span class='n'>0</span>
 20D3:8D 65 2A       171             STA <a class='v' href='#INOPTS'>INOPTS</a>      ; CLEAR INPUT OPTIONS
 20D6:8D 74 2A       172             STA <a class='v' href='#IMBITS'>IMBITS</a>
@@ -2084,14 +2084,14 @@ With that "legalese" out of the way ... enjoy the read!
 2107:8E 5D 2A       193             STX LBUFD       ; RESTORE LBUFD AND
 210A:D0 DC          194             BNE SP1         ; GO DO PASS 2
                     195 ;
-210C:A2 0A          196 <a class='f' name='SP2'    >SP2         </a>LDX #OPT1L      ; COMPARE CHAR HAVE WITH
-210E:DD 40 29       197 <a class='f' name='SP3'    >SP3         </a>CMP OPTAB1-<span class='n'>1</span>,X  ; CHARS IN OPT TABLE
+210C:A2 0A          196 <a class='f' id='210C' name='SP2'    >SP2         </a>LDX #OPT1L      ; COMPARE CHAR HAVE WITH
+210E:DD 40 29       197 <a class='f' id='210E' name='SP3'    >SP3         </a>CMP OPTAB1-<span class='n'>1</span>,X  ; CHARS IN OPT TABLE
 2111:F0 F5          198             BEQ <a class='x' href='#SP4'>SP4</a>         ; IF FOUND CONTINUE,
 2113:CA             199             DEX             
 2114:D0 F8          200             BNE <a class='x' href='#SP3'>SP3</a>         ; IF NOT FOUND
-2116:F0 B6          201 <a class='f' name='SERR2A' >SERR2A      </a>BEQ <a class='x' href='#SERR2'>SERR2</a>       ; THEN SYNTAX ERROR
+2116:F0 B6          201 <a class='f' id='2116' name='SERR2A' >SERR2A      </a>BEQ <a class='x' href='#SERR2'>SERR2</a>       ; THEN SYNTAX ERROR
                     202 ;
-2118:BD 4A 29       203 <a class='f' name='SP4'    >SP4         </a>LDA <a class='v' href='#OPTAB2'>OPTAB2</a>-<span class='n'>1</span>,X  ; IF CORRESPONDING OP TAB 2 IS
+2118:BD 4A 29       203 <a class='f' id='2118' name='SP4'    >SP4         </a>LDA <a class='v' href='#OPTAB2'>OPTAB2</a>-<span class='n'>1</span>,X  ; IF CORRESPONDING OP TAB 2 IS
 211B:30 47          <a class='line' name='CMDSCAN.204'>204</a>             BMI SP8         ; MINUS THEN IT MONITOR BITS    ; C,I,O were all flagged with +$80, see <a class='v' href='#OPTAB2'>OPTAB2</a>
 211D:0D 65 2A       205             ORA INOPTS      
 2120:8D 65 2A       206             STA INOPTS      
@@ -2112,15 +2112,15 @@ With that "legalese" out of the way ... enjoy the read!
 2138:D9 55 29       221             CMP <a class='v' href='#OPTAB3'>OPTAB3</a>,Y    ; WITH LOW RANGE (LOW)          ; +0 = OptValMin[x].Lo ?
 213B:90 8C          222             BCC <a class='x' href='#SERR3' >SERR3</a>       ; BR IF RESULT &lt; LR
 213D:A5 45          223             LDA <a class='v' href='#CNUM'  >CNUM</a>+<span class='n'>1</span>                                      ; +1 = cnum.hi &lt;
-213F:D9 58 29       224 <a class='f' name='SP5'     >SP5         </a>CMP <a class='v' href='#OPTAB3'>OPTAB3</a>+<span class='n'>3</span>,Y                                  ; +3 = OptValMax[x].Hi ?
+213F:D9 58 29       224 <a class='f' id='213F' name='SP5'     >SP5         </a>CMP <a class='v' href='#OPTAB3'>OPTAB3</a>+<span class='n'>3</span>,Y                                  ; +3 = OptValMax[x].Hi ?
 2142:90 0B          225             BCC <a class='x' href='#SP6'   >SP6</a>         ; BR IF LESS
-2144:D0 83          226 <a class='f' name='SERR3A'  >SERR3A      </a>BNE <a class='x' href='#SERR3'>SERR3</a>       ; BR IF GREATER
+2144:D0 83          226 <a class='f' id='2144' name='SERR3A'  >SERR3A      </a>BNE <a class='x' href='#SERR3'>SERR3</a>       ; BR IF GREATER
 2146:A5 44          227             LDA <a class='v' href='#CNUM'  >CNUM</a>        
 2148:D9 57 29       228             CMP <a class='v' href='#OPTAB3'>OPTAB3</a>+<span class='n'>2</span>,Y                                  ; +2 = OptValMax[x].Lo
 214B:90 02          229             BCC <a class='x' href='#SP6'   >SP6</a>         ; BR IF LESS
 214D:D0 F5          230             BNE <a class='x' href='#SERR3A'>SERR3A</a>      ; BR IF GREATER
                     231 ;
-214F:AD 63 2A       232 <a class='f' name='SP6'    >SP6         </a>LDA <a class='v' href='#TEMP1A'>TEMP1A</a>      ; IF PASS 1, THEN
+214F:AD 63 2A       232 <a class='f' id='214F' name='SP6'    >SP6         </a>LDA <a class='v' href='#TEMP1A'>TEMP1A</a>      ; IF PASS 1, THEN
 2152:D0 94          233             BNE <a class='x' href='#SP1'   >SP1</a>         ; DONT STORE RESULT
 2154:98             234             TYA             
 2155:4A             235             LSR A           
@@ -2145,13 +2145,13 @@ With that "legalese" out of the way ... enjoy the read!
                     254 ;
 2178:F0 9C          255             BEQ <a class='x' href='#SERR2A'>SERR2A</a>      ;BRANCH ALWAYS
                     256 ;
-217A:20 80 21       257 <a class="f" name="CMDGO"  >CMDGO       </a>JSR <a class="x" href="#CMDGO1">CMDGO1</a>      ; CMDGO - EXECUTE COMMAND
+217A:20 80 21       257 <a class="f" id='217A' name="CMDGO"  >CMDGO       </a>JSR <a class="x" href="#CMDGO1">CMDGO1</a>      ; CMDGO - EXECUTE COMMAND
 217D:4C 83 1F       258             JMP <a class="x" href="#CERTN">CERTN</a>
                     259 ;
-                    260 <a class="f" name="CMDGO1">CMDGO1      </a>EQU *
+                    260 <a class="f" id='2180' name="CMDGO1">CMDGO1      </a>EQU *
 2180:20 5B 27       261             JSR <a class="x" href="#CLRSTS">CLRSTS</a>                                      ; Clear States
 2183:20 AE 21       262             JSR <a class="x" href="#CLRCCB">CLRCCB</a>      ; GO CLEAR CCB                  ; /sarcasm I never would have guessed
-                    263 <a class="f" name="ECMD"   >ECMD        </a>EQU *
+                    263 <a class="f" id='2186' name="ECMD"   >ECMD        </a>EQU *
 2186:AD 5F 2A       <a class='line' name='CMDSCAN.264'>264</a>             LDA <a class="v" href="#CMDNO">CMDNO</a>       ; COMMAND NO                    ; <i>Think, McFly!</i>
 2189:AA             265             TAX             ; IS CMD EXEC TAB INDEX         ; <a class='mem' name='_2189' coords='1'>wastes</a> 1 byte /sarcasm If only we had <span class='code'>LDX CMDNO</span> on Line #<a class='line' href='#CMDSCAN.264'>264</a>
 218A:BD 1F 1D       266             LDA <a class='v' href='#CMDETB'>CMDETB</a>+<span class='n'>1</span>,X  ; GET CMD ADR                   ;[..
@@ -2167,7 +2167,7 @@ With that "legalese" out of the way ... enjoy the read!
                     002 ;                                                           ; Setup: LineLength (current char offset in Line Buffer to process)
                     003 ; GNXTC - GET NEXT CHAR                                     ; In   : n/a
                     004 ;                                                           ; Out  : A=char in LineBuffer, (X=LineLength if CR else X=LineLength+1)
-                    005 <a class='f' name='GNXTC'    >GNXTC       </a>EQU *                                           ;        Z=1 if CR or COMMA, else Z=0
+                    005 <a class='f' id='2193' name='GNXTC'    >GNXTC       </a>EQU *                                           ;        Z=1 if CR or COMMA, else Z=0
 2193:AE 5D 2A       006             LDX <a class="v" href="#LBUFD">LBUFD</a>
 2196:BD 00 02       007             LDA LFUFF,X     ; GET NEXT CHAR AND IF          ; char c = LineBuffer[ LineLength ];
 2199:C9 8D          008             CMP #$<span class='n'>8D</span>        ; IS IT A CR                    ; gEqual = (c == '\r');
@@ -2175,11 +2175,11 @@ With that "legalese" out of the way ... enjoy the read!
 219D:E8             010             INX             ; INCR TO NEXT CHAR             ;     return c;
 219E:8E 5D 2A       011             STX LBUFD                                       ; LineLength++;
 21A1:C9 AC          012             CMP #','+$<span class='n'>80</span>    ; TEST FOR COMMA                ; gEqual = (c == ',');
-21A3:60             013 <a class='f' name='GNXTCR'   >GNXTCR      </a>RTS                                             ; return c;
+21A3:60             013 <a class='f' id='21A3' name='GNXTCR'   >GNXTCR      </a>RTS                                             ; return c;
                     014 ;
                     015 ; GNBC - GET NON BLANK CHAR
                     016 ;
-                    017 <a class='f' name='GNBC'     >GNBC        </a>EQU *                                           ; char c;
+                    017 <a class='f' id='21A4' name='GNBC'     >GNBC        </a>EQU *                                           ; char c;
 21A4:20 93 21       018             JSR GNXTC       ; GO GET NEXT CHAR              ; do {
 21A7:F0 FA          019             BEQ GNXTCR      ; BR IF COMMA OR CR             ;     c = GetNextChar();
 21A9:C9 A0          020             CMP #$<span class='n'>A0</span>        ; IS IT BLANK                   ;     if (gEqual) break;
@@ -2188,10 +2188,10 @@ With that "legalese" out of the way ... enjoy the read!
                     023 ;
                     024 ; CLRCCB - CLEAR CCB
                     025 ;
-                    026 <a class='f' name='CLRCCB'   >CLRCCB      </a>EQU *
+                    026 <a class='f' id='21AE' name='CLRCCB'   >CLRCCB      </a>EQU *
 21AE:A9 00          027             LDA #<span class='n'>0</span>
 21B0:A0 16          028             LDY #CCBLEN     ; CCBLENGTH
-21B2:99 BA 35       029 <a class='f' name='CLC1'     >CLC1        </a>STA CCB-<span class='n'>1</span>,Y     ; CLEAR BYTE
+21B2:99 BA 35       029 <a class='f' id='21B2' name='CLC1'     >CLC1        </a>STA CCB-<span class='n'>1</span>,Y     ; CLEAR BYTE
 21B5:88             030             DEY
 21B6:D0 FA          031             BNE CLC1
 21B8:60             032             RTS
@@ -2199,7 +2199,7 @@ With that "legalese" out of the way ... enjoy the read!
                     034 ;
                     035 ; GETNUM - CONVERT ASCII INPUT TO NUMERIC
                     036 ;
-                    037 <a class='f' name='GETNUM'   >GETNUM      </a>EQU *                                           ; cnum = atoi();
+                    037 <a class='f' id='21B9' name='GETNUM'   >GETNUM      </a>EQU *                                           ; cnum = atoi();
 21B9:A9 00          038             LDA #<span class='n'>0</span>          ; CLEAR WORK AREA
 21BB:85 44          039             STA CNUM
 21BD:85 45          040             STA CNUM+<span class='n'>1</span>
@@ -2210,15 +2210,15 @@ With that "legalese" out of the way ... enjoy the read!
 21C7:28             045             PLP
 21C8:4C CE 21       046             JMP GN2A                                        ; <a class='mem' name='_21CA' coords='1'>wastes</a> 1 byte, <span class='code'>BMI GN2A</span>
                     047 ;
-21CB:20 A4 21       048 <a class='f' name='GN2'      >GN2         </a>JSR GNBC        ; GET NEXT NON BLANK
-                    049 <a class='f' name='GN2A'     >GN2A        </a>EQU *
+21CB:20 A4 21       048 <a class='f' id='21CB' name='GN2'      >GN2         </a>JSR GNBC        ; GET NEXT NON BLANK
+                    049 <a class='f' id='21CE' name='GN2A'     >GN2A        </a>EQU *
 21CE:D0 06          050             BNE <a class='x' href='#GN3'>GN3</a>         ; BR NOT COMMA OR CR
 21D0:A6 44          051             LDX CNUM        ; X=RESULT LOW
 21D2:A5 45          052             LDA CNUM+<span class='n'>1</span>      ; Y=RESULT HI                   ; *sigh* *<span class='spell'>spelling<span class='spell'>* A=Result Hi as Y isn't even used!
 21D4:18             053             CLC<hr class='page'>
 21D5:60             054             RTS             ; DONE                          ; === Page <a class='page' name='page151'>151</a> === o7 Captain Obvious
                     055 ;
-21D6:38             056 <a class='f' name='GN3'      >GN3         </a>SEC                                             ; GetDigit
+21D6:38             056 <a class='f' id='21D6' name='GN3'      >GN3         </a>SEC                                             ; GetDigit
 21D7:E9 B0          057             SBC #$B0        ; SUBTRACT ASCII 0              ; <i>You keep using this word <b>ASCII</b>, it doesn't mean what you think it means.</i>, #'0'+$80
 21D9:30 21          058             BMI GN4         ; BR IF NOT SUM
 21DB:C9 0A          059             CMP #<span class='n'>10</span>
@@ -2239,18 +2239,18 @@ With that "legalese" out of the way ... enjoy the read!
 21F8:85 45          074             STA CNUM+<span class='n'>1</span>
 21FA:90 CF          075             BCC GN2
                     076 ;
-                    077 <a class='f' name='GN4'      >GN4         </a>EQU *
+                    077 <a class='f' id='21FC' name='GN4'      >GN4         </a>EQU *
 21FC:38             078             SEC
 21FD:60             079             RTS             ; DONE
-                    080 <a class='f' name='GN5'      >GN5         </a>EQU *
+                    080 <a class='f' id='21FE' name='GN5'      >GN5         </a>EQU *
 21FE:06 44          081             ASL CNUM        ; CNUM * 2
 2200:26 45          082             ROL CNUM+<span class='n'>1</span>                                      ; === <a class='ts' name='T1S1'>T1S1</a> ===
 2202:60             083             RTS
                     084             PAGE
                     085 ;
-                    086 <a class='f' name='HEXNUM'   >HEXNUM      </a>EQU *
+                    086 <a class='f' id='2203' name='HEXNUM'   >HEXNUM      </a>EQU *
 2203:28             087             PLP
-                    088 <a class='f' name='HN0'      >HN0         </a>EQU *
+                    088 <a class='f' id='2204' name='HN0'      >HN0         </a>EQU *
 2204:20 A4 21       089             JSR GNBC        ; GO GET CHAR
 2207:F0 C5          090             BEQ GN2A        ; BR IF CR OR COMMA
                     091 ;
@@ -2263,8 +2263,8 @@ With that "legalese" out of the way ... enjoy the read!
 2214:30 E6          098             BMI GN4         ; BR IF LT A
 2216:C9 10          099             CMP #<span class='n'>16</span>         ; TEST GT 15
 2218:B0 E2          100             BCS GN4         ; BR GT 15                      ; A = digit = 0..F
-221A:A2 04          101 <a class='f' name='HN1'      >HN1         </a>LDX #<span class='n'>4</span>                                          ; CNUM &lt;&lt;= 4; // shift left one nibble
-221C:20 FE 21       102 <a class='f' name='HN2'      >HN2         </a>JSR GN5         ; OLD*16
+221A:A2 04          101 <a class='f' id='221A' name='HN1'      >HN1         </a>LDX #<span class='n'>4</span>                                          ; CNUM &lt;&lt;= 4; // shift left one nibble
+221C:20 FE 21       102 <a class='f' id='221C' name='HN2'      >HN2         </a>JSR GN5         ; OLD*16
 221F:CA             103             DEX             ;LOOP 4 TIMES ONLY
 2220:D0 FA          104             BNE HN2
 2222:05 44          105             ORA CNUM        ; OR IN NEW                     ; CNUM += digit
@@ -2274,13 +2274,13 @@ With that "legalese" out of the way ... enjoy the read!
                     109 ;
                     110 ;  EPR - EXECUTE PR#
                     111 ;
-                    112 <a class='f' name='EPR'      >EPR         </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [13]
+                    112 <a class='f' id='2229' name='EPR'      >EPR         </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [13]
 2229:A5 44          113             LDA CNUM        ; GET PORT                      ; Get *slot* #, not port
 222B:4C 95 FE       114             JMP OUTPRT      ; GO DO IT
                     115 ;
                     116 ; EIN - EXECUTE IN#<hr class='page'>
                     117 ;                                                           ; === <a class='page' name='page152'>152</a> ===
-                    118 <a class='f' name='EIN'      >EIN         </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [14]
+                    118 <a class='f' id='222E' name='EIN'      >EIN         </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [14]
 
 222E:A5 44          119             LDA CNUM        ; GET PORT
 2230:4C 8B FE       120             JMP INPRT       ; GO DO IT
@@ -2301,7 +2301,7 @@ With that "legalese" out of the way ... enjoy the read!
 223D:2C 74 2A       133             BIT <a  class='v' href='#IMBITS'>IMBITS</a>
 2240:50 03          134             BVC <a  class='x' href='#ENM1'  >ENM1</a>
 2242:20 C8 1F       135             JSR <a  class='x' href='#PRCRIF'>PRCRIF</a>
-                    136 <a class='f' name='ENM1'     >ENM1        </a>EQU *
+                    136 <a class='f' id='2245' name='ENM1'     >ENM1        </a>EQU *
 2245:A9 70          137             LDA #$<span class='n'>70</span>                                        ; <a class='magic' name='_2246'>magic number</a>
 2247:4D 74 2A       138             EOR <a  class='v' href='#IMBITS'>IMBITS</a>      ; INVERT INPUT BITS
 224A:2D 5E 2A       139             AND <a  class='v' href='#MONMOD'>MONMOD</a>      ; AND WITH CURRENT
@@ -2340,7 +2340,7 @@ With that "legalese" out of the way ... enjoy the read!
                     172 ;
                     173 ; EUNLK - UNLOCK A FILE
                     174 ;
-                    175 <a class='f' name='EUNLK'    >EUNLK       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [7]
+                    175 <a class='f' id='2275' name='EUNLK'    >EUNLK       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [7]
 2275:A9 08          176             LDA #CRQUNL     ; SET UNLOCK
                     177 ELGO        EQU *                                           ; Holy shit! Common Code for ELOCK, EUnlock, EVerify but not to rain on our parade ...
 2277:20 AA 22       178             JSR OPEN        ; OPEN FILE &amp; UNLOCK            ; ... <a class='dumb' name='CommonCodeELGO'>Common Code</a> Why is <a class='x' href='#ELGO'>ELGO</a> and <a class='x' href='#LCKGO'>LCKGO</a> different???
@@ -2369,7 +2369,7 @@ With that "legalese" out of the way ... enjoy the read!
                     201 ;
                     202 <a class='f' id='2298' name='EAPND'    >EAPND       </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [E]
 2298:20 A3 22       203             JSR <a class='x' href='#EOPEN'>EOPEN</a>       ; GO OPEN
-                    204 <a class='f' name='AP1'      >AP1         </a>EQU *
+                    204 <a class='f' id='229B' name='AP1'      >AP1         </a>EQU *
 229B:20 8C 26       205             JSR <a class='x' href='#RBYTE'>RBYTE</a>       ; READ A BYTE
 229E:D0 FB          206             BNE <a class='x' href='#AP1'>AP1</a>         ; BR IF NOT ZERO
                     207 ;                                                           ; <b>Test Time!</b> Without looking at the code, give a summary of why 
@@ -2485,15 +2485,15 @@ With that "legalese" out of the way ... enjoy the read!
                     023 ;
                     024 ; EBLD - EXECUTE BINARY LOAD
                     025 ;
-                    026 <a class='f' name='EBLD'     >EBLD        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [19] "BLOAD"
+                    026 <a class='f' id='235D' name='EBLD'     >EBLD        </a>EQU *                                           ; <a class='v' href='#CMDETB'>CMDETB</a> [19] "BLOAD"
 235D:20 A8 22       027             JSR EOPN1       ;(CHANGED 11/1/78 FOR TYPE MISMATCH)
-                    028 <a class='f' name='EBLD2'    >EBLD2       </a>EQU *                                           ; *sigh* If only the local labels were in alphabetical order ...
+                    028 <a class='f' id='2360' name='EBLD2'    >EBLD2       </a>EQU *                                           ; *sigh* If only the local labels were in alphabetical order ...
 2360:A9 7F          029             LDA #$<span class='n'>7F</span>                                        ; <a class='magic' name='_2361'>magic number</a> ~FILE_LOCK
 2362:2D C2 35       030             AND CCBFUC
 2365:C9 04          031             CMP #<span class='n'>4</span>                                          ; <a class='magic' name='_2366'>magic number</a> FILE_TYPE_BINARY
 2367:F0 03          032             BEQ EBLD3
 2369:4C D0 26       033             JMP ETYP        ;TYPE MISMATCH ERROR MESSAGE
-                    034 <a class='f' name='EBLD3'    >EBLD3       </a>EQU *
+                    034 <a class='f' id='236C' name='EBLD3'    >EBLD3       </a>EQU *
 236C:A9 04          035             LDA #4          ; SET BINARY FILE               ; <a class='magic' name='_236D'>magic number</a> /sarcasm if only we had <span class='code'>FILE_TYPE_BINARY EQU 4</span>
 236E:20 D5 23       036             JSR SV1         ; GO OPEN &amp; TEST
 2371:20 7A 24       037             JSR LD2         ; GO GET ADR
@@ -2503,7 +2503,7 @@ With that "legalese" out of the way ... enjoy the read!
 237A:D0 06          041             BNE EBLD1                                       ; &darr;
 237C:8E 72 2A       042             STX CA          ; THEN USE ADR FROM FILE
 237F:8C 73 2A       043             STY CA+1
-                    044 <a class='f' name='EBLD1'    >EBLD1       </a>EQU *
+                    044 <a class='f' id='2382' name='EBLD1'    >EBLD1       </a>EQU *
 2382:20 7A 24       045             JSR LD2         ; GET LENGTH
 2385:AE 72 2A       046             LDX CA          ; GET GIVEN ADR
 2388:AC 73 2A       047             LDY CA+1
@@ -2511,7 +2511,7 @@ With that "legalese" out of the way ... enjoy the read!
                     049 ;
                     050 ; EBRUN - EXECUTE BINARY RUN
                     051 ;
-238E:20 5D 23       052 <a class='f' name='EBRUN'    >EBRUN       </a>JSR EBLD                                        ; <a class='v' href='#CMDETB'>CMDETB</a> [1A] "BRUN"
+238E:20 5D 23       052 <a class='f' id='238E' name='EBRUN'    >EBRUN       </a>JSR EBLD                                        ; <a class='v' href='#CMDETB'>CMDETB</a> [1A] "BRUN"
 2391:20 51 28       053             JSR MVCSW       ; GO RESTORE CHAR I/O SW<hr class='page'>
 2394:6C 72 2A       054             JMP (CA)        ; GO EXEC THE STUFF             ; === Page <a class="page" name="page141">141</a> ===
                                                                                     ; <a class='dumb'>How Not To Design an OS</a>
@@ -2529,13 +2529,13 @@ With that "legalese" out of the way ... enjoy the read!
                     056 ;
                     057 ; ESAVE - EXECUTE SAVE REQUEST
                     058 ;
-                    059 <a class='f' name='ESAVE'    >ESAVE       </a>EQU *
+                    059 <a class='f' id='2397' name='ESAVE'    >ESAVE       </a>EQU *
 2397:AD B6 2A       060             LDA ASIBSW      ; IF IB THEN
 239A:F0 20          061             BEQ EIBSV       ; GO TO IB SAVE
 239C:A5 D6          062             LDA ASRNX       ; CAN NOT DO AS SAVE WHEN RUN-ONLY PROG.
 239E:10 03          063             BPL EASAV       ; BRANCH IF OK TO SAVE, OTHERWISE
 23A0:4C CC 26       064             JMP MFERR       ; PRINT "PROGRAM TOO LARGE", THAT OUGHT TO GET 'EM.
-23A3:A9 02          065 <a class='f' name='EASAV'    >EASAV       </a>LDA #<span class='n'>2</span>          ; GET APPLESOFT PGM             ; <a class='magic' name='_23A4'>magic number</a> <span class='code'>FILE_TYPE_APPLESOFT EQU 2</span>
+23A3:A9 02          065 <a class='f' id='23A3' name='EASAV'    >EASAV       </a>LDA #<span class='n'>2</span>          ; GET APPLESOFT PGM             ; <a class='magic' name='_23A4'>magic number</a> <span class='code'>FILE_TYPE_APPLESOFT EQU 2</span>
 23A5:20 D5 23       066             JSR SV1         ; GO OPEN AND TEST
                     067 ;
 23A8:38             068             SEC             ; BLOCK LENGTH
@@ -2550,7 +2550,7 @@ With that "legalese" out of the way ... enjoy the read!
 23B7:A4 67          077             LDY ASSOP       ; =SOP
 23B9:4C FF 23       078             JMP SV3         ; GO OUTPUT BLOCK
                     079 ;
-                    080 <a class='f' name='EIBSV'    >EIBSV       </a>EQU *
+                    080 <a class='f' id='23BC' name='EIBSV'    >EIBSV       </a>EQU *
 23BC:A9 01          081             LDA #<span class='n'>1</span>          ; SET IB PGM                    ; PGM = Program, <a class='magic' name='_23BD'>magic number</a> <span class='code'>FILE_TYPE_INTEGER_BASIC EQU 1</span>
 23BE:20 D5 23       082             JSR SV1         ; GO OPEN AND TEST
                     083 ;
@@ -2566,15 +2566,15 @@ With that "legalese" out of the way ... enjoy the read!
 23D0:A4 CA          093             LDY IBSOP       ; =SOP
 23D2:4C FF 23       094             JMP SV3         ; GO OUTPUT BLOCK
                     095 ;
-                    096 <a class='f' name='SV1'      >SV1         </a>EQU *
-                    097 <a class='f' name='SV1A'     >SV1A        </a>EQU *
+                    096 <a class='f' id='23D5' name='SV1'      >SV1         </a>EQU *
+                    097 <a class='f'           name='SV1A'     >SV1A        </a>EQU *                                           ;  Label not used
 23D5:8D C2 35       098             STA CCBFUC      ; SET PGM TYPE
 23D8:48             099             PHA             ; SAVE PGM TYPE
 23D9:20 A8 22       100             JSR EOPN1       ; GO OPEN FILE  (CHGED 11/1/78)
 23DC:68             101             PLA             ; GET SAVE TYPE
 23DD:4C C4 27       102             JMP TSTFUC      ; GO CHECK
                     103 ;
-                    104 <a class='f' name='SV2'      >SV2         </a>EQU *
+                    104 <a class='f' id='23E0' name='SV2'      >SV2         </a>EQU *
 23E0:8C C1 35       105             STY CCBBLN      ; SET BLOCK LENGTH              ; === <a class='dumb' name='HNTDAFS5'>HNTDAFS #5</a> ===
 23E3:8C C3 35       106             STY CCBDAT      ; AND DATA BYTE                 ; You <b>never</b> store file meta-data
 23E6:8D C2 35       107             STA CCBBLN+<span class='n'>1</span>                                    ;    File Length
@@ -2594,7 +2594,7 @@ With that "legalese" out of the way ... enjoy the read!
 240A:20 A8 26       121 <a class='f' id='240A' name='GODOS'    >GODOS       </a>JSR DOSGO       ; GO DO IT
 240D:4C EA 22       122             JMP ECLOSE      ; CLOSE FILE
                     123             PAGE
-2410:4C D0 26       124 <a class='f' name='NBPER'    >NBPER       </a>NBPER       JMP ERNU1                           ; Not Basic Program Error called from ELD1
+2410:4C D0 26       124 <a class='f' id='2410' name='NBPER'    >NBPER       </a>NBPER       JMP ERNU1                           ; Not Basic Program Error called from ELD1
                     125 ;
                     126 ; ELOAD - EXECUTE LOAD REQUEST
                     127 ;
@@ -3168,11 +3168,11 @@ With that "legalese" out of the way ... enjoy the read!
                     163 ; TSINIT - INITIALIZE FOR FTAB SEARCH
                     164 ; TSNXT - GET NEXT FTAB ENTRY
                     165 ;
-                    166 <a class='f' name='TSINIT'   >TSINIT      </a>EQU *
+                    166 <a class='f' id='2792' name='TSINIT'   >TSINIT      </a>EQU *
 2792:AD 00 1D       167             LDA FTAB        ; GET 1ST PTR ADR
 2795:AE 01 1D       168             LDX FTAB+1
 2798:D0 0A          169             BNE TSST
-                    170 <a class='f' name='TSNXT'    >TSNXT       </a>EQU *
+                    170 <a class='f' id='279A' name='TSNXT'    >TSNXT       </a>EQU *
 279A:A0 25          171             LDY #37         ; GET LINK                      ; <a class='magic' name='_279B'>magic number</a> HEADER.LINK+1 (See <a class='file' href='#BLDFTB'>BLDFTB</a>)
 279C:B1 40          172             LDA (ZPGWRK),Y
 279E:F0 09          173             BEQ TSR         ; BR IF NO LINK
@@ -3180,22 +3180,22 @@ With that "legalese" out of the way ... enjoy the read!
 27A0:AA             175             TAX
 27A1:88             176             DEY                                             ; HEADER.LINK+0<hr class='page'>
 27A2:B1 40          177             LDA (ZPGWRK),Y                                  ; === Page <a class='page' name='page43'>43</a> ===
-                    178 TSST        EQU *
+                    178 <a class='f' id='27A4' name='TSST'>TSST        </a>EQU *
 27A4:86 41          179             STX ZPGWRK+1
 27A6:85 40          180             STA ZPGWRK
 27A8:8A             181             TXA             ; SET NE CC
-27A9:60             182 TSR         RTS             ; RTN
+27A9:60             182 <a class='f' id='27A9' name='TSR'>TSR         </a>RTS             ; RTN
                     183 ;
                     184 ; TSTOPN - TST FOR OPEN FILE                                ; TST? Really?? You have to abbreviate the <i>description</i> too ?!
                     185 ;
-                    186 <a class='f' name='TSTOPN'   >TSTOPN      </a>EQU *
+                    186 <a class='f' id='27AA' name='TSTOPN'   >TSTOPN      </a>EQU *
 27AA:A0 00          187             LDY #0          ; GET 1ST CHAR OF FN
 27AC:B1 40          188             LDA (ZPGWRK),Y
 27AE:60             189             RTS
                     190 ;
                     191 ; TSTEXC - TEST CURRENT FILE FOR EXECUTE
                     192 ;
-                    193 <a class='f' name='TSTEXC'   >TSTEXC      </a>EQU *
+                    193 <a class='f' id='27AF' name='TSTEXC'   >TSTEXC      </a>EQU *
 27AF:AD B3 2A       194             LDA ESTATE      ; IF ESTATE = 0
 27B2:F0 0E          195             BEQ TXC1        ; THEN NO EXECUTE FILE
 27B4:AD B4 2A       196             LDA EFTABA      ; TEST CURRENT
@@ -3204,20 +3204,20 @@ With that "legalese" out of the way ... enjoy the read!
 27BB:AD B5 2A       199             LDA EFTABA+1
 27BE:C5 41          200             CMP ZPGWRK+1
 27C0:F0 01          201             BEQ TXC2        ; IS
-27C2:CA             202 TXC1        DEX             ; IS NOT
-27C3:60             203 TXC2        RTS             ; DONE                          ; /sarcasm Thanks, Caption Obvious
+27C2:CA             202 <a class='f' id='27C2'>TXC1        </a>DEX             ; IS NOT
+27C3:60             203 <a class='f' id='27C3'>TXC2        </a>RTS             ; DONE                          ; /sarcasm Thanks, Caption Obvious
                     204             PAGE
                     205 ;
                     206 ; TSTFUC - TEST FILE USE CODE FOR PGM
                     207 ;
-                    208 <a class='f' name='TSTFUC'   >TSTFUC      </a>EQU *
+                    208 <a class='f' id='27C4' name='TSTFUC'   >TSTFUC      </a>EQU *
 27C4:4D C2 35       209             EOR CCBFUC
 27C7:F0 0A          <a class='line' name='DOSGOER.210'>210</a>             BEQ TFUCR                                       ; Forces TFUCR to waste 1 byte, should be <span class='code'>BEQ TXC2</span>
 27C9:29 7F          211             AND #$<span class='n'>7F</span>                                        ; <a class='magic' name='_'>magic number</a>
 27CB:F0 06          <a class='line' name='DOSGOER.212'>212</a>             BEQ TFUCR                                       ; Forces TFUCR to waste 1 byte, should be <span class='code'>BEQ TXC2</span>
 27CD:20 EA 22       213             JSR ECLOSE      ; GO CLOSE THE SOB
 27D0:4C D0 26       214             JMP ERNU1
-27D3:60             215 TFUCR       RTS                                             ; <a class='mem' name='_27D3' coords'1'>wastes</a> 1 byte due to Lines #<a class='line' href='#DOSGOER.210'>210</a> and #<a class='line' href='#DOSGOER.212'>212</a>
+27D3:60             215 <a class='f' id='27D3' name='TFUCR'>TFUCR       </a>RTS                                             ; <a class='mem' name='_27D3' coords'1'>wastes</a> 1 byte due to Lines #<a class='line' href='#DOSGOER.210'>210</a> and #<a class='line' href='#DOSGOER.212'>212</a>
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="BLDFTAB">BLDFTAB</a> - Build File Tables, Page <a class="page" name="page4">4</a>, <a class='ts' href='#T1S6'>T1S6</a> @ $D4 - <a class='ts' href='#T1S7'>T1S7</a> @ $83, $<span class='n'>A7D4</span> .. $<span class='n'>A883</span> ===<hr class='join'><hr></div>
@@ -3246,7 +3246,7 @@ With that "legalese" out of the way ... enjoy the read!
                     022 ;   SBUF PTR (2)
                     023 ;   LINK     (2)
                     024 ;
-                    025 <a class='f' name='BLDFTB'     >BLDFTB      </a>EQU *
+                    025 <a class='f' id='27D4' name='BLDFTB'     >BLDFTB      </a>EQU *
 27D4:38             026             SEC
 27D5:AD 00 1D       027             LDA <a class='v' href='#FTAB'  >FTAB</a>        ; START OF FTAB AREA            ;
 27D8:85 40          028             STA <a class='v' href='#ZPGWRK'>ZPGWRK</a>      ; IS 1ST FTB PTR                ; $1D00: ptr $1CD3
@@ -3255,7 +3255,7 @@ With that "legalese" out of the way ... enjoy the read!
 27DF:AD 57 2A       031             LDA <a class='v' href='#CNFTBS'>CNFTBS</a>      ; MOVE NO FTABS                 ; <a class="v" href="#DFNFTS">DFNFTS</a> default 3 buffers, <a class="x" href="#INITD">INITD</a>
 27E2:8D 63 2A       032             STA <a class='v' href='#TEMP1A'>TEMP1A</a>      ; TO TEMP                       ; fdosent, 60
                     033 ;
-27E5:A0 00          034 <a class='f' name='BFT1'       >BFT1        </a>LDY #<span class='n'>0</span>                                          ; [.. <a class='mem' name='_27E5' coords='2'>wastes</a> 2 bytes, should <span class='code'>JSR <a class='link code' href='#ZEROFILE'>ZEROFILE</a></span>
+27E5:A0 00          034 <a class='f' id='27E5' name='BFT1'       >BFT1        </a>LDY #<span class='n'>0</span>                                          ; [.. <a class='mem' name='_27E5' coords='2'>wastes</a> 2 bytes, should <span class='code'>JSR <a class='link code' href='#ZEROFILE'>ZEROFILE</a></span>
 27E7:98             035             TYA                                             ; ...
 27E8:91 40          <a class='line' name='BLDFTAB.036'>036</a>             STA (ZPGWRK),Y  ; 1ST CHAR FN=0                 ; ..] Init [00] $9CD3: 00
 27EA:A0 1E          037             LDY #<span class='n'>30</span>         ; INC Y TO FCB PTR              ; [[FTAB] + offset $1E] = $1CF1 <a class='magic' name='_27EB'>magic number</a> MAX_FILENAME_LEN
@@ -3305,7 +3305,7 @@ With that "legalese" out of the way ... enjoy the read!
 2828:85 40          081             STA ZPGWRK      ; BUILD
 282A:4C E5 27       082             JMP <a class="x" href="#BFT1">BFT1</a>                                        ; ^ BFT1 @ $<b class='n'>A7E4</b> <a class='mem' name='_282A' coords='1'>wastes</a> 1 byte, A = addr lo: $80
                     083 ;
-                    084 <a class="f" name="BFT2"      id="BFT2"       >BFT2        </a>EQU *
+                    084 <a class="f" id='282D' name="BFT2">BFT2        </a>EQU *
 282D:48             085             PHA
 282E:A9 00          086             LDA #<span class='n'>0</span>          ; SET LAST LINK
 2830:C8             087             INY             ; TO ZERO
@@ -3324,7 +3324,7 @@ With that "legalese" out of the way ... enjoy the read!
 2843:85 6F          100             STA ASHM2
 2845:60             101             RTS
                     102 ;
-                    103 <a class="f" name="BFTIB"   >BFTIB       </a>EQU *
+                    103 <a class="f" id='2846' name="BFTIB"   >BFTIB       </a>EQU *
 2846:68             104             PLA             ; SET IB
 2847:85 4D          105             STA IBHMEM+<span class='n'>1</span>    ; UPPER MEM LIMITS
 2849:85 CB          106             STA IBSOP+<span class='n'>1</span>
@@ -3336,7 +3336,7 @@ With that "legalese" out of the way ... enjoy the read!
                     112 ;
                     113 ; MVISW - MOVE INPUT SWITCH
                     114 ;
-                    115 <a class="f" name="MVCSW"  >MVCSW       </a>EQU *
+                    115 <a class="f" id='2851' name="MVCSW"  >MVCSW       </a>EQU *
 2851:A5 39          116             LDA INSW+<span class='n'>1</span><hr class='page'>
 2853:CD 03 1D       117             CMP CINA+<span class='n'>1</span>                                      ; === Page <a class="page" name="page6">6</a> ===
 2856:F0 12          118             BEQ <a class="x" href="#MVOSW">MVOSW</a>
@@ -3352,7 +3352,7 @@ With that "legalese" out of the way ... enjoy the read!
                     128 ;
                     129 ; MVOSW - MOVE OUTPUT SWITCH
                     130 ;
-                    131 <a class="f" name="MVOSW"  >MVOSW       </a>EQU *
+                    131 <a class="f" id='286A' name="MVOSW"  >MVOSW       </a>EQU *
 286A:A5 37          132             LDA OUTSW+<span class='n'>1</span>
 286C:CD 05 1D       133             CMP COUTA+<span class='n'>1</span>
 286F:F0 12          134             BEQ <a class="x" href="#MSVRTN">MVSRTN</a>
@@ -6133,7 +6133,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     020 *          WOZ            *
                     021 *                         *
                     022 ***************************
-                    023 <a class='d' name='ASC1'     >ASC1        </a>EQU *           ;TELL RELOCATOR WHERE CORE STARTS
+                    023 <a class='d' id='3800' name='ASC1'     >ASC1        </a>EQU *           ;TELL RELOCATOR WHERE CORE STARTS
                     024             PAGE
                     025 ***************************
                     026 *                         *
@@ -6191,7 +6191,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     078 *    (16-SECTOR FORMAT)   *
                     079 *                         *
                     080 ***************************
-                    081 <a class='d' name='BUF'      >BUF         </a>EQU $3E         TWO BYTE POINTER.
+                    081 <a class='d' id='003E' name='BUF'      >BUF         </a>EQU $3E         TWO BYTE POINTER.
                     082 *
                     083 * POINTS TO 256-BYTE
                     084 * USER BUFFER ANYWHERE
@@ -6205,16 +6205,16 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     092 * 00ABCDEF BACK TO USER
                     093 * DATA IN BUF AFTER 'READ'.
                     094 *
-                    095 <a class='d' name='T0'       >T0          </a>EQU $26         TEMP FOR POSTNBL16
+                    095 <a class='d' id='0026' name='T0'       >T0          </a>EQU $26         TEMP FOR POSTNBL16
                     096 ************************
                     097 *                      *
                     098 *    ----RDADR16----   *
                     099 *                      *
                     100 ************************
-                    101 <a class='d' name='COUNT'    >COUNT       </a>EQU $<span class='n'>26</span>         'MUST FIND' COUNT.
-                    102 <a class='d' name='LAST'     >LAST        </a>EQU $<span class='n'>26</span>         'ODD BIT' NIBLS.
-                    103 <a class='d' name='CSUM'     >CSUM        </a>EQU $<span class='n'>27</span>         CHECKSUM BYTE.
-                    104 <a class='d' name='CSSTV'    >CSSTV       </a>EQU $<span class='n'>2C</span>         FOUR BYTES,                     ; Read forward, stored in <i>backwards order</i> due to <a class="x" href="#RDA5">RDA5</a>
+                    101 <a class='d' id='0026' name='COUNT'    >COUNT       </a>EQU $<span class='n'>26</span>         'MUST FIND' COUNT.
+                    102 <a class='d' id='0026' name='LAST'     >LAST        </a>EQU $<span class='n'>26</span>         'ODD BIT' NIBLS.
+                    103 <a class='d' id='0027' name='CSUM'     >CSUM        </a>EQU $<span class='n'>27</span>         CHECKSUM BYTE.
+                    104 <a class='d' id='002C' name='CSSTV'    >CSSTV       </a>EQU $<span class='n'>2C</span>         FOUR BYTES,                     ; Read forward, stored in <i>backwards order</i> due to <a class="x" href="#RDA5">RDA5</a>
                     105 *                           CHECKSUM, SECTOR, TRACK, AND VOLUME.
                     106 *
                     107 ************************
@@ -6226,9 +6226,9 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     113 *       'NIBL'.        *
                     114 *                      *
                     115 ************************
-                    116 <a class='d' name='WTEMP'    >WTEMP       </a>EQU $26         TEMP FOR DATA AT NBUF2,0.<hr class='page'>
-                    117 <a class='d' name='SLOTZ'    >SLOTZ       </a>EQU $27         SLOTNUM IN Z-PAG LOC.           ; === Page <a class='page'. name='page26'>26</a> ===
-                    118 <a class='d' name='SLOTABS'  >SLOTABS     </a>EQU $678        SLOTNUM IN NON-ZPAG LOC.
+                    116 <a class='d' id='0026' name='WTEMP'    >WTEMP       </a>EQU $26         TEMP FOR DATA AT NBUF2,0.<hr class='page'>
+                    117 <a class='d' id='0027' name='SLOTZ'    >SLOTZ       </a>EQU $27         SLOTNUM IN Z-PAG LOC.           ; === Page <a class='page'. name='page26'>26</a> ===
+                    118 <a class='d' id='0678' name='SLOTABS'  >SLOTABS     </a>EQU $678        SLOTNUM IN NON-ZPAG LOC.
                     119 *
                     120 ************************
                     121 *                      *
@@ -6242,36 +6242,36 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     129 * OF DNIBL16 TABLE.    *
                     130 *                      *
                     131 ************************
-                    132 <a class='d' name='IDX'      >IDX         </a>EQU $26         INDEX INTO (BUF).
+                    132 <a class='d' id='0026' name='IDX'      >IDX         </a>EQU $26         INDEX INTO (BUF).
                     133 *
                     134 ************************
                     135 *                      *
                     136 *    ---- SEEK ----    *
                     137 *                      *
                     138 ************************
-                    139 <a class='d' name='TRKCNT'   >TRKCNT      </a>EQU $26         HALFTRKS MOVED COUNT.
-                    140 <a class='d' name='PRIOR'    >PRIOR       </a>EQU $27         PRIOR HALFTRACK.
-                    141 <a class='d' name='TRKN'     >TRKN        </a>EQU $2A         DESIRED TRACK.
-                    142 <a class='d' name='SLOTTEMP' >SLOTTEMP    </a>EQU $2B         SLOT NUM TIMES $10.
-                    143 <a class='d' name='CURTRK'   >CRKTRK      </a>EQU $478        CURRENT TRACK ON ENTRY.         ; "Current Track" Drive 1, <b>Why is this defined AGAIN?</b> <a class='x' href='#DRV1TRK'>DRV1TRK</a>
+                    139 <a class='d' id='0026' name='TRKCNT'   >TRKCNT      </a>EQU $26         HALFTRKS MOVED COUNT.
+                    140 <a class='d' id='0027' name='PRIOR'    >PRIOR       </a>EQU $27         PRIOR HALFTRACK.
+                    141 <a class='d' id='002A' name='TRKN'     >TRKN        </a>EQU $2A         DESIRED TRACK.
+                    142 <a class='d' id='002B' name='SLOTTEMP' >SLOTTEMP    </a>EQU $2B         SLOT NUM TIMES $10.
+                    143 <a class='d' id='0478' name='CURTRK'   >CRKTRK      </a>EQU $478        CURRENT TRACK ON ENTRY.         ; "Current Track" Drive 1, <b>Why is this defined AGAIN?</b> <a class='x' href='#DRV1TRK'>DRV1TRK</a>
                     144 *
                     145 ************************
                     146 *                      *
                     147 *   ---- MSWAIT ----   *
                     148 *                      *
                     149 ************************
-                    150 <a class='d' name='MONTIMEL' >MONTIMEL    </a>EQU $46         MOTON-ON TIME
-                    151 <a class='d' name='MONTIMEH' >MONTIMEH    </a>EQU $47         COUNTERS.
+                    150 <a class='d' id='0046' name='MONTIMEL' >MONTIMEL    </a>EQU $46         MOTON-ON TIME
+                    151 <a class='d' id='0047' name='MONTIMEH' >MONTIMEH    </a>EQU $47         COUNTERS.
                     152 *
                     153 ************************
                     154 *                      *
                     155 *   ---- WRADR16 ----  *
                     156 *                      *
                     157 ************************
-                    158 <a class="d" name="AA"         >AA          </a>EQU $3E         ;TIMING CONSTANT                ; *sigh* Really people you couldn't pick <i>any other</i> variable name?!, See: <a class='x' href='#DSKFORM'>DSKFORM</a>
-                    159 <a class="d" name="NSECT"      >NSECT       </a>EQU $3F         ;SECTOR NUMBER
-                    160 <a class="d" name="NVOL"       >NVOL        </a>EQU $41         ;VOLUME NUMBER
-                    161 <a class="d" name="TRK"        >TRK         </a>EQU $44*        ;TRACK NUMBER
+                    158 <a class="d" id='003E' name="AA"         >AA          </a>EQU $3E         ;TIMING CONSTANT                ; *sigh* Really people you couldn't pick <i>any other</i> variable name?!, See: <a class='x' href='#DSKFORM'>DSKFORM</a>
+                    159 <a class="d" id='003F' name="NSECT"      >NSECT       </a>EQU $3F         ;SECTOR NUMBER
+                    160 <a class="d" id='0041' name="NVOL"       >NVOL        </a>EQU $41         ;VOLUME NUMBER
+                    161 <a class="d" id='0044' name="TRK"        >TRK         </a>EQU $44*        ;TRACK NUMBER
                     162 *
                     163 ************************
                     164 *                      *
@@ -6279,12 +6279,12 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     166 *     ASSIGNMENTS      *
                     167 *                      *                                    ; See <a class="v" href="#ONTABLE">ONTABLE</a>, and <a class="v" href="#OFFTABLE">OFFTABLE</a>
                     168 ************************                                    ; Typical B.A.D. (Beneath Apple Dos) shenanigans (Page 6-3):
-                    169 <a class="d" name="PHASEOFF"   >PHASEOFF    </a>EQU $C080       STEPPER PHASE OFF.              ; <i>"The timing between accesses to these locations is</i>
-                    170 <a class="d" name="PHASEON"    >PHASEON     </a>EQU $C081       STEPPER PHASE ON.               ; <i> critical, making this a non-trivial exercise."</i> <b>WHICH IS???</b>
-                    171 <a class="d" name="Q6L"        >Q6L         </a>EQU $C08C       Q7L,Q6L=READ                    ; *sigh* /sarcasm Riiight, because it is _obvious_ what Q7L &amp; Q7H
-                    172 <a class="d" name="Q6H"        >Q6H         </a>EQU $C08D       Q7L,Q6H=SENSE WPROT             ; do -- but let's keep copy/paste these shitty non-descript names!
-                    173 <a class="d" name="Q7L"        >Q7L         </a>EQU $C08E       Q7H,Q6L=WRITE                   ; DRIVE_MODE_R
-                    174 <a class="d" name="Q7H"        >Q7H         </a>EQU $C08F       Q7H,Q6H=WRITE STORE             ; DRIVE_MODE_W
+                    169 <a class="d" id='C080' name="PHASEOFF"   >PHASEOFF    </a>EQU $C080       STEPPER PHASE OFF.              ; <i>"The timing between accesses to these locations is</i>
+                    170 <a class="d" id='C081' name="PHASEON"    >PHASEON     </a>EQU $C081       STEPPER PHASE ON.               ; <i> critical, making this a non-trivial exercise."</i> <b>WHICH IS???</b>
+                    171 <a class="d" id='C08C' name="Q6L"        >Q6L         </a>EQU $C08C       Q7L,Q6L=READ                    ; *sigh* /sarcasm Riiight, because it is _obvious_ what Q7L &amp; Q7H
+                    172 <a class="d" id='C08D' name="Q6H"        >Q6H         </a>EQU $C08D       Q7L,Q6H=SENSE WPROT             ; do -- but let's keep copy/paste these shitty non-descript names!
+                    173 <a class="d" id='C08E' name="Q7L"        >Q7L         </a>EQU $C08E       Q7H,Q6L=WRITE                   ; DRIVE_MODE_R
+                    174 <a class="d" id='C08F' name="Q7H"        >Q7H         </a>EQU $C08F       Q7H,Q6H=WRITE STORE             ; DRIVE_MODE_W
 </pre>
 
 <div class='sticky'><hr><hr class='join'>=== <a class="file" name="PRENIBL">PRENIBL</a> - Prenibblize sector data for writing, Page <a class="page" name="page104">104</a>, <a class='ts' href='#T0S2'>T0S2</a>, $<span class='n'>B800</span> .. $<span class='n'>B829</span> ===<hr class='join'><hr></div>
