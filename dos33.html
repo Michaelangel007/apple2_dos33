@@ -6593,56 +6593,56 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     112 *   1 USEC CYCLE TIME    *
                     113 *                        *
                     114 **************************
-38DC:A0 20          115 <a class="f" name="READ16"   >READ16      </a>LDY #$20        'MUST FIND' COUNT.
-38DE:88             116 <a class="f" name="RSYNC"    >RSYNC       </a>DEY             IF CAN'T FIND MARKS<hr class='page'>
+38DC:A0 20          115 <a class="f" id='38DC' name="READ16"   >READ16      </a>LDY #$20        'MUST FIND' COUNT.
+38DE:88             116 <a class="f" id='38DE' name="RSYNC"    >RSYNC       </a>DEY             IF CAN'T FIND MARKS<hr class='page'>
 38DF:F0 61          117 <!--                       -->            BEQ RDERR       ;THEN EXIT WITH CARRY SET       ; === Page <a class="page" name="page103">103</a> ===
-38E1:BD 8C C0       118 <a class="f" name="READ1"    >READ1       </a>LDA Q6L,X       READ NIBL.
+38E1:BD 8C C0       118 <a class="f" id='38E1' name="READ1"    >READ1       </a>LDA Q6L,X       READ NIBL.
 38E4:10 FB          119 <!--                           -->            BPL READ1       *** NO PAGE CROSS! ***
-38E6:49 D5          120 <a class="f" name="RSYNC1"   >RSYNC1      </a>EOR #$D5        DATA MARK 1?
+38E6:49 D5          120 <a class="f" id='38E8' name="RSYNC1"   >RSYNC1      </a>EOR #$D5        DATA MARK 1?
 38E8:D0 F4          121 <!--                           -->            BNE RSYNC       LOOP IF NOT.
 38EA:EA             122 <!--                           -->            NOP             DELAY BETWEEN NIBLS.
-38EB:BD 8C C0       123 <a class="f" name="READ2"    >READ2       </a>LDA Q6L,X
+38EB:BD 8C C0       123 <a class="f" id='38EB' name="READ2"    >READ2       </a>LDA Q6L,X
 38EE:10 FB          124 <!--                           -->            BPL READ2       *** NO PAGE CROSS! ***
 38F0:C9 AA          125 <!--                           -->            CMP #$AA        DATA MARK 2?
 38F2:D0 F2          126 <!--                           -->            BNE RSYNC1      (IF NOT, IS IT DM1?)            ;              <span class='code'>NUM_6N2_NIBBLES = 342</span>
 38F4:A0 56          127 <!--                           -->            LDY #$<span class='n'>56</span>        INIT NBUF2 INDEX                ; <a class='magic' name='_38F5'>magic number</a> <span class='code'>NUM_6N2_NIBBLES - 256</span>
                     128 <!--                           -->*                           (ADDED NIBL DELAY)
-38F6:BD 8C C0       129 <a class="f" name="READ3"    >READ3       </a>LDA Q6L,X
+38F6:BD 8C C0       129 <a class="f" id='38F6' name="READ3"    >READ3       </a>LDA Q6L,X
 38F9:10 FB          130 <!--                           -->            BPL READ3       *** NO PAGE CROSS! ***
 38FB:C9 AD          131 <!--                           -->            CMP #$AD        DATA MARK 3?
 38FD:D0 E7          132 <!--                           -->            BNE RSYNC1
                     133 <!--                           -->*                           (CARRY SET IF DM3!)             ; And this imporant <b>why??</b>
 38FF:A9 00          134 <!--                           -->            LDA #$00        INIT CHECKSUM
-3901:88             135 <a class="f" name="RDATA1"   >RDATA1      </a>DEY
+3901:88             135 <a class="f" id='3901' name="RDATA1"   >RDATA1      </a>DEY
 3902:84 26          136 <!--                           -->            STY IDX
-3904:BC 8C C0       137 <a class="f" name="READ4"    >READ4       </a>LDY Q6L,X
+3904:BC 8C C0       137 <a class="f" id='3904' name="READ4"    >READ4       </a>LDY Q6L,X
 3907:10 FB          138 <!--                           -->            BPL READ4       *** NO PAGE CROSS! ***
 3909:59 00 3A       139 <!--                           -->            EOR DNIBL,Y     XOR 6-BIT NIBL.
 390C:A4 26          140 <!--                           -->            LDY IDX
 390E:99 00 3C       141 <!--                           -->            STA NBUF2,Y     STORE IN NBUF2 PAGE.
 3911:D0 EE          142 <!--                           -->            BNE RDATA1      TAKEN IF Y-REG NONZERO.
-3913:84 26          143 <a class="f" name="RDATA2"   >RDATA2      </a>STY IDX
-3915:BC 8C C0       144 <a class="f" name="READ5"    >READ5       </a>LDY Q6L,X
+3913:84 26          143 <a class="f" id='3913' name="RDATA2"   >RDATA2      </a>STY IDX
+3915:BC 8C C0       144 <a class="f" id='3915' name="READ5"    >READ5       </a>LDY Q6L,X
 3918:10 FB          145 <!--                           -->            BPL READ5       *** NO PAGE CROSS! ***
 391A:59 00 3A       146 <!--                           -->            EOR DNIBL,Y     XOR 6-BIT NIBL.
 391D:A4 26          147 <!--                           -->            LDY IDX
 391F:99 00 3B       148 <!--                           -->            STA NBUF1,Y     STORE IN NBUF1 PAGE.
 3922:C8             149 <!--                           -->            INY
 3923:D0 EE          150 <!--                           -->            BNE RDATA2
-3925:BC 8C C0       151 <a class="f" name="READ6"    >READ6       </a>LDY Q6L,X       READ 7-BIT CSUM NIBL.
+3925:BC 8C C0       151 <a class="f" id='3925' name="READ6"    >READ6       </a>LDY Q6L,X       READ 7-BIT CSUM NIBL.
 3928:10 FB          152 <!--                           -->            BPL READ6       *** NO PAGE CROSS! ***
 392A:D9 00 3A       153 <!--                           -->            CMP DNIBL,Y     IF LAST NBUF1 NIBL NOT
 392D:D0 13          154 <!--                           -->            BNE RDERR       EQUAL CHKSUM NIBL THEN ERR.
-392F:BD 8C C0       155 <a class="f" name="READ7"    >READ7       </a>LDA Q6L,X
+392F:BD 8C C0       155 <a class="f" id='392F' name="READ7"    >READ7       </a>LDA Q6L,X
 3932:10 FB          156 <!--                           -->            BPL READ7       *** NO PAGE CROSS! ***
 3934:C9 DE          157 <!--                           -->            CMP #$DE        FIRST BIT SLIP MARK?
 3936:D0 0A          158 <!--                           -->            BNE RDERR       (ERR IF NOT)
 3938:EA             159 <!--                           -->            NOP             DELAY BETWEEN NIBLS.
-3939:BD 8C C0       160 <a class="f" name="READ8"    >READ8       </a>LDA Q6L,X
+3939:BD 8C C0       160 <a class="f" id='3939' name="READ8"    >READ8       </a>LDA Q6L,X
 393C:10 FB          161 <!--                           -->            BPL READ8       *** NO PAGE CROSS! ***
 393E:C9 AA          162 <!--                           -->            CMP #$AA        SECOND BIT SLIP MARK?
 3940:F0 5C          163 <!--                           -->            BEQ RDEXIT      (DONE IF IT IS)
-3942:38             164 <a class="f" name="RDERR"    >RDERR       </a>SEC             INDICATE 'ERROR EXIT'.
+3942:38             164 <a class="f" id='3942' name="RDERR"    >RDERR       </a>SEC             INDICATE 'ERROR EXIT'.
 3943:60             165 <!--                           -->            RTS             FROM READ16 OR RDADR16.
 </pre>
 
@@ -6740,16 +6740,16 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3986:10 E7          090 <!--                                     -->            BPL RDAFLD      LOOP ON 4 DATA BYTES.
 3988:A8             091 <!--                                     -->            TAY             IF FINAL CHECKSUM
 3989:D0 B7          092 <!--                                     -->            BNE RDERR       NONZERO, THEN ERROR.
-398B:BD 8C C0       093 <a class="f" name="RDA6"     >RDA6        </a>LDA Q6L,X       FIRST BIT-SLIP NIBL.
+398B:BD 8C C0       093 <a class="f" id='398B' name="RDA6"     >RDA6        </a>LDA Q6L,X       FIRST BIT-SLIP NIBL.
 398E:10 FB          094 <!--                           -->            BPL RDA6        *** NO PAGE CROSS! ***
 3990:C9 DE          095 <!--                           -->            CMP #$<span class='n'>DE</span>                                        ; <a class='magic' name='_3991'>magic number</a> <span class='macro'>DISK_ADR_EPILOG_1 EQU #$DE</span>
 3992:D0 AE          096 <!--                           -->            BNE RDERR       ERROR IF NONMATCH.
 3994:EA             097 <!--                           -->            NOP             DELAY BETWEEN NIBLS.
-3995:BD 8C C0       098 <a class="f" name="RDA7"     >RDA7        </a>LDA Q6L,X       SECOND BIT-SLIP NIBL.
+3995:BD 8C C0       098 <a class="f" id='3995' name="RDA7"     >RDA7        </a>LDA Q6L,X       SECOND BIT-SLIP NIBL.
 3998:10 FB          099 <!--                           -->            BPL RDA7        *** NO PAGE CROSS! ***
 399A:C9 AA          100 <!--                           -->            CMP #$<span class='n'>AA</span>                                        ; <a class='magic' name='_399B'>magic number</a> <span class='macro'>DISK_ADR_EPILOG_2 EQU #$AA</span>
 399C:D0 A4          101 <!--                           -->            BNE RDERR       ERROR IF NONMATCH.              ; <b>Uh, what happened to checking the last disk nibble!?!?!</b> <span class='macro'>DISK_ADR_EPILOG_3 EQU #$EB</span>
-399E:18             102 <a class="f" name="RDEXIT"   >RDEXIT      </a>CLC             CLEAR CARRY ON                  ; This probably deserves a "<i>No shit, Sherlock</i>"
+399E:18             102 <a class="f" id='399E' name="RDEXIT"   >RDEXIT      </a>CLC             CLEAR CARRY ON                  ; This probably deserves a "<i>No shit, Sherlock</i>"
 399F:60             103 <!--                           -->            RTS             NORMAL READ EXITS.              ; Brilliant <i>hardware</i> engineers tend to clutter up code with useless trivial comments. :-/
                     104             SBTL '16-SECTOR SEEK'
                     105 **************************
@@ -6798,13 +6798,13 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     148 *    MONTIMEL, MONTIMEH  *
                     149 *                        *
                     150 **************************
-39A0:86 2B          151 <a class="f" name="SEEK"     >SEEK        </a>STX SLOTTEMP    ;SAVE X-REG
+39A0:86 2B          151 <a class="f" id='39A0' name="SEEK"     >SEEK        </a>STX SLOTTEMP    ;SAVE X-REG
 39A2:85 2A          152 <!--                           -->            STA TRKN        ;SAVE TARGET TRACK
 39A4:CD 78 04       153 <!--                           -->            CMP CURTRK      ON DESIRED TRACK?               ;
 39A7:F0 53          154 <!--                           -->            BEQ <a class="x" href="#SEEKRTS">SEEKRTS</a>     ;YES, RETURN
 39A9:A9 00          155 <!--                           -->            LDA #$<span class='n'>0</span>
 39AB:85 26          156 <!--                           -->            STA TRKCNT      ;HALFTRACK COUNT.
-39AD:AD 78 04       157 <a class="f" name="SEEK2"    >SEEK2       </a>LDA CURTRK      ;SAVE CURTRK FOR
+39AD:AD 78 04       157 <a class="f" id='39AD' name="SEEK2"    >SEEK2       </a>LDA CURTRK      ;SAVE CURTRK FOR
 39B0:85 27          158 <!--                           -->            STA PRIOR       ; DELAYED TURNOFF.
 39B2:38             159 <!--                           -->            SEC
 39B3:E5 2A          160 <!--                           -->            SBC TRKN        ;DELTA-TRACKS.
@@ -6813,15 +6813,15 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 39B9:49 FF          163 <!--                           -->            EOR #$<span class='n'>FF</span>        CALC TRKS TO GO
 39BB:EE 78 04       164 <!--                           -->            INC CURTRK      INCR CURRENT TRACK (IN).
 39BE:90 05          165 <!--                           -->            BCC MINTST      (ALWAYS TAKEN)
-39C0:69 FE          166 <a class="f" name="OUT"      >OUT         </a>ADC #$<span class='n'>FE</span>        CALC TRKS TO GO.
+39C0:69 FE          166 <a class="f" id='39C0' name="OUT"      >OUT         </a>ADC #$<span class='n'>FE</span>        CALC TRKS TO GO.
 39C2:CE 78 04       167 <!--                           -->            DEC CURTRK      DECR CURRENT TRACK (OUT).
-39C5:C5 26          168 <a class="f" name="MINTST"   >MINTST      </a>CMP TRKCNT                                      ; crappy abbreviation: <i>Min Test</i>
+39C5:C5 26          168 <a class="f" id='39C5' name="MINTST"   >MINTST      </a>CMP TRKCNT                                      ; crappy abbreviation: <i>Min Test</i>
 39C7:90 02          169 <!--                           -->            BCC MAXTST      AND 'TRKS MOVED'.
 39C9:A5 26          170 <!--                           -->            LDA TRKCNT                                      ; crappy abbreviation: <i>Max Test</i>
-39CB:C9 0C          171 <a class="f" name="MAXTST"   >MAXTST      </a>CMP #$<span class='n'>C</span>                                         ; <a class='magic' name='_39CC'>magic number</a> <span class='code'>ON_TIME_SIZE EQU $C</span>, or even <span class='code'>OFFTABLE - ONTABLE</span>
+39CB:C9 0C          171 <a class="f" id='39CB' name="MAXTST"   >MAXTST      </a>CMP #$<span class='n'>C</span>                                         ; <a class='magic' name='_39CC'>magic number</a> <span class='code'>ON_TIME_SIZE EQU $C</span>, or even <span class='code'>OFFTABLE - ONTABLE</span>
 39CD:B0 01          172 <!--                           -->            BCS STEP2       ;IF TRKCNT&gt;$B LEAVE Y ALONE (Y=$B).
-39CF:A8             173 <a class="f" name="STEP"     >STEP        </a>TAY             ;ELSE SET ACCELERATION INDEX IN Y
-                    174 <a class="f" name="STEP2"    >STEP2       </a>EQU *
+39CF:A8             173 <a class="f" id='39CF' name="STEP"     >STEP        </a>TAY             ;ELSE SET ACCELERATION INDEX IN Y
+                    174 <a class="f" id='39CF' name="STEP2"    >STEP2       </a>EQU *
 39D0:38             175 <!--                           -->            SEC             ;CARRY SET=PHASE ON
 39D1:20 EE 39       176 <!--                           -->            JSR SETPHASE    ;PHASE ON
 39D4:B9 11 3A       177 <!--                           -->            LDA <a class="v" href="#ONTABLE"  >ONTABLE</a>,Y   FOR 'ONTIME'.
@@ -6835,15 +6835,15 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 39E6:E6 26          185             INC <a class="v" href="#TRKCNT"  >TRKCNT</a>      'TRACKS MOVED' COUNT.
 39E8:D0 C3          186             BNE <a class="x" href="#SEEK2"   >SEEK2</a>       (ALWAYS TAKEN)
                     187 *
-                    188 <a class="f" name="SEEKEND"    >SEEKEND     </a>EQU *
+                    188 <a class="f" id='39EA' name="SEEKEND"    >SEEKEND     </a>EQU *
 39EA:20 00 3A       189             JSR <a class="x" href="#MSWAIT">MSWAIT</a>      ;A=0: WAIT 25 MS SETTLE
 39ED:18             190             CLC
                     191 *
                     192 * TURN HEAD STEPPER PHASE ON/OFF
                     193 *
-                    194 <a class="f" name="SETPHASE"   >SETPHASE    </a>EQU *
+                    194 <a class="f" id='39EE' name="SETPHASE"   >SETPHASE    </a>EQU *
 39EE:AD 78 04       195             LDA <a class="v" href="#CURTRK">CURTRK</a>      ;GET CURRENT PHASE
-                    196 <a class="f" name="CLRPHASE"   >CLRPHASE    </a>EQU *
+                    196 <a class="f" id='39F1' name="CLRPHASE"   >CLRPHASE    </a>EQU *
 39F1:29 03          197             AND #<span class='n'>3</span>          ;MASK FOR 1 OF 4 PHASES
 39F3:2A             198             ROL A           ;DOUBLE FOR PHASE INDEX
 39F4:05 2B          199             ORA <a class="v" href="#SLOTTEMP">SLOTTEMP</a>
@@ -6885,13 +6885,13 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     028 * 1 USEC CYCLE TIME      *
                     029 **************************
 39FD:00 00 00       <a class='line' name='MSWAITR.030'>030</a>         DS 3,0              ;AVOID PAGE BOUNDARY CROSSING...; <a class='ts' href='#T0S3'>T0S3</a> @ $FC <a class='mem' name='_39FD' coords='3'>wastes</a> 3 bytes
-3A00:A2 11          031 <a class="f"    name="MSWAIT"     >MSWAIT      </a>LDX #$<span class='n'>11</span>                                        ; === <a class='ts' href='#T0S4'>T0S4</a> === *sigh* Typical bloated code ...
-3A02:CA             032 <a class="f"    name="MSW1"       >MSW1        </a>DEX             DELAY 86 USEC.                  ; ... should just adjust algorithm timing instead!
+3A00:A2 11          031 <a class="f" id='3A00' name="MSWAIT"     >MSWAIT      </a>LDX #$<span class='n'>11</span>                                        ; === <a class='ts' href='#T0S4'>T0S4</a> === *sigh* Typical bloated code ...
+3A02:CA             032 <a class="f" id='3A02' name="MSW1"       >MSW1        </a>DEX             DELAY 86 USEC.                  ; ... should just adjust algorithm timing instead!
 3A03:D0 FD          033             BNE <a class="x" href="#MSW1"    >MSW1</a>
 3A05:E6 46          034             INC <a class="v" href="#MONTIMEL">MONTIMEL</a>
 3A07:D0 02          035             BNE <a class="x" href="#MSW2"    >MSW2</a>        ; DOUBLE-BYTE
 3A09:E6 47          036             INC <a class="v" href="#MONTIMEH">MONTIMEH</a>    INCREMENT.
-3A0B:38             037 <a class="f"    name="MSW2"       >MSW2        </a>SEC
+3A0B:38             037 <a class="f" id='3A0B' name="MSW2"       >MSW2        </a>SEC
 3A0C:E9 01          038             SBC #$<span class='n'>1</span>         DONE 'N' INTERVALS?
 3A0E:D0 F0          039             BNE <a class="x" href="#MSWAIT">MSWAIT</a></b>      (A-REG COUNTS)
 3A10:60             040             RTS
@@ -6901,11 +6901,11 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     044 *   TABLES IN 100-USEC   *
                     045 *   INTERVALS. (SEEK)    *
                     046 **************************
-3A11:01 30 28       047 <a class="d" name="ONTABLE"    >ONTABLE     </a>DFB 1,$30,$28                                   ; See <a class="file" href="#RDADSEK">RDADSEK</a>, Page <a class="page" href="#page108">108</a>, Line #<a class='line'>TODO</a>
+3A11:01 30 28       047 <a class="d" id='3A11' name="ONTABLE"    >ONTABLE     </a>DFB 1,$30,$28                                   ; See <a class="file" href="#RDADSEK">RDADSEK</a>, Page <a class="page" href="#page108">108</a>, Line #<a class='line'>TODO</a>
 3A14:24 20 1E       048             DFB $24,$20,$1E
 3A17:1D 1C 1C       049             DFB $1D,$1C,$1C
 3A1A:1C 1C 1C       050             DFB $1C,$1C,$1C
-3A1D:70 2C 26       051 <a class="d" name="OFFTABLE"   >OFFTABLE    </a>DFB $70,$2C,$26                                 ; See <a class="file" href="#RDADSEK">RDADSEK</a> Page <a class="page" href="#page109">109</a>, Line #<a class='line' href='#RDADSEK.183'>183</a>
+3A1D:70 2C 26       051 <a class="d" id='3A1D' name="OFFTABLE"   >OFFTABLE    </a>DFB $70,$2C,$26                                 ; See <a class="file" href="#RDADSEK">RDADSEK</a> Page <a class="page" href="#page109">109</a>, Line #<a class='line' href='#RDADSEK.183'>183</a>
 3A20:22 1F 1E       052             DFB $22,$1F,$1E
 3A23:1D 1C 1C       053             DFB $1D,$1C,$1C<hr class='page'>
 3A26:1C 1C 1C       054             DFB $1C,$1C,$1C                                 ; === Page <a class="page" name="page98">98</a> ===
@@ -6927,7 +6927,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     070 * CROSS A PAGE BOUNDARY!  *
                     071 *                         *
                     072 ***************************
-3A29:96 97 9A       073 <a class="d"    name="NIBL"       >NIBL        </a>DFB $96,$97,$9A                                 ; /sarcasm, Gee if only
+3A29:96 97 9A       073 <a class="d" id='3A29' name="NIBL"       >NIBL        </a>DFB $96,$97,$9A                                 ; /sarcasm, Gee if only
 3A2C:9B 9D 9E       074             DFB $9B,$9D,$9E                                 ; there was a HEX pseudo-mnemonic
 3A2F:9F A6 A7       075             DFB $9F,$A6,$A7                                 ; so we could group these in 4 bytes ...
 3A32:AB AC AD       076             DFB $AB,$AC,$AD                                 ; ... maybe one day. :)
@@ -6969,8 +6969,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     112 * ALIGNED AT THE END OF   *
                     113 * A PAGE IN MEMORY!!!     *
                     114 ***************************
-                    115 <a class="d"    name='XP'         >XP          </a>EQU &lt;*          ;CURRENT PAGE ADDRESS
-                    116 <a class="d"    name='DNIBL'      >DNIBL       </a>EQU 256*XP      ;DNIBL  TABLE PAGE              ; See <a class='f' href='#READ4'>READ4</a><hr class='page'>
+                    115 <a class="d" id='003A' name='XP'         >XP          </a>EQU &lt;*          ;CURRENT PAGE ADDRESS           ; $BA96..$BAFF table data
+                    116 <a class="d" id='3A00' name='DNIBL'      >DNIBL       </a>EQU 256*XP      ;DNIBL  TABLE PAGE              ; See <a class='f' href='#READ4'>READ4</a><hr class='page'>
                     117             PAGE                                            ; === Page <a class='page' name='page99'>99</a> ===
                     118 ***********************************************
                     119 *
@@ -6978,14 +6978,14 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     121 * BILL GRIMM
                     122 *
                     123 ***********************************************
-                    124 <a class='f'    name='PSC1'       >PSC1        </a>EQU *           ;Tell relocater where to start
-                    125 <a class='f'    name='MOVEOF'     >MOVEOF      </a>EQU *                                           ; Called from <a class='x' href='#DOSGO2A'>DOSGO2A</a>
+                    124 <a class='f' id='3A69' name='PSC1'       >PSC1        </a>EQU *           ;Tell relocater where to start
+                    125 <a class='f' id='3A69' name='MOVEOF'     >MOVEOF      </a>EQU *                                           ; Called from <a class='x' href='#DOSGO2A'>DOSGO2A</a>
 3A69:AE 5F 2A       126             LDX <a class='v' href='#CMDNO'>CMDNO</a>       ; GET CMD NUMBER
 3A6C:E0 1C          127             CPX #$<span class='n'>1C</span>        ; APPEND COMMAND?               ; <a class='magic' name='_3A6D'>magic number</a> <span class='todo'>TODO</span>
 3A6E:F0 05          128             BEQ <a class='x' href='#GOON'>GOON</a>        ; YES, RETURN TO CALLING ROUTINE
 3A70:A2 00          129             LDX #$<span class='n'>00</span>        ; NO, THEN CLEAR X              ; <i>Aye, Aye, Captain Obvious</i>
 3A72:8E 5D 36       130             STX <a class='v' href='#EOFFLAG'>EOFFLAG</a>     ; CLEAR EOF FLAG
-3A75:60             131 <a class='f'    name='GOON'       >GOON        </a>RTS
+3A75:60             131 <a class='f' id='3A75' name='GOON'       >GOON        </a>RTS
                     132             SKP 4
                     133 ***********************************************
                     134 *
@@ -6993,7 +6993,7 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     136 * OFF &amp; INIT APPLE
                     137 *
                     138 ***********************************************
-                    139 <a class='f'    name='OFF80'      >OFF80       </a>EQU *
+                    139 <a class='f' id='3A76' name='OFF80'      >OFF80       </a>EQU *
 3A76:A9 FF          140             LDA #$<span class='n'>FF</span>
 3A78:8D FB 04       141             STA $<span class='n'>4FB</span>        ; CLEARS FUNNY 80 COL STUFF     ; <a class='magic' name='_3A79'>magic number</a> TEXT screen hole <span class='todo'>TODO</span>
 3A7B:8D 0C C0       142             STA $<span class='n'>C00C</span>       ; TURNS 80 COL OFF
@@ -8167,8 +8167,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     016 *
                     017             REP 40
                     018 *****************************
-                    019 <a class="f" name="SDP1"       >SDP1        </a>EQU *                                           ; Start Dos Patch
-                    020 <a class="f" name="RCPATCH"    >RCPATCH     </a>EQU *                                           ; "Called" from <a class="file" href="#BOOTLDR">BOOTLDR</a>, Func <a class="x" href="#DOSINT">DOSINT</a>, Line <a class='line' href='#BOOTLDR.295'>295</a>
+                    019 <a class="f" id='3FC8' name="SDP1"       >SDP1        </a>EQU *                                           ; Start Dos Patch
+                    020 <a class="f" id='3FC8' name="RCPATCH"    >RCPATCH     </a>EQU *                                           ; "Called" from <a class="file" href="#BOOTLDR">BOOTLDR</a>, Func <a class="x" href="#DOSINT">DOSINT</a>, Line <a class='line' href='#BOOTLDR.295'>295</a>
 3FC8:20 93 FE       021             JSR <a class="x" href="#SETVID">SETVID</a>
 3FCB:AD 81 C0       022             LDA $<span class='n'>C081</span>                                       ; <a class='magic' name='_3FCB'>magic number</a> If only ROMIN = $C081 for Language Card (LC)
 3FCE:AD 81 C0       023             LDA $<span class='n'>C081</span>                                       ; <a class='magic' name='_3FCE'>magic number</a> 1st read = read ROM, 2nd read = write enable LC Bank 2
@@ -8182,16 +8182,16 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
                     031         DS  3,0                                             </span>
                     032     FIN
                     033 *****************************
-3FDC:8D 63 2A       034 <a class='f' name='CLRBYTE'    >CLRBYTE     </a>STA <a class='v' href='#TEMP1A'>TEMP1A</a>                                      ; Called from <a class="x" href="#SOPTS">SOPTS</a>, Page <a class="page" hre="#page18">18</a>, Line <a class='line' href='#CMDSCAN.176'>176</a>
+3FDC:8D 63 2A       034 <a class='f' id='3FDC' name='CLRBYTE'    >CLRBYTE     </a>STA <a class='v' href='#TEMP1A'>TEMP1A</a>                                      ; Called from <a class="x" href="#SOPTS">SOPTS</a>, Page <a class="page" hre="#page18">18</a>, Line <a class='line' href='#CMDSCAN.176'>176</a>
 3FDF:8D 70 2A       035             STA <a class='v' href='#CB'>CB</a>          ;SET TYPE PARAM DEFAUTL=0       ; *<span class='spell'>spelling</span>* DEFAULT
 3FE2:8D 71 2A       036             STA <a class='v' href='#CB'>CB</a>+<span class='n'>1</span>
 3FE5:60             037             RTS
                     038             SKP 4
-3FE6:20 5B 27       039 <a class='f' name='CLRSTS1'    >CLRSTS1     </a>JSR <a class='x' href='#CLRSTS'>CLRSTS</a>                                      ; <span class="todo">TODO</span> Clear ???
+3FE6:20 5B 27       039 <a class='f' id='3FE6' name='CLRSTS1'    >CLRSTS1     </a>JSR <a class='x' href='#CLRSTS'>CLRSTS</a>                                      ; <span class="todo">TODO</span> Clear ???
 3FE9:8C B7 2A       040             STY <a class='v' href='#RSTATE'>RSTATE</a>      ;PREVENTS FOREVER 'FILE NOT FOUND'
 3FEC:60             041             RTS             ; IN APPLESOFT
                     042 *****************************
-3FED:20 7E 2E       043 <a class="f" name="ERROR9X"    >ERROR9X     </a>JSR <a class="x" href="#RTNFCB">RTNFCB</a>
+3FED:20 7E 2E       043 <a class="f" id='3FED' name="ERROR9X"    >ERROR9X     </a>JSR <a class="x" href="#RTNFCB">RTNFCB</a>
 3FF0:AE 9B 33       044             LDX <a class="v" href="#ENTSTK">ENTSTK</a>      ;GET STACK
 3FF3:9A             045             TXS             ;MESSY MESSY MESSY
 3FF4:20 16 23       046             JSR <a class="x" href="#CLALL">CLALL</a>       ;GO CLOSE EVERYBODY
@@ -8200,8 +8200,8 @@ Let the complete clusterfrak of bad design commence in <a class='link' href="htt
 3FFB:A9 09          049             LDA #<span class='n'>9</span>                                          ; <a class='magic' name='_3FFC'>magic number</a> <span class='code'>LDA #CRENSA</span>
 3FFD:4C 85 33       050             JMP <a class="x" href="#ERRORA">ERRORA</a>      ;AND BACK
                     051 *****************************
-                    052 <a class="d" name="ENDP1"      >ENDP1       </a>EQU *-<span class='n'>1</span>         ; END OF DOS PATCHES FOR RELOCTR
-                    053 <a class="d" name="ENDOFDOS"   >ENDOFDOS    </a>EQU *<hr class='page'>
+                    052 <a class="d" id='3FFF' name="ENDP1"      >ENDP1       </a>EQU *-<span class='n'>1</span>         ; END OF DOS PATCHES FOR RELOCTR
+                    053 <a class="d" id='4000' name="ENDOFDOS"   >ENDOFDOS    </a>EQU *<hr class='page'>
                     054     DO <a class="do" href="#ENDOFDOS">ENDOFDOS</a>-$4000                                       ; === Page <a class="page" name="page53">53</a> ===<span class="macro">
                     055         FAIL 2,'DOS LENGTH NOT CORRECT'                     </span>
                     056     FIN
