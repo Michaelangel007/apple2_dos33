@@ -1653,10 +1653,10 @@ With that "legalese" out of the way ... enjoy the read!
 1E6B:4C 51 28       00590 217             JMP <a class='x' href='#MVCSW' >MVCSW</a>                                       ; $3EA: Set CIN/COUT to DOS
 1E6E:EA             00591 218             NOP                                             ; $3ED: [.. Normally, this would be <a class='mem' name='_1E6E' coords='2'>wastes</a> 2 bytes -- NEVER used anywhere
 1E6F:EA             00592 219             NOP                                             ;       ... HOWEVER they ARE needed since they are used as padding to align the following BRK IRQ vector.
-                                                                                         ;       ... Diversi-DOS has: 3ED: 4C DF BC  JMP $BCDF
-                                                                                         ;       ..] Thanks Tommy for the insight!
+                                                                                          ;       ... Diversi-DOS has: 3ED: 4C DF BC  JMP $BCDF
+                                                                                          ;       ..] Thanks Tommy for the insight!
 1E70:4C 59 FA       00593 220             JMP <a class='e' href='#MONBRK'>MONBRK</a>                                      ; $3EF: JMP $FA59 Autostart BRK handler.
-                                                                                         ;       <b>Note:</b> This is never directly called as the Autostart ROM reads the address at $3F0, $3F1 via $FA56: 6C F0 03 <span class='code'>JMP (BRKV)</span>
+                                                                                          ;       <b>Note:</b> This is never directly called as the Autostart ROM reads the address at $3F0, $3F1 via $FA56: 6C F0 03 <span class='code'>JMP (BRKV)</span>
 1E73:4C 65 FF       00594 <a class='line' name='DOSINIT.221'>221</a>             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3F2: $9DBF,$38 Control-Reset - Why not <span class='code'>DW DBRST</span>, <span class='code'>DB $#&gt;DBRST ^ $A5</span> ??? Line #<a class='line' href='#DOSINIT.191'>191</a>
 1E76:4C 58 FF       00595 222             JMP <a class='e' href='#IORTS' >IORTS</a>                                       ; $3F5: JMP $FF58 Ampersand handler
 1E79:4C 65 FF       00596 223             JMP <a class='e' href='#MONRST'>MONRST</a>                                      ; $3F8: JMP $FF65 Ctrl-Y handler
